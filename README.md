@@ -1,6 +1,6 @@
 # Aerial - Apple TV Screen Saver for Windows
  
-Aerial is a Windows screen saver mimicking the Apple TV screen saver that displays the aerial videos Apple shot over New York, San Francisco, Hawaii, China, etc. as well as from the ISS and various underwater locations.
+Aerial is a Windows screen saver mimicking the Apple TV screen saver that displays the videos Apple shot over New York, San Francisco, Hawaii, China, etc. as well as from the ISS and various underwater locations.
 
 Aerial is inspired by [Mac Aerial Screen Saver](https://github.com/JohnCoates/Aerial) and [Aerial for Windows](https://github.com/cDima/Aerial).
 
@@ -9,7 +9,7 @@ Aerial is open source so feel free to contribute.
 ## Features
 Nothing yet. I'm still working on the first version of the project.
 
-## To-DO
+## To-Do
 * Make an Electron app function as a screen saver
 * Display a random video fullscreen in the app
 * Multi-Screen Support
