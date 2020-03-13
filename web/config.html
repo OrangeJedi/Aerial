@@ -3,10 +3,44 @@
 <head>
     <meta charset="UTF-8">
     <title>Aerial Config</title>
+    <script>if (typeof module === 'object') {
+        window.module = module;
+        module = undefined;
+    }</script>
+
+    <script src="libraries/js/jquery-min.js"></script>
+    <script>if (window.module) module = window.module;</script>
+    <link rel="stylesheet" href="libraries/css/w3.css">
+    <link rel="stylesheet" href="libraries/css/all.css">
 </head>
 <body>
 <h1>Aerial Config</h1>
-Show Clock: <input type="checkbox" id="showClock" onclick="updateClock()">
+<div class="w3-bar w3-grey">
+    <button class="w3-bar-item w3-button tablink w3-blue" onclick="changeTab(event,'generalOptions')">General</button>
+    <button class="w3-bar-item w3-button tablink" onclick="changeTab(event,'videoOptions')">Videos</button>
+    <button class="w3-bar-item w3-button tablink" onclick="changeTab(event,'textOptions')">Text</button>
+</div>
+<div id="generalOptions" class="tab">
+    General Settings
+</div>
+<div id="videoOptions" class="tab" style="display: none">
+    <div class="w3-sidebar w3-light-grey w3-bar-block" id="videoList" style="width:35%">
+    </div>
+    <div id="videoCard" style="margin-left:35%">
+        <div class="w3-container w3-light-blue">
+            <h4 id="videoName">Video Settings</h4>
+        </div>
+        <div class="w3-display-container">
+            <video autoplay loop controls id="videoPlayer" class="w3-display-middle" style=" width: 90%; padding-top: 50%"></video>
+            <div id="videoSettings"></div>
+        </div>
+    </div>
+</div>
+<div id="textOptions" class="tab" style="display: none">
+    Show Clock: <input type="checkbox" id="showClock" onclick="updateClock()">
+</div>
+
+
 <script src="config.js"></script>
 </body>
 </html>
