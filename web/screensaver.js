@@ -1,5 +1,5 @@
 const {ipcRenderer} = require('electron');
-const  videos = require("../videos.json").assets;
+const  videos = require("../videos.json");
 
 const Store = require('electron-store');
 const store = new Store();
@@ -43,10 +43,10 @@ function randomInt(min, max){
     return Math.floor(Math.random() * max) - min;
 }
 let video = document.getElementById("video");
-video.src = videos[randomInt(0,videos.length)]["url-1080-H264"];
+video.src = videos[randomInt(0,videos.length)].src.H2641080p;
 video.addEventListener('play', (event) => {
     video.style.backgroundColor = "black";
 });
 video.addEventListener('ended', (event) => {
-    video.src = videos[randomInt(0,videos.length)]["url-1080-H264"];
+    video.src = videos[randomInt(0,videos.length)].src.H2641080p;
 });
