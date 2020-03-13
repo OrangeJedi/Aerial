@@ -26,7 +26,8 @@ function createSSWindow() {
         x: 0,
         y: 0,
         fullscreen: true,
-        backgroundColor: "#000000"
+        transparent: true,
+        frame: false
     });
     win.setMenu(null);
     win.loadFile('web/screensaver.html');
@@ -42,7 +43,8 @@ function createSSPWindow() {
         webPreferences: {
             nodeIntegration: true
         },
-        backgroundColor: "#000000"
+        transparent: true,
+        frame: false
     });
     win.loadFile('web/screensaver.html');
     win.on('closed', function () {
