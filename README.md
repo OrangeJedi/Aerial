@@ -14,9 +14,7 @@ Aerial is open source so feel free to contribute.
 * Toggle a clock with the date and time on and off.
 
 ## To-Do
-* Make an Electron app function as a screen saver
-* Display a random video fullscreen in the app
-* Multi-Screen Support
+* Full Multi-Screen Support
 * Choose only the videos you want
 * Display the location/description of the video
 * Display user configured text
@@ -28,7 +26,8 @@ Aerial is open source so feel free to contribute.
 * Control display settings (brightness, contrast, hue, saturation, etc.)
 * Sync to the time of day
 * Video transitions
-* Auto choose between 4K and HD videos
+* 4K Videos
+* Proper video preview
 * Auto update video list
 
 ## About
