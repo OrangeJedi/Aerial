@@ -23,3 +23,7 @@
     font-family: "Segoe UI";
     font-size: 200%;
 }
+
+body{
+    background-color: transparent;
+}

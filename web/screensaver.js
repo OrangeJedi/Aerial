@@ -1,11 +1,12 @@
 const {ipcRenderer} = require('electron');
+const  videos = require("../videos.json").assets;
 
 function quitApp() {
     ipcRenderer.send('quitApp');
 }
 
 //quit when a key is pressed
-document.addEventListener('keydown', quitApp);
+/*document.addEventListener('keydown', quitApp);
 document.addEventListener('mousedown', quitApp);
 setTimeout(function () {
     var threshold = 5;
@@ -15,7 +16,7 @@ setTimeout(function () {
             quitApp();
         }
     });
-}, 3000);
+}, 1500);*/
 
 //Clock
 const tday = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
@@ -30,6 +31,11 @@ function GetClock() {
 
     document.getElementById('clockbox').innerHTML = "" + tday[nday] + ", " + tmonth[nmonth] + " " + ndate + ", " + nyear + " " + nhour + ":" + nmin + ":" + nsec + "";
 }
-
 GetClock();
 setInterval(GetClock, 1000);
+
+function randomInt(min, max){
+    return Math.floor(Math.random() * max) - min;
+}
+
+document.getElementById("video").src = videos[randomInt(0,videos.length)]["url-1080-H264"];

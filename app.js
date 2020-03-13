@@ -25,7 +25,8 @@ function createSSWindow() {
         },
         x: 0,
         y: 0,
-        fullscreen: true
+        fullscreen: true,
+        backgroundColor: "#000000"
     });
     win.setMenu(null);
     win.loadFile('web/screensaver.html');
@@ -40,7 +41,8 @@ function createSSPWindow() {
         height: 720,
         webPreferences: {
             nodeIntegration: true
-        }
+        },
+        backgroundColor: "#000000"
     });
     win.loadFile('web/screensaver.html');
     win.on('closed', function () {
@@ -51,14 +53,17 @@ function createSSPWindow() {
 app.whenReady().then(startUp);
 
 function startUp() {
-    if (process.argv.includes("/s")) {
-        createSSWindow();
-    } else if (process.argv.includes("/p")) {
-        createSSPWindow();
-    } else if (process.argv.includes("/c")) {
+    if (process.argv.includes("/c")) {
         createConfigWindow();
-    } else {
+    } else if (process.argv.includes("/p")) {
+        //createSSPWindow();
         app.quit();
+    } else if (process.argv.includes("/s")) {
+        createSSWindow();
+    } else if (process.argv.includes("/t")) {
+        createSSPWindow();
+    } else {
+        createConfigWindow();
     }
 }
 
