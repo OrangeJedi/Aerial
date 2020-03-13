@@ -14,6 +14,20 @@ function createConfigWindow() {
     });
 }
 
+function createJSONConfigWindow() {
+    let win = new BrowserWindow({
+        width: 1920,
+        height: 1080,
+        webPreferences: {
+            nodeIntegration: true
+        }
+    });
+    win.loadFile('json-editor/index.html');
+    win.on('closed', function () {
+        win = null;
+    });
+}
+
 function createSSWindow() {
     let displays = screen.getAllDisplays();
     for (let i = 0; i < screen.getAllDisplays().length; i++) {
@@ -69,6 +83,8 @@ function startUp() {
         createSSWindow();
     } else if (process.argv.includes("/t")) {
         createSSPWindow();
+    } else if(process.argv.includes("/j")){
+        createJSONConfigWindow();
     } else {
         createConfigWindow();
     }
