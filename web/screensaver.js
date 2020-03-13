@@ -6,7 +6,7 @@ function quitApp() {
 }
 
 //quit when a key is pressed
-/*document.addEventListener('keydown', quitApp);
+document.addEventListener('keydown', quitApp);
 document.addEventListener('mousedown', quitApp);
 setTimeout(function () {
     var threshold = 5;
@@ -16,7 +16,7 @@ setTimeout(function () {
             quitApp();
         }
     });
-}, 1500);*/
+}, 1500);
 
 //Clock
 const tday = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
@@ -37,5 +37,8 @@ setInterval(GetClock, 1000);
 function randomInt(min, max){
     return Math.floor(Math.random() * max) - min;
 }
-
-document.getElementById("video").src = videos[randomInt(0,videos.length)]["url-1080-H264"];
+let video = document.getElementById("video");
+video.src = videos[randomInt(0,videos.length)]["url-1080-H264"];
+video.addEventListener('play', (event) => {
+    video.style.backgroundColor = "black";
+});

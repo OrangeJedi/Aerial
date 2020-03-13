@@ -15,30 +15,31 @@ function createConfigWindow() {
 }
 
 function createSSWindow() {
-    // Create the browser window.
-    const {width, height} = screen.getPrimaryDisplay().workAreaSize;
-    let win = new BrowserWindow({
-        width: width,
-        height: height,
-        webPreferences: {
-            nodeIntegration: true
-        },
-        x: 0,
-        y: 0,
-        fullscreen: true,
-        transparent: true,
-        frame: false
-    });
-    win.setMenu(null);
-    win.loadFile('web/screensaver.html');
-    win.on('closed', function () {
-        win = null;
-    });
+    let displays = screen.getAllDisplays();
+    for (let i = 0; i < screen.getAllDisplays().length; i++) {
+        let xWin = new BrowserWindow({
+            width: displays[i].size.width,
+            height: displays[i].size.height,
+            webPreferences: {
+                nodeIntegration: true
+            },
+            x: displays[i].bounds.x,
+            y: displays[i].bounds.y,
+            fullscreen: true,
+            transparent: true,
+            frame: false
+        });
+        xWin.setMenu(null);
+        xWin.loadFile('web/screensaver.html');
+        xWin.on('closed', function () {
+            xWin = null;
+        });
+    }
 }
 
 function createSSPWindow() {
     let win = new BrowserWindow({
-        width: 1200,
+        width: 1280,
         height: 720,
         webPreferences: {
             nodeIntegration: true

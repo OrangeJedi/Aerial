@@ -9,10 +9,11 @@
 }
 
 .fullscreen-bg__video {
-    position: fixed;
     top: 0;
     left: 0;
-    width: 100%;
+    position: fixed;
+    min-width: 100%;
+    min-height: 100%;
 }
 
 .displayText {
