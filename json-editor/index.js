@@ -8,7 +8,7 @@ const store = new Store();
 document.getElementById('output').value = beautify(videos, null, 2,128);
 
 function beautifyInput() {
-    document.getElementById('input').value = beautify(JSON.parse(document.getElementById('input').value), null, 2,96);
+    document.getElementById('input').value = beautify(JSON.parse(document.getElementById('input').value.replace(/(\/\*([\s\S]*?)\*\/)|(\/\/(.*)$)/gm, '')), null, 2,96);
 }
 
 function createJSON() {
@@ -48,6 +48,41 @@ function updateJSON() {
             if (typeof newData[vid].pointsOfInterest === "object") {
                 videos[index].pointsOfInterest = newData[vid].pointsOfInterest;
             }
+        }
+    }
+    document.getElementById('output').value = beautify(videos,null,2,128);
+}
+
+function addToJSON() {
+    let newData = JSON.parse(document.getElementById('input').value);
+    if(!Array.isArray(newData)){
+        alert("Error: No Array Found");
+        return null;
+    }
+    for (let i = 0; i < newData.length;i++) {
+        let index = videos.findIndex((e) => {
+            if(newData[i] === e.id){
+                return true;
+            }
+        });
+        if(index > -1) {
+            videos[index][document.getElementById('attr').value] = document.getElementById('attrValue').value;
+        }
+    }
+    document.getElementById('output').value = beautify(videos,null,2,128);
+}
+
+function addPropertyToJSON() {
+    let newData = JSON.parse(document.getElementById('input').value);
+    for (const vid in newData) {
+        console.log(vid);
+        let index = videos.findIndex((e) => {
+            if(vid === e.id){
+                return true;
+            }
+        });
+        if(index > -1) {
+            videos[index][document.getElementById('attr').value] = newData[vid];
         }
     }
     document.getElementById('output').value = beautify(videos,null,2,128);
