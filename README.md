@@ -1,4 +1,6 @@
 # Aerial - Apple TV Screen Saver for Windows
+
+>🚧This project is still in beta. It might not always work or behave as expected. Beware when using it.🚧
  
 Aerial is a Windows screen saver mimicking the Apple TV screen saver that displays the videos Apple shot over New York, San Francisco, Hawaii, China, etc. as well as from the ISS and various underwater locations.
 
@@ -7,7 +9,9 @@ Aerial is inspired by [Mac Aerial Screen Saver](https://github.com/JohnCoates/Ae
 Aerial is open source so feel free to contribute.
 
 ## Features
-Nothing yet. I'm still working on the first version of the project.
+* Plays a random Aerial video
+* Shows a different video on each connected scree
+* Toggle a clock with the date and time on and off.  
 
 ## To-Do
 * Make an Electron app function as a screen saver
@@ -25,6 +29,7 @@ Nothing yet. I'm still working on the first version of the project.
 * Sync to the time of day
 * Video transitions
 * Auto choose between 4K and HD videos
+* Auto update video list
 
 ## About
 This is a [Node.JS](https://nodejs.org)/[Electron](https://www.electronjs.org/) based implementation of [Mac Aerial Screen Saver](https://github.com/JohnCoates/Aerial) for Windows. I was using cDima's [Aerial for Windows](https://github.com/cDima/Aerial) on my computer but wished it had more of the features found in the MacOS version, as well as being less buggy and having better 4K support. Not knowing much about C# and with the project seemingly dead I researched Windows screensavers and found I could make a screen saver with Node.JS and Electron – both of which I am very familiar with. Hopefully I’ll be able build on this implementation and it get it to near where the MacOS version is.

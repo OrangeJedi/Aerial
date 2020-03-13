@@ -47,3 +47,6 @@ video.src = videos[randomInt(0,videos.length)]["url-1080-H264"];
 video.addEventListener('play', (event) => {
     video.style.backgroundColor = "black";
 });
+video.addEventListener('ended', (event) => {
+    video.src = videos[randomInt(0,videos.length)]["url-1080-H264"];
+});

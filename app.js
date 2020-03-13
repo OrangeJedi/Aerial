@@ -17,7 +17,7 @@ function createConfigWindow() {
 function createSSWindow() {
     let displays = screen.getAllDisplays();
     for (let i = 0; i < screen.getAllDisplays().length; i++) {
-        let xWin = new BrowserWindow({
+        let win = new BrowserWindow({
             width: displays[i].size.width,
             height: displays[i].size.height,
             webPreferences: {
@@ -29,10 +29,14 @@ function createSSWindow() {
             transparent: true,
             frame: false
         });
-        xWin.setMenu(null);
-        xWin.loadFile('web/screensaver.html');
-        xWin.on('closed', function () {
+        win.setMenu(null);
+        win.loadFile('web/screensaver.html');
+        win.on('closed', function () {
             xWin = null;
+        });
+        win.webContents.on('dom-ready', (event)=> {
+            let css = '* { cursor: none !important; }';
+            win.webContents.insertCSS(css);
         });
     }
 }
