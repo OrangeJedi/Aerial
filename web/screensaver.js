@@ -1,6 +1,9 @@
 const {ipcRenderer} = require('electron');
 const  videos = require("../videos.json").assets;
 
+const Store = require('electron-store');
+const store = new Store();
+
 function quitApp() {
     ipcRenderer.send('quitApp');
 }
@@ -21,18 +24,20 @@ setTimeout(function () {
 //Clock
 const tday = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
 const tmonth = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+if(store.get("clock")) {
+    function GetClock() {
+        let d = new Date();
+        let nday = d.getDay(), nmonth = d.getMonth(), ndate = d.getDate(), nyear = d.getFullYear();
+        let nhour = d.getHours(), nmin = d.getMinutes(), nsec = d.getSeconds();
+        if (nmin <= 9) nmin = "0" + nmin;
+        if (nsec <= 9) nsec = "0" + nsec;
 
-function GetClock() {
-    let d = new Date();
-    let nday = d.getDay(), nmonth = d.getMonth(), ndate = d.getDate(), nyear = d.getFullYear();
-    let nhour = d.getHours(), nmin = d.getMinutes(), nsec = d.getSeconds();
-    if (nmin <= 9) nmin = "0" + nmin;
-    if (nsec <= 9) nsec = "0" + nsec;
+        document.getElementById('clockbox').innerHTML = "" + tday[nday] + ", " + tmonth[nmonth] + " " + ndate + ", " + nyear + " " + nhour + ":" + nmin + ":" + nsec + "";
+    }
 
-    document.getElementById('clockbox').innerHTML = "" + tday[nday] + ", " + tmonth[nmonth] + " " + ndate + ", " + nyear + " " + nhour + ":" + nmin + ":" + nsec + "";
+    GetClock();
+    setInterval(GetClock, 1000);
 }
-GetClock();
-setInterval(GetClock, 1000);
 
 function randomInt(min, max){
     return Math.floor(Math.random() * max) - min;
