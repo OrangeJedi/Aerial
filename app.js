@@ -1,6 +1,6 @@
-const { app, BrowserWindow, ipcMain, screen } = require('electron');
+const {app, BrowserWindow, ipcMain, screen} = require('electron');
 
-function createConfigWindow () {
+function createConfigWindow() {
     let win = new BrowserWindow({
         width: 800,
         height: 600,
@@ -9,13 +9,14 @@ function createConfigWindow () {
         }
     });
     win.loadFile('web/config.html');
-    win.on('closed', function() {
+    win.on('closed', function () {
         win = null;
     });
 }
-function createSSWindow () {
+
+function createSSWindow() {
     // Create the browser window.
-    const { width, height } = screen.getPrimaryDisplay().workAreaSize;
+    const {width, height} = screen.getPrimaryDisplay().workAreaSize;
     let win = new BrowserWindow({
         width: width,
         height: height,
@@ -28,21 +29,21 @@ function createSSWindow () {
     });
     win.setMenu(null);
     win.loadFile('web/screensaver.html');
-    win.on('closed', function() {
+    win.on('closed', function () {
         win = null;
     });
 }
 
-function createSSPWindow () {
+function createSSPWindow() {
     let win = new BrowserWindow({
-        width: 800,
-        height: 600,
+        width: 1200,
+        height: 720,
         webPreferences: {
             nodeIntegration: true
         }
     });
     win.loadFile('web/screensaver.html');
-    win.on('closed', function() {
+    win.on('closed', function () {
         win = null;
     });
 }
@@ -50,13 +51,13 @@ function createSSPWindow () {
 app.whenReady().then(startUp);
 
 function startUp() {
-    if(process.argv.includes("/s")){
+    if (process.argv.includes("/s")) {
         createSSWindow();
-    }else if (process.argv.includes("/p")){
+    } else if (process.argv.includes("/p")) {
         createSSPWindow();
-    }else if (process.argv.includes("/c")){
+    } else if (process.argv.includes("/c")) {
         createConfigWindow();
-    }else{
+    } else {
         app.quit();
     }
 }
