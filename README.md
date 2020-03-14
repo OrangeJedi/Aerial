@@ -11,12 +11,6 @@ Aerial is open source so feel free to contribute.
 
 Download the latest release from [here](https://github.com/OrangeJedi/Aerial/releases)
 
-Extract the .zip file and navigate into the Aerial X.X.X folder
-
-Right click on aerial.scr and click on the install option
-
-Configure your screen saver settings in the pop up window
-
 ## Features
 * Cycles through a random video 
 * Shows a different video on each connected screen
