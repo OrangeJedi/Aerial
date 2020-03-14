@@ -31,12 +31,12 @@ Configure your screen saver settings in the pop up window
   * Date and time
   * Calendar and events?
 * Import your own videos
-* Cache played videos
+* Cache videos
 * Control display settings (brightness, contrast, hue, saturation, etc.)
 * Sync to the time of day
 * Video transitions
 * 4K Videos
-* Proper video preview
+* Proper video preview in windows screen saver picker
 * Auto update video list
 
 ## About
