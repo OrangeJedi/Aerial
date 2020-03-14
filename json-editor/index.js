@@ -31,7 +31,7 @@ function createJSON() {
             }
         )
     }
-    document.getElementById('output').value = beautify(list,null,2,128);
+    document.getElementById('output').value = beautify(list.sort(sortVideos),null,2,128);
     videos = list;
 }
 
@@ -50,7 +50,7 @@ function updateJSON() {
             }
         }
     }
-    document.getElementById('output').value = beautify(videos,null,2,128);
+    document.getElementById('output').value = beautify(videos.sort(sortVideos),null,2,128);
 }
 
 function addToJSON() {
@@ -69,7 +69,7 @@ function addToJSON() {
             videos[index][document.getElementById('attr').value] = document.getElementById('attrValue').value;
         }
     }
-    document.getElementById('output').value = beautify(videos,null,2,128);
+    document.getElementById('output').value = beautify(videos.sort(sortVideos),null,2,128);
 }
 
 function addPropertyToJSON() {
@@ -85,5 +85,19 @@ function addPropertyToJSON() {
             videos[index][document.getElementById('attr').value] = newData[vid];
         }
     }
-    document.getElementById('output').value = beautify(videos,null,2,128);
+    document.getElementById('output').value = beautify(videos.sort(sortVideos),null,2,128);
+}
+
+function sortVideos(a,b){
+    var nameA = a.accessibilityLabel.toUpperCase(); // ignore upper and lowercase
+    var nameB = b.accessibilityLabel.toUpperCase(); // ignore upper and lowercase
+    if (nameA < nameB) {
+        return -1;
+    }
+    if (nameA > nameB) {
+        return 1;
+    }
+
+    // names must be equal
+    return 0;
 }

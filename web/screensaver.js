@@ -1,8 +1,8 @@
 const {ipcRenderer} = require('electron');
-const  videos = require("../videos.json");
-
+const videos = require("../videos.json");
 const Store = require('electron-store');
 const store = new Store();
+const allowedVideos = store.get("allowedVideos");
 
 function quitApp() {
     ipcRenderer.send('quitApp');
@@ -24,7 +24,7 @@ setTimeout(function () {
 //Clock
 const tday = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
 const tmonth = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
-if(store.get("clock")) {
+if (store.get("clock")) {
     function GetClock() {
         let d = new Date();
         let nday = d.getDay(), nmonth = d.getMonth(), ndate = d.getDate(), nyear = d.getFullYear();
@@ -39,14 +39,29 @@ if(store.get("clock")) {
     setInterval(GetClock, 1000);
 }
 
-function randomInt(min, max){
+function randomInt(min, max) {
     return Math.floor(Math.random() * max) - min;
 }
+
 let video = document.getElementById("video");
-video.src = videos[randomInt(0,videos.length)].src.H2641080p;
+let id = allowedVideos[randomInt(0,allowedVideos.length)];
+let index = videos.findIndex((e) => {
+    if(id === e.id){
+        return true;
+    }
+});
+let videoInfo = videos[index];
+video.src = videoInfo.src.H2641080p;
 video.addEventListener('play', (event) => {
     video.style.backgroundColor = "black";
 });
 video.addEventListener('ended', (event) => {
-    video.src = videos[randomInt(0,videos.length)].src.H2641080p;
+    id = allowedVideos[randomInt(0,allowedVideos.length)];
+    index = videos.findIndex((e) => {
+        if(id === e.id){
+            return true;
+        }
+    });
+    videoInfo = videos[index];
+    video.src = videoInfo.src.H2641080p;
 });

@@ -1,4 +1,7 @@
 const {app, BrowserWindow, ipcMain, screen} = require('electron');
+const videos = require("./videos.json");
+const Store = require('electron-store');
+const store = new Store();
 
 function createConfigWindow() {
     let win = new BrowserWindow({
@@ -74,6 +77,15 @@ function createSSPWindow() {
 app.whenReady().then(startUp);
 
 function startUp() {
+    if(!store.get("configured")){
+        let allowedVideos = [];
+        for(let i = 0; i < videos.length;i++){
+            allowedVideos.push(videos[i].id);
+        }
+        store.set('allowedVideos', allowedVideos);
+        store.set('clock', false);
+        store.set("configured", true);
+    }
     if (process.argv.includes("/c")) {
         createConfigWindow();
     } else if (process.argv.includes("/p")) {
