@@ -18,13 +18,13 @@ Right click on aerial.scr and click on the install option
 Configure your screen saver settings in the pop up window
 
 ## Features
-* Plays a random Aerial video
+* Cycles through a random video 
 * Shows a different video on each connected screen
+* Choose which video to play
 * Toggle a clock with the date and time on and off.
 
 ## To-Do
 * Full Multi-Screen Support
-* Choose only the videos you want
 * Display the location/description of the video
 * Display user configured text
   * Static text
