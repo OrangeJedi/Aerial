@@ -31,7 +31,17 @@
             <div class="w3-container w3-blue">
                 <h4>General Settings</h4>
             </div>
-            <div class="w3-display-container">
+            <div class="w3-display-container" style="padding: 2%">
+                <input type="checkbox" id="timeOfDay" class="w3-check" onclick="updateSetting('timeOfDay','check')"> <label>Prioritize current time of day</label>
+                <div>
+                    <br>
+                    <lable style="font-size: smaller">Sunrise</lable>
+                    <input style="width: 15%" class="w3-input" type="time" id="sunrise" onchange="updateSetting('sunrise','time')">
+                    <label style="font-size: smaller">Sunset</label>
+                    <input style="width: 15%" class="w3-input" type="time" id="sunset" onchange="updateSetting('sunset','time')">
+                </div>
+                <br>
+                <input type="checkbox" id="skipVideosWithKey" class="w3-check" onclick="updateSetting('skipVideosWithKey','check')"> <label>Use the right arrow key to skip videos</label>
             </div>
         </div>
         <div id="multi-screenSettings" class="settingsCard" style="display: none">

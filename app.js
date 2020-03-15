@@ -84,6 +84,10 @@ function startUp() {
         }
         store.set('allowedVideos', allowedVideos);
         store.set('clock', false);
+        store.set('timeOfDay', false);
+        store.set('sunrise', "06:00");
+        store.set('sunset', "18:00");
+        store.set('skipVideosWithKey', true);
         store.set("configured", true);
     }
     if (process.argv.includes("/c")) {

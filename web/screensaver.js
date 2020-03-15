@@ -9,7 +9,13 @@ function quitApp() {
 }
 
 //quit when a key is pressed
-document.addEventListener('keydown', quitApp);
+document.addEventListener('keydown', (e) => {
+    if(e.code === "ArrowRight" && store.get('skipVideosWithKey')){
+        newVideo();
+    }else {
+        quitApp();
+    }
+});
 document.addEventListener('mousedown', quitApp);
 setTimeout(function () {
     var threshold = 5;
@@ -44,24 +50,72 @@ function randomInt(min, max) {
 }
 
 let video = document.getElementById("video");
-let id = allowedVideos[randomInt(0,allowedVideos.length)];
-let index = videos.findIndex((e) => {
-    if(id === e.id){
-        return true;
-    }
-});
-let videoInfo = videos[index];
-video.src = videoInfo.src.H2641080p;
+
 video.addEventListener('play', (event) => {
     video.style.backgroundColor = "black";
 });
 video.addEventListener('ended', (event) => {
-    id = allowedVideos[randomInt(0,allowedVideos.length)];
-    index = videos.findIndex((e) => {
+    newVideo();
+});
+
+function newVideo() {
+    let id = "";
+    if(store.get('timeOfDay')){
+        let time = getTimeOfDay();
+        id = tod[time][randomInt(0, tod[time].length)];
+    }else {
+        id = allowedVideos[randomInt(0, allowedVideos.length)];
+    }
+    let index = videos.findIndex((e) => {
         if(id === e.id){
             return true;
         }
     });
-    videoInfo = videos[index];
+    let videoInfo = videos[index];
     video.src = videoInfo.src.H2641080p;
-});
+}
+
+//time of day code
+let tod = {"day": [], "night": [], "none" : []};
+if(store.get('timeOfDay')){
+    for(let i = 0; i < allowedVideos.length;i++){
+        let index = videos.findIndex((e) => {
+            if(allowedVideos[i] === e.id){
+                return true;
+            }
+        });
+        switch (videos[index].timeOfDay) {
+            case "day":
+                tod.day.push(allowedVideos[i]);
+                break;
+            case "night":
+                tod.night.push(allowedVideos[i]);
+                break;
+            default:
+                tod.none.push(allowedVideos[i]);
+        }
+        if(tod.day.length <= 3){
+            tod.day.push(...tod.none);
+        }
+        if(tod.night.length <= 3){
+            tod.night.push(...tod.none);
+        }
+    }
+}
+
+function getTimeOfDay() {
+    let cHour = new Date().getHours();
+    let cMin = new Date().getMinutes();
+    let sunriseHour = store.get('sunrise').substring(0,2);
+    let sunriseMinute = store.get('sunrise').substring(3,5);
+    let sunsetHour = store.get('sunrise').substring(0,2);
+    let sunsetMinute = store.get('sunrise').substring(3,5);
+    let time = "night";
+    if(cHour >= sunriseHour && cMin >= sunriseMinute && cHour < sunsetHour && cMin < sunriseMinute){
+        time = "day";
+    }
+    return time;
+}
+
+//play a video
+newVideo();

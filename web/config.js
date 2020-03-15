@@ -9,8 +9,33 @@ if (store.get('clock')) {
     document.getElementById("showClock").checked = true;
 }
 
+function displaySettings() {
+    let checked = ["timeOfDay", "skipVideosWithKey"];
+    for (let i = 0; i < checked.length; i++) {
+        $(`#${checked[i]}`).prop('checked', store.get(checked[i]));
+    }
+    let number = ["sunrise", "sunset"];
+    for (let i = 0; i < number.length; i++) {
+        $(`#${number[i]}`).val(store.get(number[i]));
+    }
+}
+displaySettings();
+
 function updateClock() {
     store.set('clock', document.getElementById("showClock").checked)
+}
+
+function updateSetting(setting, type) {
+    switch (type) {
+        case "check":
+            store.set(setting, document.getElementById(setting).checked);
+            break;
+        case "number":
+        case "text":
+        case "time":
+            store.set(setting, document.getElementById(setting).value);
+            break;
+    }
 }
 
 function changeTab(evt, tab) {
@@ -33,7 +58,7 @@ $(document).ready(() => {
 });
 
 function makeList() {
-    let videoList = "<a onclick=\"selectVideo(-1)\"><h3 class=\"w3-bar-item w3-deep-orange videoListItem\" id='videoListTitle'><i class=\"fa fa-film\"></i> Videos</h3></a>";
+    let videoList = "<a onclick=\"selectVideo(-1)\"><h3 class=\"w3-bar-item videoListItem\" id='videoListTitle'><i class=\"fa fa-film\"></i> Videos</h3></a>";
     let headertxt = "";
     for (let i = 0; i < videos.length; i++) {
         if (headertxt !== videos[i].accessibilityLabel) {
