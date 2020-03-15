@@ -49,6 +49,21 @@ function makeList() {
     $('#videoList').html(videoList);
 }
 
+function selectSetting(item) {
+    let list = document.getElementsByClassName("settingsListItem");
+    for (i = 0; i < list.length; i++) {
+        list[i].className = list[i].className.replace("w3-deep-orange", "");
+    }
+    if (item !== "general") {
+        document.getElementById(`settingsList-${item}`).className += " w3-deep-orange";
+    }
+    let cards = document.getElementsByClassName("settingsCard");
+    for (i = 0; i < cards.length; i++) {
+        cards[i].style.display = "none";
+    }
+    document.getElementById(`${item}Settings`).style.display = "";
+}
+
 function selectVideo(index) {
     let x = document.getElementsByClassName("videoListItem");
     for (i = 0; i < x.length; i++) {
@@ -60,7 +75,6 @@ function selectVideo(index) {
         $('#videoName').text(videos[index].accessibilityLabel);
         $('#videoSettings').html("");
     } else {
-        document.getElementById("videoListTitle").className += " w3-deep-orange";
         $('#videoPlayer').attr("src", "").hide();
         $('#videoName').text("Video Settings");
         $('#videoSettings').html(`<br>
@@ -69,7 +83,7 @@ function selectVideo(index) {
                                   <button class="w3-button w3-white w3-border w3-border-red w3-round-large" onclick="deselectAll()">Deselect All</button>
                                   <br><br>
                                   <select class="w3-select w3-border" style="width: 25%" id="videoType">
-                                     <option value="">Aerial</option>
+                                     <option value="aerial">Aerial</option>
                                      <option value="space">Space</option>
                                      <option value="underwater">Underwater</option>
                                   </select> 
@@ -105,7 +119,6 @@ function selectAll() {
 
 function selectType() {
     let type = $('#videoType').val();
-    type = type === "" ? undefined : type;
     for (let i = 0; i < videos.length; i++) {
         if (videos[i].type === type) {
             if (!allowedVideos.includes(videos[i].id)) {
@@ -119,7 +132,6 @@ function selectType() {
 
 function deselectType() {
     let type = $('#videoType').val();
-    type = type === "" ? undefined : type;
     for (let i = 0; i < videos.length; i++) {
         if (videos[i].type === type) {
             if (allowedVideos.includes(videos[i].id)) {

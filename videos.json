@@ -124,19 +124,22 @@
     "id": "9CCB8297-E9F5-4699-AE1F-890CFBD5E29C",
     "accessibilityLabel": "China",
     "src": { "H2641080p": "https://sylvan.apple.com/Videos/comp_CH_C002_C005_PSNK_v05_SDR_PS_FINAL_20180709_SDR_2K_AVC.mov" },
-    "name": "Longji Rice Terraces"
+    "name": "Longji Rice Terraces",
+    "type": "aerial"
   },
   {
     "id": "D5E76230-81A3-4F65-A1BA-51B8CADED625",
     "accessibilityLabel": "China",
     "src": { "H2641080p": "https://sylvan.apple.com/Videos/comp_CH_C007_C004_PSNK_v02_SDR_PS_FINAL_20180709_SDR_2K_AVC.mov" },
-    "name": "Wulingyuan National Park 2"
+    "name": "Wulingyuan National Park 2",
+    "type": "aerial"
   },
   {
     "id": "044AD56C-A107-41B2-90CC-E60CCACFBCF5",
     "accessibilityLabel": "China",
     "src": { "H2641080p": "https://sylvan.apple.com/Videos/comp_C003_C003_PS_v01_SDR_PS_20180925_SDR_2K_AVC.mov" },
-    "name": "Great Wall 3"
+    "name": "Great Wall 3",
+    "type": "aerial"
   },
   {
     "id": "7825C73A-658F-48EE-B14C-EC56673094AC",
@@ -152,19 +155,22 @@
     "id": "B876B645-3955-420E-99DF-60139E451CF3",
     "accessibilityLabel": "China",
     "src": { "H2641080p": "https://sylvan.apple.com/Videos/comp_CH_C007_C011_PSNK_v02_SDR_PS_FINAL_20180709_SDR_2K_AVC.mov" },
-    "name": "Wulingyuan National Park 1"
+    "name": "Wulingyuan National Park 1",
+    "type": "aerial"
   },
   {
     "id": "F0236EC5-EE72-4058-A6CE-1F7D2E8253BF",
     "accessibilityLabel": "China",
     "src": { "H2641080p": "https://sylvan.apple.com/Videos/comp_C001_C005_PS_v01_SDR_PS_20180925_SDR_2K_AVC.mov" },
-    "name": "Great Wall 1"
+    "name": "Great Wall 1",
+    "type": "aerial"
   },
   {
     "id": "22162A9B-DB90-4517-867C-C676BC3E8E95",
     "accessibilityLabel": "China",
     "src": { "H2641080p": "https://sylvan.apple.com/Videos/comp_C004_C003_PS_v01_SDR_PS_20180925_SDR_2K_AVC.mov" },
-    "name": "Great Wall 2"
+    "name": "Great Wall 2",
+    "type": "aerial"
   },
   {
     "id": "CE9B5D5B-B6E7-47C5-8C04-59BF182E98FB",
@@ -185,31 +191,36 @@
     "accessibilityLabel": "Dubai",
     "src": { "H2641080p": "https://sylvan.apple.com/Videos/comp_DB_D011_C010_PSNK_DENOISE_v19_SDR_PS_20180914_SDR_2K_AVC.mov" },
     "name": "Approaching Burj Khalifa",
-    "timeOfDay": "night"
+    "timeOfDay": "night",
+    "type": "aerial"
   },
   {
     "id": "876D51F4-3D78-4221-8AD2-F9E78C0FD9B9",
     "accessibilityLabel": "Dubai",
     "src": { "H2641080p": "https://sylvan.apple.com/Videos/comp_DB_D008_C010_PSNK_v21_SDR_PS_20180914_F0F16157_SDR_2K_AVC.mov" },
-    "name": "Sheikh Zayed Road"
+    "name": "Sheikh Zayed Road",
+    "type": "aerial"
   },
   {
     "id": "00BA71CD-2C54-415A-A68A-8358E677D750",
     "accessibilityLabel": "Dubai",
     "src": { "H2641080p": "https://sylvan.apple.com/Videos/comp_DB_D002_C003_PSNK_v04_SDR_PS_20180914_SDR_2K_AVC.mov" },
-    "name": "Downtown"
+    "name": "Downtown",
+    "type": "aerial"
   },
   {
     "id": "E991AC0C-F272-44D8-88F3-05F44EDFE3AE",
     "accessibilityLabel": "Dubai",
     "src": { "H2641080p": "https://sylvan.apple.com/Videos/comp_DB_D001_C001_PSNK_v06_SDR_PS_20180824_SDR_2K_AVC.mov" },
-    "name": "Marina 1"
+    "name": "Marina 1",
+    "type": "aerial"
   },
   {
     "id": "3FFA2A97-7D28-49EA-AA39-5BC9051B2745",
     "accessibilityLabel": "Dubai",
     "src": { "H2641080p": "https://sylvan.apple.com/Videos/comp_DB_D001_C005_COMP_PSNK_v12_SDR_PS_20180912_SDR_2K_AVC.mov" },
-    "name": "Marina 2"
+    "name": "Marina 2",
+    "type": "aerial"
   },
   {
     "id": "3716DD4B-01C0-4F5B-8DD6-DB771EC472FB",
@@ -222,77 +233,89 @@
     "id": "2F52E34C-39D4-4AB1-9025-8F7141FAA720",
     "accessibilityLabel": "Greenland",
     "src": { "H2641080p": "https://sylvan.apple.com/Videos/comp_GL_G002_C002_PSNK_v03_SDR_PS_20180925_SDR_2K_AVC.mov" },
-    "name": "Ilulissat Icefjord"
+    "name": "Ilulissat Icefjord",
+    "type": "aerial"
   },
   {
     "id": "B8F204CE-6024-49AB-85F9-7CA2F6DCD226",
     "accessibilityLabel": "Greenland",
     "src": { "H2641080p": "https://sylvan.apple.com/Videos/comp_GL_G004_C010_PSNK_v04_SDR_PS_FINAL_20180709_SDR_2K_AVC.mov" },
-    "name": "Nuussuaq Peninsula"
+    "name": "Nuussuaq Peninsula",
+    "type": "aerial"
   },
   {
     "id": "EE01F02D-1413-436C-AB05-410F224A5B7B",
     "accessibilityLabel": "Greenland",
     "src": { "H2641080p": "https://sylvan.apple.com/Videos/comp_GL_G010_C006_PSNK_NOSUN_v12_SDR_PS_FINAL_20180709_SDR_2K_AVC.mov" },
     "name": "Ilulissat Icefjord",
-    "timeOfDay": "night"
+    "timeOfDay": "night",
+    "type": "aerial"
   },
   {
     "id": "258A6797-CC13-4C3A-AB35-4F25CA3BF474",
     "accessibilityLabel": "Hawaii",
     "src": { "H2641080p": "https://sylvan.apple.com/Videos/comp_H004_C009_PS_v01_SDR_PS_20180925_SDR_2K_AVC.mov" },
-    "name": "Pu‘u O ‘Umi"
+    "name": "Pu‘u O ‘Umi",
+    "type": "aerial"
   },
   {
     "id": "3D729CFC-9000-48D3-A052-C5BD5B7A6842",
     "accessibilityLabel": "Hawaii",
     "src": { "H2641080p": "https://sylvan.apple.com/Videos/comp_H012_C009_PS_v01_SDR_PS_20180925_SDR_2K_AVC.mov" },
     "name": "Kohala Coastline",
-    "timeOfDay": "night"
+    "timeOfDay": "night",
+    "type": "aerial"
   },
   {
     "id": "499995FA-E51A-4ACE-8DFD-BDF8AFF6C943",
     "accessibilityLabel": "Hawaii",
     "src": { "H2641080p": "https://sylvan.apple.com/Videos/comp_H005_C012_PS_v01_SDR_PS_20180925_SDR_2K_AVC.mov" },
-    "name": "Waimanu Valley"
+    "name": "Waimanu Valley",
+    "type": "aerial"
   },
   {
     "id": "82BD33C9-B6D2-47E7-9C42-AA3B7758921A",
     "accessibilityLabel": "Hawaii",
     "src": { "H2641080p": "https://sylvan.apple.com/Videos/comp_H004_C007_PS_v02_SDR_PS_20180925_SDR_2K_AVC.mov" },
     "name": "Pu‘u O ‘Umi",
-    "timeOfDay": "night"
+    "timeOfDay": "night",
+    "type": "aerial"
   },
   {
     "id": "12E0343D-2CD9-48EA-AB57-4D680FB6D0C7",
     "accessibilityLabel": "Hawaii",
     "src": { "H2641080p": "https://sylvan.apple.com/Videos/comp_H007_C003_PS_v01_SDR_PS_20180925_SDR_2K_AVC.mov" },
-    "name": "Laupāhoehoe Nui"
+    "name": "Laupāhoehoe Nui",
+    "type": "aerial"
   },
   {
     "id": "E99FA658-A59A-4A2D-9F3B-58E7BDC71A9A",
     "accessibilityLabel": "Hong Kong",
     "src": { "H2641080p": "https://sylvan.apple.com/Videos/comp_HK_B005_C011_PSNK_v16_SDR_PS_20180914_SDR_2K_AVC.mov" },
     "name": "Victoria Harbour",
-    "timeOfDay": "night"
+    "timeOfDay": "night",
+    "type": "aerial"
   },
   {
     "id": "C8559883-6F3E-4AF2-8960-903710CD47B7",
     "accessibilityLabel": "Hong Kong",
     "src": { "H2641080p": "https://sylvan.apple.com/Videos/comp_HK_H004_C010_PSNK_v08_SDR_PS_20181009_SDR_2K_AVC.mov" },
-    "name": "Victoria Peak"
+    "name": "Victoria Peak",
+    "type": "aerial"
   },
   {
     "id": "024891DE-B7F6-4187-BFE0-E6D237702EF0",
     "accessibilityLabel": "Hong Kong",
     "src": { "H2641080p": "https://sylvan.apple.com/Videos/comp_HK_H004_C013_t9_6M_HB_tag0.mov" },
-    "name": "Wan Chai"
+    "name": "Wan Chai",
+    "type": "aerial"
   },
   {
     "id": "FE8E1F9D-59BA-4207-B626-28E34D810D0A",
     "accessibilityLabel": "Hong Kong",
     "src": { "H2641080p": "https://sylvan.apple.com/Videos/comp_HK_H004_C008_PSNK_v19_SDR_PS_20180914_SDR_2K_AVC.mov" },
-    "name": "Victoria Harbour 1"
+    "name": "Victoria Harbour 1",
+    "type": "aerial"
   },
   {
     "id": "DD47D8E1-CB66-4C12-BFEA-2ADB0D8D1E2E",
@@ -357,13 +380,15 @@
     "src": {
       "H2641080p": "https://sylvan.apple.com/Videos/comp_LW_L001_C003__PSNK_DENOISE_v04_SDR_PS_FINAL_20180803_SDR_2K_AVC.mov"
     },
-    "name": "Liwa Oasis 2"
+    "name": "Liwa Oasis 2",
+    "type": "aerial"
   },
   {
     "id": "001C94AE-2BA4-4E77-A202-F7DE60E8B1C8",
     "accessibilityLabel": "Liwa",
     "src": { "H2641080p": "https://sylvan.apple.com/Videos/comp_LW_L001_C006_PSNK_DENOISE_v02_SDR_PS_FINAL_20180709_SDR_2K_AVC.mov" },
-    "name": "Liwa Oasis 1"
+    "name": "Liwa Oasis 1",
+    "type": "aerial"
   },
   {
     "id": "A5AAFF5D-8887-42BB-8AFD-867EF557ED85",
@@ -384,7 +409,8 @@
       "285": "Passing The Shard on the right",
       "305": "Passing the cruiser HMS Belfast in the River Thames",
       "330": "Crossing the River Thames at Tower Bridge, with City Hall on the right and the Tower of London on the left"
-    }
+    },
+    "type": "aerial"
   },
   {
     "id": "F604AF56-EA77-4960-AEF7-82533CC1A8B3",
@@ -401,7 +427,8 @@
       "245": "Crossing the River Thames towards the Palace of Westminster (Houses of Parliament)",
       "265": "Passing the Palace of Westminster (Houses of Parliament), with Westminster Abbey behind"
     },
-    "timeOfDay": "night"
+    "timeOfDay": "night",
+    "type": "aerial"
   },
   {
     "id": "58754319-8709-4AB0-8674-B34F04E7FFE2",
@@ -422,7 +449,8 @@
       "300": "Approaching Charing Cross Station in the right foreground",
       "312": "Approaching Horse Guards Parade and Saint James’s Park in the left mid-ground",
       "324": "Passing Saint Martin-in-the-Fields on the right, with Admiralty Arch, Nelson’s Column, and Trafalgar Square to its left"
-    }
+    },
+    "type": "aerial"
   },
   {
     "id": "7F4C26C2-67C2-4C3A-8F07-8A7BF6148C97",
@@ -440,7 +468,8 @@
       "300": "Passing the London Eye on the River Thames",
       "315": "Approaching Big Ben and the Houses of Parliament, with Westminster Abbey to the right"
     },
-    "timeOfDay": "night"
+    "timeOfDay": "night",
+    "type": "aerial"
   },
   {
     "id": "92E48DE9-13A1-4172-B560-29B4668A87EE",
@@ -448,7 +477,8 @@
     "src": {
       "H2641080p": "https://sylvan.apple.com/Videos/comp_LA_A008_C004_ALTB_ED_FROM_FLAME_RETIME_v46_SDR_PS_20180917_SDR_2K_AVC.mov"
     },
-    "name": "Santa Monica Beach"
+    "name": "Santa Monica Beach",
+    "type": "aerial"
   },
   {
     "id": "35693AEA-F8C4-4A80-B77D-C94B20A68956",
@@ -460,7 +490,8 @@
       "50": "Crossing the Century Freeway (Interstate 105)",
       "65": "Passing over the Harbor Freeway Station on the Metro Green Line, which runs along the Century Freeway",
       "170": "Crossing Imperial Highway"
-    }
+    },
+    "type": "aerial"
   },
   {
     "id": "F5804DD6-5963-40DA-9FA0-39C0C6E6DEF9",
@@ -483,7 +514,8 @@
       "425": "Passing the Los Angeles Convention Center",
       "495": "Approaching the Santa Monica Freeway"
     },
-    "timeOfDay": "night"
+    "timeOfDay": "night",
+    "type": "aerial"
   },
   {
     "id": "CE279831-1CA7-4A83-A97B-FF1E20234396",
@@ -496,7 +528,8 @@
       "0": "Heading west over Los Angeles International Airport",
       "80": "Passing over the Theme Building",
       "210": "Passing over the Tom Bradley International Terminal"
-    }
+    },
+    "type": "aerial"
   },
   {
     "id": "EC67726A-8212-4C5E-83CF-8412932740D2",
@@ -508,40 +541,46 @@
       "60": "Continuing north through Beachwood Canyon",
       "250": "Passing the Mount Lee Communications Center, heading towards Burbank, California"
     },
-    "timeOfDay": "night"
+    "timeOfDay": "night",
+    "type": "aerial"
   },
   {
     "id": "89B1643B-06DD-4DEC-B1B0-774493B0F7B7",
     "accessibilityLabel": "Los Angeles",
     "src": { "H2641080p": "https://sylvan.apple.com/Videos/comp_LA_A009_C009_PSNK_v02_SDR_PS_FINAL_20180709_SDR_2K_AVC.mov" },
     "name": "Griffith Observatory",
-    "timeOfDay": "night"
+    "timeOfDay": "night",
+    "type": "aerial"
   },
   {
     "id": "44166C39-8566-4ECA-BD16-43159429B52F",
     "accessibilityLabel": "New York",
     "src": { "H2641080p": "https://sylvan.apple.com/Videos/comp_N013_C004_PS_v01_SDR_PS_20180925_F1970F7193_SDR_2K_AVC.mov" },
     "name": "Seventh Avenue",
-    "timeOfDay": "night"
+    "timeOfDay": "night",
+    "type": "aerial"
   },
   {
     "id": "3BA0CFC7-E460-4B59-A817-B97F9EBB9B89",
     "accessibilityLabel": "New York",
     "src": { "H2641080p": "https://sylvan.apple.com/Videos/comp_N008_C009_PS_v01_SDR_PS_20180925_SDR_2K_AVC.mov" },
-    "name": "Central Park"
+    "name": "Central Park",
+    "type": "aerial"
   },
   {
     "id": "640DFB00-FBB9-45DA-9444-9F663859F4BC",
     "accessibilityLabel": "New York",
     "src": { "H2641080p": "https://sylvan.apple.com/Videos/comp_N008_C003_PS_v01_SDR_PS_20180925_SDR_2K_AVC.mov" },
     "name": "Lower Manhattan",
-    "timeOfDay": "night"
+    "timeOfDay": "night",
+    "type": "aerial"
   },
   {
     "id": "840FE8E4-D952-4680-B1A7-AC5BACA2C1F8",
     "accessibilityLabel": "New York",
     "src": { "H2641080p": "https://sylvan.apple.com/Videos/comp_N003_C006_PS_v01_SDR_PS_20180925_SDR_2K_AVC.mov" },
-    "name": "Upper East Side"
+    "name": "Upper East Side",
+    "type": "aerial"
   },
   {
     "id": "B1B5DDC5-73C8-4920-8133-BACCE38A08DE",
@@ -625,26 +664,30 @@
     "id": "72B4390D-DF1D-4D51-B179-229BBAEFFF2C",
     "accessibilityLabel": "San Francisco",
     "src": { "H2641080p": "https://sylvan.apple.com/Videos/comp_A013_C012_0122D6_CC_v01_SDR_PS_FINAL_20180709_SDR_2K_AVC.mov" },
-    "name": "Golden Gate from SF"
+    "name": "Golden Gate from SF",
+    "type": "aerial"
   },
   {
     "id": "3E94AE98-EAF2-4B09-96E3-452F46BC114E",
     "accessibilityLabel": "San Francisco",
     "src": { "H2641080p": "https://sylvan.apple.com/Videos/comp_A015_C018_0128ZS_v03_SDR_PS_FINAL_20180709__SDR_2K_AVC.mov" },
     "name": "Bay Bridge",
-    "timeOfDay": "night"
+    "timeOfDay": "night",
+    "type": "aerial"
   },
   {
     "id": "DE851E6D-C2BE-4D9F-AB54-0F9CE994DC51",
     "accessibilityLabel": "San Francisco",
     "src": { "H2641080p": "https://sylvan.apple.com/Videos/comp_A006_C003_1219EE_CC_v01_SDR_PS_FINAL_20180709_SDR_2K_AVC.mov" },
-    "name": "Bay and Golden Gate"
+    "name": "Bay and Golden Gate",
+    "type": "aerial"
   },
   {
     "id": "4AD99907-9E76-408D-A7FC-8429FF014201",
     "accessibilityLabel": "San Francisco",
     "src": { "H2641080p": "https://sylvan.apple.com/Videos/comp_1223LV_FLARE_v21_SDR_PS_FINAL_20180709_F0F5700_SDR_2K_AVC.mov" },
-    "name": "Bay and Embarcadero"
+    "name": "Bay and Embarcadero",
+    "type": "aerial"
   },
   {
     "id": "EE533FBD-90AE-419A-AD13-D7A60E2015D6",
@@ -656,7 +699,8 @@
       "20": "Horseshoe Cove appearing on the left",
       "105": "Passing Battery Spencer on the right",
       "155": "Crossing the Golden Gate Bridge towards San Francisco"
-    }
+    },
+    "type": "aerial"
   },
   {
     "id": "85CE77BF-3413-4A7B-9B0F-732E96229A73",
@@ -667,7 +711,8 @@
       "0": "Heading southwest over San Francisco Bay to the San Francisco Ferry Building",
       "150": "Approaching the Port of San Francisco Ferry Building and the Embarcadero",
       "210": "Heading southwest along Market Street in downtown San Francisco"
-    }
+    },
+    "type": "aerial"
   },
   {
     "id": "29BDF297-EB43-403A-8719-A78DA11A2948",
@@ -682,7 +727,8 @@
       "115": "Approaching Coit Tower on Telegraph Hill, with the Bay Bridge and downtown SF in the background",
       "135": "Approaching Coit Tower on Telegraph Hill, with Saints Peter and Paul Church in the right mid-ground"
     },
-    "timeOfDay": "night"
+    "timeOfDay": "night",
+    "type": "aerial"
   },
   {
     "id": "581A4F1A-2B6D-468C-A1BE-6F473F06D10B",
