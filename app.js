@@ -87,6 +87,7 @@ function startUp() {
         store.set('timeOfDay', false);
         store.set('sunrise', "06:00");
         store.set('sunset', "18:00");
+        store.set('playbackSpeed', 1);
         store.set('skipVideosWithKey', true);
         store.set("configured", true);
     }

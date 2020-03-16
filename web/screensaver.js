@@ -27,6 +27,7 @@ setTimeout(function () {
     });
 }, 1500);
 
+//initial loading
 //Clock
 const tday = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
 const tmonth = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
@@ -73,6 +74,7 @@ function newVideo() {
     });
     let videoInfo = videos[index];
     video.src = videoInfo.src.H2641080p;
+    video.playbackRate = Number(store.get('playbackSpeed'));
 }
 
 //time of day code

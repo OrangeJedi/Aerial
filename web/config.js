@@ -18,6 +18,11 @@ function displaySettings() {
     for (let i = 0; i < number.length; i++) {
         $(`#${number[i]}`).val(store.get(number[i]));
     }
+    let slider = ["playbackSpeed"];
+    for (let i = 0; i < slider.length; i++) {
+        $(`#${slider[i]}`).val(store.get(slider[i]));
+        $(`#${slider[i]}Text`).text(store.get(slider[i]));
+    }
 }
 displaySettings();
 
@@ -30,10 +35,26 @@ function updateSetting(setting, type) {
         case "check":
             store.set(setting, document.getElementById(setting).checked);
             break;
+        case "slider":
+            $(`#${setting}Text`).text(document.getElementById(setting).value);
         case "number":
         case "text":
         case "time":
             store.set(setting, document.getElementById(setting).value);
+            break;
+
+    }
+}
+
+function resetSetting(setting, type, value) {
+    switch (type) {
+        case "slider":
+            $(`#${setting}Text`).text(value);
+            $(`#${setting}`).val(value);
+        case "number":
+        case "text":
+        case "time":
+            store.set(setting, value);
             break;
     }
 }
