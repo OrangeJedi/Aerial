@@ -51,7 +51,7 @@ function createSSWindow() {
         win.on('closed', function () {
             xWin = null;
         });
-        win.webContents.on('dom-ready', (event)=> {
+        win.webContents.on('dom-ready', (event) => {
             let css = '* { cursor: none !important; }';
             win.webContents.insertCSS(css);
         });
@@ -77,9 +77,9 @@ function createSSPWindow() {
 app.whenReady().then(startUp);
 
 function startUp() {
-    if(!store.get("configured")){
+    if (!store.get("configured")) {
         let allowedVideos = [];
-        for(let i = 0; i < videos.length;i++){
+        for (let i = 0; i < videos.length; i++) {
             allowedVideos.push(videos[i].id);
         }
         store.set('allowedVideos', allowedVideos);
@@ -90,6 +90,15 @@ function startUp() {
         store.set('playbackSpeed', 1);
         store.set('skipVideosWithKey', true);
         store.set("configured", true);
+        store.set('videoFilters', [
+            {name: 'blur', value: 0, min: 0, max: 100, suffix: "px", defaultValue : 0},
+            {name: 'brightness', value: 100, min: 0, max: 100, suffix: "%", defaultValue : 100},
+            {name: 'grayscale', value: 0, min: 0, max: 100, suffix: "%", defaultValue : 0},
+            {name: 'hue-rotate', value: 0, min: 0, max: 360, suffix: "deg", defaultValue : 0},
+            {name: 'invert', value: 0, min: 0, max: 100, suffix: "%", defaultValue : 0},
+            {name: 'saturate', value: 100, min: 0, max: 256, suffix: "%", defaultValue : 100},
+            {name: 'sepia', value: 0, min: 0, max: 100, suffix: "%", defaultValue : 0},
+        ]);
     }
     if (process.argv.includes("/c")) {
         createConfigWindow();
@@ -100,7 +109,7 @@ function startUp() {
         createSSWindow();
     } else if (process.argv.includes("/t")) {
         createSSPWindow();
-    } else if(process.argv.includes("/j")){
+    } else if (process.argv.includes("/j")) {
         createJSONConfigWindow();
     } else {
         createConfigWindow();

@@ -23,8 +23,20 @@ function displaySettings() {
         $(`#${slider[i]}`).val(store.get(slider[i]));
         $(`#${slider[i]}Text`).text(store.get(slider[i]));
     }
+    displayPlaybackSettings();
 }
 displaySettings();
+
+function displayPlaybackSettings() {
+    let settings = store.get('videoFilters');
+    let html = "";
+    for(let i = 0; i < settings.length;i++){
+        html += `<label>${settings[i].name}: <span id="${settings[i].name}Text">${settings[i].value}</span></label><span class="w3-right" onclick="resetSetting('${settings[i].name}', 'filterSlider', ${settings[i].defaultValue})"><i class="fa fa-undo"></i></span>
+                <br>
+                <input type="range" min="${settings[i].min}" max="${settings[i].max}" value="${settings[i].value}" step="1" id="${settings[i].name}" class="slider" onchange="updateSetting('${settings[i].name}','filterSlider')">`;
+    }
+    $('#videoFilterSettings').html(html);
+}
 
 function updateClock() {
     store.set('clock', document.getElementById("showClock").checked)
@@ -42,6 +54,17 @@ function updateSetting(setting, type) {
         case "time":
             store.set(setting, document.getElementById(setting).value);
             break;
+        case "filterSlider":
+            $(`#${setting}Text`).text(document.getElementById(setting).value);
+            let s = store.get('videoFilters');
+            let index = s.findIndex((e) => {
+                if(setting === e.name){
+                    return true;
+                }
+            });
+            s[index].value = document.getElementById(setting).value;
+            store.set('videoFilters', s);
+            break;
 
     }
 }
@@ -56,7 +79,28 @@ function resetSetting(setting, type, value) {
         case "time":
             store.set(setting, value);
             break;
+        case "filterSlider":
+            let s = store.get('videoFilters');
+            let index = s.findIndex((e) => {
+                if(setting === e.name){
+                    return true;
+                }
+            });
+            s[index].value = s[index].defaultValue;
+            store.set('videoFilters', s);
+            $(`#${setting}Text`).text(s[index].defaultValue);
+            $(`#${setting}`).val(s[index].defaultValue);
+            break;
     }
+}
+
+function resetFilterSettings() {
+    let videoFilters = store.get('videoFilters');
+    for(let i = 0; i < videoFilters.length;i++){
+        videoFilters[i].value = videoFilters[i].defaultValue;
+    }
+    store.set('videoFilters', videoFilters);
+    displayPlaybackSettings();
 }
 
 function changeTab(evt, tab) {

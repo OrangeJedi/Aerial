@@ -124,6 +124,12 @@ let c1 = document.getElementById('canvasVideo');
 let ctx1 = c1.getContext('2d');
 c1.width = window.innerWidth;
 c1.height = window.innerHeight;
+let videoFilters = store.get('videoFilters');
+let filter = "";
+for(let i = 0; i < videoFilters.length;i++){
+    filter += `${videoFilters[i].name}(${videoFilters[i].value}${videoFilters[i].suffix}) `;
+}
+ctx1.filter = filter;
 function drawVideo (){
     ctx1.drawImage(video,0,0,window.innerWidth,window.innerHeight);
     requestAnimationFrame(drawVideo);
