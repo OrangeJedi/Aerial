@@ -119,5 +119,16 @@ function getTimeOfDay() {
     return time;
 }
 
+//put the video on the canvas
+let c1 = document.getElementById('canvasVideo');
+let ctx1 = c1.getContext('2d');
+c1.width = window.innerWidth;
+c1.height = window.innerHeight;
+function drawVideo (){
+    ctx1.drawImage(video,0,0,window.innerWidth,window.innerHeight);
+    requestAnimationFrame(drawVideo);
+}
+drawVideo();
+
 //play a video
 newVideo();
