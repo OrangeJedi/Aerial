@@ -2,6 +2,11 @@ const {app, BrowserWindow, ipcMain, screen} = require('electron');
 const videos = require("./videos.json");
 const Store = require('electron-store');
 const store = new Store();
+let screens = [];
+
+global.shared = {
+    currentlyPlaying: ''
+};
 
 function createConfigWindow() {
     let win = new BrowserWindow({
@@ -51,10 +56,11 @@ function createSSWindow() {
         win.on('closed', function () {
             xWin = null;
         });
-        win.webContents.on('dom-ready', (event)=> {
+        win.webContents.on('dom-ready', (event) => {
             let css = '* { cursor: none !important; }';
             win.webContents.insertCSS(css);
         });
+        screens.push(win);
     }
 }
 
@@ -77,14 +83,29 @@ function createSSPWindow() {
 app.whenReady().then(startUp);
 
 function startUp() {
-    if(!store.get("configured")){
+    if (!store.get("configured")) {
         let allowedVideos = [];
-        for(let i = 0; i < videos.length;i++){
+        for (let i = 0; i < videos.length; i++) {
             allowedVideos.push(videos[i].id);
         }
         store.set('allowedVideos', allowedVideos);
         store.set('clock', false);
+        store.set('timeOfDay', false);
+        store.set('sunrise', "06:00");
+        store.set('sunset', "18:00");
+        store.set('playbackSpeed', 1);
+        store.set('skipVideosWithKey', true);
         store.set("configured", true);
+        store.set('videoFilters', [
+            {name: 'blur', value: 0, min: 0, max: 100, suffix: "px", defaultValue : 0},
+            {name: 'brightness', value: 100, min: 0, max: 100, suffix: "%", defaultValue : 100},
+            {name: 'grayscale', value: 0, min: 0, max: 100, suffix: "%", defaultValue : 0},
+            {name: 'hue-rotate', value: 0, min: 0, max: 360, suffix: "deg", defaultValue : 0},
+            {name: 'invert', value: 0, min: 0, max: 100, suffix: "%", defaultValue : 0},
+            {name: 'saturate', value: 100, min: 0, max: 256, suffix: "%", defaultValue : 100},
+            {name: 'sepia', value: 0, min: 0, max: 100, suffix: "%", defaultValue : 0},
+        ]);
+        store.set('sameVideoOnScreens', false);
     }
     if (process.argv.includes("/c")) {
         createConfigWindow();
@@ -95,14 +116,23 @@ function startUp() {
         createSSWindow();
     } else if (process.argv.includes("/t")) {
         createSSPWindow();
-    } else if(process.argv.includes("/j")){
+    } else if (process.argv.includes("/j")) {
         createJSONConfigWindow();
     } else {
         createConfigWindow();
     }
 }
 
-
 ipcMain.on('quitApp', (event, arg) => {
     app.quit();
+});
+
+ipcMain.on('keyPress', (event, key) =>{
+    if(key === "ArrowRight" && store.get('skipVideosWithKey')){
+        for(let i = 0;i < screens.length;i++){
+            screens[i].webContents.send('newVideo');
+        }
+    }else {
+        app.quit();
+    }
 });

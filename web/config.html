@@ -7,23 +7,66 @@
         window.module = module;
         module = undefined;
     }</script>
-
     <script src="libraries/js/jquery-min.js"></script>
     <script>if (window.module) module = window.module;</script>
     <link rel="stylesheet" href="libraries/css/w3.min.css">
     <link rel="stylesheet" href="libraries/css/all.min.css">
+    <link rel="stylesheet" href="config.css">
 </head>
 <body>
 <h1>Aerial Config</h1>
 <div class="w3-bar w3-grey">
-    <button class="w3-bar-item w3-button tablink w3-blue" onclick="changeTab(event,'generalOptions')">General</button>
-    <button class="w3-bar-item w3-button tablink" onclick="changeTab(event,'videoOptions')">Videos</button>
-    <button class="w3-bar-item w3-button tablink" onclick="changeTab(event,'textOptions')">Text</button>
+    <button class="w3-bar-item w3-button tablink w3-blue" onclick="changeTab(event,'settingsTab')">Settings</button>
+    <button class="w3-bar-item w3-button tablink" onclick="changeTab(event,'videoTab')">Videos</button>
+    <button class="w3-bar-item w3-button tablink" onclick="changeTab(event,'textTab')">Text</button>
 </div>
-<div id="generalOptions" class="tab">
-    <h2>General Settings</h2>
+<div id="settingsTab" class="tab">
+    <div class="w3-sidebar w3-light-grey w3-bar-block" style="width:20%">
+        <a onclick="selectSetting('general')" id="settingsList-general" class="settingsListItem"><h3 class="w3-bar-item"><i class="fa fa-cog"></i> Settings</h3></a>
+        <a onclick="selectSetting('multi-screen')" id="settingsList-multi-screen" class="w3-bar-item w3-button settingsListItem">Multi-Screen</a>
+        <a onclick="selectSetting('playback')" id="settingsList-playback" class="w3-bar-item w3-button settingsListItem">Playback</a>
+    </div>
+    <div id="generalCard" style="margin-left:20%">
+        <div id="generalSettings" class="settingsCard">
+            <div class="w3-container w3-blue">
+                <h4>General Settings</h4>
+            </div>
+            <div class="w3-display-container" style="padding: 2%">
+                <input type="checkbox" id="timeOfDay" class="w3-check" onclick="updateSetting('timeOfDay','check')"> <label>Prioritize current time of day</label>
+                <div>
+                    <br>
+                    <lable style="font-size: smaller">Sunrise</lable>
+                    <input style="width: 15%" class="w3-input" type="time" id="sunrise" onchange="updateSetting('sunrise','time')">
+                    <label style="font-size: smaller">Sunset</label>
+                    <input style="width: 15%" class="w3-input" type="time" id="sunset" onchange="updateSetting('sunset','time')">
+                </div>
+                <br>
+                <input type="checkbox" id="skipVideosWithKey" class="w3-check" onclick="updateSetting('skipVideosWithKey','check')"> <label>Use the right arrow key to skip videos</label>
+            </div>
+        </div>
+        <div id="multi-screenSettings" class="settingsCard" style="display: none">
+            <div class="w3-container w3-blue">
+                <h4>Multi-Screen Settings</h4>
+            </div>
+            <div class="w3-display-container" style="padding: 2%">
+                <input type="checkbox" id="sameVideoOnScreens" class="w3-check" onclick="updateSetting('sameVideoOnScreens','check')"> <label>Play the same video on each screen</label>
+            </div>
+        </div>
+        <div id="playbackSettings" class="settingsCard" style="display: none">
+            <div class="w3-container w3-blue">
+                <h4>Playback Settings</h4>
+            </div>
+            <div class="w3-display-container" style="padding: 2%">
+                <label>Playback Speed: <span id="playbackSpeedText"></span></label><span class="w3-right" onclick="resetSetting('playbackSpeed', 'slider', 1)"><i class="fa fa-undo"></i></span>
+                <br>
+                <input type="range" min=".75" max="4" value="1" step=".05" id="playbackSpeed" class="slider" onchange="updateSetting('playbackSpeed','slider')">
+                <h3>Filter Settings <span class="w3-right" onclick="resetFilterSettings()"><i class="fa fa-undo"></i></span></h3>
+                <div class="w3-display-container" id="videoFilterSettings"></div>
+            </div>
+        </div>
+    </div>
 </div>
-<div id="videoOptions" class="tab" style="display: none">
+<div id="videoTab" class="tab" style="display: none">
     <div class="w3-sidebar w3-light-grey w3-bar-block" id="videoList" style="width:32%">
     </div>
     <div id="videoCard" style="margin-left:32%">
@@ -36,7 +79,7 @@
         </div>
     </div>
 </div>
-<div id="textOptions" class="tab" style="display: none">
+<div id="textTab" class="tab" style="display: none">
     Show Clock: <input type="checkbox" id="showClock" onclick="updateClock()">
 </div>
 

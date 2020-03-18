@@ -9,8 +9,98 @@ if (store.get('clock')) {
     document.getElementById("showClock").checked = true;
 }
 
+function displaySettings() {
+    let checked = ["timeOfDay", "skipVideosWithKey", "sameVideoOnScreens"];
+    for (let i = 0; i < checked.length; i++) {
+        $(`#${checked[i]}`).prop('checked', store.get(checked[i]));
+    }
+    let number = ["sunrise", "sunset"];
+    for (let i = 0; i < number.length; i++) {
+        $(`#${number[i]}`).val(store.get(number[i]));
+    }
+    let slider = ["playbackSpeed"];
+    for (let i = 0; i < slider.length; i++) {
+        $(`#${slider[i]}`).val(store.get(slider[i]));
+        $(`#${slider[i]}Text`).text(store.get(slider[i]));
+    }
+    displayPlaybackSettings();
+}
+displaySettings();
+
+function displayPlaybackSettings() {
+    let settings = store.get('videoFilters');
+    let html = "";
+    for(let i = 0; i < settings.length;i++){
+        html += `<label>${settings[i].name}: <span id="${settings[i].name}Text">${settings[i].value}</span></label><span class="w3-right" onclick="resetSetting('${settings[i].name}', 'filterSlider', ${settings[i].defaultValue})"><i class="fa fa-undo"></i></span>
+                <br>
+                <input type="range" min="${settings[i].min}" max="${settings[i].max}" value="${settings[i].value}" step="1" id="${settings[i].name}" class="slider" onchange="updateSetting('${settings[i].name}','filterSlider')">`;
+    }
+    $('#videoFilterSettings').html(html);
+}
+
 function updateClock() {
     store.set('clock', document.getElementById("showClock").checked)
+}
+
+function updateSetting(setting, type) {
+    switch (type) {
+        case "check":
+            store.set(setting, document.getElementById(setting).checked);
+            break;
+        case "slider":
+            $(`#${setting}Text`).text(document.getElementById(setting).value);
+        case "number":
+        case "text":
+        case "time":
+            store.set(setting, document.getElementById(setting).value);
+            break;
+        case "filterSlider":
+            $(`#${setting}Text`).text(document.getElementById(setting).value);
+            let s = store.get('videoFilters');
+            let index = s.findIndex((e) => {
+                if(setting === e.name){
+                    return true;
+                }
+            });
+            s[index].value = document.getElementById(setting).value;
+            store.set('videoFilters', s);
+            break;
+
+    }
+}
+
+function resetSetting(setting, type, value) {
+    switch (type) {
+        case "slider":
+            $(`#${setting}Text`).text(value);
+            $(`#${setting}`).val(value);
+        case "number":
+        case "text":
+        case "time":
+            store.set(setting, value);
+            break;
+        case "filterSlider":
+            let s = store.get('videoFilters');
+            let index = s.findIndex((e) => {
+                if(setting === e.name){
+                    return true;
+                }
+            });
+            s[index].value = s[index].defaultValue;
+            store.set('videoFilters', s);
+            $(`#${setting}Text`).text(s[index].defaultValue);
+            $(`#${setting}`).val(s[index].defaultValue);
+            break;
+    }
+}
+
+function resetFilterSettings() {
+    let videoFilters = store.get('videoFilters');
+    for(let i = 0; i < videoFilters.length;i++){
+        videoFilters[i].value = videoFilters[i].defaultValue;
+    }
+    store.set('videoFilters', videoFilters);
+    displayPlaybackSettings();
 }
 
 function changeTab(evt, tab) {
@@ -33,7 +123,7 @@ $(document).ready(() => {
 });
 
 function makeList() {
-    let videoList = "<a onclick=\"selectVideo(-1)\"><h3 class=\"w3-bar-item w3-deep-orange videoListItem\" id='videoListTitle'><i class=\"fa fa-film\"></i> Videos</h3></a>";
+    let videoList = "<a onclick=\"selectVideo(-1)\"><h3 class=\"w3-bar-item videoListItem\" id='videoListTitle'><i class=\"fa fa-film\"></i> Videos</h3></a>";
     let headertxt = "";
     for (let i = 0; i < videos.length; i++) {
         if (headertxt !== videos[i].accessibilityLabel) {
@@ -49,6 +139,21 @@ function makeList() {
     $('#videoList').html(videoList);
 }
 
+function selectSetting(item) {
+    let list = document.getElementsByClassName("settingsListItem");
+    for (i = 0; i < list.length; i++) {
+        list[i].className = list[i].className.replace("w3-deep-orange", "");
+    }
+    if (item !== "general") {
+        document.getElementById(`settingsList-${item}`).className += " w3-deep-orange";
+    }
+    let cards = document.getElementsByClassName("settingsCard");
+    for (i = 0; i < cards.length; i++) {
+        cards[i].style.display = "none";
+    }
+    document.getElementById(`${item}Settings`).style.display = "";
+}
+
 function selectVideo(index) {
     let x = document.getElementsByClassName("videoListItem");
     for (i = 0; i < x.length; i++) {
@@ -60,7 +165,6 @@ function selectVideo(index) {
         $('#videoName').text(videos[index].accessibilityLabel);
         $('#videoSettings').html("");
     } else {
-        document.getElementById("videoListTitle").className += " w3-deep-orange";
         $('#videoPlayer').attr("src", "").hide();
         $('#videoName').text("Video Settings");
         $('#videoSettings').html(`<br>
@@ -69,7 +173,7 @@ function selectVideo(index) {
                                   <button class="w3-button w3-white w3-border w3-border-red w3-round-large" onclick="deselectAll()">Deselect All</button>
                                   <br><br>
                                   <select class="w3-select w3-border" style="width: 25%" id="videoType">
-                                     <option value="">Aerial</option>
+                                     <option value="aerial">Aerial</option>
                                      <option value="space">Space</option>
                                      <option value="underwater">Underwater</option>
                                   </select> 
@@ -105,7 +209,6 @@ function selectAll() {
 
 function selectType() {
     let type = $('#videoType').val();
-    type = type === "" ? undefined : type;
     for (let i = 0; i < videos.length; i++) {
         if (videos[i].type === type) {
             if (!allowedVideos.includes(videos[i].id)) {
@@ -119,7 +222,6 @@ function selectType() {
 
 function deselectType() {
     let type = $('#videoType').val();
-    type = type === "" ? undefined : type;
     for (let i = 0; i < videos.length; i++) {
         if (videos[i].type === type) {
             if (allowedVideos.includes(videos[i].id)) {

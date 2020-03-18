@@ -3,13 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <title>Aerial</title>
+    <script>if (typeof module === 'object') {
+        window.module = module;
+        module = undefined;
+    }</script>
+    <script src="libraries/js/jquery-min.js"></script>
+    <script>if (window.module) module = window.module;</script>
     <link href="screensaver.css" rel="stylesheet" type="text/css">
 </head>
 <body>
+<video autoplay width="100%" class="fullscreen-bg__video" id="video" style="display: none">
+    Your browser doesn't support HTML video tags
+</video>
 <div class="fullscreen-bg">
-    <video autoplay width="100%" class="fullscreen-bg__video" id="video">
-        Your browser doesn't support HTML video tags
-    </video>
+    <canvas width="1080" height="1920" id="canvasVideo"></canvas>
 </div>
 
 <div id="clockbox" class="displayText"></div>
