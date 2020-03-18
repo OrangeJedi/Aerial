@@ -2,6 +2,7 @@ const {app, BrowserWindow, ipcMain, screen} = require('electron');
 const videos = require("./videos.json");
 const Store = require('electron-store');
 const store = new Store();
+let screens = [];
 
 global.shared = {
     currentlyPlaying: ''
@@ -59,6 +60,7 @@ function createSSWindow() {
             let css = '* { cursor: none !important; }';
             win.webContents.insertCSS(css);
         });
+        screens.push(win);
     }
 }
 
@@ -123,4 +125,14 @@ function startUp() {
 
 ipcMain.on('quitApp', (event, arg) => {
     app.quit();
+});
+
+ipcMain.on('keyPress', (event, key) =>{
+    if(key === "ArrowRight" && store.get('skipVideosWithKey')){
+        for(let i = 0;i < screens.length;i++){
+            screens[i].webContents.send('newVideo');
+        }
+    }else {
+        app.quit();
+    }
 });

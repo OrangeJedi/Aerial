@@ -1,4 +1,4 @@
-const {ipcRenderer} = require('electron');
+const {ipcRenderer, remote} = require('electron');
 const videos = require("../videos.json");
 const Store = require('electron-store');
 const store = new Store();
@@ -9,13 +9,13 @@ function quitApp() {
     ipcRenderer.send('quitApp');
 }
 
+ipcRenderer.on('newVideo', ()=>{
+   newVideo();
+});
+
 //quit when a key is pressed
 document.addEventListener('keydown', (e) => {
-    if(e.code === "ArrowRight" && store.get('skipVideosWithKey')){
-        newVideo();
-    }else {
-        quitApp();
-    }
+    ipcRenderer.send('keyPress', e.code);
 });
 document.addEventListener('mousedown', quitApp);
 setTimeout(function () {
@@ -69,10 +69,10 @@ function newVideo() {
         id = allowedVideos[randomInt(0, allowedVideos.length)];
     }
     if(store.get('sameVideoOnScreens')) {
-        if (currentlyPlaying === require('electron').remote.getGlobal('shared').currentlyPlaying) {
-            require('electron').remote.getGlobal('shared').currentlyPlaying = id;
+        if (currentlyPlaying === remote.getGlobal('shared').currentlyPlaying) {
+            remote.getGlobal('shared').currentlyPlaying = id;
         } else {
-            id = require('electron').remote.getGlobal('shared').currentlyPlaying;
+            id = remote.getGlobal('shared').currentlyPlaying;
         }
     }
     let index = videos.findIndex((e) => {
