@@ -48,7 +48,8 @@
             <div class="w3-container w3-blue">
                 <h4>Multi-Screen Settings</h4>
             </div>
-            <div class="w3-display-container">
+            <div class="w3-display-container" style="padding: 2%">
+                <input type="checkbox" id="sameVideoOnScreens" class="w3-check" onclick="updateSetting('sameVideoOnScreens','check')"> <label>Play the same video on each screen</label>
             </div>
         </div>
         <div id="playbackSettings" class="settingsCard" style="display: none">
@@ -58,7 +59,7 @@
             <div class="w3-display-container" style="padding: 2%">
                 <label>Playback Speed: <span id="playbackSpeedText"></span></label><span class="w3-right" onclick="resetSetting('playbackSpeed', 'slider', 1)"><i class="fa fa-undo"></i></span>
                 <br>
-                <input type="range" min=".75" max="10" value="1" step=".05" id="playbackSpeed" class="slider" onchange="updateSetting('playbackSpeed','slider')">
+                <input type="range" min=".75" max="4" value="1" step=".05" id="playbackSpeed" class="slider" onchange="updateSetting('playbackSpeed','slider')">
                 <h3>Filter Settings <span class="w3-right" onclick="resetFilterSettings()"><i class="fa fa-undo"></i></span></h3>
                 <div class="w3-display-container" id="videoFilterSettings"></div>
             </div>

@@ -3,6 +3,10 @@ const videos = require("./videos.json");
 const Store = require('electron-store');
 const store = new Store();
 
+global.shared = {
+    currentlyPlaying: ''
+};
+
 function createConfigWindow() {
     let win = new BrowserWindow({
         width: 1000,
@@ -99,6 +103,7 @@ function startUp() {
             {name: 'saturate', value: 100, min: 0, max: 256, suffix: "%", defaultValue : 100},
             {name: 'sepia', value: 0, min: 0, max: 100, suffix: "%", defaultValue : 0},
         ]);
+        store.set('sameVideoOnScreens', false);
     }
     if (process.argv.includes("/c")) {
         createConfigWindow();
@@ -115,7 +120,6 @@ function startUp() {
         createConfigWindow();
     }
 }
-
 
 ipcMain.on('quitApp', (event, arg) => {
     app.quit();

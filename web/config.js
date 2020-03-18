@@ -10,7 +10,7 @@ if (store.get('clock')) {
 }
 
 function displaySettings() {
-    let checked = ["timeOfDay", "skipVideosWithKey"];
+    let checked = ["timeOfDay", "skipVideosWithKey", "sameVideoOnScreens"];
     for (let i = 0; i < checked.length; i++) {
         $(`#${checked[i]}`).prop('checked', store.get(checked[i]));
     }

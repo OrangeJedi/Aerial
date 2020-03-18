@@ -3,6 +3,7 @@ const videos = require("../videos.json");
 const Store = require('electron-store');
 const store = new Store();
 const allowedVideos = store.get("allowedVideos");
+let currentlyPlaying = '';
 
 function quitApp() {
     ipcRenderer.send('quitApp');
@@ -67,6 +68,13 @@ function newVideo() {
     }else {
         id = allowedVideos[randomInt(0, allowedVideos.length)];
     }
+    if(store.get('sameVideoOnScreens')) {
+        if (currentlyPlaying === require('electron').remote.getGlobal('shared').currentlyPlaying) {
+            require('electron').remote.getGlobal('shared').currentlyPlaying = id;
+        } else {
+            id = require('electron').remote.getGlobal('shared').currentlyPlaying;
+        }
+    }
     let index = videos.findIndex((e) => {
         if(id === e.id){
             return true;
@@ -75,6 +83,7 @@ function newVideo() {
     let videoInfo = videos[index];
     video.src = videoInfo.src.H2641080p;
     video.playbackRate = Number(store.get('playbackSpeed'));
+    currentlyPlaying = videoInfo.id;
 }
 
 //time of day code
