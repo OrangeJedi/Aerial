@@ -106,6 +106,7 @@ function startUp() {
             {name: 'sepia', value: 0, min: 0, max: 100, suffix: "%", defaultValue: 0},
         ]);
         store.set('sameVideoOnScreens', false);
+        store.set('timeString', "dddd, MMMM Do YYYY, h:mm:ss a");
     }
     if (process.argv.includes("/c")) {
         createConfigWindow();

@@ -13,9 +13,9 @@ function displaySettings() {
     for (let i = 0; i < checked.length; i++) {
         $(`#${checked[i]}`).prop('checked', store.get(checked[i]));
     }
-    let number = ["sunrise", "sunset"];
-    for (let i = 0; i < number.length; i++) {
-        $(`#${number[i]}`).val(store.get(number[i]));
+    let numTxt = ["sunrise", "sunset", "timeString"];
+    for (let i = 0; i < numTxt.length; i++) {
+        $(`#${numTxt[i]}`).val(store.get(numTxt[i]));
     }
     let slider = ["playbackSpeed"];
     for (let i = 0; i < slider.length; i++) {
@@ -23,6 +23,7 @@ function displaySettings() {
         $(`#${slider[i]}Text`).text(store.get(slider[i]));
     }
     displayPlaybackSettings();
+    showMomentDisplay('timeSettingsMomentDisplay', 'timeString');
 }
 
 displaySettings();
@@ -154,6 +155,21 @@ function selectSetting(item) {
     document.getElementById(`${item}Settings`).style.display = "";
 }
 
+function selectTextSetting(item) {
+    let list = document.getElementsByClassName("textSettingsListItem");
+    for (i = 0; i < list.length; i++) {
+        list[i].className = list[i].className.replace("w3-deep-orange", "");
+    }
+    if (item !== "general") {
+        document.getElementById(`textSettingsList-${item}`).className += " w3-deep-orange";
+    }
+    let cards = document.getElementsByClassName("textSettingsCard");
+    for (i = 0; i < cards.length; i++) {
+        cards[i].style.display = "none";
+    }
+    document.getElementById(`${item}TextSettings`).style.display = "";
+}
+
 function selectVideo(index) {
     let x = document.getElementsByClassName("videoListItem");
     for (i = 0; i < x.length; i++) {
@@ -231,4 +247,8 @@ function deselectType() {
     }
     store.set("allowedVideos", allowedVideos);
     makeList();
+}
+
+function showMomentDisplay(id, stringID) {
+    $(`#${id}`).text(moment().format($(`#${stringID}`).val()));
 }

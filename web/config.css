@@ -19,3 +19,7 @@
     background: #ff5722;
     cursor: pointer;
 }
+
+:focus{
+    outline: 0;
+}

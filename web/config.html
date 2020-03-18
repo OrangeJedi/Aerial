@@ -8,6 +8,7 @@
         module = undefined;
     }</script>
     <script src="libraries/js/jquery-min.js"></script>
+    <script src="libraries/js/moment.min.js"></script>
     <script>if (window.module) module = window.module;</script>
     <link rel="stylesheet" href="libraries/css/w3.min.css">
     <link rel="stylesheet" href="libraries/css/all.min.css">
@@ -80,7 +81,72 @@
     </div>
 </div>
 <div id="textTab" class="tab" style="display: none">
-    Show Clock: <input type="checkbox" id="showClock" onclick="updateClock()">
+    <div class="w3-sidebar w3-light-grey w3-bar-block" style="width:20%">
+        <div class="settingsListItem"><h3 class="w3-bar-item"><i class="fa fa-paragraph"></i> Text</h3></div>
+        <a onclick="selectTextSetting('textOptions')" id="textSettingsList-textOptions" class="w3-bar-item w3-button textSettingsListItem w3-deep-orange">Text Options</a>
+        <a onclick="selectTextSetting('time')" id="textSettingsList-time" class="w3-bar-item w3-button textSettingsListItem">Time</a>
+    </div>
+    <div id="textCard" style="margin-left:20%">
+        <div id="fontTextSettings" class="textSettingsCard">
+            <div class="w3-container w3-blue">
+                <h4>Text Options</h4>
+            </div>
+            <div class="w3-display-container" style="padding: 2%">
+            </div>
+        </div>
+        <div id="timeTextSettings" class="textSettingsCard" style="display: none">
+            <div class="w3-container w3-blue">
+                <h4>Time</h4>
+            </div>
+            <div class="w3-display-container" style="padding: 2%">
+                <input type="checkbox" id="showClock"  class="w3-check" onclick="updateClock()"><label> Show Clock</label>
+                <br>
+                <input class="w3-input" id="timeString" style="width: 40%; display: inline; margin-top: 2%" onchange="showMomentDisplay('timeSettingsMomentDisplay', 'timeString'); updateSetting('timeString', 'text')">
+                <span id="timeSettingsMomentDisplay"></span>
+                <button onclick="document.getElementById('timeFormatExplain').style.display='block'" class="w3-button w3-white w3-border w3-border-blue w3-round-large" style="margin-top: 2%">Show Formatting Details</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--Modals-->
+<div id="timeFormatExplain" class="w3-modal">
+    <div class="w3-modal-content">
+        <div class="w3-container w3-white">
+            <span onclick="document.getElementById('timeFormatExplain').style.display='none'" class="w3-button w3-display-topright">&times;</span>
+            <br>
+            <p>Aerial uses Moment.js to display the current time. Use the characters in the table below to format the time and date however you want it.</p>
+                <table class="w3-table-all">
+                    <tr><td><b>Month</b></td><td>M</td><td>1 2 ... 11 12</td></tr>
+                    <tr><td></td><td>Mo</td><td>1st 2nd ... 11th 12th</td></tr>
+                    <tr><td></td><td>MM</td><td>01 02 ... 11 12</td></tr>
+                    <tr><td></td><td>MMM</td><td>Jan Feb ... Nov Dec</td></tr>
+                    <tr><td></td><td>MMMM</td><td>January February ... November December</td></tr>
+                    <tr><td><b>Day of Month</b></td><td>D</td><td>1 2 ... 30 31</td></tr>
+                    <tr><td></td><td>Do</td><td>1st 2nd ... 30th 31st</td></tr>
+                    <tr><td></td><td>DD</td><td>01 02 ... 30 31</td></tr>
+                    <tr><td><b>Day of Week</b></td><td>d</td><td>0 1 ... 5 6</td></tr>
+                    <tr><td></td><td>do</td><td>0th 1st ... 5th 6th</td></tr>
+                    <tr><td></td><td>dd</td><td>Su Mo ... Fr Sa</td></tr>
+                    <tr><td></td><td>ddd</td><td>Sun Mon ... Fri Sat</td></tr>
+                    <tr><td></td><td>dddd</td><td>Sunday Monday ... Friday Saturday</td></tr>
+                    <tr><td><b>Year</b></td><td>YY</td><td>70 71 ... 29 30</td></tr>
+                    <tr><td></td><td>YYYY</td><td>1970 1971 ... 2029 2030</td></tr>
+                    <tr><td><b>AM/PM</b></td><td>A</td><td>AM PM</td></tr>
+                    <tr><td></td><td>a</td><td>am pm</td></tr>
+                    <tr><td><b>Hour</b></td><td>H</td><td>0 1 ... 22 23</td></tr>
+                    <tr><td></td><td>HH</td><td>00 01 ... 22 23</td></tr>
+                    <tr><td></td><td>h</td><td>1 2 ... 11 12</td></tr>
+                    <tr><td></td><td>hh</td><td>01 02 ... 11 12</td></tr>
+                    <tr><td><b>Minute</b></td><td>m</td><td>0 1 ... 58 59</td></tr>
+                    <tr><td></td><td>mm</td><td>00 01 ... 58 59</td></tr>
+                    <tr><td><b>Second</b></td><td>s</td><td>0 1 ... 58 59</td></tr>
+                    <tr><td></td><td>ss</td><td>00 01 ... 58 59</td></tr>
+                    <tr><td></td><td>Z</td><td>-07:00 -06:00 ... +06:00 +07:00</td></tr>
+                    <tr><td></td><td>ZZ</td><td>-0700 -0600 ... +0600 +0700</td></tr>
+                </table>
+        </div>
+    </div>
 </div>
 
 <script src="config.js"></script>

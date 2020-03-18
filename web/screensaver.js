@@ -30,21 +30,13 @@ setTimeout(function () {
 
 //initial loading
 //Clock
-const tday = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
-const tmonth = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
 if (store.get("clock")) {
-    function GetClock() {
-        let d = new Date();
-        let nday = d.getDay(), nmonth = d.getMonth(), ndate = d.getDate(), nyear = d.getFullYear();
-        let nhour = d.getHours(), nmin = d.getMinutes(), nsec = d.getSeconds();
-        if (nmin <= 9) nmin = "0" + nmin;
-        if (nsec <= 9) nsec = "0" + nsec;
-
-        document.getElementById('clockbox').innerHTML = "" + tday[nday] + ", " + tmonth[nmonth] + " " + ndate + ", " + nyear + " " + nhour + ":" + nmin + ":" + nsec + "";
+    function displayTime() {
+       document.getElementById('clockbox').innerHTML = moment().format(store.get('timeString'));
     }
 
-    GetClock();
-    setInterval(GetClock, 1000);
+    displayTime();
+    setInterval(displayTime, 250);
 }
 
 function randomInt(min, max) {
