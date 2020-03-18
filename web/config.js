@@ -5,7 +5,6 @@ const store = new Store();
 let allowedVideos = store.get("allowedVideos");
 
 if (store.get('clock')) {
-    console.log('hello');
     document.getElementById("showClock").checked = true;
 }
 
@@ -25,12 +24,13 @@ function displaySettings() {
     }
     displayPlaybackSettings();
 }
+
 displaySettings();
 
 function displayPlaybackSettings() {
     let settings = store.get('videoFilters');
     let html = "";
-    for(let i = 0; i < settings.length;i++){
+    for (let i = 0; i < settings.length; i++) {
         html += `<label>${settings[i].name}: <span id="${settings[i].name}Text">${settings[i].value}</span></label><span class="w3-right" onclick="resetSetting('${settings[i].name}', 'filterSlider', ${settings[i].defaultValue})"><i class="fa fa-undo"></i></span>
                 <br>
                 <input type="range" min="${settings[i].min}" max="${settings[i].max}" value="${settings[i].value}" step="1" id="${settings[i].name}" class="slider" onchange="updateSetting('${settings[i].name}','filterSlider')">`;
@@ -58,7 +58,7 @@ function updateSetting(setting, type) {
             $(`#${setting}Text`).text(document.getElementById(setting).value);
             let s = store.get('videoFilters');
             let index = s.findIndex((e) => {
-                if(setting === e.name){
+                if (setting === e.name) {
                     return true;
                 }
             });
@@ -82,7 +82,7 @@ function resetSetting(setting, type, value) {
         case "filterSlider":
             let s = store.get('videoFilters');
             let index = s.findIndex((e) => {
-                if(setting === e.name){
+                if (setting === e.name) {
                     return true;
                 }
             });
@@ -96,7 +96,7 @@ function resetSetting(setting, type, value) {
 
 function resetFilterSettings() {
     let videoFilters = store.get('videoFilters');
-    for(let i = 0; i < videoFilters.length;i++){
+    for (let i = 0; i < videoFilters.length; i++) {
         videoFilters[i].value = videoFilters[i].defaultValue;
     }
     store.set('videoFilters', videoFilters);

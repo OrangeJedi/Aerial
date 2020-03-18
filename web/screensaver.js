@@ -9,8 +9,8 @@ function quitApp() {
     ipcRenderer.send('quitApp');
 }
 
-ipcRenderer.on('newVideo', ()=>{
-   newVideo();
+ipcRenderer.on('newVideo', () => {
+    newVideo();
 });
 
 //quit when a key is pressed
@@ -62,13 +62,13 @@ video.addEventListener('ended', (event) => {
 
 function newVideo() {
     let id = "";
-    if(store.get('timeOfDay')){
+    if (store.get('timeOfDay')) {
         let time = getTimeOfDay();
         id = tod[time][randomInt(0, tod[time].length)];
-    }else {
+    } else {
         id = allowedVideos[randomInt(0, allowedVideos.length)];
     }
-    if(store.get('sameVideoOnScreens')) {
+    if (store.get('sameVideoOnScreens')) {
         if (currentlyPlaying === remote.getGlobal('shared').currentlyPlaying) {
             remote.getGlobal('shared').currentlyPlaying = id;
         } else {
@@ -76,7 +76,7 @@ function newVideo() {
         }
     }
     let index = videos.findIndex((e) => {
-        if(id === e.id){
+        if (id === e.id) {
             return true;
         }
     });
@@ -87,11 +87,11 @@ function newVideo() {
 }
 
 //time of day code
-let tod = {"day": [], "night": [], "none" : []};
-if(store.get('timeOfDay')){
-    for(let i = 0; i < allowedVideos.length;i++){
+let tod = {"day": [], "night": [], "none": []};
+if (store.get('timeOfDay')) {
+    for (let i = 0; i < allowedVideos.length; i++) {
         let index = videos.findIndex((e) => {
-            if(allowedVideos[i] === e.id){
+            if (allowedVideos[i] === e.id) {
                 return true;
             }
         });
@@ -105,10 +105,10 @@ if(store.get('timeOfDay')){
             default:
                 tod.none.push(allowedVideos[i]);
         }
-        if(tod.day.length <= 3){
+        if (tod.day.length <= 3) {
             tod.day.push(...tod.none);
         }
-        if(tod.night.length <= 3){
+        if (tod.night.length <= 3) {
             tod.night.push(...tod.none);
         }
     }
@@ -117,12 +117,12 @@ if(store.get('timeOfDay')){
 function getTimeOfDay() {
     let cHour = new Date().getHours();
     let cMin = new Date().getMinutes();
-    let sunriseHour = store.get('sunrise').substring(0,2);
-    let sunriseMinute = store.get('sunrise').substring(3,5);
-    let sunsetHour = store.get('sunrise').substring(0,2);
-    let sunsetMinute = store.get('sunrise').substring(3,5);
+    let sunriseHour = store.get('sunrise').substring(0, 2);
+    let sunriseMinute = store.get('sunrise').substring(3, 5);
+    let sunsetHour = store.get('sunrise').substring(0, 2);
+    let sunsetMinute = store.get('sunrise').substring(3, 5);
     let time = "night";
-    if(cHour >= sunriseHour && cMin >= sunriseMinute && cHour < sunsetHour && cMin < sunriseMinute){
+    if (cHour >= sunriseHour && cMin >= sunriseMinute && cHour < sunsetHour && cMin < sunriseMinute) {
         time = "day";
     }
     return time;
@@ -135,14 +135,16 @@ c1.width = window.innerWidth;
 c1.height = window.innerHeight;
 let videoFilters = store.get('videoFilters');
 let filter = "";
-for(let i = 0; i < videoFilters.length;i++){
+for (let i = 0; i < videoFilters.length; i++) {
     filter += `${videoFilters[i].name}(${videoFilters[i].value}${videoFilters[i].suffix}) `;
 }
 ctx1.filter = filter;
-function drawVideo (){
-    ctx1.drawImage(video,0,0,window.innerWidth,window.innerHeight);
+
+function drawVideo() {
+    ctx1.drawImage(video, 0, 0, window.innerWidth, window.innerHeight);
     requestAnimationFrame(drawVideo);
 }
+
 drawVideo();
 
 //play a video

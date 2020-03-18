@@ -97,13 +97,13 @@ function startUp() {
         store.set('skipVideosWithKey', true);
         store.set("configured", true);
         store.set('videoFilters', [
-            {name: 'blur', value: 0, min: 0, max: 100, suffix: "px", defaultValue : 0},
-            {name: 'brightness', value: 100, min: 0, max: 100, suffix: "%", defaultValue : 100},
-            {name: 'grayscale', value: 0, min: 0, max: 100, suffix: "%", defaultValue : 0},
-            {name: 'hue-rotate', value: 0, min: 0, max: 360, suffix: "deg", defaultValue : 0},
-            {name: 'invert', value: 0, min: 0, max: 100, suffix: "%", defaultValue : 0},
-            {name: 'saturate', value: 100, min: 0, max: 256, suffix: "%", defaultValue : 100},
-            {name: 'sepia', value: 0, min: 0, max: 100, suffix: "%", defaultValue : 0},
+            {name: 'blur', value: 0, min: 0, max: 100, suffix: "px", defaultValue: 0},
+            {name: 'brightness', value: 100, min: 0, max: 100, suffix: "%", defaultValue: 100},
+            {name: 'grayscale', value: 0, min: 0, max: 100, suffix: "%", defaultValue: 0},
+            {name: 'hue-rotate', value: 0, min: 0, max: 360, suffix: "deg", defaultValue: 0},
+            {name: 'invert', value: 0, min: 0, max: 100, suffix: "%", defaultValue: 0},
+            {name: 'saturate', value: 100, min: 0, max: 256, suffix: "%", defaultValue: 100},
+            {name: 'sepia', value: 0, min: 0, max: 100, suffix: "%", defaultValue: 0},
         ]);
         store.set('sameVideoOnScreens', false);
     }
@@ -127,12 +127,12 @@ ipcMain.on('quitApp', (event, arg) => {
     app.quit();
 });
 
-ipcMain.on('keyPress', (event, key) =>{
-    if(key === "ArrowRight" && store.get('skipVideosWithKey')){
-        for(let i = 0;i < screens.length;i++){
+ipcMain.on('keyPress', (event, key) => {
+    if (key === "ArrowRight" && store.get('skipVideosWithKey')) {
+        for (let i = 0; i < screens.length; i++) {
             screens[i].webContents.send('newVideo');
         }
-    }else {
+    } else {
         app.quit();
     }
 });
