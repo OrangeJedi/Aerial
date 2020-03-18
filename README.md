@@ -13,9 +13,11 @@ Download the latest release from [here](https://github.com/OrangeJedi/Aerial/rel
 
 ## Features
 * Cycles through a random video 
-* Shows a different video on each connected screen
+* Shows a different or the same video on each connected screen
 * Choose which video to play
 * Toggle a clock with the date and time on and off.
+* Control display settings (brightness, contrast, hue, saturation, etc.)
+* Sync to the time of day (mostly)
 
 ## To-Do
 * Full Multi-Screen Support
@@ -26,11 +28,9 @@ Download the latest release from [here](https://github.com/OrangeJedi/Aerial/rel
   * Calendar and events?
 * Import your own videos
 * Cache videos
-* Control display settings (brightness, contrast, hue, saturation, etc.)
-* Sync to the time of day
 * Video transitions
 * 4K Videos
-* Proper video preview in windows screen saver picker
+* Proper video preview in Windows screen saver picker
 * Auto update video list
 
 ## About
