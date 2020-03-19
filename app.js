@@ -107,6 +107,8 @@ function startUp() {
         ]);
         store.set('sameVideoOnScreens', false);
         store.set('timeString', "dddd, MMMM Do YYYY, h:mm:ss a");
+        store.set('textFont', "Segoe UI");
+        store.set('textSize', "2");
     }
     if (process.argv.includes("/c")) {
         createConfigWindow();

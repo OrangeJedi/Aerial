@@ -92,6 +92,11 @@
                 <h4>Text Options</h4>
             </div>
             <div class="w3-display-container" style="padding: 2%">
+                <div class="autocomplete" style="width:300px;">
+                    <label>Font: </label><input id="textFont" type="text" onchange="updateSetting('textFont', 'autocomplete')"><i class="fa fa-exclamation-triangle" id="textFontError" style="display: none"></i>
+                    <br>
+                    <label>Font Size: </label><input class="w3-input" id="textSize" type="number" step=".25" style="width: 25%; display: inline; margin-top: 2%" onchange="updateSetting('textSize', 'number')">
+                </div>
             </div>
         </div>
         <div id="timeTextSettings" class="textSettingsCard" style="display: none">

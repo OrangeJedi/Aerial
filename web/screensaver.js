@@ -139,5 +139,8 @@ function drawVideo() {
 
 drawVideo();
 
+//set up css
+$('.displayText').css('font-family',`"${store.get('textFont')}"`).css('font-size', `${store.get('textSize')}vw`);
+
 //play a video
 newVideo();
