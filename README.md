@@ -1,3 +1,5 @@
+<img style="align-content: center" alt="" src="/documentation/images/surface_preview.gif" />
+
 # Aerial - Apple TV Screen Saver for Windows
  
 Aerial is a Windows screen saver that mimics the Apple TV screen saver that displays the videos Apple shot over New York, San Francisco, Hawaii, China, etc. as well as from the ISS and various underwater locations.
@@ -7,30 +9,36 @@ Aerial is inspired by [Mac Aerial Screen Saver](https://github.com/JohnCoates/Ae
 Aerial is open source so feel free to contribute.
 
 ## How to Install
->🚧This project is still in beta. It might not always work or behave as expected. Beware when using it. 🚧
+>🚧 This project is still in beta. It might not always work or behave as expected. 🚧
 
-Download the latest release from [here](https://github.com/OrangeJedi/Aerial/releases)
+Download the latest release from [here](https://github.com/OrangeJedi/Aerial/releases). Follow the instructions to install Aerial.
 
 ## Features
-* Cycles through a random video 
-* Shows a different or the same video on each connected screen
-* Choose which video to play
-* Toggle a clock with the date and time on and off.
-* Control display settings (brightness, contrast, hue, saturation, etc.)
-* Sync to the time of day (mostly)
+* Cycles through randomly selected Apple TV videos
+* Easily select only the video you want to play
+* Display a clock with the date and time
+* Control video playback settings (speed, brightness, contrast, hue, saturation, etc.)
+* Skip videos with the right arrow key
+* Sync to the time of day (mostly - not all videos have a 'day' or 'night' attribute yet)
+* Multi-Screen Support
+    * Play a different video on each screen
+    * Play the same video on each screen
 
 ## To-Do
 * Full Multi-Screen Support
-* Display the location/description of the video
-* Display user configured text
+* Display text
   * Static text
   * Date and time
+  * Display the location/description of the video
+  * Sunrise & sunset
+  * Custom image
+  * Weather
   * Calendar and events?
+ * Cache videos
 * Import your own videos
-* Cache videos
 * Video transitions
 * 4K Videos
-* Proper video preview in Windows screen saver picker
+* Video preview in Window's screensaver settings
 * Auto update video list
 
 ## About
