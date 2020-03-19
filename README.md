@@ -1,5 +1,6 @@
-<img align="center" alt="" src="/documentation/images/surface_preview.gif" />
-
+<p align="center">  
+    <img alt="" src="/documentation/images/surface_preview.gif" />
+</p>
 # Aerial - Apple TV Screen Saver for Windows
  
 Aerial is a Windows screen saver that mimics the Apple TV screen saver that displays the videos Apple shot over New York, San Francisco, Hawaii, China, etc. as well as from the ISS and various underwater locations.
