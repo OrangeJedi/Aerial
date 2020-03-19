@@ -1,4 +1,4 @@
-<img style="align-content: center" alt="" src="/documentation/images/surface_preview.gif" />
+<img style="text-align: center" alt="" src="/documentation/images/surface_preview.gif" />
 
 # Aerial - Apple TV Screen Saver for Windows
  
