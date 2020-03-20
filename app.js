@@ -109,6 +109,17 @@ function startUp() {
         store.set('timeString', "dddd, MMMM Do YYYY, h:mm:ss a");
         store.set('textFont', "Segoe UI");
         store.set('textSize', "2");
+        store.set('displayText', {
+            'positionList': ["topleft", "topright", "bottomleft", "bottomright", "left", "right", "middle", "topmiddle", "bottommiddle"],
+            'topleft': {'type': "none"},
+            'topright': {'type': "none"},
+            'bottomleft': {'type': "none"},
+            'bottomright': {'type': "none"},
+            'left': {'type': "none"},
+            'right': {'type': "none"},
+            'middle': {'type': "none"},
+            'topmiddle': {'type': "none"},
+            'bottommiddle': {'type': "none"}})
     }
     if (process.argv.includes("/c")) {
         createConfigWindow();

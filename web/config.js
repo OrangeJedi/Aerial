@@ -113,6 +113,35 @@ function resetFilterSettings() {
     displayPlaybackSettings();
 }
 
+function positionSelect(position) {
+    position = position.value;
+    let displayTextSettings = store.get('displayText')[position];
+    document.getElementById("positionTypeSelect").setAttribute('onchange', `updatePositionType('${position}')`);
+    $('#positionTypeSelect').val(displayTextSettings.type);
+    $('#positionType').css('display', "");
+    updatePositionType(position);
+}
+
+function updatePositionType(position) {
+    let displayTextSettings = store.get('displayText');
+    displayTextSettings[position].type = $('#positionTypeSelect').val();
+    store.set('displayText', displayTextSettings);
+    switch (displayTextSettings[position].type) {
+        case "none":
+            $('#positionDetails').html("");
+            break;
+        case "text":
+            $('#positionDetails').html(`<label>Text</label><input class='w3-input' value='${displayTextSettings[position].text ? displayTextSettings[position].text : ""}' onchange="updateTextSetting(this, '${position}', 'text')">`);
+            break;
+    }
+}
+
+function updateTextSetting(input, position, setting) {
+    let text = store.get('displayText');
+    text[position][setting] = input.value;
+    store.set('displayText', text);
+}
+
 function changeTab(evt, tab) {
     let i, x, tablinks;
     x = document.getElementsByClassName("tab");

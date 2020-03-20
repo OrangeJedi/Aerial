@@ -85,6 +85,7 @@
         <div class="settingsListItem"><h3 class="w3-bar-item"><i class="fa fa-paragraph"></i> Text</h3></div>
         <a onclick="selectTextSetting('textOptions')" id="textSettingsList-textOptions" class="w3-bar-item w3-button textSettingsListItem w3-deep-orange">Text Options</a>
         <a onclick="selectTextSetting('time')" id="textSettingsList-time" class="w3-bar-item w3-button textSettingsListItem">Time</a>
+        <a onclick="selectTextSetting('position')" id="textSettingsList-position" class="w3-bar-item w3-button textSettingsListItem">Position</a>
     </div>
     <div id="textCard" style="margin-left:20%">
         <div id="textOptionsTextSettings" class="textSettingsCard">
@@ -109,6 +110,38 @@
                 <input class="w3-input" id="timeString" style="width: 40%; display: inline; margin-top: 2%" onchange="showMomentDisplay('timeSettingsMomentDisplay', 'timeString'); updateSetting('timeString', 'text')">
                 <span id="timeSettingsMomentDisplay"></span>
                 <button onclick="document.getElementById('timeFormatExplain').style.display='block'" class="w3-button w3-white w3-border w3-border-blue w3-round-large" style="margin-top: 2%">Show Formatting Details</button>
+            </div>
+        </div>
+        <div id="positionTextSettings" class="textSettingsCard" style="display: none">
+            <div class="w3-container w3-blue">
+                <h4>Position</h4>
+            </div>
+            <div class="w3-display-container" style="padding: 2%">
+                <div class="w3-display-container w3-display-topleft" style="width: 65%; margin-top: 2%; margin-left: 2%">
+                    <img alt="An error has occurred" src="images/B8F204CE-6024-49AB-85F9-7CA2F6DCD226.jpeg" class="w3-round" style="width: 100%;"/>
+                    <div class="w3-display-topleft w3-container imagePositionRadio"><input class="w3-radio imagePosition" type="radio" name="imagePosition" value="topleft" onclick="positionSelect(this)"></div>
+                    <div class="w3-display-topright w3-container imagePositionRadio"><input class="w3-radio imagePosition" type="radio" name="imagePosition" value="topright" onclick="positionSelect(this)"></div>
+                    <div class="w3-display-bottomleft w3-container imagePositionRadio"><input class="w3-radio imagePosition" type="radio" name="imagePosition" value="bottomleft" onclick="positionSelect(this)"></div>
+                    <div class="w3-display-bottomright w3-container imagePositionRadio"><input class="w3-radio imagePosition" type="radio" name="imagePosition" value="bottomright" onclick="positionSelect(this)"></div>
+                    <div class="w3-display-left w3-container imagePositionRadio"><input class="w3-radio imagePosition" type="radio" name="imagePosition" value="left" onclick="positionSelect(this)"></div>
+                    <div class="w3-display-right w3-container imagePositionRadio"><input class="w3-radio imagePosition" type="radio" name="imagePosition" value="right" onclick="positionSelect(this)"></div>
+                    <div class="w3-display-middle w3-large imagePositionRadio"><input class="w3-radio imagePosition" type="radio" name="imagePosition" value="middle" onclick="positionSelect(this)"></div>
+                    <div class="w3-display-topmiddle w3-container imagePositionRadio"><input class="w3-radio imagePosition" type="radio" name="imagePosition" value="topmiddle" onclick="positionSelect(this)"></div>
+                    <div class="w3-display-bottommiddle w3-container imagePositionRadio"><input class="w3-radio imagePosition" type="radio" name="imagePosition" value="bottommiddle" onclick="positionSelect(this)"></div>
+                </div>
+                <div class="w3-display-topright w3-container w3-right-align" style="width: 33%; margin-top: 2%; margin-right: 2%">
+                    <h3 id="positionType" style="display: none">
+                        <label>Type:</label>
+                        <select id="positionTypeSelect">
+                            <option value="none">None</option>
+                            <option value="text">Text</option>
+                            <option value="time/date">Time/Date</option>
+                            <option value="description">Description</option>
+                        </select>
+                    </h3>
+                </div>
+            </div>
+            <div class="w3-container" style="margin-top: 35%" id="positionDetails">
             </div>
         </div>
     </div>

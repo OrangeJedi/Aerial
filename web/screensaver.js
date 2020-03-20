@@ -142,5 +142,28 @@ drawVideo();
 //set up css
 $('.displayText').css('font-family',`"${store.get('textFont')}"`).css('font-size', `${store.get('textSize')}vw`);
 
+//draw text
+let displayText = store.get('displayText');
+let html = "";
+for(let position of displayText.positionList){
+    switch (displayText[position].type) {
+        case "none":
+            break;
+        case "text":
+            let txt = displayText[position].text;
+            let align = "";
+            if(position.includes("left")){
+                align = "w3-left-align"
+            } else if(position.includes("middle")){
+                align = "w3-center"
+            }else if(position.includes("right")){
+                align = "w3-right-align"
+            }
+            html += `<div class="w3-display-${position} ${align} w3-container">${txt}</div>`;
+            break;
+    }
+    $('#textDisplayArea').html(html);
+}
+
 //play a video
 newVideo();
