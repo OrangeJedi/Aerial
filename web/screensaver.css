@@ -17,12 +17,15 @@
 }
 
 .displayText {
-    position: fixed;
-    bottom: 5%;
-    right: 5%;
     color: #ffffff;
     font-family: "Segoe UI";
     font-size: 2vw;
+}
+
+.clock {
+    position: fixed;
+    bottom: 5%;
+    right: 5%;
 }
 
 body{
