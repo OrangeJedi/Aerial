@@ -13,7 +13,7 @@ function displaySettings() {
     for (let i = 0; i < checked.length; i++) {
         $(`#${checked[i]}`).prop('checked', store.get(checked[i]));
     }
-    let numTxt = ["sunrise", "sunset", "timeString", "textFont", "textSize"];
+    let numTxt = ["sunrise", "sunset", "textFont", "textSize"];
     for (let i = 0; i < numTxt.length; i++) {
         $(`#${numTxt[i]}`).val(store.get(numTxt[i]));
     }
@@ -23,7 +23,6 @@ function displaySettings() {
         $(`#${slider[i]}Text`).text(store.get(slider[i]));
     }
     displayPlaybackSettings();
-    showMomentDisplay('timeSettingsMomentDisplay', 'timeString');
 }
 
 displaySettings();
@@ -68,10 +67,10 @@ function updateSetting(setting, type) {
             break;
         case "autocomplete":
             let v = document.getElementById(setting).value;
-            if(fontList.includes(v)) {
+            if (fontList.includes(v)) {
                 store.set(setting, v);
                 $('#textFontError').css('display', "none");
-            }else{
+            } else {
                 $('#textFontError').css('display', "");
             }
             break;
@@ -132,6 +131,12 @@ function updatePositionType(position) {
             break;
         case "text":
             $('#positionDetails').html(`<label>Text</label><input class='w3-input' value='${displayTextSettings[position].text ? displayTextSettings[position].text : ""}' onchange="updateTextSetting(this, '${position}', 'text')">`);
+            break;
+        case "time":
+            $('#positionDetails').html(`<label>Time String</label>
+                                    <input class='w3-input' value='${displayTextSettings[position].timeString ? displayTextSettings[position].timeString : ""}' onchange="showMomentDisplay('positionTimeDisplay', this); updateTextSetting(this, '${position}', 'timeString')">
+                                    <span id="positionTimeDisplay"></span>
+                                    <button onclick="document.getElementById('timeFormatExplain').style.display='block'" class="w3-button w3-white w3-border w3-border-blue w3-round-large" style="margin-top: 2%">Show Formatting Details</button>`);
             break;
     }
 }
@@ -288,7 +293,7 @@ function deselectType() {
 }
 
 function showMomentDisplay(id, stringID) {
-    $(`#${id}`).text(moment().format($(`#${stringID}`).val()));
+    $(`#${id}`).text(moment().format(stringID.value));
 }
 
 //autocomplete stuff
@@ -297,11 +302,13 @@ function autocomplete(inp, arr, func) {
     the text field element and an array of possible autocompleted values:*/
     var currentFocus;
     /*execute a function when someone writes in the text field:*/
-    inp.addEventListener("input", function(e) {
+    inp.addEventListener("input", function (e) {
         var a, b, i, val = this.value;
         /*close any already open lists of autocompleted values*/
         closeAllLists();
-        if (!val) { return false;}
+        if (!val) {
+            return false;
+        }
         currentFocus = -1;
         /*create a DIV element that will contain the items (values):*/
         a = document.createElement("DIV");
@@ -321,7 +328,7 @@ function autocomplete(inp, arr, func) {
                 /*insert a input field that will hold the current array item's value:*/
                 b.innerHTML += "<input type='hidden' value='" + arr[i] + "'>";
                 /*execute a function when someone clicks on the item value (DIV element):*/
-                b.addEventListener("click", function(e) {
+                b.addEventListener("click", function (e) {
                     /*insert the value for the autocomplete text field:*/
                     inp.value = this.getElementsByTagName("input")[0].value;
                     /*close the list of autocompleted values,
@@ -333,7 +340,7 @@ function autocomplete(inp, arr, func) {
         }
     });
     /*execute a function presses a key on the keyboard:*/
-    inp.addEventListener("keydown", function(e) {
+    inp.addEventListener("keydown", function (e) {
         var x = document.getElementById(this.id + "autocomplete-list");
         if (x) x = x.getElementsByTagName("div");
         if (e.keyCode == 40) {
@@ -357,6 +364,7 @@ function autocomplete(inp, arr, func) {
             }
         }
     });
+
     function addActive(x) {
         /*a function to classify an item as "active":*/
         if (!x) return false;
@@ -367,12 +375,14 @@ function autocomplete(inp, arr, func) {
         /*add class "autocomplete-active":*/
         x[currentFocus].classList.add("autocomplete-active");
     }
+
     function removeActive(x) {
         /*a function to remove the "active" class from all autocomplete items:*/
         for (var i = 0; i < x.length; i++) {
             x[i].classList.remove("autocomplete-active");
         }
     }
+
     function closeAllLists(elmnt) {
         /*close all autocomplete lists in the document,
         except the one passed as an argument:*/
@@ -383,11 +393,18 @@ function autocomplete(inp, arr, func) {
             }
         }
     }
+
     /*execute a function when someone clicks in the document:*/
     document.addEventListener("click", function (e) {
         closeAllLists(e.target);
         func();
     });
 }
+
 let fontList = [];
-require('font-list-universal').getFonts().then(fonts => {autocomplete(document.getElementById('textFont'),fonts, ()=>{updateSetting('textFont', 'autocomplete')}, );fontList = fonts});
+require('font-list-universal').getFonts().then(fonts => {
+    autocomplete(document.getElementById('textFont'), fonts, () => {
+        updateSetting('textFont', 'autocomplete')
+    },);
+    fontList = fonts
+});

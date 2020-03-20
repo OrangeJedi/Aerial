@@ -22,12 +22,10 @@
     font-size: 2vw;
 }
 
-.clock {
-    position: fixed;
-    bottom: 5%;
-    right: 5%;
-}
-
 body{
     background-color: transparent;
+}
+
+.textDisplayArea{
+    padding: 2%;
 }

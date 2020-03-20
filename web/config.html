@@ -84,7 +84,6 @@
     <div class="w3-sidebar w3-light-grey w3-bar-block" style="width:20%">
         <div class="settingsListItem"><h3 class="w3-bar-item"><i class="fa fa-paragraph"></i> Text</h3></div>
         <a onclick="selectTextSetting('textOptions')" id="textSettingsList-textOptions" class="w3-bar-item w3-button textSettingsListItem w3-deep-orange">Text Options</a>
-        <a onclick="selectTextSetting('time')" id="textSettingsList-time" class="w3-bar-item w3-button textSettingsListItem">Time</a>
         <a onclick="selectTextSetting('position')" id="textSettingsList-position" class="w3-bar-item w3-button textSettingsListItem">Position</a>
     </div>
     <div id="textCard" style="margin-left:20%">
@@ -98,18 +97,6 @@
                     <br>
                     <label>Font Size: </label><input class="w3-input" id="textSize" type="number" step=".25" style="width: 25%; display: inline; margin-top: 2%" onchange="updateSetting('textSize', 'number')">
                 </div>
-            </div>
-        </div>
-        <div id="timeTextSettings" class="textSettingsCard" style="display: none">
-            <div class="w3-container w3-blue">
-                <h4>Time</h4>
-            </div>
-            <div class="w3-display-container" style="padding: 2%">
-                <input type="checkbox" id="showClock"  class="w3-check" onclick="updateClock()"><label> Show Clock</label>
-                <br>
-                <input class="w3-input" id="timeString" style="width: 40%; display: inline; margin-top: 2%" onchange="showMomentDisplay('timeSettingsMomentDisplay', 'timeString'); updateSetting('timeString', 'text')">
-                <span id="timeSettingsMomentDisplay"></span>
-                <button onclick="document.getElementById('timeFormatExplain').style.display='block'" class="w3-button w3-white w3-border w3-border-blue w3-round-large" style="margin-top: 2%">Show Formatting Details</button>
             </div>
         </div>
         <div id="positionTextSettings" class="textSettingsCard" style="display: none">
@@ -135,7 +122,7 @@
                         <select id="positionTypeSelect">
                             <option value="none">None</option>
                             <option value="text">Text</option>
-                            <option value="time/date">Time/Date</option>
+                            <option value="time">Time/Date</option>
                             <option value="description">Description</option>
                         </select>
                     </h3>
