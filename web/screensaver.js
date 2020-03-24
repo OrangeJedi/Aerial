@@ -65,6 +65,30 @@ function newVideo() {
     video.src = videoInfo.src.H2641080p;
     video.playbackRate = Number(store.get('playbackSpeed'));
     currentlyPlaying = videoInfo.id;
+    //display text
+    for (let position of displayText.positionList) {
+        let textArea = $(`#textDisplay-${position}`);
+        if (displayText[position].type === "information") {
+            if (displayText[position].infoType === "poi") {
+                changePOI(position, -1, videoInfo["pointsOfInterest"]);
+            } else {
+                textArea.text(videoInfo[displayText[position].infoType]);
+            }
+        }
+    }
+}
+
+function changePOI(position, currentPOI, poiList) {
+    let poiS = Object.keys(poiList);
+    for (let i = 0; i < poiS.length; i++) {
+        if (Number(poiS[i]) > currentPOI) {
+            $(`#textDisplay-${position}`).text(poiList[poiS[i]]);
+            if (i < poiS.length) {
+                setTimeout(changePOI, (Number(poiS[i + 1]) - Number(poiS[i])) * 1000, position, poiS[i], poiList);
+            }
+            break;
+        }
+    }
 }
 
 //time of day code
@@ -128,20 +152,20 @@ function drawVideo() {
 
 drawVideo();
 
-function runClock(position, timeString){
+function runClock(position, timeString) {
     $(`#textDisplay-${position}`).text(moment().format(timeString));
-    setTimeout(runClock,1000 - new Date().getMilliseconds(), position, timeString);
+    setTimeout(runClock, 1000 - new Date().getMilliseconds(), position, timeString);
 }
 
 //set up css
-$('.displayText').css('font-family',`"${store.get('textFont')}"`).css('font-size', `${store.get('textSize')}vw`);
+$('.displayText').css('font-family', `"${store.get('textFont')}"`).css('font-size', `${store.get('textSize')}vw`);
 
 //draw text
 let displayText = store.get('displayText');
 let html = "";
 
 //create content divs
-for(let position of displayText.positionList) {
+for (let position of displayText.positionList) {
     let align = "";
     if (position.includes("left")) {
         align = "w3-left-align"
@@ -154,13 +178,12 @@ for(let position of displayText.positionList) {
     $('#textDisplayArea').html(html);
 }
 //add text to the content
-for(let position of displayText.positionList){
+for (let position of displayText.positionList) {
     switch (displayText[position].type) {
         case "none":
             break;
         case "text":
-            console.log(displayText[position].text);
-           $(`#textDisplay-${position}`).text(displayText[position].text);
+            $(`#textDisplay-${position}`).text(displayText[position].text);
             break;
         case "time":
             runClock(position, displayText[position].timeString);

@@ -135,8 +135,19 @@ function updatePositionType(position) {
         case "time":
             $('#positionDetails').html(`<label>Time String</label>
                                     <input class='w3-input' value='${displayTextSettings[position].timeString ? displayTextSettings[position].timeString : ""}' onchange="showMomentDisplay('positionTimeDisplay', this); updateTextSetting(this, '${position}', 'timeString')">
-                                    <span id="positionTimeDisplay"></span>
+                                    <span id="positionTimeDisplay">${displayTextSettings[position].timeString ? moment().format(displayTextSettings[position].timeString) : ""}</span>
+                                    <br>
                                     <button onclick="document.getElementById('timeFormatExplain').style.display='block'" class="w3-button w3-white w3-border w3-border-blue w3-round-large" style="margin-top: 2%">Show Formatting Details</button>`);
+            break;
+        case "information":
+            let selected = displayTextSettings[position].infoType ? displayTextSettings[position].infoType : "";
+            console.log(selected);
+            $('#positionDetails').html(`<label>Type </label>
+                                        <select onchange="updateTextSetting(this, '${position}', 'infoType')">
+                                        <option value="accessibilityLabel" ${selected === "accessibilityLabel" ? "selected" : ""}>Label</option>
+                                        <option value="name" ${selected === "name" ? "selected" : ""}>Video Name</option>
+                                        <option value="poi" ${selected === "poi" ? "selected" : ""}>Location Information</option>
+                                        </select>`);
             break;
     }
 }

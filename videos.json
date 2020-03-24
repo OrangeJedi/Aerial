@@ -2,7 +2,9 @@
   {
     "id": "2F72BC1E-3D76-456C-81EB-842EBA488C27",
     "accessibilityLabel": "Africa and the Middle East",
-    "src": { "H2641080p": "https://sylvan.apple.com/Videos/comp_A103_C002_0205DG_v12_SDR_FINAL_20180706_SDR_2K_AVC.mov" },
+    "src": {
+      "H2641080p": "https://sylvan.apple.com/Videos/comp_A103_C002_0205DG_v12_SDR_FINAL_20180706_SDR_2K_AVC.mov"
+    },
     "name": "Africa and the Middle East",
     "type": "space",
     "timeOfDay": "day",
@@ -42,18 +44,26 @@
   {
     "id": "C7AD3D0A-7EDF-412C-A237-B3C9D27381A1",
     "accessibilityLabel": "Alaskan Jellies",
-    "src": { "H2641080p": "https://sylvan.apple.com/Videos/g201_AK_A003_C014_SDR_20191113_SDR_2K_AVC.mov" },
+    "src": {
+      "H2641080p": "https://sylvan.apple.com/Videos/g201_AK_A003_C014_SDR_20191113_SDR_2K_AVC.mov"
+    },
     "name": "Alaskan Jellies 1",
     "type": "underwater",
-    "pointsOfInterest": { "0": "Drifting over Moon Jellyfish near the coast of Alaska United States" }
+    "pointsOfInterest": {
+      "0": "Drifting over Moon Jellyfish near the coast of Alaska United States"
+    }
   },
   {
     "id": "C6DC4E54-1130-44F8-AF6F-A551D8E8A181",
     "accessibilityLabel": "Alaskan Jellies",
-    "src": { "H2641080p": "https://sylvan.apple.com/Videos/AK_A004_C012_SDR_20191217_SDR_2K_AVC.mov" },
+    "src": {
+      "H2641080p": "https://sylvan.apple.com/Videos/AK_A004_C012_SDR_20191217_SDR_2K_AVC.mov"
+    },
     "name": "Alaskan Jellies 2",
     "type": "underwater",
-    "pointsOfInterest": { "0": "Drifting under Moon Jellyfish near the coast of Alaska United States" }
+    "pointsOfInterest": {
+      "0": "Drifting under Moon Jellyfish near the coast of Alaska United States"
+    }
   },
   {
     "id": "03EC0F5E-CCA8-4E0A-9FEC-5BD1CE151182",
@@ -64,12 +74,16 @@
     "name": "Antartica",
     "type": "space",
     "timeOfDay": "night",
-    "pointsOfInterest": { "0": "Aurora Australis over Antarctica" }
+    "pointsOfInterest": {
+      "0": "Aurora Australis over Antarctica"
+    }
   },
   {
     "id": "64D11DAB-3B57-4F14-AD2F-E59A9282FA44",
     "accessibilityLabel": "Atlantic Ocean to France",
-    "src": { "H2641080p": "https://sylvan.apple.com/Videos/comp_A001_C001_120530_v04_SDR_FINAL_20180706_SDR_2K_AVC.mov" },
+    "src": {
+      "H2641080p": "https://sylvan.apple.com/Videos/comp_A001_C001_120530_v04_SDR_FINAL_20180706_SDR_2K_AVC.mov"
+    },
     "name": "Atlantic Ocean to Spain and France",
     "type": "space",
     "pointsOfInterest": {
@@ -98,34 +112,50 @@
   {
     "id": "2B30E324-E4FF-4CC1-BA45-A958C2D2B2EC",
     "accessibilityLabel": "Barracuda",
-    "src": { "H2641080p": "https://sylvan.apple.com/Videos/BO_A018_C029_SDR_20190812_SDR_2K_AVC.mov" },
+    "src": {
+      "H2641080p": "https://sylvan.apple.com/Videos/BO_A018_C029_SDR_20190812_SDR_2K_AVC.mov"
+    },
     "name": "Barracuda",
     "type": "underwater",
-    "pointsOfInterest": { "0": "A school of Chevron Barracuda in the waters near Borne" }
+    "pointsOfInterest": {
+      "0": "A school of Chevron Barracuda in the waters near Borne"
+    }
   },
   {
     "id": "687D03A2-18A5-4181-8E85-38F3A13409B9",
     "accessibilityLabel": "Bumpheads",
-    "src": { "H2641080p": "https://sylvan.apple.com/Videos/BO_A014_C008_SDR_20190719_SDR_2K_AVC.mov" },
+    "src": {
+      "H2641080p": "https://sylvan.apple.com/Videos/BO_A014_C008_SDR_20190719_SDR_2K_AVC.mov"
+    },
     "name": "Bumpheads",
     "type": "underwater",
-    "pointsOfInterest": { "0": "Bumphead Parrotfish over the coral reefs off Borneoo" }
+    "pointsOfInterest": {
+      "0": "Bumphead Parrotfish over the coral reefs off Borneoo"
+    }
   },
   {
     "id": "27A37B0F-738D-4644-A7A4-E33E7A6C1175",
     "accessibilityLabel": "California Dolphins",
-    "src": { "H2641080p": "https://sylvan.apple.com/Videos/DL_B002_C011_SDR_20191122_SDR_2K_AVC.mov" },
+    "src": {
+      "H2641080p": "https://sylvan.apple.com/Videos/DL_B002_C011_SDR_20191122_SDR_2K_AVC.mov"
+    },
     "name": "California Dolphins",
     "type": "underwater",
-    "pointsOfInterest": { "0": "Short-beaked Common Dolphins off the California coast, United States" }
+    "pointsOfInterest": {
+      "0": "Short-beaked Common Dolphins off the California coast, United States"
+    }
   },
   {
     "id": "EB3F48E7-D30F-4079-858F-1A61331D5026",
     "accessibilityLabel": "California Kelp Forest",
-    "src": { "H2641080p": "https://sylvan.apple.com/Videos/g201_CA_A016_C002_SDR_20191114_SDR_2K_AVC.mov" },
+    "src": {
+      "H2641080p": "https://sylvan.apple.com/Videos/g201_CA_A016_C002_SDR_20191114_SDR_2K_AVC.mov"
+    },
     "name": "California Kelp Forest",
     "type": "underwater",
-    "pointsOfInterest": { "0": "Moving through a kelp forest off of the California coast, United States" }
+    "pointsOfInterest": {
+      "0": "Moving through a kelp forest off of the California coast, United States"
+    }
   },
   {
     "id": "12318CCB-3F78-43B7-A854-EFDCCE5312CD",
@@ -150,7 +180,9 @@
   {
     "id": "1088217C-1410-4CF7-BDE9-8F573A4DBCD9",
     "accessibilityLabel": "Caribbean",
-    "src": { "H2641080p": "https://sylvan.apple.com/Videos/comp_A105_C002_v06_SDR_FINAL_25062018_SDR_2K_AVC.mov" },
+    "src": {
+      "H2641080p": "https://sylvan.apple.com/Videos/comp_A105_C002_v06_SDR_FINAL_25062018_SDR_2K_AVC.mov"
+    },
     "name": "Caribbean to Central America",
     "type": "space",
     "pointsOfInterest": {
@@ -166,7 +198,9 @@
   {
     "id": "D5CFB2FF-5F8C-4637-816B-3E42FC1229B8",
     "accessibilityLabel": "Caribbean",
-    "src": { "H2641080p": "https://sylvan.apple.com/Videos/comp_A108_C001_v09_SDR_FINAL_22062018_SDR_2K_AVC.mov" },
+    "src": {
+      "H2641080p": "https://sylvan.apple.com/Videos/comp_A108_C001_v09_SDR_FINAL_22062018_SDR_2K_AVC.mov"
+    },
     "name": "Caribbean",
     "type": "space",
     "timeOfDay": "day",
@@ -204,26 +238,38 @@
   {
     "id": "9CCB8297-E9F5-4699-AE1F-890CFBD5E29C",
     "accessibilityLabel": "China",
-    "src": { "H2641080p": "https://sylvan.apple.com/Videos/comp_CH_C002_C005_PSNK_v05_SDR_PS_FINAL_20180709_SDR_2K_AVC.mov" },
+    "src": {
+      "H2641080p": "https://sylvan.apple.com/Videos/comp_CH_C002_C005_PSNK_v05_SDR_PS_FINAL_20180709_SDR_2K_AVC.mov"
+    },
     "name": "Longji Rice Terraces",
     "type": "aerial",
-    "pointsOfInterest": { "0": "Passing over the Longji rice terraces in Guangxi Province China" }
+    "pointsOfInterest": {
+      "0": "Passing over the Longji rice terraces in Guangxi Province China"
+    }
   },
   {
     "id": "D5E76230-81A3-4F65-A1BA-51B8CADED625",
     "accessibilityLabel": "China",
-    "src": { "H2641080p": "https://sylvan.apple.com/Videos/comp_CH_C007_C004_PSNK_v02_SDR_PS_FINAL_20180709_SDR_2K_AVC.mov" },
+    "src": {
+      "H2641080p": "https://sylvan.apple.com/Videos/comp_CH_C007_C004_PSNK_v02_SDR_PS_FINAL_20180709_SDR_2K_AVC.mov"
+    },
     "name": "Wulingyuan National Park 2",
     "type": "aerial",
-    "pointsOfInterest": { "0": "Exploring Wulingyuan National Park in China" }
+    "pointsOfInterest": {
+      "0": "Exploring Wulingyuan National Park in China"
+    }
   },
   {
     "id": "044AD56C-A107-41B2-90CC-E60CCACFBCF5",
     "accessibilityLabel": "China",
-    "src": { "H2641080p": "https://sylvan.apple.com/Videos/comp_C003_C003_PS_v01_SDR_PS_20180925_SDR_2K_AVC.mov" },
+    "src": {
+      "H2641080p": "https://sylvan.apple.com/Videos/comp_C003_C003_PS_v01_SDR_PS_20180925_SDR_2K_AVC.mov"
+    },
     "name": "Great Wall 3",
     "type": "aerial",
-    "pointsOfInterest": { "0": "The Mutianyu section of the Great Wall in Huairou District China" }
+    "pointsOfInterest": {
+      "0": "The Mutianyu section of the Great Wall in Huairou District China"
+    }
   },
   {
     "id": "7825C73A-658F-48EE-B14C-EC56673094AC",
@@ -245,47 +291,69 @@
   {
     "id": "B876B645-3955-420E-99DF-60139E451CF3",
     "accessibilityLabel": "China",
-    "src": { "H2641080p": "https://sylvan.apple.com/Videos/comp_CH_C007_C011_PSNK_v02_SDR_PS_FINAL_20180709_SDR_2K_AVC.mov" },
+    "src": {
+      "H2641080p": "https://sylvan.apple.com/Videos/comp_CH_C007_C011_PSNK_v02_SDR_PS_FINAL_20180709_SDR_2K_AVC.mov"
+    },
     "name": "Wulingyuan National Park 1",
     "type": "aerial",
-    "pointsOfInterest": { "0": "Traveling through Wulingyuan National Park in China" }
+    "pointsOfInterest": {
+      "0": "Traveling through Wulingyuan National Park in China"
+    }
   },
   {
     "id": "F0236EC5-EE72-4058-A6CE-1F7D2E8253BF",
     "accessibilityLabel": "China",
-    "src": { "H2641080p": "https://sylvan.apple.com/Videos/comp_C001_C005_PS_v01_SDR_PS_20180925_SDR_2K_AVC.mov" },
+    "src": {
+      "H2641080p": "https://sylvan.apple.com/Videos/comp_C001_C005_PS_v01_SDR_PS_20180925_SDR_2K_AVC.mov"
+    },
     "name": "Great Wall 1",
     "type": "aerial",
-    "pointsOfInterest": { "0": "The Mutianyu section of the Great Wall in Huairou District, China" }
+    "pointsOfInterest": {
+      "0": "The Mutianyu section of the Great Wall in Huairou District, China"
+    }
   },
   {
     "id": "22162A9B-DB90-4517-867C-C676BC3E8E95",
     "accessibilityLabel": "China",
-    "src": { "H2641080p": "https://sylvan.apple.com/Videos/comp_C004_C003_PS_v01_SDR_PS_20180925_SDR_2K_AVC.mov" },
+    "src": {
+      "H2641080p": "https://sylvan.apple.com/Videos/comp_C004_C003_PS_v01_SDR_PS_20180925_SDR_2K_AVC.mov"
+    },
     "name": "Great Wall 2",
     "type": "aerial",
-    "pointsOfInterest": { "0": "The Mutianyu section of the Great Wall in Huairou District, China" }
+    "pointsOfInterest": {
+      "0": "The Mutianyu section of the Great Wall in Huairou District, China"
+    }
   },
   {
     "id": "CE9B5D5B-B6E7-47C5-8C04-59BF182E98FB",
     "accessibilityLabel": "Costa Rica Dolphins",
-    "src": { "H2641080p": "https://sylvan.apple.com/Videos/CR_A009_C007_SDR_20191113_SDR_2K_AVC.mov" },
+    "src": {
+      "H2641080p": "https://sylvan.apple.com/Videos/CR_A009_C007_SDR_20191113_SDR_2K_AVC.mov"
+    },
     "name": "Costa Rica Dolphins",
     "type": "underwater",
-    "pointsOfInterest": { "0": "Sea Spinner Dolphins in the waters off of Costa Rica" }
+    "pointsOfInterest": {
+      "0": "Sea Spinner Dolphins in the waters off of Costa Rica"
+    }
   },
   {
     "id": "58C75C62-3290-47B8-849C-56A583173570",
     "accessibilityLabel": "Cownose Rays",
-    "src": { "H2641080p": "https://sylvan.apple.com/Videos/MEX_A006_C008_SDR_20190923_SDR_2K_AVC.mov" },
+    "src": {
+      "H2641080p": "https://sylvan.apple.com/Videos/MEX_A006_C008_SDR_20190923_SDR_2K_AVC.mov"
+    },
     "name": "Cownose Rays",
     "type": "underwater",
-    "pointsOfInterest": { "0": "Golden Cownose Rays off the coast of Mexico" }
+    "pointsOfInterest": {
+      "0": "Golden Cownose Rays off the coast of Mexico"
+    }
   },
   {
     "id": "9680B8EB-CE2A-4395-AF41-402801F4D6A6",
     "accessibilityLabel": "Dubai",
-    "src": { "H2641080p": "https://sylvan.apple.com/Videos/comp_DB_D011_C010_PSNK_DENOISE_v19_SDR_PS_20180914_SDR_2K_AVC.mov" },
+    "src": {
+      "H2641080p": "https://sylvan.apple.com/Videos/comp_DB_D011_C010_PSNK_DENOISE_v19_SDR_PS_20180914_SDR_2K_AVC.mov"
+    },
     "name": "Approaching Burj Khalifa",
     "timeOfDay": "night",
     "type": "aerial",
@@ -298,15 +366,21 @@
   {
     "id": "876D51F4-3D78-4221-8AD2-F9E78C0FD9B9",
     "accessibilityLabel": "Dubai",
-    "src": { "H2641080p": "https://sylvan.apple.com/Videos/comp_DB_D008_C010_PSNK_v21_SDR_PS_20180914_F0F16157_SDR_2K_AVC.mov" },
+    "src": {
+      "H2641080p": "https://sylvan.apple.com/Videos/comp_DB_D008_C010_PSNK_v21_SDR_PS_20180914_F0F16157_SDR_2K_AVC.mov"
+    },
     "name": "Sheikh Zayed Road",
     "type": "aerial",
-    "pointsOfInterest": { "0": "Traveling along Sheikh Zayed Road in Dubai United Arab Emirates" }
+    "pointsOfInterest": {
+      "0": "Traveling along Sheikh Zayed Road in Dubai United Arab Emirates"
+    }
   },
   {
     "id": "00BA71CD-2C54-415A-A68A-8358E677D750",
     "accessibilityLabel": "Dubai",
-    "src": { "H2641080p": "https://sylvan.apple.com/Videos/comp_DB_D002_C003_PSNK_v04_SDR_PS_20180914_SDR_2K_AVC.mov" },
+    "src": {
+      "H2641080p": "https://sylvan.apple.com/Videos/comp_DB_D002_C003_PSNK_v04_SDR_PS_20180914_SDR_2K_AVC.mov"
+    },
     "name": "Downtown",
     "type": "aerial",
     "pointsOfInterest": {
@@ -317,107 +391,157 @@
   {
     "id": "E991AC0C-F272-44D8-88F3-05F44EDFE3AE",
     "accessibilityLabel": "Dubai",
-    "src": { "H2641080p": "https://sylvan.apple.com/Videos/comp_DB_D001_C001_PSNK_v06_SDR_PS_20180824_SDR_2K_AVC.mov" },
+    "src": {
+      "H2641080p": "https://sylvan.apple.com/Videos/comp_DB_D001_C001_PSNK_v06_SDR_PS_20180824_SDR_2K_AVC.mov"
+    },
     "name": "Marina 1",
     "type": "aerial",
-    "pointsOfInterest": { "0": "Flying over Dubai Marina in the United Arab Emirates" }
+    "pointsOfInterest": {
+      "0": "Flying over Dubai Marina in the United Arab Emirates"
+    }
   },
   {
     "id": "3FFA2A97-7D28-49EA-AA39-5BC9051B2745",
     "accessibilityLabel": "Dubai",
-    "src": { "H2641080p": "https://sylvan.apple.com/Videos/comp_DB_D001_C005_COMP_PSNK_v12_SDR_PS_20180912_SDR_2K_AVC.mov" },
+    "src": {
+      "H2641080p": "https://sylvan.apple.com/Videos/comp_DB_D001_C005_COMP_PSNK_v12_SDR_PS_20180912_SDR_2K_AVC.mov"
+    },
     "name": "Marina 2",
     "type": "aerial",
-    "pointsOfInterest": { "0": "Flying along Dubai Marina in the United Arab Emirates" }
+    "pointsOfInterest": {
+      "0": "Flying along Dubai Marina in the United Arab Emirates"
+    }
   },
   {
     "id": "3716DD4B-01C0-4F5B-8DD6-DB771EC472FB",
     "accessibilityLabel": "Gray Reef Sharks",
-    "src": { "H2641080p": "https://sylvan.apple.com/Videos/FK_U009_C004_SDR_20191220_SDR_2K_AVC.mov" },
+    "src": {
+      "H2641080p": "https://sylvan.apple.com/Videos/FK_U009_C004_SDR_20191220_SDR_2K_AVC.mov"
+    },
     "name": "Gray Reef Sharks",
     "type": "underwater",
-    "pointsOfInterest": { "0": "Gray Reef Sharks swimming near French Polynesia" }
+    "pointsOfInterest": {
+      "0": "Gray Reef Sharks swimming near French Polynesia"
+    }
   },
   {
     "id": "2F52E34C-39D4-4AB1-9025-8F7141FAA720",
     "accessibilityLabel": "Greenland",
-    "src": { "H2641080p": "https://sylvan.apple.com/Videos/comp_GL_G002_C002_PSNK_v03_SDR_PS_20180925_SDR_2K_AVC.mov" },
+    "src": {
+      "H2641080p": "https://sylvan.apple.com/Videos/comp_GL_G002_C002_PSNK_v03_SDR_PS_20180925_SDR_2K_AVC.mov"
+    },
     "name": "Ilulissat Icefjord",
     "type": "aerial",
-    "pointsOfInterest": { "0": "The Ilulissat Icefjord off the coast of Greenland" }
+    "pointsOfInterest": {
+      "0": "The Ilulissat Icefjord off the coast of Greenland"
+    }
   },
   {
     "id": "B8F204CE-6024-49AB-85F9-7CA2F6DCD226",
     "accessibilityLabel": "Greenland",
-    "src": { "H2641080p": "https://sylvan.apple.com/Videos/comp_GL_G004_C010_PSNK_v04_SDR_PS_FINAL_20180709_SDR_2K_AVC.mov" },
+    "src": {
+      "H2641080p": "https://sylvan.apple.com/Videos/comp_GL_G004_C010_PSNK_v04_SDR_PS_FINAL_20180709_SDR_2K_AVC.mov"
+    },
     "name": "Nuussuaq Peninsula",
     "type": "aerial",
-    "pointsOfInterest": { "0": "Traveling along the Nuussuaq Peninsula in Greenland" }
+    "pointsOfInterest": {
+      "0": "Traveling along the Nuussuaq Peninsula in Greenland"
+    }
   },
   {
     "id": "EE01F02D-1413-436C-AB05-410F224A5B7B",
     "accessibilityLabel": "Greenland",
-    "src": { "H2641080p": "https://sylvan.apple.com/Videos/comp_GL_G010_C006_PSNK_NOSUN_v12_SDR_PS_FINAL_20180709_SDR_2K_AVC.mov" },
+    "src": {
+      "H2641080p": "https://sylvan.apple.com/Videos/comp_GL_G010_C006_PSNK_NOSUN_v12_SDR_PS_FINAL_20180709_SDR_2K_AVC.mov"
+    },
     "name": "Ilulissat Icefjord",
     "timeOfDay": "night",
     "type": "aerial",
-    "pointsOfInterest": { "0": "The Ilulissat Icefjord off the coast of Greenland" }
+    "pointsOfInterest": {
+      "0": "The Ilulissat Icefjord off the coast of Greenland"
+    }
   },
   {
     "id": "258A6797-CC13-4C3A-AB35-4F25CA3BF474",
     "accessibilityLabel": "Hawaii",
-    "src": { "H2641080p": "https://sylvan.apple.com/Videos/comp_H004_C009_PS_v01_SDR_PS_20180925_SDR_2K_AVC.mov" },
+    "src": {
+      "H2641080p": "https://sylvan.apple.com/Videos/comp_H004_C009_PS_v01_SDR_PS_20180925_SDR_2K_AVC.mov"
+    },
     "name": "Pu‘u O ‘Umi",
     "type": "aerial",
-    "pointsOfInterest": { "0": "Above the Pu‘u O ‘Umi Natural Area Reserve on the island of Hawaii" }
+    "pointsOfInterest": {
+      "0": "Above the Pu‘u O ‘Umi Natural Area Reserve on the island of Hawaii"
+    }
   },
   {
     "id": "3D729CFC-9000-48D3-A052-C5BD5B7A6842",
     "accessibilityLabel": "Hawaii",
-    "src": { "H2641080p": "https://sylvan.apple.com/Videos/comp_H012_C009_PS_v01_SDR_PS_20180925_SDR_2K_AVC.mov" },
+    "src": {
+      "H2641080p": "https://sylvan.apple.com/Videos/comp_H012_C009_PS_v01_SDR_PS_20180925_SDR_2K_AVC.mov"
+    },
     "name": "Kohala Coastline",
     "timeOfDay": "night",
     "type": "aerial",
-    "pointsOfInterest": { "0": "Following the Kohala coastline on the island of Hawaii" }
+    "pointsOfInterest": {
+      "0": "Following the Kohala coastline on the island of Hawaii"
+    }
   },
   {
     "id": "499995FA-E51A-4ACE-8DFD-BDF8AFF6C943",
     "accessibilityLabel": "Hawaii",
-    "src": { "H2641080p": "https://sylvan.apple.com/Videos/comp_H005_C012_PS_v01_SDR_PS_20180925_SDR_2K_AVC.mov" },
+    "src": {
+      "H2641080p": "https://sylvan.apple.com/Videos/comp_H005_C012_PS_v01_SDR_PS_20180925_SDR_2K_AVC.mov"
+    },
     "name": "Waimanu Valley",
     "type": "aerial",
-    "pointsOfInterest": { "0": "The Waimanu Valley in the Kohala Forest Reserve on the island of Hawaii" }
+    "pointsOfInterest": {
+      "0": "The Waimanu Valley in the Kohala Forest Reserve on the island of Hawaii"
+    }
   },
   {
     "id": "82BD33C9-B6D2-47E7-9C42-AA3B7758921A",
     "accessibilityLabel": "Hawaii",
-    "src": { "H2641080p": "https://sylvan.apple.com/Videos/comp_H004_C007_PS_v02_SDR_PS_20180925_SDR_2K_AVC.mov" },
+    "src": {
+      "H2641080p": "https://sylvan.apple.com/Videos/comp_H004_C007_PS_v02_SDR_PS_20180925_SDR_2K_AVC.mov"
+    },
     "name": "Pu‘u O ‘Umi",
     "timeOfDay": "night",
     "type": "aerial",
-    "pointsOfInterest": { "0": "Above the Pu‘u O ‘Umi Natural Area Reserve on the island of Hawaii" }
+    "pointsOfInterest": {
+      "0": "Above the Pu‘u O ‘Umi Natural Area Reserve on the island of Hawaii"
+    }
   },
   {
     "id": "12E0343D-2CD9-48EA-AB57-4D680FB6D0C7",
     "accessibilityLabel": "Hawaii",
-    "src": { "H2641080p": "https://sylvan.apple.com/Videos/comp_H007_C003_PS_v01_SDR_PS_20180925_SDR_2K_AVC.mov" },
+    "src": {
+      "H2641080p": "https://sylvan.apple.com/Videos/comp_H007_C003_PS_v01_SDR_PS_20180925_SDR_2K_AVC.mov"
+    },
     "name": "Laupāhoehoe Nui",
     "type": "aerial",
-    "pointsOfInterest": { "0": "Flying over Laupāhoehoe Nui in the Kohala Forest Reserve on the island of Hawaii" }
+    "pointsOfInterest": {
+      "0": "Flying over Laupāhoehoe Nui in the Kohala Forest Reserve on the island of Hawaii"
+    }
   },
   {
     "id": "E99FA658-A59A-4A2D-9F3B-58E7BDC71A9A",
     "accessibilityLabel": "Hong Kong",
-    "src": { "H2641080p": "https://sylvan.apple.com/Videos/comp_HK_B005_C011_PSNK_v16_SDR_PS_20180914_SDR_2K_AVC.mov" },
+    "src": {
+      "H2641080p": "https://sylvan.apple.com/Videos/comp_HK_B005_C011_PSNK_v16_SDR_PS_20180914_SDR_2K_AVC.mov"
+    },
     "name": "Victoria Harbour",
     "timeOfDay": "night",
     "type": "aerial",
-    "pointsOfInterest": { "0": "Over Victoria Harbour heading toward Central Hong Kong" }
+    "pointsOfInterest": {
+      "0": "Over Victoria Harbour heading toward Central Hong Kong"
+    }
   },
   {
     "id": "C8559883-6F3E-4AF2-8960-903710CD47B7",
     "accessibilityLabel": "Hong Kong",
-    "src": { "H2641080p": "https://sylvan.apple.com/Videos/comp_HK_H004_C010_PSNK_v08_SDR_PS_20181009_SDR_2K_AVC.mov" },
+    "src": {
+      "H2641080p": "https://sylvan.apple.com/Videos/comp_HK_H004_C010_PSNK_v08_SDR_PS_20181009_SDR_2K_AVC.mov"
+    },
     "name": "Victoria Peak",
     "type": "aerial",
     "pointsOfInterest": {
@@ -429,31 +553,47 @@
   {
     "id": "024891DE-B7F6-4187-BFE0-E6D237702EF0",
     "accessibilityLabel": "Hong Kong",
-    "src": { "H2641080p": "https://sylvan.apple.com/Videos/comp_HK_H004_C013_t9_6M_HB_tag0.mov" },
+    "src": {
+      "H2641080p": "https://sylvan.apple.com/Videos/comp_HK_H004_C013_t9_6M_HB_tag0.mov"
+    },
     "name": "Wan Chai",
     "type": "aerial",
-    "pointsOfInterest": { "0": "Over Wan Chai approaching Central Hong Kong", "150": "Over Central Hong Kongo", "270": "Over Hong Kong Island" }
+    "pointsOfInterest": {
+      "0": "Over Wan Chai approaching Central Hong Kong",
+      "150": "Over Central Hong Kongo",
+      "270": "Over Hong Kong Island"
+    }
   },
   {
     "id": "FE8E1F9D-59BA-4207-B626-28E34D810D0A",
     "accessibilityLabel": "Hong Kong",
-    "src": { "H2641080p": "https://sylvan.apple.com/Videos/comp_HK_H004_C008_PSNK_v19_SDR_PS_20180914_SDR_2K_AVC.mov" },
+    "src": {
+      "H2641080p": "https://sylvan.apple.com/Videos/comp_HK_H004_C008_PSNK_v19_SDR_PS_20180914_SDR_2K_AVC.mov"
+    },
     "name": "Victoria Harbour 1",
     "type": "aerial",
-    "pointsOfInterest": { "0": "Over Victoria Harbour facing Hong Kong Island" }
+    "pointsOfInterest": {
+      "0": "Over Victoria Harbour facing Hong Kong Island"
+    }
   },
   {
     "id": "DD47D8E1-CB66-4C12-BFEA-2ADB0D8D1E2E",
     "accessibilityLabel": "Humpback Whale",
-    "src": { "H2641080p": "https://sylvan.apple.com/Videos/g201_WH_D004_L014_SDR_20191031_SDR_2K_AVC.mov" },
+    "src": {
+      "H2641080p": "https://sylvan.apple.com/Videos/g201_WH_D004_L014_SDR_20191031_SDR_2K_AVC.mov"
+    },
     "name": "Humpback Whale",
     "type": "underwater",
-    "pointsOfInterest": { "0": "A Humpback Whale off of French Polynesia" }
+    "pointsOfInterest": {
+      "0": "A Humpback Whale off of French Polynesia"
+    }
   },
   {
     "id": "F439B0A7-D18C-4B14-9681-6520E6A74FE9",
     "accessibilityLabel": "Iran and Afghanistan",
-    "src": { "H2641080p": "https://sylvan.apple.com/Videos/comp_A083_C002_1130KZ_v04_SDR_PS_FINAL_20180725_SDR_2K_AVC.mov" },
+    "src": {
+      "H2641080p": "https://sylvan.apple.com/Videos/comp_A083_C002_1130KZ_v04_SDR_PS_FINAL_20180725_SDR_2K_AVC.mov"
+    },
     "name": "Iran and Afghanistan",
     "type": "space",
     "timeOfDay": "night",
@@ -487,7 +627,9 @@
   {
     "id": "E5DB138A-F04E-4619-B896-DE5CB538C534",
     "accessibilityLabel": "Italy to Asia",
-    "src": { "H2641080p": "https://sylvan.apple.com/Videos/comp_GMT329_113NC_396B_1105_ITALY_v03_SDR_FINAL_20180706_SDR_2K_AVC.mov" },
+    "src": {
+      "H2641080p": "https://sylvan.apple.com/Videos/comp_GMT329_113NC_396B_1105_ITALY_v03_SDR_FINAL_20180706_SDR_2K_AVC.mov"
+    },
     "name": "Italy to Asia",
     "type": "space",
     "timeOfDay": "night",
@@ -504,18 +646,26 @@
   {
     "id": "537A4DAB-83B0-4B66-BCD1-05E5DBB4A268",
     "accessibilityLabel": "Jacks",
-    "src": { "H2641080p": "https://sylvan.apple.com/Videos/BO_A014_C023_SDR_20190717_F240F3709_SDR_2K_AVC.mov" },
+    "src": {
+      "H2641080p": "https://sylvan.apple.com/Videos/BO_A014_C023_SDR_20190717_F240F3709_SDR_2K_AVC.mov"
+    },
     "name": "Jacks",
     "type": "underwater",
-    "pointsOfInterest": { "0": "A school of Bigeye Jacks off the coast of Borneo" }
+    "pointsOfInterest": {
+      "0": "A school of Bigeye Jacks off the coast of Borneo"
+    }
   },
   {
     "id": "6143116D-03BB-485E-864E-A8CF58ACF6F1",
     "accessibilityLabel": "Kelp",
-    "src": { "H2641080p": "https://sylvan.apple.com/Videos/KP_A010_C002_SDR_20190717_SDR_2K_AVC.mov" },
+    "src": {
+      "H2641080p": "https://sylvan.apple.com/Videos/KP_A010_C002_SDR_20190717_SDR_2K_AVC.mov"
+    },
     "name": "South African Kelp",
     "type": "underwater",
-    "pointsOfInterest": { "0": "Drifting through a kelp forest near Cape Peninsula South Africa" }
+    "pointsOfInterest": {
+      "0": "Drifting through a kelp forest near Cape Peninsula South Africa"
+    }
   },
   {
     "id": "009BA758-7060-4479-8EE8-FB9B40C8FB97",
@@ -546,20 +696,28 @@
     },
     "name": "Liwa Oasis 2",
     "type": "aerial",
-    "pointsOfInterest": { "0": "Flying over Liwa Oasis in the United Arab Emirates" }
+    "pointsOfInterest": {
+      "0": "Flying over Liwa Oasis in the United Arab Emirates"
+    }
   },
   {
     "id": "001C94AE-2BA4-4E77-A202-F7DE60E8B1C8",
     "accessibilityLabel": "Liwa",
-    "src": { "H2641080p": "https://sylvan.apple.com/Videos/comp_LW_L001_C006_PSNK_DENOISE_v02_SDR_PS_FINAL_20180709_SDR_2K_AVC.mov" },
+    "src": {
+      "H2641080p": "https://sylvan.apple.com/Videos/comp_LW_L001_C006_PSNK_DENOISE_v02_SDR_PS_FINAL_20180709_SDR_2K_AVC.mov"
+    },
     "name": "Liwa Oasis 1",
     "type": "aerial",
-    "pointsOfInterest": { "0": "Flying over Liwa Oasis in the United Arab Emirates" }
+    "pointsOfInterest": {
+      "0": "Flying over Liwa Oasis in the United Arab Emirates"
+    }
   },
   {
     "id": "A5AAFF5D-8887-42BB-8AFD-867EF557ED85",
     "accessibilityLabel": "London",
-    "src": { "H2641080p": "https://sylvan.apple.com/Videos/comp_L007_C007_PS_v01_SDR_PS_20180925_SDR_2K_AVC.mov" },
+    "src": {
+      "H2641080p": "https://sylvan.apple.com/Videos/comp_L007_C007_PS_v01_SDR_PS_20180925_SDR_2K_AVC.mov"
+    },
     "name": "Buckingham Palace",
     "pointsOfInterest": {
       "0": "Passing over the grounds of Buckingham Palace London",
@@ -576,10 +734,12 @@
   {
     "id": "F604AF56-EA77-4960-AEF7-82533CC1A8B3",
     "accessibilityLabel": "London",
-    "src": { "H2641080p": "https://sylvan.apple.com/Videos/comp_L012_c002_PS_v01_SDR_PS_20180925_SDR_2K_AVC.mov" },
+    "src": {
+      "H2641080p": "https://sylvan.apple.com/Videos/comp_L012_c002_PS_v01_SDR_PS_20180925_SDR_2K_AVC.mov"
+    },
     "name": "River Thames near Sunset",
     "pointsOfInterest": {
-      "0": "$London",
+      "0": "Approaching the River Thames in London",
       "20": "Crossing the River Thames in London",
       "60": "Passing The Shard in South London",
       "92": "South of the River Thames heading toward the London Eye",
@@ -592,10 +752,12 @@
   {
     "id": "58754319-8709-4AB0-8674-B34F04E7FFE2",
     "accessibilityLabel": "London",
-    "src": { "H2641080p": "https://sylvan.apple.com/Videos/comp_L010_C006_PS_v01_SDR_PS_20180925_SDR_2K_AVC.mov" },
+    "src": {
+      "H2641080p": "https://sylvan.apple.com/Videos/comp_L010_C006_PS_v01_SDR_PS_20180925_SDR_2K_AVC.mov"
+    },
     "name": "River Thames",
     "pointsOfInterest": {
-      "0": "Approaching Tower Bridge on the River Thames London",
+      "0": "Approaching Tower Bridge on the River Thames, London",
       "78": "Following the River Thames in London",
       "178": "South of the River Thames in London",
       "258": "Crossing the River Thames in London"
@@ -605,7 +767,9 @@
   {
     "id": "7F4C26C2-67C2-4C3A-8F07-8A7BF6148C97",
     "accessibilityLabel": "London",
-    "src": { "H2641080p": "https://sylvan.apple.com/Videos/comp_L004_C011_PS_v01_SDR_PS_20180925_SDR_2K_AVC.mov" },
+    "src": {
+      "H2641080p": "https://sylvan.apple.com/Videos/comp_L004_C011_PS_v01_SDR_PS_20180925_SDR_2K_AVC.mov"
+    },
     "name": "River Thames at Dusk",
     "pointsOfInterest": {
       "0": "Approaching Tower Bridge on the River Thames, London",
@@ -635,17 +799,25 @@
   {
     "id": "35693AEA-F8C4-4A80-B77D-C94B20A68956",
     "accessibilityLabel": "Los Angeles",
-    "src": { "H2641080p": "https://sylvan.apple.com/Videos/comp_LA_A005_C009_PSNK_ALT_v09_SDR_PS_201809134_SDR_2K_AVC.mov" },
+    "src": {
+      "H2641080p": "https://sylvan.apple.com/Videos/comp_LA_A005_C009_PSNK_ALT_v09_SDR_PS_201809134_SDR_2K_AVC.mov"
+    },
     "name": "Harbor Freeway",
-    "pointsOfInterest": { "0": "Following Interstate 110 north through Los Angeles" },
+    "pointsOfInterest": {
+      "0": "Following Interstate 110 north through Los Angeles"
+    },
     "type": "aerial"
   },
   {
     "id": "F5804DD6-5963-40DA-9FA0-39C0C6E6DEF9",
     "accessibilityLabel": "Los Angeles",
-    "src": { "H2641080p": "https://sylvan.apple.com/Videos/comp_LA_A011_C003_DGRN_LNFIX_STAB_v57_SDR_PS_20181002_SDR_2K_AVC.mov" },
+    "src": {
+      "H2641080p": "https://sylvan.apple.com/Videos/comp_LA_A011_C003_DGRN_LNFIX_STAB_v57_SDR_PS_20181002_SDR_2K_AVC.mov"
+    },
     "name": "Downtown",
-    "pointsOfInterest": { "0": "Downtown Los Angeles" },
+    "pointsOfInterest": {
+      "0": "Downtown Los Angeles"
+    },
     "timeOfDay": "night",
     "type": "aerial"
   },
@@ -656,31 +828,44 @@
       "H2641080p": "https://sylvan.apple.com/Videos/comp_LA_A006_C008_PSNK_ALL_LOGOS_v10_SDR_PS_FINAL_20180801_SDR_2K_AVC.mov"
     },
     "name": "Los Angeles Int’l Airport",
-    "pointsOfInterest": { "0": "Heading west over Los Angeles International Airport" },
+    "pointsOfInterest": {
+      "0": "Heading west over Los Angeles International Airport"
+    },
     "type": "aerial"
   },
   {
     "id": "EC67726A-8212-4C5E-83CF-8412932740D2",
     "accessibilityLabel": "Los Angeles",
-    "src": { "H2641080p": "https://sylvan.apple.com/Videos/comp_LA_A006_C004_v01_SDR_FINAL_PS_20180730_SDR_2K_AVC.mov" },
+    "src": {
+      "H2641080p": "https://sylvan.apple.com/Videos/comp_LA_A006_C004_v01_SDR_FINAL_PS_20180730_SDR_2K_AVC.mov"
+    },
     "name": "Hollywood Hills",
-    "pointsOfInterest": { "0": "The Hollywood Sign in Los Angeles", "250": "Over the Hollywood Hills approaching Burbank California" },
+    "pointsOfInterest": {
+      "0": "The Hollywood Sign in Los Angeles",
+      "250": "Over the Hollywood Hills approaching Burbank California"
+    },
     "timeOfDay": "night",
     "type": "aerial"
   },
   {
     "id": "89B1643B-06DD-4DEC-B1B0-774493B0F7B7",
     "accessibilityLabel": "Los Angeles",
-    "src": { "H2641080p": "https://sylvan.apple.com/Videos/comp_LA_A009_C009_PSNK_v02_SDR_PS_FINAL_20180709_SDR_2K_AVC.mov" },
+    "src": {
+      "H2641080p": "https://sylvan.apple.com/Videos/comp_LA_A009_C009_PSNK_v02_SDR_PS_FINAL_20180709_SDR_2K_AVC.mov"
+    },
     "name": "Griffith Observatory",
     "timeOfDay": "night",
     "type": "aerial",
-    "pointsOfInterest": { "0": "Griffith Observatory and the Hollywood Hills in Los Angeles" }
+    "pointsOfInterest": {
+      "0": "Griffith Observatory and the Hollywood Hills in Los Angeles"
+    }
   },
   {
     "id": "44166C39-8566-4ECA-BD16-43159429B52F",
     "accessibilityLabel": "New York",
-    "src": { "H2641080p": "https://sylvan.apple.com/Videos/comp_N013_C004_PS_v01_SDR_PS_20180925_F1970F7193_SDR_2K_AVC.mov" },
+    "src": {
+      "H2641080p": "https://sylvan.apple.com/Videos/comp_N013_C004_PS_v01_SDR_PS_20180925_F1970F7193_SDR_2K_AVC.mov"
+    },
     "name": "Seventh Avenue",
     "timeOfDay": "night",
     "type": "aerial",
@@ -693,15 +878,22 @@
   {
     "id": "3BA0CFC7-E460-4B59-A817-B97F9EBB9B89",
     "accessibilityLabel": "New York",
-    "src": { "H2641080p": "https://sylvan.apple.com/Videos/comp_N008_C009_PS_v01_SDR_PS_20180925_SDR_2K_AVC.mov" },
+    "src": {
+      "H2641080p": "https://sylvan.apple.com/Videos/comp_N008_C009_PS_v01_SDR_PS_20180925_SDR_2K_AVC.mov"
+    },
     "name": "Central Park",
     "type": "aerial",
-    "pointsOfInterest": { "0": "Over Central Park traveling toward Midtown Manhattan in New York", "246": "Over Midtown Manhattan in New York" }
+    "pointsOfInterest": {
+      "0": "Over Central Park traveling toward Midtown Manhattan in New York",
+      "246": "Over Midtown Manhattan in New York"
+    }
   },
   {
     "id": "640DFB00-FBB9-45DA-9444-9F663859F4BC",
     "accessibilityLabel": "New York",
-    "src": { "H2641080p": "https://sylvan.apple.com/Videos/comp_N008_C003_PS_v01_SDR_PS_20180925_SDR_2K_AVC.mov" },
+    "src": {
+      "H2641080p": "https://sylvan.apple.com/Videos/comp_N008_C003_PS_v01_SDR_PS_20180925_SDR_2K_AVC.mov"
+    },
     "name": "Lower Manhattan",
     "timeOfDay": "night",
     "type": "aerial",
@@ -715,7 +907,9 @@
   {
     "id": "840FE8E4-D952-4680-B1A7-AC5BACA2C1F8",
     "accessibilityLabel": "New York",
-    "src": { "H2641080p": "https://sylvan.apple.com/Videos/comp_N003_C006_PS_v01_SDR_PS_20180925_SDR_2K_AVC.mov" },
+    "src": {
+      "H2641080p": "https://sylvan.apple.com/Videos/comp_N003_C006_PS_v01_SDR_PS_20180925_SDR_2K_AVC.mov"
+    },
     "name": "Upper East Side",
     "type": "aerial",
     "pointsOfInterest": {
@@ -748,7 +942,9 @@
   {
     "id": "78911B7E-3C69-47AD-B635-9C2486F6301D",
     "accessibilityLabel": "New Zealand",
-    "src": { "H2641080p": "https://sylvan.apple.com/Videos/comp_A105_C003_0212CT_FLARE_v10_SDR_PS_FINAL_20180711_SDR_2K_AVC.mov" },
+    "src": {
+      "H2641080p": "https://sylvan.apple.com/Videos/comp_A105_C003_0212CT_FLARE_v10_SDR_PS_FINAL_20180711_SDR_2K_AVC.mov"
+    },
     "name": "New Zealand",
     "type": "space",
     "timeOfDay": "day",
@@ -762,7 +958,9 @@
   {
     "id": "3C4678E4-4D3D-4A40-8817-77752AEA62EB",
     "accessibilityLabel": "Nile Delta",
-    "src": { "H2641080p": "https://sylvan.apple.com/Videos/comp_A050_C004_1027V8_v16_SDR_FINAL_20180706_SDR_2K_AVC.mov" },
+    "src": {
+      "H2641080p": "https://sylvan.apple.com/Videos/comp_A050_C004_1027V8_v16_SDR_FINAL_20180706_SDR_2K_AVC.mov"
+    },
     "name": "Nile Delta",
     "type": "space",
     "pointsOfInterest": {
@@ -804,15 +1002,21 @@
   {
     "id": "F07CC61B-30FC-4614-BDAD-3240B61F6793",
     "accessibilityLabel": "Palau Coral",
-    "src": { "H2641080p": "https://sylvan.apple.com/Videos/PA_A004_C003_SDR_20190719_SDR_2K_AVC.mov" },
+    "src": {
+      "H2641080p": "https://sylvan.apple.com/Videos/PA_A004_C003_SDR_20190719_SDR_2K_AVC.mov"
+    },
     "name": "Palau Coral",
     "type": "underwater",
-    "pointsOfInterest": { "0": "Coral reef near Palauo" }
+    "pointsOfInterest": {
+      "0": "Coral reef near Palauo"
+    }
   },
   {
     "id": "BA4ECA11-592F-4727-9221-D2A32A16EB28",
     "accessibilityLabel": "Palau Jellies",
-    "src": { "H2641080p": "https://sylvan.apple.com/Videos/PA_A001_C007_SDR_20190717_SDR_2K_AVC.mov" },
+    "src": {
+      "H2641080p": "https://sylvan.apple.com/Videos/PA_A001_C007_SDR_20190717_SDR_2K_AVC.mov"
+    },
     "name": "Palau Jellies 1",
     "type": "underwater",
     "pointsOfInterest": {
@@ -824,31 +1028,45 @@
   {
     "id": "E580E5A5-0888-4BE8-A4CA-F74A18A643C3",
     "accessibilityLabel": "Palau Jellies",
-    "src": { "H2641080p": "https://sylvan.apple.com/Videos/PA_A002_C009_SDR_20190730_ALT01_SDR_2K_AVC.mov" },
+    "src": {
+      "H2641080p": "https://sylvan.apple.com/Videos/PA_A002_C009_SDR_20190730_ALT01_SDR_2K_AVC.mov"
+    },
     "name": "Palau Jellies 2",
     "type": "underwater",
-    "pointsOfInterest": { "0": "Golden Jellyfish in the waters of Palau" }
+    "pointsOfInterest": {
+      "0": "Golden Jellyfish in the waters of Palau"
+    }
   },
   {
     "id": "EC3DC957-D4C2-4732-AACE-7D0C0F390EC8",
     "accessibilityLabel": "Palau Jellies",
-    "src": { "H2641080p": "https://sylvan.apple.com/Videos/PA_A010_C007_SDR_20190717_SDR_2K_AVC.mov" },
+    "src": {
+      "H2641080p": "https://sylvan.apple.com/Videos/PA_A010_C007_SDR_20190717_SDR_2K_AVC.mov"
+    },
     "name": "Palau Jellies 3",
     "type": "underwater",
-    "pointsOfInterest": { "0": "Golden Jellyfish in the waters of Palauo" }
+    "pointsOfInterest": {
+      "0": "Golden Jellyfish in the waters of Palauo"
+    }
   },
   {
     "id": "82175C1F-153C-4EC8-AE37-2860EA828004",
     "accessibilityLabel": "Red Sea Coral",
-    "src": { "H2641080p": "https://sylvan.apple.com/Videos/RS_A008_C010_SDR_20191218_SDR_2K_AVC.mov" },
+    "src": {
+      "H2641080p": "https://sylvan.apple.com/Videos/RS_A008_C010_SDR_20191218_SDR_2K_AVC.mov"
+    },
     "name": "Red Sea Coral",
     "type": "underwater",
-    "pointsOfInterest": { "0": "Coral reef in the Red Sea near Egypt" }
+    "pointsOfInterest": {
+      "0": "Coral reef in the Red Sea near Egypt"
+    }
   },
   {
     "id": "E556BBC5-D0A0-4DB1-AC77-BC76E4A526F4",
     "accessibilityLabel": "Sahara and Italy",
-    "src": { "H2641080p": "https://sylvan.apple.com/Videos/comp_A009_C001_010181A_v09_SDR_PS_FINAL_20180725_SDR_2K_AVC.mov" },
+    "src": {
+      "H2641080p": "https://sylvan.apple.com/Videos/comp_A009_C001_010181A_v09_SDR_PS_FINAL_20180725_SDR_2K_AVC.mov"
+    },
     "name": "Sahara and Italy",
     "type": "space",
     "timeOfDay": "day",
@@ -868,7 +1086,9 @@
   {
     "id": "72B4390D-DF1D-4D51-B179-229BBAEFFF2C",
     "accessibilityLabel": "San Francisco",
-    "src": { "H2641080p": "https://sylvan.apple.com/Videos/comp_A013_C012_0122D6_CC_v01_SDR_PS_FINAL_20180709_SDR_2K_AVC.mov" },
+    "src": {
+      "H2641080p": "https://sylvan.apple.com/Videos/comp_A013_C012_0122D6_CC_v01_SDR_PS_FINAL_20180709_SDR_2K_AVC.mov"
+    },
     "name": "Golden Gate from SF",
     "type": "aerial",
     "pointsOfInterest": {
@@ -882,7 +1102,9 @@
   {
     "id": "3E94AE98-EAF2-4B09-96E3-452F46BC114E",
     "accessibilityLabel": "San Francisco",
-    "src": { "H2641080p": "https://sylvan.apple.com/Videos/comp_A015_C018_0128ZS_v03_SDR_PS_FINAL_20180709__SDR_2K_AVC.mov" },
+    "src": {
+      "H2641080p": "https://sylvan.apple.com/Videos/comp_A015_C018_0128ZS_v03_SDR_PS_FINAL_20180709__SDR_2K_AVC.mov"
+    },
     "name": "Bay Bridge",
     "timeOfDay": "night",
     "type": "aerial",
@@ -895,7 +1117,9 @@
   {
     "id": "DE851E6D-C2BE-4D9F-AB54-0F9CE994DC51",
     "accessibilityLabel": "San Francisco",
-    "src": { "H2641080p": "https://sylvan.apple.com/Videos/comp_A006_C003_1219EE_CC_v01_SDR_PS_FINAL_20180709_SDR_2K_AVC.mov" },
+    "src": {
+      "H2641080p": "https://sylvan.apple.com/Videos/comp_A006_C003_1219EE_CC_v01_SDR_PS_FINAL_20180709_SDR_2K_AVC.mov"
+    },
     "name": "Bay and Golden Gate",
     "type": "aerial",
     "pointsOfInterest": {
@@ -907,7 +1131,9 @@
   {
     "id": "4AD99907-9E76-408D-A7FC-8429FF014201",
     "accessibilityLabel": "San Francisco",
-    "src": { "H2641080p": "https://sylvan.apple.com/Videos/comp_1223LV_FLARE_v21_SDR_PS_FINAL_20180709_F0F5700_SDR_2K_AVC.mov" },
+    "src": {
+      "H2641080p": "https://sylvan.apple.com/Videos/comp_1223LV_FLARE_v21_SDR_PS_FINAL_20180709_F0F5700_SDR_2K_AVC.mov"
+    },
     "name": "Bay and Embarcadero",
     "type": "aerial",
     "pointsOfInterest": {
@@ -920,7 +1146,9 @@
   {
     "id": "EE533FBD-90AE-419A-AD13-D7A60E2015D6",
     "accessibilityLabel": "San Francisco",
-    "src": { "H2641080p": "https://sylvan.apple.com/Videos/comp_A008_C007_011550_CC_v01_SDR_PS_FINAL_20180709_SDR_2K_AVC.mov" },
+    "src": {
+      "H2641080p": "https://sylvan.apple.com/Videos/comp_A008_C007_011550_CC_v01_SDR_PS_FINAL_20180709_SDR_2K_AVC.mov"
+    },
     "name": "Marin Headlands in Fog",
     "pointsOfInterest": {
       "0": "Over the Marin Headlands looking toward the Golden Gate Bridge",
@@ -931,15 +1159,22 @@
   {
     "id": "85CE77BF-3413-4A7B-9B0F-732E96229A73",
     "accessibilityLabel": "San Francisco",
-    "src": { "H2641080p": "https://sylvan.apple.com/Videos/comp_A012_C014_1223PT_v53_SDR_PS_FINAL_20180709_F0F8700_SDR_2K_AVC.mov" },
+    "src": {
+      "H2641080p": "https://sylvan.apple.com/Videos/comp_A012_C014_1223PT_v53_SDR_PS_FINAL_20180709_F0F8700_SDR_2K_AVC.mov"
+    },
     "name": "Embarcadero, Market Street",
-    "pointsOfInterest": { "0": "Over San Francisco Bay moving toward the Embarcader", "208": "Following Market Street through San Francisco" },
+    "pointsOfInterest": {
+      "0": "Over San Francisco Bay moving toward the Embarcader",
+      "208": "Following Market Street through San Francisco"
+    },
     "type": "aerial"
   },
   {
     "id": "29BDF297-EB43-403A-8719-A78DA11A2948",
     "accessibilityLabel": "San Francisco",
-    "src": { "H2641080p": "https://sylvan.apple.com/Videos/comp_A007_C017_01156B_v02_SDR_PS_20180925_SDR_2K_AVC.mov" },
+    "src": {
+      "H2641080p": "https://sylvan.apple.com/Videos/comp_A007_C017_01156B_v02_SDR_PS_20180925_SDR_2K_AVC.mov"
+    },
     "name": "Fisherman’s Wharf",
     "pointsOfInterest": {
       "0": "Over Fisherman's Wharf heading toward downtown San Francisco",
@@ -953,23 +1188,33 @@
   {
     "id": "581A4F1A-2B6D-468C-A1BE-6F473F06D10B",
     "accessibilityLabel": "Sea Stars",
-    "src": { "H2641080p": "https://sylvan.apple.com/Videos/BO_A012_C031_SDR_20190726_SDR_2K_AVC.mov" },
+    "src": {
+      "H2641080p": "https://sylvan.apple.com/Videos/BO_A012_C031_SDR_20190726_SDR_2K_AVC.mov"
+    },
     "name": "Sea Stars",
     "type": "underwater",
-    "pointsOfInterest": { "0": "Horned Sea Stars on the ocean floor near Borneo" }
+    "pointsOfInterest": {
+      "0": "Horned Sea Stars on the ocean floor near Borneo"
+    }
   },
   {
     "id": "391BDF6E-3279-4CE1-9CA5-0F82811452D7",
     "accessibilityLabel": "Seals",
-    "src": { "H2641080p": "https://sylvan.apple.com/Videos/SE_A016_C009_SDR_20190717_3m30s_SDR_2K_AVC.mov" },
+    "src": {
+      "H2641080p": "https://sylvan.apple.com/Videos/SE_A016_C009_SDR_20190717_3m30s_SDR_2K_AVC.mov"
+    },
     "name": "Seals",
     "type": "underwater",
-    "pointsOfInterest": { "0": "Cape Fur Seals off the coast of Cape Peninsula South Africa" }
+    "pointsOfInterest": {
+      "0": "Cape Fur Seals off the coast of Cape Peninsula South Africa"
+    }
   },
   {
     "id": "87060EC2-D006-4102-98CC-3005C68BB343",
     "accessibilityLabel": "South Africa to North Asia",
-    "src": { "H2641080p": "https://sylvan.apple.com/Videos/comp_A351_C001_v06_SDR_PS_20180725_SDR_2K_AVC.mov" },
+    "src": {
+      "H2641080p": "https://sylvan.apple.com/Videos/comp_A351_C001_v06_SDR_PS_20180725_SDR_2K_AVC.mov"
+    },
     "name": "South Africa to North Asia",
     "type": "space",
     "pointsOfInterest": {
@@ -992,7 +1237,9 @@
   {
     "id": "7719B48A-2005-4011-9280-2F64EEC6FD91",
     "accessibilityLabel": "Southern California to Baja",
-    "src": { "H2641080p": "https://sylvan.apple.com/Videos/comp_A114_C001_0305OT_v10_SDR_FINAL_22062018_SDR_2K_AVC.mov" },
+    "src": {
+      "H2641080p": "https://sylvan.apple.com/Videos/comp_A114_C001_0305OT_v10_SDR_FINAL_22062018_SDR_2K_AVC.mov"
+    },
     "name": "Northern California to Baja",
     "type": "space",
     "timeOfDay": "day",
@@ -1012,23 +1259,33 @@
   {
     "id": "149E7795-DBDA-4F5D-B39A-14712F841118",
     "accessibilityLabel": "Tahiti Waves",
-    "src": { "H2641080p": "https://sylvan.apple.com/Videos/g201_TH_803_A001_8_SDR_20191031_SDR_2K_AVC.mov" },
+    "src": {
+      "H2641080p": "https://sylvan.apple.com/Videos/g201_TH_803_A001_8_SDR_20191031_SDR_2K_AVC.mov"
+    },
     "name": "Tahiti Waves 1",
     "type": "underwater",
-    "pointsOfInterest": { "0": "Waves breaking on the shores of Tahiti" }
+    "pointsOfInterest": {
+      "0": "Waves breaking on the shores of Tahiti"
+    }
   },
   {
     "id": "8C31B06F-91A4-4F7C-93ED-56146D7F48B9",
     "accessibilityLabel": "Tahiti Waves",
-    "src": { "H2641080p": "https://sylvan.apple.com/Videos/g201_TH_804_A001_8_SDR_20191031_SDR_2K_AVC.mov" },
+    "src": {
+      "H2641080p": "https://sylvan.apple.com/Videos/g201_TH_804_A001_8_SDR_20191031_SDR_2K_AVC.mov"
+    },
     "name": "Tahiti Waves 2",
     "type": "underwater",
-    "pointsOfInterest": { "0": "Waves breaking on the shores of Tahiti" }
+    "pointsOfInterest": {
+      "0": "Waves breaking on the shores of Tahiti"
+    }
   },
   {
     "id": "63C042F0-90EF-4A95-B7CC-CC9A64BF8421",
     "accessibilityLabel": "West Africa to the Alps",
-    "src": { "H2641080p": "https://sylvan.apple.com/Videos/comp_A001_C004_1207W5_v23_SDR_FINAL_20180706_SDR_2K_AVC.mov" },
+    "src": {
+      "H2641080p": "https://sylvan.apple.com/Videos/comp_A001_C004_1207W5_v23_SDR_FINAL_20180706_SDR_2K_AVC.mov"
+    },
     "name": "West Africa to the Alps",
     "type": "space",
     "timeOfDay": "day",

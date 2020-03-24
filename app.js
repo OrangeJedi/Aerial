@@ -66,13 +66,13 @@ function createSSWindow() {
 
 function createSSPWindow() {
     let win = new BrowserWindow({
-        width: 1280,
-        height: 720,
+        width: 1920,
+        height: 1080,
         webPreferences: {
             nodeIntegration: true
         },
-        transparent: true,
-        frame: false
+        /*transparent: true,
+        frame: false*/
     });
     win.loadFile('web/screensaver.html');
     win.on('closed', function () {
