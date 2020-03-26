@@ -8,18 +8,19 @@
         module = undefined;
     }</script>
     <script src="libraries/js/jquery-min.js"></script>
+    <script src="libraries/js/moment.min.js"></script>
     <script>if (window.module) module = window.module;</script>
+    <link rel="stylesheet" href="libraries/css/w3.min.css">
     <link href="screensaver.css" rel="stylesheet" type="text/css">
 </head>
 <body>
 <video autoplay width="100%" class="fullscreen-bg__video" id="video" style="display: none">
     Your browser doesn't support HTML video tags
 </video>
-<div class="fullscreen-bg">
+<div class="w3-display-container displayText fullscreen-bg ">
     <canvas width="1080" height="1920" id="canvasVideo"></canvas>
+    <div id="textDisplayArea"></div>
 </div>
-
-<div id="clockbox" class="displayText"></div>
 
 <script src="screensaver.js"></script>
 </body>

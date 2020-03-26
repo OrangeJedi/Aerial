@@ -66,13 +66,13 @@ function createSSWindow() {
 
 function createSSPWindow() {
     let win = new BrowserWindow({
-        width: 1280,
-        height: 720,
+        width: 1920,
+        height: 1080,
         webPreferences: {
             nodeIntegration: true
         },
-        transparent: true,
-        frame: false
+        /*transparent: true,
+        frame: false*/
     });
     win.loadFile('web/screensaver.html');
     win.on('closed', function () {
@@ -89,7 +89,6 @@ function startUp() {
             allowedVideos.push(videos[i].id);
         }
         store.set('allowedVideos', allowedVideos);
-        store.set('clock', false);
         store.set('timeOfDay', false);
         store.set('sunrise', "06:00");
         store.set('sunset', "18:00");
@@ -97,15 +96,30 @@ function startUp() {
         store.set('skipVideosWithKey', true);
         store.set("configured", true);
         store.set('videoFilters', [
-            {name: 'blur', value: 0, min: 0, max: 100, suffix: "px", defaultValue : 0},
-            {name: 'brightness', value: 100, min: 0, max: 100, suffix: "%", defaultValue : 100},
-            {name: 'grayscale', value: 0, min: 0, max: 100, suffix: "%", defaultValue : 0},
-            {name: 'hue-rotate', value: 0, min: 0, max: 360, suffix: "deg", defaultValue : 0},
-            {name: 'invert', value: 0, min: 0, max: 100, suffix: "%", defaultValue : 0},
-            {name: 'saturate', value: 100, min: 0, max: 256, suffix: "%", defaultValue : 100},
-            {name: 'sepia', value: 0, min: 0, max: 100, suffix: "%", defaultValue : 0},
+            {name: 'blur', value: 0, min: 0, max: 100, suffix: "px", defaultValue: 0},
+            {name: 'brightness', value: 100, min: 0, max: 100, suffix: "%", defaultValue: 100},
+            {name: 'grayscale', value: 0, min: 0, max: 100, suffix: "%", defaultValue: 0},
+            {name: 'hue-rotate', value: 0, min: 0, max: 360, suffix: "deg", defaultValue: 0},
+            {name: 'invert', value: 0, min: 0, max: 100, suffix: "%", defaultValue: 0},
+            {name: 'saturate', value: 100, min: 0, max: 256, suffix: "%", defaultValue: 100},
+            {name: 'sepia', value: 0, min: 0, max: 100, suffix: "%", defaultValue: 0},
         ]);
         store.set('sameVideoOnScreens', false);
+        store.set('timeString', "dddd, MMMM Do YYYY, h:mm:ss a");
+        store.set('textFont', "Segoe UI");
+        store.set('textSize', "2");
+        store.set('textColor', "#FFFFFF");
+        store.set('displayText', {
+            'positionList': ["topleft", "topright", "bottomleft", "bottomright", "left", "right", "middle", "topmiddle", "bottommiddle"],
+            'topleft': {'type': "none", "defaultFont" : true},
+            'topright': {'type': "none", "defaultFont" : true},
+            'bottomleft': {'type': "none", "defaultFont" : true},
+            'bottomright': {'type': "none", "defaultFont" : true},
+            'left': {'type': "none", "defaultFont" : true},
+            'right': {'type': "none", "defaultFont" : true},
+            'middle': {'type': "none", "defaultFont" : true},
+            'topmiddle': {'type': "none", "defaultFont" : true},
+            'bottommiddle': {'type': "none", "defaultFont" : true}})
     }
     if (process.argv.includes("/c")) {
         createConfigWindow();
@@ -127,12 +141,12 @@ ipcMain.on('quitApp', (event, arg) => {
     app.quit();
 });
 
-ipcMain.on('keyPress', (event, key) =>{
-    if(key === "ArrowRight" && store.get('skipVideosWithKey')){
-        for(let i = 0;i < screens.length;i++){
+ipcMain.on('keyPress', (event, key) => {
+    if (key === "ArrowRight" && store.get('skipVideosWithKey')) {
+        for (let i = 0; i < screens.length; i++) {
             screens[i].webContents.send('newVideo');
         }
-    }else {
+    } else {
         app.quit();
     }
 });

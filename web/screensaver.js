@@ -9,8 +9,8 @@ function quitApp() {
     ipcRenderer.send('quitApp');
 }
 
-ipcRenderer.on('newVideo', ()=>{
-   newVideo();
+ipcRenderer.on('newVideo', () => {
+    newVideo();
 });
 
 //quit when a key is pressed
@@ -28,25 +28,6 @@ setTimeout(function () {
     });
 }, 1500);
 
-//initial loading
-//Clock
-const tday = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
-const tmonth = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
-if (store.get("clock")) {
-    function GetClock() {
-        let d = new Date();
-        let nday = d.getDay(), nmonth = d.getMonth(), ndate = d.getDate(), nyear = d.getFullYear();
-        let nhour = d.getHours(), nmin = d.getMinutes(), nsec = d.getSeconds();
-        if (nmin <= 9) nmin = "0" + nmin;
-        if (nsec <= 9) nsec = "0" + nsec;
-
-        document.getElementById('clockbox').innerHTML = "" + tday[nday] + ", " + tmonth[nmonth] + " " + ndate + ", " + nyear + " " + nhour + ":" + nmin + ":" + nsec + "";
-    }
-
-    GetClock();
-    setInterval(GetClock, 1000);
-}
-
 function randomInt(min, max) {
     return Math.floor(Math.random() * max) - min;
 }
@@ -62,13 +43,13 @@ video.addEventListener('ended', (event) => {
 
 function newVideo() {
     let id = "";
-    if(store.get('timeOfDay')){
+    if (store.get('timeOfDay')) {
         let time = getTimeOfDay();
         id = tod[time][randomInt(0, tod[time].length)];
-    }else {
+    } else {
         id = allowedVideos[randomInt(0, allowedVideos.length)];
     }
-    if(store.get('sameVideoOnScreens')) {
+    if (store.get('sameVideoOnScreens')) {
         if (currentlyPlaying === remote.getGlobal('shared').currentlyPlaying) {
             remote.getGlobal('shared').currentlyPlaying = id;
         } else {
@@ -76,7 +57,7 @@ function newVideo() {
         }
     }
     let index = videos.findIndex((e) => {
-        if(id === e.id){
+        if (id === e.id) {
             return true;
         }
     });
@@ -84,14 +65,38 @@ function newVideo() {
     video.src = videoInfo.src.H2641080p;
     video.playbackRate = Number(store.get('playbackSpeed'));
     currentlyPlaying = videoInfo.id;
+    //display text
+    for (let position of displayText.positionList) {
+        let textArea = $(`#textDisplay-${position}`);
+        if (displayText[position].type === "information") {
+            if (displayText[position].infoType === "poi") {
+                changePOI(position, -1, videoInfo["pointsOfInterest"]);
+            } else {
+                textArea.text(videoInfo[displayText[position].infoType]);
+            }
+        }
+    }
+}
+
+function changePOI(position, currentPOI, poiList) {
+    let poiS = Object.keys(poiList);
+    for (let i = 0; i < poiS.length; i++) {
+        if (Number(poiS[i]) > currentPOI) {
+            $(`#textDisplay-${position}`).text(poiList[poiS[i]]);
+            if (i < poiS.length) {
+                setTimeout(changePOI, (Number(poiS[i + 1]) - Number(poiS[i])) * 1000, position, poiS[i], poiList);
+            }
+            break;
+        }
+    }
 }
 
 //time of day code
-let tod = {"day": [], "night": [], "none" : []};
-if(store.get('timeOfDay')){
-    for(let i = 0; i < allowedVideos.length;i++){
+let tod = {"day": [], "night": [], "none": []};
+if (store.get('timeOfDay')) {
+    for (let i = 0; i < allowedVideos.length; i++) {
         let index = videos.findIndex((e) => {
-            if(allowedVideos[i] === e.id){
+            if (allowedVideos[i] === e.id) {
                 return true;
             }
         });
@@ -105,24 +110,23 @@ if(store.get('timeOfDay')){
             default:
                 tod.none.push(allowedVideos[i]);
         }
-        if(tod.day.length <= 3){
+        if (tod.day.length <= 3) {
             tod.day.push(...tod.none);
         }
-        if(tod.night.length <= 3){
+        if (tod.night.length <= 3) {
             tod.night.push(...tod.none);
         }
     }
 }
-
 function getTimeOfDay() {
     let cHour = new Date().getHours();
     let cMin = new Date().getMinutes();
-    let sunriseHour = store.get('sunrise').substring(0,2);
-    let sunriseMinute = store.get('sunrise').substring(3,5);
-    let sunsetHour = store.get('sunrise').substring(0,2);
-    let sunsetMinute = store.get('sunrise').substring(3,5);
+    let sunriseHour = store.get('sunrise').substring(0, 2);
+    let sunriseMinute = store.get('sunrise').substring(3, 5);
+    let sunsetHour = store.get('sunrise').substring(0, 2);
+    let sunsetMinute = store.get('sunrise').substring(3, 5);
     let time = "night";
-    if(cHour >= sunriseHour && cMin >= sunriseMinute && cHour < sunsetHour && cMin < sunriseMinute){
+    if (cHour >= sunriseHour && cMin >= sunriseMinute && cHour < sunsetHour && cMin < sunriseMinute) {
         time = "day";
     }
     return time;
@@ -135,15 +139,59 @@ c1.width = window.innerWidth;
 c1.height = window.innerHeight;
 let videoFilters = store.get('videoFilters');
 let filter = "";
-for(let i = 0; i < videoFilters.length;i++){
+for (let i = 0; i < videoFilters.length; i++) {
     filter += `${videoFilters[i].name}(${videoFilters[i].value}${videoFilters[i].suffix}) `;
 }
 ctx1.filter = filter;
-function drawVideo (){
-    ctx1.drawImage(video,0,0,window.innerWidth,window.innerHeight);
+
+function drawVideo() {
+    ctx1.drawImage(video, 0, 0, window.innerWidth, window.innerHeight);
     requestAnimationFrame(drawVideo);
 }
+
 drawVideo();
+
+function runClock(position, timeString) {
+    $(`#textDisplay-${position}`).text(moment().format(timeString));
+    setTimeout(runClock, 1000 - new Date().getMilliseconds(), position, timeString);
+}
+
+//set up css
+$('.displayText').css('font-family', `"${store.get('textFont')}"`).css('font-size', `${store.get('textSize')}vw`).css('color', `${store.get('textColor')}`);
+
+//draw text
+let displayText = store.get('displayText');
+let html = "";
+
+//create content divs
+for (let position of displayText.positionList) {
+    let align = "";
+    if (position.includes("left")) {
+        align = "w3-left-align"
+    } else if (position.includes("middle")) {
+        align = "w3-center"
+    } else if (position.includes("right")) {
+        align = "w3-right-align"
+    }
+    html += `<div class="w3-display-${position} ${align} w3-container textDisplayArea" id="textDisplay-${position}" style="text-shadow:.05vw .05vw 0 #444"></div>`;
+    $('#textDisplayArea').html(html);
+}
+//add text to the content
+for (let position of displayText.positionList) {
+    switch (displayText[position].type) {
+        case "none":
+            break;
+        case "text":
+            $(`#textDisplay-${position}`).text(displayText[position].text);
+            break;
+        case "time":
+            runClock(position, displayText[position].timeString);
+            break;
+    }
+    if(!displayText[position].defaultFont){
+        $(`#textDisplay-${position}`).css('font-family', `"${displayText[position].font}"`).css('font-size', `${displayText[position].fontSize}vw`).css('color', `${displayText[position].fontColor}`);
+    }
+}
 
 //play a video
 newVideo();

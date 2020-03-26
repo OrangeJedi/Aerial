@@ -17,14 +17,16 @@
 }
 
 .displayText {
-    position: fixed;
-    bottom: 10%;
-    right: 10%;
     color: #ffffff;
     font-family: "Segoe UI";
-    font-size: 200%;
+    font-size: 2vw;
 }
 
 body{
     background-color: transparent;
+}
+
+.textDisplayArea{
+    padding: 2%;
+    width: 50%;
 }
