@@ -157,7 +157,7 @@ function runClock(position, timeString) {
 }
 
 //set up css
-$('.displayText').css('font-family', `"${store.get('textFont')}"`).css('font-size', `${store.get('textSize')}vw`);
+$('.displayText').css('font-family', `"${store.get('textFont')}"`).css('font-size', `${store.get('textSize')}vw`).css('color', `${store.get('textColor')}`);
 
 //draw text
 let displayText = store.get('displayText');
@@ -189,7 +189,7 @@ for (let position of displayText.positionList) {
             break;
     }
     if(!displayText[position].defaultFont){
-        $(`#textDisplay-${position}`).css('font-family', `"${displayText[position].font}"`).css('font-size', `${displayText[position].fontSize}vw`);
+        $(`#textDisplay-${position}`).css('font-family', `"${displayText[position].font}"`).css('font-size', `${displayText[position].fontSize}vw`).css('color', `${displayText[position].fontColor}`);
     }
 }
 

@@ -108,6 +108,7 @@ function startUp() {
         store.set('timeString', "dddd, MMMM Do YYYY, h:mm:ss a");
         store.set('textFont', "Segoe UI");
         store.set('textSize', "2");
+        store.set('textColor', "#FFFFFF");
         store.set('displayText', {
             'positionList': ["topleft", "topright", "bottomleft", "bottomright", "left", "right", "middle", "topmiddle", "bottommiddle"],
             'topleft': {'type': "none", "defaultFont" : true},

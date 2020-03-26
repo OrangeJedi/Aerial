@@ -13,7 +13,7 @@ function displaySettings() {
     for (let i = 0; i < checked.length; i++) {
         $(`#${checked[i]}`).prop('checked', store.get(checked[i]));
     }
-    let numTxt = ["sunrise", "sunset", "textFont", "textSize"];
+    let numTxt = ["sunrise", "sunset", "textFont", "textSize", 'textColor'];
     for (let i = 0; i < numTxt.length; i++) {
         $(`#${numTxt[i]}`).val(store.get(numTxt[i]));
     }
@@ -156,10 +156,12 @@ function updatePositionType(position) {
         if (!displayTextSettings[position].defaultFont) {
             displayTextSettings[position]['font'] = displayTextSettings[position].font ? displayTextSettings[position].font : store.get('textFont');
             displayTextSettings[position]['fontSize'] = displayTextSettings[position].fontSize ? displayTextSettings[position].fontSize : store.get('textSize');
+            displayTextSettings[position]['fontColor'] = displayTextSettings[position].fontColor ? displayTextSettings[position].fontColor : store.get('textColor');
             html += `<br><div class="autocomplete" style="width:300px;">
                     <label>Font: </label><input id="positionFont" type="text" onchange="updateTextSetting(this, '${position}', 'font')" value="${displayTextSettings[position]['font']}">
                     </div>
-                    <label>Font Size: </label><input class="w3-input" id="positionTextSize" type="number" step=".25" style="width: 10%; display: inline; margin-top: 2%" onchange="updateTextSetting(this, '${position}', 'fontSize')" value="${displayTextSettings[position]['fontSize']}">`;
+                    <label>Font Size: </label><input class="w3-input" id="positionTextSize" type="number" step=".25" style="width: 10%; display: inline; margin-top: 2%" onchange="updateTextSetting(this, '${position}', 'fontSize')" value="${displayTextSettings[position]['fontSize']}">
+                    <label>Color: </label><input class="w3-input" type="color" step=".25" style="width: 5%; display: inline; margin-top: 2%; padding: 0;" onchange="updateTextSetting(this, '${position}', 'fontColor')" value="${displayTextSettings[position]['fontColor']}">`;
             $('#positionDetails').html(html);
             autocomplete(document.getElementById('positionFont'), fontList, (e) => {
                 updateTextSetting(e, position, 'font')
