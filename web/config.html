@@ -94,9 +94,9 @@
             <div class="w3-display-container" style="padding: 2%">
                 <div class="autocomplete" style="width:300px;">
                     <label>Font: </label><input id="textFont" type="text" onchange="updateSetting('textFont', 'autocomplete')"><i class="fa fa-exclamation-triangle" id="textFontError" style="display: none"></i>
-                    <br>
-                    <label>Font Size: </label><input class="w3-input" id="textSize" type="number" step=".25" style="width: 25%; display: inline; margin-top: 2%" onchange="updateSetting('textSize', 'number')">
                 </div>
+                <br>
+                <label>Font Size: </label><input class="w3-input" id="textSize" type="number" step=".25" style="width: 25%; display: inline; margin-top: 2%" onchange="updateSetting('textSize', 'number')">
             </div>
         </div>
         <div id="positionTextSettings" class="textSettingsCard" style="display: none">
@@ -104,7 +104,7 @@
                 <h4>Position</h4>
             </div>
             <div class="w3-display-container" style="padding: 2%">
-                <div class="w3-display-container w3-display-topleft" style="width: 65%; margin-top: 2%; margin-left: 2%">
+                <div class="w3-display-container w3-display-topleft" style="width: 50%; margin-top: 2%; margin-left: 2%">
                     <img alt="An error has occurred" src="images/B8F204CE-6024-49AB-85F9-7CA2F6DCD226.jpeg" class="w3-round" style="width: 100%;"/>
                     <div class="w3-display-topleft w3-container imagePositionRadio"><input class="w3-radio imagePosition" type="radio" name="imagePosition" value="topleft" onclick="positionSelect(this)"></div>
                     <div class="w3-display-topright w3-container imagePositionRadio"><input class="w3-radio imagePosition" type="radio" name="imagePosition" value="topright" onclick="positionSelect(this)"></div>
@@ -128,8 +128,7 @@
                     </h3>
                 </div>
             </div>
-            <div class="w3-container" style="margin-top: 35%" id="positionDetails">
-            </div>
+            <div class="w3-container" style="margin-top: 27%" id="positionDetails"></div>
         </div>
     </div>
 </div>

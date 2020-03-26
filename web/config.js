@@ -124,37 +124,64 @@ function positionSelect(position) {
 function updatePositionType(position) {
     let displayTextSettings = store.get('displayText');
     displayTextSettings[position].type = $('#positionTypeSelect').val();
-    store.set('displayText', displayTextSettings);
+    let html = "";
     switch (displayTextSettings[position].type) {
         case "none":
-            $('#positionDetails').html("");
+            html = "";
             break;
         case "text":
-            $('#positionDetails').html(`<label>Text</label><input class='w3-input' value='${displayTextSettings[position].text ? displayTextSettings[position].text : ""}' onchange="updateTextSetting(this, '${position}', 'text')">`);
+            html = `<label>Text</label><input class='w3-input' value='${displayTextSettings[position].text ? displayTextSettings[position].text : ""}' onchange="updateTextSetting(this, '${position}', 'text')">`;
             break;
         case "time":
-            $('#positionDetails').html(`<label>Time String</label>
-                                    <input class='w3-input' value='${displayTextSettings[position].timeString ? displayTextSettings[position].timeString : ""}' onchange="showMomentDisplay('positionTimeDisplay', this); updateTextSetting(this, '${position}', 'timeString')">
-                                    <span id="positionTimeDisplay">${displayTextSettings[position].timeString ? moment().format(displayTextSettings[position].timeString) : ""}</span>
+            displayTextSettings[position].timeString = displayTextSettings[position].timeString ? displayTextSettings[position].timeString : "hh:mm:ss";
+            html = `
+                                    <input class='w3-input' value='${displayTextSettings[position].timeString}' onchange="showMomentDisplay('positionTimeDisplay', this); updateTextSetting(this, '${position}', 'timeString')">
+                                    <span id="positionTimeDisplay">${moment().format(displayTextSettings[position].timeString)}</span>
                                     <br>
-                                    <button onclick="document.getElementById('timeFormatExplain').style.display='block'" class="w3-button w3-white w3-border w3-border-blue w3-round-large" style="margin-top: 2%">Show Formatting Details</button>`);
+                                    <button onclick="document.getElementById('timeFormatExplain').style.display='block'" class="w3-button w3-white w3-border w3-border-blue w3-round-large" style="margin-top: 2%">Show Formatting Details</button>`;
             break;
         case "information":
             let selected = displayTextSettings[position].infoType ? displayTextSettings[position].infoType : "";
             console.log(selected);
-            $('#positionDetails').html(`<label>Type </label>
+            html = `<label>Type </label>
                                         <select onchange="updateTextSetting(this, '${position}', 'infoType')">
                                         <option value="accessibilityLabel" ${selected === "accessibilityLabel" ? "selected" : ""}>Label</option>
                                         <option value="name" ${selected === "name" ? "selected" : ""}>Video Name</option>
                                         <option value="poi" ${selected === "poi" ? "selected" : ""}>Location Information</option>
-                                        </select>`);
+                                        </select>`;
             break;
     }
+    if (displayTextSettings[position].type !== "none") {
+        html += `<br><input type="checkbox" class="w3-check" id="useDefaultFont" onchange="updateTextSettingCheck(this, '${position}', 'defaultFont'); updatePositionType('${position}');" ${displayTextSettings[position].defaultFont ? 'checked' : ''}><label> Use Default Font</label>`;
+        if (!displayTextSettings[position].defaultFont) {
+            displayTextSettings[position]['font'] = displayTextSettings[position].font ? displayTextSettings[position].font : store.get('textFont');
+            displayTextSettings[position]['fontSize'] = displayTextSettings[position].fontSize ? displayTextSettings[position].fontSize : store.get('textSize');
+            html += `<br><div class="autocomplete" style="width:300px;">
+                    <label>Font: </label><input id="positionFont" type="text" onchange="updateTextSetting(this, '${position}', 'font')" value="${displayTextSettings[position]['font']}">
+                    </div>
+                    <label>Font Size: </label><input class="w3-input" id="positionTextSize" type="number" step=".25" style="width: 10%; display: inline; margin-top: 2%" onchange="updateTextSetting(this, '${position}', 'fontSize')" value="${displayTextSettings[position]['fontSize']}">`;
+            $('#positionDetails').html(html);
+            autocomplete(document.getElementById('positionFont'), fontList, (e) => {
+                updateTextSetting(e, position, 'font')
+            });
+        } else {
+            $('#positionDetails').html(html);
+        }
+    } else {
+        $('#positionDetails').html(html);
+    }
+    store.set('displayText', displayTextSettings);
 }
 
 function updateTextSetting(input, position, setting) {
     let text = store.get('displayText');
     text[position][setting] = input.value;
+    store.set('displayText', text);
+}
+
+function updateTextSettingCheck(input, position, setting) {
+    let text = store.get('displayText');
+    text[position][setting] = input.checked;
     store.set('displayText', text);
 }
 
@@ -345,6 +372,7 @@ function autocomplete(inp, arr, func) {
                     /*close the list of autocompleted values,
                     (or any other open lists of autocompleted values:*/
                     closeAllLists();
+                    func(inp);
                 });
                 a.appendChild(b);
             }
@@ -406,11 +434,25 @@ function autocomplete(inp, arr, func) {
     }
 
     /*execute a function when someone clicks in the document:*/
-    document.addEventListener("click", function (e) {
+    /*document.addEventListener("click", function (e) {
         closeAllLists(e.target);
-        func();
-    });
+    });*/
 }
+
+function closeAllLists(elmnt) {
+    /*close all autocomplete lists in the document,
+    except the one passed as an argument:*/
+    var x = document.getElementsByClassName("autocomplete-items");
+    for (var i = 0; i < x.length; i++) {
+        if (elmnt != x[i]) {
+            x[i].parentNode.removeChild(x[i]);
+        }
+    }
+}
+
+document.addEventListener("click", function (e) {
+    closeAllLists(e.target);
+});
 
 let fontList = [];
 require('font-list-universal').getFonts().then(fonts => {

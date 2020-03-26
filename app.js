@@ -110,15 +110,15 @@ function startUp() {
         store.set('textSize', "2");
         store.set('displayText', {
             'positionList': ["topleft", "topright", "bottomleft", "bottomright", "left", "right", "middle", "topmiddle", "bottommiddle"],
-            'topleft': {'type': "none"},
-            'topright': {'type': "none"},
-            'bottomleft': {'type': "none"},
-            'bottomright': {'type': "none"},
-            'left': {'type': "none"},
-            'right': {'type': "none"},
-            'middle': {'type': "none"},
-            'topmiddle': {'type': "none"},
-            'bottommiddle': {'type': "none"}})
+            'topleft': {'type': "none", "defaultFont" : true},
+            'topright': {'type': "none", "defaultFont" : true},
+            'bottomleft': {'type': "none", "defaultFont" : true},
+            'bottomright': {'type': "none", "defaultFont" : true},
+            'left': {'type': "none", "defaultFont" : true},
+            'right': {'type': "none", "defaultFont" : true},
+            'middle': {'type': "none", "defaultFont" : true},
+            'topmiddle': {'type': "none", "defaultFont" : true},
+            'bottommiddle': {'type': "none", "defaultFont" : true}})
     }
     if (process.argv.includes("/c")) {
         createConfigWindow();

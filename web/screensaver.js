@@ -118,7 +118,6 @@ if (store.get('timeOfDay')) {
         }
     }
 }
-
 function getTimeOfDay() {
     let cHour = new Date().getHours();
     let cMin = new Date().getMinutes();
@@ -174,7 +173,7 @@ for (let position of displayText.positionList) {
     } else if (position.includes("right")) {
         align = "w3-right-align"
     }
-    html += `<div class="w3-display-${position} ${align} w3-container textDisplayArea" id="textDisplay-${position}"></div>`;
+    html += `<div class="w3-display-${position} ${align} w3-container textDisplayArea" id="textDisplay-${position}" style="text-shadow:.05vw .05vw 0 #444"></div>`;
     $('#textDisplayArea').html(html);
 }
 //add text to the content
@@ -188,6 +187,9 @@ for (let position of displayText.positionList) {
         case "time":
             runClock(position, displayText[position].timeString);
             break;
+    }
+    if(!displayText[position].defaultFont){
+        $(`#textDisplay-${position}`).css('font-family', `"${displayText[position].font}"`).css('font-size', `${displayText[position].fontSize}vw`);
     }
 }
 
