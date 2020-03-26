@@ -1,5 +1,20 @@
 # Changelog
 
+## [Beta v0.4.0](https://github.com/OrangeJedi/Aerial/releases/tag/v0.4.0-beta) - March 26, 2020
+
+* Display text on the screen saver
+    * Choose from 9 placed to put text
+    * Choose between text types
+        * Static Text
+        * Date/Time
+            * Format with moment.js string
+        * Video Information
+            * Name
+            * Accessibility label
+            * Points of interest
+    * Change the font, font size, and text color for all text, or just one position
+* Updates to video information
+
 ## [Beta v0.3.0](https://github.com/OrangeJedi/Aerial/releases/tag/v0.3.0-beta) - March 18, 2020
 
 * Prioritize current time of day

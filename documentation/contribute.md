@@ -31,7 +31,7 @@ A list of all the built in flags detailed below
 |:---:|:------:|
 | /s | Launches the screen saver in full screen mode|
 | /c | Launches the config menu|
-| /t | Launches the screen saver in a smaller window |
+| /t | Launches the screen saver in a smaller window with borders |
 | /j | Super secret JSON editor | 
 
 #### Building Aerial
@@ -44,9 +44,9 @@ Rename the aerial.exe file to aerial.scr, then right click to install.
 
 >What do you need help with right now?
 
-The app install process is a bit messy, I would love it if someone with more experience with windows apps and electron could help stream line the process
+The app install process is a bit messy, I would love it if someone with more experience with windows apps and electron could help streamline the process
 
-We are also looking for people to help clean up the UI/UX, add new feature, and simply test Aerial.
+We are also looking for people to help clean up the UI/UX, add new feature (see the main page), and simply test Aerial.
 
 >I don't know how to do any of that! What do I do?
 
