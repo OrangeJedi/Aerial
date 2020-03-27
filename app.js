@@ -119,7 +119,9 @@ function startUp() {
             'right': {'type': "none", "defaultFont" : true},
             'middle': {'type': "none", "defaultFont" : true},
             'topmiddle': {'type': "none", "defaultFont" : true},
-            'bottommiddle': {'type': "none", "defaultFont" : true}})
+            'bottommiddle': {'type': "none", "defaultFont" : true}
+        });
+        store.set('videoProfiles', []);
     }
     if (process.argv.includes("/c")) {
         createConfigWindow();

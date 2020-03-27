@@ -15,7 +15,7 @@
     <link rel="stylesheet" href="config.css">
 </head>
 <body>
-<h1>Aerial Config</h1>
+<h1 style="padding-left: 1%">Aerial Config</h1>
 <div class="w3-bar w3-grey">
     <button class="w3-bar-item w3-button tablink w3-blue" onclick="changeTab(event,'settingsTab')">Settings</button>
     <button class="w3-bar-item w3-button tablink" onclick="changeTab(event,'videoTab')">Videos</button>
@@ -171,6 +171,19 @@
                     <tr><td></td><td>Z</td><td>-07:00 -06:00 ... +06:00 +07:00</td></tr>
                     <tr><td></td><td>ZZ</td><td>-0700 -0600 ... +0600 +0700</td></tr>
                 </table>
+        </div>
+    </div>
+</div>
+<div id="createVideoProfile" class="w3-modal">
+    <div class="w3-modal-content">
+        <div class="w3-container w3-white">
+            <span onclick="document.getElementById('createVideoProfile').style.display='none'" class="w3-button w3-display-topright">&times;</span>
+            <br>
+            <p>
+                <label>Profile Name</label><input class="w3-input" type="text" id="newProfileName">
+                <br>
+                <button class="w3-button w3-white w3-border w3-border-blue w3-round-large" onclick="createProfile('newProfileName');document.getElementById('createVideoProfile').style.display='none';">Create Profile</button>
+            </p>
         </div>
     </div>
 </div>

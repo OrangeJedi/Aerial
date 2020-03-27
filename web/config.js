@@ -288,7 +288,22 @@ function selectVideo(index) {
                                   </select> 
                                   <button class="w3-button w3-white w3-border w3-border-green w3-round-large" onclick="selectType()">Select Type</button>
                                   <button class="w3-button w3-white w3-border w3-border-red w3-round-large" onclick="deselectType()">Deselect Type</button>
+                                  <br><br>
+                                  <h3>Profiles</h3>
+                                  <select class="w3-select w3-border" id="videoProfiles">
+                                  </select>
+                                  <br><br>
+                                  <button class="w3-button w3-white w3-border w3-border-green w3-round-large" onclick="displayProfile('videoProfiles')">Load Profile</button>
+                                  <button class="w3-button w3-white w3-border w3-border-green w3-round-large" onclick="updateProfile('videoProfiles')">Update Profile</button>
+                                  <button class="w3-button w3-white w3-border w3-border-red w3-round-large" onclick="removeProfile('videoProfiles')">Delete Profile</button>
+                                  <button class="w3-button w3-white w3-border w3-border-blue w3-round-large" onclick="document.getElementById('createVideoProfile').style.display='block'">Create Profile</button>
                                   </div>`);
+        let profiles = store.get('videoProfiles');
+        let html = "";
+        for(let i = 0;i < profiles.length;i++){
+            html += `<option value="${profiles[i].name}">${profiles[i].name}</option>`
+        }
+        $('#videoProfiles').html(html);
     }
 }
 
@@ -342,6 +357,51 @@ function deselectType() {
     }
     store.set("allowedVideos", allowedVideos);
     makeList();
+}
+
+//Video Profiles
+function createProfile(id) {
+    let profiles = store.get('videoProfiles');
+    profiles.push({
+        "name" : $(`#${id}`).val(),
+        "videos" : allowedVideos
+    });
+    store.set('videoProfiles', profiles);
+    selectVideo(-1);
+}
+
+function updateProfile(id) {
+    let profiles = store.get('videoProfiles');
+    for(let i = 0; i < profiles.length;i++){
+        if(profiles[i].name === $(`#${id}`).val()){
+            profiles[i].videos = allowedVideos;
+            break;
+        }
+    }
+    store.set('videoProfiles', profiles);
+}
+
+function removeProfile(id) {
+    let profiles = store.get('videoProfiles');
+    for(let i = 0; i < profiles.length;i++){
+        if(profiles[i].name === $(`#${id}`).val()){
+            profiles.splice(i,1);
+            break;
+        }
+    }
+    store.set('videoProfiles', profiles);
+    selectVideo(-1);
+}
+
+function displayProfile(id) {
+    let profiles = store.get('videoProfiles');
+    for(let i = 0; i < profiles.length;i++){
+        if(profiles[i].name === $(`#${id}`).val()){
+            allowedVideos = profiles[i].videos;
+            makeList();
+            break;
+        }
+    }
 }
 
 //For formatting time and dates. Used throughout the config menu
