@@ -139,6 +139,16 @@ function startUp() {
     }
 }
 
+//let Aerial load the video with the self-signed cert
+app.on('certificate-error', (event, webContents, url, error, certificate, callback) => {
+    if (url.match(/^https:\/\/sylvan.apple.com/) !== null) {
+        event.preventDefault();
+        callback(true)
+    } else {
+        callback(false)
+    }
+});
+
 ipcMain.on('quitApp', (event, arg) => {
     app.quit();
 });
