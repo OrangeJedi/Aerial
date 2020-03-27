@@ -402,6 +402,7 @@ function displayProfile(id) {
             break;
         }
     }
+    store.set("allowedVideos", allowedVideos);
 }
 
 //For formatting time and dates. Used throughout the config menu
