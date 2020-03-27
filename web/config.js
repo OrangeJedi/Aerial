@@ -249,7 +249,7 @@ function makeList() {
             videoList += `<h5 class="w3-bar-item videoListItem" id='videoListTitle'>${videos[i].accessibilityLabel}</h5>`;
             headertxt = videos[i].accessibilityLabel;
         }
-        videoList += `<span style="padding-left: 10%; font-size: small"><input type="checkbox" ${allowedVideos.includes(videos[i].id) ? "checked" : ""} class="w3-check" onclick="checkVideo(event,${i})">
+        videoList += `<span style="padding-left: 8%; font-size: small"><input type="checkbox" ${allowedVideos.includes(videos[i].id) ? "checked" : ""} class="w3-check" onclick="checkVideo(event,${i})">
                       <a style="display: inline;" href="#" id="videoList-${i}" onclick="selectVideo(${i})" class="w3-bar-item w3-button videoListItem">
                       ${videos[i].name ? videos[i].name : videos[i].accessibilityLabel}
                       </a></span><br>`;
