@@ -165,6 +165,8 @@ ipcMain.on('keyPress', (event, key) => {
             screens[i].webContents.send('newVideo');
         }
     } else {
-        app.quit();
+        if(!nq) {
+            app.quit();
+        }
     }
 });
