@@ -4,6 +4,7 @@ const Store = require('electron-store');
 const store = new Store();
 const allowedVideos = store.get("allowedVideos");
 let currentlyPlaying = '';
+let poiTimeout;
 
 function quitApp() {
     ipcRenderer.send('quitApp');
@@ -42,6 +43,7 @@ video.addEventListener('ended', (event) => {
 });
 
 function newVideo() {
+    clearTimeout(poiTimeout);
     let id = "";
     if (store.get('timeOfDay')) {
         let time = getTimeOfDay();
@@ -65,6 +67,7 @@ function newVideo() {
     video.src = videoInfo.src.H2641080p;
     video.playbackRate = Number(store.get('playbackSpeed'));
     currentlyPlaying = videoInfo.id;
+    console.log(video.duration);
     //display text
     for (let position of displayText.positionList) {
         let textArea = $(`#textDisplay-${position}`);
@@ -84,7 +87,7 @@ function changePOI(position, currentPOI, poiList) {
         if (Number(poiS[i]) > currentPOI) {
             $(`#textDisplay-${position}`).text(poiList[poiS[i]]);
             if (i < poiS.length) {
-                setTimeout(changePOI, (Number(poiS[i + 1]) - Number(poiS[i])) * 1000, position, poiS[i], poiList);
+                poiTimeout = setTimeout(changePOI, (Number(poiS[i + 1]) - Number(poiS[i])) * 1000, position, poiS[i], poiList);
             }
             break;
         }

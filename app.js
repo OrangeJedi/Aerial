@@ -3,6 +3,7 @@ const videos = require("./videos.json");
 const Store = require('electron-store');
 const store = new Store();
 let screens = [];
+let nq = false;
 
 global.shared = {
     currentlyPlaying: ''
@@ -137,6 +138,9 @@ function startUp() {
     } else {
         createConfigWindow();
     }
+    if(process.argv.includes("/nq")){
+        nq = true;
+    }
 }
 
 //let Aerial load the video with the self-signed cert
@@ -150,7 +154,9 @@ app.on('certificate-error', (event, webContents, url, error, certificate, callba
 });
 
 ipcMain.on('quitApp', (event, arg) => {
-    app.quit();
+    if(!nq) {
+        app.quit();
+    }
 });
 
 ipcMain.on('keyPress', (event, key) => {
