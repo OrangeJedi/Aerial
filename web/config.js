@@ -1,13 +1,15 @@
+//Global constants
+//Set up persistent read/write for storing all of our settings
 const Store = require('electron-store');
-const videos = require("../videos.json");
 const store = new Store();
+//All the videos and their information
+const videos = require("../videos.json");
 
+//Global variables
+//This list of allowed or 'checked' videos
 let allowedVideos = store.get("allowedVideos");
 
-if (store.get('clock')) {
-    document.getElementById("showClock").checked = true;
-}
-
+//Updates all the <input> tags with their proper values. Called on page load
 function displaySettings() {
     let checked = ["timeOfDay", "skipVideosWithKey", "sameVideoOnScreens"];
     for (let i = 0; i < checked.length; i++) {
@@ -24,7 +26,6 @@ function displaySettings() {
     }
     displayPlaybackSettings();
 }
-
 displaySettings();
 
 function displayPlaybackSettings() {
@@ -38,10 +39,7 @@ function displayPlaybackSettings() {
     $('#videoFilterSettings').html(html);
 }
 
-function updateClock() {
-    store.set('clock', document.getElementById("showClock").checked)
-}
-
+//Updates settings of all shapes and sizes
 function updateSetting(setting, type) {
     switch (type) {
         case "check":
@@ -78,6 +76,7 @@ function updateSetting(setting, type) {
     }
 }
 
+//Sets a setting to its default value, if it exists
 function resetSetting(setting, type, value) {
     switch (type) {
         case "slider":
@@ -103,6 +102,7 @@ function resetSetting(setting, type, value) {
     }
 }
 
+//Mass resets all the filter settings
 function resetFilterSettings() {
     let videoFilters = store.get('videoFilters');
     for (let i = 0; i < videoFilters.length; i++) {
@@ -112,6 +112,9 @@ function resetFilterSettings() {
     displayPlaybackSettings();
 }
 
+//Text tab
+
+//handles selecting a radio button from the position image
 function positionSelect(position) {
     position = position.value;
     let displayTextSettings = store.get('displayText')[position];
@@ -175,18 +178,21 @@ function updatePositionType(position) {
     store.set('displayText', displayTextSettings);
 }
 
+//Text settings are stored separate from other settings, so they require their own functions
 function updateTextSetting(input, position, setting) {
     let text = store.get('displayText');
     text[position][setting] = input.value;
     store.set('displayText', text);
 }
 
+//This one handles checkboxes because they are a special case
 function updateTextSettingCheck(input, position, setting) {
     let text = store.get('displayText');
     text[position][setting] = input.checked;
     store.set('displayText', text);
 }
 
+//Handles changing menu tabs
 function changeTab(evt, tab) {
     let i, x, tablinks;
     x = document.getElementsByClassName("tab");
@@ -201,28 +207,7 @@ function changeTab(evt, tab) {
     evt.currentTarget.className += " w3-blue";
 }
 
-$(document).ready(() => {
-    makeList();
-    selectVideo(-1);
-});
-
-function makeList() {
-    let videoList = "<a onclick=\"selectVideo(-1)\"><h3 class=\"w3-bar-item videoListItem\" id='videoListTitle'><i class=\"fa fa-film\"></i> Videos</h3></a>";
-    let headertxt = "";
-    for (let i = 0; i < videos.length; i++) {
-        if (headertxt !== videos[i].accessibilityLabel) {
-            videoList += `<h5 class="w3-bar-item videoListItem" id='videoListTitle'>${videos[i].accessibilityLabel}</h5>`;
-            headertxt = videos[i].accessibilityLabel;
-        }
-        videoList += `<span style="padding-left: 10%; font-size: small"><input type="checkbox" ${allowedVideos.includes(videos[i].id) ? "checked" : ""} class="w3-check" onclick="checkVideo(event,${i})">
-                      <a style="display: inline;" href="#" id="videoList-${i}" onclick="selectVideo(${i})" class="w3-bar-item w3-button videoListItem">
-                      ${videos[i].name ? videos[i].name : videos[i].accessibilityLabel}
-                      </a></span><br>`;
-    }
-    videoList += "<br><br><br><br><br><br>";
-    $('#videoList').html(videoList);
-}
-
+//Functions to run the side menus
 function selectSetting(item) {
     let list = document.getElementsByClassName("settingsListItem");
     for (i = 0; i < list.length; i++) {
@@ -253,6 +238,31 @@ function selectTextSetting(item) {
     document.getElementById(`${item}TextSettings`).style.display = "";
 }
 
+//Video tab
+
+//Makes and then displays the videos on the sidebar
+function makeList() {
+    let videoList = "<a onclick=\"selectVideo(-1)\"><h3 class=\"w3-bar-item videoListItem\" id='videoListTitle'><i class=\"fa fa-film\"></i> Videos</h3></a>";
+    let headertxt = "";
+    for (let i = 0; i < videos.length; i++) {
+        if (headertxt !== videos[i].accessibilityLabel) {
+            videoList += `<h5 class="w3-bar-item videoListItem" id='videoListTitle'>${videos[i].accessibilityLabel}</h5>`;
+            headertxt = videos[i].accessibilityLabel;
+        }
+        videoList += `<span style="padding-left: 10%; font-size: small"><input type="checkbox" ${allowedVideos.includes(videos[i].id) ? "checked" : ""} class="w3-check" onclick="checkVideo(event,${i})">
+                      <a style="display: inline;" href="#" id="videoList-${i}" onclick="selectVideo(${i})" class="w3-bar-item w3-button videoListItem">
+                      ${videos[i].name ? videos[i].name : videos[i].accessibilityLabel}
+                      </a></span><br>`;
+    }
+    videoList += "<br><br><br><br><br><br>";
+    $('#videoList').html(videoList);
+}
+$(document).ready(() => {
+    makeList();
+    selectVideo(-1);
+});
+
+//Shows further info when you click on a video
 function selectVideo(index) {
     let x = document.getElementsByClassName("videoListItem");
     for (i = 0; i < x.length; i++) {
@@ -282,6 +292,7 @@ function selectVideo(index) {
     }
 }
 
+//Updates the video list when a video is checked
 function checkVideo(e, index) {
     if (e.currentTarget.checked) {
         allowedVideos.push(videos[index].id);
@@ -291,6 +302,7 @@ function checkVideo(e, index) {
     store.set("allowedVideos", allowedVideos);
 }
 
+//automated video selection buttons
 function deselectAll() {
     allowedVideos = [];
     store.set("allowedVideos", allowedVideos);
@@ -332,11 +344,12 @@ function deselectType() {
     makeList();
 }
 
+//For formatting time and dates. Used throughout the config menu
 function showMomentDisplay(id, stringID) {
     $(`#${id}`).text(moment().format(stringID.value));
 }
 
-//autocomplete stuff
+//Autocomplete stuff
 function autocomplete(inp, arr, func) {
     /*the autocomplete function takes two arguments,
     the text field element and an array of possible autocompleted values:*/
@@ -456,6 +469,7 @@ document.addEventListener("click", function (e) {
     closeAllLists(e.target);
 });
 
+//Still autocomplete stuff. This part sets up our font lists
 let fontList = [];
 require('font-list-universal').getFonts().then(fonts => {
     autocomplete(document.getElementById('textFont'), fonts, () => {
