@@ -1,5 +1,5 @@
 <p align="center">  
-    <img alt="" src="/documentation/images/surface_preview.gif" />
+    <img alt="" src="/images/surface_preview.gif" />
 </p>
 
 # Aerial - Apple TV Screen Saver for Windows
@@ -15,7 +15,7 @@ Aerial is open source so feel free to contribute.
 
 Download the latest release from [here](https://github.com/OrangeJedi/Aerial/releases). Follow the instructions to install Aerial.
 
-##### [Changelog](/documentation/changelog.md)
+##### [Version History](https://github.com/OrangeJedi/Aerial/wiki/Version-History)
 
 ## Features
 * Cycles through randomly selected Apple TV videos
@@ -48,7 +48,7 @@ Download the latest release from [here](https://github.com/OrangeJedi/Aerial/rel
 
 ## Want to Contribute?
 
-Check out our [guide to contributing](/documentation/contribute.md).
+Check out our [guide to contributing](/contribute.md).
 
 ## About
 This is a [Node.JS](https://nodejs.org)/[Electron](https://www.electronjs.org/) based implementation of [Mac Aerial Screen Saver](https://github.com/JohnCoates/Aerial) for Windows. I was using cDima's [Aerial for Windows](https://github.com/cDima/Aerial) on my computer but wished it had more of the features found in the MacOS version, as well as being less buggy and having better 4K support. Not knowing much about C# and with the project seemingly dead I researched Windows screensavers and found I could make a screen saver with Node.JS and Electron – both of which I am very familiar with. Hopefully I’ll be able build on this implementation and it get it to near where the MacOS version is.

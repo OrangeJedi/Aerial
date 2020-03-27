@@ -1,6 +1,6 @@
 # Contributing to Aerial
 
-Aerial is open source under the [MIT License](./LICENSE).
+Aerial is open source under the [MIT License](LICENSE).
 
 If you want to contribute code or other resources to Aerial, we would love the help!
 
