@@ -9,7 +9,7 @@ global.shared = {
     currentlyPlaying: ''
 };
 
-function createConfigWindow() {
+function createConfigWindow(argv) {
     let win = new BrowserWindow({
         width: 1000,
         height: 750,
@@ -21,6 +21,9 @@ function createConfigWindow() {
     win.on('closed', function () {
         win = null;
     });
+    if(argv.includes("/dt")){
+        win.webContents.openDevTools();
+    }
 }
 
 function createJSONConfigWindow() {
@@ -65,7 +68,7 @@ function createSSWindow() {
     }
 }
 
-function createSSPWindow() {
+function createSSPWindow(argv) {
     let win = new BrowserWindow({
         width: 1920,
         height: 1080,
@@ -79,6 +82,9 @@ function createSSPWindow() {
     win.on('closed', function () {
         win = null;
     });
+    if(argv.includes("/dt")){
+        win.webContents.openDevTools();
+    }
 }
 
 app.whenReady().then(startUp);
@@ -123,16 +129,17 @@ function startUp() {
             'bottommiddle': {'type': "none", "defaultFont" : true}
         });
         store.set('videoProfiles', []);
+        store.set('videoTransitionLength', 2000);
     }
     if (process.argv.includes("/c")) {
-        createConfigWindow();
+        createConfigWindow(process.argv);
     } else if (process.argv.includes("/p")) {
         //createSSPWindow();
         app.quit();
     } else if (process.argv.includes("/s")) {
         createSSWindow();
     } else if (process.argv.includes("/t")) {
-        createSSPWindow();
+        createSSPWindow(process.argv);
     } else if (process.argv.includes("/j")) {
         createJSONConfigWindow();
     } else {

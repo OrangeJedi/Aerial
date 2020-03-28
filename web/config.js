@@ -19,7 +19,7 @@ function displaySettings() {
     for (let i = 0; i < numTxt.length; i++) {
         $(`#${numTxt[i]}`).val(store.get(numTxt[i]));
     }
-    let slider = ["playbackSpeed"];
+    let slider = ["playbackSpeed", "videoTransitionLength"];
     for (let i = 0; i < slider.length; i++) {
         $(`#${slider[i]}`).val(store.get(slider[i]));
         $(`#${slider[i]}Text`).text(store.get(slider[i]));

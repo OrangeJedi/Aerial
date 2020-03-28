@@ -4,7 +4,7 @@ const Store = require('electron-store');
 const store = new Store();
 const allowedVideos = store.get("allowedVideos");
 let currentlyPlaying = '';
-let poiTimeout;
+let poiTimeout, transitionTimeout;
 
 function quitApp() {
     ipcRenderer.send('quitApp');
@@ -44,6 +44,8 @@ video.addEventListener('ended', (event) => {
 
 function newVideo() {
     clearTimeout(poiTimeout);
+    clearTimeout(transitionTimeout);
+    videoAlpha = 0;
     let id = "";
     if (store.get('timeOfDay')) {
         let time = getTimeOfDay();
@@ -67,7 +69,7 @@ function newVideo() {
     video.src = videoInfo.src.H2641080p;
     video.playbackRate = Number(store.get('playbackSpeed'));
     currentlyPlaying = videoInfo.id;
-    console.log(video.duration);
+    video.onplay = onVideoPlay;
     //display text
     for (let position of displayText.positionList) {
         let textArea = $(`#textDisplay-${position}`);
@@ -79,6 +81,28 @@ function newVideo() {
             }
         }
     }
+}
+
+let transitionLength = store.get('videoTransitionLength');
+let videoAlpha = 1;
+
+function onVideoPlay(e) {
+    fadeVideoIn(transitionLength);
+    setTimeout(fadeVideoOut, (e.target.duration * 1000) - transitionLength - 300, transitionLength);
+}
+
+function fadeVideoOut(time) {
+    if (time > 0) {
+        transitionTimeout = setTimeout(fadeVideoOut, 5, time - 5);
+    }
+    videoAlpha = time / transitionLength;
+}
+
+function fadeVideoIn(time) {
+    if (time > 0) {
+        transitionTimeout = setTimeout(fadeVideoIn, 5, time - 5);
+    }
+    videoAlpha = 1 - (time / transitionLength);
 }
 
 function changePOI(position, currentPOI, poiList) {
@@ -121,6 +145,7 @@ if (store.get('timeOfDay')) {
         }
     }
 }
+
 function getTimeOfDay() {
     let cHour = new Date().getHours();
     let cMin = new Date().getMinutes();
@@ -148,6 +173,11 @@ for (let i = 0; i < videoFilters.length; i++) {
 ctx1.filter = filter;
 
 function drawVideo() {
+    ctx1.clearRect(0, 0, window.innerWidth, window.innerHeight);
+    ctx1.globalAlpha = 1;
+    ctx1.fillStyle = "#000000";
+    ctx1.fillRect(0, 0, window.innerWidth, window.innerHeight);
+    ctx1.globalAlpha = videoAlpha;
     ctx1.drawImage(video, 0, 0, window.innerWidth, window.innerHeight);
     requestAnimationFrame(drawVideo);
 }
@@ -191,7 +221,7 @@ for (let position of displayText.positionList) {
             runClock(position, displayText[position].timeString);
             break;
     }
-    if(!displayText[position].defaultFont){
+    if (!displayText[position].defaultFont) {
         $(`#textDisplay-${position}`).css('font-family', `"${displayText[position].font}"`).css('font-size', `${displayText[position].fontSize}vw`).css('color', `${displayText[position].fontColor}`);
     }
 }

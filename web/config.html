@@ -26,6 +26,7 @@
         <a onclick="selectSetting('general')" id="settingsList-general" class="settingsListItem"><h3 class="w3-bar-item"><i class="fa fa-cog"></i> Settings</h3></a>
         <a onclick="selectSetting('multi-screen')" id="settingsList-multi-screen" class="w3-bar-item w3-button settingsListItem">Multi-Screen</a>
         <a onclick="selectSetting('playback')" id="settingsList-playback" class="w3-bar-item w3-button settingsListItem">Playback</a>
+        <a onclick="selectSetting('transition')" id="settingsList-transition" class="w3-bar-item w3-button settingsListItem">Transitions</a>
     </div>
     <div id="generalCard" style="margin-left:20%">
         <div id="generalSettings" class="settingsCard">
@@ -54,15 +55,25 @@
             </div>
         </div>
         <div id="playbackSettings" class="settingsCard" style="display: none">
+        <div class="w3-container w3-blue">
+            <h4>Playback Settings</h4>
+        </div>
+        <div class="w3-display-container" style="padding: 2%">
+            <label>Playback Speed: <span id="playbackSpeedText"></span></label><span class="w3-right" onclick="resetSetting('playbackSpeed', 'slider', 1)"><i class="fa fa-undo"></i></span>
+            <br>
+            <input type="range" min=".75" max="4" value="1" step=".05" id="playbackSpeed" class="slider" onchange="updateSetting('playbackSpeed','slider')">
+            <h3>Filter Settings <span class="w3-right" onclick="resetFilterSettings()"><i class="fa fa-undo"></i></span></h3>
+            <div class="w3-display-container" id="videoFilterSettings"></div>
+        </div>
+        </div>
+        <div id="transitionSettings" class="settingsCard" style="display: none">
             <div class="w3-container w3-blue">
-                <h4>Playback Settings</h4>
+                <h4>Transition Settings</h4>
             </div>
             <div class="w3-display-container" style="padding: 2%">
-                <label>Playback Speed: <span id="playbackSpeedText"></span></label><span class="w3-right" onclick="resetSetting('playbackSpeed', 'slider', 1)"><i class="fa fa-undo"></i></span>
+                <label>Transition Speed: <span id="videoTransitionLengthText"></span></label><span class="w3-right" onclick="resetSetting('videoTransitionLength', 'slider', 2000)"><i class="fa fa-undo"></i></span>
                 <br>
-                <input type="range" min=".75" max="4" value="1" step=".05" id="playbackSpeed" class="slider" onchange="updateSetting('playbackSpeed','slider')">
-                <h3>Filter Settings <span class="w3-right" onclick="resetFilterSettings()"><i class="fa fa-undo"></i></span></h3>
-                <div class="w3-display-container" id="videoFilterSettings"></div>
+                <input type="range" min="1000" max="5000" value="2000" step="10" id="videoTransitionLength" class="slider" onchange="updateSetting('videoTransitionLength','slider')">
             </div>
         </div>
     </div>
