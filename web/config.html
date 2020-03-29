@@ -9,6 +9,7 @@
     }</script>
     <script src="libraries/js/jquery-min.js"></script>
     <script src="libraries/js/moment.min.js"></script>
+    <script src="libraries/js/numeral.min.js"></script>
     <script>if (window.module) module = window.module;</script>
     <link rel="stylesheet" href="libraries/css/w3.min.css">
     <link rel="stylesheet" href="libraries/css/all.min.css">
@@ -27,6 +28,7 @@
         <a onclick="selectSetting('multi-screen')" id="settingsList-multi-screen" class="w3-bar-item w3-button settingsListItem">Multi-Screen</a>
         <a onclick="selectSetting('playback')" id="settingsList-playback" class="w3-bar-item w3-button settingsListItem">Playback</a>
         <a onclick="selectSetting('transition')" id="settingsList-transition" class="w3-bar-item w3-button settingsListItem">Transitions</a>
+        <a onclick="selectSetting('cache')" id="settingsList-cache" class="w3-bar-item w3-button settingsListItem">Video Cache</a>
     </div>
     <div id="generalCard" style="margin-left:20%">
         <div id="generalSettings" class="settingsCard">
@@ -76,6 +78,25 @@
                 <input type="range" min="1000" max="5000" value="2000" step="10" id="videoTransitionLength" class="slider" onchange="updateSetting('videoTransitionLength','slider')">
             </div>
         </div>
+        <div id="cacheSettings" class="settingsCard" style="display: none">
+            <div class="w3-container w3-blue">
+                <h4>Video Cache Settings</h4>
+            </div>
+            <div class="w3-display-container" style="padding: 2%">
+                <input type="checkbox" id="videoCache" class="w3-check" onclick="updateSetting('videoCache','check')"> <label>Automatically download checked videos to the cache</label>
+                <br>
+                <p class="w3-small" style="margin-left: 4%">The total size of all videos is approximately 20 GB</p>
+                <input type="checkbox" id="videoCacheProfiles" class="w3-check" onclick="updateSetting('videoCacheProfiles','check')" style="margin-left: 8%"> <label>Include videos in saved profiles</label>
+                <br>
+                <input type="checkbox" id="videoCacheRemoveUnallowed" class="w3-check" onclick="updateSetting('videoCacheRemoveUnallowed','check')" style="margin-left: 8%"> <label>Automatically remove unchecked videos</label>
+                <br><br>
+                <button class="w3-button w3-white w3-border w3-border-blue w3-round-large" onclick="updateCache()">Update cache</button>
+                <button class="w3-button w3-white w3-border w3-border-red w3-round-large" onclick="deleteCache()">Delete all files in cache</button>
+                <button class="w3-button w3-white w3-border w3-border-blue w3-round-large" onclick="ipcRenderer.send('openCache');">Open cache in file explore</button>
+                <br>
+                <p class="w3-small">Cache Size: <span id="videoCacheSize"></span></p>
+            </div>
+        </div>
     </div>
 </div>
 <div id="videoTab" class="tab" style="display: none">
@@ -86,8 +107,9 @@
             <h4 id="videoName">Video Settings</h4>
         </div>
         <div class="w3-display-container">
-            <video autoplay loop controls id="videoPlayer" class="w3-display-middle" style=" width: 90%; padding-top: 55%"></video>
+            <video autoplay loop controls id="videoPlayer" class="w3-display-middle" style=" width: 90%; padding-top: 55%; display: inline"></video>
             <div id="videoSettings"></div>
+            <div id="videoInfo" class="videoInfo"></div>
         </div>
     </div>
 </div>

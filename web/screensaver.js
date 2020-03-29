@@ -3,6 +3,7 @@ const videos = require("../videos.json");
 const Store = require('electron-store');
 const store = new Store();
 const allowedVideos = store.get("allowedVideos");
+let downloadedVideos = store.get("downloadedVideos");
 let currentlyPlaying = '';
 let poiTimeout, transitionTimeout;
 
@@ -66,7 +67,12 @@ function newVideo() {
         }
     });
     let videoInfo = videos[index];
-    video.src = videoInfo.src.H2641080p;
+    downloadedVideos = store.get("downloadedVideos");
+    let videoSRC = videoInfo.src.H2641080p;
+    if(downloadedVideos.includes(videoInfo.id)){
+        videoSRC = `${store.get('cachePath')}/${videoInfo.id}.mov`;
+    }
+    video.src = videoSRC;
     video.playbackRate = Number(store.get('playbackSpeed'));
     currentlyPlaying = videoInfo.id;
     video.onplay = onVideoPlay;

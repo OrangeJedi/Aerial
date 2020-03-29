@@ -2,16 +2,21 @@
 //Set up persistent read/write for storing all of our settings
 const Store = require('electron-store');
 const store = new Store();
+//talk to app.js
+const {ipcRenderer} = require('electron');
 //All the videos and their information
 const videos = require("../videos.json");
 
 //Global variables
 //This list of allowed or 'checked' videos
 let allowedVideos = store.get("allowedVideos");
+let downloadedVideos = store.get("downloadedVideos");
+let alwaysDownloadVideos = store.get("alwaysDownloadVideos");
+let neverDownloadVideos = store.get("neverDownloadVideos");
 
 //Updates all the <input> tags with their proper values. Called on page load
 function displaySettings() {
-    let checked = ["timeOfDay", "skipVideosWithKey", "sameVideoOnScreens"];
+    let checked = ["timeOfDay", "skipVideosWithKey", "sameVideoOnScreens", "videoCache", "videoCacheProfiles", "videoCacheRemoveUnallowed"];
     for (let i = 0; i < checked.length; i++) {
         $(`#${checked[i]}`).prop('checked', store.get(checked[i]));
     }
@@ -23,6 +28,10 @@ function displaySettings() {
     for (let i = 0; i < slider.length; i++) {
         $(`#${slider[i]}`).val(store.get(slider[i]));
         $(`#${slider[i]}Text`).text(store.get(slider[i]));
+    }
+    let numeralText = [{'id' : "videoCacheSize", 'format' : "0.00 ib"}];
+    for (let i = 0; i < numeralText.length; i++) {
+        $(`#${numeralText[i].id}`).text(numeral(store.get(numeralText[i].id)).format(numeralText[i].format));
     }
     displayPlaybackSettings();
 }
@@ -111,6 +120,20 @@ function resetFilterSettings() {
     store.set('videoFilters', videoFilters);
     displayPlaybackSettings();
 }
+
+//Cache functions
+function updateCache() {
+    ipcRenderer.send('updateCache');
+}
+
+function deleteCache() {
+    if(alert('Are sure you want to delete all the videos in the cache?'))
+    ipcRenderer.send('deleteCache');
+}
+
+ipcRenderer.on('displaySettings', () =>{
+   displaySettings();
+});
 
 //Text tab
 
@@ -269,13 +292,34 @@ function selectVideo(index) {
         x[i].className = x[i].className.replace("w3-deep-orange", "");
     }
     if (index > -1) {
+        downloadedVideos = store.get("downloadedVideos");
         document.getElementById("videoList-" + index).className += " w3-deep-orange";
-        $('#videoPlayer').attr("src", videos[index].src.H2641080p).show();
+        let videoSRC = videos[index].src.H2641080p;
+        if(downloadedVideos.includes(videos[index].id)){
+            videoSRC = `${store.get('cachePath')}/${videos[index].id}.mov`;
+        }
+        $('#videoPlayer').attr("src", videoSRC).show();
         $('#videoName').text(videos[index].accessibilityLabel);
-        $('#videoSettings').html("");
+        let videoDownloadState = "whenChecked";
+        if(alwaysDownloadVideos.includes(videos[index].id)){
+            videoDownloadState = "always";
+        }else if(neverDownloadVideos.includes(videos[index].id)){
+            videoDownloadState = "never";
+        }
+        $('#videoInfo').html(`${downloadedVideos.includes(videos[index].id) ? "<p class='w3-large'><i class='far fa-check-circle' style='color: #4CAF50'></i> Downloaded</p>" : "<p class='w3-large'><i class='far fa-times-circle' style='color: #f44336'></i> Downloaded</p>"}
+                              <div class="w3-small">
+                              <input class="w3-radio" type="radio" name="downloadVideo" onclick="changeVideoDownloadState(this, '${videos[index].id}')" value="whenChecked" ${videoDownloadState === "whenChecked" ? "checked" : ""}>
+                              <label>Download when checked and cache is enabled</label><br>  
+                              <input class="w3-radio" type="radio" name="downloadVideo" onclick="changeVideoDownloadState(this, '${videos[index].id}')" value="always" ${videoDownloadState === "always" ? "checked" : ""}>
+                              <label>Always download</label><br>
+                              <input class="w3-radio" type="radio" name="downloadVideo" onclick="changeVideoDownloadState(this, '${videos[index].id}')" value="never" ${videoDownloadState === "never" ? "checked" : ""}>
+                              <label>Never download</label>
+                              </div>`).css('display', '');
+        $('#videoSettings').css('display', 'none');
     } else {
         $('#videoPlayer').attr("src", "").hide();
         $('#videoName').text("Video Settings");
+        $('#videoInfo').css('display', 'none');
         $('#videoSettings').html(`<br>
                                   <div class="w3-container">
                                   <button class="w3-button w3-white w3-border w3-border-green w3-round-large" onclick="selectAll()">Select All</button>
@@ -288,7 +332,7 @@ function selectVideo(index) {
                                   </select> 
                                   <button class="w3-button w3-white w3-border w3-border-green w3-round-large" onclick="selectType()">Select Type</button>
                                   <button class="w3-button w3-white w3-border w3-border-red w3-round-large" onclick="deselectType()">Deselect Type</button>
-                                  <br><br>
+                                  <br>
                                   <h3>Profiles</h3>
                                   <select class="w3-select w3-border" id="videoProfiles">
                                   </select>
@@ -297,7 +341,15 @@ function selectVideo(index) {
                                   <button class="w3-button w3-white w3-border w3-border-green w3-round-large" onclick="updateProfile('videoProfiles')">Update Profile</button>
                                   <button class="w3-button w3-white w3-border w3-border-red w3-round-large" onclick="removeProfile('videoProfiles')">Delete Profile</button>
                                   <button class="w3-button w3-white w3-border w3-border-blue w3-round-large" onclick="document.getElementById('createVideoProfile').style.display='block'">Create Profile</button>
-                                  </div>`);
+                                  <br>
+                                  <h3>Downloads</h3>
+                                  <button class="w3-button w3-white w3-border w3-border-blue w3-round-large" onclick="changeAllVideoDownloadState('allVideoDownloadState')">Set all videos to </button>
+                                  <select id="allVideoDownloadState" class="w3-select w3-border" style="width: 35%">
+                                    <option value="whenChecked">download when checked</option>
+                                    <option value="always">always download</option>
+                                    <option value="never">never download</option>
+                                  </select>
+                                  </div>`).css('display', '');
         let profiles = store.get('videoProfiles');
         let html = "";
         for(let i = 0;i < profiles.length;i++){
@@ -305,6 +357,48 @@ function selectVideo(index) {
         }
         $('#videoProfiles').html(html);
     }
+}
+
+function changeVideoDownloadState(element, videoId) {
+    alwaysDownloadVideos = alwaysDownloadVideos.filter(function(item, pos, self) {
+        return item !== videoId;
+    });
+    neverDownloadVideos = neverDownloadVideos.filter(function(item, pos, self) {
+        return item !== videoId;
+    });
+    switch (element.value) {
+        case "whenChecked":
+            break;
+        case "always":
+            alwaysDownloadVideos.push(videoId);
+            break;
+        case "never":
+            neverDownloadVideos.push(videoId);
+            break;
+    }
+    store.set("alwaysDownloadVideos", alwaysDownloadVideos);
+    store.set("neverDownloadVideos", neverDownloadVideos);
+}
+
+function changeAllVideoDownloadState(elementId) {
+    alwaysDownloadVideos = [];
+    neverDownloadVideos = [];
+    switch ($(`#${elementId}`).val()) {
+        case "whenChecked":
+            break;
+        case "always":
+            for(let i = 0; i < videos.length; i++){
+                alwaysDownloadVideos.push(videos[i].id);
+            }
+            break;
+        case "never":
+            for(let i = 0; i < videos.length; i++){
+                neverDownloadVideos.push(videos[i].id);
+            }
+            break;
+    }
+    store.set("alwaysDownloadVideos", alwaysDownloadVideos);
+    store.set("neverDownloadVideos", neverDownloadVideos);
 }
 
 //Updates the video list when a video is checked
