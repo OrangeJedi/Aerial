@@ -73,9 +73,9 @@
                 <h4>Transition Settings</h4>
             </div>
             <div class="w3-display-container" style="padding: 2%">
-                <label>Transition Speed: <span id="videoTransitionLengthText"></span></label><span class="w3-right" onclick="resetSetting('videoTransitionLength', 'slider', 2000)"><i class="fa fa-undo"></i></span>
+                <label>Transition Speed: <span id="videoTransitionLengthText"></span></label><span class="w3-right" onclick="resetSetting('videoTransitionLength', 'slider', 1000)"><i class="fa fa-undo"></i></span>
                 <br>
-                <input type="range" min="1000" max="5000" value="2000" step="10" id="videoTransitionLength" class="slider" onchange="updateSetting('videoTransitionLength','slider')">
+                <input type="range" min="750" max="4000" value="1000" step="10" id="videoTransitionLength" class="slider" onchange="updateSetting('videoTransitionLength','slider')">
             </div>
         </div>
         <div id="cacheSettings" class="settingsCard" style="display: none">

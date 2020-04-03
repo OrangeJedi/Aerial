@@ -142,7 +142,7 @@ function startUp() {
             'bottommiddle': {'type': "none", "defaultFont": true}
         });
         store.set('videoProfiles', []);
-        store.set('videoTransitionLength', 2000);
+        store.set('videoTransitionLength', 1000);
         store.set('videoCache', false);
         store.set('videoCacheProfiles', false);
         store.set('videoCacheSize', getCacheSize());
