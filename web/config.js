@@ -17,7 +17,7 @@ let customVideos = store.get("customVideos");
 
 //Updates all the <input> tags with their proper values. Called on page load
 function displaySettings() {
-    let checked = ["timeOfDay", "skipVideosWithKey", "sameVideoOnScreens", "videoCache", "videoCacheProfiles", "videoCacheRemoveUnallowed"];
+    let checked = ["timeOfDay", "skipVideosWithKey", "sameVideoOnScreens", "videoCache", "videoCacheProfiles", "videoCacheRemoveUnallowed", "avoidDuplicateVideos"];
     for (let i = 0; i < checked.length; i++) {
         $(`#${checked[i]}`).prop('checked', store.get(checked[i]));
     }
@@ -191,7 +191,6 @@ function checkCustomVideo(e,id) {
 }
 
 function removeCustomVideo(id) {
-    console.log(id);
     if(allowedVideos.includes(id)){
         allowedVideos.splice(allowedVideos.indexOf(id), 1);
     }
@@ -551,7 +550,7 @@ function updateProfile(id) {
     let profiles = store.get('videoProfiles');
     for(let i = 0; i < profiles.length;i++){
         if(profiles[i].name === $(`#${id}`).val()){
-            profiles[i].videos = allowedVideos;
+            profiles[i].videos = allowedVideos.filter(id => id[0] !== "_");
             break;
         }
     }
@@ -571,6 +570,7 @@ function removeProfile(id) {
 }
 
 function displayProfile(id) {
+    let customAllowed = allowedVideos.filter(id => id[0] === "_");
     let profiles = store.get('videoProfiles');
     for(let i = 0; i < profiles.length;i++){
         if(profiles[i].name === $(`#${id}`).val()){
@@ -579,6 +579,7 @@ function displayProfile(id) {
             break;
         }
     }
+    allowedVideos.push(...customAllowed);
     store.set("allowedVideos", allowedVideos);
 }
 

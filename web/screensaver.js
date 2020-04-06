@@ -5,6 +5,7 @@ const store = new Store();
 const allowedVideos = store.get("allowedVideos");
 let downloadedVideos = store.get("downloadedVideos");
 let customVideos = store.get("customVideos");
+let previouslyPlayed = [];
 let currentlyPlaying = '';
 let poiTimeout, transitionTimeout;
 
@@ -60,6 +61,17 @@ function newVideo() {
             remote.getGlobal('shared').currentlyPlaying = id;
         } else {
             id = remote.getGlobal('shared').currentlyPlaying;
+        }
+    }
+    if(store.get('avoidDuplicateVideos')){
+        if(previouslyPlayed.includes(id)){
+            newVideo();
+            return;
+        }else{
+            previouslyPlayed.push(id);
+            if(previouslyPlayed.length > (allowedVideos.length * .4)){
+                previouslyPlayed.shift();
+            }
         }
     }
     let videoInfo, videoSRC;

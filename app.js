@@ -96,6 +96,7 @@ function createSSPWindow(argv) {
     if (argv.includes("/dt")) {
         win.webContents.openDevTools();
     }
+    screens.push(win);
 }
 
 app.whenReady().then(startUp);
@@ -150,6 +151,7 @@ function startUp() {
         store.set('videoCacheRemoveUnallowed', false);
         store.set('cachePath', cachePath);
         store.set('customVideos', []);
+        store.set('avoidDuplicateVideos', true);
     }
     if (process.argv.includes("/nq")) {
         nq = true;
