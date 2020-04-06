@@ -13,6 +13,7 @@ let allowedVideos = store.get("allowedVideos");
 let downloadedVideos = store.get("downloadedVideos");
 let alwaysDownloadVideos = store.get("alwaysDownloadVideos");
 let neverDownloadVideos = store.get("neverDownloadVideos");
+let customVideos = store.get("customVideos");
 
 //Updates all the <input> tags with their proper values. Called on page load
 function displaySettings() {
@@ -138,7 +139,7 @@ ipcRenderer.on('displaySettings', () =>{
 
 //Custom videos
 ipcRenderer.on('newCustomVideos',(event, videoList) => {
-    let customVideos = store.get('customVideos');
+    customVideos = store.get('customVideos');
     for(let i = 0;i < videoList.length;i++){
         let index = customVideos.findIndex((e) => {
             if (`${videoList.path}\\${videoList[i]}` === e.path) {
@@ -166,14 +167,14 @@ function newId () {
 
 function displayCustomVideos() {
     let html = "<br>";
-    const customVideos = store.get('customVideos');
+    customVideos = store.get('customVideos');
     html += "<table class='w3-table-all'>";
     for(let i = 0;i < customVideos.length;i++){
         html += `<tr>
                 <td><input type="checkbox" class="w3-check" ${allowedVideos.includes(customVideos[i].id) ? "checked" : ""} onclick="checkCustomVideo(this,'${customVideos[i].id}')"></td>
                 <td>${customVideos[i].name}</td>
-                <td><i class="fa fa-cog w3-large"></i></td>
-                <td><i class='fa fa-times w3-large' style='color: #f44336'></i></td>
+                <td><i class="fa fa-cog w3-large" onclick="editCustomVideo('${customVideos[i].id}')"></i></td>
+                <td><i class='fa fa-times w3-large' style='color: #f44336' onclick="removeCustomVideo('${customVideos[i].id}')"></i></td>
                 </tr>`;
     }
     html +="</table>";
@@ -187,6 +188,34 @@ function checkCustomVideo(e,id) {
         allowedVideos.splice(allowedVideos.indexOf(id), 1);
     }
     store.set("allowedVideos", allowedVideos);
+}
+
+function removeCustomVideo(id) {
+    console.log(id);
+    if(allowedVideos.includes(id)){
+        allowedVideos.splice(allowedVideos.indexOf(id), 1);
+    }
+    let index = customVideos.findIndex((e) => {
+        if (id === e.id) {
+            return true;
+        }
+    });
+    customVideos.splice(index,1);
+    store.set("customVideos", customVideos);
+    displayCustomVideos();
+}
+
+function editCustomVideo(id) {
+    let index = customVideos.findIndex((e) => {
+        if (id === e.id) {
+            return true;
+        }
+    });
+    document.getElementById('editCustomVideo').style.display='block';
+    document.getElementById('customVideoName').onchange = ()=>{customVideos[index].name = $('#customVideoName').val();store.set('customVideos', customVideos);displayCustomVideos()};
+    document.getElementById('customVideoName').value = customVideos[index].name;
+    store.set('customVideos', customVideos);
+    displayCustomVideos();
 }
 
 //Text tab
