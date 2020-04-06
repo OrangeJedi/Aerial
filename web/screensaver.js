@@ -4,6 +4,7 @@ const Store = require('electron-store');
 const store = new Store();
 const allowedVideos = store.get("allowedVideos");
 let downloadedVideos = store.get("downloadedVideos");
+let customVideos = store.get("customVideos");
 let currentlyPlaying = '';
 let poiTimeout, transitionTimeout;
 
@@ -61,16 +62,26 @@ function newVideo() {
             id = remote.getGlobal('shared').currentlyPlaying;
         }
     }
-    let index = videos.findIndex((e) => {
-        if (id === e.id) {
-            return true;
+    let videoInfo, videoSRC;
+    if(id[0] === "_"){
+        videoInfo = customVideos[customVideos.findIndex((e) => {
+            if (id === e.id) {
+                return true;
+            }
+        })];
+        videoSRC = videoInfo.path;
+    }else{
+        let index = videos.findIndex((e) => {
+            if (id === e.id) {
+                return true;
+            }
+        });
+        videoInfo = videos[index];
+        downloadedVideos = store.get("downloadedVideos");
+        videoSRC = videoInfo.src.H2641080p;
+        if(downloadedVideos.includes(videoInfo.id)){
+            videoSRC = `${store.get('cachePath')}/${videoInfo.id}.mov`;
         }
-    });
-    let videoInfo = videos[index];
-    downloadedVideos = store.get("downloadedVideos");
-    let videoSRC = videoInfo.src.H2641080p;
-    if(downloadedVideos.includes(videoInfo.id)){
-        videoSRC = `${store.get('cachePath')}/${videoInfo.id}.mov`;
     }
     video.src = videoSRC;
     video.playbackRate = Number(store.get('playbackSpeed'));

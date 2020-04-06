@@ -34,6 +34,7 @@ function displaySettings() {
         $(`#${numeralText[i].id}`).text(numeral(store.get(numeralText[i].id)).format(numeralText[i].format));
     }
     displayPlaybackSettings();
+    displayCustomVideos();
 }
 displaySettings();
 
@@ -134,6 +135,59 @@ function deleteCache() {
 ipcRenderer.on('displaySettings', () =>{
    displaySettings();
 });
+
+//Custom videos
+ipcRenderer.on('newCustomVideos',(event, videoList) => {
+    let customVideos = store.get('customVideos');
+    for(let i = 0;i < videoList.length;i++){
+        let index = customVideos.findIndex((e) => {
+            if (`${videoList.path}\\${videoList[i]}` === e.path) {
+                return true;
+            }
+        });
+        if(index === -1){
+            customVideos.push({
+               "path" : `${videoList.path}\\${videoList[i]}`,
+                "name" : videoList[i],
+                "id" : newId(),
+                "accessibilityLabel" : "Custom Video"
+            });
+        }
+        allowedVideos.push(customVideos[customVideos.length - 1].id);
+    }
+    store.set('customVideos', customVideos);
+    store.set("allowedVideos", allowedVideos);
+    displayCustomVideos();
+});
+
+function newId () {
+    return '_' + Math.random().toString(36).substr(2, 9);
+}
+
+function displayCustomVideos() {
+    let html = "<br>";
+    const customVideos = store.get('customVideos');
+    html += "<table class='w3-table-all'>";
+    for(let i = 0;i < customVideos.length;i++){
+        html += `<tr>
+                <td><input type="checkbox" class="w3-check" ${allowedVideos.includes(customVideos[i].id) ? "checked" : ""} onclick="checkCustomVideo(this,'${customVideos[i].id}')"></td>
+                <td>${customVideos[i].name}</td>
+                <td><i class="fa fa-cog w3-large"></i></td>
+                <td><i class='fa fa-times w3-large' style='color: #f44336'></i></td>
+                </tr>`;
+    }
+    html +="</table>";
+    $('#customVideoList').html(html);
+}
+
+function checkCustomVideo(e,id) {
+    if(e.checked){
+        allowedVideos.push(id);
+    }else{
+        allowedVideos.splice(allowedVideos.indexOf(id), 1);
+    }
+    store.set("allowedVideos", allowedVideos);
+}
 
 //Text tab
 
@@ -413,7 +467,7 @@ function checkVideo(e, index) {
 
 //automated video selection buttons
 function deselectAll() {
-    allowedVideos = [];
+    allowedVideos = allowedVideos.filter(id => id[0] === "_");
     store.set("allowedVideos", allowedVideos);
     makeList();
 }

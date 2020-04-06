@@ -29,6 +29,7 @@
         <a onclick="selectSetting('playback')" id="settingsList-playback" class="w3-bar-item w3-button settingsListItem">Playback</a>
         <a onclick="selectSetting('transition')" id="settingsList-transition" class="w3-bar-item w3-button settingsListItem">Transitions</a>
         <a onclick="selectSetting('cache')" id="settingsList-cache" class="w3-bar-item w3-button settingsListItem">Video Cache</a>
+        <a onclick="selectSetting('customVideo')" id="settingsList-customVideo" class="w3-bar-item w3-button settingsListItem">Custom Videos</a>
     </div>
     <div id="generalCard" style="margin-left:20%">
         <div id="generalSettings" class="settingsCard">
@@ -95,6 +96,15 @@
                 <button class="w3-button w3-white w3-border w3-border-blue w3-round-large" onclick="ipcRenderer.send('openCache');">Open cache in file explore</button>
                 <br>
                 <p class="w3-small">Cache Size: <span id="videoCacheSize"></span></p>
+            </div>
+        </div>
+        <div id="customVideoSettings" class="settingsCard" style="display: none">
+            <div class="w3-container w3-blue">
+                <h4>Custom Videos</h4>
+            </div>
+            <div class="w3-display-container" style="padding: 2%">
+                <button onclick="ipcRenderer.send('selectCustomLocation')">Add Folder</button>
+                <div id="customVideoList"></div>
             </div>
         </div>
     </div>

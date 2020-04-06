@@ -1,4 +1,4 @@
-const {app, BrowserWindow, ipcMain, screen, shell} = require('electron');
+const {app, BrowserWindow, ipcMain, screen, shell, dialog} = require('electron');
 const videos = require("./videos.json");
 const Store = require('electron-store');
 const store = new Store();
@@ -34,6 +34,7 @@ function createConfigWindow(argv) {
     if (argv.includes("/dt")) {
         win.webContents.openDevTools();
     }
+    screens.push(win);
 }
 
 function createJSONConfigWindow() {
@@ -148,6 +149,7 @@ function startUp() {
         store.set('videoCacheSize', getCacheSize());
         store.set('videoCacheRemoveUnallowed', false);
         store.set('cachePath', cachePath);
+        store.set('customVideos', []);
     }
     if (process.argv.includes("/nq")) {
         nq = true;
@@ -225,6 +227,24 @@ ipcMain.on('deleteCache', (event) => {
 
 ipcMain.on('openCache', (event) => {
     shell.openExternal(cachePath);
+});
+
+ipcMain.on('selectCustomLocation', async (event, arg) => {
+    const result = await dialog.showOpenDialog(screens[0], {
+        properties: ['openDirectory']
+    });
+    const path = result.filePaths[0];
+    let videoList = [];
+    videoList.path = path;
+    fs.readdir(path, (err, files) => {
+        files.forEach(file => {
+            if (file.includes('.mp4') || file.includes('.webm') || file.includes('.ogv')) {
+                videoList.push(file);
+            }
+        });
+        event.reply('newCustomVideos', videoList);
+    });
+    //event.reply('filePath', result.filePaths);
 });
 
 //file download
