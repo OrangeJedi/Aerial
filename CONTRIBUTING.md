@@ -34,6 +34,13 @@ A list of all the built in flags detailed below
 | /t | Launches the screen saver in a smaller window with borders |
 | /j | Super secret JSON editor | 
 
+You can also use these additional flags for special options
+
+| Flag | Effect |
+|:---:|:------:|
+| /dt | Automatically opens the dev tools|
+| /nq | Prevents the app from quiting itself|
+
 #### Building Aerial
 
 Want to build Aerial for yourself? First set up dev environment as detailed above. 
