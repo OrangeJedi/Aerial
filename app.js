@@ -67,7 +67,11 @@ function createSSWindow() {
             frame: false
         });
         win.setMenu(null);
-        win.loadFile('web/screensaver.html');
+        if(store.get("onlyShowVideoOnPrimaryMonitor") && i !== 0){
+            win.loadFile('web/black.html');
+        }else {
+            win.loadFile('web/screensaver.html');
+        }
         win.on('closed', function () {
             xWin = null;
         });
@@ -152,6 +156,7 @@ function startUp() {
         store.set('cachePath', cachePath);
         store.set('customVideos', []);
         store.set('avoidDuplicateVideos', true);
+        store.set('onlyShowVideoOnPrimaryMonitor', false);
     }
     if (process.argv.includes("/nq")) {
         nq = true;

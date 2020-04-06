@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Aerial</title>
+</head>
+<body style="background-color: black">
+<script>
+    const {ipcRenderer} = require('electron');
+    document.addEventListener('keydown', (e) => {
+        ipcRenderer.send('keyPress', e.code);
+    });
+    document.addEventListener('mousedown', quitApp);
+    setTimeout(function () {
+        var threshold = 5;
+        document.addEventListener('mousemove', function (e) {
+            if (threshold * threshold < e.movementX * e.movementX
+                + e.movementY * e.movementY) {
+                quitApp();
+            }
+        });
+    }, 1500);
+    function quitApp() {
+        ipcRenderer.send('quitApp');
+    }
+</script>
+</body>
+</html>
