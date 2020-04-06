@@ -1,15 +1,23 @@
+//Global constants
+//Set up persistent read/write for storing all of our settings
 const Store = require('electron-store');
-const videos = require("../videos.json");
 const store = new Store();
+//talk to app.js
+const {ipcRenderer} = require('electron');
+//All the videos and their information
+const videos = require("../videos.json");
 
+//Global variables
+//This list of allowed or 'checked' videos
 let allowedVideos = store.get("allowedVideos");
+let downloadedVideos = store.get("downloadedVideos");
+let alwaysDownloadVideos = store.get("alwaysDownloadVideos");
+let neverDownloadVideos = store.get("neverDownloadVideos");
+let customVideos = store.get("customVideos");
 
-if (store.get('clock')) {
-    document.getElementById("showClock").checked = true;
-}
-
+//Updates all the <input> tags with their proper values. Called on page load
 function displaySettings() {
-    let checked = ["timeOfDay", "skipVideosWithKey", "sameVideoOnScreens"];
+    let checked = ["timeOfDay", "skipVideosWithKey", "sameVideoOnScreens", "videoCache", "videoCacheProfiles", "videoCacheRemoveUnallowed", "avoidDuplicateVideos", "onlyShowVideoOnPrimaryMonitor"];
     for (let i = 0; i < checked.length; i++) {
         $(`#${checked[i]}`).prop('checked', store.get(checked[i]));
     }
@@ -17,14 +25,18 @@ function displaySettings() {
     for (let i = 0; i < numTxt.length; i++) {
         $(`#${numTxt[i]}`).val(store.get(numTxt[i]));
     }
-    let slider = ["playbackSpeed"];
+    let slider = ["playbackSpeed", "videoTransitionLength"];
     for (let i = 0; i < slider.length; i++) {
         $(`#${slider[i]}`).val(store.get(slider[i]));
         $(`#${slider[i]}Text`).text(store.get(slider[i]));
     }
+    let numeralText = [{'id' : "videoCacheSize", 'format' : "0.00 ib"}];
+    for (let i = 0; i < numeralText.length; i++) {
+        $(`#${numeralText[i].id}`).text(numeral(store.get(numeralText[i].id)).format(numeralText[i].format));
+    }
     displayPlaybackSettings();
+    displayCustomVideos();
 }
-
 displaySettings();
 
 function displayPlaybackSettings() {
@@ -38,10 +50,7 @@ function displayPlaybackSettings() {
     $('#videoFilterSettings').html(html);
 }
 
-function updateClock() {
-    store.set('clock', document.getElementById("showClock").checked)
-}
-
+//Updates settings of all shapes and sizes
 function updateSetting(setting, type) {
     switch (type) {
         case "check":
@@ -78,6 +87,7 @@ function updateSetting(setting, type) {
     }
 }
 
+//Sets a setting to its default value, if it exists
 function resetSetting(setting, type, value) {
     switch (type) {
         case "slider":
@@ -103,6 +113,7 @@ function resetSetting(setting, type, value) {
     }
 }
 
+//Mass resets all the filter settings
 function resetFilterSettings() {
     let videoFilters = store.get('videoFilters');
     for (let i = 0; i < videoFilters.length; i++) {
@@ -112,6 +123,103 @@ function resetFilterSettings() {
     displayPlaybackSettings();
 }
 
+//Cache functions
+function updateCache() {
+    ipcRenderer.send('updateCache');
+}
+
+function deleteCache() {
+    if(alert('Are sure you want to delete all the videos in the cache?'))
+    ipcRenderer.send('deleteCache');
+}
+
+ipcRenderer.on('displaySettings', () =>{
+   displaySettings();
+});
+
+//Custom videos
+ipcRenderer.on('newCustomVideos',(event, videoList) => {
+    customVideos = store.get('customVideos');
+    for(let i = 0;i < videoList.length;i++){
+        let index = customVideos.findIndex((e) => {
+            if (`${videoList.path}\\${videoList[i]}` === e.path) {
+                return true;
+            }
+        });
+        if(index === -1){
+            customVideos.push({
+               "path" : `${videoList.path}\\${videoList[i]}`,
+                "name" : videoList[i],
+                "id" : newId(),
+                "accessibilityLabel" : "Custom Video"
+            });
+        }
+        allowedVideos.push(customVideos[customVideos.length - 1].id);
+    }
+    store.set('customVideos', customVideos);
+    store.set("allowedVideos", allowedVideos);
+    displayCustomVideos();
+});
+
+function newId () {
+    return '_' + Math.random().toString(36).substr(2, 9);
+}
+
+function displayCustomVideos() {
+    let html = "<br>";
+    customVideos = store.get('customVideos');
+    html += "<table class='w3-table-all'>";
+    for(let i = 0;i < customVideos.length;i++){
+        html += `<tr>
+                <td><input type="checkbox" class="w3-check" ${allowedVideos.includes(customVideos[i].id) ? "checked" : ""} onclick="checkCustomVideo(this,'${customVideos[i].id}')"></td>
+                <td>${customVideos[i].name}</td>
+                <td><i class="fa fa-cog w3-large" onclick="editCustomVideo('${customVideos[i].id}')"></i></td>
+                <td><i class='fa fa-times w3-large' style='color: #f44336' onclick="removeCustomVideo('${customVideos[i].id}')"></i></td>
+                </tr>`;
+    }
+    html +="</table>";
+    $('#customVideoList').html(html);
+}
+
+function checkCustomVideo(e,id) {
+    if(e.checked){
+        allowedVideos.push(id);
+    }else{
+        allowedVideos.splice(allowedVideos.indexOf(id), 1);
+    }
+    store.set("allowedVideos", allowedVideos);
+}
+
+function removeCustomVideo(id) {
+    if(allowedVideos.includes(id)){
+        allowedVideos.splice(allowedVideos.indexOf(id), 1);
+    }
+    let index = customVideos.findIndex((e) => {
+        if (id === e.id) {
+            return true;
+        }
+    });
+    customVideos.splice(index,1);
+    store.set("customVideos", customVideos);
+    displayCustomVideos();
+}
+
+function editCustomVideo(id) {
+    let index = customVideos.findIndex((e) => {
+        if (id === e.id) {
+            return true;
+        }
+    });
+    document.getElementById('editCustomVideo').style.display='block';
+    document.getElementById('customVideoName').onchange = ()=>{customVideos[index].name = $('#customVideoName').val();store.set('customVideos', customVideos);displayCustomVideos()};
+    document.getElementById('customVideoName').value = customVideos[index].name;
+    store.set('customVideos', customVideos);
+    displayCustomVideos();
+}
+
+//Text tab
+
+//handles selecting a radio button from the position image
 function positionSelect(position) {
     position = position.value;
     let displayTextSettings = store.get('displayText')[position];
@@ -175,18 +283,21 @@ function updatePositionType(position) {
     store.set('displayText', displayTextSettings);
 }
 
+//Text settings are stored separate from other settings, so they require their own functions
 function updateTextSetting(input, position, setting) {
     let text = store.get('displayText');
     text[position][setting] = input.value;
     store.set('displayText', text);
 }
 
+//This one handles checkboxes because they are a special case
 function updateTextSettingCheck(input, position, setting) {
     let text = store.get('displayText');
     text[position][setting] = input.checked;
     store.set('displayText', text);
 }
 
+//Handles changing menu tabs
 function changeTab(evt, tab) {
     let i, x, tablinks;
     x = document.getElementsByClassName("tab");
@@ -201,28 +312,7 @@ function changeTab(evt, tab) {
     evt.currentTarget.className += " w3-blue";
 }
 
-$(document).ready(() => {
-    makeList();
-    selectVideo(-1);
-});
-
-function makeList() {
-    let videoList = "<a onclick=\"selectVideo(-1)\"><h3 class=\"w3-bar-item videoListItem\" id='videoListTitle'><i class=\"fa fa-film\"></i> Videos</h3></a>";
-    let headertxt = "";
-    for (let i = 0; i < videos.length; i++) {
-        if (headertxt !== videos[i].accessibilityLabel) {
-            videoList += `<h5 class="w3-bar-item videoListItem" id='videoListTitle'>${videos[i].accessibilityLabel}</h5>`;
-            headertxt = videos[i].accessibilityLabel;
-        }
-        videoList += `<span style="padding-left: 10%; font-size: small"><input type="checkbox" ${allowedVideos.includes(videos[i].id) ? "checked" : ""} class="w3-check" onclick="checkVideo(event,${i})">
-                      <a style="display: inline;" href="#" id="videoList-${i}" onclick="selectVideo(${i})" class="w3-bar-item w3-button videoListItem">
-                      ${videos[i].name ? videos[i].name : videos[i].accessibilityLabel}
-                      </a></span><br>`;
-    }
-    videoList += "<br><br><br><br><br><br>";
-    $('#videoList').html(videoList);
-}
-
+//Functions to run the side menus
 function selectSetting(item) {
     let list = document.getElementsByClassName("settingsListItem");
     for (i = 0; i < list.length; i++) {
@@ -253,19 +343,65 @@ function selectTextSetting(item) {
     document.getElementById(`${item}TextSettings`).style.display = "";
 }
 
+//Video tab
+
+//Makes and then displays the videos on the sidebar
+function makeList() {
+    let videoList = "<a onclick=\"selectVideo(-1)\"><h3 class=\"w3-bar-item videoListItem\" id='videoListTitle'><i class=\"fa fa-film\"></i> Videos</h3></a>";
+    let headertxt = "";
+    for (let i = 0; i < videos.length; i++) {
+        if (headertxt !== videos[i].accessibilityLabel) {
+            videoList += `<h5 class="w3-bar-item videoListItem" id='videoListTitle'>${videos[i].accessibilityLabel}</h5>`;
+            headertxt = videos[i].accessibilityLabel;
+        }
+        videoList += `<span style="padding-left: 8%; font-size: small"><input type="checkbox" ${allowedVideos.includes(videos[i].id) ? "checked" : ""} class="w3-check" onclick="checkVideo(event,${i})">
+                      <a style="display: inline;" href="#" id="videoList-${i}" onclick="selectVideo(${i})" class="w3-bar-item w3-button videoListItem">
+                      ${videos[i].name ? videos[i].name : videos[i].accessibilityLabel}
+                      </a></span><br>`;
+    }
+    videoList += "<br><br><br><br><br><br>";
+    $('#videoList').html(videoList);
+}
+$(document).ready(() => {
+    makeList();
+    selectVideo(-1);
+});
+
+//Shows further info when you click on a video
 function selectVideo(index) {
     let x = document.getElementsByClassName("videoListItem");
     for (i = 0; i < x.length; i++) {
         x[i].className = x[i].className.replace("w3-deep-orange", "");
     }
     if (index > -1) {
+        downloadedVideos = store.get("downloadedVideos");
         document.getElementById("videoList-" + index).className += " w3-deep-orange";
-        $('#videoPlayer').attr("src", videos[index].src.H2641080p).show();
+        let videoSRC = videos[index].src.H2641080p;
+        if(downloadedVideos.includes(videos[index].id)){
+            videoSRC = `${store.get('cachePath')}/${videos[index].id}.mov`;
+        }
+        $('#videoPlayer').attr("src", videoSRC).show();
         $('#videoName').text(videos[index].accessibilityLabel);
-        $('#videoSettings').html("");
+        let videoDownloadState = "whenChecked";
+        if(alwaysDownloadVideos.includes(videos[index].id)){
+            videoDownloadState = "always";
+        }else if(neverDownloadVideos.includes(videos[index].id)){
+            videoDownloadState = "never";
+        }
+        $('#videoInfo').html(`${downloadedVideos.includes(videos[index].id) ? "<p class='w3-large'><i class='far fa-check-circle' style='color: #4CAF50'></i> Downloaded</p>" : "<p class='w3-large'><i class='far fa-times-circle' style='color: #f44336'></i> Downloaded</p>"}
+                              <div class="w3-small">
+                              <input class="w3-radio" type="radio" name="downloadVideo" onclick="changeVideoDownloadState(this, '${videos[index].id}')" value="whenChecked" ${videoDownloadState === "whenChecked" ? "checked" : ""}>
+                              <label>Download when checked and cache is enabled</label><br>  
+                              <input class="w3-radio" type="radio" name="downloadVideo" onclick="changeVideoDownloadState(this, '${videos[index].id}')" value="always" ${videoDownloadState === "always" ? "checked" : ""}>
+                              <label>Always download</label><br>
+                              <input class="w3-radio" type="radio" name="downloadVideo" onclick="changeVideoDownloadState(this, '${videos[index].id}')" value="never" ${videoDownloadState === "never" ? "checked" : ""}>
+                              <label>Never download</label>
+                              </div>`).css('display', '');
+        $('#videoSettings').css('display', 'none');
     } else {
         $('#videoPlayer').attr("src", "").hide();
         $('#videoName').text("Video Settings");
+        $('#videoInfo').css('display', 'none');
         $('#videoSettings').html(`<br>
                                   <div class="w3-container">
                                   <button class="w3-button w3-white w3-border w3-border-green w3-round-large" onclick="selectAll()">Select All</button>
@@ -278,10 +414,76 @@ function selectVideo(index) {
                                   </select> 
                                   <button class="w3-button w3-white w3-border w3-border-green w3-round-large" onclick="selectType()">Select Type</button>
                                   <button class="w3-button w3-white w3-border w3-border-red w3-round-large" onclick="deselectType()">Deselect Type</button>
-                                  </div>`);
+                                  <br>
+                                  <h3>Profiles</h3>
+                                  <select class="w3-select w3-border" id="videoProfiles">
+                                  </select>
+                                  <br><br>
+                                  <button class="w3-button w3-white w3-border w3-border-green w3-round-large" onclick="displayProfile('videoProfiles')">Load Profile</button>
+                                  <button class="w3-button w3-white w3-border w3-border-green w3-round-large" onclick="updateProfile('videoProfiles')">Update Profile</button>
+                                  <button class="w3-button w3-white w3-border w3-border-red w3-round-large" onclick="removeProfile('videoProfiles')">Delete Profile</button>
+                                  <button class="w3-button w3-white w3-border w3-border-blue w3-round-large" onclick="document.getElementById('createVideoProfile').style.display='block'">Create Profile</button>
+                                  <br>
+                                  <h3>Downloads</h3>
+                                  <button class="w3-button w3-white w3-border w3-border-blue w3-round-large" onclick="changeAllVideoDownloadState('allVideoDownloadState')">Set all videos to </button>
+                                  <select id="allVideoDownloadState" class="w3-select w3-border" style="width: 35%">
+                                    <option value="whenChecked">download when checked</option>
+                                    <option value="always">always download</option>
+                                    <option value="never">never download</option>
+                                  </select>
+                                  </div>`).css('display', '');
+        let profiles = store.get('videoProfiles');
+        let html = "";
+        for(let i = 0;i < profiles.length;i++){
+            html += `<option value="${profiles[i].name}">${profiles[i].name}</option>`
+        }
+        $('#videoProfiles').html(html);
     }
 }
 
+function changeVideoDownloadState(element, videoId) {
+    alwaysDownloadVideos = alwaysDownloadVideos.filter(function(item, pos, self) {
+        return item !== videoId;
+    });
+    neverDownloadVideos = neverDownloadVideos.filter(function(item, pos, self) {
+        return item !== videoId;
+    });
+    switch (element.value) {
+        case "whenChecked":
+            break;
+        case "always":
+            alwaysDownloadVideos.push(videoId);
+            break;
+        case "never":
+            neverDownloadVideos.push(videoId);
+            break;
+    }
+    store.set("alwaysDownloadVideos", alwaysDownloadVideos);
+    store.set("neverDownloadVideos", neverDownloadVideos);
+}
+
+function changeAllVideoDownloadState(elementId) {
+    alwaysDownloadVideos = [];
+    neverDownloadVideos = [];
+    switch ($(`#${elementId}`).val()) {
+        case "whenChecked":
+            break;
+        case "always":
+            for(let i = 0; i < videos.length; i++){
+                alwaysDownloadVideos.push(videos[i].id);
+            }
+            break;
+        case "never":
+            for(let i = 0; i < videos.length; i++){
+                neverDownloadVideos.push(videos[i].id);
+            }
+            break;
+    }
+    store.set("alwaysDownloadVideos", alwaysDownloadVideos);
+    store.set("neverDownloadVideos", neverDownloadVideos);
+}
+
+//Updates the video list when a video is checked
 function checkVideo(e, index) {
     if (e.currentTarget.checked) {
         allowedVideos.push(videos[index].id);
@@ -291,8 +493,9 @@ function checkVideo(e, index) {
     store.set("allowedVideos", allowedVideos);
 }
 
+//automated video selection buttons
 function deselectAll() {
-    allowedVideos = [];
+    allowedVideos = allowedVideos.filter(id => id[0] === "_");
     store.set("allowedVideos", allowedVideos);
     makeList();
 }
@@ -332,11 +535,60 @@ function deselectType() {
     makeList();
 }
 
+//Video Profiles
+function createProfile(id) {
+    let profiles = store.get('videoProfiles');
+    profiles.push({
+        "name" : $(`#${id}`).val(),
+        "videos" : allowedVideos
+    });
+    store.set('videoProfiles', profiles);
+    selectVideo(-1);
+}
+
+function updateProfile(id) {
+    let profiles = store.get('videoProfiles');
+    for(let i = 0; i < profiles.length;i++){
+        if(profiles[i].name === $(`#${id}`).val()){
+            profiles[i].videos = allowedVideos.filter(id => id[0] !== "_");
+            break;
+        }
+    }
+    store.set('videoProfiles', profiles);
+}
+
+function removeProfile(id) {
+    let profiles = store.get('videoProfiles');
+    for(let i = 0; i < profiles.length;i++){
+        if(profiles[i].name === $(`#${id}`).val()){
+            profiles.splice(i,1);
+            break;
+        }
+    }
+    store.set('videoProfiles', profiles);
+    selectVideo(-1);
+}
+
+function displayProfile(id) {
+    let customAllowed = allowedVideos.filter(id => id[0] === "_");
+    let profiles = store.get('videoProfiles');
+    for(let i = 0; i < profiles.length;i++){
+        if(profiles[i].name === $(`#${id}`).val()){
+            allowedVideos = profiles[i].videos;
+            makeList();
+            break;
+        }
+    }
+    allowedVideos.push(...customAllowed);
+    store.set("allowedVideos", allowedVideos);
+}
+
+//For formatting time and dates. Used throughout the config menu
 function showMomentDisplay(id, stringID) {
     $(`#${id}`).text(moment().format(stringID.value));
 }
 
-//autocomplete stuff
+//Autocomplete stuff
 function autocomplete(inp, arr, func) {
     /*the autocomplete function takes two arguments,
     the text field element and an array of possible autocompleted values:*/
@@ -456,6 +708,7 @@ document.addEventListener("click", function (e) {
     closeAllLists(e.target);
 });
 
+//Still autocomplete stuff. This part sets up our font lists
 let fontList = [];
 require('font-list-universal').getFonts().then(fonts => {
     autocomplete(document.getElementById('textFont'), fonts, () => {

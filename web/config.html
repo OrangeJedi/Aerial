@@ -9,13 +9,14 @@
     }</script>
     <script src="libraries/js/jquery-min.js"></script>
     <script src="libraries/js/moment.min.js"></script>
+    <script src="libraries/js/numeral.min.js"></script>
     <script>if (window.module) module = window.module;</script>
     <link rel="stylesheet" href="libraries/css/w3.min.css">
     <link rel="stylesheet" href="libraries/css/all.min.css">
     <link rel="stylesheet" href="config.css">
 </head>
 <body>
-<h1>Aerial Config</h1>
+<h1 style="padding-left: 1%">Aerial Config</h1>
 <div class="w3-bar w3-grey">
     <button class="w3-bar-item w3-button tablink w3-blue" onclick="changeTab(event,'settingsTab')">Settings</button>
     <button class="w3-bar-item w3-button tablink" onclick="changeTab(event,'videoTab')">Videos</button>
@@ -26,6 +27,9 @@
         <a onclick="selectSetting('general')" id="settingsList-general" class="settingsListItem"><h3 class="w3-bar-item"><i class="fa fa-cog"></i> Settings</h3></a>
         <a onclick="selectSetting('multi-screen')" id="settingsList-multi-screen" class="w3-bar-item w3-button settingsListItem">Multi-Screen</a>
         <a onclick="selectSetting('playback')" id="settingsList-playback" class="w3-bar-item w3-button settingsListItem">Playback</a>
+        <a onclick="selectSetting('transition')" id="settingsList-transition" class="w3-bar-item w3-button settingsListItem">Transitions</a>
+        <a onclick="selectSetting('cache')" id="settingsList-cache" class="w3-bar-item w3-button settingsListItem">Video Cache</a>
+        <a onclick="selectSetting('customVideo')" id="settingsList-customVideo" class="w3-bar-item w3-button settingsListItem">Custom Videos</a>
     </div>
     <div id="generalCard" style="margin-left:20%">
         <div id="generalSettings" class="settingsCard">
@@ -33,6 +37,10 @@
                 <h4>General Settings</h4>
             </div>
             <div class="w3-display-container" style="padding: 2%">
+                <input type="checkbox" id="avoidDuplicateVideos" class="w3-check" onclick="updateSetting('avoidDuplicateVideos','check')"> <label>Avoid Duplicate Videos</label>
+                <br>
+                <i class="w3-small" style="padding-left: 4%">When this option is enabled Aerial will avoid playing the most recently played videos</i>
+                <br>
                 <input type="checkbox" id="timeOfDay" class="w3-check" onclick="updateSetting('timeOfDay','check')"> <label>Prioritize current time of day</label>
                 <div>
                     <br>
@@ -51,32 +59,73 @@
             </div>
             <div class="w3-display-container" style="padding: 2%">
                 <input type="checkbox" id="sameVideoOnScreens" class="w3-check" onclick="updateSetting('sameVideoOnScreens','check')"> <label>Play the same video on each screen</label>
+                <br>
+                <input type="checkbox" id="onlyShowVideoOnPrimaryMonitor" class="w3-check" onclick="updateSetting('onlyShowVideoOnPrimaryMonitor','check')"> <label>Only play videos on the primary screen</label>
             </div>
         </div>
         <div id="playbackSettings" class="settingsCard" style="display: none">
+        <div class="w3-container w3-blue">
+            <h4>Playback Settings</h4>
+        </div>
+        <div class="w3-display-container" style="padding: 2%">
+            <label>Playback Speed: <span id="playbackSpeedText"></span></label><span class="w3-right" onclick="resetSetting('playbackSpeed', 'slider', 1)"><i class="fa fa-undo"></i></span>
+            <br>
+            <input type="range" min=".75" max="4" value="1" step=".05" id="playbackSpeed" class="slider" onchange="updateSetting('playbackSpeed','slider')">
+            <h3>Filter Settings <span class="w3-right" onclick="resetFilterSettings()"><i class="fa fa-undo"></i></span></h3>
+            <div class="w3-display-container" id="videoFilterSettings"></div>
+        </div>
+        </div>
+        <div id="transitionSettings" class="settingsCard" style="display: none">
             <div class="w3-container w3-blue">
-                <h4>Playback Settings</h4>
+                <h4>Transition Settings</h4>
             </div>
             <div class="w3-display-container" style="padding: 2%">
-                <label>Playback Speed: <span id="playbackSpeedText"></span></label><span class="w3-right" onclick="resetSetting('playbackSpeed', 'slider', 1)"><i class="fa fa-undo"></i></span>
+                <label>Transition Speed: <span id="videoTransitionLengthText"></span></label><span class="w3-right" onclick="resetSetting('videoTransitionLength', 'slider', 1000)"><i class="fa fa-undo"></i></span>
                 <br>
-                <input type="range" min=".75" max="4" value="1" step=".05" id="playbackSpeed" class="slider" onchange="updateSetting('playbackSpeed','slider')">
-                <h3>Filter Settings <span class="w3-right" onclick="resetFilterSettings()"><i class="fa fa-undo"></i></span></h3>
-                <div class="w3-display-container" id="videoFilterSettings"></div>
+                <input type="range" min="750" max="4000" value="1000" step="10" id="videoTransitionLength" class="slider" onchange="updateSetting('videoTransitionLength','slider')">
+            </div>
+        </div>
+        <div id="cacheSettings" class="settingsCard" style="display: none">
+            <div class="w3-container w3-blue">
+                <h4>Video Cache Settings</h4>
+            </div>
+            <div class="w3-display-container" style="padding: 2%">
+                <input type="checkbox" id="videoCache" class="w3-check" onclick="updateSetting('videoCache','check')"> <label>Automatically download checked videos to the cache</label>
+                <br>
+                <p class="w3-small" style="margin-left: 4%">The total size of all videos is approximately 20 GB</p>
+                <input type="checkbox" id="videoCacheProfiles" class="w3-check" onclick="updateSetting('videoCacheProfiles','check')" style="margin-left: 8%"> <label>Include videos in saved profiles</label>
+                <br>
+                <input type="checkbox" id="videoCacheRemoveUnallowed" class="w3-check" onclick="updateSetting('videoCacheRemoveUnallowed','check')" style="margin-left: 8%"> <label>Automatically remove unchecked videos</label>
+                <br><br>
+                <button class="w3-button w3-white w3-border w3-border-blue w3-round-large" onclick="updateCache()">Update cache</button>
+                <button class="w3-button w3-white w3-border w3-border-red w3-round-large" onclick="deleteCache()">Delete all files in cache</button>
+                <button class="w3-button w3-white w3-border w3-border-blue w3-round-large" onclick="ipcRenderer.send('openCache');">Open cache in file explore</button>
+                <br>
+                <p class="w3-small">Cache Size: <span id="videoCacheSize"></span></p>
+            </div>
+        </div>
+        <div id="customVideoSettings" class="settingsCard" style="display: none">
+            <div class="w3-container w3-blue">
+                <h4>Custom Videos</h4>
+            </div>
+            <div class="w3-display-container" style="padding: 2%">
+                <button onclick="ipcRenderer.send('selectCustomLocation')">Add Folder</button>
+                <div id="customVideoList"></div>
             </div>
         </div>
     </div>
 </div>
 <div id="videoTab" class="tab" style="display: none">
-    <div class="w3-sidebar w3-light-grey w3-bar-block" id="videoList" style="width:32%">
+    <div class="w3-sidebar w3-light-grey w3-bar-block" id="videoList" style="width:34%">
     </div>
-    <div id="videoCard" style="margin-left:32%">
+    <div id="videoCard" style="margin-left:34%">
         <div class="w3-container w3-blue">
             <h4 id="videoName">Video Settings</h4>
         </div>
         <div class="w3-display-container">
-            <video autoplay loop controls id="videoPlayer" class="w3-display-middle" style=" width: 90%; padding-top: 55%"></video>
+            <video autoplay loop controls id="videoPlayer" class="w3-display-middle" style=" width: 90%; padding-top: 55%; display: inline"></video>
             <div id="videoSettings"></div>
+            <div id="videoInfo" class="videoInfo"></div>
         </div>
     </div>
 </div>
@@ -171,6 +220,32 @@
                     <tr><td></td><td>Z</td><td>-07:00 -06:00 ... +06:00 +07:00</td></tr>
                     <tr><td></td><td>ZZ</td><td>-0700 -0600 ... +0600 +0700</td></tr>
                 </table>
+        </div>
+    </div>
+</div>
+<div id="createVideoProfile" class="w3-modal">
+    <div class="w3-modal-content">
+        <div class="w3-container w3-white">
+            <span onclick="document.getElementById('createVideoProfile').style.display='none'" class="w3-button w3-display-topright">&times;</span>
+            <br>
+            <p>
+                <label>Profile Name</label><input class="w3-input" type="text" id="newProfileName">
+                <br>
+                <button class="w3-button w3-white w3-border w3-border-blue w3-round-large" onclick="createProfile('newProfileName');document.getElementById('createVideoProfile').style.display='none';">Create Profile</button>
+            </p>
+        </div>
+    </div>
+</div>
+<div id="editCustomVideo" class="w3-modal">
+    <div class="w3-modal-content">
+        <div class="w3-container w3-white">
+            <span onclick="document.getElementById('editCustomVideo').style.display='none'" class="w3-button w3-display-topright">&times;</span>
+            <br>
+            <p>
+                <label>Name</label><input class="w3-input" type="text" id="customVideoName">
+                <br>
+                <button class="w3-button w3-white w3-border w3-border-blue w3-round-large" onclick="document.getElementById('editCustomVideo').style.display='none';">Done</button>
+            </p>
         </div>
     </div>
 </div>

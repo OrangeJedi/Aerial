@@ -61,3 +61,9 @@
     padding: 2%;
     padding-top: .5%;
 }
+
+.videoInfo{
+    position: absolute;
+    padding-top: 55%;
+    padding-left: 5%;
+}
