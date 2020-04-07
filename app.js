@@ -106,15 +106,28 @@ function createSSPWindow(argv) {
 app.whenReady().then(startUp);
 
 function startUp() {
+    if(store.get("version") !== "v0.5.1"){
+        store.set('downloadedVideos', []);
+        store.set('alwaysDownloadVideos', []);
+        store.set('neverDownloadVideos', []);
+        store.set('videoProfiles', []);
+        store.set('videoTransitionLength', 1000);
+        store.set('videoCache', false);
+        store.set('videoCacheProfiles', false);
+        store.set('videoCacheSize', getCacheSize());
+        store.set('videoCacheRemoveUnallowed', false);
+        store.set('cachePath', cachePath);
+        store.set('customVideos', []);
+        store.set('avoidDuplicateVideos', true);
+        store.set('onlyShowVideoOnPrimaryMonitor', false);
+        store.set('version', "v0.5.1");
+    }
     if (!store.get("configured")) {
         let allowedVideos = [];
         for (let i = 0; i < videos.length; i++) {
             allowedVideos.push(videos[i].id);
         }
         store.set('allowedVideos', allowedVideos);
-        store.set('downloadedVideos', []);
-        store.set('alwaysDownloadVideos', []);
-        store.set('neverDownloadVideos', []);
         store.set('timeOfDay', false);
         store.set('sunrise', "06:00");
         store.set('sunset', "18:00");
@@ -146,17 +159,7 @@ function startUp() {
             'middle': {'type': "none", "defaultFont": true},
             'topmiddle': {'type': "none", "defaultFont": true},
             'bottommiddle': {'type': "none", "defaultFont": true}
-        });
-        store.set('videoProfiles', []);
-        store.set('videoTransitionLength', 1000);
-        store.set('videoCache', false);
-        store.set('videoCacheProfiles', false);
-        store.set('videoCacheSize', getCacheSize());
-        store.set('videoCacheRemoveUnallowed', false);
-        store.set('cachePath', cachePath);
-        store.set('customVideos', []);
-        store.set('avoidDuplicateVideos', true);
-        store.set('onlyShowVideoOnPrimaryMonitor', false);
+        })
     }
     if (process.argv.includes("/nq")) {
         nq = true;
