@@ -106,35 +106,30 @@ function createSSPWindow(argv) {
 app.whenReady().then(startUp);
 
 function startUp() {
-    if (store.get("version") !== "v0.5.1") {
-        store.set('downloadedVideos', []);
-        store.set('alwaysDownloadVideos', []);
-        store.set('neverDownloadVideos', []);
-        store.set('videoProfiles', []);
-        store.set('videoTransitionLength', 1000);
-        store.set('videoCache', false);
-        store.set('videoCacheProfiles', false);
-        store.set('videoCacheSize', getCacheSize());
-        store.set('videoCacheRemoveUnallowed', false);
-        store.set('cachePath', cachePath);
-        store.set('customVideos', []);
-        store.set('avoidDuplicateVideos', true);
-        store.set('onlyShowVideoOnPrimaryMonitor', false);
-        store.set('version', "v0.5.1");
-    }
-    if (!store.get("configured")) {
-        let allowedVideos = [];
-        for (let i = 0; i < videos.length; i++) {
-            allowedVideos.push(videos[i].id);
+    if (!store.get("configured") || store.get("version") !== "v0.5.2") {
+        //video lists
+        if (!store.get('allowedVideos')) {
+            let allowedVideos = [];
+            for (let i = 0; i < videos.length; i++) {
+                allowedVideos.push(videos[i].id);
+            }
+            store.set('allowedVideos', allowedVideos);
         }
-        store.set('allowedVideos', allowedVideos);
-        store.set('timeOfDay', false);
-        store.set('sunrise', "06:00");
-        store.set('sunset', "18:00");
-        store.set('playbackSpeed', 1);
-        store.set('skipVideosWithKey', true);
-        store.set("configured", true);
-        store.set('videoFilters', [
+        store.set('downloadedVideos', store.get('downloadedVideos') ?? []);
+        store.set('alwaysDownloadVideos', store.get('alwaysDownloadVideos') ?? []);
+        store.set('neverDownloadVideos', store.get('neverDownloadVideos') ?? []);
+        store.set('videoProfiles', store.get('videoProfiles') ?? []);
+        store.set('customVideos', store.get('customVideos') ?? []);
+
+        //general settings
+        store.set('timeOfDay', store.get('timeOfDay') ?? false);
+        store.set('sunrise', store.get('sunrise') ?? "06:00");
+        store.set('sunset', store.get('sunset') ?? "18:00");
+        store.set('playbackSpeed', store.get('playbackSpeed') ?? 1);
+        store.set('skipVideosWithKey', store.get('skipVideosWithKey') ?? true);
+        store.set('avoidDuplicateVideos', store.get('avoidDuplicateVideos') ?? true);
+        //playback settings
+        store.set('videoFilters', store.get('videoFilters') ?? [
             {name: 'blur', value: 0, min: 0, max: 100, suffix: "px", defaultValue: 0},
             {name: 'brightness', value: 100, min: 0, max: 100, suffix: "%", defaultValue: 100},
             {name: 'grayscale', value: 0, min: 0, max: 100, suffix: "%", defaultValue: 0},
@@ -143,12 +138,21 @@ function startUp() {
             {name: 'saturate', value: 100, min: 0, max: 256, suffix: "%", defaultValue: 100},
             {name: 'sepia', value: 0, min: 0, max: 100, suffix: "%", defaultValue: 0},
         ]);
-        store.set('sameVideoOnScreens', false);
-        store.set('timeString', "dddd, MMMM Do YYYY, h:mm:ss a");
-        store.set('textFont', "Segoe UI");
-        store.set('textSize', "2");
-        store.set('textColor', "#FFFFFF");
-        store.set('displayText', {
+        store.set('videoTransitionLength', store.get('videoTransitionLength') ?? 1000);
+        //multi-screen settings
+        store.set('sameVideoOnScreens', store.get('sameVideoOnScreens') ?? false);
+        store.set('onlyShowVideoOnPrimaryMonitor', store.get('onlyShowVideoOnPrimaryMonitor') ?? false);
+        //cache settings
+        store.set('videoCache', store.get('videoCache') ?? false);
+        store.set('videoCacheProfiles', store.get('videoCacheProfiles') ?? false);
+        store.set('videoCacheSize', getCacheSize());
+        store.set('videoCacheRemoveUnallowed', store.get('videoCacheRemoveUnallowed') ?? false);
+        store.set('cachePath', store.get('cachePath') ?? cachePath);
+        //text settings
+        store.set('textFont', store.get('textFont') ?? "Segoe UI");
+        store.set('textSize', store.get('textSize') ?? "2");
+        store.set('textColor', store.get('textColor') ?? "#FFFFFF");
+        store.set('displayText', store.get('displayText') ?? {
             'positionList': ["topleft", "topright", "bottomleft", "bottomright", "left", "right", "middle", "topmiddle", "bottommiddle"],
             'topleft': {'type': "none", "defaultFont": true},
             'topright': {'type': "none", "defaultFont": true},
@@ -159,7 +163,11 @@ function startUp() {
             'middle': {'type': "none", "defaultFont": true},
             'topmiddle': {'type': "none", "defaultFont": true},
             'bottommiddle': {'type': "none", "defaultFont": true}
-        })
+        });
+
+        //config
+        store.set('version', "v0.5.2");
+        store.set("configured", true);
     }
     if (process.argv.includes("/nq")) {
         nq = true;
