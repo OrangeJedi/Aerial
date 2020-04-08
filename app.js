@@ -67,9 +67,9 @@ function createSSWindow() {
             frame: false
         });
         win.setMenu(null);
-        if(store.get("onlyShowVideoOnPrimaryMonitor") && i !== 0){
+        if (store.get("onlyShowVideoOnPrimaryMonitor") && i !== 0) {
             win.loadFile('web/black.html');
-        }else {
+        } else {
             win.loadFile('web/screensaver.html');
         }
         win.on('closed', function () {
@@ -106,7 +106,7 @@ function createSSPWindow(argv) {
 app.whenReady().then(startUp);
 
 function startUp() {
-    if(store.get("version") !== "v0.5.1"){
+    if (store.get("version") !== "v0.5.1") {
         store.set('downloadedVideos', []);
         store.set('alwaysDownloadVideos', []);
         store.set('neverDownloadVideos', []);
