@@ -76,11 +76,13 @@ function newVideo() {
     }
     let videoInfo, videoSRC;
     if(id[0] === "_"){
+        console.log(id);
         videoInfo = customVideos[customVideos.findIndex((e) => {
             if (id === e.id) {
                 return true;
             }
         })];
+        console.log(videoInfo);
         videoSRC = videoInfo.path;
     }else{
         let index = videos.findIndex((e) => {
@@ -222,7 +224,7 @@ function runClock(position, timeString) {
 $('.displayText').css('font-family', `"${store.get('textFont')}"`).css('font-size', `${store.get('textSize')}vw`).css('color', `${store.get('textColor')}`);
 
 //draw text
-let displayText = store.get('displayText');
+let displayText = store.get('displayText') ?? [];
 let html = "";
 
 //create content divs

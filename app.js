@@ -236,6 +236,7 @@ ipcMain.on('updateCache', (event) => {
         store.set('videoCacheSize', getCacheSize());
         event.reply('displaySettings');
     });
+    updateCustomVideos();
 });
 
 ipcMain.on('deleteCache', (event) => {
@@ -264,6 +265,25 @@ ipcMain.on('selectCustomLocation', async (event, arg) => {
     });
     //event.reply('filePath', result.filePaths);
 });
+
+function updateCustomVideos() {
+    let allowedVideos = store.get('allowedVideos');
+    let customVideos = store.get('customVideos');
+    for (let i = 0; i < allowedVideos.length; i++) {
+        if (allowedVideos[i][0] === "_") {
+            let index = customVideos.findIndex((e) => {
+                if (allowedVideos[i] === e.id) {
+                    return true;
+                }
+            });
+            if (index === -1) {
+                allowedVideos.splice(index, 1);
+                i--;
+            }
+        }
+    }
+    store.set('allowedVideos', allowedVideos);
+}
 
 //file download
 function downloadFile(file_url, targetPath, callback) {
