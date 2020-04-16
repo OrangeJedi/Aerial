@@ -119,7 +119,7 @@ let videoAlpha = 1;
 
 function onVideoPlay(e) {
     fadeVideoIn(transitionLength);
-    setTimeout(fadeVideoOut, (e.target.duration * 1000) - transitionLength - 300, transitionLength);
+    setTimeout(fadeVideoOut, (e.target.duration * 1000) - transitionLength, transitionLength);
 }
 
 function fadeVideoOut(time) {
