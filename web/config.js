@@ -17,11 +17,11 @@ let customVideos = store.get("customVideos");
 
 //Updates all the <input> tags with their proper values. Called on page load
 function displaySettings() {
-    let checked = ["timeOfDay", "skipVideosWithKey", "sameVideoOnScreens", "videoCache", "videoCacheProfiles", "videoCacheRemoveUnallowed", "avoidDuplicateVideos", "onlyShowVideoOnPrimaryMonitor"];
+    let checked = ["timeOfDay", "skipVideosWithKey", "sameVideoOnScreens", "videoCache", "videoCacheProfiles", "videoCacheRemoveUnallowed", "avoidDuplicateVideos", "onlyShowVideoOnPrimaryMonitor", 'videoQuality'];
     for (let i = 0; i < checked.length; i++) {
         $(`#${checked[i]}`).prop('checked', store.get(checked[i]));
     }
-    let numTxt = ["sunrise", "sunset", "textFont", "textSize", 'textColor', 'videoQuality'];
+    let numTxt = ["sunrise", "sunset", "textFont", "textSize", 'textColor'];
     for (let i = 0; i < numTxt.length; i++) {
         $(`#${numTxt[i]}`).val(store.get(numTxt[i]));
     }

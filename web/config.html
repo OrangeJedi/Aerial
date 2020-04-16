@@ -52,12 +52,6 @@
                 <br>
                 <input type="checkbox" id="skipVideosWithKey" class="w3-check" onclick="updateSetting('skipVideosWithKey','check')"> <label>Use the right arrow key to skip videos</label>
                 <br>
-                <label>Use the right arrow key to skip videos</label>
-                <select id="videoQuality" onchange="updateSetting('videoQuality', 'text')">
-                    <option value="high">High</option>
-                    <option value="normal">Normal</option>
-                    <option value="low">Low</option>
-                </select>
             </div>
         </div>
         <div id="multi-screenSettings" class="settingsCard" style="display: none">
@@ -80,6 +74,8 @@
                 <input type="range" min=".75" max="4" value="1" step=".05" id="playbackSpeed" class="slider" onchange="updateSetting('playbackSpeed','slider')">
                 <h3>Filter Settings <span class="w3-right" onclick="resetFilterSettings()"><i class="fa fa-undo"></i></span></h3>
                 <div class="w3-display-container" id="videoFilterSettings"></div>
+                <br>
+                <div class="w3-small"><input type="checkbox" id="videoQuality" class="w3-check" onclick="updateSetting('videoQuality','check')"> <label>Disable all video processing</label></div>
             </div>
         </div>
         <div id="transitionSettings" class="settingsCard" style="display: none">

@@ -63,19 +63,19 @@ function newVideo() {
             id = remote.getGlobal('shared').currentlyPlaying;
         }
     }
-    if(store.get('avoidDuplicateVideos')){
-        if(previouslyPlayed.includes(id)){
+    if (store.get('avoidDuplicateVideos')) {
+        if (previouslyPlayed.includes(id)) {
             newVideo();
             return;
-        }else{
+        } else {
             previouslyPlayed.push(id);
-            if(previouslyPlayed.length > (allowedVideos.length * .4)){
+            if (previouslyPlayed.length > (allowedVideos.length * .4)) {
                 previouslyPlayed.shift();
             }
         }
     }
     let videoInfo, videoSRC;
-    if(id[0] === "_"){
+    if (id[0] === "_") {
         console.log(id);
         videoInfo = customVideos[customVideos.findIndex((e) => {
             if (id === e.id) {
@@ -84,7 +84,7 @@ function newVideo() {
         })];
         console.log(videoInfo);
         videoSRC = videoInfo.path;
-    }else{
+    } else {
         let index = videos.findIndex((e) => {
             if (id === e.id) {
                 return true;
@@ -93,7 +93,7 @@ function newVideo() {
         videoInfo = videos[index];
         downloadedVideos = store.get("downloadedVideos");
         videoSRC = videoInfo.src.H2641080p;
-        if(downloadedVideos.includes(videoInfo.id)){
+        if (downloadedVideos.includes(videoInfo.id)) {
             videoSRC = `${store.get('cachePath')}/${videoInfo.id}.mov`;
         }
     }
@@ -192,6 +192,18 @@ function getTimeOfDay() {
 }
 
 //put the video on the canvas
+function drawVideo() {
+    if(videoAlpha !== 1) {
+        ctx1.clearRect(0, 0, window.innerWidth, window.innerHeight);
+        ctx1.globalAlpha = 1;
+        ctx1.fillStyle = "#000000";
+        ctx1.fillRect(0, 0, window.innerWidth, window.innerHeight);
+        ctx1.globalAlpha = videoAlpha;
+    }
+    ctx1.drawImage(video, 0, 0, window.innerWidth, window.innerHeight);
+    requestAnimationFrame(drawVideo);
+}
+
 let c1 = document.getElementById('canvasVideo');
 let ctx1 = c1.getContext('2d');
 c1.width = window.innerWidth;
@@ -199,23 +211,18 @@ c1.height = window.innerHeight;
 let videoFilters = store.get('videoFilters');
 let filter = "";
 for (let i = 0; i < videoFilters.length; i++) {
-    if(videoFilters[i].value !== videoFilters[i].defaultValue) {
+    if (videoFilters[i].value !== videoFilters[i].defaultValue) {
         filter += `${videoFilters[i].name}(${videoFilters[i].value}${videoFilters[i].suffix}) `;
     }
 }
 ctx1.filter = filter;
 
-function drawVideo() {
-    ctx1.clearRect(0, 0, window.innerWidth, window.innerHeight);
-    ctx1.globalAlpha = 1;
-    ctx1.fillStyle = "#000000";
-    ctx1.fillRect(0, 0, window.innerWidth, window.innerHeight);
-    ctx1.globalAlpha = videoAlpha;
-    ctx1.drawImage(video, 0, 0, window.innerWidth, window.innerHeight);
-    requestAnimationFrame(drawVideo);
+let videoQuality = store.get('videoQuality');
+if(videoQuality){
+    $('#video').css('display', '');
+}else {
+    drawVideo();
 }
-
-drawVideo();
 
 function runClock(position, timeString) {
     $(`#textDisplay-${position}`).text(moment().format(timeString));
