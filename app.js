@@ -67,7 +67,7 @@ function createSSWindow() {
             frame: false
         });
         win.setMenu(null);
-        if (store.get("onlyShowVideoOnPrimaryMonitor") && i !== 0) {
+        if (store.get("onlyShowVideoOnPrimaryMonitor") && displays[i].id !== screen.getPrimaryDisplay().id) {
             win.loadFile('web/black.html');
         } else {
             win.loadFile('web/screensaver.html');
