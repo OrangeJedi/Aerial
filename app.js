@@ -164,6 +164,7 @@ function startUp() {
             'topmiddle': {'type': "none", "defaultFont": true},
             'bottommiddle': {'type': "none", "defaultFont": true}
         });
+        store.set('videoQuality', store.get('videoQuality') ?? "normal");
 
         //config
         store.set('version', "v0.5.2");

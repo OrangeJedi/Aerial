@@ -124,14 +124,14 @@ function onVideoPlay(e) {
 
 function fadeVideoOut(time) {
     if (time > 0) {
-        transitionTimeout = setTimeout(fadeVideoOut, 5, time - 5);
+        transitionTimeout = setTimeout(fadeVideoOut, 16, time - 16);
     }
     videoAlpha = time / transitionLength;
 }
 
 function fadeVideoIn(time) {
     if (time > 0) {
-        transitionTimeout = setTimeout(fadeVideoIn, 5, time - 5);
+        transitionTimeout = setTimeout(fadeVideoIn, 16, time - 16);
     }
     videoAlpha = 1 - (time / transitionLength);
 }
@@ -199,7 +199,9 @@ c1.height = window.innerHeight;
 let videoFilters = store.get('videoFilters');
 let filter = "";
 for (let i = 0; i < videoFilters.length; i++) {
-    filter += `${videoFilters[i].name}(${videoFilters[i].value}${videoFilters[i].suffix}) `;
+    if(videoFilters[i].value !== videoFilters[i].defaultValue) {
+        filter += `${videoFilters[i].name}(${videoFilters[i].value}${videoFilters[i].suffix}) `;
+    }
 }
 ctx1.filter = filter;
 

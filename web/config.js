@@ -21,7 +21,7 @@ function displaySettings() {
     for (let i = 0; i < checked.length; i++) {
         $(`#${checked[i]}`).prop('checked', store.get(checked[i]));
     }
-    let numTxt = ["sunrise", "sunset", "textFont", "textSize", 'textColor'];
+    let numTxt = ["sunrise", "sunset", "textFont", "textSize", 'textColor', 'videoQuality'];
     for (let i = 0; i < numTxt.length; i++) {
         $(`#${numTxt[i]}`).val(store.get(numTxt[i]));
     }

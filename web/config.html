@@ -51,6 +51,13 @@
                 </div>
                 <br>
                 <input type="checkbox" id="skipVideosWithKey" class="w3-check" onclick="updateSetting('skipVideosWithKey','check')"> <label>Use the right arrow key to skip videos</label>
+                <br>
+                <label>Use the right arrow key to skip videos</label>
+                <select id="videoQuality" onchange="updateSetting('videoQuality', 'text')">
+                    <option value="high">High</option>
+                    <option value="normal">Normal</option>
+                    <option value="low">Low</option>
+                </select>
             </div>
         </div>
         <div id="multi-screenSettings" class="settingsCard" style="display: none">
