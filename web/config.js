@@ -17,7 +17,7 @@ let customVideos = store.get("customVideos");
 
 //Updates all the <input> tags with their proper values. Called on page load
 function displaySettings() {
-    let checked = ["timeOfDay", "skipVideosWithKey", "sameVideoOnScreens", "videoCache", "videoCacheProfiles", "videoCacheRemoveUnallowed", "avoidDuplicateVideos", "onlyShowVideoOnPrimaryMonitor"];
+    let checked = ["timeOfDay", "skipVideosWithKey", "sameVideoOnScreens", "videoCache", "videoCacheProfiles", "videoCacheRemoveUnallowed", "avoidDuplicateVideos", "onlyShowVideoOnPrimaryMonitor", 'videoQuality'];
     for (let i = 0; i < checked.length; i++) {
         $(`#${checked[i]}`).prop('checked', store.get(checked[i]));
     }
@@ -30,13 +30,14 @@ function displaySettings() {
         $(`#${slider[i]}`).val(store.get(slider[i]));
         $(`#${slider[i]}Text`).text(store.get(slider[i]));
     }
-    let numeralText = [{'id' : "videoCacheSize", 'format' : "0.00 ib"}];
+    let numeralText = [{'id': "videoCacheSize", 'format': "0.00 ib"}];
     for (let i = 0; i < numeralText.length; i++) {
         $(`#${numeralText[i].id}`).text(numeral(store.get(numeralText[i].id)).format(numeralText[i].format));
     }
     displayPlaybackSettings();
     displayCustomVideos();
 }
+
 displaySettings();
 
 function displayPlaybackSettings() {
@@ -129,29 +130,36 @@ function updateCache() {
 }
 
 function deleteCache() {
-    if(alert('Are sure you want to delete all the videos in the cache?'))
-    ipcRenderer.send('deleteCache');
+    if (confirm('Are sure you want to delete all the videos in the cache?'))
+        ipcRenderer.send('deleteCache');
 }
 
-ipcRenderer.on('displaySettings', () =>{
-   displaySettings();
+function selectCacheLocation() {
+    if(confirm("This will delete all videos in the current cache and move the cache location to the chosen folder.\nIf you want to keep your downloaded videos copy them to the new location before clicking ok.")) {
+        console.log('hey');
+        ipcRenderer.send('selectCacheLocation');
+    }
+}
+
+ipcRenderer.on('displaySettings', () => {
+    displaySettings();
 });
 
 //Custom videos
-ipcRenderer.on('newCustomVideos',(event, videoList) => {
+ipcRenderer.on('newCustomVideos', (event, videoList) => {
     customVideos = store.get('customVideos');
-    for(let i = 0;i < videoList.length;i++){
+    for (let i = 0; i < videoList.length; i++) {
         let index = customVideos.findIndex((e) => {
             if (`${videoList.path}\\${videoList[i]}` === e.path) {
                 return true;
             }
         });
-        if(index === -1){
+        if (index === -1) {
             customVideos.push({
-               "path" : `${videoList.path}\\${videoList[i]}`,
-                "name" : videoList[i],
-                "id" : newId(),
-                "accessibilityLabel" : "Custom Video"
+                "path": `${videoList.path}\\${videoList[i]}`,
+                "name": videoList[i],
+                "id": newId(),
+                "accessibilityLabel": "Custom Video"
             });
         }
         allowedVideos.push(customVideos[customVideos.length - 1].id);
@@ -161,7 +169,7 @@ ipcRenderer.on('newCustomVideos',(event, videoList) => {
     displayCustomVideos();
 });
 
-function newId () {
+function newId() {
     return '_' + Math.random().toString(36).substr(2, 9);
 }
 
@@ -169,7 +177,7 @@ function displayCustomVideos() {
     let html = "<br>";
     customVideos = store.get('customVideos');
     html += "<table class='w3-table-all'>";
-    for(let i = 0;i < customVideos.length;i++){
+    for (let i = 0; i < customVideos.length; i++) {
         html += `<tr>
                 <td><input type="checkbox" class="w3-check" ${allowedVideos.includes(customVideos[i].id) ? "checked" : ""} onclick="checkCustomVideo(this,'${customVideos[i].id}')"></td>
                 <td>${customVideos[i].name}</td>
@@ -177,21 +185,21 @@ function displayCustomVideos() {
                 <td><i class='fa fa-times w3-large' style='color: #f44336' onclick="removeCustomVideo('${customVideos[i].id}')"></i></td>
                 </tr>`;
     }
-    html +="</table>";
+    html += "</table>";
     $('#customVideoList').html(html);
 }
 
-function checkCustomVideo(e,id) {
-    if(e.checked){
+function checkCustomVideo(e, id) {
+    if (e.checked) {
         allowedVideos.push(id);
-    }else{
+    } else {
         allowedVideos.splice(allowedVideos.indexOf(id), 1);
     }
     store.set("allowedVideos", allowedVideos);
 }
 
 function removeCustomVideo(id) {
-    if(allowedVideos.includes(id)){
+    if (allowedVideos.includes(id)) {
         allowedVideos.splice(allowedVideos.indexOf(id), 1);
     }
     let index = customVideos.findIndex((e) => {
@@ -199,7 +207,7 @@ function removeCustomVideo(id) {
             return true;
         }
     });
-    customVideos.splice(index,1);
+    customVideos.splice(index, 1);
     store.set("customVideos", customVideos);
     displayCustomVideos();
 }
@@ -210,8 +218,12 @@ function editCustomVideo(id) {
             return true;
         }
     });
-    document.getElementById('editCustomVideo').style.display='block';
-    document.getElementById('customVideoName').onchange = ()=>{customVideos[index].name = $('#customVideoName').val();store.set('customVideos', customVideos);displayCustomVideos()};
+    document.getElementById('editCustomVideo').style.display = 'block';
+    document.getElementById('customVideoName').onchange = () => {
+        customVideos[index].name = $('#customVideoName').val();
+        store.set('customVideos', customVideos);
+        displayCustomVideos()
+    };
     document.getElementById('customVideoName').value = customVideos[index].name;
     store.set('customVideos', customVideos);
     displayCustomVideos();
@@ -362,6 +374,7 @@ function makeList() {
     videoList += "<br><br><br><br><br><br>";
     $('#videoList').html(videoList);
 }
+
 $(document).ready(() => {
     makeList();
     selectVideo(-1);
@@ -377,15 +390,15 @@ function selectVideo(index) {
         downloadedVideos = store.get("downloadedVideos");
         document.getElementById("videoList-" + index).className += " w3-deep-orange";
         let videoSRC = videos[index].src.H2641080p;
-        if(downloadedVideos.includes(videos[index].id)){
+        if (downloadedVideos.includes(videos[index].id)) {
             videoSRC = `${store.get('cachePath')}/${videos[index].id}.mov`;
         }
         $('#videoPlayer').attr("src", videoSRC).show();
         $('#videoName').text(videos[index].accessibilityLabel);
         let videoDownloadState = "whenChecked";
-        if(alwaysDownloadVideos.includes(videos[index].id)){
+        if (alwaysDownloadVideos.includes(videos[index].id)) {
             videoDownloadState = "always";
-        }else if(neverDownloadVideos.includes(videos[index].id)){
+        } else if (neverDownloadVideos.includes(videos[index].id)) {
             videoDownloadState = "never";
         }
         $('#videoInfo').html(`${downloadedVideos.includes(videos[index].id) ? "<p class='w3-large'><i class='far fa-check-circle' style='color: #4CAF50'></i> Downloaded</p>" : "<p class='w3-large'><i class='far fa-times-circle' style='color: #f44336'></i> Downloaded</p>"}
@@ -434,7 +447,7 @@ function selectVideo(index) {
                                   </div>`).css('display', '');
         let profiles = store.get('videoProfiles');
         let html = "";
-        for(let i = 0;i < profiles.length;i++){
+        for (let i = 0; i < profiles.length; i++) {
             html += `<option value="${profiles[i].name}">${profiles[i].name}</option>`
         }
         $('#videoProfiles').html(html);
@@ -442,10 +455,10 @@ function selectVideo(index) {
 }
 
 function changeVideoDownloadState(element, videoId) {
-    alwaysDownloadVideos = alwaysDownloadVideos.filter(function(item, pos, self) {
+    alwaysDownloadVideos = alwaysDownloadVideos.filter(function (item, pos, self) {
         return item !== videoId;
     });
-    neverDownloadVideos = neverDownloadVideos.filter(function(item, pos, self) {
+    neverDownloadVideos = neverDownloadVideos.filter(function (item, pos, self) {
         return item !== videoId;
     });
     switch (element.value) {
@@ -469,12 +482,12 @@ function changeAllVideoDownloadState(elementId) {
         case "whenChecked":
             break;
         case "always":
-            for(let i = 0; i < videos.length; i++){
+            for (let i = 0; i < videos.length; i++) {
                 alwaysDownloadVideos.push(videos[i].id);
             }
             break;
         case "never":
-            for(let i = 0; i < videos.length; i++){
+            for (let i = 0; i < videos.length; i++) {
                 neverDownloadVideos.push(videos[i].id);
             }
             break;
@@ -539,8 +552,8 @@ function deselectType() {
 function createProfile(id) {
     let profiles = store.get('videoProfiles');
     profiles.push({
-        "name" : $(`#${id}`).val(),
-        "videos" : allowedVideos
+        "name": $(`#${id}`).val(),
+        "videos": allowedVideos
     });
     store.set('videoProfiles', profiles);
     selectVideo(-1);
@@ -548,8 +561,8 @@ function createProfile(id) {
 
 function updateProfile(id) {
     let profiles = store.get('videoProfiles');
-    for(let i = 0; i < profiles.length;i++){
-        if(profiles[i].name === $(`#${id}`).val()){
+    for (let i = 0; i < profiles.length; i++) {
+        if (profiles[i].name === $(`#${id}`).val()) {
             profiles[i].videos = allowedVideos.filter(id => id[0] !== "_");
             break;
         }
@@ -559,9 +572,9 @@ function updateProfile(id) {
 
 function removeProfile(id) {
     let profiles = store.get('videoProfiles');
-    for(let i = 0; i < profiles.length;i++){
-        if(profiles[i].name === $(`#${id}`).val()){
-            profiles.splice(i,1);
+    for (let i = 0; i < profiles.length; i++) {
+        if (profiles[i].name === $(`#${id}`).val()) {
+            profiles.splice(i, 1);
             break;
         }
     }
@@ -572,8 +585,8 @@ function removeProfile(id) {
 function displayProfile(id) {
     let customAllowed = allowedVideos.filter(id => id[0] === "_");
     let profiles = store.get('videoProfiles');
-    for(let i = 0; i < profiles.length;i++){
-        if(profiles[i].name === $(`#${id}`).val()){
+    for (let i = 0; i < profiles.length; i++) {
+        if (profiles[i].name === $(`#${id}`).val()) {
             allowedVideos = profiles[i].videos;
             makeList();
             break;
