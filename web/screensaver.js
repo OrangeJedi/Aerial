@@ -44,6 +44,10 @@ video.addEventListener('play', (event) => {
 video.addEventListener('ended', (event) => {
     newVideo();
 });
+video.addEventListener("error", (event)=>{
+    console.log('VIDEO PLAYBACK ERROR - Playing new video');
+    newVideo();
+});
 
 function newVideo() {
     clearTimeout(poiTimeout);
