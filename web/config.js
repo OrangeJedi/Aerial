@@ -130,8 +130,15 @@ function updateCache() {
 }
 
 function deleteCache() {
-    if (alert('Are sure you want to delete all the videos in the cache?'))
+    if (confirm('Are sure you want to delete all the videos in the cache?'))
         ipcRenderer.send('deleteCache');
+}
+
+function selectCacheLocation() {
+    if(confirm("This will delete all videos in the current cache and move the cache location to the chosen folder.\nIf you want to keep your downloaded videos copy them to the new location before clicking ok.")) {
+        console.log('hey');
+        ipcRenderer.send('selectCacheLocation');
+    }
 }
 
 ipcRenderer.on('displaySettings', () => {

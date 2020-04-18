@@ -7,13 +7,8 @@ const https = require('https');
 const fs = require('fs');
 let screens = [];
 let nq = false;
-const cachePath = `${app.getPath('userData')}/videos`;
+let cachePath = store.get('cachePath') ?? `${app.getPath('userData')}/videos`;
 let downloading = false;
-
-//make video cache directory
-if (!fs.existsSync(`${app.getPath('userData')}/videos/`)) {
-    fs.mkdirSync(`${app.getPath('userData')}/videos/`);
-}
 
 global.shared = {
     currentlyPlaying: ''
@@ -107,6 +102,10 @@ app.whenReady().then(startUp);
 
 function startUp() {
     if (!store.get("configured") || store.get("version") !== "v0.5.2") {
+        //make video cache directory
+        if (!fs.existsSync(`${app.getPath('userData')}/videos/`)) {
+            fs.mkdirSync(`${app.getPath('userData')}/videos/`);
+        }
         //video lists
         if (!store.get('allowedVideos')) {
             let allowedVideos = [];
@@ -223,7 +222,7 @@ ipcMain.on('keyPress', (event, key) => {
 });
 
 ipcMain.on('updateCache', (event) => {
-    const path = `${app.getPath('userData')}/videos`;
+    const path = cachePath;
     let videoList = [];
     fs.readdir(path, (err, files) => {
         files.forEach(file => {
@@ -265,6 +264,17 @@ ipcMain.on('selectCustomLocation', async (event, arg) => {
         event.reply('newCustomVideos', videoList);
     });
     //event.reply('filePath', result.filePaths);
+});
+
+ipcMain.on('selectCacheLocation', async (event, arg) => {
+    const result = await dialog.showOpenDialog(screens[0], {
+        properties: ['openDirectory']
+    });
+    const path = result.filePaths[0];
+    //removeAllVideosInCache();
+    cachePath = path;
+    store.set('cachePath', path);
+    updateVideoCache(()=>{event.reply('displaySettings');});
 });
 
 function updateCustomVideos() {
@@ -432,7 +442,7 @@ function getVideosToDownload() {
     return allowedVideos;
 }
 
-function updateVideoCache() {
+function updateVideoCache(callback) {
     let videoList = [];
     fs.readdir(cachePath, (err, files) => {
         files.forEach(file => {
@@ -444,5 +454,8 @@ function updateVideoCache() {
             store.set('downloadedVideos', videoList);
         }
         store.set('videoCacheSize', getCacheSize());
+        if(callback) {
+            callback();
+        }
     });
 }
