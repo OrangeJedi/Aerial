@@ -371,7 +371,7 @@ function makeList() {
                       ${videos[i].name ? videos[i].name : videos[i].accessibilityLabel}
                       </a></span><br>`;
     }
-    videoList += "<br><br><br><br><br><br>";
+    videoList += "<br>";
     $('#videoList').html(videoList);
 }
 
