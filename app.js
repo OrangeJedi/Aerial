@@ -20,7 +20,8 @@ function createConfigWindow(argv) {
         height: 750,
         webPreferences: {
             nodeIntegration: true
-        }
+        },
+        resizable: false
     });
     win.loadFile('web/config.html');
     win.on('closed', function () {
