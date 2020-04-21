@@ -66,6 +66,37 @@
     padding-top: .5%;
 }
 
+.imagePositionWithValue{
+    opacity: 0;
+    z-index: 1;
+}
+
+.imagePositionWithValue ~ label{
+    background-color: #87CEEB;
+    position: absolute;
+    top: 7px;
+    left: 7px;
+    height: 25px;
+    width: 25px;
+    border-radius: 1em;
+}
+
+.imagePositionWithValue ~ label:after {
+    content: "";
+    position: absolute;
+    display: none;
+    top: 25%;
+    left: 27%;
+    width: 50%;
+    height: 50%;
+    border-radius: 50%;
+    background: white;
+}
+
+.imagePositionWithValue:checked ~ label:after{
+    display: block;
+}
+
 .videoInfo {
     position: absolute;
     padding-top: 55%;
