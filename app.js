@@ -99,6 +99,7 @@ function createSSPWindow(argv) {
     screens.push(win);
 }
 
+app.allowRendererProcessReuse = true
 app.whenReady().then(startUp);
 
 function startUp() {
