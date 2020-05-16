@@ -20,14 +20,17 @@ function createConfigWindow(argv) {
         height: 750,
         webPreferences: {
             nodeIntegration: true
-        }
+        },
+        resizable: false
     });
     win.loadFile('web/config.html');
     win.on('closed', function () {
         win = null;
     });
-    if (argv.includes("/dt")) {
-        win.webContents.openDevTools();
+    if(argv) {
+        if (argv.includes("/dt")) {
+            win.webContents.openDevTools();
+        }
     }
     screens.push(win);
 }
@@ -92,16 +95,19 @@ function createSSPWindow(argv) {
     win.on('closed', function () {
         win = null;
     });
-    if (argv.includes("/dt")) {
-        win.webContents.openDevTools();
+    if(argv) {
+        if (argv.includes("/dt")) {
+            win.webContents.openDevTools();
+        }
     }
     screens.push(win);
 }
 
+app.allowRendererProcessReuse = true
 app.whenReady().then(startUp);
 
 function startUp() {
-    if (!store.get("configured") || store.get("version") !== "v0.5.2") {
+    if (!store.get("configured") || store.get("version") !== "v0.5.3") {
         //make video cache directory
         if (!fs.existsSync(`${app.getPath('userData')}/videos/`)) {
             fs.mkdirSync(`${app.getPath('userData')}/videos/`);

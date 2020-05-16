@@ -121,7 +121,7 @@
 
 </div>
 <div id="videoTab" class="tab" style="display: none">
-    <div class="w3-sidebar w3-light-grey w3-bar-block" id="videoList" style="width:34%">
+    <div class="w3-sidebar w3-light-grey w3-bar-block" id="videoList" style="width:34%; height: 84%">
     </div>
     <div id="videoCard" style="margin-left:34%">
         <div class="w3-container w3-blue">
@@ -137,40 +137,26 @@
 <div id="textTab" class="tab" style="display: none">
     <div class="w3-sidebar w3-light-grey w3-bar-block" style="width:20%">
         <div class="settingsListItem"><h3 class="w3-bar-item"><i class="fa fa-paragraph"></i> Text</h3></div>
-        <a onclick="selectTextSetting('textOptions')" id="textSettingsList-textOptions" class="w3-bar-item w3-button textSettingsListItem w3-deep-orange">Text Options</a>
-        <a onclick="selectTextSetting('position')" id="textSettingsList-position" class="w3-bar-item w3-button textSettingsListItem">Position</a>
+        <a onclick="selectTextSetting('position')" id="textSettingsList-position" class="w3-bar-item w3-button textSettingsListItem w3-deep-orange">Position</a>
+        <a onclick="selectTextSetting('textOptions')" id="textSettingsList-textOptions" class="w3-bar-item w3-button textSettingsListItem">Text Options</a>
     </div>
     <div id="textCard" style="margin-left:20%">
-        <div id="textOptionsTextSettings" class="textSettingsCard">
-            <div class="w3-container w3-blue">
-                <h4>Text Options</h4>
-            </div>
-            <div class="w3-display-container" style="padding: 2%">
-                <div class="autocomplete" style="width:300px;">
-                    <label>Font: </label><input id="textFont" type="text" onchange="updateSetting('textFont', 'autocomplete')"><i class="fa fa-exclamation-triangle" id="textFontError" style="display: none"></i>
-                </div>
-                <br>
-                <label>Font Size: </label><input class="w3-input" id="textSize" type="number" step=".25" style="width: 25%; display: inline; margin-top: 2%" onchange="updateSetting('textSize', 'number')">
-                <br>
-                <label>Color: </label><input class="w3-input" id="textColor" type="color" step=".25" style="width: 5%; display: inline; margin-top: 2%; padding: 0;" onchange="updateSetting('textColor', 'text')">
-            </div>
-        </div>
-        <div id="positionTextSettings" class="textSettingsCard" style="display: none">
+        <div id="positionTextSettings" class="textSettingsCard">
             <div class="w3-container w3-blue">
                 <h4>Position</h4>
             </div>
             <div class="w3-display-container" style="padding: 2%">
                 <div class="w3-display-container w3-display-topleft" style="width: 50%; margin-top: 2%; margin-left: 2%">
                     <img alt="An error has occurred" src="images/B8F204CE-6024-49AB-85F9-7CA2F6DCD226.jpeg" class="w3-round" style="width: 100%;"/>
-                    <div class="w3-display-topleft w3-container imagePositionRadio"><input class="w3-radio imagePosition" type="radio" name="imagePosition" value="topleft" onclick="positionSelect(this)"></div>
-                    <div class="w3-display-topright w3-container imagePositionRadio"><input class="w3-radio imagePosition" type="radio" name="imagePosition" value="topright" onclick="positionSelect(this)"></div>
-                    <div class="w3-display-bottomleft w3-container imagePositionRadio"><input class="w3-radio imagePosition" type="radio" name="imagePosition" value="bottomleft" onclick="positionSelect(this)"></div>
-                    <div class="w3-display-bottomright w3-container imagePositionRadio"><input class="w3-radio imagePosition" type="radio" name="imagePosition" value="bottomright" onclick="positionSelect(this)"></div>
-                    <div class="w3-display-left w3-container imagePositionRadio"><input class="w3-radio imagePosition" type="radio" name="imagePosition" value="left" onclick="positionSelect(this)"></div>
-                    <div class="w3-display-right w3-container imagePositionRadio"><input class="w3-radio imagePosition" type="radio" name="imagePosition" value="right" onclick="positionSelect(this)"></div>
-                    <div class="w3-display-middle w3-large imagePositionRadio"><input class="w3-radio imagePosition" type="radio" name="imagePosition" value="middle" onclick="positionSelect(this)"></div>
-                    <div class="w3-display-topmiddle w3-container imagePositionRadio"><input class="w3-radio imagePosition" type="radio" name="imagePosition" value="topmiddle" onclick="positionSelect(this)"></div>
-                    <div class="w3-display-bottommiddle w3-container imagePositionRadio"><input class="w3-radio imagePosition" type="radio" name="imagePosition" value="bottommiddle" onclick="positionSelect(this)"></div>
+                    <div class="w3-display-topleft w3-container imagePositionRadio"><input class="w3-radio imagePosition" type="radio" name="imagePosition" value="topleft" onclick="positionSelect(this)"><label></label></div>
+                    <div class="w3-display-topright w3-container imagePositionRadio"><input class="w3-radio imagePosition" type="radio" name="imagePosition" value="topright" onclick="positionSelect(this)"><label></label></div>
+                    <div class="w3-display-bottomleft w3-container imagePositionRadio"><input class="w3-radio imagePosition" type="radio" name="imagePosition" value="bottomleft" onclick="positionSelect(this)"><label></label></div>
+                    <div class="w3-display-bottomright w3-container imagePositionRadio"><input class="w3-radio imagePosition" type="radio" name="imagePosition" value="bottomright" onclick="positionSelect(this)"><label></label></div>
+                    <div class="w3-display-left w3-container imagePositionRadio"><input class="w3-radio imagePosition" type="radio" name="imagePosition" value="left" onclick="positionSelect(this)"><label></label></div>
+                    <div class="w3-display-right w3-container imagePositionRadio"><input class="w3-radio imagePosition" type="radio" name="imagePosition" value="right" onclick="positionSelect(this)"><label></label></div>
+                    <div class="w3-display-middle w3-large imagePositionRadio"><input class="w3-radio imagePosition" type="radio" name="imagePosition" value="middle" onclick="positionSelect(this)"><label></label></div>
+                    <div class="w3-display-topmiddle w3-container imagePositionRadio"><input class="w3-radio imagePosition" type="radio" name="imagePosition" value="topmiddle" onclick="positionSelect(this)"><label></label></div>
+                    <div class="w3-display-bottommiddle w3-container imagePositionRadio"><input class="w3-radio imagePosition" type="radio" name="imagePosition" value="bottommiddle" onclick="positionSelect(this)"><label></label></div>
                 </div>
                 <div class="w3-display-topright w3-container w3-right-align" style="width: 33%; margin-top: 2%; margin-right: 2%">
                     <h3 id="positionType" style="display: none">
@@ -184,7 +170,33 @@
                     </h3>
                 </div>
             </div>
-            <div class="w3-container" style="margin-top: 27%" id="positionDetails"></div>
+            <div class="w3-container" style="margin-top: 27%">
+                <div class="w3-container" id="positionDetails"></div>
+                <div class="w3-container" id="textWidthContainer" style="display: none">
+                    <br>
+                    Max Width:
+                    <select id="textWidthSelect">
+                        <option value="33%">33%</option>
+                        <option value="50%">50%</option>
+                        <option value="66%">66%</option>
+                        <option value="100%">100%</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div id="textOptionsTextSettings" class="textSettingsCard" style="display: none">
+            <div class="w3-container w3-blue">
+                <h4>Text Options</h4>
+            </div>
+            <div class="w3-display-container" style="padding: 2%">
+                <div class="autocomplete" style="width:300px;">
+                    <label>Font: </label><input id="textFont" type="text" onchange="updateSetting('textFont', 'autocomplete')"><i class="fa fa-exclamation-triangle" id="textFontError" style="display: none"></i>
+                </div>
+                <br>
+                <label>Font Size: </label><input class="w3-input" id="textSize" type="number" step=".25" style="width: 25%; display: inline; margin-top: 2%" onchange="updateSetting('textSize', 'number')">
+                <br>
+                <label>Color: </label><input class="w3-input" id="textColor" type="color" step=".25" style="width: 5%; display: inline; margin-top: 2%; padding: 0;" onchange="updateSetting('textColor', 'text')">
+            </div>
         </div>
     </div>
 </div>

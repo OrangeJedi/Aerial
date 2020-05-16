@@ -36,6 +36,7 @@ function displaySettings() {
     }
     displayPlaybackSettings();
     displayCustomVideos();
+    colorTextPositionRadio();
 }
 
 displaySettings();
@@ -135,7 +136,7 @@ function deleteCache() {
 }
 
 function selectCacheLocation() {
-    if(confirm("This will delete all videos in the current cache and move the cache location to the chosen folder.\nIf you want to keep your downloaded videos copy them to the new location before clicking ok.")) {
+    if (confirm("This will delete all videos in the current cache and move the cache location to the chosen folder.\nIf you want to keep your downloaded videos copy them to the new location before clicking ok.")) {
         console.log('hey');
         ipcRenderer.send('selectCacheLocation');
     }
@@ -231,11 +232,24 @@ function editCustomVideo(id) {
 
 //Text tab
 
+function colorTextPositionRadio() {
+    let displayTextSettings = store.get('displayText');
+    $('.imagePosition').each(function () {
+        if(displayTextSettings[this.value].type !== "none"){
+            $(this).addClass('imagePositionWithValue');
+        }else {
+            $(this).removeClass('imagePositionWithValue')
+        }
+    });
+}
+
 //handles selecting a radio button from the position image
 function positionSelect(position) {
     position = position.value;
     let displayTextSettings = store.get('displayText')[position];
     document.getElementById("positionTypeSelect").setAttribute('onchange', `updatePositionType('${position}')`);
+    document.getElementById("textWidthSelect").setAttribute('onchange', `updateTextSetting(this, '${position}', 'maxWidth')`);
+    $('#textWidthSelect').val(displayTextSettings.maxWidth ? displayTextSettings.maxWidth : "50%");
     $('#positionTypeSelect').val(displayTextSettings.type);
     $('#positionType').css('display', "");
     updatePositionType(position);
@@ -288,11 +302,14 @@ function updatePositionType(position) {
             });
         } else {
             $('#positionDetails').html(html);
+            $('#textWidthContainer').css('display', "");
         }
     } else {
         $('#positionDetails').html(html);
+        $('#textWidthContainer').css('display', "none");
     }
     store.set('displayText', displayTextSettings);
+    colorTextPositionRadio();
 }
 
 //Text settings are stored separate from other settings, so they require their own functions
@@ -371,7 +388,7 @@ function makeList() {
                       ${videos[i].name ? videos[i].name : videos[i].accessibilityLabel}
                       </a></span><br>`;
     }
-    videoList += "<br><br><br><br><br><br>";
+    videoList += "<br>";
     $('#videoList').html(videoList);
 }
 

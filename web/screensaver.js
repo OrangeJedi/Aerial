@@ -115,6 +115,7 @@ function newVideo() {
                 textArea.text(videoInfo[displayText[position].infoType]);
             }
         }
+        textArea.css('width', displayText[position].maxWidth ? displayText[position].maxWidth : "50%")
     }
 }
 
