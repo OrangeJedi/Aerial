@@ -248,6 +248,8 @@ function positionSelect(position) {
     position = position.value;
     let displayTextSettings = store.get('displayText')[position];
     document.getElementById("positionTypeSelect").setAttribute('onchange', `updatePositionType('${position}')`);
+    document.getElementById("textWidthSelect").setAttribute('onchange', `updateTextSetting(this, '${position}', 'maxWidth')`);
+    $('#textWidthSelect').val(displayTextSettings.maxWidth ? displayTextSettings.maxWidth : "50%");
     $('#positionTypeSelect').val(displayTextSettings.type);
     $('#positionType').css('display', "");
     updatePositionType(position);
@@ -300,9 +302,11 @@ function updatePositionType(position) {
             });
         } else {
             $('#positionDetails').html(html);
+            $('#textWidthContainer').css('display', "");
         }
     } else {
         $('#positionDetails').html(html);
+        $('#textWidthContainer').css('display', "none");
     }
     store.set('displayText', displayTextSettings);
     colorTextPositionRadio();
