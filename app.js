@@ -107,7 +107,7 @@ app.allowRendererProcessReuse = true
 app.whenReady().then(startUp);
 
 function startUp() {
-    if (!store.get("configured") || store.get("version") !== "v0.5.2") {
+    if (!store.get("configured") || store.get("version") !== "v0.5.3") {
         //make video cache directory
         if (!fs.existsSync(`${app.getPath('userData')}/videos/`)) {
             fs.mkdirSync(`${app.getPath('userData')}/videos/`);
