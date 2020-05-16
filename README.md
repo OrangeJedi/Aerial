@@ -1,6 +1,12 @@
 <p align="center">  
     <img alt="" src="/images/surface_preview.gif" />
 </p>
+<p align="center">
+    <img alt="" src="https://img.shields.io/badge/platform-Windows-blue?style=flat-square" />
+    <img alt="" src="https://img.shields.io/github/last-commit/OrangeJedi/Aerial?style=flat-square" />
+    <img alt="" src="https://img.shields.io/github/v/release/OrangeJedi/Aerial?style=flat-square" />
+    <img alt="" src="https://img.shields.io/github/downloads/OrangeJedi/Aerial/total?style=flat-square" />
+</p>
 
 # Aerial - Apple TV Screen Saver for Windows
  
@@ -9,6 +15,8 @@ Aerial is a Windows screen saver that mimics the Apple TV screen saver that disp
 Aerial is inspired by [Mac Aerial Screen Saver](https://github.com/JohnCoates/Aerial) and [Aerial for Windows](https://github.com/cDima/Aerial).
 
 [Complete list of available videos.](https://aerial-screensavers.netlify.com)
+
+###### Mac user? Try [JohnCoates/Aerial](https://github.com/JohnCoates/Aerial). Linux user? Try [graysky2/xscreensaver-aerial](https://github.com/graysky2/xscreensaver-aerial/).
 
 Aerial is open source so feel free to contribute.
 
