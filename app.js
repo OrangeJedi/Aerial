@@ -27,8 +27,10 @@ function createConfigWindow(argv) {
     win.on('closed', function () {
         win = null;
     });
-    if (argv.includes("/dt")) {
-        win.webContents.openDevTools();
+    if(argv) {
+        if (argv.includes("/dt")) {
+            win.webContents.openDevTools();
+        }
     }
     screens.push(win);
 }
@@ -93,8 +95,10 @@ function createSSPWindow(argv) {
     win.on('closed', function () {
         win = null;
     });
-    if (argv.includes("/dt")) {
-        win.webContents.openDevTools();
+    if(argv) {
+        if (argv.includes("/dt")) {
+            win.webContents.openDevTools();
+        }
     }
     screens.push(win);
 }
