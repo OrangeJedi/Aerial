@@ -44,7 +44,7 @@ video.addEventListener('play', (event) => {
 video.addEventListener('ended', (event) => {
     newVideo();
 });
-video.addEventListener("error", (event)=>{
+video.addEventListener("error", (event) => {
     console.log('VIDEO PLAYBACK ERROR - Playing new video');
     newVideo();
 });
@@ -123,7 +123,7 @@ let transitionLength = store.get('videoTransitionLength');
 let videoAlpha = 1;
 
 function onVideoPlay(e) {
-    if(!videoQuality) {
+    if (!videoQuality) {
         fadeVideoIn(transitionLength);
         setTimeout(fadeVideoOut, (e.target.duration * 1000) - transitionLength, transitionLength);
     }
@@ -200,7 +200,7 @@ function getTimeOfDay() {
 
 //put the video on the canvas
 function drawVideo() {
-    if(videoAlpha !== 1) {
+    if (videoAlpha !== 1) {
         ctx1.clearRect(0, 0, window.innerWidth, window.innerHeight);
         ctx1.globalAlpha = 1;
         ctx1.fillStyle = "#000000";
@@ -225,9 +225,9 @@ for (let i = 0; i < videoFilters.length; i++) {
 ctx1.filter = filter;
 
 let videoQuality = store.get('videoQuality');
-if(videoQuality){
+if (videoQuality) {
     $('#video').css('display', '');
-}else {
+} else {
     drawVideo();
 }
 
@@ -263,6 +263,9 @@ for (let position of displayText.positionList) {
             break;
         case "text":
             $(`#textDisplay-${position}`).text(displayText[position].text);
+            break;
+        case "html":
+            $(`#textDisplay-${position}`).html(displayText[position].html);
             break;
         case "time":
             runClock(position, displayText[position].timeString);

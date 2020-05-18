@@ -266,6 +266,9 @@ function updatePositionType(position) {
         case "text":
             html = `<label>Text</label><input class='w3-input' value='${displayTextSettings[position].text ? displayTextSettings[position].text : ""}' onchange="updateTextSetting(this, '${position}', 'text')">`;
             break;
+        case "html":
+            html = `<label>HTML</label><br><textarea onchange="updateTextSetting(this, '${position}', 'html')" cols="75" rows="7">${displayTextSettings[position].html ? displayTextSettings[position].html : ""}</textarea>`;
+            break;
         case "time":
             displayTextSettings[position].timeString = displayTextSettings[position].timeString ? displayTextSettings[position].timeString : "hh:mm:ss";
             html = `
