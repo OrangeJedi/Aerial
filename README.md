@@ -28,38 +28,8 @@ Download the latest release from [here](https://github.com/OrangeJedi/Aerial/rel
 ##### [Version History](https://github.com/OrangeJedi/Aerial/wiki/Version-History)
 
 ## Features
-* Cycles through randomly selected Apple TV videos
-* Easily select only the video you want to play
-  * Select by video type (aerial, space, and underwater)
-  * Save various profiles of selected videos
-* Control video playback settings (speed, brightness, contrast, hue, saturation, etc.)
-* Skip videos with the right arrow key
-* Simple dip to black transition between each video
-* Multi-Screen Support
-    * Play a different video on each screen
-    * Play the same video on each screen
-    * Play videos on only the primary screen
-* Display text
-  * Static text
-  * Date and time
-  * Display the location/description of the video
-* Change the font, size, and color of text
-* Sync to the time of day (mostly - not all videos have a 'day' or 'night' attribute yet)
-* Cache videos
-    * Downloads videos in the background
-    * Chose which video to download
-* Import your own videos
-
-## To-Do
-* Full Multi-Screen Support
-* Display text
-  * Sunrise & sunset
-  * Custom image
-  * Weather
-  * Calendar and events?
-* More advanced video transitions
-* Video preview in Window's screensaver settings
-* Auto update
+Aerial lets you cycle through randomly selected Apple TV videos. You can choose which videos you want to see based on their type (Aerial, Space, Underwater) and display text, time or the location of each video. Aerial also tries to sync the videos you see based on the time of the day. You can also include your own videos to the screensaver!
+[Full list of Features & To-Do items](https://github.com/OrangeJedi/Aerial/wiki/Features-&-To-Do-List)
 
 ## Want to Contribute?
 
