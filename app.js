@@ -27,7 +27,7 @@ function createConfigWindow(argv) {
     win.on('closed', function () {
         win = null;
     });
-    if(argv) {
+    if (argv) {
         if (argv.includes("/dt")) {
             win.webContents.openDevTools();
         }
@@ -95,7 +95,7 @@ function createSSPWindow(argv) {
     win.on('closed', function () {
         win = null;
     });
-    if(argv) {
+    if (argv) {
         if (argv.includes("/dt")) {
             win.webContents.openDevTools();
         }
@@ -280,7 +280,9 @@ ipcMain.on('selectCacheLocation', async (event, arg) => {
     //removeAllVideosInCache();
     cachePath = path;
     store.set('cachePath', path);
-    updateVideoCache(()=>{event.reply('displaySettings');});
+    updateVideoCache(() => {
+        event.reply('displaySettings');
+    });
 });
 
 function updateCustomVideos() {
@@ -460,7 +462,7 @@ function updateVideoCache(callback) {
             store.set('downloadedVideos', videoList);
         }
         store.set('videoCacheSize', getCacheSize());
-        if(callback) {
+        if (callback) {
             callback();
         }
     });
