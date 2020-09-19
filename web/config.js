@@ -17,7 +17,7 @@ let customVideos = store.get("customVideos");
 
 //Updates all the <input> tags with their proper values. Called on page load
 function displaySettings() {
-    let checked = ["timeOfDay", "skipVideosWithKey", "sameVideoOnScreens", "videoCache", "videoCacheProfiles", "videoCacheRemoveUnallowed", "avoidDuplicateVideos", "onlyShowVideoOnPrimaryMonitor", 'videoQuality'];
+    let checked = ["timeOfDay", "skipVideosWithKey", "sameVideoOnScreens", "videoCache", "videoCacheProfiles", "videoCacheRemoveUnallowed", "avoidDuplicateVideos", "onlyShowVideoOnPrimaryMonitor", 'videoQuality','immediatelyUpdateVideoCache'];
     for (let i = 0; i < checked.length; i++) {
         $(`#${checked[i]}`).prop('checked', store.get(checked[i]));
     }
@@ -128,6 +128,10 @@ function resetFilterSettings() {
 //Cache functions
 function updateCache() {
     ipcRenderer.send('updateCache');
+}
+
+function refreshCache(){
+    ipcRenderer.send('refreshCache');
 }
 
 function deleteCache() {
@@ -524,6 +528,7 @@ function checkVideo(e, index) {
         allowedVideos.splice(allowedVideos.indexOf(videos[index].id), 1);
     }
     store.set("allowedVideos", allowedVideos);
+    setTimeout(refreshCache,50);
 }
 
 //automated video selection buttons

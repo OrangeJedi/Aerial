@@ -107,7 +107,7 @@ app.allowRendererProcessReuse = true
 app.whenReady().then(startUp);
 
 function startUp() {
-    if (!store.get("configured") || store.get("version") !== "v0.5.3") {
+    if (!store.get("configured") || store.get("version") !== "v0.5.4") {
         //make video cache directory
         if (!fs.existsSync(`${app.getPath('userData')}/videos/`)) {
             fs.mkdirSync(`${app.getPath('userData')}/videos/`);
@@ -153,6 +153,7 @@ function startUp() {
         store.set('videoCacheSize', getCacheSize());
         store.set('videoCacheRemoveUnallowed', store.get('videoCacheRemoveUnallowed') ?? false);
         store.set('cachePath', store.get('cachePath') ?? cachePath);
+        store.set('immediatelyUpdateVideoCache', store.get('immediatelyUpdateVideoCache') ?? true);
         //text settings
         store.set('textFont', store.get('textFont') ?? "Segoe UI");
         store.set('textSize', store.get('textSize') ?? "2");
@@ -283,6 +284,18 @@ ipcMain.on('selectCacheLocation', async (event, arg) => {
     updateVideoCache(() => {
         event.reply('displaySettings');
     });
+});
+
+ipcMain.on('refreshCache', (event) => {
+    if(store.get('immediatelyUpdateVideoCache')) {
+        if (!downloading) {
+            downloadVideos();
+        }
+        if (store.get('videoCacheRemoveUnallowed')) {
+            removeAllUnallowedVideosInCache();
+            removeAllNeverAllowedVideosInCache();
+        }
+    }
 });
 
 function updateCustomVideos() {
