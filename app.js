@@ -112,6 +112,9 @@ function startUp() {
         if (!fs.existsSync(`${app.getPath('userData')}/videos/`)) {
             fs.mkdirSync(`${app.getPath('userData')}/videos/`);
         }
+        if (!fs.existsSync(`${app.getPath('userData')}/videos/temp`)) {
+            fs.mkdirSync(`${app.getPath('userData')}/videos/temp`);
+        }
         //video lists
         if (!store.get('allowedVideos')) {
             let allowedVideos = [];
@@ -173,12 +176,13 @@ function startUp() {
         store.set('videoQuality', store.get('videoQuality') ?? false);
 
         //config
-        store.set('version', "v0.5.2");
+        store.set('version', "v0.5.4");
         store.set("configured", true);
     }
     if (process.argv.includes("/nq")) {
         nq = true;
     }
+    clearCacheTemp();
     if (store.get('videoCacheRemoveUnallowed')) {
         removeAllUnallowedVideosInCache();
     }
@@ -380,7 +384,9 @@ function downloadVideos() {
                 }
             });
             //console.log(`Downloading ${videos[index].name}`);
-            downloadFile(videos[index].src.H2641080p, `${cachePath}/${allowedVideos[i]}.mov`, () => {
+            downloadFile(videos[index].src.H2641080p, `${cachePath}/temp/${allowedVideos[i]}.mov`, () => {
+                fs.copyFileSync(`${cachePath}/temp/${allowedVideos[i]}.mov`,`${cachePath}/${allowedVideos[i]}.mov`);
+                fs.unlink(`${cachePath}/temp/${allowedVideos[i]}.mov`,(err) => {});
                 downloadedVideos.push(allowedVideos[i]);
                 store.set('downloadedVideos', downloadedVideos);
                 store.set('videoCacheSize', getCacheSize());
@@ -477,6 +483,15 @@ function updateVideoCache(callback) {
         store.set('videoCacheSize', getCacheSize());
         if (callback) {
             callback();
+        }
+    });
+}
+
+function clearCacheTemp(){
+    let dir = fs.readdirSync(cachePath + "\\temp").forEach(file => {
+        if (fs.existsSync(`${cachePath}/temp/${file}`)) {
+            fs.unlink(`${cachePath}/temp/${file}`, (err) => {
+            });
         }
     });
 }
