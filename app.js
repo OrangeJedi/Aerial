@@ -283,11 +283,13 @@ ipcMain.on('selectCacheLocation', async (event, arg) => {
     });
     const path = result.filePaths[0];
     //removeAllVideosInCache();
-    cachePath = path;
-    store.set('cachePath', path);
-    updateVideoCache(() => {
-        event.reply('displaySettings');
-    });
+    if(path != undefined) {
+        cachePath = path;
+        store.set('cachePath', path);
+        updateVideoCache(() => {
+            event.reply('displaySettings');
+        });
+    }
 });
 
 ipcMain.on('refreshCache', (event) => {
