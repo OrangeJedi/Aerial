@@ -283,7 +283,7 @@ ipcMain.on('selectCacheLocation', async (event, arg) => {
     });
     const path = result.filePaths[0];
     //removeAllVideosInCache();
-    if(path != undefined) {
+    if (path != undefined) {
         cachePath = path;
         store.set('cachePath', path);
         updateVideoCache(() => {
@@ -293,7 +293,7 @@ ipcMain.on('selectCacheLocation', async (event, arg) => {
 });
 
 ipcMain.on('refreshCache', (event) => {
-    if(store.get('immediatelyUpdateVideoCache')) {
+    if (store.get('immediatelyUpdateVideoCache')) {
         if (!downloading) {
             downloadVideos();
         }
@@ -387,8 +387,9 @@ function downloadVideos() {
             });
             //console.log(`Downloading ${videos[index].name}`);
             downloadFile(videos[index].src.H2641080p, `${cachePath}/temp/${allowedVideos[i]}.mov`, () => {
-                fs.copyFileSync(`${cachePath}/temp/${allowedVideos[i]}.mov`,`${cachePath}/${allowedVideos[i]}.mov`);
-                fs.unlink(`${cachePath}/temp/${allowedVideos[i]}.mov`,(err) => {});
+                fs.copyFileSync(`${cachePath}/temp/${allowedVideos[i]}.mov`, `${cachePath}/${allowedVideos[i]}.mov`);
+                fs.unlink(`${cachePath}/temp/${allowedVideos[i]}.mov`, (err) => {
+                });
                 downloadedVideos.push(allowedVideos[i]);
                 store.set('downloadedVideos', downloadedVideos);
                 store.set('videoCacheSize', getCacheSize());
@@ -489,7 +490,7 @@ function updateVideoCache(callback) {
     });
 }
 
-function clearCacheTemp(){
+function clearCacheTemp() {
     let dir = fs.readdirSync(cachePath + "\\temp").forEach(file => {
         if (fs.existsSync(`${cachePath}/temp/${file}`)) {
             fs.unlink(`${cachePath}/temp/${file}`, (err) => {

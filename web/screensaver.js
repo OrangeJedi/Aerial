@@ -53,6 +53,7 @@ function newVideo() {
     clearTimeout(poiTimeout);
     clearTimeout(transitionTimeout);
     videoAlpha = 0;
+    video.src = "";
     let id = "";
     if (store.get('timeOfDay')) {
         let time = getTimeOfDay();
@@ -61,9 +62,9 @@ function newVideo() {
         id = allowedVideos[randomInt(0, allowedVideos.length)];
     }
     if (store.get('sameVideoOnScreens')) {
-        if (currentlyPlaying === remote.getGlobal('shared').currentlyPlaying) {
+        if(remote.getCurrentWindow().id === 1) {
             remote.getGlobal('shared').currentlyPlaying = id;
-        } else {
+        }else{
             id = remote.getGlobal('shared').currentlyPlaying;
         }
     }
