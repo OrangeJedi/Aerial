@@ -754,3 +754,8 @@ require('font-list-universal').getFonts().then(fonts => {
     },);
     fontList = fonts
 });
+
+//Preview
+function openPreview(){
+    ipcRenderer.send('openPreview');
+}

@@ -304,6 +304,11 @@ ipcMain.on('refreshCache', (event) => {
     }
 });
 
+ipcMain.on('openPreview', (event) => {
+    nq = true;
+    createSSPWindow(process.argv);
+});
+
 function updateCustomVideos() {
     let allowedVideos = store.get('allowedVideos');
     let customVideos = store.get('customVideos');
