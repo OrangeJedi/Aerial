@@ -21,6 +21,7 @@
     <button class="w3-bar-item w3-button tablink w3-blue" onclick="changeTab(event,'settingsTab')">Settings</button>
     <button class="w3-bar-item w3-button tablink" onclick="changeTab(event,'videoTab')">Videos</button>
     <button class="w3-bar-item w3-button tablink" onclick="changeTab(event,'textTab')">Text</button>
+    <button class="w3-bar-item w3-button tablink w3-right" onclick="openPreview()">Preview</button>
 </div>
 <div id="settingsTab" class="tab">
     <div class="w3-sidebar w3-light-grey w3-bar-block" style="width:20%">
@@ -51,7 +52,9 @@
                 </div>
                 <br>
                 <input type="checkbox" id="skipVideosWithKey" class="w3-check" onclick="updateSetting('skipVideosWithKey','check')"> <label>Use the right arrow key to skip videos</label>
-                <br>
+                <br><br>
+                <button class="w3-button w3-white w3-border w3-border-red w3-round-large" onclick="refreshAerial()">Refresh Aerial</button>
+                <button class="w3-button w3-red w3-border-white w3-round-large" onclick="resetAerial()">Reset Aerial</button>
             </div>
         </div>
         <div id="multi-screenSettings" class="settingsCard" style="display: none">
@@ -99,6 +102,8 @@
                 <input type="checkbox" id="videoCacheProfiles" class="w3-check" onclick="updateSetting('videoCacheProfiles','check')" style="margin-left: 8%"> <label>Include videos in saved profiles</label>
                 <br>
                 <input type="checkbox" id="videoCacheRemoveUnallowed" class="w3-check" onclick="updateSetting('videoCacheRemoveUnallowed','check')" style="margin-left: 8%"> <label>Automatically remove unchecked videos</label>
+                <br>
+                <input type="checkbox" id="immediatelyUpdateVideoCache" class="w3-check" onclick="updateSetting('immediatelyUpdateVideoCache','check')"> <label>Immediately update video cache</label>
                 <br><br>
                 <button class="w3-button w3-white w3-border w3-border-blue w3-round-large" onclick="updateCache()">Update cache</button>
                 <button class="w3-button w3-white w3-border w3-border-red w3-round-large" onclick="deleteCache()">Delete all files</button>
@@ -164,6 +169,7 @@
                         <select id="positionTypeSelect">
                             <option value="none">None</option>
                             <option value="text">Text</option>
+                            <option value="html">HTML</option>
                             <option value="time">Time/Date</option>
                             <option value="information">Information</option>
                         </select>

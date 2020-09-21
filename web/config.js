@@ -17,7 +17,7 @@ let customVideos = store.get("customVideos");
 
 //Updates all the <input> tags with their proper values. Called on page load
 function displaySettings() {
-    let checked = ["timeOfDay", "skipVideosWithKey", "sameVideoOnScreens", "videoCache", "videoCacheProfiles", "videoCacheRemoveUnallowed", "avoidDuplicateVideos", "onlyShowVideoOnPrimaryMonitor", 'videoQuality'];
+    let checked = ["timeOfDay", "skipVideosWithKey", "sameVideoOnScreens", "videoCache", "videoCacheProfiles", "videoCacheRemoveUnallowed", "avoidDuplicateVideos", "onlyShowVideoOnPrimaryMonitor", 'videoQuality','immediatelyUpdateVideoCache'];
     for (let i = 0; i < checked.length; i++) {
         $(`#${checked[i]}`).prop('checked', store.get(checked[i]));
     }
@@ -125,9 +125,26 @@ function resetFilterSettings() {
     displayPlaybackSettings();
 }
 
+//config functions
+function refreshAerial(){
+    alert("You will need to run Aerial again to finish the refresh");
+    ipcRenderer.send('refreshConfig');
+}
+
+function resetAerial(){
+    if(confirm("This will reset all of Aerial's settings; this cannot be undone.\nAre you sure you want to do this?")){
+        alert("You will need to run Aerial again to finish resetting");
+        ipcRenderer.send('resetConfig');
+    }
+}
+
 //Cache functions
 function updateCache() {
     ipcRenderer.send('updateCache');
+}
+
+function refreshCache(){
+    ipcRenderer.send('refreshCache');
 }
 
 function deleteCache() {
@@ -265,6 +282,9 @@ function updatePositionType(position) {
             break;
         case "text":
             html = `<label>Text</label><input class='w3-input' value='${displayTextSettings[position].text ? displayTextSettings[position].text : ""}' onchange="updateTextSetting(this, '${position}', 'text')">`;
+            break;
+        case "html":
+            html = `<label>HTML</label><br><textarea onchange="updateTextSetting(this, '${position}', 'html')" cols="75" rows="7">${displayTextSettings[position].html ? displayTextSettings[position].html : ""}</textarea>`;
             break;
         case "time":
             displayTextSettings[position].timeString = displayTextSettings[position].timeString ? displayTextSettings[position].timeString : "hh:mm:ss";
@@ -521,6 +541,7 @@ function checkVideo(e, index) {
         allowedVideos.splice(allowedVideos.indexOf(videos[index].id), 1);
     }
     store.set("allowedVideos", allowedVideos);
+    setTimeout(refreshCache,50);
 }
 
 //automated video selection buttons
@@ -746,3 +767,8 @@ require('font-list-universal').getFonts().then(fonts => {
     },);
     fontList = fonts
 });
+
+//Preview
+function openPreview(){
+    ipcRenderer.send('openPreview');
+}

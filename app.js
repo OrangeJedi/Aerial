@@ -107,10 +107,13 @@ app.allowRendererProcessReuse = true
 app.whenReady().then(startUp);
 
 function startUp() {
-    if (!store.get("configured") || store.get("version") !== "v0.5.3") {
+    if (!store.get("configured") || store.get("version") !== "v0.5.4") {
         //make video cache directory
         if (!fs.existsSync(`${app.getPath('userData')}/videos/`)) {
             fs.mkdirSync(`${app.getPath('userData')}/videos/`);
+        }
+        if (!fs.existsSync(`${app.getPath('userData')}/videos/temp`)) {
+            fs.mkdirSync(`${app.getPath('userData')}/videos/temp`);
         }
         //video lists
         if (!store.get('allowedVideos')) {
@@ -153,6 +156,9 @@ function startUp() {
         store.set('videoCacheSize', getCacheSize());
         store.set('videoCacheRemoveUnallowed', store.get('videoCacheRemoveUnallowed') ?? false);
         store.set('cachePath', store.get('cachePath') ?? cachePath);
+        store.set('immediatelyUpdateVideoCache', store.get('immediatelyUpdateVideoCache') ?? true);
+        //check for downloaded videos
+        updateVideoCache();
         //text settings
         store.set('textFont', store.get('textFont') ?? "Segoe UI");
         store.set('textSize', store.get('textSize') ?? "2");
@@ -172,12 +178,13 @@ function startUp() {
         store.set('videoQuality', store.get('videoQuality') ?? false);
 
         //config
-        store.set('version', "v0.5.2");
+        store.set('version', "v0.5.4");
         store.set("configured", true);
     }
     if (process.argv.includes("/nq")) {
         nq = true;
     }
+    clearCacheTemp();
     if (store.get('videoCacheRemoveUnallowed')) {
         removeAllUnallowedVideosInCache();
     }
@@ -278,11 +285,40 @@ ipcMain.on('selectCacheLocation', async (event, arg) => {
     });
     const path = result.filePaths[0];
     //removeAllVideosInCache();
-    cachePath = path;
-    store.set('cachePath', path);
-    updateVideoCache(() => {
-        event.reply('displaySettings');
-    });
+    if (path != undefined) {
+        cachePath = path;
+        store.set('cachePath', path);
+        updateVideoCache(() => {
+            event.reply('displaySettings');
+        });
+    }
+});
+
+ipcMain.on('refreshCache', (event) => {
+    if (store.get('immediatelyUpdateVideoCache')) {
+        if (!downloading) {
+            downloadVideos();
+        }
+        if (store.get('videoCacheRemoveUnallowed')) {
+            removeAllUnallowedVideosInCache();
+            removeAllNeverAllowedVideosInCache();
+        }
+    }
+});
+
+ipcMain.on('openPreview', (event) => {
+    nq = true;
+    createSSPWindow(process.argv);
+});
+
+ipcMain.on('refreshConfig', (event) => {
+    store.set("configured", false);
+    app.quit();
+});
+
+ipcMain.on('resetConfig', (event) => {
+    fs.unlink(`${app.getPath('userData')}/config.json`, err => {});
+    app.quit();
 });
 
 function updateCustomVideos() {
@@ -367,7 +403,10 @@ function downloadVideos() {
                 }
             });
             //console.log(`Downloading ${videos[index].name}`);
-            downloadFile(videos[index].src.H2641080p, `${cachePath}/${allowedVideos[i]}.mov`, () => {
+            downloadFile(videos[index].src.H2641080p, `${cachePath}/temp/${allowedVideos[i]}.mov`, () => {
+                fs.copyFileSync(`${cachePath}/temp/${allowedVideos[i]}.mov`, `${cachePath}/${allowedVideos[i]}.mov`);
+                fs.unlink(`${cachePath}/temp/${allowedVideos[i]}.mov`, (err) => {
+                });
                 downloadedVideos.push(allowedVideos[i]);
                 store.set('downloadedVideos', downloadedVideos);
                 store.set('videoCacheSize', getCacheSize());
@@ -464,6 +503,21 @@ function updateVideoCache(callback) {
         store.set('videoCacheSize', getCacheSize());
         if (callback) {
             callback();
+        }
+    });
+}
+
+function clearCacheTemp() {
+    if (!fs.existsSync(`${app.getPath('userData')}/videos/`)) {
+        fs.mkdirSync(`${app.getPath('userData')}/videos/`);
+    }
+    if (!fs.existsSync(`${app.getPath('userData')}/videos/temp`)) {
+        fs.mkdirSync(`${app.getPath('userData')}/videos/temp`);
+    }
+    let dir = fs.readdirSync(cachePath + "\\temp").forEach(file => {
+        if (fs.existsSync(`${cachePath}/temp/${file}`)) {
+            fs.unlink(`${cachePath}/temp/${file}`, (err) => {
+            });
         }
     });
 }
