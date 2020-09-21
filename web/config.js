@@ -125,6 +125,19 @@ function resetFilterSettings() {
     displayPlaybackSettings();
 }
 
+//config functions
+function refreshAerial(){
+    alert("You will need to run Aerial again to finish the refresh");
+    ipcRenderer.send('refreshConfig');
+}
+
+function resetAerial(){
+    if(confirm("This will reset all of Aerial's settings; this cannot be undone.\nAre you sure you want to do this?")){
+        alert("You will need to run Aerial again to finish resetting");
+        ipcRenderer.send('resetConfig');
+    }
+}
+
 //Cache functions
 function updateCache() {
     ipcRenderer.send('updateCache');

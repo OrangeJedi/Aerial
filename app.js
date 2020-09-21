@@ -157,6 +157,8 @@ function startUp() {
         store.set('videoCacheRemoveUnallowed', store.get('videoCacheRemoveUnallowed') ?? false);
         store.set('cachePath', store.get('cachePath') ?? cachePath);
         store.set('immediatelyUpdateVideoCache', store.get('immediatelyUpdateVideoCache') ?? true);
+        //check for downloaded videos
+        updateVideoCache();
         //text settings
         store.set('textFont', store.get('textFont') ?? "Segoe UI");
         store.set('textSize', store.get('textSize') ?? "2");
@@ -307,6 +309,16 @@ ipcMain.on('refreshCache', (event) => {
 ipcMain.on('openPreview', (event) => {
     nq = true;
     createSSPWindow(process.argv);
+});
+
+ipcMain.on('refreshConfig', (event) => {
+    store.set("configured", false);
+    app.quit();
+});
+
+ipcMain.on('resetConfig', (event) => {
+    fs.unlink(`${app.getPath('userData')}/config.json`, err => {});
+    app.quit();
 });
 
 function updateCustomVideos() {
@@ -496,6 +508,12 @@ function updateVideoCache(callback) {
 }
 
 function clearCacheTemp() {
+    if (!fs.existsSync(`${app.getPath('userData')}/videos/`)) {
+        fs.mkdirSync(`${app.getPath('userData')}/videos/`);
+    }
+    if (!fs.existsSync(`${app.getPath('userData')}/videos/temp`)) {
+        fs.mkdirSync(`${app.getPath('userData')}/videos/temp`);
+    }
     let dir = fs.readdirSync(cachePath + "\\temp").forEach(file => {
         if (fs.existsSync(`${cachePath}/temp/${file}`)) {
             fs.unlink(`${cachePath}/temp/${file}`, (err) => {
