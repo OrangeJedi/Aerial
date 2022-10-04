@@ -1,4 +1,4 @@
-const {app, BrowserWindow, ipcMain, screen, shell, dialog, remote, Tray, Menu} = require('electron');
+const {app, BrowserWindow, ipcMain, screen, shell, dialog, remote, Tray, Menu, powerMonitor} = require('electron');
 const videos = require("./videos.json");
 const Store = require('electron-store');
 const store = new Store();
@@ -268,9 +268,9 @@ function startUp() {
     }
     //configures Aerial to launch on startup
 
-    if(store.get('useTray') && app.isPackaged){
+    if (store.get('useTray') && app.isPackaged) {
         autoLauncher.enable();
-    }else{
+    } else {
         autoLauncher.disable();
     }
     //prevents quiting the app if wanted
@@ -294,7 +294,7 @@ function startUp() {
     } else if (process.argv.includes("/j")) {
         createJSONConfigWindow();
     } else {
-        if(store.get('useTray')) {
+        if (store.get('useTray')) {
             createTrayWindow();
         }
     }
@@ -651,10 +651,20 @@ function randomInt(min, max) {
     return Math.floor(Math.random() * max) - min;
 }
 
-function closeAllWindows(){
-    for(let i = 0;i<screens.length;i++){
+function closeAllWindows() {
+    for (let i = 0; i < screens.length; i++) {
         screens[i].close();
     }
     screens = [];
 }
-console.log();
+
+//idle startup timer
+function launchScreensaver() {
+    if(screens.length === 0) {
+        let idleTime = powerMonitor.getSystemIdleTime();
+        if (idleTime >= store.get('startAerialAfter') * 60) {
+            createSSWindow();
+        }
+    }
+}
+setInterval(launchScreensaver,5000);
