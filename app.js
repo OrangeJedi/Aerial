@@ -24,7 +24,9 @@ function createConfigWindow(argv) {
             enableRemoteModule: false,
             sandbox: false,
             preload: path.join(__dirname, "preload.js")
-        }, resizable: false
+        },
+        resizable: false,
+        icon: path.join(__dirname, 'icon.ico')
     });
     win.loadFile('web/config.html');
     win.on('closed', function () {
@@ -48,7 +50,8 @@ function createJSONConfigWindow() {
             enableRemoteModule: false,
             sandbox: false,
             preload: path.join(__dirname, "json-editor", "preload.js")
-        }
+        },
+        icon: path.join(__dirname, 'icon.ico')
     });
     win.loadFile('json-editor/index.html');
     win.on('closed', function () {
@@ -60,13 +63,21 @@ function createSSWindow() {
     let displays = screen.getAllDisplays();
     for (let i = 0; i < screen.getAllDisplays().length; i++) {
         let win = new BrowserWindow({
-            width: displays[i].size.width, height: displays[i].size.height, webPreferences: {
+            width: displays[i].size.width,
+            height: displays[i].size.height,
+            webPreferences: {
                 nodeIntegration: false,
                 contextIsolation: true,
                 enableRemoteModule: false,
                 sandbox: false,
                 preload: path.join(__dirname, "preload.js")
-            }, x: displays[i].bounds.x, y: displays[i].bounds.y, fullscreen: true, transparent: true, frame: false
+            },
+            x: displays[i].bounds.x,
+            y: displays[i].bounds.y,
+            fullscreen: true,
+            transparent: true,
+            frame: false,
+            icon: path.join(__dirname, 'icon.ico')
         });
         win.setMenu(null);
         if (store.get("onlyShowVideoOnPrimaryMonitor") && displays[i].id !== screen.getPrimaryDisplay().id) {
@@ -87,14 +98,16 @@ function createSSWindow() {
 
 function createSSPWindow(argv) {
     let win = new BrowserWindow({
-        width: 1920, height: 1080, webPreferences: {
+        width: 1920,
+        height: 1080,
+        webPreferences: {
             nodeIntegration: false,
             contextIsolation: true,
             enableRemoteModule: false,
             sandbox: false,
             preload: path.join(__dirname, "preload.js")
-        }, /*transparent: true,
-        frame: false*/
+        },
+        icon: path.join(__dirname, 'icon.ico')
     });
     win.loadFile('web/screensaver.html');
     win.on('closed', function () {

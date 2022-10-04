@@ -37,6 +37,9 @@
     "portable": {
       "artifactName": "aerial.exe",
       "useZip": true
-    }
+    },
+    "icon" : "icon.ico",
+    "productName": "Aerial",
+    "buildVersion": "0.6.0"
   }
 }
