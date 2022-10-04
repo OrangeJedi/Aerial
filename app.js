@@ -6,6 +6,7 @@ const request = require('request');
 const https = require('https');
 const fs = require('fs');
 const path = require("path");
+const AutoLaunch = require('auto-launch');
 let screens = [];
 let nq = false;
 let cachePath = store.get('cachePath') ?? `${app.getPath('userData')}/videos`;
@@ -13,6 +14,9 @@ let downloading = false;
 const allowedVideos = store.get("allowedVideos");
 let previouslyPlayed = [];
 let currentlyPlaying = '';
+let autoLauncher = new AutoLaunch({
+    name: 'Aerial',
+});
 
 function createConfigWindow(argv) {
     let win = new BrowserWindow({
@@ -262,6 +266,14 @@ function startUp() {
         store.set('version', "v0.5.4");
         store.set("configured", true);
     }
+    //configures Aerial to launch on startup
+
+    if(store.get('useTray') && app.isPackaged){
+        autoLauncher.enable();
+    }else{
+        autoLauncher.disable();
+    }
+    //prevents quiting the app if wanted
     if (process.argv.includes("/nq")) {
         nq = true;
     }
@@ -282,7 +294,9 @@ function startUp() {
     } else if (process.argv.includes("/j")) {
         createJSONConfigWindow();
     } else {
-        createTrayWindow();
+        if(store.get('useTray')) {
+            createTrayWindow();
+        }
     }
     setTimeout(downloadVideos, 1500);
 }
@@ -643,3 +657,4 @@ function closeAllWindows(){
     }
     screens = [];
 }
+console.log();

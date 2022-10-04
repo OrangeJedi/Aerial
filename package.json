@@ -25,6 +25,7 @@
     "electron-packager": "^16.0.0"
   },
   "dependencies": {
+    "auto-launch": "^5.0.5",
     "electron-store": "^8.1.0",
     "font-list-universal": "^1.0.0",
     "json-beautify": "^1.1.1",
@@ -38,7 +39,7 @@
       "artifactName": "aerial.exe",
       "useZip": true
     },
-    "icon" : "icon.ico",
+    "icon": "icon.ico",
     "productName": "Aerial",
     "buildVersion": "0.6.0"
   }
