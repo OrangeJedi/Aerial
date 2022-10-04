@@ -29,3 +29,7 @@ body {
 .textDisplayArea {
     padding: 2%;
 }
+
+* {
+    cursor: none;
+}
