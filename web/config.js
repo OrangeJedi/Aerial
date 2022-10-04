@@ -9,11 +9,11 @@ let customVideos = electron.store.get("customVideos");
 
 //Updates all the <input> tags with their proper values. Called on page load
 function displaySettings() {
-    let checked = ["timeOfDay", "skipVideosWithKey", "sameVideoOnScreens", "videoCache", "videoCacheProfiles", "videoCacheRemoveUnallowed", "avoidDuplicateVideos", "onlyShowVideoOnPrimaryMonitor", 'videoQuality', 'immediatelyUpdateVideoCache'];
+    let checked = ["timeOfDay", "skipVideosWithKey", "sameVideoOnScreens", "videoCache", "videoCacheProfiles", "videoCacheRemoveUnallowed", "avoidDuplicateVideos", "onlyShowVideoOnPrimaryMonitor", 'videoQuality', 'immediatelyUpdateVideoCache','useTray'];
     for (let i = 0; i < checked.length; i++) {
         $(`#${checked[i]}`).prop('checked', electron.store.get(checked[i]));
     }
-    let numTxt = ["sunrise", "sunset", "textFont", "textSize", 'textColor'];
+    let numTxt = ["sunrise", "sunset", "textFont", "textSize", 'textColor','startAerialAfter'];
     for (let i = 0; i < numTxt.length; i++) {
         $(`#${numTxt[i]}`).val(electron.store.get(numTxt[i]));
     }

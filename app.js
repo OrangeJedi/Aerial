@@ -1,4 +1,4 @@
-const {app, BrowserWindow, ipcMain, screen, shell, dialog, remote} = require('electron');
+const {app, BrowserWindow, ipcMain, screen, shell, dialog, remote, Tray, Menu} = require('electron');
 const videos = require("./videos.json");
 const Store = require('electron-store');
 const store = new Store();
@@ -121,6 +121,45 @@ function createSSPWindow(argv) {
     screens.push(win);
 }
 
+function createTrayWindow() {
+    let trayWin = new BrowserWindow({
+        width: 800, height: 600, center: true, minimizable: false, show: false,
+        webPreferences: {
+            nodeIntegration: false,
+            webSecurity: true,
+            sandbox: true,
+        },
+    });
+    //trayWin.loadURL("https://google.com/");
+    trayWin.on("close", ev => {
+        //console.log(ev);
+        ev.sender.hide();
+        //ev.preventDefault(); // prevent quit process
+    });
+    const menu = Menu.buildFromTemplate([
+        {
+            label: "Open Config", click: (item, window, event) => {
+                createConfigWindow();
+            }
+        },
+        {type: "separator"},
+        {
+            label: "Start Aerial", click: (item, window, event) => {
+                createSSWindow();
+            }
+        },
+        {type: "separator"},
+        {
+            label: "Exit Aerial", click: (item, window, event) => {
+                app.quit();
+            }
+        },
+    ]);
+    trayWin.tray = new Tray("./icon.ico");
+    trayWin.tray.setContextMenu(menu);
+    trayWin.tray.setToolTip("Aerial");
+}
+
 app.allowRendererProcessReuse = true
 app.whenReady().then(startUp);
 
@@ -146,6 +185,10 @@ function startUp() {
         store.set('neverDownloadVideos', store.get('neverDownloadVideos') ?? []);
         store.set('videoProfiles', store.get('videoProfiles') ?? []);
         store.set('customVideos', store.get('customVideos') ?? []);
+
+        //start up settings
+        store.set('useTray', store.get('useTray') ?? true);
+        store.set('startAerialAfter', store.get('startAerialAfter') ?? 10);
 
         //general settings
         store.set('timeOfDay', store.get('timeOfDay') ?? false);
@@ -185,7 +228,7 @@ function startUp() {
             defaultValue: 0
         },]);
         store.set('videoTransitionLength', store.get('videoTransitionLength') ?? 1000);
-        //multi-screen settings
+        //multiscreen settings
         store.set('sameVideoOnScreens', store.get('sameVideoOnScreens') ?? false);
         store.set('onlyShowVideoOnPrimaryMonitor', store.get('onlyShowVideoOnPrimaryMonitor') ?? false);
         //cache settings
@@ -239,7 +282,7 @@ function startUp() {
     } else if (process.argv.includes("/j")) {
         createJSONConfigWindow();
     } else {
-        createConfigWindow();
+        createTrayWindow();
     }
     setTimeout(downloadVideos, 1500);
 }
@@ -256,7 +299,8 @@ app.on('certificate-error', (event, webContents, url, error, certificate, callba
 
 ipcMain.on('quitApp', (event, arg) => {
     if (!nq) {
-        app.quit();
+        //app.quit();
+        closeAllWindows();
     }
 });
 
@@ -591,4 +635,11 @@ function clearCacheTemp() {
 
 function randomInt(min, max) {
     return Math.floor(Math.random() * max) - min;
+}
+
+function closeAllWindows(){
+    for(let i = 0;i<screens.length;i++){
+        screens[i].close();
+    }
+    screens = [];
 }
