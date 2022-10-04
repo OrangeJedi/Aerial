@@ -6,8 +6,7 @@
   "scripts": {
     "start": "electron .",
     "dist": "electron-builder",
-    "build-folder": "electron-packager .",
-    "build-exe": "electron-builder build"
+    "build": "electron-builder build"
   },
   "repository": {
     "type": "git",
