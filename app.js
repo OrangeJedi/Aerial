@@ -133,6 +133,7 @@ function createTrayWindow() {
             webSecurity: true,
             sandbox: true,
         },
+        icon: path.join(__dirname, 'icon.ico')
     });
     //trayWin.loadURL("https://google.com/");
     trayWin.on("close", ev => {
@@ -159,7 +160,7 @@ function createTrayWindow() {
             }
         },
     ]);
-    trayWin.tray = new Tray("./icon.ico");
+    trayWin.tray = new Tray(path.join(__dirname, 'icon.ico'));
     trayWin.tray.setContextMenu(menu);
     trayWin.tray.setToolTip("Aerial");
 }
