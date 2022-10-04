@@ -1,38 +1,30 @@
-//Global constants
-//Set up persistent read/write for storing all of our settings
-const Store = require('electron-store');
-const store = new Store();
-//talk to app.js
-const {ipcRenderer} = require('electron');
-//All the videos and their information
-const videos = require("../videos.json");
-
 //Global variables
 //This list of allowed or 'checked' videos
-let allowedVideos = store.get("allowedVideos");
-let downloadedVideos = store.get("downloadedVideos");
-let alwaysDownloadVideos = store.get("alwaysDownloadVideos");
-let neverDownloadVideos = store.get("neverDownloadVideos");
-let customVideos = store.get("customVideos");
+const videos = electron.videos;
+let allowedVideos = electron.store.get("allowedVideos");
+let downloadedVideos = electron.store.get("downloadedVideos");
+let alwaysDownloadVideos = electron.store.get("alwaysDownloadVideos");
+let neverDownloadVideos = electron.store.get("neverDownloadVideos");
+let customVideos = electron.store.get("customVideos");
 
 //Updates all the <input> tags with their proper values. Called on page load
 function displaySettings() {
-    let checked = ["timeOfDay", "skipVideosWithKey", "sameVideoOnScreens", "videoCache", "videoCacheProfiles", "videoCacheRemoveUnallowed", "avoidDuplicateVideos", "onlyShowVideoOnPrimaryMonitor", 'videoQuality','immediatelyUpdateVideoCache'];
+    let checked = ["timeOfDay", "skipVideosWithKey", "sameVideoOnScreens", "videoCache", "videoCacheProfiles", "videoCacheRemoveUnallowed", "avoidDuplicateVideos", "onlyShowVideoOnPrimaryMonitor", 'videoQuality', 'immediatelyUpdateVideoCache'];
     for (let i = 0; i < checked.length; i++) {
-        $(`#${checked[i]}`).prop('checked', store.get(checked[i]));
+        $(`#${checked[i]}`).prop('checked', electron.store.get(checked[i]));
     }
     let numTxt = ["sunrise", "sunset", "textFont", "textSize", 'textColor'];
     for (let i = 0; i < numTxt.length; i++) {
-        $(`#${numTxt[i]}`).val(store.get(numTxt[i]));
+        $(`#${numTxt[i]}`).val(electron.store.get(numTxt[i]));
     }
     let slider = ["playbackSpeed", "videoTransitionLength"];
     for (let i = 0; i < slider.length; i++) {
-        $(`#${slider[i]}`).val(store.get(slider[i]));
-        $(`#${slider[i]}Text`).text(store.get(slider[i]));
+        $(`#${slider[i]}`).val(electron.store.get(slider[i]));
+        $(`#${slider[i]}Text`).text(electron.store.get(slider[i]));
     }
     let numeralText = [{'id': "videoCacheSize", 'format': "0.00 ib"}];
     for (let i = 0; i < numeralText.length; i++) {
-        $(`#${numeralText[i].id}`).text(numeral(store.get(numeralText[i].id)).format(numeralText[i].format));
+        $(`#${numeralText[i].id}`).text(numeral(electron.store.get(numeralText[i].id)).format(numeralText[i].format));
     }
     displayPlaybackSettings();
     displayCustomVideos();
@@ -42,7 +34,7 @@ function displaySettings() {
 displaySettings();
 
 function displayPlaybackSettings() {
-    let settings = store.get('videoFilters');
+    let settings = electron.store.get('videoFilters');
     let html = "";
     for (let i = 0; i < settings.length; i++) {
         html += `<label>${settings[i].name}: <span id="${settings[i].name}Text">${settings[i].value}</span></label><span class="w3-right" onclick="resetSetting('${settings[i].name}', 'filterSlider', ${settings[i].defaultValue})"><i class="fa fa-undo"></i></span>
@@ -56,30 +48,30 @@ function displayPlaybackSettings() {
 function updateSetting(setting, type) {
     switch (type) {
         case "check":
-            store.set(setting, document.getElementById(setting).checked);
+            electron.store.set(setting, document.getElementById(setting).checked);
             break;
         case "slider":
             $(`#${setting}Text`).text(document.getElementById(setting).value);
         case "number":
         case "text":
         case "time":
-            store.set(setting, document.getElementById(setting).value);
+            electron.store.set(setting, document.getElementById(setting).value);
             break;
         case "filterSlider":
             $(`#${setting}Text`).text(document.getElementById(setting).value);
-            let s = store.get('videoFilters');
+            let s = electron.store.get('videoFilters');
             let index = s.findIndex((e) => {
                 if (setting === e.name) {
                     return true;
                 }
             });
             s[index].value = document.getElementById(setting).value;
-            store.set('videoFilters', s);
+            electron.store.set('videoFilters', s);
             break;
         case "autocomplete":
             let v = document.getElementById(setting).value;
             if (fontList.includes(v)) {
-                store.set(setting, v);
+                electron.store.set(setting, v);
                 $('#textFontError').css('display', "none");
             } else {
                 $('#textFontError').css('display', "");
@@ -98,17 +90,17 @@ function resetSetting(setting, type, value) {
         case "number":
         case "text":
         case "time":
-            store.set(setting, value);
+            electron.store.set(setting, value);
             break;
         case "filterSlider":
-            let s = store.get('videoFilters');
+            let s = electron.store.get('videoFilters');
             let index = s.findIndex((e) => {
                 if (setting === e.name) {
                     return true;
                 }
             });
             s[index].value = s[index].defaultValue;
-            store.set('videoFilters', s);
+            electron.store.set('videoFilters', s);
             $(`#${setting}Text`).text(s[index].defaultValue);
             $(`#${setting}`).val(s[index].defaultValue);
             break;
@@ -117,55 +109,55 @@ function resetSetting(setting, type, value) {
 
 //Mass resets all the filter settings
 function resetFilterSettings() {
-    let videoFilters = store.get('videoFilters');
+    let videoFilters = electron.store.get('videoFilters');
     for (let i = 0; i < videoFilters.length; i++) {
         videoFilters[i].value = videoFilters[i].defaultValue;
     }
-    store.set('videoFilters', videoFilters);
+    electron.store.set('videoFilters', videoFilters);
     displayPlaybackSettings();
 }
 
 //config functions
-function refreshAerial(){
+function refreshAerial() {
     alert("You will need to run Aerial again to finish the refresh");
-    ipcRenderer.send('refreshConfig');
+    electron.ipcRenderer.send('refreshConfig');
 }
 
-function resetAerial(){
-    if(confirm("This will reset all of Aerial's settings; this cannot be undone.\nAre you sure you want to do this?")){
+function resetAerial() {
+    if (confirm("This will reset all of Aerial's settings; this cannot be undone.\nAre you sure you want to do this?")) {
         alert("You will need to run Aerial again to finish resetting");
-        ipcRenderer.send('resetConfig');
+        electron.ipcRenderer.send('resetConfig');
     }
 }
 
 //Cache functions
 function updateCache() {
-    ipcRenderer.send('updateCache');
+    electron.ipcRenderer.send('updateCache');
 }
 
-function refreshCache(){
-    ipcRenderer.send('refreshCache');
+function refreshCache() {
+    electron.ipcRenderer.send('refreshCache');
 }
 
 function deleteCache() {
     if (confirm('Are sure you want to delete all the videos in the cache?'))
-        ipcRenderer.send('deleteCache');
+        electron.ipcRenderer.send('deleteCache');
 }
 
 function selectCacheLocation() {
     if (confirm("This will delete all videos in the current cache and move the cache location to the chosen folder.\nIf you want to keep your downloaded videos copy them to the new location before clicking ok.")) {
         console.log('hey');
-        ipcRenderer.send('selectCacheLocation');
+        electron.ipcRenderer.send('selectCacheLocation');
     }
 }
 
-ipcRenderer.on('displaySettings', () => {
+electron.ipcRenderer.on('displaySettings', () => {
     displaySettings();
 });
 
 //Custom videos
-ipcRenderer.on('newCustomVideos', (event, videoList) => {
-    customVideos = store.get('customVideos');
+electron.ipcRenderer.on('newCustomVideos', (event, videoList) => {
+    customVideos = electron.store.get('customVideos');
     for (let i = 0; i < videoList.length; i++) {
         let index = customVideos.findIndex((e) => {
             if (`${videoList.path}\\${videoList[i]}` === e.path) {
@@ -182,8 +174,8 @@ ipcRenderer.on('newCustomVideos', (event, videoList) => {
         }
         allowedVideos.push(customVideos[customVideos.length - 1].id);
     }
-    store.set('customVideos', customVideos);
-    store.set("allowedVideos", allowedVideos);
+    electron.store.set('customVideos', customVideos);
+    electron.store.set("allowedVideos", allowedVideos);
     displayCustomVideos();
 });
 
@@ -193,7 +185,7 @@ function newId() {
 
 function displayCustomVideos() {
     let html = "<br>";
-    customVideos = store.get('customVideos');
+    customVideos = electron.store.get('customVideos');
     html += "<table class='w3-table-all'>";
     for (let i = 0; i < customVideos.length; i++) {
         html += `<tr>
@@ -213,7 +205,7 @@ function checkCustomVideo(e, id) {
     } else {
         allowedVideos.splice(allowedVideos.indexOf(id), 1);
     }
-    store.set("allowedVideos", allowedVideos);
+    electron.store.set("allowedVideos", allowedVideos);
 }
 
 function removeCustomVideo(id) {
@@ -226,7 +218,7 @@ function removeCustomVideo(id) {
         }
     });
     customVideos.splice(index, 1);
-    store.set("customVideos", customVideos);
+    electron.store.set("customVideos", customVideos);
     displayCustomVideos();
 }
 
@@ -239,22 +231,22 @@ function editCustomVideo(id) {
     document.getElementById('editCustomVideo').style.display = 'block';
     document.getElementById('customVideoName').onchange = () => {
         customVideos[index].name = $('#customVideoName').val();
-        store.set('customVideos', customVideos);
+        electron.store.set('customVideos', customVideos);
         displayCustomVideos()
     };
     document.getElementById('customVideoName').value = customVideos[index].name;
-    store.set('customVideos', customVideos);
+    electron.store.set('customVideos', customVideos);
     displayCustomVideos();
 }
 
 //Text tab
 
 function colorTextPositionRadio() {
-    let displayTextSettings = store.get('displayText');
+    let displayTextSettings = electron.store.get('displayText');
     $('.imagePosition').each(function () {
-        if(displayTextSettings[this.value].type !== "none"){
+        if (displayTextSettings[this.value].type !== "none") {
             $(this).addClass('imagePositionWithValue');
-        }else {
+        } else {
             $(this).removeClass('imagePositionWithValue')
         }
     });
@@ -263,7 +255,7 @@ function colorTextPositionRadio() {
 //handles selecting a radio button from the position image
 function positionSelect(position) {
     position = position.value;
-    let displayTextSettings = store.get('displayText')[position];
+    let displayTextSettings = electron.store.get('displayText')[position];
     document.getElementById("positionTypeSelect").setAttribute('onchange', `updatePositionType('${position}')`);
     document.getElementById("textWidthSelect").setAttribute('onchange', `updateTextSetting(this, '${position}', 'maxWidth')`);
     $('#textWidthSelect').val(displayTextSettings.maxWidth ? displayTextSettings.maxWidth : "50%");
@@ -273,7 +265,7 @@ function positionSelect(position) {
 }
 
 function updatePositionType(position) {
-    let displayTextSettings = store.get('displayText');
+    let displayTextSettings = electron.store.get('displayText');
     displayTextSettings[position].type = $('#positionTypeSelect').val();
     let html = "";
     switch (displayTextSettings[position].type) {
@@ -308,9 +300,9 @@ function updatePositionType(position) {
     if (displayTextSettings[position].type !== "none") {
         html += `<br><input type="checkbox" class="w3-check" id="useDefaultFont" onchange="updateTextSettingCheck(this, '${position}', 'defaultFont'); updatePositionType('${position}');" ${displayTextSettings[position].defaultFont ? 'checked' : ''}><label> Use Default Font</label>`;
         if (!displayTextSettings[position].defaultFont) {
-            displayTextSettings[position]['font'] = displayTextSettings[position].font ? displayTextSettings[position].font : store.get('textFont');
-            displayTextSettings[position]['fontSize'] = displayTextSettings[position].fontSize ? displayTextSettings[position].fontSize : store.get('textSize');
-            displayTextSettings[position]['fontColor'] = displayTextSettings[position].fontColor ? displayTextSettings[position].fontColor : store.get('textColor');
+            displayTextSettings[position]['font'] = displayTextSettings[position].font ? displayTextSettings[position].font : electron.store.get('textFont');
+            displayTextSettings[position]['fontSize'] = displayTextSettings[position].fontSize ? displayTextSettings[position].fontSize : electron.store.get('textSize');
+            displayTextSettings[position]['fontColor'] = displayTextSettings[position].fontColor ? displayTextSettings[position].fontColor : electron.store.get('textColor');
             html += `<br><div class="autocomplete" style="width:300px;">
                     <label>Font: </label><input id="positionFont" type="text" onchange="updateTextSetting(this, '${position}', 'font')" value="${displayTextSettings[position]['font']}">
                     </div>
@@ -328,22 +320,22 @@ function updatePositionType(position) {
         $('#positionDetails').html(html);
         $('#textWidthContainer').css('display', "none");
     }
-    store.set('displayText', displayTextSettings);
+    electron.store.set('displayText', displayTextSettings);
     colorTextPositionRadio();
 }
 
 //Text settings are stored separate from other settings, so they require their own functions
 function updateTextSetting(input, position, setting) {
-    let text = store.get('displayText');
+    let text = electron.store.get('displayText');
     text[position][setting] = input.value;
-    store.set('displayText', text);
+    electron.store.set('displayText', text);
 }
 
 //This one handles checkboxes because they are a special case
 function updateTextSettingCheck(input, position, setting) {
-    let text = store.get('displayText');
+    let text = electron.store.get('displayText');
     text[position][setting] = input.checked;
-    store.set('displayText', text);
+    electron.store.set('displayText', text);
 }
 
 //Handles changing menu tabs
@@ -424,11 +416,11 @@ function selectVideo(index) {
         x[i].className = x[i].className.replace("w3-deep-orange", "");
     }
     if (index > -1) {
-        downloadedVideos = store.get("downloadedVideos");
+        downloadedVideos = electron.store.get("downloadedVideos");
         document.getElementById("videoList-" + index).className += " w3-deep-orange";
         let videoSRC = videos[index].src.H2641080p;
         if (downloadedVideos.includes(videos[index].id)) {
-            videoSRC = `${store.get('cachePath')}/${videos[index].id}.mov`;
+            videoSRC = `${electron.store.get('cachePath')}/${videos[index].id}.mov`;
         }
         $('#videoPlayer').attr("src", videoSRC).show();
         $('#videoName').text(videos[index].accessibilityLabel);
@@ -482,7 +474,7 @@ function selectVideo(index) {
                                     <option value="never">never download</option>
                                   </select>
                                   </div>`).css('display', '');
-        let profiles = store.get('videoProfiles');
+        let profiles = electron.store.get('videoProfiles');
         let html = "";
         for (let i = 0; i < profiles.length; i++) {
             html += `<option value="${profiles[i].name}">${profiles[i].name}</option>`
@@ -508,8 +500,8 @@ function changeVideoDownloadState(element, videoId) {
             neverDownloadVideos.push(videoId);
             break;
     }
-    store.set("alwaysDownloadVideos", alwaysDownloadVideos);
-    store.set("neverDownloadVideos", neverDownloadVideos);
+    electron.store.set("alwaysDownloadVideos", alwaysDownloadVideos);
+    electron.store.set("neverDownloadVideos", neverDownloadVideos);
 }
 
 function changeAllVideoDownloadState(elementId) {
@@ -529,8 +521,8 @@ function changeAllVideoDownloadState(elementId) {
             }
             break;
     }
-    store.set("alwaysDownloadVideos", alwaysDownloadVideos);
-    store.set("neverDownloadVideos", neverDownloadVideos);
+    electron.store.set("alwaysDownloadVideos", alwaysDownloadVideos);
+    electron.store.set("neverDownloadVideos", neverDownloadVideos);
 }
 
 //Updates the video list when a video is checked
@@ -540,14 +532,14 @@ function checkVideo(e, index) {
     } else {
         allowedVideos.splice(allowedVideos.indexOf(videos[index].id), 1);
     }
-    store.set("allowedVideos", allowedVideos);
-    setTimeout(refreshCache,50);
+    electron.store.set("allowedVideos", allowedVideos);
+    setTimeout(refreshCache, 50);
 }
 
 //automated video selection buttons
 function deselectAll() {
     allowedVideos = allowedVideos.filter(id => id[0] === "_");
-    store.set("allowedVideos", allowedVideos);
+    electron.store.set("allowedVideos", allowedVideos);
     makeList();
 }
 
@@ -556,7 +548,7 @@ function selectAll() {
     for (let i = 0; i < videos.length; i++) {
         allowedVideos.push(videos[i].id);
     }
-    store.set("allowedVideos", allowedVideos);
+    electron.store.set("allowedVideos", allowedVideos);
     makeList();
 }
 
@@ -569,7 +561,7 @@ function selectType() {
             }
         }
     }
-    store.set("allowedVideos", allowedVideos);
+    electron.store.set("allowedVideos", allowedVideos);
     makeList();
 }
 
@@ -582,47 +574,47 @@ function deselectType() {
             }
         }
     }
-    store.set("allowedVideos", allowedVideos);
+    electron.store.set("allowedVideos", allowedVideos);
     makeList();
 }
 
 //Video Profiles
 function createProfile(id) {
-    let profiles = store.get('videoProfiles');
+    let profiles = electron.store.get('videoProfiles');
     profiles.push({
         "name": $(`#${id}`).val(),
         "videos": allowedVideos
     });
-    store.set('videoProfiles', profiles);
+    electron.store.set('videoProfiles', profiles);
     selectVideo(-1);
 }
 
 function updateProfile(id) {
-    let profiles = store.get('videoProfiles');
+    let profiles = electron.store.get('videoProfiles');
     for (let i = 0; i < profiles.length; i++) {
         if (profiles[i].name === $(`#${id}`).val()) {
             profiles[i].videos = allowedVideos.filter(id => id[0] !== "_");
             break;
         }
     }
-    store.set('videoProfiles', profiles);
+    electron.store.set('videoProfiles', profiles);
 }
 
 function removeProfile(id) {
-    let profiles = store.get('videoProfiles');
+    let profiles = electron.store.get('videoProfiles');
     for (let i = 0; i < profiles.length; i++) {
         if (profiles[i].name === $(`#${id}`).val()) {
             profiles.splice(i, 1);
             break;
         }
     }
-    store.set('videoProfiles', profiles);
+    electron.store.set('videoProfiles', profiles);
     selectVideo(-1);
 }
 
 function displayProfile(id) {
     let customAllowed = allowedVideos.filter(id => id[0] === "_");
-    let profiles = store.get('videoProfiles');
+    let profiles = electron.store.get('videoProfiles');
     for (let i = 0; i < profiles.length; i++) {
         if (profiles[i].name === $(`#${id}`).val()) {
             allowedVideos = profiles[i].videos;
@@ -631,7 +623,7 @@ function displayProfile(id) {
         }
     }
     allowedVideos.push(...customAllowed);
-    store.set("allowedVideos", allowedVideos);
+    electron.store.set("allowedVideos", allowedVideos);
 }
 
 //For formatting time and dates. Used throughout the config menu
@@ -761,7 +753,7 @@ document.addEventListener("click", function (e) {
 
 //Still autocomplete stuff. This part sets up our font lists
 let fontList = [];
-require('font-list-universal').getFonts().then(fonts => {
+electron.fontListUniversal.getFonts().then(fonts => {
     autocomplete(document.getElementById('textFont'), fonts, () => {
         updateSetting('textFont', 'autocomplete')
     },);
@@ -769,6 +761,6 @@ require('font-list-universal').getFonts().then(fonts => {
 });
 
 //Preview
-function openPreview(){
-    ipcRenderer.send('openPreview');
+function openPreview() {
+    electron.ipcRenderer.send('openPreview');
 }

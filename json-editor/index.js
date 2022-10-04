@@ -1,9 +1,5 @@
-const {ipcRenderer} = require('electron');
-let videos = require("../videos.json");
-const beautify = require("json-beautify");
-
-const Store = require('electron-store');
-const store = new Store();
+let videos = electron.videos;
+const beautify = electron.jsonBeautify;
 
 document.getElementById('output').value = beautify(videos, null, 2,128);
 

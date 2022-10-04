@@ -107,7 +107,7 @@
                 <br><br>
                 <button class="w3-button w3-white w3-border w3-border-blue w3-round-large" onclick="updateCache()">Update cache</button>
                 <button class="w3-button w3-white w3-border w3-border-red w3-round-large" onclick="deleteCache()">Delete all files</button>
-                <button class="w3-button w3-white w3-border w3-border-blue w3-round-large" onclick="ipcRenderer.send('openCache');">Open in File Explorer</button>
+                <button class="w3-button w3-white w3-border w3-border-blue w3-round-large" onclick="electron.ipcRenderer.send('openCache');">Open in File Explorer</button>
                 <button class="w3-button w3-white w3-border w3-border-blue w3-round-large" onclick="selectCacheLocation()">Move Location</button>
                 <br>
                 <p class="w3-small">Cache Size: <span id="videoCacheSize"></span></p>
@@ -118,7 +118,7 @@
                 <h4>Custom Videos</h4>
             </div>
             <div class="w3-display-container" style="padding: 2%">
-                <button onclick="ipcRenderer.send('selectCustomLocation')">Add Folder</button>
+                <button onclick="electron.ipcRenderer.send('selectCustomLocation')">Add Folder</button>
                 <div id="customVideoList"></div>
             </div>
         </div>

@@ -1,25 +1,21 @@
-const {ipcRenderer, remote} = require('electron');
-const videos = require("../videos.json");
-const Store = require('electron-store');
-const store = new Store();
-const allowedVideos = store.get("allowedVideos");
-let downloadedVideos = store.get("downloadedVideos");
-let customVideos = store.get("customVideos");
-let previouslyPlayed = [];
+const videos = electron.videos;
+const allowedVideos = electron.store.get("allowedVideos");
+let downloadedVideos = electron.store.get("downloadedVideos");
+let customVideos = electron.store.get("customVideos");
 let currentlyPlaying = '';
 let poiTimeout, transitionTimeout;
 
 function quitApp() {
-    ipcRenderer.send('quitApp');
+    electron.ipcRenderer.send('quitApp');
 }
 
-ipcRenderer.on('newVideo', () => {
+electron.ipcRenderer.on('newVideo', () => {
     newVideo();
 });
 
 //quit when a key is pressed
 document.addEventListener('keydown', (e) => {
-    ipcRenderer.send('keyPress', e.code);
+    electron.ipcRenderer.send('keyPress', e.code);
 });
 document.addEventListener('mousedown', quitApp);
 setTimeout(function () {
@@ -31,10 +27,6 @@ setTimeout(function () {
         }
     });
 }, 1500);
-
-function randomInt(min, max) {
-    return Math.floor(Math.random() * max) - min;
-}
 
 let video = document.getElementById("video");
 
@@ -54,73 +46,51 @@ function newVideo() {
     clearTimeout(transitionTimeout);
     videoAlpha = 0;
     video.src = "";
-    let id = "";
-    if (store.get('timeOfDay')) {
-        let time = getTimeOfDay();
-        id = tod[time][randomInt(0, tod[time].length)];
-    } else {
-        id = allowedVideos[randomInt(0, allowedVideos.length)];
-    }
-    if (store.get('sameVideoOnScreens')) {
-        if(remote.getCurrentWindow().id === 1) {
-            remote.getGlobal('shared').currentlyPlaying = id;
-        }else{
-            id = remote.getGlobal('shared').currentlyPlaying;
-        }
-    }
-    if (store.get('avoidDuplicateVideos')) {
-        if (previouslyPlayed.includes(id)) {
-            newVideo();
-            return;
+    electron.ipcRenderer.invoke('newVideoId', currentlyPlaying).then((id) => {
+        let videoInfo, videoSRC;
+        if (id[0] === "_") {
+            console.log(id);
+            videoInfo = customVideos[customVideos.findIndex((e) => {
+                if (id === e.id) {
+                    return true;
+                }
+            })];
+            console.log(videoInfo);
+            videoSRC = videoInfo.path;
         } else {
-            previouslyPlayed.push(id);
-            if (previouslyPlayed.length > (allowedVideos.length * .4)) {
-                previouslyPlayed.shift();
+            let index = videos.findIndex((e) => {
+                if (id === e.id) {
+                    return true;
+                }
+            });
+            videoInfo = videos[index];
+            downloadedVideos = electron.store.get("downloadedVideos");
+            videoSRC = videoInfo.src.H2641080p;
+            if (downloadedVideos.includes(videoInfo.id)) {
+                videoSRC = `${electron.store.get('cachePath')}/${videoInfo.id}.mov`;
             }
         }
-    }
-    let videoInfo, videoSRC;
-    if (id[0] === "_") {
-        console.log(id);
-        videoInfo = customVideos[customVideos.findIndex((e) => {
-            if (id === e.id) {
-                return true;
+        video.src = videoSRC;
+        video.playbackRate = Number(electron.store.get('playbackSpeed'));
+        currentlyPlaying = videoInfo.id;
+        video.onplay = onVideoPlay;
+        //display text
+        for (let position of displayText.positionList) {
+            let textArea = $(`#textDisplay-${position}`);
+            if (displayText[position].type === "information") {
+                if (displayText[position].infoType === "poi") {
+                    changePOI(position, -1, videoInfo["pointsOfInterest"]);
+                } else {
+                    textArea.text(videoInfo[displayText[position].infoType]);
+                }
             }
-        })];
-        console.log(videoInfo);
-        videoSRC = videoInfo.path;
-    } else {
-        let index = videos.findIndex((e) => {
-            if (id === e.id) {
-                return true;
-            }
-        });
-        videoInfo = videos[index];
-        downloadedVideos = store.get("downloadedVideos");
-        videoSRC = videoInfo.src.H2641080p;
-        if (downloadedVideos.includes(videoInfo.id)) {
-            videoSRC = `${store.get('cachePath')}/${videoInfo.id}.mov`;
+            textArea.css('width', displayText[position].maxWidth ? displayText[position].maxWidth : "50%")
         }
-    }
-    video.src = videoSRC;
-    video.playbackRate = Number(store.get('playbackSpeed'));
-    currentlyPlaying = videoInfo.id;
-    video.onplay = onVideoPlay;
-    //display text
-    for (let position of displayText.positionList) {
-        let textArea = $(`#textDisplay-${position}`);
-        if (displayText[position].type === "information") {
-            if (displayText[position].infoType === "poi") {
-                changePOI(position, -1, videoInfo["pointsOfInterest"]);
-            } else {
-                textArea.text(videoInfo[displayText[position].infoType]);
-            }
-        }
-        textArea.css('width', displayText[position].maxWidth ? displayText[position].maxWidth : "50%")
-    }
+    })
+
 }
 
-let transitionLength = store.get('videoTransitionLength');
+let transitionLength = electron.store.get('videoTransitionLength');
 let videoAlpha = 1;
 
 function onVideoPlay(e) {
@@ -159,7 +129,7 @@ function changePOI(position, currentPOI, poiList) {
 
 //time of day code
 let tod = {"day": [], "night": [], "none": []};
-if (store.get('timeOfDay')) {
+if (electron.store.get('timeOfDay')) {
     for (let i = 0; i < allowedVideos.length; i++) {
         let index = videos.findIndex((e) => {
             if (allowedVideos[i] === e.id) {
@@ -188,10 +158,10 @@ if (store.get('timeOfDay')) {
 function getTimeOfDay() {
     let cHour = new Date().getHours();
     let cMin = new Date().getMinutes();
-    let sunriseHour = store.get('sunrise').substring(0, 2);
-    let sunriseMinute = store.get('sunrise').substring(3, 5);
-    let sunsetHour = store.get('sunrise').substring(0, 2);
-    let sunsetMinute = store.get('sunrise').substring(3, 5);
+    let sunriseHour = electron.store.get('sunrise').substring(0, 2);
+    let sunriseMinute = electron.store.get('sunrise').substring(3, 5);
+    let sunsetHour = electron.store.get('sunrise').substring(0, 2);
+    let sunsetMinute = electron.store.get('sunrise').substring(3, 5);
     let time = "night";
     if (cHour >= sunriseHour && cMin >= sunriseMinute && cHour < sunsetHour && cMin < sunriseMinute) {
         time = "day";
@@ -216,7 +186,7 @@ let c1 = document.getElementById('canvasVideo');
 let ctx1 = c1.getContext('2d');
 c1.width = window.innerWidth;
 c1.height = window.innerHeight;
-let videoFilters = store.get('videoFilters');
+let videoFilters = electron.store.get('videoFilters');
 let filter = "";
 for (let i = 0; i < videoFilters.length; i++) {
     if (videoFilters[i].value !== videoFilters[i].defaultValue) {
@@ -225,7 +195,7 @@ for (let i = 0; i < videoFilters.length; i++) {
 }
 ctx1.filter = filter;
 
-let videoQuality = store.get('videoQuality');
+let videoQuality = electron.store.get('videoQuality');
 if (videoQuality) {
     $('#video').css('display', '');
 } else {
@@ -238,10 +208,10 @@ function runClock(position, timeString) {
 }
 
 //set up css
-$('.displayText').css('font-family', `"${store.get('textFont')}"`).css('font-size', `${store.get('textSize')}vw`).css('color', `${store.get('textColor')}`);
+$('.displayText').css('font-family', `"${electron.store.get('textFont')}"`).css('font-size', `${electron.store.get('textSize')}vw`).css('color', `${electron.store.get('textColor')}`);
 
 //draw text
-let displayText = store.get('displayText') ?? [];
+let displayText = electron.store.get('displayText') ?? [];
 let html = "";
 
 //create content divs
