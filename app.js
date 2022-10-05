@@ -313,6 +313,8 @@ function startUp() {
     } else {
         if (store.get('useTray')) {
             createTrayWindow();
+        }else{
+            createConfigWindow();
         }
     }
     setTimeout(downloadVideos, 1500);
