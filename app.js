@@ -673,5 +673,3 @@ function launchScreensaver() {
     }
 }
 setInterval(launchScreensaver,5000);
-
-console.log(app.getVersion());

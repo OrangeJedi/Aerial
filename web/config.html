@@ -26,10 +26,8 @@
 <div id="settingsTab" class="tab">
     <div class="w3-sidebar w3-light-grey w3-bar-block" style="width:20%">
         <a onclick="selectSetting('general')" id="settingsList-general" class="settingsListItem"><h3 class="w3-bar-item"><i class="fa fa-cog"></i> Settings</h3></a>
-        <a onclick="selectSetting('launch')" id="settingsList-launch" class="w3-bar-item w3-button settingsListItem">Launch Options</a>
-        <a onclick="selectSetting('multi-screen')" id="settingsList-multi-screen" class="w3-bar-item w3-button settingsListItem">Multi-Screen</a>
         <a onclick="selectSetting('playback')" id="settingsList-playback" class="w3-bar-item w3-button settingsListItem">Playback</a>
-        <a onclick="selectSetting('transition')" id="settingsList-transition" class="w3-bar-item w3-button settingsListItem">Transitions</a>
+        <a onclick="selectSetting('style')" id="settingsList-style" class="w3-bar-item w3-button settingsListItem">Style</a>
         <a onclick="selectSetting('cache')" id="settingsList-cache" class="w3-bar-item w3-button settingsListItem">Video Cache</a>
         <a onclick="selectSetting('customVideo')" id="settingsList-customVideo" class="w3-bar-item w3-button settingsListItem">Custom Videos</a>
     </div>
@@ -39,10 +37,30 @@
                 <h4>General Settings</h4>
             </div>
             <div class="w3-display-container" style="padding: 2%">
+                <input type="checkbox" id="useTray" class="w3-check" onclick="updateSetting('useTray','check')"> <label>Auto launch from system tray</label>
+                <p class="w3-small" style="margin-left: 4%">This option will cause Aerial to run on system start up and launch itself after your system is idle</p>
+                <lable>Start Aerial After</lable>
+                <input style="width: 10%; display: inline !important;" class="w3-input" type="number" id="startAerialAfter" onchange="updateSetting('startAerialAfter','number')"> Minutes
+                <br><br>
+                <input type="checkbox" id="skipVideosWithKey" class="w3-check" onclick="updateSetting('skipVideosWithKey','check')"> <label>Use the right arrow key to skip videos</label>
+                <br><hr>
+                <button class="w3-button w3-white w3-border w3-border-red w3-round-large" onclick="refreshAerial()">Refresh Aerial</button>
+                <button class="w3-button w3-red w3-border-white w3-round-large" onclick="resetAerial()">Reset Aerial</button>
+            </div>
+        </div>
+        <div id="playbackSettings" class="settingsCard" style="display: none">
+            <div class="w3-container w3-blue">
+                <h3>Playback Settings</h3>
+            </div>
+            <div class="w3-display-container" style="padding: 2%">
                 <input type="checkbox" id="avoidDuplicateVideos" class="w3-check" onclick="updateSetting('avoidDuplicateVideos','check')"> <label>Avoid duplicate videos</label>
                 <br>
                 <i class="w3-small" style="padding-left: 4%">When this option is enabled Aerial will avoid playing the most recently played videos</i>
+                <br><br>
+                <label>Transition speed: <span id="videoTransitionLengthText"></span></label><span class="w3-right" onclick="resetSetting('videoTransitionLength', 'slider', 1000)"><i class="fa fa-undo"></i></span>
                 <br>
+                <input type="range" min="750" max="4000" value="1000" step="10" id="videoTransitionLength" class="slider" onchange="updateSetting('videoTransitionLength','slider')">
+                <br><br>
                 <input type="checkbox" id="timeOfDay" class="w3-check" onclick="updateSetting('timeOfDay','check')"> <label>Prioritize current time of day</label>
                 <div>
                     <br>
@@ -51,62 +69,30 @@
                     <label style="font-size: smaller">Sunset</label>
                     <input style="width: 15%" class="w3-input" type="time" id="sunset" onchange="updateSetting('sunset','time')">
                 </div>
-                <br>
-                <input type="checkbox" id="skipVideosWithKey" class="w3-check" onclick="updateSetting('skipVideosWithKey','check')"> <label>Use the right arrow key to skip videos</label>
-                <br><br>
-                <button class="w3-button w3-white w3-border w3-border-red w3-round-large" onclick="refreshAerial()">Refresh Aerial</button>
-                <button class="w3-button w3-red w3-border-white w3-round-large" onclick="resetAerial()">Reset Aerial</button>
-            </div>
-        </div>
-        <div id="launchSettings" class="settingsCard" style="display: none">
-            <div class="w3-container w3-blue">
-                <h4>Launch Options</h4>
-            </div>
-            <div class="w3-display-container" style="padding: 2%">
-                <input type="checkbox" id="useTray" class="w3-check" onclick="updateSetting('useTray','check')"> <label>Auto launch from system tray</label>
-                <p class="w3-small" style="margin-left: 4%">This option will cause Aerial to run on system start up and launch itself after your system is idle</p>
-                <br>
-                <lable>Start Aerial After</lable>
-                <input style="width: 10%; display: inline !important;" class="w3-input" type="number" id="startAerialAfter" onchange="updateSetting('startAerialAfter','number')"> Minutes
-            </div>
-        </div>
-        <div id="multi-screenSettings" class="settingsCard" style="display: none">
-            <div class="w3-container w3-blue">
-                <h4>Multi-Screen Settings</h4>
-            </div>
-            <div class="w3-display-container" style="padding: 2%">
+                <h4>Multiscreen Options</h4>
                 <input type="checkbox" id="sameVideoOnScreens" class="w3-check" onclick="updateSetting('sameVideoOnScreens','check')"> <label>Play the same video on each screen</label>
                 <br>
                 <input type="checkbox" id="onlyShowVideoOnPrimaryMonitor" class="w3-check" onclick="updateSetting('onlyShowVideoOnPrimaryMonitor','check')"> <label>Only play videos on the primary screen</label>
+
             </div>
         </div>
-        <div id="playbackSettings" class="settingsCard" style="display: none">
+        <div id="styleSettings" class="settingsCard" style="display: none">
             <div class="w3-container w3-blue">
-                <h4>Playback Settings</h4>
+                <h3>Style</h3>
             </div>
             <div class="w3-display-container" style="padding: 2%">
                 <label>Playback Speed: <span id="playbackSpeedText"></span></label><span class="w3-right" onclick="resetSetting('playbackSpeed', 'slider', 1)"><i class="fa fa-undo"></i></span>
                 <br>
                 <input type="range" min=".75" max="4" value="1" step=".05" id="playbackSpeed" class="slider" onchange="updateSetting('playbackSpeed','slider')">
-                <h3>Filter Settings <span class="w3-right" onclick="resetFilterSettings()"><i class="fa fa-undo"></i></span></h3>
+                <h4>Filter Settings <span class="w3-right" onclick="resetFilterSettings()"><i class="fa fa-undo"></i></span></h4>
                 <div class="w3-display-container" id="videoFilterSettings"></div>
                 <br>
                 <div class="w3-small"><input type="checkbox" id="videoQuality" class="w3-check" onclick="updateSetting('videoQuality','check')"> <label>Disable all video processing</label></div>
             </div>
         </div>
-        <div id="transitionSettings" class="settingsCard" style="display: none">
-            <div class="w3-container w3-blue">
-                <h4>Transition Settings</h4>
-            </div>
-            <div class="w3-display-container" style="padding: 2%">
-                <label>Transition speed: <span id="videoTransitionLengthText"></span></label><span class="w3-right" onclick="resetSetting('videoTransitionLength', 'slider', 1000)"><i class="fa fa-undo"></i></span>
-                <br>
-                <input type="range" min="750" max="4000" value="1000" step="10" id="videoTransitionLength" class="slider" onchange="updateSetting('videoTransitionLength','slider')">
-            </div>
-        </div>
         <div id="cacheSettings" class="settingsCard" style="display: none">
             <div class="w3-container w3-blue">
-                <h4>Video Cache Settings</h4>
+                <h3>Video Cache Settings</h3>
             </div>
             <div class="w3-display-container" style="padding: 2%">
                 <input type="checkbox" id="videoCache" class="w3-check" onclick="updateSetting('videoCache','check')"> <label>Automatically download checked videos to the cache</label>
@@ -128,7 +114,7 @@
         </div>
         <div id="customVideoSettings" class="settingsCard" style="display: none">
             <div class="w3-container w3-blue">
-                <h4>Custom Videos</h4>
+                <h3>Custom Videos</h3>
             </div>
             <div class="w3-display-container" style="padding: 2%">
                 <button onclick="electron.ipcRenderer.send('selectCustomLocation')">Add Folder</button>
