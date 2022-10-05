@@ -130,7 +130,7 @@ function createSSPWindow(argv) {
 
         }
     }
-    //screens.push(win);
+    screens.push(win);
 }
 
 function createTrayWindow() {
@@ -677,6 +677,13 @@ function closeAllWindows() {
 
 function firstVideoPlayed(){
     setTimeOfDay();
+    if(store.get('blankScreen')){
+        setTimeout(()=>{
+            for (let i = 0; i < screens.length; i++) {
+                screens[i].webContents.send('blankTheScreen');
+            }
+        },store.get('blankAfter') * 60000);
+    }
 }
 
 function setTimeOfDay() {

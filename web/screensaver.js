@@ -10,10 +10,6 @@ function quitApp() {
     electron.ipcRenderer.send('quitApp');
 }
 
-electron.ipcRenderer.on('newVideo', () => {
-    newVideo();
-});
-
 //quit when a key is pressed
 document.addEventListener('keydown', (e) => {
     electron.ipcRenderer.send('keyPress', e.code);
@@ -35,9 +31,7 @@ video.addEventListener('play', (event) => {
     video.style.backgroundColor = "black";
 });
 video.addEventListener('ended', (event) => {
-    if(!blackScreen) {
         newVideo();
-    }
 });
 video.addEventListener("error", (event) => {
     console.log('VIDEO PLAYBACK ERROR - Playing new video',event.error);
@@ -45,6 +39,7 @@ video.addEventListener("error", (event) => {
 });
 
 function newVideo() {
+    if(blackScreen){ return}
     clearTimeout(poiTimeout);
     clearTimeout(transitionTimeout);
     videoAlpha = 0;
@@ -110,6 +105,13 @@ function fadeVideoOut(time) {
     videoAlpha = time / transitionLength;
 }
 
+function fadeTextOut(time) {
+    if (time > 0) {
+        transitionTimeout = setTimeout(fadeTextOut, 16, time - 16);
+    }
+    $('#textDisplayArea').css('opacity',time / transitionLength);
+}
+
 function fadeVideoIn(time) {
     if (time > 0) {
         transitionTimeout = setTimeout(fadeVideoIn, 16, time - 16);
@@ -164,6 +166,7 @@ if (videoQuality) {
 }
 
 function runClock(position, timeString) {
+    if(blackScreen){return}
     $(`#textDisplay-${position}`).text(moment().format(timeString));
     setTimeout(runClock, 1000 - new Date().getMilliseconds(), position, timeString);
 }
@@ -210,3 +213,16 @@ for (let position of displayText.positionList) {
 
 //play a video
 newVideo();
+
+electron.ipcRenderer.on('newVideo', () => {
+    newVideo();
+});
+
+electron.ipcRenderer.on('blankTheScreen', () => {
+    blackScreen = true;
+    fadeVideoOut(transitionLength);
+    fadeTextOut(transitionLength)
+    setTimeout(() =>{
+        video.src = "";
+    },transitionLength);
+});

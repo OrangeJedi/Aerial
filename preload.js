@@ -13,7 +13,7 @@ contextBridge.exposeInMainWorld("electron", {
                 }
             },
             on: (channel, func) => {
-                let validChannels = ["displaySettings", "newCustomVideos", "newVideo"];
+                let validChannels = ["displaySettings", "newCustomVideos", "newVideo","blankTheScreen"];
                 if (validChannels.includes(channel)) {
                     // Deliberately strip event as it includes `sender`
                     ipcRenderer.on(channel, (event, ...args) => func(...args));
