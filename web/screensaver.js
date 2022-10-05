@@ -4,6 +4,7 @@ let downloadedVideos = electron.store.get("downloadedVideos");
 let customVideos = electron.store.get("customVideos");
 let currentlyPlaying = '';
 let poiTimeout, transitionTimeout;
+let blackScreen = false;
 
 function quitApp() {
     electron.ipcRenderer.send('quitApp');
@@ -34,10 +35,12 @@ video.addEventListener('play', (event) => {
     video.style.backgroundColor = "black";
 });
 video.addEventListener('ended', (event) => {
-    newVideo();
+    if(!blackScreen) {
+        newVideo();
+    }
 });
 video.addEventListener("error", (event) => {
-    console.log('VIDEO PLAYBACK ERROR - Playing new video');
+    console.log('VIDEO PLAYBACK ERROR - Playing new video',event.error);
     newVideo();
 });
 
@@ -125,48 +128,6 @@ function changePOI(position, currentPOI, poiList) {
             break;
         }
     }
-}
-
-//time of day code
-let tod = {"day": [], "night": [], "none": []};
-if (electron.store.get('timeOfDay')) {
-    for (let i = 0; i < allowedVideos.length; i++) {
-        let index = videos.findIndex((e) => {
-            if (allowedVideos[i] === e.id) {
-                return true;
-            }
-        });
-        switch (videos[index].timeOfDay) {
-            case "day":
-                tod.day.push(allowedVideos[i]);
-                break;
-            case "night":
-                tod.night.push(allowedVideos[i]);
-                break;
-            default:
-                tod.none.push(allowedVideos[i]);
-        }
-        if (tod.day.length <= 3) {
-            tod.day.push(...tod.none);
-        }
-        if (tod.night.length <= 3) {
-            tod.night.push(...tod.none);
-        }
-    }
-}
-
-function getTimeOfDay() {
-    let cHour = new Date().getHours();
-    let cMin = new Date().getMinutes();
-    let sunriseHour = electron.store.get('sunrise').substring(0, 2);
-    let sunriseMinute = electron.store.get('sunrise').substring(3, 5);
-    let sunsetHour = electron.store.get('sunrise').substring(0, 2);
-    let sunsetMinute = electron.store.get('sunrise').substring(3, 5);
-    let time = "night";
-    if (cHour >= sunriseHour && cMin >= sunriseMinute && cHour < sunsetHour && cMin < sunriseMinute) {
-        time = "day";
-    }
-    return time;
 }
 
 //put the video on the canvas

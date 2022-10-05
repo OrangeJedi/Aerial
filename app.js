@@ -19,6 +19,10 @@ let autoLauncher = new AutoLaunch({
     name: 'Aerial',
 });
 
+//time of day code
+let tod = {"day": [], "night": [], "none": []};
+
+
 function createConfigWindow(argv) {
     let win = new BrowserWindow({
         width: 1000,
@@ -83,7 +87,7 @@ function createSSWindow() {
             transparent: true,
             frame: false,
             icon: path.join(__dirname, 'icon.ico')
-        });
+        })
         win.setMenu(null);
         if (store.get("onlyShowVideoOnPrimaryMonitor") && displays[i].id !== screen.getPrimaryDisplay().id) {
             win.loadFile('web/black.html');
@@ -91,11 +95,7 @@ function createSSWindow() {
             win.loadFile('web/screensaver.html');
         }
         win.on('closed', function () {
-            xWin = null;
-        });
-        win.webContents.on('dom-ready', (event) => {
-            let css = '* { cursor: none !important; }';
-            win.webContents.insertCSS(css);
+            win = null;
         });
         win.setAlwaysOnTop(true,"screen-saver");
         screens.push(win);
@@ -106,9 +106,10 @@ function createSSWindow() {
 }
 
 function createSSPWindow(argv) {
+    let displays = screen.getAllDisplays();
     let win = new BrowserWindow({
-        width: 1920,
-        height: 1080,
+        width: 1280,
+        height: 720,
         webPreferences: {
             nodeIntegration: false,
             contextIsolation: true,
@@ -116,6 +117,7 @@ function createSSPWindow(argv) {
             sandbox: false,
             preload: path.join(__dirname, "preload.js")
         },
+        transparent: true,
         icon: path.join(__dirname, 'icon.ico')
     });
     win.loadFile('web/screensaver.html');
@@ -125,9 +127,10 @@ function createSSPWindow(argv) {
     if (argv) {
         if (argv.includes("/dt")) {
             win.webContents.openDevTools();
+
         }
     }
-    screens.push(win);
+    //screens.push(win);
 }
 
 function createTrayWindow() {
@@ -323,6 +326,7 @@ ipcMain.on('quitApp', (event, arg) => {
     if (!nq) {
         //app.quit();
         closeAllWindows();
+        currentlyPlaying = '';
     }
 });
 
@@ -427,6 +431,9 @@ ipcMain.on('resetConfig', (event) => {
 });
 
 ipcMain.handle('newVideoId', (event, lastPlayed) => {
+    if(currentlyPlaying === ''){
+        firstVideoPlayed();
+    }
     function newId() {
         let id = "";
         if (store.get('timeOfDay')) {
@@ -661,10 +668,45 @@ function randomInt(min, max) {
 
 function closeAllWindows() {
     for (let i = 0; i < screens.length; i++) {
-        screens[i].close();
+        if(!screens[i].isDestroyed()) {
+            screens[i].close();
+        }
     }
     screens = [];
 }
+
+function firstVideoPlayed(){
+    setTimeOfDay();
+}
+
+function setTimeOfDay() {
+    if (store.get('timeOfDay')) {
+        for (let i = 0; i < allowedVideos.length; i++) {
+            let index = videos.findIndex((e) => {
+                if (allowedVideos[i] === e.id) {
+                    return true;
+                }
+            });
+            switch (videos[index].timeOfDay) {
+                case "day":
+                    tod.day.push(allowedVideos[i]);
+                    break;
+                case "night":
+                    tod.night.push(allowedVideos[i]);
+                    break;
+                default:
+                    tod.none.push(allowedVideos[i]);
+            }
+            if (tod.day.length <= 3) {
+                tod.day.push(...tod.none);
+            }
+            if (tod.night.length <= 3) {
+                tod.night.push(...tod.none);
+            }
+        }
+    }
+}
+setTimeOfDay();
 
 //idle startup timer
 function launchScreensaver() {
