@@ -47,13 +47,11 @@ function newVideo() {
     electron.ipcRenderer.invoke('newVideoId', currentlyPlaying).then((id) => {
         let videoInfo, videoSRC;
         if (id[0] === "_") {
-            console.log(id);
             videoInfo = customVideos[customVideos.findIndex((e) => {
                 if (id === e.id) {
                     return true;
                 }
             })];
-            console.log(videoInfo);
             videoSRC = videoInfo.path;
         } else {
             let index = videos.findIndex((e) => {

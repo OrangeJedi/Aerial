@@ -155,6 +155,10 @@ electron.ipcRenderer.on('displaySettings', () => {
     displaySettings();
 });
 
+electron.ipcRenderer.on('showWelcome', () => {
+    document.getElementById('welcomeMessage').style.display = 'block';
+});
+
 //Custom videos
 electron.ipcRenderer.on('newCustomVideos', (event, videoList) => {
     customVideos = electron.store.get('customVideos');

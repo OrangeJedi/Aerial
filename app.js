@@ -48,6 +48,11 @@ function createConfigWindow(argv) {
             win.webContents.openDevTools();
         }
     }
+    if (argv) {
+        if (argv.includes("/w")) {
+            setTimeout(()=>{win.webContents.send('showWelcome')},500);
+        }
+    }
     screens.push(win);
 }
 
@@ -181,7 +186,9 @@ app.allowRendererProcessReuse = true
 app.whenReady().then(startUp);
 
 function startUp() {
+    let firstTime = false;
     if (!store.get("configured") || store.get("version") !== app.getVersion()) {
+        console.log(firstTime);
         //make video cache directory
         if (!fs.existsSync(`${app.getPath('userData')}/videos/`)) {
             fs.mkdirSync(`${app.getPath('userData')}/videos/`);
@@ -313,6 +320,9 @@ function startUp() {
     } else {
         if (store.get('useTray')) {
             createTrayWindow();
+            if(firstTime){
+                createConfigWindow(["/w"]);
+            }
         }else{
             createConfigWindow();
         }
@@ -331,14 +341,7 @@ app.on('certificate-error', (event, webContents, url, error, certificate, callba
 });
 
 ipcMain.on('quitApp', (event, arg) => {
-    if (!nq) {
-        //app.quit();
-        if(store.get("lockAfterRun")){
-            lockComputer();
-        }
-        closeAllWindows();
-        currentlyPlaying = '';
-    }
+    quitApp();
 });
 
 ipcMain.on('keyPress', (event, key) => {
@@ -347,9 +350,7 @@ ipcMain.on('keyPress', (event, key) => {
             screens[i].webContents.send('newVideo');
         }
     } else {
-        if (!nq) {
-            app.quit();
-        }
+       quitApp();
     }
 });
 
@@ -676,6 +677,17 @@ function clearCacheTemp() {
 
 function randomInt(min, max) {
     return Math.floor(Math.random() * max) - min;
+}
+
+function quitApp(){
+    if (!nq) {
+        //app.quit();
+        if(store.get("lockAfterRun")){
+            lockComputer();
+        }
+        closeAllWindows();
+        currentlyPlaying = '';
+    }
 }
 
 function closeAllWindows() {

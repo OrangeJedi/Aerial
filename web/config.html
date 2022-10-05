@@ -25,12 +25,15 @@
 </div>
 <div id="settingsTab" class="tab">
     <div class="w3-sidebar w3-light-grey w3-bar-block" style="width:20%">
-        <a onclick="selectSetting('general')" id="settingsList-general" class="settingsListItem"><h3 class="w3-bar-item"><i class="fa fa-cog"></i> Settings</h3></a>
+        <a onclick="selectSetting('general')" id="settingsList-general" class="settingsListItem">
+            <h3 class="w3-bar-item"><i class="fa fa-cog"></i> Settings</h3></a>
         <a onclick="selectSetting('playback')" id="settingsList-playback" class="w3-bar-item w3-button settingsListItem">Playback</a>
         <a onclick="selectSetting('multiscreen')" id="settingsList-multiscreen" class="w3-bar-item w3-button settingsListItem">Multiscreen</a>
         <a onclick="selectSetting('style')" id="settingsList-style" class="w3-bar-item w3-button settingsListItem">Style</a>
-        <a onclick="selectSetting('cache')" id="settingsList-cache" class="w3-bar-item w3-button settingsListItem">Video Cache</a>
-        <a onclick="selectSetting('customVideo')" id="settingsList-customVideo" class="w3-bar-item w3-button settingsListItem">Custom Videos</a>
+        <a onclick="selectSetting('cache')" id="settingsList-cache" class="w3-bar-item w3-button settingsListItem">Video
+            Cache</a>
+        <a onclick="selectSetting('customVideo')" id="settingsList-customVideo" class="w3-bar-item w3-button settingsListItem">Custom
+            Videos</a>
     </div>
     <div id="generalCard" style="margin-left:20%">
         <div id="generalSettings" class="settingsCard">
@@ -38,22 +41,33 @@
                 <h4>General Settings</h4>
             </div>
             <div class="w3-display-container" style="padding: 2%">
-                <input type="checkbox" id="useTray" class="w3-check" onclick="updateSetting('useTray','check')"> <label for="useTray">Auto launch from system tray</label>
-                <p class="w3-small" style="margin-left: 4%">This option will cause Aerial to run on system start up and launch itself after your system is idle</p>
+                <input type="checkbox" id="useTray" class="w3-check" onclick="updateSetting('useTray','check')">
+                <label for="useTray">Auto launch from system tray</label>
+                <p class="w3-small" style="margin-left: 4%">This option will cause Aerial to run on system start up and
+                    launch itself after your system is idle</p>
                 <label for="startAfter">Start Aerial After</label>
-                <input style="width: 10%; display: inline !important;" class="w3-input" type="number" id="startAfter" onchange="updateSetting('startAfter','number')"> minutes
+                <input style="width: 10%; display: inline !important;" class="w3-input" type="number" id="startAfter" onchange="updateSetting('startAfter','number')">
+                minutes
                 <br><br>
-                <input type="checkbox" id="blankScreen" class="w3-check" onclick="updateSetting('blankScreen','check')"> <label for="blankScreen">Automatically blank screen</label>
+                <input type="checkbox" id="blankScreen" class="w3-check" onclick="updateSetting('blankScreen','check')">
+                <label for="blankScreen">Automatically blank screen</label>
                 <br>
                 <label for="blankAfter">Blank screen after</label>
-                <input style="width: 10%; display: inline !important;" class="w3-input" type="number" id="blankAfter" onchange="updateSetting('blankAfter','number')"> minutes
+                <input style="width: 10%; display: inline !important;" class="w3-input" type="number" id="blankAfter" onchange="updateSetting('blankAfter','number')">
+                minutes
                 <br><br>
-                <input type="checkbox" id="sleepAfterBlank" class="w3-check" onclick="updateSetting('sleepAfterBlank','check')"> <label for="sleepAfterBlank">Sleep the computer after screen blank</label>
+                <input type="checkbox" id="sleepAfterBlank" class="w3-check" onclick="updateSetting('sleepAfterBlank','check')">
+                <label for="sleepAfterBlank">Sleep the computer after screen blank</label>
                 <br>
-                <input type="checkbox" id="lockAfterRun" class="w3-check" onclick="updateSetting('lockAfterRun','check')"> <label for="lockAfterRun">Lock the computer after running</label>
-                <br><hr>
-                <button class="w3-button w3-white w3-border w3-border-red w3-round-large" onclick="refreshAerial()">Refresh Aerial</button>
-                <button class="w3-button w3-red w3-border-white w3-round-large" onclick="resetAerial()">Reset Aerial</button>
+                <input type="checkbox" id="lockAfterRun" class="w3-check" onclick="updateSetting('lockAfterRun','check')">
+                <label for="lockAfterRun">Lock the computer after running</label>
+                <br>
+                <hr>
+                <button class="w3-button w3-white w3-border w3-border-red w3-round-large" onclick="refreshAerial()">
+                    Refresh Aerial
+                </button>
+                <button class="w3-button w3-red w3-border-white w3-round-large" onclick="resetAerial()">Reset Aerial
+                </button>
             </div>
         </div>
         <div id="playbackSettings" class="settingsCard" style="display: none">
@@ -61,15 +75,19 @@
                 <h3>Playback Settings</h3>
             </div>
             <div class="w3-display-container" style="padding: 2%">
-                <input type="checkbox" id="avoidDuplicateVideos" class="w3-check" onclick="updateSetting('avoidDuplicateVideos','check')"> <label for="avoidDuplicateVideos">Avoid duplicate videos</label>
+                <input type="checkbox" id="avoidDuplicateVideos" class="w3-check" onclick="updateSetting('avoidDuplicateVideos','check')">
+                <label for="avoidDuplicateVideos">Avoid duplicate videos</label>
                 <br>
-                <i class="w3-small" style="padding-left: 4%">When this option is enabled Aerial will avoid playing the most recently played videos</i>
+                <i class="w3-small" style="padding-left: 4%">When this option is enabled Aerial will avoid playing the
+                    most recently played videos</i>
                 <br><br>
-                <label for="videoTransitionLength">Transition speed: <span id="videoTransitionLengthText"></span></label><span class="w3-right" onclick="resetSetting('videoTransitionLength', 'slider', 1000)"><i class="fa fa-undo"></i></span>
+                <label for="videoTransitionLength">Transition speed:
+                    <span id="videoTransitionLengthText"></span></label><span class="w3-right" onclick="resetSetting('videoTransitionLength', 'slider', 1000)"><i class="fa fa-undo"></i></span>
                 <br>
                 <input type="range" min="750" max="4000" value="1000" step="10" id="videoTransitionLength" class="slider" onchange="updateSetting('videoTransitionLength','slider')">
                 <br><br>
-                <input type="checkbox" id="timeOfDay" class="w3-check" onclick="updateSetting('timeOfDay','check')"> <label for="timeOfDay">Prioritize current time of day</label>
+                <input type="checkbox" id="timeOfDay" class="w3-check" onclick="updateSetting('timeOfDay','check')">
+                <label for="timeOfDay">Prioritize current time of day</label>
                 <div>
                     <br>
                     <label for="sunrise" style="font-size: smaller">Sunrise</label>
@@ -78,7 +96,8 @@
                     <input style="width: 15%" class="w3-input" type="time" id="sunset" onchange="updateSetting('sunset','time')">
                 </div>
                 <br>
-                <input type="checkbox" id="skipVideosWithKey" class="w3-check" onclick="updateSetting('skipVideosWithKey','check')"> <label for="skipVideosWithKey">Use the right arrow key to skip videos</label>
+                <input type="checkbox" id="skipVideosWithKey" class="w3-check" onclick="updateSetting('skipVideosWithKey','check')">
+                <label for="skipVideosWithKey">Use the right arrow key to skip videos</label>
             </div>
         </div>
         <div id="multiscreenSettings" class="settingsCard" style="display: none">
@@ -86,9 +105,11 @@
                 <h3>Multiscreen Settings</h3>
             </div>
             <div class="w3-display-container" style="padding: 2%">
-                <input type="checkbox" id="sameVideoOnScreens" class="w3-check" onclick="updateSetting('sameVideoOnScreens','check')"> <label for="sameVideoOnScreens">Play the same video on each screen</label>
+                <input type="checkbox" id="sameVideoOnScreens" class="w3-check" onclick="updateSetting('sameVideoOnScreens','check')">
+                <label for="sameVideoOnScreens">Play the same video on each screen</label>
                 <br>
-                <input type="checkbox" id="onlyShowVideoOnPrimaryMonitor" class="w3-check" onclick="updateSetting('onlyShowVideoOnPrimaryMonitor','check')"> <label for="onlyShowVideoOnPrimaryMonitor">Only play videos on the primary screen</label>
+                <input type="checkbox" id="onlyShowVideoOnPrimaryMonitor" class="w3-check" onclick="updateSetting('onlyShowVideoOnPrimaryMonitor','check')">
+                <label for="onlyShowVideoOnPrimaryMonitor">Only play videos on the primary screen</label>
             </div>
         </div>
         <div id="styleSettings" class="settingsCard" style="display: none">
@@ -96,13 +117,17 @@
                 <h3>Style</h3>
             </div>
             <div class="w3-display-container" style="padding: 2%">
-                <label for="playbackSpeed">Playback Speed: <span id="playbackSpeedText"></span></label><span class="w3-right" onclick="resetSetting('playbackSpeed', 'slider', 1)"><i class="fa fa-undo"></i></span>
+                <label for="playbackSpeed">Playback Speed:
+                    <span id="playbackSpeedText"></span></label><span class="w3-right" onclick="resetSetting('playbackSpeed', 'slider', 1)"><i class="fa fa-undo"></i></span>
                 <br>
                 <input type="range" min=".75" max="4" value="1" step=".05" id="playbackSpeed" class="slider" onchange="updateSetting('playbackSpeed','slider')">
-                <h4>Filter Settings <span class="w3-right" onclick="resetFilterSettings()"><i class="fa fa-undo"></i></span></h4>
+                <h4>Filter Settings
+                    <span class="w3-right" onclick="resetFilterSettings()"><i class="fa fa-undo"></i></span></h4>
                 <div class="w3-display-container" id="videoFilterSettings"></div>
                 <br>
-                <div class="w3-small"><input type="checkbox" id="videoQuality" class="w3-check" onclick="updateSetting('videoQuality','check')"> <label for="videoQuality">Disable all video processing</label></div>
+                <div class="w3-small">
+                    <input type="checkbox" id="videoQuality" class="w3-check" onclick="updateSetting('videoQuality','check')">
+                    <label for="videoQuality">Disable all video processing</label></div>
             </div>
         </div>
         <div id="cacheSettings" class="settingsCard" style="display: none">
@@ -110,19 +135,31 @@
                 <h3>Video Cache Settings</h3>
             </div>
             <div class="w3-display-container" style="padding: 2%">
-                <input type="checkbox" id="videoCache" class="w3-check" onclick="updateSetting('videoCache','check')"> <label for="videoCache"> Automatically download checked videos to the cache</label>
+                <input type="checkbox" id="videoCache" class="w3-check" onclick="updateSetting('videoCache','check')">
+                <label for="videoCache"> Automatically download checked videos to the cache</label>
                 <br>
                 <p class="w3-small" style="margin-left: 4%">The total size of all videos is approximately 20 GB</p>
-                <input type="checkbox" id="videoCacheProfiles" class="w3-check" onclick="updateSetting('videoCacheProfiles','check')" style="margin-left: 8%"> <label for="videoCacheProfiles">Include videos in saved profiles</label>
+                <input type="checkbox" id="videoCacheProfiles" class="w3-check" onclick="updateSetting('videoCacheProfiles','check')" style="margin-left: 8%">
+                <label for="videoCacheProfiles">Include videos in saved profiles</label>
                 <br>
-                <input type="checkbox" id="videoCacheRemoveUnallowed" class="w3-check" onclick="updateSetting('videoCacheRemoveUnallowed','check')" style="margin-left: 8%"> <label for="videoCacheRemoveUnallowed">Automatically remove unchecked videos</label>
+                <input type="checkbox" id="videoCacheRemoveUnallowed" class="w3-check" onclick="updateSetting('videoCacheRemoveUnallowed','check')" style="margin-left: 8%">
+                <label for="videoCacheRemoveUnallowed">Automatically remove unchecked videos</label>
                 <br>
-                <input type="checkbox" id="immediatelyUpdateVideoCache" class="w3-check" onclick="updateSetting('immediatelyUpdateVideoCache','check')"> <label for="immediatelyUpdateVideoCache">Immediately update video cache</label>
+                <input type="checkbox" id="immediatelyUpdateVideoCache" class="w3-check" onclick="updateSetting('immediatelyUpdateVideoCache','check')">
+                <label for="immediatelyUpdateVideoCache">Immediately update video cache</label>
                 <br><br>
-                <button class="w3-button w3-white w3-border w3-border-blue w3-round-large" onclick="updateCache()">Update cache</button>
-                <button class="w3-button w3-white w3-border w3-border-red w3-round-large" onclick="deleteCache()">Delete all files</button>
-                <button class="w3-button w3-white w3-border w3-border-blue w3-round-large" onclick="electron.ipcRenderer.send('openCache');">Open in File Explorer</button>
-                <button class="w3-button w3-white w3-border w3-border-blue w3-round-large" onclick="selectCacheLocation()">Move Location</button>
+                <button class="w3-button w3-white w3-border w3-border-blue w3-round-large" onclick="updateCache()">
+                    Update cache
+                </button>
+                <button class="w3-button w3-white w3-border w3-border-red w3-round-large" onclick="deleteCache()">Delete
+                    all files
+                </button>
+                <button class="w3-button w3-white w3-border w3-border-blue w3-round-large" onclick="electron.ipcRenderer.send('openCache');">
+                    Open in File Explorer
+                </button>
+                <button class="w3-button w3-white w3-border w3-border-blue w3-round-large" onclick="selectCacheLocation()">
+                    Move Location
+                </button>
                 <br>
                 <p class="w3-small">Cache Size: <span id="videoCacheSize"></span></p>
             </div>
@@ -157,7 +194,8 @@
     <div class="w3-sidebar w3-light-grey w3-bar-block" style="width:20%">
         <div class="settingsListItem"><h3 class="w3-bar-item"><i class="fa fa-paragraph"></i> Text</h3></div>
         <a onclick="selectTextSetting('position')" id="textSettingsList-position" class="w3-bar-item w3-button textSettingsListItem w3-deep-orange">Position</a>
-        <a onclick="selectTextSetting('textOptions')" id="textSettingsList-textOptions" class="w3-bar-item w3-button textSettingsListItem">Text Options</a>
+        <a onclick="selectTextSetting('textOptions')" id="textSettingsList-textOptions" class="w3-bar-item w3-button textSettingsListItem">Text
+            Options</a>
     </div>
     <div id="textCard" style="margin-left:20%">
         <div id="positionTextSettings" class="textSettingsCard">
@@ -167,15 +205,33 @@
             <div class="w3-display-container" style="padding: 2%">
                 <div class="w3-display-container w3-display-topleft" style="width: 50%; margin-top: 2%; margin-left: 2%">
                     <img alt="An error has occurred" src="images/B8F204CE-6024-49AB-85F9-7CA2F6DCD226.jpeg" class="w3-round" style="width: 100%;"/>
-                    <div class="w3-display-topleft w3-container imagePositionRadio"><input class="w3-radio imagePosition" type="radio" name="imagePosition" value="topleft" onclick="positionSelect(this)"><label></label></div>
-                    <div class="w3-display-topright w3-container imagePositionRadio"><input class="w3-radio imagePosition" type="radio" name="imagePosition" value="topright" onclick="positionSelect(this)"><label></label></div>
-                    <div class="w3-display-bottomleft w3-container imagePositionRadio"><input class="w3-radio imagePosition" type="radio" name="imagePosition" value="bottomleft" onclick="positionSelect(this)"><label></label></div>
-                    <div class="w3-display-bottomright w3-container imagePositionRadio"><input class="w3-radio imagePosition" type="radio" name="imagePosition" value="bottomright" onclick="positionSelect(this)"><label></label></div>
-                    <div class="w3-display-left w3-container imagePositionRadio"><input class="w3-radio imagePosition" type="radio" name="imagePosition" value="left" onclick="positionSelect(this)"><label></label></div>
-                    <div class="w3-display-right w3-container imagePositionRadio"><input class="w3-radio imagePosition" type="radio" name="imagePosition" value="right" onclick="positionSelect(this)"><label></label></div>
-                    <div class="w3-display-middle w3-large imagePositionRadio"><input class="w3-radio imagePosition" type="radio" name="imagePosition" value="middle" onclick="positionSelect(this)"><label></label></div>
-                    <div class="w3-display-topmiddle w3-container imagePositionRadio"><input class="w3-radio imagePosition" type="radio" name="imagePosition" value="topmiddle" onclick="positionSelect(this)"><label></label></div>
-                    <div class="w3-display-bottommiddle w3-container imagePositionRadio"><input class="w3-radio imagePosition" type="radio" name="imagePosition" value="bottommiddle" onclick="positionSelect(this)"><label></label></div>
+                    <div class="w3-display-topleft w3-container imagePositionRadio">
+                        <input class="w3-radio imagePosition" type="radio" name="imagePosition" value="topleft" onclick="positionSelect(this)"><label></label>
+                    </div>
+                    <div class="w3-display-topright w3-container imagePositionRadio">
+                        <input class="w3-radio imagePosition" type="radio" name="imagePosition" value="topright" onclick="positionSelect(this)"><label></label>
+                    </div>
+                    <div class="w3-display-bottomleft w3-container imagePositionRadio">
+                        <input class="w3-radio imagePosition" type="radio" name="imagePosition" value="bottomleft" onclick="positionSelect(this)"><label></label>
+                    </div>
+                    <div class="w3-display-bottomright w3-container imagePositionRadio">
+                        <input class="w3-radio imagePosition" type="radio" name="imagePosition" value="bottomright" onclick="positionSelect(this)"><label></label>
+                    </div>
+                    <div class="w3-display-left w3-container imagePositionRadio">
+                        <input class="w3-radio imagePosition" type="radio" name="imagePosition" value="left" onclick="positionSelect(this)"><label></label>
+                    </div>
+                    <div class="w3-display-right w3-container imagePositionRadio">
+                        <input class="w3-radio imagePosition" type="radio" name="imagePosition" value="right" onclick="positionSelect(this)"><label></label>
+                    </div>
+                    <div class="w3-display-middle w3-large imagePositionRadio">
+                        <input class="w3-radio imagePosition" type="radio" name="imagePosition" value="middle" onclick="positionSelect(this)"><label></label>
+                    </div>
+                    <div class="w3-display-topmiddle w3-container imagePositionRadio">
+                        <input class="w3-radio imagePosition" type="radio" name="imagePosition" value="topmiddle" onclick="positionSelect(this)"><label></label>
+                    </div>
+                    <div class="w3-display-bottommiddle w3-container imagePositionRadio">
+                        <input class="w3-radio imagePosition" type="radio" name="imagePosition" value="bottommiddle" onclick="positionSelect(this)"><label></label>
+                    </div>
                 </div>
                 <div class="w3-display-topright w3-container w3-right-align" style="width: 33%; margin-top: 2%; margin-right: 2%">
                     <h3 id="positionType" style="display: none">
@@ -213,7 +269,8 @@
                     <label for="textFont">Font: </label><input id="textFont" type="text" onchange="updateSetting('textFont', 'autocomplete')"><i class="fa fa-exclamation-triangle" id="textFontError" style="display: none"></i>
                 </div>
                 <br>
-                <label for="textSize">Font Size: </label><input class="w3-input" id="textSize" type="number" step=".25" style="width: 25%; display: inline; margin-top: 2%" onchange="updateSetting('textSize', 'number')">
+                <label for="textSize">Font
+                    Size: </label><input class="w3-input" id="textSize" type="number" step=".25" style="width: 25%; display: inline; margin-top: 2%" onchange="updateSetting('textSize', 'number')">
                 <br>
                 <label for="textColor">Color: </label><input class="w3-input" id="textColor" type="color" step=".25" style="width: 5%; display: inline; margin-top: 2%; padding: 0;" onchange="updateSetting('textColor', 'text')">
             </div>
@@ -227,7 +284,8 @@
         <div class="w3-container w3-white">
             <span onclick="document.getElementById('timeFormatExplain').style.display='none'" class="w3-button w3-display-topright">&times;</span>
             <br>
-            <p>Aerial uses Moment.js to display the current time. Use the characters in the table below to format the time and date however you want it.</p>
+            <p>Aerial uses Moment.js to display the current time. Use the characters in the table below to format the
+                time and date however you want it.</p>
             <table class="w3-table-all">
                 <tr>
                     <td><b>Month</b></td>
@@ -376,7 +434,9 @@
             <p>
                 <label for="newProfileName">Profile Name</label><input class="w3-input" type="text" id="newProfileName">
                 <br>
-                <button class="w3-button w3-white w3-border w3-border-blue w3-round-large" onclick="createProfile('newProfileName');document.getElementById('createVideoProfile').style.display='none';">Create Profile</button>
+                <button class="w3-button w3-white w3-border w3-border-blue w3-round-large" onclick="createProfile('newProfileName');document.getElementById('createVideoProfile').style.display='none';">
+                    Create Profile
+                </button>
             </p>
         </div>
     </div>
@@ -389,7 +449,28 @@
             <p>
                 <label for="customVideoName">Name</label><input class="w3-input" type="text" id="customVideoName">
                 <br>
-                <button class="w3-button w3-white w3-border w3-border-blue w3-round-large" onclick="document.getElementById('editCustomVideo').style.display='none';">Done</button>
+                <button class="w3-button w3-white w3-border w3-border-blue w3-round-large" onclick="document.getElementById('editCustomVideo').style.display='none';">
+                    Done
+                </button>
+            </p>
+        </div>
+    </div>
+</div>
+<div id="welcomeMessage" class="w3-modal">
+    <div class="w3-modal-content">
+        <div class="w3-container w3-white">
+            <span onclick="document.getElementById('welcomeMessage').style.display='none'" class="w3-button w3-display-topright">&times;</span>
+            <br>
+            <p>
+            <h2>Welcome to Aerial</h2>
+            <p>You've installed Aerial successfully! The next time your computer isn't doing anything Aerial will start up and display those gorgeous screensavers.</p>
+            <p>If you want to fine-tweak how Aerial runs, chose what videos to play, or maybe even add a clock in the corner, simply use this menu to configure it. To reopen the config window, right-click on the tray icon and select 'config'.</p>
+            <p>If you have any questions find us online at <a href="https://github.com/OrangeJedi/Aerial">github.com/OrangeJedi/Aerial</a></p>
+            <p>Thanks for using Aerial! We hope you enjoy it!</p>
+            <br>
+            <button class="w3-button w3-white w3-border w3-border-blue w3-round-large" onclick="document.getElementById('welcomeMessage').style.display='none';">
+                Done
+            </button>
             </p>
         </div>
     </div>
