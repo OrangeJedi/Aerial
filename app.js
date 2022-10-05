@@ -1,4 +1,5 @@
 const {app, BrowserWindow, ipcMain, screen, shell, dialog, remote, Tray, Menu, powerMonitor} = require('electron');
+const {exec} = require('child_process');
 const videos = require("./videos.json");
 const Store = require('electron-store');
 const store = new Store();
@@ -203,7 +204,8 @@ function startUp() {
         store.set('useTray', store.get('useTray') ?? true);
         store.set('startAfter', store.get('startAfter') ?? 10);
         store.set('blankScreen', store.get('blankScreen') ?? true);
-        store.set('blankAfter', store.get('blankAfter') ?? 45);
+        store.set('blankAfter', store.get('blankAfter') ?? 30);
+        store.set('sleepAfterBlank', store.get('sleepAfterBlank') ?? true);
 
         //general settings
         store.set('timeOfDay', store.get('timeOfDay') ?? false);
@@ -681,6 +683,13 @@ function firstVideoPlayed(){
         setTimeout(()=>{
             for (let i = 0; i < screens.length; i++) {
                 screens[i].webContents.send('blankTheScreen');
+                if(store.get('sleepAfterBlank')) {
+                    setTimeout(() => {
+                        //sleep the computer after a few seconds of blank screen
+                        closeAllWindows();
+                        exec("rundll32.exe powrprof.dll, SetSuspendState Sleep");
+                    }, store.get('videoTransitionLength') * 3)
+                }
             }
         },store.get('blankAfter') * 60000);
     }

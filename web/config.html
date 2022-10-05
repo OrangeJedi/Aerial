@@ -27,6 +27,7 @@
     <div class="w3-sidebar w3-light-grey w3-bar-block" style="width:20%">
         <a onclick="selectSetting('general')" id="settingsList-general" class="settingsListItem"><h3 class="w3-bar-item"><i class="fa fa-cog"></i> Settings</h3></a>
         <a onclick="selectSetting('playback')" id="settingsList-playback" class="w3-bar-item w3-button settingsListItem">Playback</a>
+        <a onclick="selectSetting('multiscreen')" id="settingsList-multiscreen" class="w3-bar-item w3-button settingsListItem">Multiscreen</a>
         <a onclick="selectSetting('style')" id="settingsList-style" class="w3-bar-item w3-button settingsListItem">Style</a>
         <a onclick="selectSetting('cache')" id="settingsList-cache" class="w3-bar-item w3-button settingsListItem">Video Cache</a>
         <a onclick="selectSetting('customVideo')" id="settingsList-customVideo" class="w3-bar-item w3-button settingsListItem">Custom Videos</a>
@@ -47,7 +48,7 @@
                 <label for="blankAfter">Blank screen after</label>
                 <input style="width: 10%; display: inline !important;" class="w3-input" type="number" id="blankAfter" onchange="updateSetting('blankAfter','number')"> minutes
                 <br><br>
-                <input type="checkbox" id="skipVideosWithKey" class="w3-check" onclick="updateSetting('skipVideosWithKey','check')"> <label for="skipVideosWithKey">Use the right arrow key to skip videos</label>
+                <input type="checkbox" id="sleepAfterBlank" class="w3-check" onclick="updateSetting('sleepAfterBlank','check')"> <label for="sleepAfterBlank">Sleep the computer after screen blank</label>
                 <br><hr>
                 <button class="w3-button w3-white w3-border w3-border-red w3-round-large" onclick="refreshAerial()">Refresh Aerial</button>
                 <button class="w3-button w3-red w3-border-white w3-round-large" onclick="resetAerial()">Reset Aerial</button>
@@ -74,8 +75,15 @@
                     <label for="sunset" style="font-size: smaller">Sunset</label>
                     <input style="width: 15%" class="w3-input" type="time" id="sunset" onchange="updateSetting('sunset','time')">
                 </div>
-                <hr>
-                <h4>Multiscreen Options</h4>
+                <br>
+                <input type="checkbox" id="skipVideosWithKey" class="w3-check" onclick="updateSetting('skipVideosWithKey','check')"> <label for="skipVideosWithKey">Use the right arrow key to skip videos</label>
+            </div>
+        </div>
+        <div id="multiscreenSettings" class="settingsCard" style="display: none">
+            <div class="w3-container w3-blue">
+                <h3>Multiscreen Settings</h3>
+            </div>
+            <div class="w3-display-container" style="padding: 2%">
                 <input type="checkbox" id="sameVideoOnScreens" class="w3-check" onclick="updateSetting('sameVideoOnScreens','check')"> <label for="sameVideoOnScreens">Play the same video on each screen</label>
                 <br>
                 <input type="checkbox" id="onlyShowVideoOnPrimaryMonitor" class="w3-check" onclick="updateSetting('onlyShowVideoOnPrimaryMonitor','check')"> <label for="onlyShowVideoOnPrimaryMonitor">Only play videos on the primary screen</label>
