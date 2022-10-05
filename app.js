@@ -101,6 +101,7 @@ function createSSWindow() {
         screens.push(win);
         screenIds.push(displays[i].id)
     }
+    //find the screen the cursor is on and focus it so the cursor will hide
     screens[screenIds.indexOf(screen.getDisplayNearestPoint(screen.getCursorScreenPoint()).id)].focus();
 }
 
@@ -197,7 +198,9 @@ function startUp() {
 
         //start up settings
         store.set('useTray', store.get('useTray') ?? true);
-        store.set('startAerialAfter', store.get('startAerialAfter') ?? 10);
+        store.set('startAfter', store.get('startAfter') ?? 10);
+        store.set('blankScreen', store.get('blankScreen') ?? true);
+        store.set('blankAfter', store.get('blankAfter') ?? 45);
 
         //general settings
         store.set('timeOfDay', store.get('timeOfDay') ?? false);
@@ -667,7 +670,7 @@ function closeAllWindows() {
 function launchScreensaver() {
     if(screens.length === 0) {
         let idleTime = powerMonitor.getSystemIdleTime();
-        if (idleTime >= store.get('startAerialAfter') * 60) {
+        if (idleTime >= store.get('startAfter') * 60) {
             createSSWindow();
         }
     }

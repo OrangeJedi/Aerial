@@ -37,12 +37,17 @@
                 <h4>General Settings</h4>
             </div>
             <div class="w3-display-container" style="padding: 2%">
-                <input type="checkbox" id="useTray" class="w3-check" onclick="updateSetting('useTray','check')"> <label>Auto launch from system tray</label>
+                <input type="checkbox" id="useTray" class="w3-check" onclick="updateSetting('useTray','check')"> <label for="useTray">Auto launch from system tray</label>
                 <p class="w3-small" style="margin-left: 4%">This option will cause Aerial to run on system start up and launch itself after your system is idle</p>
-                <lable>Start Aerial After</lable>
-                <input style="width: 10%; display: inline !important;" class="w3-input" type="number" id="startAerialAfter" onchange="updateSetting('startAerialAfter','number')"> Minutes
+                <label for="startAfter">Start Aerial After</label>
+                <input style="width: 10%; display: inline !important;" class="w3-input" type="number" id="startAfter" onchange="updateSetting('startAfter','number')"> minutes
                 <br><br>
-                <input type="checkbox" id="skipVideosWithKey" class="w3-check" onclick="updateSetting('skipVideosWithKey','check')"> <label>Use the right arrow key to skip videos</label>
+                <input type="checkbox" id="blankScreen" class="w3-check" onclick="updateSetting('blankScreen','check')"> <label for="blankScreen">Automatically blank screen</label>
+                <br>
+                <label for="blankAfter">Blank screen after</label>
+                <input style="width: 10%; display: inline !important;" class="w3-input" type="number" id="blankAfter" onchange="updateSetting('blankAfter','number')"> minutes
+                <br><br>
+                <input type="checkbox" id="skipVideosWithKey" class="w3-check" onclick="updateSetting('skipVideosWithKey','check')"> <label for="skipVideosWithKey">Use the right arrow key to skip videos</label>
                 <br><hr>
                 <button class="w3-button w3-white w3-border w3-border-red w3-round-large" onclick="refreshAerial()">Refresh Aerial</button>
                 <button class="w3-button w3-red w3-border-white w3-round-large" onclick="resetAerial()">Reset Aerial</button>
@@ -53,27 +58,26 @@
                 <h3>Playback Settings</h3>
             </div>
             <div class="w3-display-container" style="padding: 2%">
-                <input type="checkbox" id="avoidDuplicateVideos" class="w3-check" onclick="updateSetting('avoidDuplicateVideos','check')"> <label>Avoid duplicate videos</label>
+                <input type="checkbox" id="avoidDuplicateVideos" class="w3-check" onclick="updateSetting('avoidDuplicateVideos','check')"> <label for="avoidDuplicateVideos">Avoid duplicate videos</label>
                 <br>
                 <i class="w3-small" style="padding-left: 4%">When this option is enabled Aerial will avoid playing the most recently played videos</i>
                 <br><br>
-                <label>Transition speed: <span id="videoTransitionLengthText"></span></label><span class="w3-right" onclick="resetSetting('videoTransitionLength', 'slider', 1000)"><i class="fa fa-undo"></i></span>
+                <label for="videoTransitionLength">Transition speed: <span id="videoTransitionLengthText"></span></label><span class="w3-right" onclick="resetSetting('videoTransitionLength', 'slider', 1000)"><i class="fa fa-undo"></i></span>
                 <br>
                 <input type="range" min="750" max="4000" value="1000" step="10" id="videoTransitionLength" class="slider" onchange="updateSetting('videoTransitionLength','slider')">
                 <br><br>
-                <input type="checkbox" id="timeOfDay" class="w3-check" onclick="updateSetting('timeOfDay','check')"> <label>Prioritize current time of day</label>
+                <input type="checkbox" id="timeOfDay" class="w3-check" onclick="updateSetting('timeOfDay','check')"> <label for="timeOfDay">Prioritize current time of day</label>
                 <div>
                     <br>
-                    <lable style="font-size: smaller">Sunrise</lable>
+                    <label for="sunrise" style="font-size: smaller">Sunrise</label>
                     <input style="width: 15%" class="w3-input" type="time" id="sunrise" onchange="updateSetting('sunrise','time')">
-                    <label style="font-size: smaller">Sunset</label>
+                    <label for="sunset" style="font-size: smaller">Sunset</label>
                     <input style="width: 15%" class="w3-input" type="time" id="sunset" onchange="updateSetting('sunset','time')">
                 </div>
                 <h4>Multiscreen Options</h4>
-                <input type="checkbox" id="sameVideoOnScreens" class="w3-check" onclick="updateSetting('sameVideoOnScreens','check')"> <label>Play the same video on each screen</label>
+                <input type="checkbox" id="sameVideoOnScreens" class="w3-check" onclick="updateSetting('sameVideoOnScreens','check')"> <label for="sameVideoOnScreens">Play the same video on each screen</label>
                 <br>
-                <input type="checkbox" id="onlyShowVideoOnPrimaryMonitor" class="w3-check" onclick="updateSetting('onlyShowVideoOnPrimaryMonitor','check')"> <label>Only play videos on the primary screen</label>
-
+                <input type="checkbox" id="onlyShowVideoOnPrimaryMonitor" class="w3-check" onclick="updateSetting('onlyShowVideoOnPrimaryMonitor','check')"> <label for="onlyShowVideoOnPrimaryMonitor">Only play videos on the primary screen</label>
             </div>
         </div>
         <div id="styleSettings" class="settingsCard" style="display: none">
@@ -81,13 +85,13 @@
                 <h3>Style</h3>
             </div>
             <div class="w3-display-container" style="padding: 2%">
-                <label>Playback Speed: <span id="playbackSpeedText"></span></label><span class="w3-right" onclick="resetSetting('playbackSpeed', 'slider', 1)"><i class="fa fa-undo"></i></span>
+                <label for="playbackSpeed">Playback Speed: <span id="playbackSpeedText"></span></label><span class="w3-right" onclick="resetSetting('playbackSpeed', 'slider', 1)"><i class="fa fa-undo"></i></span>
                 <br>
                 <input type="range" min=".75" max="4" value="1" step=".05" id="playbackSpeed" class="slider" onchange="updateSetting('playbackSpeed','slider')">
                 <h4>Filter Settings <span class="w3-right" onclick="resetFilterSettings()"><i class="fa fa-undo"></i></span></h4>
                 <div class="w3-display-container" id="videoFilterSettings"></div>
                 <br>
-                <div class="w3-small"><input type="checkbox" id="videoQuality" class="w3-check" onclick="updateSetting('videoQuality','check')"> <label>Disable all video processing</label></div>
+                <div class="w3-small"><input type="checkbox" id="videoQuality" class="w3-check" onclick="updateSetting('videoQuality','check')"> <label for="videoQuality">Disable all video processing</label></div>
             </div>
         </div>
         <div id="cacheSettings" class="settingsCard" style="display: none">
@@ -95,14 +99,14 @@
                 <h3>Video Cache Settings</h3>
             </div>
             <div class="w3-display-container" style="padding: 2%">
-                <input type="checkbox" id="videoCache" class="w3-check" onclick="updateSetting('videoCache','check')"> <label>Automatically download checked videos to the cache</label>
+                <input type="checkbox" id="videoCache" class="w3-check" onclick="updateSetting('videoCache','check')"> <label for="videoCache"> Automatically download checked videos to the cache</label>
                 <br>
                 <p class="w3-small" style="margin-left: 4%">The total size of all videos is approximately 20 GB</p>
-                <input type="checkbox" id="videoCacheProfiles" class="w3-check" onclick="updateSetting('videoCacheProfiles','check')" style="margin-left: 8%"> <label>Include videos in saved profiles</label>
+                <input type="checkbox" id="videoCacheProfiles" class="w3-check" onclick="updateSetting('videoCacheProfiles','check')" style="margin-left: 8%"> <label for="videoCacheProfiles">Include videos in saved profiles</label>
                 <br>
-                <input type="checkbox" id="videoCacheRemoveUnallowed" class="w3-check" onclick="updateSetting('videoCacheRemoveUnallowed','check')" style="margin-left: 8%"> <label>Automatically remove unchecked videos</label>
+                <input type="checkbox" id="videoCacheRemoveUnallowed" class="w3-check" onclick="updateSetting('videoCacheRemoveUnallowed','check')" style="margin-left: 8%"> <label for="videoCacheRemoveUnallowed">Automatically remove unchecked videos</label>
                 <br>
-                <input type="checkbox" id="immediatelyUpdateVideoCache" class="w3-check" onclick="updateSetting('immediatelyUpdateVideoCache','check')"> <label>Immediately update video cache</label>
+                <input type="checkbox" id="immediatelyUpdateVideoCache" class="w3-check" onclick="updateSetting('immediatelyUpdateVideoCache','check')"> <label for="immediatelyUpdateVideoCache">Immediately update video cache</label>
                 <br><br>
                 <button class="w3-button w3-white w3-border w3-border-blue w3-round-large" onclick="updateCache()">Update cache</button>
                 <button class="w3-button w3-white w3-border w3-border-red w3-round-large" onclick="deleteCache()">Delete all files</button>
@@ -164,7 +168,7 @@
                 </div>
                 <div class="w3-display-topright w3-container w3-right-align" style="width: 33%; margin-top: 2%; margin-right: 2%">
                     <h3 id="positionType" style="display: none">
-                        <label>Type:</label>
+                        <label for="positionTypeSelect">Type:</label>
                         <select id="positionTypeSelect">
                             <option value="none">None</option>
                             <option value="text">Text</option>
@@ -179,7 +183,7 @@
                 <div class="w3-container" id="positionDetails"></div>
                 <div class="w3-container" id="textWidthContainer" style="display: none">
                     <br>
-                    Max Width:
+                    <label for="textWidthSelect">Max Width:</label>
                     <select id="textWidthSelect">
                         <option value="33%">33%</option>
                         <option value="50%">50%</option>
@@ -195,12 +199,12 @@
             </div>
             <div class="w3-display-container" style="padding: 2%">
                 <div class="autocomplete" style="width:300px;">
-                    <label>Font: </label><input id="textFont" type="text" onchange="updateSetting('textFont', 'autocomplete')"><i class="fa fa-exclamation-triangle" id="textFontError" style="display: none"></i>
+                    <label for="textFont">Font: </label><input id="textFont" type="text" onchange="updateSetting('textFont', 'autocomplete')"><i class="fa fa-exclamation-triangle" id="textFontError" style="display: none"></i>
                 </div>
                 <br>
-                <label>Font Size: </label><input class="w3-input" id="textSize" type="number" step=".25" style="width: 25%; display: inline; margin-top: 2%" onchange="updateSetting('textSize', 'number')">
+                <label for="textSize">Font Size: </label><input class="w3-input" id="textSize" type="number" step=".25" style="width: 25%; display: inline; margin-top: 2%" onchange="updateSetting('textSize', 'number')">
                 <br>
-                <label>Color: </label><input class="w3-input" id="textColor" type="color" step=".25" style="width: 5%; display: inline; margin-top: 2%; padding: 0;" onchange="updateSetting('textColor', 'text')">
+                <label for="textColor">Color: </label><input class="w3-input" id="textColor" type="color" step=".25" style="width: 5%; display: inline; margin-top: 2%; padding: 0;" onchange="updateSetting('textColor', 'text')">
             </div>
         </div>
     </div>
@@ -359,7 +363,7 @@
             <span onclick="document.getElementById('createVideoProfile').style.display='none'" class="w3-button w3-display-topright">&times;</span>
             <br>
             <p>
-                <label>Profile Name</label><input class="w3-input" type="text" id="newProfileName">
+                <label for="newProfileName">Profile Name</label><input class="w3-input" type="text" id="newProfileName">
                 <br>
                 <button class="w3-button w3-white w3-border w3-border-blue w3-round-large" onclick="createProfile('newProfileName');document.getElementById('createVideoProfile').style.display='none';">Create Profile</button>
             </p>
@@ -372,7 +376,7 @@
             <span onclick="document.getElementById('editCustomVideo').style.display='none'" class="w3-button w3-display-topright">&times;</span>
             <br>
             <p>
-                <label>Name</label><input class="w3-input" type="text" id="customVideoName">
+                <label for="customVideoName">Name</label><input class="w3-input" type="text" id="customVideoName">
                 <br>
                 <button class="w3-button w3-white w3-border w3-border-blue w3-round-large" onclick="document.getElementById('editCustomVideo').style.display='none';">Done</button>
             </p>
