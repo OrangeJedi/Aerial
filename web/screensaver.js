@@ -3,7 +3,8 @@ const allowedVideos = electron.store.get("allowedVideos");
 let downloadedVideos = electron.store.get("downloadedVideos");
 let customVideos = electron.store.get("customVideos");
 let currentlyPlaying = '';
-let poiTimeout, transitionTimeout;
+let transitionTimeout;
+let poiTimeout = [];
 let blackScreen = false;
 
 function quitApp() {
@@ -34,13 +35,12 @@ video.addEventListener('ended', (event) => {
         newVideo();
 });
 video.addEventListener("error", (event) => {
-    console.log('VIDEO PLAYBACK ERROR - Playing new video',event.error);
+    console.log('VIDEO PLAYBACK ERROR - Playing new video',event);
     newVideo();
 });
 
 function newVideo() {
     if(blackScreen){ return}
-    clearTimeout(poiTimeout);
     clearTimeout(transitionTimeout);
     videoAlpha = 0;
     video.src = "";
@@ -120,16 +120,24 @@ function fadeVideoIn(time) {
 }
 
 function changePOI(position, currentPOI, poiList) {
+    poiTimeout = clearTimeouts(poiTimeout);
     let poiS = Object.keys(poiList);
     for (let i = 0; i < poiS.length; i++) {
         if (Number(poiS[i]) > currentPOI) {
             $(`#textDisplay-${position}`).text(poiList[poiS[i]]);
-            if (i < poiS.length) {
-                poiTimeout = setTimeout(changePOI, (Number(poiS[i + 1]) - Number(poiS[i])) * 1000, position, poiS[i], poiList);
+            if (i < poiS.length - 1) {
+                poiTimeout.push(setTimeout(changePOI, (Number(poiS[i + 1]) - Number(poiS[i])) * 1000 || 0, position, poiS[i], poiList));
             }
             break;
         }
     }
+}
+
+function clearTimeouts(arr){
+    for(let i = 0; i < arr.length;i++){
+        clearTimeout(arr[i]);
+    }
+    return [];
 }
 
 //put the video on the canvas
@@ -226,3 +234,35 @@ electron.ipcRenderer.on('blankTheScreen', () => {
         video.src = "";
     },transitionLength);
 });
+
+(function(w) {
+    var oldST = w.setTimeout;
+    var oldSI = w.setInterval;
+    var oldCI = w.clearInterval;
+    var timers = [];
+    w.timers = timers;
+    w.setTimeout = function(fn, delay) {
+        var id = oldST(function() {
+            fn && fn();
+            removeTimer(id);
+        }, delay);
+        timers.push(id);
+        return id;
+    };
+    w.setInterval = function(fn, delay) {
+        var id = oldSI(fn, delay);
+        timers.push(id);
+        return id;
+    };
+    w.clearInterval = function(id) {
+        oldCI(id);
+        removeTimer(id);
+    };
+    w.clearTimeout = w.clearInterval;
+
+    function removeTimer(id) {
+        var index = timers.indexOf(id);
+        if (index >= 0)
+            timers.splice(index, 1);
+    }
+}(window));

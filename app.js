@@ -333,10 +333,10 @@ app.on('certificate-error', (event, webContents, url, error, certificate, callba
 ipcMain.on('quitApp', (event, arg) => {
     if (!nq) {
         //app.quit();
-        closeAllWindows();
         if(store.get("lockAfterRun")){
             lockComputer();
         }
+        closeAllWindows();
         currentlyPlaying = '';
     }
 });
