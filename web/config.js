@@ -454,7 +454,8 @@ function selectVideo(index) {
                                   <button class="w3-button w3-white w3-border w3-border-red w3-round-large" onclick="deselectAll()">Deselect All</button>
                                   <br><br>
                                   <select class="w3-select w3-border" style="width: 25%" id="videoType">
-                                     <option value="aerial">Aerial</option>
+                                     <option value="cityscape">Cityscape</option>
+                                     <option value="landscape">Landscape</option>
                                      <option value="space">Space</option>
                                      <option value="underwater">Underwater</option>
                                   </select> 

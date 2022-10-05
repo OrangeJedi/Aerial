@@ -41,6 +41,12 @@ function updateJSON() {
         });
         if(index > -1) {
             videos[index].name = newData[vid].name;
+            if(newData[vid].type){
+                videos[index].type = newData[vid].type;
+            }
+            if(newData[vid].timeOfDay){
+                videos[index].timeOfDay = newData[vid].timeOfDay;
+            }
             if (typeof newData[vid].pointsOfInterest === "object") {
                 videos[index].pointsOfInterest = newData[vid].pointsOfInterest;
             }

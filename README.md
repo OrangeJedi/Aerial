@@ -14,6 +14,7 @@ Aerial is a Windows screen saver that mimics the Apple TV screen saver that disp
 
 Aerial is inspired by [Mac Aerial Screen Saver](https://github.com/JohnCoates/Aerial) and [Aerial for Windows](https://github.com/cDima/Aerial).
 
+[Complete list of available videos.](https://docs.google.com/spreadsheets/d/1bboTohF06r-fafrImTExAPqM9m6h2m2lgJyAkQuYVJI/edit#gid=1684411812)
 
 ###### Mac user? Try [JohnCoates/Aerial](https://github.com/JohnCoates/Aerial). Linux user? Try [graysky2/xscreensaver-aerial](https://github.com/graysky2/xscreensaver-aerial/).
 
