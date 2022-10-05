@@ -10,25 +10,25 @@
 
 # Aerial - Apple TV Screen Saver for Windows
  
-Aerial is a Windows screen saver that mimics the Apple TV screen saver that displays the videos Apple shot over New York, San Francisco, Hawaii, China, etc. as well as from the ISS and various underwater locations.
+Aerial is a Windows screen saver that mimics the Apple TV screen saver that displays the various videos Apple shot of cities, landscapes, underwater scenes, and even space.
 
 Aerial is inspired by [Mac Aerial Screen Saver](https://github.com/JohnCoates/Aerial) and [Aerial for Windows](https://github.com/cDima/Aerial).
 
-[Complete list of available videos.](https://aerial-screensavers.netlify.com)
 
 ###### Mac user? Try [JohnCoates/Aerial](https://github.com/JohnCoates/Aerial). Linux user? Try [graysky2/xscreensaver-aerial](https://github.com/graysky2/xscreensaver-aerial/).
 
-Aerial is open source so feel free to contribute.
+Aerial is open source so feel free to contribute. We love having the community help build and shape our project.
 
 ## Installing
->🚧 This project is still in beta. It might not always work or behave as expected. 🚧
+>🚧 This project is still figuring a few things out. It might not always work or behave as expected. 🚧
 
 Download the latest release from [here](https://github.com/OrangeJedi/Aerial/releases). Follow the instructions to install Aerial.
 
 ##### [Version History](https://github.com/OrangeJedi/Aerial/wiki/Version-History)
 
 ## Features
-Aerial lets you cycle through randomly selected Apple TV videos. You can choose which videos you want to see based on their type (Aerial, Space, Underwater) and display text, time or the location of each video. Aerial also tries to sync the videos you see based on the time of the day. You can also include your own videos to the screensaver!
+Aerial brings your AppleTV's wonderful screensavers to your Windows desktop. You can manually select which videos to play, or randomly play them all. Aerial can also display the time, date, other text, or the location of each video. You can also download the videos for faster viewing and include your own videos in the screensaver!
+
 [Full list of Features & To-Do items](https://github.com/OrangeJedi/Aerial/wiki/Features-&-To-Do-List)
 
 ## Want to Contribute?

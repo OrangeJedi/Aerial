@@ -173,7 +173,7 @@ app.allowRendererProcessReuse = true
 app.whenReady().then(startUp);
 
 function startUp() {
-    if (!store.get("configured") || store.get("version") !== "v0.5.4") {
+    if (!store.get("configured") || store.get("version") !== app.getVersion()) {
         //make video cache directory
         if (!fs.existsSync(`${app.getPath('userData')}/videos/`)) {
             fs.mkdirSync(`${app.getPath('userData')}/videos/`);
@@ -268,7 +268,7 @@ function startUp() {
         store.set('videoQuality', store.get('videoQuality') ?? false);
 
         //config
-        store.set('version', "v0.5.4");
+        store.set('version', app.getVersion());
         store.set("configured", true);
     }
     //configures Aerial to launch on startup
@@ -673,3 +673,5 @@ function launchScreensaver() {
     }
 }
 setInterval(launchScreensaver,5000);
+
+console.log(app.getVersion());
