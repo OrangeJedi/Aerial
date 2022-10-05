@@ -8,6 +8,7 @@ const fs = require('fs');
 const path = require("path");
 const AutoLaunch = require('auto-launch');
 let screens = [];
+let screenIds = [];
 let nq = false;
 let cachePath = store.get('cachePath') ?? `${app.getPath('userData')}/videos`;
 let downloading = false;
@@ -96,8 +97,11 @@ function createSSWindow() {
             let css = '* { cursor: none !important; }';
             win.webContents.insertCSS(css);
         });
+        win.setAlwaysOnTop(true,"screen-saver");
         screens.push(win);
+        screenIds.push(displays[i].id)
     }
+    screens[screenIds.indexOf(screen.getDisplayNearestPoint(screen.getCursorScreenPoint()).id)].focus();
 }
 
 function createSSPWindow(argv) {
