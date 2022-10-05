@@ -19,6 +19,7 @@ let currentlyPlaying = '';
 let autoLauncher = new AutoLaunch({
     name: 'Aerial',
 });
+let preview = false;
 
 //time of day code
 let tod = {"day": [], "night": [], "none": []};
@@ -98,7 +99,7 @@ function createSSWindow() {
         win.on('closed', function () {
             win = null;
         });
-        win.setAlwaysOnTop(true,"screen-saver");
+        win.setAlwaysOnTop(true, "screen-saver");
         screens.push(win);
         screenIds.push(displays[i].id)
     }
@@ -124,6 +125,7 @@ function createSSPWindow(argv) {
     win.loadFile('web/screensaver.html');
     win.on('closed', function () {
         win = null;
+        preview = false;
     });
     if (argv) {
         if (argv.includes("/dt")) {
@@ -132,6 +134,7 @@ function createSSPWindow(argv) {
         }
     }
     screens.push(win);
+    preview = true;
 }
 
 function createTrayWindow() {
@@ -206,6 +209,7 @@ function startUp() {
         store.set('blankScreen', store.get('blankScreen') ?? true);
         store.set('blankAfter', store.get('blankAfter') ?? 30);
         store.set('sleepAfterBlank', store.get('sleepAfterBlank') ?? true);
+        store.set('lockAfterRun', store.get('lockAfterRun') ?? false);
 
         //general settings
         store.set('timeOfDay', store.get('timeOfDay') ?? false);
@@ -328,6 +332,9 @@ ipcMain.on('quitApp', (event, arg) => {
     if (!nq) {
         //app.quit();
         closeAllWindows();
+        if(store.get("lockAfterRun")){
+            lockComputer();
+        }
         currentlyPlaying = '';
     }
 });
@@ -433,9 +440,10 @@ ipcMain.on('resetConfig', (event) => {
 });
 
 ipcMain.handle('newVideoId', (event, lastPlayed) => {
-    if(currentlyPlaying === ''){
+    if (currentlyPlaying === '') {
         firstVideoPlayed();
     }
+
     function newId() {
         let id = "";
         if (store.get('timeOfDay')) {
@@ -670,28 +678,39 @@ function randomInt(min, max) {
 
 function closeAllWindows() {
     for (let i = 0; i < screens.length; i++) {
-        if(!screens[i].isDestroyed()) {
+        if (!screens[i].isDestroyed()) {
             screens[i].close();
         }
     }
     screens = [];
 }
 
-function firstVideoPlayed(){
+function sleepComputer() {
+    if(preview){return}
+    closeAllWindows();
+    exec("rundll32.exe powrprof.dll, SetSuspendState Sleep");
+
+}
+
+function lockComputer(){
+    if(preview){return}
+    exec("Rundll32.exe user32.dll,LockWorkStation");
+}
+
+function firstVideoPlayed() {
     setTimeOfDay();
-    if(store.get('blankScreen')){
-        setTimeout(()=>{
+    if (store.get('blankScreen')) {
+        setTimeout(() => {
             for (let i = 0; i < screens.length; i++) {
                 screens[i].webContents.send('blankTheScreen');
-                if(store.get('sleepAfterBlank')) {
+                if (store.get('sleepAfterBlank')) {
+                    //sleep the computer after a few seconds of blank screen
                     setTimeout(() => {
-                        //sleep the computer after a few seconds of blank screen
-                        closeAllWindows();
-                        exec("rundll32.exe powrprof.dll, SetSuspendState Sleep");
+                        sleepComputer()
                     }, store.get('videoTransitionLength') * 3)
                 }
             }
-        },store.get('blankAfter') * 60000);
+        }, store.get('blankAfter') * 60000);
     }
 }
 
@@ -722,15 +741,16 @@ function setTimeOfDay() {
         }
     }
 }
+
 setTimeOfDay();
 
 //idle startup timer
 function launchScreensaver() {
-    if(screens.length === 0) {
+    if (screens.length === 0) {
         let idleTime = powerMonitor.getSystemIdleTime();
         if (idleTime >= store.get('startAfter') * 60) {
             createSSWindow();
         }
     }
 }
-setInterval(launchScreensaver,5000);
+setInterval(launchScreensaver, 5000);
