@@ -42,6 +42,7 @@ function createConfigWindow(argv) {
     win.loadFile('web/config.html');
     win.on('closed', function () {
         win = null;
+        screens = [];
     });
     if (argv) {
         if (argv.includes("/dt")) {
@@ -50,7 +51,9 @@ function createConfigWindow(argv) {
     }
     if (argv) {
         if (argv.includes("/w")) {
-            setTimeout(()=>{win.webContents.send('showWelcome')},500);
+            setTimeout(() => {
+                win.webContents.send('showWelcome')
+            }, 1500);
         }
     }
     screens.push(win);
@@ -109,7 +112,10 @@ function createSSWindow() {
         screenIds.push(displays[i].id)
     }
     //find the screen the cursor is on and focus it so the cursor will hide
-    screens[screenIds.indexOf(screen.getDisplayNearestPoint(screen.getCursorScreenPoint()).id)].focus();
+    let mainScreen = screens[screenIds.indexOf(screen.getDisplayNearestPoint(screen.getCursorScreenPoint()).id)];
+    if (!mainScreen.isDestroyed()) {
+        mainScreen.focus();
+    }
 }
 
 function createSSPWindow(argv) {
@@ -188,7 +194,7 @@ app.whenReady().then(startUp);
 function startUp() {
     let firstTime = false;
     if (!store.get("configured") || store.get("version") !== app.getVersion()) {
-        console.log(firstTime);
+        firstTime = true;
         //make video cache directory
         if (!fs.existsSync(`${app.getPath('userData')}/videos/`)) {
             fs.mkdirSync(`${app.getPath('userData')}/videos/`);
@@ -320,10 +326,10 @@ function startUp() {
     } else {
         if (store.get('useTray')) {
             createTrayWindow();
-            if(firstTime){
+            if (firstTime) {
                 createConfigWindow(["/w"]);
             }
-        }else{
+        } else {
             createConfigWindow();
         }
     }
@@ -350,7 +356,7 @@ ipcMain.on('keyPress', (event, key) => {
             screens[i].webContents.send('newVideo');
         }
     } else {
-       quitApp();
+        quitApp();
     }
 });
 
@@ -679,10 +685,10 @@ function randomInt(min, max) {
     return Math.floor(Math.random() * max) - min;
 }
 
-function quitApp(){
+function quitApp() {
     if (!nq) {
         //app.quit();
-        if(store.get("lockAfterRun")){
+        if (store.get("lockAfterRun")) {
             lockComputer();
         }
         closeAllWindows();
@@ -700,14 +706,18 @@ function closeAllWindows() {
 }
 
 function sleepComputer() {
-    if(preview){return}
+    if (preview) {
+        return
+    }
     closeAllWindows();
     exec("rundll32.exe powrprof.dll, SetSuspendState Sleep");
 
 }
 
-function lockComputer(){
-    if(preview){return}
+function lockComputer() {
+    if (preview) {
+        return
+    }
     exec("Rundll32.exe user32.dll,LockWorkStation");
 }
 
@@ -760,6 +770,7 @@ setTimeOfDay();
 
 //idle startup timer
 function launchScreensaver() {
+    //console.log(screens.length,powerMonitor.getSystemIdleTime(),store.get('startAfter') * 60)
     if (screens.length === 0) {
         let idleTime = powerMonitor.getSystemIdleTime();
         if (idleTime >= store.get('startAfter') * 60) {
@@ -767,4 +778,5 @@ function launchScreensaver() {
         }
     }
 }
+
 setInterval(launchScreensaver, 5000);
