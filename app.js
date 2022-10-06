@@ -1,35 +1,59 @@
-const {app, BrowserWindow, ipcMain, screen, shell, dialog} = require('electron');
+const {app, BrowserWindow, ipcMain, screen, shell, dialog, remote, Tray, Menu, powerMonitor} = require('electron');
+const {exec} = require('child_process');
 const videos = require("./videos.json");
 const Store = require('electron-store');
 const store = new Store();
 const request = require('request');
 const https = require('https');
 const fs = require('fs');
+const path = require("path");
+const AutoLaunch = require('auto-launch');
 let screens = [];
+let screenIds = [];
 let nq = false;
 let cachePath = store.get('cachePath') ?? `${app.getPath('userData')}/videos`;
 let downloading = false;
+const allowedVideos = store.get("allowedVideos");
+let previouslyPlayed = [];
+let currentlyPlaying = '';
+let autoLauncher = new AutoLaunch({
+    name: 'Aerial',
+});
+let preview = false;
 
-global.shared = {
-    currentlyPlaying: ''
-};
+//time of day code
+let tod = {"day": [], "night": [], "none": []};
+
 
 function createConfigWindow(argv) {
     let win = new BrowserWindow({
         width: 1000,
         height: 750,
         webPreferences: {
-            nodeIntegration: true
+            nodeIntegration: false,
+            contextIsolation: true,
+            enableRemoteModule: false,
+            sandbox: false,
+            preload: path.join(__dirname, "preload.js")
         },
-        resizable: false
+        resizable: false,
+        icon: path.join(__dirname, 'icon.ico')
     });
     win.loadFile('web/config.html');
     win.on('closed', function () {
         win = null;
+        screens = [];
     });
     if (argv) {
         if (argv.includes("/dt")) {
             win.webContents.openDevTools();
+        }
+    }
+    if (argv) {
+        if (argv.includes("/w")) {
+            setTimeout(() => {
+                win.webContents.send('showWelcome')
+            }, 1500);
         }
     }
     screens.push(win);
@@ -40,8 +64,13 @@ function createJSONConfigWindow() {
         width: 1920,
         height: 1080,
         webPreferences: {
-            nodeIntegration: true
-        }
+            nodeIntegration: false,
+            contextIsolation: true,
+            enableRemoteModule: false,
+            sandbox: false,
+            preload: path.join(__dirname, "json-editor", "preload.js")
+        },
+        icon: path.join(__dirname, 'icon.ico')
     });
     win.loadFile('json-editor/index.html');
     win.on('closed', function () {
@@ -56,14 +85,19 @@ function createSSWindow() {
             width: displays[i].size.width,
             height: displays[i].size.height,
             webPreferences: {
-                nodeIntegration: true
+                nodeIntegration: false,
+                contextIsolation: true,
+                enableRemoteModule: false,
+                sandbox: false,
+                preload: path.join(__dirname, "preload.js")
             },
             x: displays[i].bounds.x,
             y: displays[i].bounds.y,
             fullscreen: true,
             transparent: true,
-            frame: false
-        });
+            frame: false,
+            icon: path.join(__dirname, 'icon.ico')
+        })
         win.setMenu(null);
         if (store.get("onlyShowVideoOnPrimaryMonitor") && displays[i].id !== screen.getPrimaryDisplay().id) {
             win.loadFile('web/black.html');
@@ -71,43 +105,96 @@ function createSSWindow() {
             win.loadFile('web/screensaver.html');
         }
         win.on('closed', function () {
-            xWin = null;
+            win = null;
         });
-        win.webContents.on('dom-ready', (event) => {
-            let css = '* { cursor: none !important; }';
-            win.webContents.insertCSS(css);
-        });
+        win.setAlwaysOnTop(true, "screen-saver");
         screens.push(win);
+        screenIds.push(displays[i].id)
+    }
+    //find the screen the cursor is on and focus it so the cursor will hide
+    let mainScreen = screens[screenIds.indexOf(screen.getDisplayNearestPoint(screen.getCursorScreenPoint()).id)];
+    if (!mainScreen.isDestroyed()) {
+        mainScreen.focus();
     }
 }
 
 function createSSPWindow(argv) {
+    let displays = screen.getAllDisplays();
     let win = new BrowserWindow({
-        width: 1920,
-        height: 1080,
+        width: 1280,
+        height: 720,
         webPreferences: {
-            nodeIntegration: true
+            nodeIntegration: false,
+            contextIsolation: true,
+            enableRemoteModule: false,
+            sandbox: false,
+            preload: path.join(__dirname, "preload.js")
         },
-        /*transparent: true,
-        frame: false*/
+        transparent: true,
+        icon: path.join(__dirname, 'icon.ico')
     });
     win.loadFile('web/screensaver.html');
     win.on('closed', function () {
         win = null;
+        preview = false;
     });
     if (argv) {
         if (argv.includes("/dt")) {
             win.webContents.openDevTools();
+
         }
     }
     screens.push(win);
+    preview = true;
+}
+
+function createTrayWindow() {
+    let trayWin = new BrowserWindow({
+        width: 800, height: 600, center: true, minimizable: false, show: false,
+        webPreferences: {
+            nodeIntegration: false,
+            webSecurity: true,
+            sandbox: true,
+        },
+        icon: path.join(__dirname, 'icon.ico')
+    });
+    //trayWin.loadURL("https://google.com/");
+    trayWin.on("close", ev => {
+        //console.log(ev);
+        ev.sender.hide();
+        //ev.preventDefault(); // prevent quit process
+    });
+    const menu = Menu.buildFromTemplate([
+        {
+            label: "Open Config", click: (item, window, event) => {
+                createConfigWindow();
+            }
+        },
+        {type: "separator"},
+        {
+            label: "Start Aerial", click: (item, window, event) => {
+                createSSWindow();
+            }
+        },
+        {type: "separator"},
+        {
+            label: "Exit Aerial", click: (item, window, event) => {
+                app.quit();
+            }
+        },
+    ]);
+    trayWin.tray = new Tray(path.join(__dirname, 'icon.ico'));
+    trayWin.tray.setContextMenu(menu);
+    trayWin.tray.setToolTip("Aerial");
 }
 
 app.allowRendererProcessReuse = true
 app.whenReady().then(startUp);
 
 function startUp() {
-    if (!store.get("configured") || store.get("version") !== "v0.5.4") {
+    let firstTime = false;
+    if (!store.get("configured") || store.get("version") !== app.getVersion()) {
+        firstTime = true;
         //make video cache directory
         if (!fs.existsSync(`${app.getPath('userData')}/videos/`)) {
             fs.mkdirSync(`${app.getPath('userData')}/videos/`);
@@ -129,6 +216,14 @@ function startUp() {
         store.set('videoProfiles', store.get('videoProfiles') ?? []);
         store.set('customVideos', store.get('customVideos') ?? []);
 
+        //start up settings
+        store.set('useTray', store.get('useTray') ?? true);
+        store.set('startAfter', store.get('startAfter') ?? 10);
+        store.set('blankScreen', store.get('blankScreen') ?? true);
+        store.set('blankAfter', store.get('blankAfter') ?? 30);
+        store.set('sleepAfterBlank', store.get('sleepAfterBlank') ?? true);
+        store.set('lockAfterRun', store.get('lockAfterRun') ?? false);
+
         //general settings
         store.set('timeOfDay', store.get('timeOfDay') ?? false);
         store.set('sunrise', store.get('sunrise') ?? "06:00");
@@ -137,17 +232,37 @@ function startUp() {
         store.set('skipVideosWithKey', store.get('skipVideosWithKey') ?? true);
         store.set('avoidDuplicateVideos', store.get('avoidDuplicateVideos') ?? true);
         //playback settings
-        store.set('videoFilters', store.get('videoFilters') ?? [
-            {name: 'blur', value: 0, min: 0, max: 100, suffix: "px", defaultValue: 0},
-            {name: 'brightness', value: 100, min: 0, max: 100, suffix: "%", defaultValue: 100},
-            {name: 'grayscale', value: 0, min: 0, max: 100, suffix: "%", defaultValue: 0},
-            {name: 'hue-rotate', value: 0, min: 0, max: 360, suffix: "deg", defaultValue: 0},
-            {name: 'invert', value: 0, min: 0, max: 100, suffix: "%", defaultValue: 0},
-            {name: 'saturate', value: 100, min: 0, max: 256, suffix: "%", defaultValue: 100},
-            {name: 'sepia', value: 0, min: 0, max: 100, suffix: "%", defaultValue: 0},
-        ]);
+        store.set('videoFilters', store.get('videoFilters') ?? [{
+            name: 'blur',
+            value: 0,
+            min: 0,
+            max: 100,
+            suffix: "px",
+            defaultValue: 0
+        }, {name: 'brightness', value: 100, min: 0, max: 100, suffix: "%", defaultValue: 100}, {
+            name: 'grayscale',
+            value: 0,
+            min: 0,
+            max: 100,
+            suffix: "%",
+            defaultValue: 0
+        }, {name: 'hue-rotate', value: 0, min: 0, max: 360, suffix: "deg", defaultValue: 0}, {
+            name: 'invert',
+            value: 0,
+            min: 0,
+            max: 100,
+            suffix: "%",
+            defaultValue: 0
+        }, {name: 'saturate', value: 100, min: 0, max: 256, suffix: "%", defaultValue: 100}, {
+            name: 'sepia',
+            value: 0,
+            min: 0,
+            max: 100,
+            suffix: "%",
+            defaultValue: 0
+        },]);
         store.set('videoTransitionLength', store.get('videoTransitionLength') ?? 1000);
-        //multi-screen settings
+        //multiscreen settings
         store.set('sameVideoOnScreens', store.get('sameVideoOnScreens') ?? false);
         store.set('onlyShowVideoOnPrimaryMonitor', store.get('onlyShowVideoOnPrimaryMonitor') ?? false);
         //cache settings
@@ -178,9 +293,17 @@ function startUp() {
         store.set('videoQuality', store.get('videoQuality') ?? false);
 
         //config
-        store.set('version', "v0.5.4");
+        store.set('version', app.getVersion());
         store.set("configured", true);
     }
+    //configures Aerial to launch on startup
+
+    if (store.get('useTray') && app.isPackaged) {
+        autoLauncher.enable();
+    } else {
+        autoLauncher.disable();
+    }
+    //prevents quiting the app if wanted
     if (process.argv.includes("/nq")) {
         nq = true;
     }
@@ -201,7 +324,14 @@ function startUp() {
     } else if (process.argv.includes("/j")) {
         createJSONConfigWindow();
     } else {
-        createConfigWindow();
+        if (store.get('useTray')) {
+            createTrayWindow();
+            if (firstTime) {
+                createConfigWindow(["/w"]);
+            }
+        } else {
+            createConfigWindow();
+        }
     }
     setTimeout(downloadVideos, 1500);
 }
@@ -217,9 +347,7 @@ app.on('certificate-error', (event, webContents, url, error, certificate, callba
 });
 
 ipcMain.on('quitApp', (event, arg) => {
-    if (!nq) {
-        app.quit();
-    }
+    quitApp();
 });
 
 ipcMain.on('keyPress', (event, key) => {
@@ -228,9 +356,7 @@ ipcMain.on('keyPress', (event, key) => {
             screens[i].webContents.send('newVideo');
         }
     } else {
-        if (!nq) {
-            app.quit();
-        }
+        quitApp();
     }
 });
 
@@ -317,9 +443,46 @@ ipcMain.on('refreshConfig', (event) => {
 });
 
 ipcMain.on('resetConfig', (event) => {
-    fs.unlink(`${app.getPath('userData')}/config.json`, err => {});
+    fs.unlink(`${app.getPath('userData')}/config.json`, err => {
+    });
     app.quit();
 });
+
+ipcMain.handle('newVideoId', (event, lastPlayed) => {
+    if (currentlyPlaying === '') {
+        firstVideoPlayed();
+    }
+
+    function newId() {
+        let id = "";
+        if (store.get('timeOfDay')) {
+            let time = getTimeOfDay();
+            id = tod[time][randomInt(0, tod[time].length)];
+        } else {
+            id = allowedVideos[randomInt(0, allowedVideos.length)];
+        }
+        if (store.get('avoidDuplicateVideos')) {
+            if (previouslyPlayed.includes(id)) {
+                return newId();
+            } else {
+                previouslyPlayed.push(id);
+                if (previouslyPlayed.length > (allowedVideos.length * .4)) {
+                    previouslyPlayed.shift();
+                }
+            }
+        }
+        return id;
+    }
+
+    if (store.get('sameVideoOnScreens')) {
+        if (currentlyPlaying !== lastPlayed) {
+            return currentlyPlaying
+        }
+    }
+    currentlyPlaying = newId();
+    return currentlyPlaying;
+
+})
 
 function updateCustomVideos() {
     let allowedVideos = store.get('allowedVideos');
@@ -347,17 +510,13 @@ function downloadFile(file_url, targetPath, callback) {
     var total_bytes = 0;
 
     agentOptions = {
-        host: 'sylvan.apple.com'
-        , path: '/'
-        , rejectUnauthorized: false
+        host: 'sylvan.apple.com', path: '/', rejectUnauthorized: false
     };
 
     let agent = new https.Agent(agentOptions);
 
     let req = request({
-        method: 'GET',
-        uri: file_url,
-        agent: agent
+        method: 'GET', uri: file_url, agent: agent
     });
 
     let out = fs.createWriteStream(targetPath);
@@ -521,3 +680,103 @@ function clearCacheTemp() {
         }
     });
 }
+
+function randomInt(min, max) {
+    return Math.floor(Math.random() * max) - min;
+}
+
+function quitApp() {
+    if (!nq) {
+        //app.quit();
+        if (store.get("lockAfterRun")) {
+            lockComputer();
+        }
+        closeAllWindows();
+        currentlyPlaying = '';
+    }
+}
+
+function closeAllWindows() {
+    for (let i = 0; i < screens.length; i++) {
+        if (!screens[i].isDestroyed()) {
+            screens[i].close();
+        }
+    }
+    screens = [];
+}
+
+function sleepComputer() {
+    if (preview) {
+        return
+    }
+    closeAllWindows();
+    exec("rundll32.exe powrprof.dll, SetSuspendState Sleep");
+
+}
+
+function lockComputer() {
+    if (preview) {
+        return
+    }
+    exec("Rundll32.exe user32.dll,LockWorkStation");
+}
+
+function firstVideoPlayed() {
+    setTimeOfDay();
+    if (store.get('blankScreen')) {
+        setTimeout(() => {
+            for (let i = 0; i < screens.length; i++) {
+                screens[i].webContents.send('blankTheScreen');
+                if (store.get('sleepAfterBlank')) {
+                    //sleep the computer after a few seconds of blank screen
+                    setTimeout(() => {
+                        sleepComputer()
+                    }, store.get('videoTransitionLength') * 3)
+                }
+            }
+        }, store.get('blankAfter') * 60000);
+    }
+}
+
+function setTimeOfDay() {
+    if (store.get('timeOfDay')) {
+        for (let i = 0; i < allowedVideos.length; i++) {
+            let index = videos.findIndex((e) => {
+                if (allowedVideos[i] === e.id) {
+                    return true;
+                }
+            });
+            switch (videos[index].timeOfDay) {
+                case "day":
+                    tod.day.push(allowedVideos[i]);
+                    break;
+                case "night":
+                    tod.night.push(allowedVideos[i]);
+                    break;
+                default:
+                    tod.none.push(allowedVideos[i]);
+            }
+            if (tod.day.length <= 3) {
+                tod.day.push(...tod.none);
+            }
+            if (tod.night.length <= 3) {
+                tod.night.push(...tod.none);
+            }
+        }
+    }
+}
+
+setTimeOfDay();
+
+//idle startup timer
+function launchScreensaver() {
+    //console.log(screens.length,powerMonitor.getSystemIdleTime(),store.get('startAfter') * 60)
+    if (screens.length === 0) {
+        let idleTime = powerMonitor.getSystemIdleTime();
+        if (idleTime >= store.get('startAfter') * 60) {
+            createSSWindow();
+        }
+    }
+}
+
+setInterval(launchScreensaver, 5000);

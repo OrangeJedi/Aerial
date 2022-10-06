@@ -1,13 +1,12 @@
 {
   "name": "aerial",
-  "version": "0.5.4",
+  "version": "1.0.0",
   "description": "Apple TV screen saver for Windows",
   "main": "app.js",
   "scripts": {
     "start": "electron .",
     "dist": "electron-builder",
-    "build-folder": "electron-packager .",
-    "build-exe": "electron-builder build"
+    "build": "electron-builder build"
   },
   "repository": {
     "type": "git",
@@ -20,23 +19,30 @@
   },
   "homepage": "https://github.com/OrangeJedi/Aerial#readme",
   "devDependencies": {
-    "electron": "^8.2.4",
-    "electron-builder": "^22.4.1",
-    "electron-packager": "^14.2.1"
+    "electron": "^21.0.1",
+    "electron-builder": "^23.3.3"
   },
   "dependencies": {
-    "electron-store": "^5.1.1",
+    "auto-launch": "^5.0.5",
+    "electron-store": "^8.1.0",
     "font-list-universal": "^1.0.0",
     "json-beautify": "^1.1.1",
     "request": "^2.88.2"
   },
   "build": {
     "win": {
-      "target": "portable"
+      "target": "nsis"
+    },
+    "nsis": {
+      "installerIcon": "icon.ico",
+      "perMachine": false
     },
     "portable": {
       "artifactName": "aerial.exe",
       "useZip": true
-    }
+    },
+    "icon": "icon.ico",
+    "productName": "Aerial",
+    "buildVersion": "0.6.0"
   }
 }
