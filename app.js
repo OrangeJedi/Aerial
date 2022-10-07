@@ -79,6 +79,7 @@ function createJSONConfigWindow() {
 }
 
 function createSSWindow() {
+    nq = false;
     let displays = screen.getAllDisplays();
     for (let i = 0; i < screen.getAllDisplays().length; i++) {
         let win = new BrowserWindow({
@@ -119,6 +120,7 @@ function createSSWindow() {
 }
 
 function createSSPWindow(argv) {
+    nq = true;
     let displays = screen.getAllDisplays();
     let win = new BrowserWindow({
         width: 1280,
@@ -135,6 +137,7 @@ function createSSPWindow(argv) {
     });
     win.loadFile('web/screensaver.html');
     win.on('closed', function () {
+        nq = false;
         win = null;
         preview = false;
     });
@@ -433,7 +436,6 @@ ipcMain.on('refreshCache', (event) => {
 });
 
 ipcMain.on('openPreview', (event) => {
-    nq = true;
     createSSPWindow(process.argv);
 });
 
