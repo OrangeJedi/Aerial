@@ -6,6 +6,8 @@ let currentlyPlaying = '';
 let transitionTimeout;
 let poiTimeout = [];
 let blackScreen = false;
+let previousErrorId = "";
+let numErrors = 1;
 
 function quitApp() {
     electron.ipcRenderer.send('quitApp');
@@ -33,14 +35,19 @@ video.addEventListener('play', (event) => {
 });
 video.addEventListener('ended', (event) => {
     newVideo();
+    numErrors = 0;
 });
 video.addEventListener("error", (event) => {
     setTimeout(() => {
         if (video.currentTime === 0) {
             console.log('VIDEO PLAYBACK ERROR - Playing new video', event);
-            newVideo();
+            if(previousErrorId !== currentlyPlaying) {
+                newVideo();
+            }
+            previousErrorId = currentlyPlaying;
+            numErrors++;
         }
-    }, 400);
+    }, 500 * numErrors);
 });
 
 function newVideo() {

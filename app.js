@@ -13,7 +13,7 @@ let screenIds = [];
 let nq = false;
 let cachePath = store.get('cachePath') ?? path.join(app.getPath('userData'), "videos");
 let downloading = false;
-const allowedVideos = store.get("allowedVideos");
+let allowedVideos = store.get("allowedVideos");
 let previouslyPlayed = [];
 let currentlyPlaying = '';
 let autoLauncher = new AutoLaunch({
@@ -81,6 +81,8 @@ function createJSONConfigWindow() {
 
 function createSSWindow() {
     nq = false;
+    allowedVideos = store.get("allowedVideos");
+    previouslyPlayed = [];
     let displays = screen.getAllDisplays();
     for (let i = 0; i < screen.getAllDisplays().length; i++) {
         let win = new BrowserWindow({
@@ -122,6 +124,8 @@ function createSSWindow() {
 
 function createSSPWindow(argv) {
     nq = true;
+    allowedVideos = store.get("allowedVideos");
+    previouslyPlayed = [];
     let displays = screen.getAllDisplays();
     let win = new BrowserWindow({
         width: 1280,
@@ -463,7 +467,6 @@ ipcMain.handle('newVideoId', (event, lastPlayed) => {
     if (currentlyPlaying === '') {
         firstVideoPlayed();
     }
-
     function newId() {
         let id = "";
         if (store.get('timeOfDay')) {
@@ -472,12 +475,12 @@ ipcMain.handle('newVideoId', (event, lastPlayed) => {
         } else {
             id = allowedVideos[randomInt(0, allowedVideos.length)];
         }
-        if (store.get('avoidDuplicateVideos')) {
+        if (store.get('avoidDuplicateVideos') && allowedVideos.length > 6) {
             if (previouslyPlayed.includes(id)) {
                 return newId();
             } else {
                 previouslyPlayed.push(id);
-                if (previouslyPlayed.length > (allowedVideos.length * .4)) {
+                if (previouslyPlayed.length > (allowedVideos.length * .3)) {
                     previouslyPlayed.shift();
                 }
             }
