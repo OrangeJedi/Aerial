@@ -20,6 +20,7 @@ let autoLauncher = new AutoLaunch({
     name: 'Aerial',
 });
 let preview = false;
+let lastTODCheck;
 
 //time of day code
 let tod = {"day": [], "night": [], "none": []};
@@ -137,6 +138,7 @@ function createSSPWindow(argv) {
     });
     win.loadFile('web/screensaver.html');
     win.on('closed', function () {
+        screens.pop(screens.indexOf(win));
         nq = false;
         win = null;
         preview = false;
@@ -484,7 +486,6 @@ ipcMain.handle('newVideoId', (event, lastPlayed) => {
     }
     currentlyPlaying = newId();
     return currentlyPlaying;
-
 })
 
 function updateCustomVideos() {
@@ -725,7 +726,7 @@ function lockComputer() {
 }
 
 function firstVideoPlayed() {
-    setTimeOfDay();
+    setTimeOfDayList();
     if (store.get('blankScreen')) {
         setTimeout(() => {
             for (let i = 0; i < screens.length; i++) {
@@ -741,7 +742,7 @@ function firstVideoPlayed() {
     }
 }
 
-function setTimeOfDay() {
+function setTimeOfDayList() {
     if (store.get('timeOfDay')) {
         for (let i = 0; i < allowedVideos.length; i++) {
             let index = videos.findIndex((e) => {
@@ -767,9 +768,25 @@ function setTimeOfDay() {
             }
         }
     }
+    console.log(tod);
 }
 
-setTimeOfDay();
+setTimeOfDayList();
+
+function getTimeOfDay() {
+    let cHour = new Date().getHours();
+    let cMin = new Date().getMinutes();
+    let sunriseHour = store.get('sunrise').substring(0, 2);
+    let sunriseMinute = store.get('sunrise').substring(3, 5);
+    let sunsetHour = store.get('sunrise').substring(0, 2);
+    let sunsetMinute = store.get('sunrise').substring(3, 5);
+    let time = "night";
+    if (cHour >= sunriseHour && cMin >= sunriseMinute && cHour < sunsetHour && cMin < sunsetMinute) {
+        time = "day";
+    }
+    console.count(time);
+    return time;
+}
 
 //idle startup timer
 function launchScreensaver() {
