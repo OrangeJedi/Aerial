@@ -6,6 +6,8 @@ let currentlyPlaying = '';
 let transitionTimeout;
 let poiTimeout = [];
 let blackScreen = false;
+let previousErrorId = "";
+let numErrors = 1;
 
 function quitApp() {
     electron.ipcRenderer.send('quitApp');
@@ -32,15 +34,26 @@ video.addEventListener('play', (event) => {
     video.style.backgroundColor = "black";
 });
 video.addEventListener('ended', (event) => {
-        newVideo();
+    newVideo();
+    numErrors = 0;
 });
 video.addEventListener("error", (event) => {
-    console.log('VIDEO PLAYBACK ERROR - Playing new video',event);
-    newVideo();
+    setTimeout(() => {
+        if (video.currentTime === 0) {
+            console.log('VIDEO PLAYBACK ERROR - Playing new video', event);
+            if(previousErrorId !== currentlyPlaying) {
+                newVideo();
+            }
+            previousErrorId = currentlyPlaying;
+            numErrors++;
+        }
+    }, 500 * numErrors);
 });
 
 function newVideo() {
-    if(blackScreen){ return}
+    if (blackScreen) {
+        return
+    }
     clearTimeout(transitionTimeout);
     videoAlpha = 0;
     video.src = "";
@@ -107,7 +120,7 @@ function fadeTextOut(time) {
     if (time > 0) {
         transitionTimeout = setTimeout(fadeTextOut, 16, time - 16);
     }
-    $('#textDisplayArea').css('opacity',time / transitionLength);
+    $('#textDisplayArea').css('opacity', time / transitionLength);
 }
 
 function fadeVideoIn(time) {
@@ -131,8 +144,8 @@ function changePOI(position, currentPOI, poiList) {
     }
 }
 
-function clearTimeouts(arr){
-    for(let i = 0; i < arr.length;i++){
+function clearTimeouts(arr) {
+    for (let i = 0; i < arr.length; i++) {
         clearTimeout(arr[i]);
     }
     return [];
@@ -172,7 +185,9 @@ if (videoQuality) {
 }
 
 function runClock(position, timeString) {
-    if(blackScreen){return}
+    if (blackScreen) {
+        return
+    }
     $(`#textDisplay-${position}`).text(moment().format(timeString));
     setTimeout(runClock, 1000 - new Date().getMilliseconds(), position, timeString);
 }
@@ -228,7 +243,7 @@ electron.ipcRenderer.on('blankTheScreen', () => {
     blackScreen = true;
     fadeVideoOut(transitionLength);
     fadeTextOut(transitionLength)
-    setTimeout(() =>{
+    setTimeout(() => {
         video.src = "";
-    },transitionLength);
+    }, transitionLength);
 });

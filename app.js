@@ -11,15 +11,16 @@ const AutoLaunch = require('auto-launch');
 let screens = [];
 let screenIds = [];
 let nq = false;
-let cachePath = store.get('cachePath') ?? `${app.getPath('userData')}/videos`;
+let cachePath = store.get('cachePath') ?? path.join(app.getPath('userData'), "videos");
 let downloading = false;
-const allowedVideos = store.get("allowedVideos");
+let allowedVideos = store.get("allowedVideos");
 let previouslyPlayed = [];
 let currentlyPlaying = '';
 let autoLauncher = new AutoLaunch({
     name: 'Aerial',
 });
 let preview = false;
+let suspend = false;
 
 //time of day code
 let tod = {"day": [], "night": [], "none": []};
@@ -79,6 +80,9 @@ function createJSONConfigWindow() {
 }
 
 function createSSWindow() {
+    nq = false;
+    allowedVideos = store.get("allowedVideos");
+    previouslyPlayed = [];
     let displays = screen.getAllDisplays();
     for (let i = 0; i < screen.getAllDisplays().length; i++) {
         let win = new BrowserWindow({
@@ -119,6 +123,9 @@ function createSSWindow() {
 }
 
 function createSSPWindow(argv) {
+    nq = true;
+    allowedVideos = store.get("allowedVideos");
+    previouslyPlayed = [];
     let displays = screen.getAllDisplays();
     let win = new BrowserWindow({
         width: 1280,
@@ -135,6 +142,8 @@ function createSSPWindow(argv) {
     });
     win.loadFile('web/screensaver.html');
     win.on('closed', function () {
+        screens.pop(screens.indexOf(win));
+        nq = false;
         win = null;
         preview = false;
     });
@@ -176,6 +185,12 @@ function createTrayWindow() {
                 createSSWindow();
             }
         },
+        {
+            label: 'Suspend Aerial',
+            type: "checkbox",
+            checked: false,
+            click: (e) => suspend = e.checked  // click event handler
+        },
         {type: "separator"},
         {
             label: "Exit Aerial", click: (item, window, event) => {
@@ -196,11 +211,11 @@ function startUp() {
     if (!store.get("configured") || store.get("version") !== app.getVersion()) {
         firstTime = true;
         //make video cache directory
-        if (!fs.existsSync(`${app.getPath('userData')}/videos/`)) {
-            fs.mkdirSync(`${app.getPath('userData')}/videos/`);
+        if (!fs.existsSync(path.join(app.getPath('userData'), "videos"))) {
+            fs.mkdirSync(path.join(app.getPath('userData'), "videos"));
         }
-        if (!fs.existsSync(`${app.getPath('userData')}/videos/temp`)) {
-            fs.mkdirSync(`${app.getPath('userData')}/videos/temp`);
+        if (!fs.existsSync(path.join(app.getPath('userData'), "videos", "temp"))) {
+            fs.mkdirSync(path.join(app.getPath('userData'), "videos", "temp"));
         }
         //video lists
         if (!store.get('allowedVideos')) {
@@ -409,11 +424,12 @@ ipcMain.on('selectCacheLocation', async (event, arg) => {
     const result = await dialog.showOpenDialog(screens[0], {
         properties: ['openDirectory']
     });
-    const path = result.filePaths[0];
+    const newPath = result.filePaths[0];
     //removeAllVideosInCache();
-    if (path != undefined) {
-        cachePath = path;
-        store.set('cachePath', path);
+    if (newPath != undefined) {
+        cachePath = newPath;
+        store.set('cachePath', newPath);
+        fs.mkdirSync(path.join(store.get('cachePath'), "temp"));
         updateVideoCache(() => {
             event.reply('displaySettings');
         });
@@ -433,7 +449,6 @@ ipcMain.on('refreshCache', (event) => {
 });
 
 ipcMain.on('openPreview', (event) => {
-    nq = true;
     createSSPWindow(process.argv);
 });
 
@@ -452,7 +467,6 @@ ipcMain.handle('newVideoId', (event, lastPlayed) => {
     if (currentlyPlaying === '') {
         firstVideoPlayed();
     }
-
     function newId() {
         let id = "";
         if (store.get('timeOfDay')) {
@@ -461,12 +475,12 @@ ipcMain.handle('newVideoId', (event, lastPlayed) => {
         } else {
             id = allowedVideos[randomInt(0, allowedVideos.length)];
         }
-        if (store.get('avoidDuplicateVideos')) {
+        if (store.get('avoidDuplicateVideos') && allowedVideos.length > 6) {
             if (previouslyPlayed.includes(id)) {
                 return newId();
             } else {
                 previouslyPlayed.push(id);
-                if (previouslyPlayed.length > (allowedVideos.length * .4)) {
+                if (previouslyPlayed.length > (allowedVideos.length * .3)) {
                     previouslyPlayed.shift();
                 }
             }
@@ -481,7 +495,6 @@ ipcMain.handle('newVideoId', (event, lastPlayed) => {
     }
     currentlyPlaying = newId();
     return currentlyPlaying;
-
 })
 
 function updateCustomVideos() {
@@ -722,7 +735,7 @@ function lockComputer() {
 }
 
 function firstVideoPlayed() {
-    setTimeOfDay();
+    setTimeOfDayList();
     if (store.get('blankScreen')) {
         setTimeout(() => {
             for (let i = 0; i < screens.length; i++) {
@@ -738,7 +751,7 @@ function firstVideoPlayed() {
     }
 }
 
-function setTimeOfDay() {
+function setTimeOfDayList() {
     if (store.get('timeOfDay')) {
         for (let i = 0; i < allowedVideos.length; i++) {
             let index = videos.findIndex((e) => {
@@ -766,12 +779,26 @@ function setTimeOfDay() {
     }
 }
 
-setTimeOfDay();
+setTimeOfDayList();
+
+function getTimeOfDay() {
+    let cHour = new Date().getHours();
+    let cMin = new Date().getMinutes();
+    let sunriseHour = store.get('sunrise').substring(0, 2);
+    let sunriseMinute = store.get('sunrise').substring(3, 5);
+    let sunsetHour = store.get('sunset').substring(0, 2);
+    let sunsetMinute = store.get('sunset').substring(3, 5);
+    let time = "night";
+    if ((cHour === sunriseHour && cMin >= sunriseMinute) || (cHour > sunriseHour && cHour < sunsetHour) || (cHour === sunsetHour && cMin < sunsetMinute)) {
+        time = "day";
+    }
+    return time;
+}
 
 //idle startup timer
 function launchScreensaver() {
     //console.log(screens.length,powerMonitor.getSystemIdleTime(),store.get('startAfter') * 60)
-    if (screens.length === 0) {
+    if (screens.length === 0 && !suspend) {
         let idleTime = powerMonitor.getSystemIdleTime();
         if (idleTime >= store.get('startAfter') * 60) {
             createSSWindow();
