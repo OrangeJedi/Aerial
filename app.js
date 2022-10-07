@@ -777,13 +777,12 @@ function getTimeOfDay() {
     let cMin = new Date().getMinutes();
     let sunriseHour = store.get('sunrise').substring(0, 2);
     let sunriseMinute = store.get('sunrise').substring(3, 5);
-    let sunsetHour = store.get('sunrise').substring(0, 2);
-    let sunsetMinute = store.get('sunrise').substring(3, 5);
+    let sunsetHour = store.get('sunset').substring(0, 2);
+    let sunsetMinute = store.get('sunset').substring(3, 5);
     let time = "night";
-    if (cHour >= sunriseHour && cMin >= sunriseMinute && cHour < sunsetHour && cMin < sunsetMinute) {
+    if((cHour === sunriseHour && cMin >= sunriseMinute) || (cHour > sunriseHour && cHour < sunsetHour) || (cHour === sunsetHour && cMin < sunsetMinute)){
         time = "day";
     }
-    console.count(time);
     return time;
 }
 
