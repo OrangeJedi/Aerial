@@ -768,7 +768,6 @@ function setTimeOfDayList() {
             }
         }
     }
-    console.log(tod);
 }
 
 setTimeOfDayList();
