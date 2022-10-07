@@ -20,7 +20,7 @@ let autoLauncher = new AutoLaunch({
     name: 'Aerial',
 });
 let preview = false;
-let lastTODCheck;
+let suspend = false;
 
 //time of day code
 let tod = {"day": [], "night": [], "none": []};
@@ -180,6 +180,12 @@ function createTrayWindow() {
             label: "Start Aerial", click: (item, window, event) => {
                 createSSWindow();
             }
+        },
+        {
+            label: 'Suspend Aerial',
+            type: "checkbox",
+            checked: false,
+            click: (e) => suspend = e.checked  // click event handler
         },
         {type: "separator"},
         {
@@ -780,7 +786,7 @@ function getTimeOfDay() {
     let sunsetHour = store.get('sunset').substring(0, 2);
     let sunsetMinute = store.get('sunset').substring(3, 5);
     let time = "night";
-    if((cHour === sunriseHour && cMin >= sunriseMinute) || (cHour > sunriseHour && cHour < sunsetHour) || (cHour === sunsetHour && cMin < sunsetMinute)){
+    if ((cHour === sunriseHour && cMin >= sunriseMinute) || (cHour > sunriseHour && cHour < sunsetHour) || (cHour === sunsetHour && cMin < sunsetMinute)) {
         time = "day";
     }
     return time;
@@ -789,7 +795,7 @@ function getTimeOfDay() {
 //idle startup timer
 function launchScreensaver() {
     //console.log(screens.length,powerMonitor.getSystemIdleTime(),store.get('startAfter') * 60)
-    if (screens.length === 0) {
+    if (screens.length === 0 && !suspend) {
         let idleTime = powerMonitor.getSystemIdleTime();
         if (idleTime >= store.get('startAfter') * 60) {
             createSSWindow();
