@@ -11,7 +11,7 @@ const AutoLaunch = require('auto-launch');
 let screens = [];
 let screenIds = [];
 let nq = false;
-let cachePath = store.get('cachePath') ?? `${app.getPath('userData')}/videos`;
+let cachePath = store.get('cachePath') ?? path.join(app.getPath('userData'), "videos");
 let downloading = false;
 const allowedVideos = store.get("allowedVideos");
 let previouslyPlayed = [];
@@ -199,11 +199,11 @@ function startUp() {
     if (!store.get("configured") || store.get("version") !== app.getVersion()) {
         firstTime = true;
         //make video cache directory
-        if (!fs.existsSync(`${app.getPath('userData')}/videos/`)) {
-            fs.mkdirSync(`${app.getPath('userData')}/videos/`);
+        if (!fs.existsSync(path.join(app.getPath('userData'), "videos"))) {
+            fs.mkdirSync(path.join(app.getPath('userData'), "videos"));
         }
-        if (!fs.existsSync(`${app.getPath('userData')}/videos/temp`)) {
-            fs.mkdirSync(`${app.getPath('userData')}/videos/temp`);
+        if (!fs.existsSync(path.join(app.getPath('userData'), "videos", "temp"))) {
+            fs.mkdirSync(path.join(app.getPath('userData'), "videos", "temp"));
         }
         //video lists
         if (!store.get('allowedVideos')) {
@@ -412,11 +412,12 @@ ipcMain.on('selectCacheLocation', async (event, arg) => {
     const result = await dialog.showOpenDialog(screens[0], {
         properties: ['openDirectory']
     });
-    const path = result.filePaths[0];
+    const newPath = result.filePaths[0];
     //removeAllVideosInCache();
-    if (path != undefined) {
-        cachePath = path;
-        store.set('cachePath', path);
+    if (newPath != undefined) {
+        cachePath = newPath;
+        store.set('cachePath', newPath);
+        fs.mkdirSync(path.join(store.get('cachePath'), "temp"));
         updateVideoCache(() => {
             event.reply('displaySettings');
         });
