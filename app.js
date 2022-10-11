@@ -21,6 +21,7 @@ let autoLauncher = new AutoLaunch({
 });
 let preview = false;
 let suspend = false;
+let isComputerSleeping = false;
 
 //time of day code
 let tod = {"day": [], "night": [], "none": []};
@@ -497,6 +498,11 @@ ipcMain.handle('newVideoId', (event, lastPlayed) => {
     return currentlyPlaying;
 })
 
+powerMonitor.on('resume',()=>{
+    //let Aerial know that the system has been woken up so it can run again
+    isComputerSleeping = false;
+});
+
 function updateCustomVideos() {
     let allowedVideos = store.get('allowedVideos');
     let customVideos = store.get('customVideos');
@@ -724,7 +730,7 @@ function sleepComputer() {
     }
     closeAllWindows();
     exec("rundll32.exe powrprof.dll, SetSuspendState Sleep");
-
+    isComputerSleeping = true;
 }
 
 function lockComputer() {
@@ -798,7 +804,7 @@ function getTimeOfDay() {
 //idle startup timer
 function launchScreensaver() {
     //console.log(screens.length,powerMonitor.getSystemIdleTime(),store.get('startAfter') * 60)
-    if (screens.length === 0 && !suspend) {
+    if (screens.length === 0 && !suspend && !isComputerSleeping) {
         let idleTime = powerMonitor.getSystemIdleTime();
         if (idleTime >= store.get('startAfter') * 60) {
             createSSWindow();
