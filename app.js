@@ -1,5 +1,16 @@
 //load libraries
-const {app, BrowserWindow, ipcMain, screen, shell, dialog, Tray, Menu, powerMonitor, Notification} = require('electron');
+const {
+    app,
+    BrowserWindow,
+    ipcMain,
+    screen,
+    shell,
+    dialog,
+    Tray,
+    Menu,
+    powerMonitor,
+    Notification
+} = require('electron');
 const {exec} = require('child_process');
 const videos = require("./videos.json");
 const Store = require('electron-store');
@@ -59,6 +70,10 @@ function createConfigWindow(argv) {
             }, 1500);
         }
     }
+    win.webContents.setWindowOpenHandler(({url}) => {
+        shell.openExternal(url);
+        return {action: 'deny'};
+    });
     screens.push(win);
 }
 
@@ -222,8 +237,8 @@ function startUp() {
         }
         setUpConfigFile();
     }
+    checkForUpdate();
     //configures Aerial to launch on startup
-
     if (store.get('useTray') && app.isPackaged) {
         autoLauncher.enable();
     } else {
@@ -260,7 +275,6 @@ function startUp() {
         }
     }
     setTimeout(downloadVideos, 1500);
-    setTimeout(checkForUpdate, 500);
 }
 
 //loads the config file with the default setting if not set up already
@@ -286,6 +300,7 @@ function setUpConfigFile() {
     store.set('blankAfter', store.get('blankAfter') ?? 30);
     store.set('sleepAfterBlank', store.get('sleepAfterBlank') ?? true);
     store.set('lockAfterRun', store.get('lockAfterRun') ?? false);
+    store.set('updateAvailable', false);
 
     //general settings
     store.set('timeOfDay', store.get('timeOfDay') ?? false);
@@ -362,11 +377,17 @@ function setUpConfigFile() {
 
 //check for update on GitHub
 function checkForUpdate() {
+    store.set('updateAvailable', false);
     request('https://raw.githubusercontent.com/OrangeJedi/Aerial/master/package.json', function (error, response, body) {
         const onlinePackage = JSON.parse(body);
         if (onlinePackage.version && app.isPackaged) {
+        //if (onlinePackage.version) {
             if (onlinePackage.version[0] > app.getVersion()[0] || onlinePackage.version[2] > app.getVersion()[2] || onlinePackage.version[4] > app.getVersion()[4]) {
-                new Notification({ title: "An update for Aerial is available", body: `Version ${onlinePackage.version} is available for download. Visit https://github.com/OrangeJedi/Aerial/releases to update Aerial.` }).show()
+                store.set('updateAvailable', onlinePackage.version);
+                new Notification({
+                    title: "An update for Aerial is available",
+                    body: `Version ${onlinePackage.version} is available for download. Visit https://github.com/OrangeJedi/Aerial/releases to update Aerial.`
+                }).show()
             }
         }
     });

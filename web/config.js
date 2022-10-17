@@ -9,11 +9,11 @@ let customVideos = electron.store.get("customVideos");
 
 //Updates all the <input> tags with their proper values. Called on page load
 function displaySettings() {
-    let checked = ["timeOfDay", "skipVideosWithKey", "sameVideoOnScreens", "videoCache", "videoCacheProfiles", "videoCacheRemoveUnallowed", "avoidDuplicateVideos", "onlyShowVideoOnPrimaryMonitor", "videoQuality", "immediatelyUpdateVideoCache","useTray","blankScreen","sleepAfterBlank","lockAfterRun"];
+    let checked = ["timeOfDay", "skipVideosWithKey", "sameVideoOnScreens", "videoCache", "videoCacheProfiles", "videoCacheRemoveUnallowed", "avoidDuplicateVideos", "onlyShowVideoOnPrimaryMonitor", "videoQuality", "immediatelyUpdateVideoCache", "useTray", "blankScreen", "sleepAfterBlank", "lockAfterRun"];
     for (let i = 0; i < checked.length; i++) {
         $(`#${checked[i]}`).prop('checked', electron.store.get(checked[i]));
     }
-    let numTxt = ["sunrise", "sunset", "textFont", "textSize", "textColor","startAfter","blankAfter"];
+    let numTxt = ["sunrise", "sunset", "textFont", "textSize", "textColor", "startAfter", "blankAfter"];
     for (let i = 0; i < numTxt.length; i++) {
         $(`#${numTxt[i]}`).val(electron.store.get(numTxt[i]));
     }
@@ -26,9 +26,20 @@ function displaySettings() {
     for (let i = 0; i < numeralText.length; i++) {
         $(`#${numeralText[i].id}`).text(numeral(electron.store.get(numeralText[i].id)).format(numeralText[i].format));
     }
+    let staticText = ["version", "updateAvailable"]
+    for (let i = 0; i < staticText.length; i++) {
+        $(`#${staticText[i]}`).text(electron.store.get(staticText[i]));
+    }
     displayPlaybackSettings();
     displayCustomVideos();
     colorTextPositionRadio();
+
+    //display update, if there is one
+    console.log(electron.store.get('updateAvailable'));
+    if (electron.store.get('updateAvailable') !== false) {
+        document.getElementById(`aboutUpdate`).style.display = "";
+        document.getElementById(`updateBadge`).style.display = "";
+    }
 }
 
 displaySettings();

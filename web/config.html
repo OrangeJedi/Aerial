@@ -34,6 +34,7 @@
             Cache</a>
         <a onclick="selectSetting('customVideo')" id="settingsList-customVideo" class="w3-bar-item w3-button settingsListItem">Custom
             Videos</a>
+        <a onclick="selectSetting('about')" id="settingsList-about" class="w3-bar-item w3-button settingsListItem">About <span id="updateBadge" style="display: none" class="w3-badge w3-deep-orange">1</span></a>
     </div>
     <div id="generalCard" style="margin-left:20%">
         <div id="generalSettings" class="settingsCard">
@@ -171,6 +172,21 @@
             <div class="w3-display-container" style="padding: 2%">
                 <button onclick="electron.ipcRenderer.send('selectCustomLocation')">Add Folder</button>
                 <div id="customVideoList"></div>
+            </div>
+        </div>
+        <div id="aboutSettings" class="settingsCard" style="display: none">
+            <div class="w3-container w3-blue">
+                <h3>About Aerial</h3>
+            </div>
+            <div class="w3-display-container" style="padding: 2%">
+                Version: <span id="version"></span>
+                <div id="aboutUpdate" style="display: none">
+                    <br>
+                    <div class="w3-panel w3-pale-green" style="padding-bottom: 2%">
+                        <h4>A new version of Aerial is available!</h4>
+                        <a href="https://github.com/OrangeJedi/Aerial/releases" target="_blank">Click here</a> to download version v<span id="updateAvailable"></span>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -463,9 +479,14 @@
             <br>
             <p>
             <h2>Welcome to Aerial</h2>
-            <p>You've installed Aerial successfully! The next time your computer isn't doing anything Aerial will start up and display those gorgeous screensavers.</p>
-            <p>If you want to fine-tweak how Aerial runs, chose what videos to play, or maybe even add a clock in the corner, simply use this menu to configure it. To reopen the config window, right-click on the tray icon and select 'config'.</p>
-            <p>If you have any questions find us online at <a href="https://github.com/OrangeJedi/Aerial">github.com/OrangeJedi/Aerial</a></p>
+            <p>You've installed Aerial successfully! The next time your computer isn't doing anything Aerial will start
+                up and display those gorgeous screensavers.</p>
+            <p>If you want to fine-tweak how Aerial runs, chose what videos to play, or maybe even add a clock in the
+                corner, simply use this menu to configure it. To reopen the config window, right-click on the tray icon
+                and select 'config'.</p>
+            <p>If you have any questions find us online at
+                <a href="https://github.com/OrangeJedi/Aerial">github.com/OrangeJedi/Aerial</a>
+            </p>
             <p>Thanks for using Aerial! We hope you enjoy it!</p>
             <br>
             <button class="w3-button w3-white w3-border w3-border-blue w3-round-large" onclick="document.getElementById('welcomeMessage').style.display='none';">
