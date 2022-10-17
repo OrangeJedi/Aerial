@@ -1,5 +1,5 @@
 //load libraries
-const {app, BrowserWindow, ipcMain, screen, shell, dialog, remote, Tray, Menu, powerMonitor} = require('electron');
+const {app, BrowserWindow, ipcMain, screen, shell, dialog, Tray, Menu, powerMonitor, Notification} = require('electron');
 const {exec} = require('child_process');
 const videos = require("./videos.json");
 const Store = require('electron-store');
@@ -362,7 +362,14 @@ function setUpConfigFile() {
 
 //check for update on GitHub
 function checkForUpdate() {
-
+    request('https://raw.githubusercontent.com/OrangeJedi/Aerial/master/package.json', function (error, response, body) {
+        const onlinePackage = JSON.parse(body);
+        if (onlinePackage.version && app.isPackaged) {
+            if (onlinePackage.version[0] > app.getVersion()[0] || onlinePackage.version[2] > app.getVersion()[2] || onlinePackage.version[4] > app.getVersion()[4]) {
+                new Notification({ title: "An update for Aerial is available", body: `Version ${onlinePackage.version} is available for download. Visit https://github.com/OrangeJedi/Aerial/releases to update Aerial.` }).show()
+            }
+        }
+    });
 }
 
 //events from browser windows
