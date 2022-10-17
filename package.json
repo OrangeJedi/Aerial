@@ -41,6 +41,7 @@
       "artifactName": "aerial.exe",
       "useZip": true
     },
+    "files": ["!documentation/*", "!images/*"],
     "icon": "icon.ico",
     "productName": "Aerial",
     "buildVersion": "0.6.0"
