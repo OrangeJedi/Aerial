@@ -77,8 +77,10 @@ function createConfigWindow(argv) {
     screens.push(win);
 }
 
-function createSSWindow() {
-    nq = false;
+function createSSWindow(argv) {
+    if (!argv.includes("/nq")) {
+        nq = false;
+    }
     allowedVideos = store.get("allowedVideos");
     previouslyPlayed = [];
     let displays = screen.getAllDisplays();
@@ -95,12 +97,13 @@ function createSSWindow() {
             },
             x: displays[i].bounds.x,
             y: displays[i].bounds.y,
-            fullscreen: true,
+            //sets the screensaver to run as windows if the 'no-quit' mode had been set
+            fullscreen: !nq,
             transparent: true,
-            frame: false,
+            frame: nq,
             icon: path.join(__dirname, 'icon.ico')
         })
-        win.setMenu(null);
+
         if (store.get("onlyShowVideoOnPrimaryMonitor") && displays[i].id !== screen.getPrimaryDisplay().id) {
             win.loadFile('web/black.html');
         } else {
@@ -109,7 +112,12 @@ function createSSWindow() {
         win.on('closed', function () {
             win = null;
         });
-        win.setAlwaysOnTop(true, "screen-saver");
+        if(!nq){
+            win.setMenu(null);
+            win.setAlwaysOnTop(true, "screen-saver");
+        } else{
+            win.frame = true;
+        }
         screens.push(win);
         screenIds.push(displays[i].id)
     }
@@ -259,7 +267,7 @@ function startUp() {
         //createSSPWindow();
         app.quit();
     } else if (process.argv.includes("/s")) {
-        createSSWindow();
+        createSSWindow(process.argv);
     } else if (process.argv.includes("/t")) {
         createSSPWindow(process.argv);
     } else if (process.argv.includes("/j")) {
