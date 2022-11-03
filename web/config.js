@@ -13,11 +13,11 @@ function displaySettings() {
     for (let i = 0; i < checked.length; i++) {
         $(`#${checked[i]}`).prop('checked', electron.store.get(checked[i]));
     }
-    let numTxt = ["sunrise", "sunset", "textFont", "textSize", "textColor", "startAfter", "blankAfter"];
+    let numTxt = ["sunrise", "sunset", "textFont", "textSize", "textColor", "startAfter", "blankAfter","fps"];
     for (let i = 0; i < numTxt.length; i++) {
         $(`#${numTxt[i]}`).val(electron.store.get(numTxt[i]));
     }
-    let slider = ["playbackSpeed","fps", "videoTransitionLength"];
+    let slider = ["playbackSpeed", "videoTransitionLength"];
     for (let i = 0; i < slider.length; i++) {
         $(`#${slider[i]}`).val(electron.store.get(slider[i]));
         $(`#${slider[i]}Text`).text(electron.store.get(slider[i]));
