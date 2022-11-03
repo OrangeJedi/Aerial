@@ -377,6 +377,7 @@ function setUpConfigFile() {
         'bottommiddle': {'type': "none", "defaultFont": true}
     });
     store.set('videoQuality', store.get('videoQuality') ?? false);
+    store.set('fps', store.get('fps') ?? 60);
 
     //config
     store.set('version', app.getVersion());

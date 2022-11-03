@@ -123,6 +123,11 @@
                     <span id="playbackSpeedText"></span></label><span class="w3-right" onclick="resetSetting('playbackSpeed', 'slider', 1)"><i class="fa fa-undo"></i></span>
                 <br>
                 <input type="range" min=".75" max="4" value="1" step=".05" id="playbackSpeed" class="slider" onchange="updateSetting('playbackSpeed','slider')">
+                <br>
+                <label for="fps">FPS:
+                    <span id="fpsText"></span></label><span class="w3-right" onclick="resetSetting('fps', 'slider', 1)"><i class="fa fa-undo"></i></span>
+                <br>
+                <input type="range" min="30" max="150" value="60" step="15" id="fps" class="slider" onchange="updateSetting('fps','slider')">
                 <h4>Filter Settings
                     <span class="w3-right" onclick="resetFilterSettings()"><i class="fa fa-undo"></i></span></h4>
                 <div class="w3-display-container" id="videoFilterSettings"></div>
