@@ -112,10 +112,10 @@ function createSSWindow(argv) {
         win.on('closed', function () {
             win = null;
         });
-        if(!nq){
+        if (!nq) {
             win.setMenu(null);
             win.setAlwaysOnTop(true, "screen-saver");
-        } else{
+        } else {
             win.frame = true;
         }
         screens.push(win);
@@ -123,8 +123,10 @@ function createSSWindow(argv) {
     }
     //find the screen the cursor is on and focus it so the cursor will hide
     let mainScreen = screens[screenIds.indexOf(screen.getDisplayNearestPoint(screen.getCursorScreenPoint()).id)];
-    if (!mainScreen.isDestroyed()) {
-        mainScreen.focus();
+    if(mainScreen) {
+        if (!mainScreen.isDestroyed()) {
+            mainScreen.focus();
+        }
     }
 }
 
@@ -389,7 +391,7 @@ function checkForUpdate() {
     request('https://raw.githubusercontent.com/OrangeJedi/Aerial/master/package.json', function (error, response, body) {
         const onlinePackage = JSON.parse(body);
         if (onlinePackage.version && app.isPackaged) {
-        //if (onlinePackage.version) {
+            //if (onlinePackage.version) {
             if (onlinePackage.version[0] > app.getVersion()[0] || onlinePackage.version[2] > app.getVersion()[2] || onlinePackage.version[4] > app.getVersion()[4]) {
                 store.set('updateAvailable', onlinePackage.version);
                 new Notification({
