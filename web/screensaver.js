@@ -41,7 +41,7 @@ video.addEventListener("error", (event) => {
     setTimeout(() => {
         if (video.currentTime === 0) {
             console.log('VIDEO PLAYBACK ERROR - Playing new video', event);
-            if(previousErrorId !== currentlyPlaying) {
+            if (previousErrorId !== currentlyPlaying) {
                 newVideo();
             }
             previousErrorId = currentlyPlaying;
@@ -88,8 +88,14 @@ function newVideo() {
             let textArea = $(`#textDisplay-${position}`);
             if (displayText[position].type === "information") {
                 if (displayText[position].infoType === "poi") {
-                    changePOI(position, -1, videoInfo["pointsOfInterest"]);
+                    console.log(videoInfo["pointsOfInterest"] !== undefined);
+                    if (videoInfo["pointsOfInterest"] !== undefined) {
+                        changePOI(position, -1, videoInfo["pointsOfInterest"]);
+                    } else {
+                        changePOI(position, -1, {"0": ""});
+                    }
                 } else {
+                    console.log("hey!");
                     textArea.text(videoInfo[displayText[position].infoType]);
                 }
             }
