@@ -171,17 +171,17 @@ electron.ipcRenderer.on('showWelcome', () => {
 });
 
 //Custom videos
-electron.ipcRenderer.on('newCustomVideos', (event, videoList) => {
+electron.ipcRenderer.on('newCustomVideos', (videoList, path) => {
     customVideos = electron.store.get('customVideos');
     for (let i = 0; i < videoList.length; i++) {
         let index = customVideos.findIndex((e) => {
-            if (`${videoList.path}\\${videoList[i]}` === e.path) {
+            if (`${path}\\${videoList[i]}` === e.path) {
                 return true;
             }
         });
         if (index === -1) {
             customVideos.push({
-                "path": `${videoList.path}\\${videoList[i]}`,
+                "path": `${path}\\${videoList[i]}`,
                 "name": videoList[i],
                 "id": newId(),
                 "accessibilityLabel": "Custom Video"
