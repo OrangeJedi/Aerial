@@ -78,8 +78,15 @@ function createConfigWindow(argv) {
 }
 
 function createSSWindow(argv) {
-    if (!argv.includes("/nq")) {
-        nq = false;
+    switch (argv) {
+        case undefined: 
+            break
+        default: {
+            if (!argv.includes("/nq")) {
+                nq = false;
+                console.log(nq);
+            }
+        }
     }
     allowedVideos = store.get("allowedVideos");
     previouslyPlayed = [];
