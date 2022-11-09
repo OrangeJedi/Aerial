@@ -9,11 +9,11 @@ let customVideos = electron.store.get("customVideos");
 
 //Updates all the <input> tags with their proper values. Called on page load
 function displaySettings() {
-    let checked = ["timeOfDay", "skipVideosWithKey", "sameVideoOnScreens", "videoCache", "videoCacheProfiles", "videoCacheRemoveUnallowed", "avoidDuplicateVideos", "onlyShowVideoOnPrimaryMonitor", "videoQuality", "immediatelyUpdateVideoCache", "useTray", "blankScreen", "sleepAfterBlank", "lockAfterRun"];
+    let checked = ["timeOfDay", "skipVideosWithKey", "sameVideoOnScreens", "videoCache", "videoCacheProfiles", "videoCacheRemoveUnallowed", "avoidDuplicateVideos", "onlyShowVideoOnPrimaryMonitor", "videoQuality", "immediatelyUpdateVideoCache", "useTray", "blankScreen", "sleepAfterBlank", "lockAfterRun","alternateRenderMethod"];
     for (let i = 0; i < checked.length; i++) {
         $(`#${checked[i]}`).prop('checked', electron.store.get(checked[i]));
     }
-    let numTxt = ["sunrise", "sunset", "textFont", "textSize", "textColor", "startAfter", "blankAfter"];
+    let numTxt = ["sunrise", "sunset", "textFont", "textSize", "textColor", "startAfter", "blankAfter","fps"];
     for (let i = 0; i < numTxt.length; i++) {
         $(`#${numTxt[i]}`).val(electron.store.get(numTxt[i]));
     }
@@ -99,6 +99,7 @@ function resetSetting(setting, type, value) {
             $(`#${setting}Text`).text(value);
             $(`#${setting}`).val(value);
         case "number":
+            $(`#${setting}`).val(value);
         case "text":
         case "time":
             electron.store.set(setting, value);
@@ -780,3 +781,14 @@ electron.fontListUniversal.getFonts().then(fonts => {
 function openPreview() {
     electron.ipcRenderer.send('openPreview');
 }
+
+// Shows or hides the FPS settings for the alternate render method
+function fpsVisibility() {
+    if (electron.store.get("alternateRenderMethod")) {
+        $("#alternateRenderMethodFPS").show(300);
+    } else {
+        $("#alternateRenderMethodFPS").hide(200);
+
+    }
+}
+fpsVisibility()

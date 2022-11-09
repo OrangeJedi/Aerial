@@ -112,6 +112,17 @@
                 <br>
                 <input type="checkbox" id="onlyShowVideoOnPrimaryMonitor" class="w3-check" onclick="updateSetting('onlyShowVideoOnPrimaryMonitor','check')">
                 <label for="onlyShowVideoOnPrimaryMonitor">Only play videos on the primary screen</label>
+                <br>
+                <input type="checkbox" id="alternateRenderMethod" class="w3-check" onclick="updateSetting('alternateRenderMethod','check'); fpsVisibility()">
+                <label for="alternateRenderMethod">Alternate Render Method <i>*Use this option if your screensaver freezes on multiple displays</i></label>
+                <br>
+                <br>
+                <div id="alternateRenderMethodFPS">
+                    <label for="fps" id="fpsText"><i>Set the FPS for the Alternate Render Method.
+                    </label><span class="w3-right" onclick="resetSetting('fps', 'number', 60)"><i class="fa fa-undo"></i></span>
+                    <br>
+                    <input style="width: 10%; display: inline !important;" class="w3-input" type="number" id="fps" onchange="updateSetting('fps','number')">
+                </div>
             </div>
         </div>
         <div id="styleSettings" class="settingsCard" style="display: none">

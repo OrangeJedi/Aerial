@@ -78,8 +78,15 @@ function createConfigWindow(argv) {
 }
 
 function createSSWindow(argv) {
-    if (!argv.includes("/nq")) {
-        nq = false;
+    switch (argv) {
+        case undefined: 
+            break
+        default: {
+            if (!argv.includes("/nq")) {
+                nq = false;
+                console.log(nq);
+            }
+        }
     }
     allowedVideos = store.get("allowedVideos");
     previouslyPlayed = [];
@@ -379,6 +386,7 @@ function setUpConfigFile() {
         'bottommiddle': {'type': "none", "defaultFont": true}
     });
     store.set('videoQuality', store.get('videoQuality') ?? false);
+    store.set('fps', store.get('fps') ?? 60);
 
     //config
     store.set('version', app.getVersion());
