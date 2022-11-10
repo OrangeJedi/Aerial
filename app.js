@@ -23,6 +23,7 @@ const AutoLaunch = require('auto-launch');
 let autoLauncher = new AutoLaunch({
     name: 'Aerial',
 });
+const SunCalc = require('suncalc');
 
 //initialize variables
 let screens = [];
@@ -37,6 +38,13 @@ let preview = false;
 let suspend = false;
 let isComputerSleeping = false;
 let tod = {"day": [], "night": [], "none": []};
+let astronomy = {
+    "sunrise": undefined,
+    "sunset": undefined,
+    "moonrise": undefined,
+    "moonset": undefined,
+    "calculated": false
+};
 
 //window creation code
 function createConfigWindow(argv) {
@@ -79,12 +87,11 @@ function createConfigWindow(argv) {
 
 function createSSWindow(argv) {
     switch (argv) {
-        case undefined: 
+        case undefined:
             break
         default: {
             if (!argv.includes("/nq")) {
                 nq = false;
-                console.log(nq);
             }
         }
     }
@@ -130,7 +137,7 @@ function createSSWindow(argv) {
     }
     //find the screen the cursor is on and focus it so the cursor will hide
     let mainScreen = screens[screenIds.indexOf(screen.getDisplayNearestPoint(screen.getCursorScreenPoint()).id)];
-    if(mainScreen) {
+    if (mainScreen) {
         if (!mainScreen.isDestroyed()) {
             mainScreen.focus();
         }
@@ -254,6 +261,7 @@ function startUp() {
         }
         setUpConfigFile();
     }
+    calculateAstronomy();
     checkForUpdate();
     //configures Aerial to launch on startup
     if (store.get('useTray') && app.isPackaged) {
@@ -318,15 +326,10 @@ function setUpConfigFile() {
     store.set('sleepAfterBlank', store.get('sleepAfterBlank') ?? true);
     store.set('lockAfterRun', store.get('lockAfterRun') ?? false);
     store.set('updateAvailable', false);
-
-    //general settings
-    store.set('timeOfDay', store.get('timeOfDay') ?? false);
-    store.set('sunrise', store.get('sunrise') ?? "06:00");
-    store.set('sunset', store.get('sunset') ?? "18:00");
+    //playback settings
     store.set('playbackSpeed', store.get('playbackSpeed') ?? 1);
     store.set('skipVideosWithKey', store.get('skipVideosWithKey') ?? true);
     store.set('avoidDuplicateVideos', store.get('avoidDuplicateVideos') ?? true);
-    //playback settings
     store.set('videoFilters', store.get('videoFilters') ?? [{
         name: 'blur',
         value: 0,
@@ -357,6 +360,13 @@ function setUpConfigFile() {
         defaultValue: 0
     },]);
     store.set('videoTransitionLength', store.get('videoTransitionLength') ?? 1000);
+    //time & location settings
+    store.set('timeOfDay', store.get('timeOfDay') ?? false);
+    store.set('sunrise', store.get('sunrise') ?? "06:00");
+    store.set('sunset', store.get('sunset') ?? "18:00");
+    store.set('useLocationForSunrise', store.get('useLocationForSunrise') ?? false);
+    store.set('latitude', store.get('latitude') ?? "");
+    store.set('longitude', store.get('longitude') ?? "");
     //multiscreen settings
     store.set('sameVideoOnScreens', store.get('sameVideoOnScreens') ?? false);
     store.set('onlyShowVideoOnPrimaryMonitor', store.get('onlyShowVideoOnPrimaryMonitor') ?? false);
@@ -518,6 +528,15 @@ ipcMain.on('resetConfig', (event) => {
     //app.quit();
 });
 
+ipcMain.on('updateLocation', (event) => {
+    calculateAstronomy();
+    if (astronomy.calculated) {
+        store.set('sunrise', (astronomy.sunrise.getHours() < 10 ? '0' : "") + astronomy.sunrise.getHours() + ':' + (astronomy.sunrise.getMinutes() < 10 ? '0' : "") + astronomy.sunrise.getMinutes());
+        store.set('sunset', (astronomy.sunset.getHours() < 10 ? '0' : "") + astronomy.sunset.getHours() + ':' + (astronomy.sunset.getMinutes() < 10 ? '0' : "") + astronomy.sunset.getMinutes());
+        event.reply('displaySettings');
+    }
+});
+
 ipcMain.handle('newVideoId', (event, lastPlayed) => {
     if (currentlyPlaying === '') {
         onFirstVideoPlayed();
@@ -559,7 +578,7 @@ powerMonitor.on('resume', () => {
     isComputerSleeping = false;
 });
 
-//let Aerial load the video with the self-signed cert
+//let Aerial load the video with Apple's self-signed cert
 app.on('certificate-error', (event, webContents, url, error, certificate, callback) => {
     if (url.match(/^https:\/\/sylvan.apple.com/) !== null) {
         event.preventDefault();
@@ -878,6 +897,19 @@ function getTimeOfDay() {
         time = "day";
     }
     return time;
+}
+
+//astronomy code
+function calculateAstronomy() {
+    if (store.get('latitude') !== "" && store.get('longitude') !== "") {
+        let sunTimes = SunCalc.getTimes(new Date(), store.get('latitude'), store.get('longitude'));
+        let moonTimes = SunCalc.getMoonTimes(new Date(), store.get('latitude'), store.get('longitude'))
+        astronomy.sunrise = sunTimes.sunrise;
+        astronomy.sunset = sunTimes.sunset;
+        astronomy.moonrise = moonTimes.rise;
+        astronomy.moonset = moonTimes.set;
+        astronomy.calculated = true;
+    }
 }
 
 //helper functions

@@ -28,6 +28,7 @@
         <a onclick="selectSetting('general')" id="settingsList-general" class="settingsListItem">
             <h3 class="w3-bar-item"><i class="fa fa-cog"></i> Settings</h3></a>
         <a onclick="selectSetting('playback')" id="settingsList-playback" class="w3-bar-item w3-button settingsListItem">Playback</a>
+        <a onclick="selectSetting('time')" id="settingsList-time" class="w3-bar-item w3-button settingsListItem">Time & Location</a>
         <a onclick="selectSetting('multiscreen')" id="settingsList-multiscreen" class="w3-bar-item w3-button settingsListItem">Multiscreen</a>
         <a onclick="selectSetting('style')" id="settingsList-style" class="w3-bar-item w3-button settingsListItem">Style</a>
         <a onclick="selectSetting('cache')" id="settingsList-cache" class="w3-bar-item w3-button settingsListItem">Video
@@ -88,18 +89,33 @@
                 <br>
                 <input type="range" min="750" max="4000" value="1000" step="10" id="videoTransitionLength" class="slider" onchange="updateSetting('videoTransitionLength','slider')">
                 <br><br>
+                <input type="checkbox" id="skipVideosWithKey" class="w3-check" onclick="updateSetting('skipVideosWithKey','check')">
+                <label for="skipVideosWithKey">Use the right arrow key to skip videos</label>
+            </div>
+        </div>
+        <div id="timeSettings" class="settingsCard" style="display: none">
+            <div class="w3-container w3-blue">
+                <h3>Time & Location Settings</h3>
+            </div>
+            <div class="w3-display-container" style="padding: 2%">
                 <input type="checkbox" id="timeOfDay" class="w3-check" onclick="updateSetting('timeOfDay','check')">
-                <label for="timeOfDay">Prioritize current time of day</label>
+                <label for="timeOfDay">Prioritize videos for current time of day</label>
                 <div>
                     <br>
                     <label for="sunrise" style="font-size: smaller">Sunrise</label>
-                    <input style="width: 15%" class="w3-input" type="time" id="sunrise" onchange="updateSetting('sunrise','time')">
+                    <input style="width: 15%; display: inline !important;" class="w3-input" type="time" id="sunrise" onchange="updateSetting('sunrise','time')" disabled>
                     <label for="sunset" style="font-size: smaller">Sunset</label>
-                    <input style="width: 15%" class="w3-input" type="time" id="sunset" onchange="updateSetting('sunset','time')">
+                    <input style="width: 15%; display: inline !important;" class="w3-input" type="time" id="sunset" onchange="updateSetting('sunset','time')">
                 </div>
-                <br>
-                <input type="checkbox" id="skipVideosWithKey" class="w3-check" onclick="updateSetting('skipVideosWithKey','check')">
-                <label for="skipVideosWithKey">Use the right arrow key to skip videos</label>
+                <hr>
+                <input type="checkbox" id="useLocationForSunrise" class="w3-check" onclick="updateSetting('useLocationForSunrise','check')">
+                <label for="useLocationForSunrise">Use location for sunrise & sunset times</label>
+                <br><br>
+                <label for="latitude">Location: </label>
+                <input style="width: 10%; display: inline !important;" class="w3-input" type="number" id="latitude" onchange="updateSetting('latitude','number'); updateLocation()">
+                N <label for="longitude"></label>
+                <input style="width: 10%; display: inline !important;" class="w3-input" type="number" id="longitude" onchange="updateSetting('longitude','number'); updateLocation()">
+                E
             </div>
         </div>
         <div id="multiscreenSettings" class="settingsCard" style="display: none">
@@ -113,13 +129,14 @@
                 <input type="checkbox" id="onlyShowVideoOnPrimaryMonitor" class="w3-check" onclick="updateSetting('onlyShowVideoOnPrimaryMonitor','check')">
                 <label for="onlyShowVideoOnPrimaryMonitor">Only play videos on the primary screen</label>
                 <br>
-                <input type="checkbox" id="alternateRenderMethod" class="w3-check" onclick="updateSetting('alternateRenderMethod','check'); fpsVisibility()">
-                <label for="alternateRenderMethod">Alternate Render Method <i>*Use this option if your screensaver freezes on multiple displays</i></label>
+                <input type="checkbox" id="alternateRenderMethod" class="w3-check" onclick="updateSetting('alternateRenderMethod','check');">
+                <label for="alternateRenderMethod">Alternate Render Method
+                    <i>*Use this option if your screensaver freezes on multiple displays</i></label>
                 <br>
                 <br>
                 <div id="alternateRenderMethodFPS">
-                    <label for="fps" id="fpsText"><i>Set the FPS for the Alternate Render Method.
-                    </label><span class="w3-right" onclick="resetSetting('fps', 'number', 60)"><i class="fa fa-undo"></i></span>
+                    <label for="fps" id="fpsText">Set the FPS for the Alternate Render Method.</label>
+                    <span class="w3-right" onclick="resetSetting('fps', 'number', 60)"><i class="fa fa-undo"></i></span>
                     <br>
                     <input style="width: 10%; display: inline !important;" class="w3-input" type="number" id="fps" onchange="updateSetting('fps','number')">
                 </div>
@@ -198,7 +215,8 @@
                     <a href="https://github.com/cDima/Aerial" target="_blank">Aerial for Windows.</a>
                 </p>
                 <p style="font-size: small">
-                    Visit our <a href="https://github.com/OrangeJedi/Aerial" target="_blank">GitHub repository</a> to report bugs, suggest features, view or download the code, or contribute to Aerial.
+                    Visit our
+                    <a href="https://github.com/OrangeJedi/Aerial" target="_blank">GitHub repository</a> to report bugs, suggest features, view or download the code, or contribute to Aerial.
                     For tips, tricks, a feature list, and other how-to information, visit the
                     <a href="https://github.com/OrangeJedi/Aerial/wiki" target="_blank">Wiki</a>, also hosted on GitHub.
                 </p>
@@ -518,6 +536,20 @@
             <p>Thanks for using Aerial! We hope you enjoy it!</p>
             <br>
             <button class="w3-button w3-white w3-border w3-border-blue w3-round-large" onclick="document.getElementById('welcomeMessage').style.display='none';">
+                Done
+            </button>
+            </p>
+        </div>
+    </div>
+</div>
+<div id="needsLocation" class="w3-modal">
+    <div class="w3-modal-content" style="width: 45%">
+        <div class="w3-container w3-white">
+            <span onclick="document.getElementById('needsLocation').style.display='none'" class="w3-button w3-display-topright">x</span>
+            <br>
+            <h4>You need to set a location first!</h4>
+            <br>
+            <button class="w3-button w3-white w3-border w3-border-blue w3-round-large" onclick="document.getElementById('needsLocation').style.display='none';">
                 Done
             </button>
             </p>

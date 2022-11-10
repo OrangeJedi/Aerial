@@ -9,11 +9,11 @@ let customVideos = electron.store.get("customVideos");
 
 //Updates all the <input> tags with their proper values. Called on page load
 function displaySettings() {
-    let checked = ["timeOfDay", "skipVideosWithKey", "sameVideoOnScreens", "videoCache", "videoCacheProfiles", "videoCacheRemoveUnallowed", "avoidDuplicateVideos", "onlyShowVideoOnPrimaryMonitor", "videoQuality", "immediatelyUpdateVideoCache", "useTray", "blankScreen", "sleepAfterBlank", "lockAfterRun","alternateRenderMethod"];
+    let checked = ["timeOfDay", "skipVideosWithKey", "sameVideoOnScreens", "videoCache", "videoCacheProfiles", "videoCacheRemoveUnallowed", "avoidDuplicateVideos", "onlyShowVideoOnPrimaryMonitor", "videoQuality", "immediatelyUpdateVideoCache", "useTray", "blankScreen", "sleepAfterBlank", "lockAfterRun", "alternateRenderMethod", "useLocationForSunrise"];
     for (let i = 0; i < checked.length; i++) {
         $(`#${checked[i]}`).prop('checked', electron.store.get(checked[i]));
     }
-    let numTxt = ["sunrise", "sunset", "textFont", "textSize", "textColor", "startAfter", "blankAfter","fps"];
+    let numTxt = ["sunrise", "sunset", "textFont", "textSize", "textColor", "startAfter", "blankAfter", "fps", "latitude", "longitude"];
     for (let i = 0; i < numTxt.length; i++) {
         $(`#${numTxt[i]}`).val(electron.store.get(numTxt[i]));
     }
@@ -33,9 +33,10 @@ function displaySettings() {
     displayPlaybackSettings();
     displayCustomVideos();
     colorTextPositionRadio();
+    updateSettingVisibility();
 
     //display update, if there is one
-    console.log(electron.store.get('updateAvailable'));
+    //console.log(electron.store.get('updateAvailable'));
     if (electron.store.get('updateAvailable') !== false) {
         document.getElementById(`aboutUpdate`).style.display = "";
         document.getElementById(`updateBadge`).style.display = "";
@@ -90,6 +91,7 @@ function updateSetting(setting, type) {
             break;
 
     }
+    updateSettingVisibility();
 }
 
 //Sets a setting to its default value, if it exists
@@ -129,6 +131,31 @@ function resetFilterSettings() {
     displayPlaybackSettings();
 }
 
+//Updated input fields that may be effected by another input
+function updateSettingVisibility() {
+    // Shows or hides the FPS settings for the alternate render method
+    if (electron.store.get("alternateRenderMethod")) {
+        $("#alternateRenderMethodFPS").show(300);
+    } else {
+        $("#alternateRenderMethodFPS").hide(200);
+
+    }
+    //disabled sunrise & sunset fields if they are calculated automatically
+    if (electron.store.get("useLocationForSunrise")) {
+        if (document.getElementById('latitude').value !== "" && document.getElementById('longitude').value !== "") {
+            document.getElementById('sunrise').disabled = true;
+            document.getElementById('sunset').disabled = true;
+        } else {
+            document.getElementById('needsLocation').style.display = 'block';
+            electron.store.set('useLocationForSunrise', false);
+            displaySettings();
+        }
+    } else {
+        document.getElementById('sunrise').disabled = false;
+        document.getElementById('sunset').disabled = false;
+    }
+}
+
 //config functions
 function refreshAerial() {
     alert("You will need to run Aerial again to finish the refresh");
@@ -139,6 +166,15 @@ function resetAerial() {
     if (confirm("This will reset all of Aerial's settings; this cannot be undone.\nAre you sure you want to do this?")) {
         alert("You will need to run Aerial again to finish resetting");
         electron.ipcRenderer.send('resetConfig');
+    }
+}
+
+//Menu functions that interacted with app.js
+function updateLocation() {
+    if (electron.store.get('useLocationForSunrise')) {
+        setTimeout(() => {
+            electron.ipcRenderer.send('updateLocation');
+        }, 200);
     }
 }
 
@@ -782,13 +818,17 @@ function openPreview() {
     electron.ipcRenderer.send('openPreview');
 }
 
-// Shows or hides the FPS settings for the alternate render method
-function fpsVisibility() {
-    if (electron.store.get("alternateRenderMethod")) {
-        $("#alternateRenderMethodFPS").show(300);
-    } else {
-        $("#alternateRenderMethodFPS").hide(200);
+navigator.geolocation.getCurrentPosition(function (position) {
 
-    }
-}
-fpsVisibility()
+    const latitude = position.coords.latitude;
+    const longitude = position.coords.longitude;
+    const altitude = position.coords.altitude;
+    const accuracy = position.coords.accuracy;
+    const altitudeAccuracy = position.coords.altitudeAccuracy;
+    const heading = position.coords.height;
+    const speed = position.coords.speed;
+    const timestamp = position.timestamp;
+
+    // work with this information however you'd like!
+    console.log(latitude, longitude);
+});

@@ -28,7 +28,8 @@
     "electron-store": "^8.1.0",
     "font-list-universal": "^1.0.0",
     "json-beautify": "^1.1.1",
-    "request": "^2.88.2"
+    "request": "^2.88.2",
+    "suncalc": "^1.9.0"
   },
   "build": {
     "win": {
@@ -42,7 +43,10 @@
       "artifactName": "aerial.exe",
       "useZip": true
     },
-    "files": ["!documentation/*", "!images/*"],
+    "files": [
+      "!documentation/*",
+      "!images/*"
+    ],
     "icon": "icon.ico",
     "productName": "Aerial"
   }
