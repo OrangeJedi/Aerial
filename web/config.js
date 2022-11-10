@@ -339,14 +339,35 @@ function updatePositionType(position) {
                                     <button onclick="document.getElementById('timeFormatExplain').style.display='block'" class="w3-button w3-white w3-border w3-border-blue w3-round-large" style="margin-top: 2%">Show Formatting Details</button>`;
             break;
         case "information":
+            displayTextSettings[position].infoType = displayTextSettings[position].infoType || "accessibilityLabel";
             let selected = displayTextSettings[position].infoType ? displayTextSettings[position].infoType : "";
-            console.log(selected);
-            html = `<label>Type </label>
+            html = `<br><label>Type </label>
                                         <select onchange="updateTextSetting(this, '${position}', 'infoType')">
                                         <option value="accessibilityLabel" ${selected === "accessibilityLabel" ? "selected" : ""}>Label</option>
                                         <option value="name" ${selected === "name" ? "selected" : ""}>Video Name</option>
                                         <option value="poi" ${selected === "poi" ? "selected" : ""}>Location Information</option>
-                                        </select>`;
+                                        </select><br>`;
+            break;
+        case "astronomy":
+            displayTextSettings[position].astronomy = displayTextSettings[position].astronomy || "sunrise/set";
+            displayTextSettings[position].astroTimeString = displayTextSettings[position].astroTimeString || "hh:mm"
+            let astroType = displayTextSettings[position].astronomy ? displayTextSettings[position].astronomy : "";
+            html = `<br><label>Type </label>
+                                        <select onchange="updateTextSetting(this, '${position}', 'astronomy')">
+                                        <option value="sunrise/set" ${astroType === "sunrise/set" ? "selected" : ""}>Sunrise/Sunset</option>
+                                        <option value="moonrise/set" ${astroType === "moonrise/set" ? "selected" : ""}>Moonrise/Moonset</option>
+                                        <option value="sunrise" ${astroType === "sunrise" ? "selected" : ""}>Sunrise</option>
+                                        <option value="sunset" ${astroType === "sunset" ? "selected" : ""}>Sunset</option>
+                                        <option value="moonrise" ${astroType === "moonrise" ? "selected" : ""}>Moonrise</option>
+                                        <option value="moonset" ${astroType === "moonset" ? "selected" : ""}>Moonset</option>
+                                        </select><br>
+                                        <input class='w3-input' value='${displayTextSettings[position].astroTimeString}' onchange="showMomentDisplay('positionTimeDisplay', this); updateTextSetting(this, '${position}', 'astroTimeString')">
+                                    <span id="positionTimeDisplay">${moment().format(displayTextSettings[position].astroTimeString)}</span>
+                                    <br>
+                                    <button onclick="document.getElementById('timeFormatExplain').style.display='block'" class="w3-button w3-white w3-border w3-border-blue w3-round-large" style="margin-top: 2%">Show Formatting Details</button>\`
+                                    <br>            
+            `;
+            showMomentDisplay('positionTimeDisplay', this);
             break;
     }
     if (displayTextSettings[position].type !== "none") {
@@ -817,18 +838,3 @@ electron.fontListUniversal.getFonts().then(fonts => {
 function openPreview() {
     electron.ipcRenderer.send('openPreview');
 }
-
-navigator.geolocation.getCurrentPosition(function (position) {
-
-    const latitude = position.coords.latitude;
-    const longitude = position.coords.longitude;
-    const altitude = position.coords.altitude;
-    const accuracy = position.coords.accuracy;
-    const altitudeAccuracy = position.coords.altitudeAccuracy;
-    const heading = position.coords.height;
-    const speed = position.coords.speed;
-    const timestamp = position.timestamp;
-
-    // work with this information however you'd like!
-    console.log(latitude, longitude);
-});

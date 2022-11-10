@@ -191,40 +191,38 @@ const useAlternateRenderMethod = electron.store.get("alternateRenderMethod")
 let videoQuality = electron.store.get("videoQuality");
 
 if (useAlternateRenderMethod) {
-  function getAnimationFrame(start) {
-    let time = start;
-    const fns = drawVideoRequests.slice();
-    drawVideoRequests.length = 0;
+    function getAnimationFrame(start) {
+        let time = start;
+        const fns = drawVideoRequests.slice();
+        drawVideoRequests.length = 0;
 
-    const t = performance.now();
-    const dt = t - start;
-    const t1 = 1e3 / animationFPS; //60 FPS;
+        const t = performance.now();
+        const dt = t - start;
+        const t1 = 1e3 / animationFPS; //60 FPS;
 
-    for (const f of fns) f(dt);
+        for (const f of fns) f(dt);
 
-    while (time <= t + t1 / 4) time += t1;
-    setTimeout(getAnimationFrame, time - t, performance.now());
-  }
+        while (time <= t + t1 / 4) time += t1;
+        setTimeout(getAnimationFrame, time - t, performance.now());
+    }
 
-  function requestAnimationFrame(func) {
-    drawVideoRequests.push(func);
-    return drawVideoRequests.length - 1;
-  }
+    function requestAnimationFrame(func) {
+        drawVideoRequests.push(func);
+        return drawVideoRequests.length - 1;
+    }
 
-  
-  if (videoQuality) {
-    $('#video').css('display', '');
-  } else {
-    getAnimationFrame(performance.now());
-    drawVideo();
-  }
-} 
-else {
-  if (videoQuality) {
-    $('#video').css('display', '');
-  } else {
-    drawVideo();
-  }
+    if (videoQuality) {
+        $('#video').css('display', '');
+    } else {
+        getAnimationFrame(performance.now());
+        drawVideo();
+    }
+} else {
+    if (videoQuality) {
+        $('#video').css('display', '');
+    } else {
+        drawVideo();
+    }
 }
 
 function runClock(position, timeString) {
@@ -268,6 +266,45 @@ for (let position of displayText.positionList) {
             break;
         case "time":
             runClock(position, displayText[position].timeString);
+            break;
+        case "astronomy":
+            let html = "";
+            const astronomy = electron.store.get("astronomy");
+            let type = displayText[position].astronomy;
+            if(displayText[position].astronomy === "sunrise/set"){
+                if(new Date() < new Date(astronomy.sunrise) || new Date() > new Date(astronomy.sunset)){
+                    type = "sunrise";
+                }else {
+                    type = "sunset";
+                }
+            }
+            if(displayText[position].astronomy === "moonrise/set"){
+                if(new Date() < new Date(astronomy.moonrise) && new Date() > new Date(astronomy.moonset)){
+                    type = "moonrise";
+                }else {
+                    type = "moonset";
+                }
+            }
+            if(displayText[position].astronomy === "moonrise/set"){
+
+            }
+            switch (type){
+                case "sunrise":
+                    html += "Sunrise @"
+                    break
+                case "sunset":
+                    html += "Sunset @"
+                    break
+                case "moonrise":
+                    html += "Moonrise @"
+                    break
+                case "moonset":
+                    html += "Moonset @"
+                    break
+            }
+            let eventTime = moment(astronomy[type]);
+            html += eventTime.format(displayText[position].astroTimeString);
+            $(`#textDisplay-${position}`).html(html);
             break;
     }
     if (!displayText[position].defaultFont) {

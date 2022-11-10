@@ -96,6 +96,7 @@ function createSSWindow(argv) {
         }
     }
     allowedVideos = store.get("allowedVideos");
+    calculateAstronomy();
     previouslyPlayed = [];
     let displays = screen.getAllDisplays();
     for (let i = 0; i < screen.getAllDisplays().length; i++) {
@@ -367,6 +368,7 @@ function setUpConfigFile() {
     store.set('useLocationForSunrise', store.get('useLocationForSunrise') ?? false);
     store.set('latitude', store.get('latitude') ?? "");
     store.set('longitude', store.get('longitude') ?? "");
+    store.set('astronomy', store.get('astronomy') ?? astronomy)
     //multiscreen settings
     store.set('sameVideoOnScreens', store.get('sameVideoOnScreens') ?? false);
     store.set('onlyShowVideoOnPrimaryMonitor', store.get('onlyShowVideoOnPrimaryMonitor') ?? false);
@@ -909,6 +911,7 @@ function calculateAstronomy() {
         astronomy.moonrise = moonTimes.rise;
         astronomy.moonset = moonTimes.set;
         astronomy.calculated = true;
+        store.set('astronomy', astronomy);
     }
 }
 
