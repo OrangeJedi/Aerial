@@ -349,6 +349,12 @@ function updatePositionType(position) {
                                         </select><br>`;
             break;
         case "astronomy":
+            if (document.getElementById('latitude').value === ""|| document.getElementById('longitude').value === "") {
+                document.getElementById('needsLocation').style.display = 'block';
+                displayTextSettings[position].type = "none";
+                $('#positionTypeSelect').val("none");
+                break;
+            }
             displayTextSettings[position].astronomy = displayTextSettings[position].astronomy || "sunrise/set";
             displayTextSettings[position].astroTimeString = displayTextSettings[position].astroTimeString || "hh:mm"
             let astroType = displayTextSettings[position].astronomy ? displayTextSettings[position].astronomy : "";
