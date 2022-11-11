@@ -102,3 +102,14 @@
     padding-top: 55%;
     padding-left: 5%;
 }
+
+.cardHeader{
+    position: fixed;
+    z-index: 2;
+    width: 100%;
+}
+
+.cardContent{
+    margin-top: 56px;
+    position: absolute;
+}
