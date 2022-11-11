@@ -9,11 +9,11 @@ let customVideos = electron.store.get("customVideos");
 
 //Updates all the <input> tags with their proper values. Called on page load
 function displaySettings() {
-    let checked = ["timeOfDay", "skipVideosWithKey", "sameVideoOnScreens", "videoCache", "videoCacheProfiles", "videoCacheRemoveUnallowed", "avoidDuplicateVideos", "onlyShowVideoOnPrimaryMonitor", "videoQuality", "immediatelyUpdateVideoCache","useTray","blankScreen","sleepAfterBlank","lockAfterRun"];
+    let checked = ["timeOfDay", "skipVideosWithKey", "sameVideoOnScreens", "videoCache", "videoCacheProfiles", "videoCacheRemoveUnallowed", "avoidDuplicateVideos", "onlyShowVideoOnPrimaryMonitor", "videoQuality", "immediatelyUpdateVideoCache", "useTray", "blankScreen", "sleepAfterBlank", "lockAfterRun", "alternateRenderMethod", "useLocationForSunrise"];
     for (let i = 0; i < checked.length; i++) {
         $(`#${checked[i]}`).prop('checked', electron.store.get(checked[i]));
     }
-    let numTxt = ["sunrise", "sunset", "textFont", "textSize", "textColor","startAfter","blankAfter"];
+    let numTxt = ["sunrise", "sunset", "textFont", "textSize", "textColor", "startAfter", "blankAfter", "fps", "latitude", "longitude"];
     for (let i = 0; i < numTxt.length; i++) {
         $(`#${numTxt[i]}`).val(electron.store.get(numTxt[i]));
     }
@@ -26,9 +26,21 @@ function displaySettings() {
     for (let i = 0; i < numeralText.length; i++) {
         $(`#${numeralText[i].id}`).text(numeral(electron.store.get(numeralText[i].id)).format(numeralText[i].format));
     }
+    let staticText = ["version", "updateAvailable"]
+    for (let i = 0; i < staticText.length; i++) {
+        $(`#${staticText[i]}`).text(electron.store.get(staticText[i]));
+    }
     displayPlaybackSettings();
     displayCustomVideos();
     colorTextPositionRadio();
+    updateSettingVisibility();
+
+    //display update, if there is one
+    //console.log(electron.store.get('updateAvailable'));
+    if (electron.store.get('updateAvailable') !== false) {
+        document.getElementById(`aboutUpdate`).style.display = "";
+        document.getElementById(`updateBadge`).style.display = "";
+    }
 }
 
 displaySettings();
@@ -79,6 +91,7 @@ function updateSetting(setting, type) {
             break;
 
     }
+    updateSettingVisibility();
 }
 
 //Sets a setting to its default value, if it exists
@@ -88,6 +101,7 @@ function resetSetting(setting, type, value) {
             $(`#${setting}Text`).text(value);
             $(`#${setting}`).val(value);
         case "number":
+            $(`#${setting}`).val(value);
         case "text":
         case "time":
             electron.store.set(setting, value);
@@ -117,6 +131,31 @@ function resetFilterSettings() {
     displayPlaybackSettings();
 }
 
+//Updated input fields that may be effected by another input
+function updateSettingVisibility() {
+    // Shows or hides the FPS settings for the alternate render method
+    if (electron.store.get("alternateRenderMethod")) {
+        $("#alternateRenderMethodFPS").show(300);
+    } else {
+        $("#alternateRenderMethodFPS").hide(200);
+
+    }
+    //disabled sunrise & sunset fields if they are calculated automatically
+    if (electron.store.get("useLocationForSunrise")) {
+        if (document.getElementById('latitude').value !== "" && document.getElementById('longitude').value !== "") {
+            document.getElementById('sunrise').disabled = true;
+            document.getElementById('sunset').disabled = true;
+        } else {
+            document.getElementById('needsLocation').style.display = 'block';
+            electron.store.set('useLocationForSunrise', false);
+            displaySettings();
+        }
+    } else {
+        document.getElementById('sunrise').disabled = false;
+        document.getElementById('sunset').disabled = false;
+    }
+}
+
 //config functions
 function refreshAerial() {
     alert("You will need to run Aerial again to finish the refresh");
@@ -127,6 +166,15 @@ function resetAerial() {
     if (confirm("This will reset all of Aerial's settings; this cannot be undone.\nAre you sure you want to do this?")) {
         alert("You will need to run Aerial again to finish resetting");
         electron.ipcRenderer.send('resetConfig');
+    }
+}
+
+//Menu functions that interacted with app.js
+function updateLocation() {
+    if (electron.store.get('useLocationForSunrise')) {
+        setTimeout(() => {
+            electron.ipcRenderer.send('updateLocation');
+        }, 200);
     }
 }
 
@@ -160,17 +208,17 @@ electron.ipcRenderer.on('showWelcome', () => {
 });
 
 //Custom videos
-electron.ipcRenderer.on('newCustomVideos', (event, videoList) => {
+electron.ipcRenderer.on('newCustomVideos', (videoList, path) => {
     customVideos = electron.store.get('customVideos');
     for (let i = 0; i < videoList.length; i++) {
         let index = customVideos.findIndex((e) => {
-            if (`${videoList.path}\\${videoList[i]}` === e.path) {
+            if (`${path}\\${videoList[i]}` === e.path) {
                 return true;
             }
         });
         if (index === -1) {
             customVideos.push({
-                "path": `${videoList.path}\\${videoList[i]}`,
+                "path": `${path}\\${videoList[i]}`,
                 "name": videoList[i],
                 "id": newId(),
                 "accessibilityLabel": "Custom Video"
@@ -291,14 +339,42 @@ function updatePositionType(position) {
                                     <button onclick="document.getElementById('timeFormatExplain').style.display='block'" class="w3-button w3-white w3-border w3-border-blue w3-round-large" style="margin-top: 2%">Show Formatting Details</button>`;
             break;
         case "information":
+            displayTextSettings[position].infoType = displayTextSettings[position].infoType || "accessibilityLabel";
             let selected = displayTextSettings[position].infoType ? displayTextSettings[position].infoType : "";
-            console.log(selected);
-            html = `<label>Type </label>
+            html = `<br><label>Type </label>
                                         <select onchange="updateTextSetting(this, '${position}', 'infoType')">
                                         <option value="accessibilityLabel" ${selected === "accessibilityLabel" ? "selected" : ""}>Label</option>
                                         <option value="name" ${selected === "name" ? "selected" : ""}>Video Name</option>
                                         <option value="poi" ${selected === "poi" ? "selected" : ""}>Location Information</option>
-                                        </select>`;
+                                        </select><br>`;
+            break;
+        case "astronomy":
+            if (document.getElementById('latitude').value === "" || document.getElementById('longitude').value === "") {
+                document.getElementById('needsLocation').style.display = 'block';
+                displayTextSettings[position].type = "none";
+                $('#positionTypeSelect').val("none");
+                break;
+            }
+            displayTextSettings[position].astronomy = displayTextSettings[position].astronomy || "sunrise/set";
+            displayTextSettings[position].astroTimeString = displayTextSettings[position].astroTimeString || "hh:mm"
+            let astroType = displayTextSettings[position].astronomy ? displayTextSettings[position].astronomy : "";
+            html = `<br><label>Type </label>
+                   <select onchange="updateTextSetting(this, '${position}', 'astronomy')">
+                       <option value="sunrise/set" ${astroType === "sunrise/set" ? "selected" : ""}>Sunrise/Sunset</option>
+                       <option value="moonrise/set" ${astroType === "moonrise/set" ? "selected" : ""}>Moonrise/Moonset</option>
+                       <option value="sunrise" ${astroType === "sunrise" ? "selected" : ""}>Sunrise</option>
+                       <option value="sunset" ${astroType === "sunset" ? "selected" : ""}>Sunset</option>
+                       <option value="moonrise" ${astroType === "moonrise" ? "selected" : ""}>Moonrise</option>
+                       <option value="moonset" ${astroType === "moonset" ? "selected" : ""}>Moonset</option>
+                   </select>
+                   <br><br>
+                   <input class='w3-input'  style="width: 15%" value='${displayTextSettings[position].astroTimeString}' onchange="showMomentDisplay('positionTimeDisplay', this); updateTextSetting(this, '${position}', 'astroTimeString')">
+                
+                   <span id="positionTimeDisplay" style="margin-left: .5%; line-height: 2.5;">${moment().format(displayTextSettings[position].astroTimeString)}</span>
+                   <button onclick="document.getElementById('timeFormatExplain').style.display='block'" class="w3-button w3-white w3-border w3-border-blue w3-round-large" style="margin-top: -6%; margin-left: 10%;">Show Formatting Details</button>
+                   <br>            
+            `;
+            showMomentDisplay('positionTimeDisplay', this);
             break;
     }
     if (displayTextSettings[position].type !== "none") {

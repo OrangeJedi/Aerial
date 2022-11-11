@@ -41,7 +41,7 @@ video.addEventListener("error", (event) => {
     setTimeout(() => {
         if (video.currentTime === 0) {
             console.log('VIDEO PLAYBACK ERROR - Playing new video', event);
-            if(previousErrorId !== currentlyPlaying) {
+            if (previousErrorId !== currentlyPlaying) {
                 newVideo();
             }
             previousErrorId = currentlyPlaying;
@@ -88,8 +88,14 @@ function newVideo() {
             let textArea = $(`#textDisplay-${position}`);
             if (displayText[position].type === "information") {
                 if (displayText[position].infoType === "poi") {
-                    changePOI(position, -1, videoInfo["pointsOfInterest"]);
+                    console.log(videoInfo["pointsOfInterest"] !== undefined);
+                    if (videoInfo["pointsOfInterest"] !== undefined) {
+                        changePOI(position, -1, videoInfo["pointsOfInterest"]);
+                    } else {
+                        changePOI(position, -1, {"0": ""});
+                    }
                 } else {
+                    console.log("hey!");
                     textArea.text(videoInfo[displayText[position].infoType]);
                 }
             }
@@ -177,11 +183,46 @@ for (let i = 0; i < videoFilters.length; i++) {
 }
 ctx1.filter = filter;
 
-let videoQuality = electron.store.get('videoQuality');
-if (videoQuality) {
-    $('#video').css('display', '');
+// Fix for issue #110
+// Replace requestAnimationFrame with our own that never sleeps
+const drawVideoRequests = [];
+const animationFPS = electron.store.get("fps")
+const useAlternateRenderMethod = electron.store.get("alternateRenderMethod")
+let videoQuality = electron.store.get("videoQuality");
+
+if (useAlternateRenderMethod) {
+    function getAnimationFrame(start) {
+        let time = start;
+        const fns = drawVideoRequests.slice();
+        drawVideoRequests.length = 0;
+
+        const t = performance.now();
+        const dt = t - start;
+        const t1 = 1e3 / animationFPS; //60 FPS;
+
+        for (const f of fns) f(dt);
+
+        while (time <= t + t1 / 4) time += t1;
+        setTimeout(getAnimationFrame, time - t, performance.now());
+    }
+
+    function requestAnimationFrame(func) {
+        drawVideoRequests.push(func);
+        return drawVideoRequests.length - 1;
+    }
+
+    if (videoQuality) {
+        $('#video').css('display', '');
+    } else {
+        getAnimationFrame(performance.now());
+        drawVideo();
+    }
 } else {
-    drawVideo();
+    if (videoQuality) {
+        $('#video').css('display', '');
+    } else {
+        drawVideo();
+    }
 }
 
 function runClock(position, timeString) {
@@ -225,6 +266,45 @@ for (let position of displayText.positionList) {
             break;
         case "time":
             runClock(position, displayText[position].timeString);
+            break;
+        case "astronomy":
+            let html = "";
+            const astronomy = electron.store.get("astronomy");
+            let type = displayText[position].astronomy;
+            if(displayText[position].astronomy === "sunrise/set"){
+                if(new Date() < new Date(astronomy.sunrise) || new Date() > new Date(astronomy.sunset)){
+                    type = "sunrise";
+                }else {
+                    type = "sunset";
+                }
+            }
+            if(displayText[position].astronomy === "moonrise/set"){
+                if(new Date() < new Date(astronomy.moonrise) && new Date() > new Date(astronomy.moonset)){
+                    type = "moonrise";
+                }else {
+                    type = "moonset";
+                }
+            }
+            if(displayText[position].astronomy === "moonrise/set"){
+
+            }
+            switch (type){
+                case "sunrise":
+                    html += "Sunrise @"
+                    break
+                case "sunset":
+                    html += "Sunset @"
+                    break
+                case "moonrise":
+                    html += "Moonrise @"
+                    break
+                case "moonset":
+                    html += "Moonset @"
+                    break
+            }
+            let eventTime = moment(astronomy[type]);
+            html += eventTime.format(displayText[position].astroTimeString);
+            $(`#textDisplay-${position}`).html(html);
             break;
     }
     if (!displayText[position].defaultFont) {
