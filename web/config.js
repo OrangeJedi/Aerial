@@ -349,7 +349,7 @@ function updatePositionType(position) {
                                         </select><br>`;
             break;
         case "astronomy":
-            if (document.getElementById('latitude').value === ""|| document.getElementById('longitude').value === "") {
+            if (document.getElementById('latitude').value === "" || document.getElementById('longitude').value === "") {
                 document.getElementById('needsLocation').style.display = 'block';
                 displayTextSettings[position].type = "none";
                 $('#positionTypeSelect').val("none");
@@ -359,19 +359,20 @@ function updatePositionType(position) {
             displayTextSettings[position].astroTimeString = displayTextSettings[position].astroTimeString || "hh:mm"
             let astroType = displayTextSettings[position].astronomy ? displayTextSettings[position].astronomy : "";
             html = `<br><label>Type </label>
-                                        <select onchange="updateTextSetting(this, '${position}', 'astronomy')">
-                                        <option value="sunrise/set" ${astroType === "sunrise/set" ? "selected" : ""}>Sunrise/Sunset</option>
-                                        <option value="moonrise/set" ${astroType === "moonrise/set" ? "selected" : ""}>Moonrise/Moonset</option>
-                                        <option value="sunrise" ${astroType === "sunrise" ? "selected" : ""}>Sunrise</option>
-                                        <option value="sunset" ${astroType === "sunset" ? "selected" : ""}>Sunset</option>
-                                        <option value="moonrise" ${astroType === "moonrise" ? "selected" : ""}>Moonrise</option>
-                                        <option value="moonset" ${astroType === "moonset" ? "selected" : ""}>Moonset</option>
-                                        </select><br>
-                                        <input class='w3-input' value='${displayTextSettings[position].astroTimeString}' onchange="showMomentDisplay('positionTimeDisplay', this); updateTextSetting(this, '${position}', 'astroTimeString')">
-                                    <span id="positionTimeDisplay">${moment().format(displayTextSettings[position].astroTimeString)}</span>
-                                    <br>
-                                    <button onclick="document.getElementById('timeFormatExplain').style.display='block'" class="w3-button w3-white w3-border w3-border-blue w3-round-large" style="margin-top: 2%">Show Formatting Details</button>\`
-                                    <br>            
+                   <select onchange="updateTextSetting(this, '${position}', 'astronomy')">
+                       <option value="sunrise/set" ${astroType === "sunrise/set" ? "selected" : ""}>Sunrise/Sunset</option>
+                       <option value="moonrise/set" ${astroType === "moonrise/set" ? "selected" : ""}>Moonrise/Moonset</option>
+                       <option value="sunrise" ${astroType === "sunrise" ? "selected" : ""}>Sunrise</option>
+                       <option value="sunset" ${astroType === "sunset" ? "selected" : ""}>Sunset</option>
+                       <option value="moonrise" ${astroType === "moonrise" ? "selected" : ""}>Moonrise</option>
+                       <option value="moonset" ${astroType === "moonset" ? "selected" : ""}>Moonset</option>
+                   </select>
+                   <br><br>
+                   <input class='w3-input'  style="width: 15%" value='${displayTextSettings[position].astroTimeString}' onchange="showMomentDisplay('positionTimeDisplay', this); updateTextSetting(this, '${position}', 'astroTimeString')">
+                
+                   <span id="positionTimeDisplay" style="margin-left: .5%; line-height: 2.5;">${moment().format(displayTextSettings[position].astroTimeString)}</span>
+                   <button onclick="document.getElementById('timeFormatExplain').style.display='block'" class="w3-button w3-white w3-border w3-border-blue w3-round-large" style="margin-top: -6%; margin-left: 10%;">Show Formatting Details</button>
+                   <br>            
             `;
             showMomentDisplay('positionTimeDisplay', this);
             break;
