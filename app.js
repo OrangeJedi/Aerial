@@ -36,6 +36,7 @@ let previouslyPlayed = [];
 let currentlyPlaying = '';
 let preview = false;
 let suspend = false;
+let suspendCountdown;
 let isComputerSleeping = false;
 let tod = {"day": [], "night": [], "none": []};
 let astronomy = {
@@ -196,33 +197,60 @@ function createTrayWindow() {
         ev.sender.hide();
         //ev.preventDefault(); // prevent quit process
     });
-    const menu = Menu.buildFromTemplate([
-        {
-            label: "Open Config", click: (item, window, event) => {
-                createConfigWindow();
-            }
-        },
-        {type: "separator"},
-        {
-            label: "Start Aerial", click: (item, window, event) => {
-                createSSWindow();
-            }
-        },
-        {
-            label: 'Suspend Aerial',
-            type: "checkbox",
-            checked: false,
-            click: (e) => suspend = e.checked  // click event handler
-        },
-        {type: "separator"},
-        {
-            label: "Exit Aerial", click: (item, window, event) => {
-                app.quit();
-            }
-        },
-    ]);
+
+    function newMenu(isSuspendChecked) {
+        return Menu.buildFromTemplate([
+            {
+                label: "Open Config", click: (item, window, event) => {
+                    createConfigWindow();
+                }
+            },
+            {type: "separator"},
+            {
+                label: "Start Aerial", click: (item, window, event) => {
+                    createSSWindow();
+                }
+            },
+            {
+                label: 'Suspend Aerial',
+                type: "checkbox",
+                checked: isSuspendChecked,
+                click: (e) => {
+                    suspend = e.checked;
+                    clearTimeout(suspendCountdown);
+                }
+            },
+            {
+                label: 'Suspend for 1 hour',
+                click: (e) => {
+                    suspend = true;
+                    clearTimeout(suspendCountdown);
+                    trayWin.tray.setContextMenu(newMenu(true));
+                    suspendCountdown = setTimeout(() => {
+                        suspend = false
+                    }, (1000 * 60) + (store.get('startAfter') * 60));
+                }
+            },
+            {
+                label: 'Suspend for 3 hours',
+                click: (e) => {
+                    suspend = true;
+                    clearTimeout(suspendCountdown);
+                    suspendCountdown = setTimeout(() => {
+                        suspend = false
+                    }, (1000 * 60 * 3) + (store.get('startAfter') * 60));
+                }
+            },
+            {type: "separator"},
+            {
+                label: "Exit Aerial", click: (item, window, event) => {
+                    app.quit();
+                }
+            },
+        ]);
+    }
     trayWin.tray = new Tray(path.join(__dirname, 'icon.ico'));
-    trayWin.tray.setContextMenu(menu);
+    trayWin.tray.setContextMenu(newMenu(false));
     trayWin.tray.setToolTip("Aerial");
 }
 
