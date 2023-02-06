@@ -66,6 +66,11 @@
     padding-top: .5%;
 }
 
+.imagePositionRandom{
+    padding-left: 1%;
+    position: absolute;
+}
+
 .imagePositionWithValue{
     opacity: 0;
     z-index: 1;

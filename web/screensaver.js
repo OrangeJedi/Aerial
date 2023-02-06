@@ -230,7 +230,7 @@ function runClock(position, timeString) {
         return
     }
     $(`#textDisplay-${position}`).text(moment().format(timeString));
-    setTimeout(runClock, 1000 - new Date().getMilliseconds(), position, timeString);
+    displayText[position].clockTimeout = setTimeout(runClock, 1000 - new Date().getMilliseconds(), position, timeString);
 }
 
 //set up css
@@ -255,40 +255,45 @@ for (let position of displayText.positionList) {
 }
 //add text to the content
 for (let position of displayText.positionList) {
+    displayTextPosition(position);
+}
+
+function displayTextPosition(position, displayLocation) {
+    let selector = displayLocation ? $(`#textDisplay-${displayLocation}`) : $(`#textDisplay-${position}`);
     switch (displayText[position].type) {
         case "none":
             break;
         case "text":
-            $(`#textDisplay-${position}`).text(displayText[position].text);
+            selector.text(displayText[position].text);
             break;
         case "html":
-            $(`#textDisplay-${position}`).html(displayText[position].html);
+            selector.html(displayText[position].html);
             break;
         case "time":
-            runClock(position, displayText[position].timeString);
+            runClock(displayLocation ? displayLocation : position, displayText[position].timeString);
             break;
         case "astronomy":
             let html = "";
             const astronomy = electron.store.get("astronomy");
             let type = displayText[position].astronomy;
-            if(displayText[position].astronomy === "sunrise/set"){
-                if(new Date() < new Date(astronomy.sunrise) || new Date() > new Date(astronomy.sunset)){
+            if (displayText[position].astronomy === "sunrise/set") {
+                if (new Date() < new Date(astronomy.sunrise) || new Date() > new Date(astronomy.sunset)) {
                     type = "sunrise";
-                }else {
+                } else {
                     type = "sunset";
                 }
             }
-            if(displayText[position].astronomy === "moonrise/set"){
-                if(new Date() < new Date(astronomy.moonrise) && new Date() > new Date(astronomy.moonset)){
+            if (displayText[position].astronomy === "moonrise/set") {
+                if (new Date() < new Date(astronomy.moonrise) && new Date() > new Date(astronomy.moonset)) {
                     type = "moonrise";
-                }else {
+                } else {
                     type = "moonset";
                 }
             }
-            if(displayText[position].astronomy === "moonrise/set"){
+            if (displayText[position].astronomy === "moonrise/set") {
 
             }
-            switch (type){
+            switch (type) {
                 case "sunrise":
                     html += "Sunrise @"
                     break
@@ -304,12 +309,48 @@ for (let position of displayText.positionList) {
             }
             let eventTime = moment(astronomy[type]);
             html += eventTime.format(displayText[position].astroTimeString);
-            $(`#textDisplay-${position}`).html(html);
+            selector.html(html);
             break;
     }
     if (!displayText[position].defaultFont) {
-        $(`#textDisplay-${position}`).css('font-family', `"${displayText[position].font}"`).css('font-size', `${displayText[position].fontSize}vw`).css('color', `${displayText[position].fontColor}`);
+        selector.css('font-family', `"${displayText[position].font}"`).css('font-size', `${displayText[position].fontSize}vw`).css('color', `${displayText[position].fontColor}`);
     }
+}
+
+if (displayText.random.type !== "none") {
+    displayText.random.currentLocation = "none";
+    switchRandomText();
+    let randomInterval = setInterval(switchRandomText, electron.store.get('randomSpeed') * 1000);
+}
+
+function switchRandomText() {
+    let newLoc = false;
+    let c = 0;
+    do {
+        if (c > 100) {
+            break;
+        }
+        newLoc = displayText.positionList[randomInt(0, displayText.positionList.length)];
+        if (displayText[newLoc].type !== "none") {
+            newLoc = false;
+            continue;
+        }
+        if (displayText.random.currentLocation === newLoc) {
+            newLoc = false;
+            continue;
+        }
+        if (displayText.random.type === "time" && displayText.random.currentLocation !== "none") {
+            clearTimeout(displayText[displayText.random.currentLocation].clockTimeout);
+        }
+        $(`#textDisplay-${displayText.random.currentLocation}`).html("");
+        displayText.random.currentLocation = newLoc;
+        displayTextPosition("random", newLoc);
+        c++;
+    } while (!newLoc)
+}
+
+function randomInt(min, max) {
+    return Math.floor(Math.random() * max) - min;
 }
 
 //play a video

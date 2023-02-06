@@ -227,6 +227,9 @@
                         Copyright (c) 2022 OrangeJedi. All code and applicable assets are released under the
                         <a href="https://github.com/OrangeJedi/Aerial/blob/master/LICENSE" target="_blank">MIT License</a>.
                     </p>
+                    <button class="w3-button w3-white w3-border w3-border-blue w3-round-large" onclick="electron.ipcRenderer.send('openConfigFolder');">
+                        Open Config Files
+                    </button>
                     <hr>
                     Version: <span id="version"></span>
                     <div id="aboutUpdate" style="display: none">
@@ -267,8 +270,12 @@
                 <div class="w3-container w3-blue">
                     <h4>Position</h4>
                 </div>
-                <div class="w3-display-container" style="padding: 2%">
-                    <div class="w3-display-container w3-display-topleft" style="width: 50%; margin-top: 2%; margin-left: 2%">
+                <div class="w3-display-container" style="padding: 0%; padding-left: 2%">
+                    <span class="imagePositionRandom">
+                    <input class="w3-radio imagePosition" type="radio" name="imagePosition" value="random" onclick="positionSelect(this)"><label></label>
+                     Random
+                    </span>
+                    <div class="w3-display-container w3-display-topleft" style="width: 50%; margin-top: 5%; margin-left: 2%">
                         <img alt="An error has occurred" src="images/B8F204CE-6024-49AB-85F9-7CA2F6DCD226.jpeg" class="w3-round" style="width: 100%;"/>
                         <div class="w3-display-topleft w3-container imagePositionRadio">
                             <input class="w3-radio imagePosition" type="radio" name="imagePosition" value="topleft" onclick="positionSelect(this)"><label></label>
@@ -297,7 +304,7 @@
                         <div class="w3-display-bottommiddle w3-container imagePositionRadio">
                             <input class="w3-radio imagePosition" type="radio" name="imagePosition" value="bottommiddle" onclick="positionSelect(this)"><label></label>
                         </div>
-                    </div>
+                       </div>
                     <div class="w3-display-topright w3-container w3-right-align" style="width: 33%; margin-top: 2%; margin-right: 2%">
                         <h3 id="positionType" style="display: none">
                             <label for="positionTypeSelect">Type:</label>
@@ -312,7 +319,7 @@
                         </h3>
                     </div>
                 </div>
-                <div class="w3-container" style="margin-top: 27%">
+                <div class="w3-container" style="margin-top: 35%">
                     <div class="w3-container" id="positionDetails"></div>
                     <div class="w3-container" id="textWidthContainer" style="display: none">
                         <br>
@@ -339,6 +346,9 @@
                         Size: </label><input class="w3-input" id="textSize" type="number" step=".25" style="width: 25%; display: inline; margin-top: 2%" onchange="updateSetting('textSize', 'number')">
                     <br>
                     <label for="textColor">Color: </label><input class="w3-input" id="textColor" type="color" step=".25" style="width: 5%; display: inline; margin-top: 2%; padding: 0;" onchange="updateSetting('textColor', 'text')">
+                    <hr>
+                    <label for="textSize">Random Change Speed</label><input class="w3-input" id="randomSpeed" type="number" step="1" style="width: 10%; display: inline; margin-top: 2%" onchange="updateSetting('randomSpeed', 'number')">
+
                 </div>
             </div>
         </div>

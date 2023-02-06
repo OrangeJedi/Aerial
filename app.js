@@ -423,8 +423,17 @@ function setUpConfigFile() {
         'right': {'type': "none", "defaultFont": true},
         'middle': {'type': "none", "defaultFont": true},
         'topmiddle': {'type': "none", "defaultFont": true},
-        'bottommiddle': {'type': "none", "defaultFont": true}
+        'bottommiddle': {'type': "none", "defaultFont": true},
+        'random': {'type': "none", "defaultFont": true}
     });
+    //add random field if it isn't there without removing any pe-set settings
+    if(!store.get('displayText').random){
+        let displayText = store.get('displayText');
+        displayText.positionList.push('random');
+        displayText.random = {'type': "none", "defaultFont": true};
+        store.set('displayText', displayText);
+    }
+    store.set('randomSpeed', store.get('randomSpeed') ?? 30);
     store.set('videoQuality', store.get('videoQuality') ?? false);
     store.set('fps', store.get('fps') ?? 60);
 
@@ -491,6 +500,10 @@ ipcMain.on('deleteCache', (event) => {
 
 ipcMain.on('openCache', (event) => {
     shell.openExternal(cachePath);
+});
+
+ipcMain.on('openConfigFolder', (event) => {
+    shell.openExternal(app.getPath('userData'));
 });
 
 ipcMain.on('selectCustomLocation', async (event, arg) => {

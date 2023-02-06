@@ -7,7 +7,7 @@ contextBridge.exposeInMainWorld("electron", {
         ipcRenderer: {
             send: (channel, data) => {
                 // whitelist channels
-                let validChannels = ["quitApp", "keyPress", "updateCache", "deleteCache", "openCache", "selectCustomLocation", "selectCacheLocation", "refreshCache", "openPreview", "refreshConfig", "resetConfig", "updateLocation"];
+                let validChannels = ["quitApp", "keyPress", "updateCache", "deleteCache", "openCache", "selectCustomLocation", "selectCacheLocation", "refreshCache", "openPreview", "refreshConfig", "resetConfig", "updateLocation","openConfigFolder"];
                 if (validChannels.includes(channel)) {
                     ipcRenderer.send(channel, data);
                 }
