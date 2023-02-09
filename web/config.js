@@ -760,9 +760,9 @@ function autocomplete(inp, arr, func) {
         var a, b, i, val = this.value;
         /*close any already open lists of autocompleted values*/
         closeAllLists();
-        if (!val) {
+        /*if (!val) {
             return false;
-        }
+        }*/
         currentFocus = -1;
         /*create a DIV element that will contain the items (values):*/
         a = document.createElement("DIV");
@@ -773,7 +773,7 @@ function autocomplete(inp, arr, func) {
         /*for each item in the array...*/
         for (i = 0; i < arr.length; i++) {
             /*check if the item starts with the same letters as the text field value:*/
-            if (arr[i].substr(0, val.length).toUpperCase() == val.toUpperCase()) {
+            if (arr[i].substr(0, val.length).toUpperCase() == val.toUpperCase() || !val) {
                 /*create a DIV element for each matching element:*/
                 b = document.createElement("DIV");
                 /*make the matching letters bold:*/
