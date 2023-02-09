@@ -255,7 +255,9 @@ for (let position of displayText.positionList) {
 }
 //add text to the content
 for (let position of displayText.positionList) {
-    displayTextPosition(position);
+    if(position !== "random") {
+        displayTextPosition(position);
+    }
 }
 
 function displayTextPosition(position, displayLocation) {
@@ -267,7 +269,6 @@ function displayTextPosition(position, displayLocation) {
     $(selector).html(html);
     for (let i = 0; i < 4; i++) {
         if (!displayText[position][i].defaultFont) {
-            console.log("hey");
             $(`#${position}-${i}`).css('font-family', `"${displayText[position][i].font}"`).css('font-size', `${displayText[position][i].fontSize}vw`).css('color', `${displayText[position][i].fontColor}`);
         }
     }
@@ -327,10 +328,16 @@ function createContentLine(contentLine, position, line) {
 }
 
 //Random is broken. Remove this when it is fixed.
-if (displayText.random[0].type !== "none") {
+let random = false;
+for(let i = 0; i < displayText.random.length;i++){
+    if(displayText.random[i].type !== "none"){
+        random = true;
+    }
+}
+if (random) {
     displayText.random.currentLocation = "none";
-    //switchRandomText();
-    //let randomInterval = setInterval(switchRandomText, electron.store.get('randomSpeed') * 1000);
+    switchRandomText();
+    let randomInterval = setInterval(switchRandomText, electron.store.get('randomSpeed') * 1000);
 }
 
 function switchRandomText() {
@@ -338,14 +345,17 @@ function switchRandomText() {
     let c = 0;
     do {
         if (c > 100) {
+            console.log("overload");
             break;
         }
-        newLoc = displayText.positionList[randomInt(0, displayText.positionList.length)];
-        if (displayText[newLoc][0].type !== "none") {
-            newLoc = false;
-            continue;
+        newLoc = displayText.positionList[randomInt(0, displayText.positionList.length - 1)];
+        let text = false;
+        for(let i = 0; i < displayText[newLoc].length;i++){
+            if(displayText[newLoc][i].type !== "none"){
+                text = true;
+            }
         }
-        if (displayText.random.currentLocation === newLoc) {
+        if (text || displayText.random.currentLocation === newLoc) {
             newLoc = false;
             continue;
         }
@@ -356,7 +366,7 @@ function switchRandomText() {
         displayText.random.currentLocation = newLoc;
         displayTextPosition("random", newLoc);
         c++;
-    } while (!newLoc)
+    } while (!newLoc);
 }
 
 function randomInt(min, max) {
