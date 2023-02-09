@@ -13,7 +13,7 @@ function displaySettings() {
     for (let i = 0; i < checked.length; i++) {
         $(`#${checked[i]}`).prop('checked', electron.store.get(checked[i]));
     }
-    let numTxt = ["sunrise", "sunset", "textFont", "textSize", "textColor", "startAfter", "blankAfter", "fps", "latitude", "longitude","randomSpeed","skipKey"];
+    let numTxt = ["sunrise", "sunset", "textFont", "textSize", "textColor", "startAfter", "blankAfter", "fps", "latitude", "longitude", "randomSpeed", "skipKey"];
     for (let i = 0; i < numTxt.length; i++) {
         $(`#${numTxt[i]}`).val(electron.store.get(numTxt[i]));
     }
@@ -201,9 +201,9 @@ function selectCacheLocation() {
 
 let skipKeyInput = document.getElementById('skipKey');
 
-skipKeyInput.addEventListener('keyup', (e)=>{
-   skipKeyInput.value = e.code;
-   updateSetting('skipKey','text');
+skipKeyInput.addEventListener('keyup', (e) => {
+    skipKeyInput.value = e.code;
+    updateSetting('skipKey', 'text');
 });
 
 electron.ipcRenderer.on('displaySettings', () => {
@@ -303,7 +303,13 @@ function editCustomVideo(id) {
 function colorTextPositionRadio() {
     let displayTextSettings = electron.store.get('displayText');
     $('.imagePosition').each(function () {
-        if (displayTextSettings[this.value].type !== "none") {
+        let color = false;
+        for(let i  = 0; i < 4;i++){
+            if(displayTextSettings[this.value][i].type !== "none"){
+                color = true;
+            }
+        }
+        if (color) {
             $(this).addClass('imagePositionWithValue');
         } else {
             $(this).removeClass('imagePositionWithValue')
@@ -315,41 +321,66 @@ function colorTextPositionRadio() {
 function positionSelect(position) {
     position = position.value;
     let displayTextSettings = electron.store.get('displayText')[position];
-    document.getElementById("positionTypeSelect").setAttribute('onchange', `updatePositionType('${position}')`);
-    document.getElementById("textWidthSelect").setAttribute('onchange', `updateTextSetting(this, '${position}', 'maxWidth')`);
-    $('#textWidthSelect').val(displayTextSettings.maxWidth ? displayTextSettings.maxWidth : "50%");
-    $('#positionTypeSelect').val(displayTextSettings.type);
+
+    document.getElementById("positionTypeSelect0").setAttribute('onchange', `updatePositionType('${position}',0)`);
+    document.getElementById("positionRow0").setAttribute('onclick', `lineSelect('${position}',0)`);
+    $('#positionTypeSelect0').val(displayTextSettings[0].type);
+    document.getElementById("positionTypeSelect1").setAttribute('onchange', `updatePositionType('${position}',1)`);
+    document.getElementById("positionRow1").setAttribute('onclick', `lineSelect('${position}',1)`);
+    $('#positionTypeSelect1').val(displayTextSettings[1].type);
+    document.getElementById("positionTypeSelect2").setAttribute('onchange', `updatePositionType('${position}',2)`);
+    document.getElementById("positionRow2").setAttribute('onclick', `lineSelect('${position}',2)`);
+    $('#positionTypeSelect2').val(displayTextSettings[2].type);
+    document.getElementById("positionTypeSelect3").setAttribute('onchange', `updatePositionType('${position}',3)`);
+    document.getElementById("positionRow3").setAttribute('onclick', `lineSelect('${position}',3)`);
+    $('#positionTypeSelect3').val(displayTextSettings[3].type);
+
     $('#positionType').css('display', "");
-    updatePositionType(position);
+    lineSelect(position,0);
 }
 
-function updatePositionType(position) {
+function lineSelect(position, line) {
+    let displayTextSettings = electron.store.get('displayText')[position][line];
+    document.getElementById("textWidthSelect").setAttribute('onchange', `updateTextSetting(this, '${position}','${line}', 'maxWidth')`);
+    $('#textWidthSelect').val(displayTextSettings.maxWidth ? displayTextSettings.maxWidth : "50%");
+
+    $('#positionLineNum0').css("font-weight","normal");
+    $('#positionLineNum1').css("font-weight","normal");
+    $('#positionLineNum2').css("font-weight","normal");
+    $('#positionLineNum3').css("font-weight","normal");
+
+    $('#positionLineNum' + line).css("font-weight","bold");
+
+    updatePositionType(position, line);
+}
+
+function updatePositionType(position, line) {
     let displayTextSettings = electron.store.get('displayText');
-    displayTextSettings[position].type = $('#positionTypeSelect').val();
+    displayTextSettings[position][line].type = $('#positionTypeSelect' + line).val();
     let html = "";
-    switch (displayTextSettings[position].type) {
+    switch (displayTextSettings[position][line].type) {
         case "none":
             html = "";
             break;
         case "text":
-            html = `<label>Text</label><input class='w3-input' value='${displayTextSettings[position].text ? displayTextSettings[position].text : ""}' onchange="updateTextSetting(this, '${position}', 'text')">`;
+            html = `<label>Text</label><input class='w3-input' value='${displayTextSettings[position][line].text ? displayTextSettings[position][line].text : ""}' onchange="updateTextSetting(this, '${position}','${line}', 'text')">`;
             break;
         case "html":
-            html = `<label>HTML</label><br><textarea onchange="updateTextSetting(this, '${position}', 'html')" cols="75" rows="7">${displayTextSettings[position].html ? displayTextSettings[position].html : ""}</textarea>`;
+            html = `<label>HTML</label><br><textarea onchange="updateTextSetting(this, '${position}','${line}', 'html')" cols="75" rows="7">${displayTextSettings[position][line].html ? displayTextSettings[position][line].html : ""}</textarea>`;
             break;
         case "time":
-            displayTextSettings[position].timeString = displayTextSettings[position].timeString ? displayTextSettings[position].timeString : "hh:mm:ss";
+            displayTextSettings[position][line].timeString = displayTextSettings[position][line].timeString ? displayTextSettings[position][line].timeString : "hh:mm:ss";
             html = `
-                                    <input class='w3-input' value='${displayTextSettings[position].timeString}' onchange="showMomentDisplay('positionTimeDisplay', this); updateTextSetting(this, '${position}', 'timeString')">
-                                    <span id="positionTimeDisplay">${moment().format(displayTextSettings[position].timeString)}</span>
+                                    <input class='w3-input' value='${displayTextSettings[position][line].timeString}' onchange="showMomentDisplay('positionTimeDisplay', this); updateTextSetting(this, '${position}','${line}', 'timeString')">
+                                    <span id="positionTimeDisplay">${moment().format(displayTextSettings[position][line].timeString)}</span>
                                     <br>
                                     <button onclick="document.getElementById('timeFormatExplain').style.display='block'" class="w3-button w3-white w3-border w3-border-blue w3-round-large" style="margin-top: 2%">Show Formatting Details</button>`;
             break;
         case "information":
-            displayTextSettings[position].infoType = displayTextSettings[position].infoType || "accessibilityLabel";
-            let selected = displayTextSettings[position].infoType ? displayTextSettings[position].infoType : "";
+            displayTextSettings[position][line].infoType = displayTextSettings[position][line].infoType || "accessibilityLabel";
+            let selected = displayTextSettings[position][line].infoType ? displayTextSettings[position][line].infoType : "";
             html = `<br><label>Type </label>
-                                        <select onchange="updateTextSetting(this, '${position}', 'infoType')">
+                                        <select onchange="updateTextSetting(this, '${position}', '${line}','infoType')">
                                         <option value="accessibilityLabel" ${selected === "accessibilityLabel" ? "selected" : ""}>Label</option>
                                         <option value="name" ${selected === "name" ? "selected" : ""}>Video Name</option>
                                         <option value="poi" ${selected === "poi" ? "selected" : ""}>Location Information</option>
@@ -358,15 +389,15 @@ function updatePositionType(position) {
         case "astronomy":
             if (document.getElementById('latitude').value === "" || document.getElementById('longitude').value === "") {
                 document.getElementById('needsLocation').style.display = 'block';
-                displayTextSettings[position].type = "none";
-                $('#positionTypeSelect').val("none");
+                displayTextSettings[position][line].type = "none";
+                $('#positionTypeSelect' + line).val("none");
                 break;
             }
-            displayTextSettings[position].astronomy = displayTextSettings[position].astronomy || "sunrise/set";
-            displayTextSettings[position].astroTimeString = displayTextSettings[position].astroTimeString || "hh:mm"
-            let astroType = displayTextSettings[position].astronomy ? displayTextSettings[position].astronomy : "";
+            displayTextSettings[position][line].astronomy = displayTextSettings[position][line].astronomy || "sunrise/set";
+            displayTextSettings[position][line].astroTimeString = displayTextSettings[position][line].astroTimeString || "hh:mm"
+            let astroType = displayTextSettings[position][line].astronomy ? displayTextSettings[position][line].astronomy : "";
             html = `<br><label>Type </label>
-                   <select onchange="updateTextSetting(this, '${position}', 'astronomy')">
+                   <select onchange="updateTextSetting(this, '${position}','${line}', 'astronomy')">
                        <option value="sunrise/set" ${astroType === "sunrise/set" ? "selected" : ""}>Sunrise/Sunset</option>
                        <option value="moonrise/set" ${astroType === "moonrise/set" ? "selected" : ""}>Moonrise/Moonset</option>
                        <option value="sunrise" ${astroType === "sunrise" ? "selected" : ""}>Sunrise</option>
@@ -375,29 +406,29 @@ function updatePositionType(position) {
                        <option value="moonset" ${astroType === "moonset" ? "selected" : ""}>Moonset</option>
                    </select>
                    <br><br>
-                   <input class='w3-input'  style="width: 15%" value='${displayTextSettings[position].astroTimeString}' onchange="showMomentDisplay('positionTimeDisplay', this); updateTextSetting(this, '${position}', 'astroTimeString')">
+                   <input class='w3-input'  style="width: 15%" value='${displayTextSettings[position][line].astroTimeString}' onchange="showMomentDisplay('positionTimeDisplay', this); updateTextSetting(this, '${position}', '${line}','astroTimeString')">
                 
-                   <span id="positionTimeDisplay" style="margin-left: .5%; line-height: 2.5;">${moment().format(displayTextSettings[position].astroTimeString)}</span>
+                   <span id="positionTimeDisplay" style="margin-left: .5%; line-height: 2.5;">${moment().format(displayTextSettings[position][line].astroTimeString)}</span>
                    <button onclick="document.getElementById('timeFormatExplain').style.display='block'" class="w3-button w3-white w3-border w3-border-blue w3-round-large" style="margin-top: -6%; margin-left: 10%;">Show Formatting Details</button>
                    <br>            
             `;
             showMomentDisplay('positionTimeDisplay', this);
             break;
     }
-    if (displayTextSettings[position].type !== "none") {
-        html += `<br><input type="checkbox" class="w3-check" id="useDefaultFont" onchange="updateTextSettingCheck(this, '${position}', 'defaultFont'); updatePositionType('${position}');" ${displayTextSettings[position].defaultFont ? 'checked' : ''}><label> Use Default Font</label>`;
-        if (!displayTextSettings[position].defaultFont) {
-            displayTextSettings[position]['font'] = displayTextSettings[position].font ? displayTextSettings[position].font : electron.store.get('textFont');
-            displayTextSettings[position]['fontSize'] = displayTextSettings[position].fontSize ? displayTextSettings[position].fontSize : electron.store.get('textSize');
-            displayTextSettings[position]['fontColor'] = displayTextSettings[position].fontColor ? displayTextSettings[position].fontColor : electron.store.get('textColor');
+    if (displayTextSettings[position][line].type !== "none") {
+        html += `<br><input type="checkbox" class="w3-check" id="useDefaultFont" onchange="updateTextSettingCheck(this, '${position}','${line}', 'defaultFont'); updatePositionType('${position}','${line}');" ${displayTextSettings[position][line].defaultFont ? 'checked' : ''}><label> Use Default Font</label>`;
+        if (!displayTextSettings[position][line].defaultFont) {
+            displayTextSettings[position][line]['font'] = displayTextSettings[position][line].font ? displayTextSettings[position][line].font : electron.store.get('textFont');
+            displayTextSettings[position][line]['fontSize'] = displayTextSettings[position][line].fontSize ? displayTextSettings[position][line].fontSize : electron.store.get('textSize');
+            displayTextSettings[position][line]['fontColor'] = displayTextSettings[position][line].fontColor ? displayTextSettings[position][line].fontColor : electron.store.get('textColor');
             html += `<br><div class="autocomplete" style="width:300px;">
-                    <label>Font: </label><input id="positionFont" type="text" onchange="updateTextSetting(this, '${position}', 'font')" value="${displayTextSettings[position]['font']}">
+                    <label>Font: </label><input id="positionFont" type="text" onchange="updateTextSetting(this, '${position}','${line}', 'font')" value="${displayTextSettings[position][line]['font']}">
                     </div>
-                    <label>Font Size: </label><input class="w3-input" id="positionTextSize" type="number" step=".25" style="width: 10%; display: inline; margin-top: 2%" onchange="updateTextSetting(this, '${position}', 'fontSize')" value="${displayTextSettings[position]['fontSize']}">
-                    <label>Color: </label><input class="w3-input" type="color" step=".25" style="width: 5%; display: inline; margin-top: 2%; padding: 0;" onchange="updateTextSetting(this, '${position}', 'fontColor')" value="${displayTextSettings[position]['fontColor']}">`;
+                    <label>Font Size: </label><input class="w3-input" id="positionTextSize" type="number" step=".25" style="width: 10%; display: inline; margin-top: 2%" onchange="updateTextSetting(this, '${position}','${line}', 'fontSize')" value="${displayTextSettings[position][line]['fontSize']}">
+                    <label>Color: </label><input class="w3-input" type="color" step=".25" style="width: 5%; display: inline; margin-top: 2%; padding: 0;" onchange="updateTextSetting(this, '${position}','${line}', 'fontColor')" value="${displayTextSettings[position][line]['fontColor']}">`;
             $('#positionDetails').html(html);
             autocomplete(document.getElementById('positionFont'), fontList, (e) => {
-                updateTextSetting(e, position, 'font')
+                updateTextSetting(e, position, line,'font')
             });
         } else {
             $('#positionDetails').html(html);
@@ -412,16 +443,16 @@ function updatePositionType(position) {
 }
 
 //Text settings are stored separate from other settings, so they require their own functions
-function updateTextSetting(input, position, setting) {
+function updateTextSetting(input, position, line, setting) {
     let text = electron.store.get('displayText');
-    text[position][setting] = input.value;
+    text[position][line][setting] = input.value;
     electron.store.set('displayText', text);
 }
 
 //This one handles checkboxes because they are a special case
-function updateTextSettingCheck(input, position, setting) {
+function updateTextSettingCheck(input, position, line, setting) {
     let text = electron.store.get('displayText');
-    text[position][setting] = input.checked;
+    text[position][line][setting] = input.checked;
     electron.store.set('displayText', text);
 }
 

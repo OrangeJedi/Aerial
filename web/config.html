@@ -30,42 +30,52 @@
         <div class="w3-sidebar w3-light-grey w3-bar-block" style="width:20%">
             <a onclick="selectSetting('general')" id="settingsList-general" class="settingsListItem">
                 <h3 class="w3-bar-item"><i class="fa fa-cog"></i> Settings</h3></a>
-            <a onclick="selectSetting('playback')" id="settingsList-playback" class="w3-bar-item w3-button settingsListItem">Playback</a>
-            <a onclick="selectSetting('time')" id="settingsList-time" class="w3-bar-item w3-button settingsListItem">Time & Location</a>
-            <a onclick="selectSetting('multiscreen')" id="settingsList-multiscreen" class="w3-bar-item w3-button settingsListItem">Multiscreen</a>
+            <a onclick="selectSetting('playback')" id="settingsList-playback"
+               class="w3-bar-item w3-button settingsListItem">Playback</a>
+            <a onclick="selectSetting('time')" id="settingsList-time" class="w3-bar-item w3-button settingsListItem">Time
+                & Location</a>
+            <a onclick="selectSetting('multiscreen')" id="settingsList-multiscreen"
+               class="w3-bar-item w3-button settingsListItem">Multiscreen</a>
             <a onclick="selectSetting('style')" id="settingsList-style" class="w3-bar-item w3-button settingsListItem">Style</a>
             <a onclick="selectSetting('cache')" id="settingsList-cache" class="w3-bar-item w3-button settingsListItem">Video
                 Cache</a>
-            <a onclick="selectSetting('customVideo')" id="settingsList-customVideo" class="w3-bar-item w3-button settingsListItem">Custom
+            <a onclick="selectSetting('customVideo')" id="settingsList-customVideo"
+               class="w3-bar-item w3-button settingsListItem">Custom
                 Videos</a>
             <a onclick="selectSetting('about')" id="settingsList-about" class="w3-bar-item w3-button settingsListItem">About
                 <span id="updateBadge" style="display: none" class="w3-badge w3-deep-orange">1</span></a>
         </div>
         <div id="generalCard" style="margin-left:20%">
-            <div id="generalSettings" class="settingsCard" >
+            <div id="generalSettings" class="settingsCard">
                 <div class="w3-container w3-blue cardHeader">
                     <h3>General Settings</h3>
                 </div>
                 <div class="w3-display-container cardContent" style="padding: 2%">
                     <input type="checkbox" id="useTray" class="w3-check" onclick="updateSetting('useTray','check')">
                     <label for="useTray">Auto launch from system tray</label>
-                    <p class="w3-small" style="margin-left: 4%">This option will cause Aerial to run on system start up and
+                    <p class="w3-small" style="margin-left: 4%">This option will cause Aerial to run on system start up
+                        and
                         launch itself after your system is idle</p>
                     <label for="startAfter">Start Aerial After</label>
-                    <input style="width: 10%; display: inline !important;" class="w3-input" type="number" id="startAfter" onchange="updateSetting('startAfter','number')">
+                    <input style="width: 10%; display: inline !important;" class="w3-input" type="number"
+                           id="startAfter" onchange="updateSetting('startAfter','number')">
                     minutes
                     <br><br>
-                    <input type="checkbox" id="blankScreen" class="w3-check" onclick="updateSetting('blankScreen','check')">
+                    <input type="checkbox" id="blankScreen" class="w3-check"
+                           onclick="updateSetting('blankScreen','check')">
                     <label for="blankScreen">Automatically blank screen</label>
                     <br>
                     <label for="blankAfter">Blank screen after</label>
-                    <input style="width: 10%; display: inline !important;" class="w3-input" type="number" id="blankAfter" onchange="updateSetting('blankAfter','number')">
+                    <input style="width: 10%; display: inline !important;" class="w3-input" type="number"
+                           id="blankAfter" onchange="updateSetting('blankAfter','number')">
                     minutes
                     <br><br>
-                    <input type="checkbox" id="sleepAfterBlank" class="w3-check" onclick="updateSetting('sleepAfterBlank','check')">
+                    <input type="checkbox" id="sleepAfterBlank" class="w3-check"
+                           onclick="updateSetting('sleepAfterBlank','check')">
                     <label for="sleepAfterBlank">Sleep the computer after screen blank</label>
                     <br>
-                    <input type="checkbox" id="lockAfterRun" class="w3-check" onclick="updateSetting('lockAfterRun','check')">
+                    <input type="checkbox" id="lockAfterRun" class="w3-check"
+                           onclick="updateSetting('lockAfterRun','check')">
                     <label for="lockAfterRun">Lock the computer after running</label>
                     <br>
                     <hr>
@@ -81,18 +91,24 @@
                     <h3>Playback Settings</h3>
                 </div>
                 <div class="w3-display-container cardContent" style="padding: 2%">
-                    <input type="checkbox" id="avoidDuplicateVideos" class="w3-check" onclick="updateSetting('avoidDuplicateVideos','check')">
+                    <input type="checkbox" id="avoidDuplicateVideos" class="w3-check"
+                           onclick="updateSetting('avoidDuplicateVideos','check')">
                     <label for="avoidDuplicateVideos">Avoid duplicate videos</label>
                     <br>
-                    <i class="w3-small" style="padding-left: 4%">When this option is enabled Aerial will avoid playing the
+                    <i class="w3-small" style="padding-left: 4%">When this option is enabled Aerial will avoid playing
+                        the
                         most recently played videos</i>
                     <br><br>
                     <label for="videoTransitionLength">Transition speed:
-                        <span id="videoTransitionLengthText"></span></label><span class="w3-right" onclick="resetSetting('videoTransitionLength', 'slider', 1000)"><i class="fa fa-undo"></i></span>
+                        <span id="videoTransitionLengthText"></span></label><span class="w3-right"
+                                                                                  onclick="resetSetting('videoTransitionLength', 'slider', 1000)"><i
+                        class="fa fa-undo"></i></span>
                     <br>
-                    <input type="range" min="750" max="4000" value="1000" step="10" id="videoTransitionLength" class="slider" onchange="updateSetting('videoTransitionLength','slider')">
+                    <input type="range" min="750" max="4000" value="1000" step="10" id="videoTransitionLength"
+                           class="slider" onchange="updateSetting('videoTransitionLength','slider')">
                     <br><br>
-                    <input type="checkbox" id="skipVideosWithKey" class="w3-check" onclick="updateSetting('skipVideosWithKey','check')">
+                    <input type="checkbox" id="skipVideosWithKey" class="w3-check"
+                           onclick="updateSetting('skipVideosWithKey','check')">
                     <label for="skipVideosWithKey">Use a key to skip videos</label>
                     <br><br>
                     <label for="skipKey">Skip key: </label><input type="text" id="skipKey">
@@ -108,18 +124,23 @@
                     <div>
                         <br>
                         <label for="sunrise" style="font-size: smaller">Sunrise</label>
-                        <input style="width: 15%; display: inline !important;" class="w3-input" type="time" id="sunrise" onchange="updateSetting('sunrise','time')" disabled>
+                        <input style="width: 15%; display: inline !important;" class="w3-input" type="time" id="sunrise"
+                               onchange="updateSetting('sunrise','time')" disabled>
                         <label for="sunset" style="font-size: smaller">Sunset</label>
-                        <input style="width: 15%; display: inline !important;" class="w3-input" type="time" id="sunset" onchange="updateSetting('sunset','time')">
+                        <input style="width: 15%; display: inline !important;" class="w3-input" type="time" id="sunset"
+                               onchange="updateSetting('sunset','time')">
                     </div>
                     <hr>
-                    <input type="checkbox" id="useLocationForSunrise" class="w3-check" onclick="updateSetting('useLocationForSunrise','check')">
+                    <input type="checkbox" id="useLocationForSunrise" class="w3-check"
+                           onclick="updateSetting('useLocationForSunrise','check')">
                     <label for="useLocationForSunrise">Use location for sunrise & sunset times</label>
                     <br><br>
                     <label for="latitude">Location: </label>
-                    <input style="width: 10%; display: inline !important;" class="w3-input" type="number" id="latitude" onchange="updateSetting('latitude','number'); updateLocation()">
+                    <input style="width: 10%; display: inline !important;" class="w3-input" type="number" id="latitude"
+                           onchange="updateSetting('latitude','number'); updateLocation()">
                     N <label for="longitude"></label>
-                    <input style="width: 10%; display: inline !important;" class="w3-input" type="number" id="longitude" onchange="updateSetting('longitude','number'); updateLocation()">
+                    <input style="width: 10%; display: inline !important;" class="w3-input" type="number" id="longitude"
+                           onchange="updateSetting('longitude','number'); updateLocation()">
                     E
                 </div>
             </div>
@@ -128,22 +149,27 @@
                     <h3>Multiscreen Settings</h3>
                 </div>
                 <div class="w3-display-container cardContent" style="padding: 2%">
-                    <input type="checkbox" id="sameVideoOnScreens" class="w3-check" onclick="updateSetting('sameVideoOnScreens','check')">
+                    <input type="checkbox" id="sameVideoOnScreens" class="w3-check"
+                           onclick="updateSetting('sameVideoOnScreens','check')">
                     <label for="sameVideoOnScreens">Play the same video on each screen</label>
                     <br>
-                    <input type="checkbox" id="onlyShowVideoOnPrimaryMonitor" class="w3-check" onclick="updateSetting('onlyShowVideoOnPrimaryMonitor','check')">
+                    <input type="checkbox" id="onlyShowVideoOnPrimaryMonitor" class="w3-check"
+                           onclick="updateSetting('onlyShowVideoOnPrimaryMonitor','check')">
                     <label for="onlyShowVideoOnPrimaryMonitor">Only play videos on the primary screen</label>
                     <br>
-                    <input type="checkbox" id="alternateRenderMethod" class="w3-check" onclick="updateSetting('alternateRenderMethod','check');">
+                    <input type="checkbox" id="alternateRenderMethod" class="w3-check"
+                           onclick="updateSetting('alternateRenderMethod','check');">
                     <label for="alternateRenderMethod">Alternate Render Method
                         <i>*Use this option if your screensaver freezes on multiple displays</i></label>
                     <br>
                     <br>
                     <div id="alternateRenderMethodFPS">
                         <label for="fps" id="fpsText">Set the FPS for the Alternate Render Method.</label>
-                        <span class="w3-right" onclick="resetSetting('fps', 'number', 60)"><i class="fa fa-undo"></i></span>
+                        <span class="w3-right" onclick="resetSetting('fps', 'number', 60)"><i
+                                class="fa fa-undo"></i></span>
                         <br>
-                        <input style="width: 10%; display: inline !important;" class="w3-input" type="number" id="fps" onchange="updateSetting('fps','number')">
+                        <input style="width: 10%; display: inline !important;" class="w3-input" type="number" id="fps"
+                               onchange="updateSetting('fps','number')">
                     </div>
                 </div>
             </div>
@@ -153,15 +179,19 @@
                 </div>
                 <div class="w3-display-container cardContent" style="padding: 2%">
                     <label for="playbackSpeed">Playback Speed:
-                        <span id="playbackSpeedText"></span></label><span class="w3-right" onclick="resetSetting('playbackSpeed', 'slider', 1)"><i class="fa fa-undo"></i></span>
+                        <span id="playbackSpeedText"></span></label><span class="w3-right"
+                                                                          onclick="resetSetting('playbackSpeed', 'slider', 1)"><i
+                        class="fa fa-undo"></i></span>
                     <br>
-                    <input type="range" min=".75" max="4" value="1" step=".05" id="playbackSpeed" class="slider" onchange="updateSetting('playbackSpeed','slider')">
+                    <input type="range" min=".75" max="4" value="1" step=".05" id="playbackSpeed" class="slider"
+                           onchange="updateSetting('playbackSpeed','slider')">
                     <h4>Filter Settings
                         <span class="w3-right" onclick="resetFilterSettings()"><i class="fa fa-undo"></i></span></h4>
                     <div class="w3-display-container" id="videoFilterSettings"></div>
                     <br>
                     <div class="w3-small">
-                        <input type="checkbox" id="videoQuality" class="w3-check" onclick="updateSetting('videoQuality','check')">
+                        <input type="checkbox" id="videoQuality" class="w3-check"
+                               onclick="updateSetting('videoQuality','check')">
                         <label for="videoQuality">Disable all video processing</label></div>
                 </div>
             </div>
@@ -170,29 +200,36 @@
                     <h3>Video Cache Settings</h3>
                 </div>
                 <div class="w3-display-container cardContent" style="padding: 2%">
-                    <input type="checkbox" id="videoCache" class="w3-check" onclick="updateSetting('videoCache','check')">
+                    <input type="checkbox" id="videoCache" class="w3-check"
+                           onclick="updateSetting('videoCache','check')">
                     <label for="videoCache"> Automatically download checked videos to the cache</label>
                     <br>
                     <p class="w3-small" style="margin-left: 4%">The total size of all videos is approximately 20 GB</p>
-                    <input type="checkbox" id="videoCacheProfiles" class="w3-check" onclick="updateSetting('videoCacheProfiles','check')" style="margin-left: 8%">
+                    <input type="checkbox" id="videoCacheProfiles" class="w3-check"
+                           onclick="updateSetting('videoCacheProfiles','check')" style="margin-left: 8%">
                     <label for="videoCacheProfiles">Include videos in saved profiles</label>
                     <br>
-                    <input type="checkbox" id="videoCacheRemoveUnallowed" class="w3-check" onclick="updateSetting('videoCacheRemoveUnallowed','check')" style="margin-left: 8%">
+                    <input type="checkbox" id="videoCacheRemoveUnallowed" class="w3-check"
+                           onclick="updateSetting('videoCacheRemoveUnallowed','check')" style="margin-left: 8%">
                     <label for="videoCacheRemoveUnallowed">Automatically remove unchecked videos</label>
                     <br>
-                    <input type="checkbox" id="immediatelyUpdateVideoCache" class="w3-check" onclick="updateSetting('immediatelyUpdateVideoCache','check')">
+                    <input type="checkbox" id="immediatelyUpdateVideoCache" class="w3-check"
+                           onclick="updateSetting('immediatelyUpdateVideoCache','check')">
                     <label for="immediatelyUpdateVideoCache">Immediately update video cache</label>
                     <br><br>
                     <button class="w3-button w3-white w3-border w3-border-blue w3-round-large" onclick="updateCache()">
                         Update cache
                     </button>
-                    <button class="w3-button w3-white w3-border w3-border-red w3-round-large" onclick="deleteCache()">Delete
+                    <button class="w3-button w3-white w3-border w3-border-red w3-round-large" onclick="deleteCache()">
+                        Delete
                         all files
                     </button>
-                    <button class="w3-button w3-white w3-border w3-border-blue w3-round-large" onclick="electron.ipcRenderer.send('openCache');">
+                    <button class="w3-button w3-white w3-border w3-border-blue w3-round-large"
+                            onclick="electron.ipcRenderer.send('openCache');">
                         Open in File Explorer
                     </button>
-                    <button class="w3-button w3-white w3-border w3-border-blue w3-round-large" onclick="selectCacheLocation()">
+                    <button class="w3-button w3-white w3-border w3-border-blue w3-round-large"
+                            onclick="selectCacheLocation()">
                         Move Location
                     </button>
                     <br>
@@ -221,15 +258,19 @@
                     </p>
                     <p style="font-size: small">
                         Visit our
-                        <a href="https://github.com/OrangeJedi/Aerial" target="_blank">GitHub repository</a> to report bugs, suggest features, view or download the code, or contribute to Aerial.
+                        <a href="https://github.com/OrangeJedi/Aerial" target="_blank">GitHub repository</a> to report
+                        bugs, suggest features, view or download the code, or contribute to Aerial.
                         For tips, tricks, a feature list, and other how-to information, visit the
-                        <a href="https://github.com/OrangeJedi/Aerial/wiki" target="_blank">Wiki</a>, also hosted on GitHub.
+                        <a href="https://github.com/OrangeJedi/Aerial/wiki" target="_blank">Wiki</a>, also hosted on
+                        GitHub.
                     </p>
                     <p style="font-size: small">
                         Copyright (c) 2022 OrangeJedi. All code and applicable assets are released under the
-                        <a href="https://github.com/OrangeJedi/Aerial/blob/master/LICENSE" target="_blank">MIT License</a>.
+                        <a href="https://github.com/OrangeJedi/Aerial/blob/master/LICENSE" target="_blank">MIT
+                            License</a>.
                     </p>
-                    <button class="w3-button w3-white w3-border w3-border-blue w3-round-large" style="font-size: small" onclick="electron.ipcRenderer.send('openConfigFolder');">
+                    <button class="w3-button w3-white w3-border w3-border-blue w3-round-large" style="font-size: small"
+                            onclick="electron.ipcRenderer.send('openConfigFolder');">
                         View Local Files
                     </button>
                     <hr>
@@ -238,7 +279,8 @@
                         <br>
                         <div class="w3-panel w3-pale-green" style="padding-bottom: 2%">
                             <h4>A new version of Aerial is available!</h4>
-                            <a href="https://github.com/OrangeJedi/Aerial/releases" target="_blank">Click here</a> to download version v<span id="updateAvailable"></span>
+                            <a href="https://github.com/OrangeJedi/Aerial/releases" target="_blank">Click here</a> to
+                            download version v<span id="updateAvailable"></span>
                         </div>
                     </div>
                 </div>
@@ -254,7 +296,8 @@
                 <h4 id="videoName">Video Settings</h4>
             </div>
             <div class="w3-display-container">
-                <video autoplay loop controls id="videoPlayer" class="w3-display-middle" style=" width: 90%; padding-top: 55%; display: inline"></video>
+                <video autoplay loop controls id="videoPlayer" class="w3-display-middle"
+                       style=" width: 90%; padding-top: 55%; display: inline"></video>
                 <div id="videoSettings"></div>
                 <div id="videoInfo" class="videoInfo"></div>
             </div>
@@ -263,8 +306,10 @@
     <div id="textTab" class="tab" style="display: none">
         <div class="w3-sidebar w3-light-grey w3-bar-block" style="width:20%">
             <div class="settingsListItem"><h3 class="w3-bar-item"><i class="fa fa-paragraph"></i> Text</h3></div>
-            <a onclick="selectTextSetting('position')" id="textSettingsList-position" class="w3-bar-item w3-button textSettingsListItem w3-deep-orange">Position</a>
-            <a onclick="selectTextSetting('textOptions')" id="textSettingsList-textOptions" class="w3-bar-item w3-button textSettingsListItem">Text
+            <a onclick="selectTextSetting('position')" id="textSettingsList-position"
+               class="w3-bar-item w3-button textSettingsListItem w3-deep-orange">Position</a>
+            <a onclick="selectTextSetting('textOptions')" id="textSettingsList-textOptions"
+               class="w3-bar-item w3-button textSettingsListItem">Text
                 Options</a>
         </div>
         <div id="textCard" style="margin-left:20%">
@@ -274,51 +319,111 @@
                 </div>
                 <div class="w3-display-container" style="padding: 0%; padding-left: 2%">
                     <span class="imagePositionRandom">
-                    <input class="w3-radio imagePosition" type="radio" name="imagePosition" value="random" onclick="positionSelect(this)"><label></label>
+                    <input class="w3-radio imagePosition" type="radio" name="imagePosition" value="random"
+                           onclick="positionSelect(this)"><label></label>
                      Random
                     </span>
-                    <div class="w3-display-container w3-display-topleft" style="width: 50%; margin-top: 5%; margin-left: 2%">
-                        <img alt="An error has occurred" src="images/B8F204CE-6024-49AB-85F9-7CA2F6DCD226.jpeg" class="w3-round" style="width: 100%;"/>
+                    <div class="w3-display-container w3-display-topleft"
+                         style="width: 50%; margin-top: 5%; margin-left: 2%">
+                        <img alt="An error has occurred" src="images/B8F204CE-6024-49AB-85F9-7CA2F6DCD226.jpeg"
+                             class="w3-round" style="width: 100%;"/>
                         <div class="w3-display-topleft w3-container imagePositionRadio">
-                            <input class="w3-radio imagePosition" type="radio" name="imagePosition" value="topleft" onclick="positionSelect(this)"><label></label>
+                            <input class="w3-radio imagePosition" type="radio" name="imagePosition" value="topleft"
+                                   onclick="positionSelect(this)"><label></label>
                         </div>
                         <div class="w3-display-topright w3-container imagePositionRadio">
-                            <input class="w3-radio imagePosition" type="radio" name="imagePosition" value="topright" onclick="positionSelect(this)"><label></label>
+                            <input class="w3-radio imagePosition" type="radio" name="imagePosition" value="topright"
+                                   onclick="positionSelect(this)"><label></label>
                         </div>
                         <div class="w3-display-bottomleft w3-container imagePositionRadio">
-                            <input class="w3-radio imagePosition" type="radio" name="imagePosition" value="bottomleft" onclick="positionSelect(this)"><label></label>
+                            <input class="w3-radio imagePosition" type="radio" name="imagePosition" value="bottomleft"
+                                   onclick="positionSelect(this)"><label></label>
                         </div>
                         <div class="w3-display-bottomright w3-container imagePositionRadio">
-                            <input class="w3-radio imagePosition" type="radio" name="imagePosition" value="bottomright" onclick="positionSelect(this)"><label></label>
+                            <input class="w3-radio imagePosition" type="radio" name="imagePosition" value="bottomright"
+                                   onclick="positionSelect(this)"><label></label>
                         </div>
                         <div class="w3-display-left w3-container imagePositionRadio">
-                            <input class="w3-radio imagePosition" type="radio" name="imagePosition" value="left" onclick="positionSelect(this)"><label></label>
+                            <input class="w3-radio imagePosition" type="radio" name="imagePosition" value="left"
+                                   onclick="positionSelect(this)"><label></label>
                         </div>
                         <div class="w3-display-right w3-container imagePositionRadio">
-                            <input class="w3-radio imagePosition" type="radio" name="imagePosition" value="right" onclick="positionSelect(this)"><label></label>
+                            <input class="w3-radio imagePosition" type="radio" name="imagePosition" value="right"
+                                   onclick="positionSelect(this)"><label></label>
                         </div>
                         <div class="w3-display-middle w3-large imagePositionRadio">
-                            <input class="w3-radio imagePosition" type="radio" name="imagePosition" value="middle" onclick="positionSelect(this)"><label></label>
+                            <input class="w3-radio imagePosition" type="radio" name="imagePosition" value="middle"
+                                   onclick="positionSelect(this)"><label></label>
                         </div>
                         <div class="w3-display-topmiddle w3-container imagePositionRadio">
-                            <input class="w3-radio imagePosition" type="radio" name="imagePosition" value="topmiddle" onclick="positionSelect(this)"><label></label>
+                            <input class="w3-radio imagePosition" type="radio" name="imagePosition" value="topmiddle"
+                                   onclick="positionSelect(this)"><label></label>
                         </div>
                         <div class="w3-display-bottommiddle w3-container imagePositionRadio">
-                            <input class="w3-radio imagePosition" type="radio" name="imagePosition" value="bottommiddle" onclick="positionSelect(this)"><label></label>
+                            <input class="w3-radio imagePosition" type="radio" name="imagePosition" value="bottommiddle"
+                                   onclick="positionSelect(this)"><label></label>
                         </div>
-                       </div>
-                    <div class="w3-display-topright w3-container w3-right-align" style="width: 33%; margin-top: 2%; margin-right: 2%">
-                        <h3 id="positionType" style="display: none">
-                            <label for="positionTypeSelect">Type:</label>
-                            <select id="positionTypeSelect">
-                                <option value="none">None</option>
-                                <option value="text">Text</option>
-                                <option value="html">HTML</option>
-                                <option value="time">Time/Date</option>
-                                <option value="information">Information</option>
-                                <option value="astronomy">Astronomy</option>
-                            </select>
-                        </h3>
+                    </div>
+                    <div class="w3-display-topright w3-container w3-right-align"
+                         style="width: 45%; margin-top: 2%; margin-right: 2%">
+                        <h4 id="positionType" style="display: none">
+                            <table class="w3-table-all">
+                                <tr id="positionRow0">
+                                    <td id="positionLineNum0">Line 1</td>
+                                    <td>
+                                        <label for="positionTypeSelect0">Type:</label>
+                                        <select id="positionTypeSelect0">
+                                            <option value="none">None</option>
+                                            <option value="text">Text</option>
+                                            <option value="html">HTML</option>
+                                            <option value="time">Time/Date</option>
+                                            <option value="information">Information</option>
+                                            <option value="astronomy">Astronomy</option>
+                                        </select>
+                                    </td>
+                                </tr>
+                                <tr id="positionRow1">
+                                    <td id="positionLineNum1">Line 2</td>
+                                    <td><label for="positionTypeSelect1">Type:</label>
+                                        <select id="positionTypeSelect1">
+                                            <option value="none">None</option>
+                                            <option value="text">Text</option>
+                                            <option value="html">HTML</option>
+                                            <option value="time">Time/Date</option>
+                                            <option value="information">Information</option>
+                                            <option value="astronomy">Astronomy</option>
+                                        </select>
+                                    </td>
+                                </tr>
+                                <tr id="positionRow2">
+                                    <td id="positionLineNum2">Line 3</td>
+                                    <td><label for="positionTypeSelect2">Type:</label>
+                                        <select id="positionTypeSelect2">
+                                            <option value="none">None</option>
+                                            <option value="text">Text</option>
+                                            <option value="html">HTML</option>
+                                            <option value="time">Time/Date</option>
+                                            <option value="information">Information</option>
+                                            <option value="astronomy">Astronomy</option>
+                                        </select>
+                                    </td>
+                                </tr>
+                                <tr id="positionRow3">
+                                    <td id="positionLineNum3">Line 4</td>
+                                    <td><label for="positionTypeSelect3">Type:</label>
+                                        <select id="positionTypeSelect3">
+                                            <option value="none">None</option>
+                                            <option value="text">Text</option>
+                                            <option value="html">HTML</option>
+                                            <option value="time">Time/Date</option>
+                                            <option value="information">Information</option>
+                                            <option value="astronomy">Astronomy</option>
+                                        </select>
+                                    </td>
+                                </tr>
+                            </table>
+
+                        </h4>
                     </div>
                 </div>
                 <div class="w3-container" style="margin-top: 35%">
@@ -341,15 +446,24 @@
                 </div>
                 <div class="w3-display-container" style="padding: 2%">
                     <div class="autocomplete" style="width:300px;">
-                        <label for="textFont">Font: </label><input id="textFont" type="text" onchange="updateSetting('textFont', 'autocomplete')"><i class="fa fa-exclamation-triangle" id="textFontError" style="display: none"></i>
+                        <label for="textFont">Font: </label><input id="textFont" type="text"
+                                                                   onchange="updateSetting('textFont', 'autocomplete')"><i
+                            class="fa fa-exclamation-triangle" id="textFontError" style="display: none"></i>
                     </div>
                     <br>
                     <label for="textSize">Font
-                        Size: </label><input class="w3-input" id="textSize" type="number" step=".25" style="width: 25%; display: inline; margin-top: 2%" onchange="updateSetting('textSize', 'number')">
+                        Size: </label><input class="w3-input" id="textSize" type="number" step=".25"
+                                             style="width: 25%; display: inline; margin-top: 2%"
+                                             onchange="updateSetting('textSize', 'number')">
                     <br>
-                    <label for="textColor">Color: </label><input class="w3-input" id="textColor" type="color" step=".25" style="width: 5%; display: inline; margin-top: 2%; padding: 0;" onchange="updateSetting('textColor', 'text')">
+                    <label for="textColor">Color: </label><input class="w3-input" id="textColor" type="color" step=".25"
+                                                                 style="width: 5%; display: inline; margin-top: 2%; padding: 0;"
+                                                                 onchange="updateSetting('textColor', 'text')">
                     <hr>
-                    <label for="textSize">Random Change Speed</label><input class="w3-input" id="randomSpeed" type="number" step="1" style="width: 10%; display: inline; margin-top: 2%" onchange="updateSetting('randomSpeed', 'number')">
+                    <label for="textSize">Random Change Speed</label><input class="w3-input" id="randomSpeed"
+                                                                            type="number" step="1"
+                                                                            style="width: 10%; display: inline; margin-top: 2%"
+                                                                            onchange="updateSetting('randomSpeed', 'number')">
 
                 </div>
             </div>
@@ -361,7 +475,8 @@
 <div id="timeFormatExplain" class="w3-modal">
     <div class="w3-modal-content">
         <div class="w3-container w3-white">
-            <span onclick="document.getElementById('timeFormatExplain').style.display='none'" class="w3-button w3-display-topright">&times;</span>
+            <span onclick="document.getElementById('timeFormatExplain').style.display='none'"
+                  class="w3-button w3-display-topright">&times;</span>
             <br>
             <p>Aerial uses Moment.js to display the current time. Use the characters in the table below to format the
                 time and date however you want it.</p>
@@ -508,12 +623,14 @@
 <div id="createVideoProfile" class="w3-modal">
     <div class="w3-modal-content">
         <div class="w3-container w3-white">
-            <span onclick="document.getElementById('createVideoProfile').style.display='none'" class="w3-button w3-display-topright">&times;</span>
+            <span onclick="document.getElementById('createVideoProfile').style.display='none'"
+                  class="w3-button w3-display-topright">&times;</span>
             <br>
             <p>
                 <label for="newProfileName">Profile Name</label><input class="w3-input" type="text" id="newProfileName">
                 <br>
-                <button class="w3-button w3-white w3-border w3-border-blue w3-round-large" onclick="createProfile('newProfileName');document.getElementById('createVideoProfile').style.display='none';">
+                <button class="w3-button w3-white w3-border w3-border-blue w3-round-large"
+                        onclick="createProfile('newProfileName');document.getElementById('createVideoProfile').style.display='none';">
                     Create Profile
                 </button>
             </p>
@@ -523,12 +640,14 @@
 <div id="editCustomVideo" class="w3-modal">
     <div class="w3-modal-content">
         <div class="w3-container w3-white">
-            <span onclick="document.getElementById('editCustomVideo').style.display='none'" class="w3-button w3-display-topright">&times;</span>
+            <span onclick="document.getElementById('editCustomVideo').style.display='none'"
+                  class="w3-button w3-display-topright">&times;</span>
             <br>
             <p>
                 <label for="customVideoName">Name</label><input class="w3-input" type="text" id="customVideoName">
                 <br>
-                <button class="w3-button w3-white w3-border w3-border-blue w3-round-large" onclick="document.getElementById('editCustomVideo').style.display='none';">
+                <button class="w3-button w3-white w3-border w3-border-blue w3-round-large"
+                        onclick="document.getElementById('editCustomVideo').style.display='none';">
                     Done
                 </button>
             </p>
@@ -538,7 +657,8 @@
 <div id="welcomeMessage" class="w3-modal">
     <div class="w3-modal-content">
         <div class="w3-container w3-white">
-            <span onclick="document.getElementById('welcomeMessage').style.display='none'" class="w3-button w3-display-topright">&times;</span>
+            <span onclick="document.getElementById('welcomeMessage').style.display='none'"
+                  class="w3-button w3-display-topright">&times;</span>
             <br>
             <p>
             <h2>Welcome to Aerial</h2>
@@ -552,7 +672,8 @@
             </p>
             <p>Thanks for using Aerial! We hope you enjoy it!</p>
             <br>
-            <button class="w3-button w3-white w3-border w3-border-blue w3-round-large" onclick="document.getElementById('welcomeMessage').style.display='none';">
+            <button class="w3-button w3-white w3-border w3-border-blue w3-round-large"
+                    onclick="document.getElementById('welcomeMessage').style.display='none';">
                 Done
             </button>
             </p>
@@ -562,11 +683,13 @@
 <div id="needsLocation" class="w3-modal">
     <div class="w3-modal-content" style="width: 45%">
         <div class="w3-container w3-white">
-            <span onclick="document.getElementById('needsLocation').style.display='none'" class="w3-button w3-display-topright">x</span>
+            <span onclick="document.getElementById('needsLocation').style.display='none'"
+                  class="w3-button w3-display-topright">x</span>
             <br>
             <h4>You need to set a location first!</h4>
             <br>
-            <button class="w3-button w3-white w3-border w3-border-blue w3-round-large" onclick="document.getElementById('needsLocation').style.display='none';">
+            <button class="w3-button w3-white w3-border w3-border-blue w3-round-large"
+                    onclick="document.getElementById('needsLocation').style.display='none';">
                 Done
             </button>
             </p>

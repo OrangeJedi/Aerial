@@ -225,12 +225,12 @@ if (useAlternateRenderMethod) {
     }
 }
 
-function runClock(position, timeString) {
+function runClock(position, line, timeString) {
     if (blackScreen) {
         return
     }
-    $(`#textDisplay-${position}`).text(moment().format(timeString));
-    displayText[position].clockTimeout = setTimeout(runClock, 1000 - new Date().getMilliseconds(), position, timeString);
+    $(`#${position}-${line}-clock`).text(moment().format(timeString));
+    displayText[position][line].clockTimeout = setTimeout(runClock, 1000 - new Date().getMilliseconds(), position, line, timeString);
 }
 
 //set up css
@@ -259,39 +259,51 @@ for (let position of displayText.positionList) {
 }
 
 function displayTextPosition(position, displayLocation) {
-    let selector = displayLocation ? $(`#textDisplay-${displayLocation}`) : $(`#textDisplay-${position}`);
-    switch (displayText[position].type) {
+    let selector = displayLocation ? `#textDisplay-${displayLocation}` : `#textDisplay-${position}`;
+    let html = "";
+    for (let i = 0; i < 4; i++) {
+        html += `<div id="${position}-${i}">${createContentLine(displayText[position][i], position, i)}</div>`;
+    }
+    $(selector).html(html);
+    for (let i = 0; i < 4; i++) {
+        if (!displayText[position][i].defaultFont) {
+            console.log("hey");
+            $(`#${position}-${i}`).css('font-family', `"${displayText[position][i].font}"`).css('font-size', `${displayText[position][i].fontSize}vw`).css('color', `${displayText[position][i].fontColor}`);
+        }
+    }
+}
+
+function createContentLine(contentLine, position, line) {
+    let html = "";
+    switch (contentLine.type) {
         case "none":
             break;
         case "text":
-            selector.text(displayText[position].text);
+            html += contentLine.text;
             break;
         case "html":
-            selector.html(displayText[position].html);
+            html += contentLine.html;
             break;
         case "time":
-            runClock(displayLocation ? displayLocation : position, displayText[position].timeString);
+            html += `<div id=${position}-${line}-clock></div>`;
+            runClock(position, line, contentLine.timeString);
             break;
         case "astronomy":
-            let html = "";
             const astronomy = electron.store.get("astronomy");
-            let type = displayText[position].astronomy;
-            if (displayText[position].astronomy === "sunrise/set") {
+            let type = contentLine.astronomy;
+            if (contentLine.astronomy === "sunrise/set") {
                 if (new Date() < new Date(astronomy.sunrise) || new Date() > new Date(astronomy.sunset)) {
                     type = "sunrise";
                 } else {
                     type = "sunset";
                 }
             }
-            if (displayText[position].astronomy === "moonrise/set") {
+            if (contentLine.astronomy === "moonrise/set") {
                 if (new Date() < new Date(astronomy.moonrise) && new Date() > new Date(astronomy.moonset)) {
                     type = "moonrise";
                 } else {
                     type = "moonset";
                 }
-            }
-            if (displayText[position].astronomy === "moonrise/set") {
-
             }
             switch (type) {
                 case "sunrise":
@@ -308,19 +320,17 @@ function displayTextPosition(position, displayLocation) {
                     break
             }
             let eventTime = moment(astronomy[type]);
-            html += eventTime.format(displayText[position].astroTimeString);
-            selector.html(html);
+            html += eventTime.format(contentLine.astroTimeString);
             break;
     }
-    if (!displayText[position].defaultFont) {
-        selector.css('font-family', `"${displayText[position].font}"`).css('font-size', `${displayText[position].fontSize}vw`).css('color', `${displayText[position].fontColor}`);
-    }
+    return html;
 }
 
-if (displayText.random.type !== "none") {
+//Random is broken. Remove this when it is fixed.
+if (displayText.random[0].type !== "none") {
     displayText.random.currentLocation = "none";
-    switchRandomText();
-    let randomInterval = setInterval(switchRandomText, electron.store.get('randomSpeed') * 1000);
+    //switchRandomText();
+    //let randomInterval = setInterval(switchRandomText, electron.store.get('randomSpeed') * 1000);
 }
 
 function switchRandomText() {
@@ -331,7 +341,7 @@ function switchRandomText() {
             break;
         }
         newLoc = displayText.positionList[randomInt(0, displayText.positionList.length)];
-        if (displayText[newLoc].type !== "none") {
+        if (displayText[newLoc][0].type !== "none") {
             newLoc = false;
             continue;
         }
@@ -339,7 +349,7 @@ function switchRandomText() {
             newLoc = false;
             continue;
         }
-        if (displayText.random.type === "time" && displayText.random.currentLocation !== "none") {
+        if (displayText.random[0].type === "time" && displayText.random.currentLocation !== "none") {
             clearTimeout(displayText[displayText.random.currentLocation].clockTimeout);
         }
         $(`#textDisplay-${displayText.random.currentLocation}`).html("");

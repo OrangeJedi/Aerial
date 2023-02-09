@@ -249,6 +249,7 @@ function createTrayWindow() {
             },
         ]);
     }
+
     trayWin.tray = new Tray(path.join(__dirname, 'icon.ico'));
     trayWin.tray.setContextMenu(newMenu(false));
     trayWin.tray.setToolTip("Aerial");
@@ -414,24 +415,23 @@ function setUpConfigFile() {
     store.set('textFont', store.get('textFont') ?? "Segoe UI");
     store.set('textSize', store.get('textSize') ?? "2");
     store.set('textColor', store.get('textColor') ?? "#FFFFFF");
-    store.set('displayText', store.get('displayText') ?? {
-        'positionList': ["topleft", "topright", "bottomleft", "bottomright", "left", "right", "middle", "topmiddle", "bottommiddle"],
-        'topleft': {'type': "none", "defaultFont": true},
-        'topright': {'type': "none", "defaultFont": true},
-        'bottomleft': {'type': "none", "defaultFont": true},
-        'bottomright': {'type': "none", "defaultFont": true},
-        'left': {'type': "none", "defaultFont": true},
-        'right': {'type': "none", "defaultFont": true},
-        'middle': {'type': "none", "defaultFont": true},
-        'topmiddle': {'type': "none", "defaultFont": true},
-        'bottommiddle': {'type': "none", "defaultFont": true},
-        'random': {'type': "none", "defaultFont": true}
-    });
-    //add random field if it isn't there without removing any pe-set settings
-    if(!store.get('displayText').random){
-        let displayText = store.get('displayText');
-        displayText.positionList.push('random');
-        displayText.random = {'type': "none", "defaultFont": true};
+    let displayText = store.get('displayText');
+    if (displayText) {
+        if (!displayText.topleft[0]) {
+            displayText = undefined;
+        }
+    }
+    if (!displayText){
+        displayText = {
+            'positionList': ["topleft", "topright", "bottomleft", "bottomright", "left", "right", "middle", "topmiddle", "bottommiddle", "random"]
+        };
+        let temp = [];
+        for (let i = 0; i < 4; i++) {
+            temp.push({'type': "none", "defaultFont": true});
+        }
+        displayText.positionList.forEach((v) => {
+            displayText[v] = temp;
+        });
         store.set('displayText', displayText);
     }
     store.set('randomSpeed', store.get('randomSpeed') ?? 30);
@@ -442,6 +442,8 @@ function setUpConfigFile() {
     store.set('version', app.getVersion());
     store.set("configured", true);
 }
+
+setUpConfigFile();
 
 //check for update on GitHub
 function checkForUpdate() {
