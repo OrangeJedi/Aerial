@@ -358,6 +358,7 @@ function setUpConfigFile() {
     //playback settings
     store.set('playbackSpeed', store.get('playbackSpeed') ?? 1);
     store.set('skipVideosWithKey', store.get('skipVideosWithKey') ?? true);
+    store.set('skipKey', store.get('skipKey') ?? "ArrowRight");
     store.set('avoidDuplicateVideos', store.get('avoidDuplicateVideos') ?? true);
     store.set('videoFilters', store.get('videoFilters') ?? [{
         name: 'blur',
@@ -466,7 +467,7 @@ ipcMain.on('quitApp', (event, arg) => {
 });
 
 ipcMain.on('keyPress', (event, key) => {
-    if (key === "ArrowRight" && store.get('skipVideosWithKey')) {
+    if (key === store.get('skipKey') && store.get('skipVideosWithKey')) {
         for (let i = 0; i < screens.length; i++) {
             screens[i].webContents.send('newVideo');
         }

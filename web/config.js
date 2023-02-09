@@ -13,7 +13,7 @@ function displaySettings() {
     for (let i = 0; i < checked.length; i++) {
         $(`#${checked[i]}`).prop('checked', electron.store.get(checked[i]));
     }
-    let numTxt = ["sunrise", "sunset", "textFont", "textSize", "textColor", "startAfter", "blankAfter", "fps", "latitude", "longitude","randomSpeed"];
+    let numTxt = ["sunrise", "sunset", "textFont", "textSize", "textColor", "startAfter", "blankAfter", "fps", "latitude", "longitude","randomSpeed","skipKey"];
     for (let i = 0; i < numTxt.length; i++) {
         $(`#${numTxt[i]}`).val(electron.store.get(numTxt[i]));
     }
@@ -26,7 +26,7 @@ function displaySettings() {
     for (let i = 0; i < numeralText.length; i++) {
         $(`#${numeralText[i].id}`).text(numeral(electron.store.get(numeralText[i].id)).format(numeralText[i].format));
     }
-    let staticText = ["version", "updateAvailable"]
+    let staticText = ["version", "updateAvailable"];
     for (let i = 0; i < staticText.length; i++) {
         $(`#${staticText[i]}`).text(electron.store.get(staticText[i]));
     }
@@ -198,6 +198,13 @@ function selectCacheLocation() {
         electron.ipcRenderer.send('selectCacheLocation');
     }
 }
+
+let skipKeyInput = document.getElementById('skipKey');
+
+skipKeyInput.addEventListener('keyup', (e)=>{
+   skipKeyInput.value = e.code;
+   updateSetting('skipKey','text');
+});
 
 electron.ipcRenderer.on('displaySettings', () => {
     displaySettings();

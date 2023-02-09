@@ -93,7 +93,9 @@
                     <input type="range" min="750" max="4000" value="1000" step="10" id="videoTransitionLength" class="slider" onchange="updateSetting('videoTransitionLength','slider')">
                     <br><br>
                     <input type="checkbox" id="skipVideosWithKey" class="w3-check" onclick="updateSetting('skipVideosWithKey','check')">
-                    <label for="skipVideosWithKey">Use the right arrow key to skip videos</label>
+                    <label for="skipVideosWithKey">Use a key to skip videos</label>
+                    <br><br>
+                    <label for="skipKey">Skip key: </label><input type="text" id="skipKey">
                 </div>
             </div>
             <div id="timeSettings" class="settingsCard" style="display: none">
