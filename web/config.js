@@ -214,6 +214,12 @@ electron.ipcRenderer.on('showWelcome', () => {
     document.getElementById('welcomeMessage').style.display = 'block';
 });
 
+electron.ipcRenderer.on('updateAttribute', (args) => {
+    let id = args[0];
+    let value = args[1]
+    document.getElementById(id).innerText = value;
+});
+
 //Custom videos
 electron.ipcRenderer.on('newCustomVideos', (videoList, path) => {
     customVideos = electron.store.get('customVideos');
@@ -304,8 +310,8 @@ function colorTextPositionRadio() {
     let displayTextSettings = electron.store.get('displayText');
     $('.imagePosition').each(function () {
         let color = false;
-        for(let i  = 0; i < 4;i++){
-            if(displayTextSettings[this.value][i].type !== "none"){
+        for (let i = 0; i < 4; i++) {
+            if (displayTextSettings[this.value][i].type !== "none") {
                 color = true;
             }
         }
@@ -336,7 +342,7 @@ function positionSelect(position) {
     $('#positionTypeSelect3').val(displayTextSettings[3].type);
 
     $('#positionType').css('display', "");
-    lineSelect(position,0);
+    lineSelect(position, 0);
 }
 
 function lineSelect(position, line) {
@@ -344,12 +350,12 @@ function lineSelect(position, line) {
     document.getElementById("textWidthSelect").setAttribute('onchange', `updateTextSetting(this, '${position}','${line}', 'maxWidth')`);
     $('#textWidthSelect').val(displayTextSettings.maxWidth ? displayTextSettings.maxWidth : "50%");
 
-    $('#positionLineNum0').css("font-weight","normal");
-    $('#positionLineNum1').css("font-weight","normal");
-    $('#positionLineNum2').css("font-weight","normal");
-    $('#positionLineNum3').css("font-weight","normal");
+    $('#positionLineNum0').css("font-weight", "normal");
+    $('#positionLineNum1').css("font-weight", "normal");
+    $('#positionLineNum2').css("font-weight", "normal");
+    $('#positionLineNum3').css("font-weight", "normal");
 
-    $('#positionLineNum' + line).css("font-weight","bold");
+    $('#positionLineNum' + line).css("font-weight", "bold");
 
     updatePositionType(position, line);
 }
@@ -367,6 +373,9 @@ function updatePositionType(position, line) {
             break;
         case "html":
             html = `<label>HTML</label><br><textarea onchange="updateTextSetting(this, '${position}','${line}', 'html')" cols="75" rows="7">${displayTextSettings[position][line].html ? displayTextSettings[position][line].html : ""}</textarea>`;
+            break;
+        case "image":
+            html = `<button onclick="electron.ipcRenderer.send('selectFile',['image','${position}','${line}'])">Select Image</button><br>File: <span id="imageFileName">${displayTextSettings[position][line].imagePath}</span><br>`;
             break;
         case "time":
             displayTextSettings[position][line].timeString = displayTextSettings[position][line].timeString ? displayTextSettings[position][line].timeString : "hh:mm:ss";
@@ -428,7 +437,7 @@ function updatePositionType(position, line) {
                     <label>Color: </label><input class="w3-input" type="color" step=".25" style="width: 5%; display: inline; margin-top: 2%; padding: 0;" onchange="updateTextSetting(this, '${position}','${line}', 'fontColor')" value="${displayTextSettings[position][line]['fontColor']}">`;
             $('#positionDetails').html(html);
             autocomplete(document.getElementById('positionFont'), fontList, (e) => {
-                updateTextSetting(e, position, line,'font')
+                updateTextSetting(e, position, line, 'font')
             });
         } else {
             $('#positionDetails').html(html);

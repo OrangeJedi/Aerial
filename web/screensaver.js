@@ -285,6 +285,9 @@ function createContentLine(contentLine, position, line) {
         case "html":
             html += contentLine.html;
             break;
+        case "image":
+            html += `<img src="${contentLine.imagePath}" alt="There was an error displaying this image"/>`;
+            break;
         case "time":
             html += `<div id=${position}-${line}-clock></div>`;
             runClock(position, line, contentLine.timeString);

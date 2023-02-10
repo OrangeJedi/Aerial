@@ -421,7 +421,7 @@ function setUpConfigFile() {
             displayText = undefined;
         }
     }
-    if (!displayText){
+    if (!displayText) {
         displayText = {
             'positionList': ["topleft", "topright", "bottomleft", "bottomright", "left", "right", "middle", "topmiddle", "bottommiddle", "random"]
         };
@@ -553,6 +553,26 @@ ipcMain.on('refreshCache', (event) => {
             removeAllNeverAllowedVideosInCache();
         }
     }
+});
+
+ipcMain.on('selectFile', async (event, args) => {
+    let type = args[0];
+    let position = args[1];
+    let line = args[2];
+    const filters = {
+        'image': {name: 'Image', extensions: ['jpg', 'jpeg', 'png', 'gif']}
+    };
+    dialog.showOpenDialog(screens[0], {
+        properties: ['openFile'],
+        filters: [filters[type]]
+    }).then(result => {
+        if (!result.canceled) {
+            let displayText = store.get('displayText');
+            displayText[position][line].imagePath = result.filePaths[0];
+            store.set('displayText',displayText);
+            event.reply('updateAttribute',['imageFileName',result.filePaths[0]]);
+        }
+    });
 });
 
 ipcMain.on('openPreview', (event) => {
