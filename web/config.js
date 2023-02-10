@@ -375,7 +375,11 @@ function updatePositionType(position, line) {
             html = `<label>HTML</label><br><textarea onchange="updateTextSetting(this, '${position}','${line}', 'html')" cols="75" rows="7">${displayTextSettings[position][line].html ? displayTextSettings[position][line].html : ""}</textarea>`;
             break;
         case "image":
-            html = `<button onclick="electron.ipcRenderer.send('selectFile',['image','${position}','${line}'])">Select Image</button><br>File: <span id="imageFileName">${displayTextSettings[position][line].imagePath}</span><br>`;
+            html = `<button onclick="electron.ipcRenderer.send('selectFile',['image','${position}','${line}'])">Select Image</button>
+                    <br>File: <span id="imageFileName">${displayTextSettings[position][line].imagePath}</span>
+                    <br><br>
+                    <label>Width: </label><input class='w3-input' style="width: 20%; display: inline !important;" value='${displayTextSettings[position][line].imageWidth ? displayTextSettings[position][line].imageWidth : ""}' onchange="updateTextSetting(this, '${position}','${line}', 'imageWidth')">
+                    <br>`;
             break;
         case "time":
             displayTextSettings[position][line].timeString = displayTextSettings[position][line].timeString ? displayTextSettings[position][line].timeString : "hh:mm:ss";
