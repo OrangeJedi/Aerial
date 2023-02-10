@@ -120,6 +120,13 @@ function fadeVideoOut(time) {
         transitionTimeout = setTimeout(fadeVideoOut, 16, time - 16);
     }
     videoAlpha = time / transitionLength;
+    console.log(videoAlpha);
+    if (videoAlpha < 0) {
+        videoAlpha = 0;
+        clearTimeouts(transitionTimeout);
+    } else if (videoAlpha > 1) {
+        videoAlpha = 1;
+    }
 }
 
 function fadeTextOut(time) {
@@ -157,16 +164,91 @@ function clearTimeouts(arr) {
     return [];
 }
 
+let transitionType = "fade";
+
 //put the video on the canvas
 function drawVideo() {
-    if (videoAlpha !== 1) {
-        ctx1.clearRect(0, 0, window.innerWidth, window.innerHeight);
-        ctx1.globalAlpha = 1;
-        ctx1.fillStyle = "#000000";
-        ctx1.fillRect(0, 0, window.innerWidth, window.innerHeight);
-        ctx1.globalAlpha = videoAlpha;
+    ctx1.reset();
+    ctx1.globalCompositeOperation = "source-over";
+    ctx1.globalAlpha = 1;
+    if (videoAlpha < 1) {
+        switch (transitionType) {
+            case "fade":
+                ctx1.clearRect(0, 0, window.innerWidth, window.innerHeight);
+                ctx1.fillStyle = "#000000";
+                ctx1.fillRect(0, 0, window.innerWidth, window.innerHeight);
+                ctx1.globalAlpha = videoAlpha;
+                ctx1.drawImage(video, 0, 0, window.innerWidth, window.innerHeight);
+                break;
+            case"fade-left":
+                ctx1.drawImage(video, 0, 0, window.innerWidth, window.innerHeight);
+                ctx1.globalCompositeOperation = "destination-out";
+                let gradient = ctx1.createLinearGradient(0, window.innerHeight / 2, window.innerWidth, window.innerHeight / 2);
+                gradient.addColorStop(videoAlpha, "rgba(0,0,0,0)");
+                gradient.addColorStop(videoAlpha + .15 > 1 ? 1 : videoAlpha + .15, `rgba(0,0,0,1)`);
+                ctx1.fillStyle = gradient;
+                ctx1.rect(0, 0, window.innerWidth, window.innerHeight);
+                ctx1.fill();
+                break;
+            case"fade-right":
+                ctx1.drawImage(video, 0, 0, window.innerWidth, window.innerHeight);
+                ctx1.globalCompositeOperation = "destination-out";
+                let gradient2 = ctx1.createLinearGradient(0, window.innerHeight / 2, window.innerWidth, window.innerHeight / 2);
+                gradient2.addColorStop(1 - videoAlpha, "rgba(0,0,0,0)");
+                gradient2.addColorStop(1 - (videoAlpha + .15 > 1 ? 1 : videoAlpha + .15), `rgba(0,0,0,1)`);
+                ctx1.fillStyle = gradient2;
+                ctx1.rect(0, 0, window.innerWidth, window.innerHeight);
+                ctx1.fill();
+                break;
+            case"fade-top-left":
+                ctx1.drawImage(video, 0, 0, window.innerWidth, window.innerHeight);
+                ctx1.globalCompositeOperation = "destination-out";
+                let gradient3 = ctx1.createLinearGradient(0, 0, window.innerWidth, window.innerHeight);
+                gradient3.addColorStop(videoAlpha, "rgba(0,0,0,0)");
+                gradient3.addColorStop(videoAlpha + .15 > 1 ? 1 : videoAlpha + .15, `rgba(0,0,0,1)`);
+                ctx1.fillStyle = gradient3;
+                ctx1.rect(0, 0, window.innerWidth, window.innerHeight);
+                ctx1.fill();
+                break;
+            case "wipe-left":
+                ctx1.clearRect(0, 0, window.innerWidth, window.innerHeight);
+                ctx1.drawImage(video, 0, 0, window.innerWidth, window.innerHeight);
+                ctx1.globalCompositeOperation = "destination-in";
+                ctx1.globalAlpha = 1;
+                ctx1.fillStyle = "#000000";
+                ctx1.rect(0, 0, window.innerWidth * videoAlpha, window.innerHeight);
+                ctx1.fill();
+                break;
+            case "wipe-right":
+                ctx1.drawImage(video, 0, 0, window.innerWidth, window.innerHeight);
+                ctx1.globalCompositeOperation = "destination-in";
+                ctx1.fillStyle = "#000000";
+                ctx1.rect(window.innerWidth - (window.innerWidth * videoAlpha), 0, window.innerWidth, window.innerHeight);
+                ctx1.fill();
+                break;
+            case "circle":
+                ctx1.drawImage(video, 0, 0, window.innerWidth, window.innerHeight);
+                let maxBound = window.innerWidth > window.innerHeight ? window.innerWidth : window.innerHeight;
+                let rad = maxBound * (videoAlpha > 1 ? 1 : videoAlpha < 0 ? 0 : videoAlpha);
+                ctx1.fillStyle = "#000000";
+                ctx1.globalCompositeOperation = "destination-in";
+                ctx1.arc(window.innerWidth / 2, window.innerHeight / 2, rad, 0, Math.PI * 2);
+                ctx1.fill();
+                break;
+            case "reverse-circle":
+                ctx1.drawImage(video, 0, 0, window.innerWidth, window.innerHeight);
+                let rmaxBound = window.innerWidth > window.innerHeight ? window.innerWidth : window.innerHeight;
+                let rrad = rmaxBound * (1 - (videoAlpha > 1 ? 1 : videoAlpha < 0 ? 0 : videoAlpha));
+                ctx1.globalAlpha = 1;
+                ctx1.fillStyle = "#000000";
+                ctx1.globalCompositeOperation = "destination-out";
+                ctx1.arc(window.innerWidth / 2, window.innerHeight / 2, rrad, 0, Math.PI * 2);
+                ctx1.fill();
+                break;
+        }
+    } else {
+        ctx1.drawImage(video, 0, 0, window.innerWidth, window.innerHeight);
     }
-    ctx1.drawImage(video, 0, 0, window.innerWidth, window.innerHeight);
     requestAnimationFrame(drawVideo);
 }
 
@@ -255,7 +337,7 @@ for (let position of displayText.positionList) {
 }
 //add text to the content
 for (let position of displayText.positionList) {
-    if(position !== "random") {
+    if (position !== "random") {
         displayTextPosition(position);
     }
 }
@@ -263,11 +345,11 @@ for (let position of displayText.positionList) {
 function displayTextPosition(position, displayLocation) {
     let selector = displayLocation ? `#textDisplay-${displayLocation}` : `#textDisplay-${position}`;
     let html = "";
-    for (let i = 0; i < position.length; i++) {
+    for (let i = 0; i < displayText[position].length; i++) {
         html += `<div id="${position}-${i}">${createContentLine(displayText[position][i], position, i)}</div>`;
     }
     $(selector).html(html);
-    for (let i = 0; i < position.length; i++) {
+    for (let i = 0; i < displayText[position].length; i++) {
         if (!displayText[position][i].defaultFont) {
             $(`#${position}-${i}`).css('font-family', `"${displayText[position][i].font}"`).css('font-size', `${displayText[position][i].fontSize}vw`).css('color', `${displayText[position][i].fontColor}`);
         }
@@ -334,8 +416,8 @@ function createContentLine(contentLine, position, line) {
 
 //Random is broken. Remove this when it is fixed.
 let random = false;
-for(let i = 0; i < displayText.random.length;i++){
-    if(displayText.random[i].type !== "none"){
+for (let i = 0; i < displayText.random.length; i++) {
+    if (displayText.random[i].type !== "none") {
         random = true;
     }
 }
@@ -355,8 +437,8 @@ function switchRandomText() {
         }
         newLoc = displayText.positionList[randomInt(0, displayText.positionList.length - 1)];
         let text = false;
-        for(let i = 0; i < displayText[newLoc].length;i++){
-            if(displayText[newLoc][i].type !== "none"){
+        for (let i = 0; i < displayText[newLoc].length; i++) {
+            if (displayText[newLoc][i].type !== "none") {
                 text = true;
             }
         }

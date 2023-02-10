@@ -310,7 +310,7 @@ function colorTextPositionRadio() {
     let displayTextSettings = electron.store.get('displayText');
     $('.imagePosition').each(function () {
         let color = false;
-        for (let i = 0; i < displayTextSettings[this.value]; i++) {
+        for (let i = 0; i < displayTextSettings[this.value].length; i++) {
             if (displayTextSettings[this.value][i].type !== "none") {
                 color = true;
             }
