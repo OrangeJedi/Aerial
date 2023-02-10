@@ -263,11 +263,11 @@ for (let position of displayText.positionList) {
 function displayTextPosition(position, displayLocation) {
     let selector = displayLocation ? `#textDisplay-${displayLocation}` : `#textDisplay-${position}`;
     let html = "";
-    for (let i = 0; i < 4; i++) {
+    for (let i = 0; i < position.length; i++) {
         html += `<div id="${position}-${i}">${createContentLine(displayText[position][i], position, i)}</div>`;
     }
     $(selector).html(html);
-    for (let i = 0; i < 4; i++) {
+    for (let i = 0; i < position.length; i++) {
         if (!displayText[position][i].defaultFont) {
             $(`#${position}-${i}`).css('font-family', `"${displayText[position][i].font}"`).css('font-size', `${displayText[position][i].fontSize}vw`).css('color', `${displayText[position][i].fontColor}`);
         }
