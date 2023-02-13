@@ -3,6 +3,7 @@ const allowedVideos = electron.store.get("allowedVideos");
 let downloadedVideos = electron.store.get("downloadedVideos");
 let customVideos = electron.store.get("customVideos");
 let currentlyPlaying = '';
+let prepedVideo = '';
 let transitionTimeout;
 let poiTimeout = [];
 let blackScreen = false;
@@ -28,37 +29,49 @@ setTimeout(function () {
     });
 }, 1500);
 
-let video = document.getElementById("video");
+let containers = [document.getElementById("video"), document.getElementById("video2")]
+let currentPlayer = 0;
+let prePlayer = 1;
 
-video.addEventListener('play', (event) => {
-    video.style.backgroundColor = "black";
+/*let video = document.getElementById("video");
+let video2 = document.getElementById("video2");*/
+
+containers.forEach((video) => {
+    video.addEventListener('play', (event) => {
+        video.style.backgroundColor = "black";
+    });
+    video.addEventListener('ended', (event) => {
+        //newVideo(currentPlayer);
+        numErrors = 0;
+    });
+    video.addEventListener("error", videoError);
 });
-video.addEventListener('ended', (event) => {
-    newVideo();
-    numErrors = 0;
-});
-video.addEventListener("error", (event) => {
-    setTimeout(() => {
-        if (video.currentTime === 0) {
-            console.log('VIDEO PLAYBACK ERROR - Playing new video', event);
-            if (previousErrorId !== currentlyPlaying) {
-                newVideo();
+
+function videoError(event) {
+    if (event.srcElement === containers[currentPlayer]) {
+        setTimeout(() => {
+            if (event.srcElement.currentTime === 0) {
+                console.log('VIDEO PLAYBACK ERROR', event);
+                if (previousErrorId !== currentlyPlaying) {
+                    //newVideo(event.srcElement);
+                }
+                previousErrorId = currentlyPlaying;
+                numErrors++;
             }
-            previousErrorId = currentlyPlaying;
-            numErrors++;
-        }
-    }, 500 * numErrors);
-});
+        }, 500 * numErrors);
+    } else {
+        console.log("Error in Pre-Player");
+    }
+}
 
-function newVideo() {
+function prepVideo(videoContainer, callback) {
     if (blackScreen) {
         return
     }
-    clearTimeout(transitionTimeout);
-    videoAlpha = 0;
-    video.src = "";
+    containers[videoContainer].src = "";
     electron.ipcRenderer.invoke('newVideoId', currentlyPlaying).then((id) => {
         let videoInfo, videoSRC;
+        //grab video info and file location based on whether it is a custom video or not
         if (id[0] === "_") {
             videoInfo = customVideos[customVideos.findIndex((e) => {
                 if (id === e.id) {
@@ -79,51 +92,104 @@ function newVideo() {
                 videoSRC = `${electron.store.get('cachePath')}/${videoInfo.id}.mov`;
             }
         }
-        video.src = videoSRC;
-        video.playbackRate = Number(electron.store.get('playbackSpeed'));
-        currentlyPlaying = videoInfo.id;
-        video.onplay = onVideoPlay;
-        //display text
-        for (let position of displayText.positionList) {
-            let textArea = $(`#textDisplay-${position}`);
-            if (displayText[position].type === "information") {
-                if (displayText[position].infoType === "poi") {
-                    console.log(videoInfo["pointsOfInterest"] !== undefined);
-                    if (videoInfo["pointsOfInterest"] !== undefined) {
-                        changePOI(position, -1, videoInfo["pointsOfInterest"]);
-                    } else {
-                        changePOI(position, -1, {"0": ""});
-                    }
-                } else {
-                    console.log("hey!");
-                    textArea.text(videoInfo[displayText[position].infoType]);
-                }
-            }
-            textArea.css('width', displayText[position].maxWidth ? displayText[position].maxWidth : "50%")
-        }
-    })
+        //load video in video player
+        containers[videoContainer].videoId = id;
+        containers[videoContainer].src = videoSRC;
+        containers[videoContainer].playbackRate = Number(electron.store.get('playbackSpeed'));
+        containers[videoContainer].pause();
 
+        if (callback) {
+            callback();
+        }
+    });
+}
+
+function playVideo(videoContainer, loadedCallback) {
+    if (blackScreen) {
+        return
+    }
+    let id = containers[videoContainer].videoId;
+
+    containers[videoContainer].addEventListener('loadeddata', () => {
+        if (loadedCallback) {
+            loadedCallback();
+        }
+    });
+
+    let videoInfo;
+    if (id[0] === "_") {
+        videoInfo = customVideos[customVideos.findIndex((e) => {
+            if (id === e.id) {
+                return true;
+            }
+        })];
+    } else {
+        let index = videos.findIndex((e) => {
+            if (id === e.id) {
+                return true;
+            }
+        });
+        videoInfo = videos[index];
+    }
+    currentlyPlaying = videoInfo.id;
+    containers[videoContainer].play();
+    console.log("playing!");
+    containers[videoContainer].playbackRate = Number(electron.store.get('playbackSpeed'));
+
+    //display text
+    for (let position of displayText.positionList) {
+        let textArea = $(`#textDisplay-${position}`);
+        if (displayText[position].type === "information") {
+            if (displayText[position].infoType === "poi") {
+                if (videoInfo["pointsOfInterest"] !== undefined) {
+                    changePOI(position, -1, videoInfo["pointsOfInterest"]);
+                } else {
+                    changePOI(position, -1, {"0": ""});
+                }
+            } else {
+                textArea.text(videoInfo[displayText[position].infoType]);
+            }
+        }
+        textArea.css('width', displayText[position].maxWidth ? displayText[position].maxWidth : "50%")
+    }
+
+}
+
+function newVideo() {
+    prepVideo(prePlayer, () => {
+        setTimeout(() => {
+            playVideo(prePlayer, () => {
+
+
+                clearTimeout(transitionTimeout);
+                if (!videoQuality) {
+                    fadeVideoIn(transitionLength);
+                    setTimeout(() => {
+                        setTimeout(fadeVideoOut, (containers[prePlayer].duration * 1000) - transitionLength, transitionLength);
+
+                        let temp = currentPlayer;
+                        currentPlayer = prePlayer;
+                        containers[temp].pause();
+                        containers[temp].src = "";
+                        prePlayer = temp;
+                    }, transitionLength);
+                }
+            });
+        }, 500);
+    });
 }
 
 let transitionLength = electron.store.get('videoTransitionLength');
 let videoAlpha = 1;
-
-function onVideoPlay(e) {
-    if (!videoQuality) {
-        fadeVideoIn(transitionLength);
-        setTimeout(fadeVideoOut, (e.target.duration * 1000) - transitionLength, transitionLength);
-    }
-}
 
 function fadeVideoOut(time) {
     if (time > 0) {
         transitionTimeout = setTimeout(fadeVideoOut, 16, time - 16);
     }
     videoAlpha = time / transitionLength;
-    console.log(videoAlpha);
     if (videoAlpha < 0) {
         videoAlpha = 0;
-        clearTimeouts(transitionTimeout);
+        clearTimeout(transitionTimeout);
     } else if (videoAlpha > 1) {
         videoAlpha = 1;
     }
@@ -164,7 +230,7 @@ function clearTimeouts(arr) {
     return [];
 }
 
-let transitionType = "fade";
+let transitionType = "wipe-left";
 
 //put the video on the canvas
 function drawVideo() {
@@ -178,56 +244,58 @@ function drawVideo() {
                 ctx1.fillStyle = "#000000";
                 ctx1.fillRect(0, 0, window.innerWidth, window.innerHeight);
                 ctx1.globalAlpha = videoAlpha;
-                ctx1.drawImage(video, 0, 0, window.innerWidth, window.innerHeight);
+                ctx1.drawImage(containers[currentPlayer], 0, 0, window.innerWidth, window.innerHeight);
                 break;
             case"fade-left":
-                ctx1.drawImage(video, 0, 0, window.innerWidth, window.innerHeight);
+                ctx1.drawImage(containers[currentPlayer], 0, 0, window.innerWidth, window.innerHeight);
                 ctx1.globalCompositeOperation = "destination-out";
                 let gradient = ctx1.createLinearGradient(0, window.innerHeight / 2, window.innerWidth, window.innerHeight / 2);
                 gradient.addColorStop(videoAlpha, "rgba(0,0,0,0)");
-                gradient.addColorStop(videoAlpha + .15 > 1 ? 1 : videoAlpha + .15, `rgba(0,0,0,1)`);
+                gradient.addColorStop(videoAlpha + .15 > 1 ? 1 : videoAlpha + .15, `rgba(0, 0, 0, 1)`);
                 ctx1.fillStyle = gradient;
                 ctx1.rect(0, 0, window.innerWidth, window.innerHeight);
                 ctx1.fill();
                 break;
             case"fade-right":
-                ctx1.drawImage(video, 0, 0, window.innerWidth, window.innerHeight);
+                ctx1.drawImage(containers[currentPlayer], 0, 0, window.innerWidth, window.innerHeight);
                 ctx1.globalCompositeOperation = "destination-out";
                 let gradient2 = ctx1.createLinearGradient(0, window.innerHeight / 2, window.innerWidth, window.innerHeight / 2);
                 gradient2.addColorStop(1 - videoAlpha, "rgba(0,0,0,0)");
-                gradient2.addColorStop(1 - (videoAlpha + .15 > 1 ? 1 : videoAlpha + .15), `rgba(0,0,0,1)`);
+                gradient2.addColorStop(1 - (videoAlpha + .15 > 1 ? 1 : videoAlpha + .15), `rgba(0, 0, 0, 1)`);
                 ctx1.fillStyle = gradient2;
                 ctx1.rect(0, 0, window.innerWidth, window.innerHeight);
                 ctx1.fill();
                 break;
             case"fade-top-left":
-                ctx1.drawImage(video, 0, 0, window.innerWidth, window.innerHeight);
+                ctx1.drawImage(containers[currentPlayer], 0, 0, window.innerWidth, window.innerHeight);
                 ctx1.globalCompositeOperation = "destination-out";
                 let gradient3 = ctx1.createLinearGradient(0, 0, window.innerWidth, window.innerHeight);
                 gradient3.addColorStop(videoAlpha, "rgba(0,0,0,0)");
-                gradient3.addColorStop(videoAlpha + .15 > 1 ? 1 : videoAlpha + .15, `rgba(0,0,0,1)`);
+                gradient3.addColorStop(videoAlpha + .15 > 1 ? 1 : videoAlpha + .15, `rgba(0, 0, 0, 1)`);
                 ctx1.fillStyle = gradient3;
                 ctx1.rect(0, 0, window.innerWidth, window.innerHeight);
                 ctx1.fill();
                 break;
             case "wipe-left":
                 ctx1.clearRect(0, 0, window.innerWidth, window.innerHeight);
-                ctx1.drawImage(video, 0, 0, window.innerWidth, window.innerHeight);
+                ctx1.drawImage(containers[prePlayer], 0, 0, window.innerWidth, window.innerHeight);
                 ctx1.globalCompositeOperation = "destination-in";
                 ctx1.globalAlpha = 1;
                 ctx1.fillStyle = "#000000";
                 ctx1.rect(0, 0, window.innerWidth * videoAlpha, window.innerHeight);
                 ctx1.fill();
+                ctx1.globalCompositeOperation = "destination-over";
+                ctx1.drawImage(containers[currentPlayer], 0, 0, window.innerWidth, window.innerHeight);
                 break;
             case "wipe-right":
-                ctx1.drawImage(video, 0, 0, window.innerWidth, window.innerHeight);
+                ctx1.drawImage(containers[currentPlayer], 0, 0, window.innerWidth, window.innerHeight);
                 ctx1.globalCompositeOperation = "destination-in";
                 ctx1.fillStyle = "#000000";
                 ctx1.rect(window.innerWidth - (window.innerWidth * videoAlpha), 0, window.innerWidth, window.innerHeight);
                 ctx1.fill();
                 break;
             case "circle":
-                ctx1.drawImage(video, 0, 0, window.innerWidth, window.innerHeight);
+                ctx1.drawImage(containers[currentPlayer], 0, 0, window.innerWidth, window.innerHeight);
                 let maxBound = window.innerWidth > window.innerHeight ? window.innerWidth : window.innerHeight;
                 let rad = maxBound * (videoAlpha > 1 ? 1 : videoAlpha < 0 ? 0 : videoAlpha);
                 ctx1.fillStyle = "#000000";
@@ -236,7 +304,7 @@ function drawVideo() {
                 ctx1.fill();
                 break;
             case "reverse-circle":
-                ctx1.drawImage(video, 0, 0, window.innerWidth, window.innerHeight);
+                ctx1.drawImage(containers[currentPlayer], 0, 0, window.innerWidth, window.innerHeight);
                 let rmaxBound = window.innerWidth > window.innerHeight ? window.innerWidth : window.innerHeight;
                 let rrad = rmaxBound * (1 - (videoAlpha > 1 ? 1 : videoAlpha < 0 ? 0 : videoAlpha));
                 ctx1.globalAlpha = 1;
@@ -247,7 +315,7 @@ function drawVideo() {
                 break;
         }
     } else {
-        ctx1.drawImage(video, 0, 0, window.innerWidth, window.innerHeight);
+        ctx1.drawImage(containers[currentPlayer], 0, 0, window.innerWidth, window.innerHeight);
     }
     requestAnimationFrame(drawVideo);
 }
@@ -461,10 +529,10 @@ function randomInt(min, max) {
 }
 
 //play a video
-newVideo();
+//newVideo(currentPlayer);
 
 electron.ipcRenderer.on('newVideo', () => {
-    newVideo();
+
 });
 
 electron.ipcRenderer.on('blankTheScreen', () => {
@@ -473,5 +541,6 @@ electron.ipcRenderer.on('blankTheScreen', () => {
     fadeTextOut(transitionLength)
     setTimeout(() => {
         video.src = "";
+        video2.src = "";
     }, transitionLength);
 });
