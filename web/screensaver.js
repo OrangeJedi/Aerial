@@ -48,12 +48,13 @@ containers.forEach((video) => {
 });
 
 function videoError(event) {
+    console.log(event.target.error.code);
     if (event.srcElement === containers[currentPlayer]) {
         setTimeout(() => {
             if (event.srcElement.currentTime === 0) {
                 console.log('VIDEO PLAYBACK ERROR', event);
                 if (previousErrorId !== currentlyPlaying) {
-                    //newVideo(event.srcElement);
+                    newVideo();
                 }
                 previousErrorId = currentlyPlaying;
                 numErrors++;
@@ -155,43 +156,48 @@ function playVideo(videoContainer, loadedCallback) {
 
 }
 
+let videoWaitingTimeout;
+
 function newVideo() {
     prepVideo(prePlayer, () => {
-        setTimeout(() => {
+        clearTimeout(videoWaitingTimeout);
+        videoWaitingTimeout = setTimeout(() => {
             playVideo(prePlayer, () => {
-
-
                 clearTimeout(transitionTimeout);
                 if (!videoQuality) {
                     fadeVideoIn(transitionLength);
                     setTimeout(() => {
-                        setTimeout(fadeVideoOut, (containers[prePlayer].duration * 1000) - transitionLength, transitionLength);
-
-                        let temp = currentPlayer;
-                        currentPlayer = prePlayer;
-                        containers[temp].pause();
-                        containers[temp].src = "";
-                        prePlayer = temp;
-                    }, transitionLength);
+                        newVideo();
+                    }, (containers[prePlayer].duration * 1000) - transitionLength - 500);
                 }
             });
         }, 500);
     });
 }
 
+function switchVideoContainers() {
+    console.log("switching players");
+    containers[currentPlayer].pause();
+    let temp = currentPlayer;
+    currentPlayer = prePlayer;
+    transitionPercent = 1;
+    prePlayer = temp;
+    console.log("Current: ", currentPlayer, "Pre: ", prePlayer);
+}
+
 let transitionLength = electron.store.get('videoTransitionLength');
-let videoAlpha = 1;
+let transitionPercent = 1;
 
 function fadeVideoOut(time) {
     if (time > 0) {
         transitionTimeout = setTimeout(fadeVideoOut, 16, time - 16);
     }
-    videoAlpha = time / transitionLength;
-    if (videoAlpha < 0) {
-        videoAlpha = 0;
+    transitionPercent = time / transitionLength;
+    if (transitionPercent <= 0) {
+        transitionPercent = 0;
         clearTimeout(transitionTimeout);
-    } else if (videoAlpha > 1) {
-        videoAlpha = 1;
+    } else if (transitionPercent >= 1) {
+        transitionPercent = 1;
     }
 }
 
@@ -206,7 +212,14 @@ function fadeVideoIn(time) {
     if (time > 0) {
         transitionTimeout = setTimeout(fadeVideoIn, 16, time - 16);
     }
-    videoAlpha = 1 - (time / transitionLength);
+    transitionPercent = 1 - (time / transitionLength);
+    if (transitionPercent <= 0) {
+        transitionPercent = 0;
+    } else if (transitionPercent >= 1) {
+        transitionPercent = 1;
+        clearTimeout(transitionTimeout);
+        switchVideoContainers();
+    }
 }
 
 function changePOI(position, currentPOI, poiList) {
@@ -230,51 +243,59 @@ function clearTimeouts(arr) {
     return [];
 }
 
-let transitionType = "wipe-left";
+let transitionType = "fade";
 
 //put the video on the canvas
 function drawVideo() {
     ctx1.reset();
     ctx1.globalCompositeOperation = "source-over";
     ctx1.globalAlpha = 1;
-    if (videoAlpha < 1) {
+    if (transitionPercent < 1) {
         switch (transitionType) {
             case "fade":
-                ctx1.clearRect(0, 0, window.innerWidth, window.innerHeight);
-                ctx1.fillStyle = "#000000";
-                ctx1.fillRect(0, 0, window.innerWidth, window.innerHeight);
-                ctx1.globalAlpha = videoAlpha;
-                ctx1.drawImage(containers[currentPlayer], 0, 0, window.innerWidth, window.innerHeight);
-                break;
-            case"fade-left":
                 ctx1.drawImage(containers[currentPlayer], 0, 0, window.innerWidth, window.innerHeight);
                 ctx1.globalCompositeOperation = "destination-out";
+                ctx1.fillStyle = `rgba(0,0,0,${transitionPercent})`;
+                ctx1.rect(0, 0, window.innerWidth, window.innerHeight);
+                ctx1.fill();
+                ctx1.globalCompositeOperation = "destination-over";
+                ctx1.drawImage(containers[prePlayer], 0, 0, window.innerWidth, window.innerHeight);
+                break;
+            case"fade-left":
+                ctx1.drawImage(containers[prePlayer], 0, 0, window.innerWidth, window.innerHeight);
+                ctx1.globalCompositeOperation = "destination-out";
                 let gradient = ctx1.createLinearGradient(0, window.innerHeight / 2, window.innerWidth, window.innerHeight / 2);
-                gradient.addColorStop(videoAlpha, "rgba(0,0,0,0)");
-                gradient.addColorStop(videoAlpha + .15 > 1 ? 1 : videoAlpha + .15, `rgba(0, 0, 0, 1)`);
+                gradient.addColorStop(transitionPercent, "rgba(0,0,0,0)");
+                gradient.addColorStop(transitionPercent + .15 > 1 ? 1 : transitionPercent + .15, `rgba(0, 0, 0, 1)`);
                 ctx1.fillStyle = gradient;
                 ctx1.rect(0, 0, window.innerWidth, window.innerHeight);
                 ctx1.fill();
+                ctx1.globalCompositeOperation = "destination-over";
+                ctx1.drawImage(containers[currentPlayer], 0, 0, window.innerWidth, window.innerHeight);
                 break;
             case"fade-right":
-                ctx1.drawImage(containers[currentPlayer], 0, 0, window.innerWidth, window.innerHeight);
+                ctx1.drawImage(containers[prePlayer], 0, 0, window.innerWidth, window.innerHeight);
                 ctx1.globalCompositeOperation = "destination-out";
                 let gradient2 = ctx1.createLinearGradient(0, window.innerHeight / 2, window.innerWidth, window.innerHeight / 2);
-                gradient2.addColorStop(1 - videoAlpha, "rgba(0,0,0,0)");
-                gradient2.addColorStop(1 - (videoAlpha + .15 > 1 ? 1 : videoAlpha + .15), `rgba(0, 0, 0, 1)`);
+                gradient2.addColorStop(1 - transitionPercent, "rgba(0,0,0,0)");
+                gradient2.addColorStop(1 - (transitionPercent + .15 > 1 ? 1 : transitionPercent + .15), `rgba(0, 0, 0, 1)`);
                 ctx1.fillStyle = gradient2;
                 ctx1.rect(0, 0, window.innerWidth, window.innerHeight);
                 ctx1.fill();
+                ctx1.globalCompositeOperation = "destination-over";
+                ctx1.drawImage(containers[currentPlayer], 0, 0, window.innerWidth, window.innerHeight);
                 break;
             case"fade-top-left":
-                ctx1.drawImage(containers[currentPlayer], 0, 0, window.innerWidth, window.innerHeight);
+                ctx1.drawImage(containers[prePlayer], 0, 0, window.innerWidth, window.innerHeight);
                 ctx1.globalCompositeOperation = "destination-out";
                 let gradient3 = ctx1.createLinearGradient(0, 0, window.innerWidth, window.innerHeight);
-                gradient3.addColorStop(videoAlpha, "rgba(0,0,0,0)");
-                gradient3.addColorStop(videoAlpha + .15 > 1 ? 1 : videoAlpha + .15, `rgba(0, 0, 0, 1)`);
+                gradient3.addColorStop(transitionPercent, "rgba(0,0,0,0)");
+                gradient3.addColorStop(transitionPercent + .15 > 1 ? 1 : transitionPercent + .15, `rgba(0, 0, 0, 1)`);
                 ctx1.fillStyle = gradient3;
                 ctx1.rect(0, 0, window.innerWidth, window.innerHeight);
                 ctx1.fill();
+                ctx1.globalCompositeOperation = "destination-over";
+                ctx1.drawImage(containers[currentPlayer], 0, 0, window.innerWidth, window.innerHeight);
                 break;
             case "wipe-left":
                 ctx1.clearRect(0, 0, window.innerWidth, window.innerHeight);
@@ -282,36 +303,42 @@ function drawVideo() {
                 ctx1.globalCompositeOperation = "destination-in";
                 ctx1.globalAlpha = 1;
                 ctx1.fillStyle = "#000000";
-                ctx1.rect(0, 0, window.innerWidth * videoAlpha, window.innerHeight);
+                ctx1.rect(0, 0, window.innerWidth * transitionPercent, window.innerHeight);
                 ctx1.fill();
                 ctx1.globalCompositeOperation = "destination-over";
                 ctx1.drawImage(containers[currentPlayer], 0, 0, window.innerWidth, window.innerHeight);
                 break;
             case "wipe-right":
-                ctx1.drawImage(containers[currentPlayer], 0, 0, window.innerWidth, window.innerHeight);
+                ctx1.drawImage(containers[prePlayer], 0, 0, window.innerWidth, window.innerHeight);
                 ctx1.globalCompositeOperation = "destination-in";
                 ctx1.fillStyle = "#000000";
-                ctx1.rect(window.innerWidth - (window.innerWidth * videoAlpha), 0, window.innerWidth, window.innerHeight);
+                ctx1.rect(window.innerWidth - (window.innerWidth * transitionPercent), 0, window.innerWidth, window.innerHeight);
                 ctx1.fill();
+                ctx1.globalCompositeOperation = "destination-over";
+                ctx1.drawImage(containers[currentPlayer], 0, 0, window.innerWidth, window.innerHeight);
                 break;
             case "circle":
-                ctx1.drawImage(containers[currentPlayer], 0, 0, window.innerWidth, window.innerHeight);
+                ctx1.drawImage(containers[prePlayer], 0, 0, window.innerWidth, window.innerHeight);
                 let maxBound = window.innerWidth > window.innerHeight ? window.innerWidth : window.innerHeight;
-                let rad = maxBound * (videoAlpha > 1 ? 1 : videoAlpha < 0 ? 0 : videoAlpha);
+                let rad = maxBound * (transitionPercent > 1 ? 1 : transitionPercent < 0 ? 0 : transitionPercent);
                 ctx1.fillStyle = "#000000";
                 ctx1.globalCompositeOperation = "destination-in";
                 ctx1.arc(window.innerWidth / 2, window.innerHeight / 2, rad, 0, Math.PI * 2);
                 ctx1.fill();
+                ctx1.globalCompositeOperation = "destination-over";
+                ctx1.drawImage(containers[currentPlayer], 0, 0, window.innerWidth, window.innerHeight);
                 break;
             case "reverse-circle":
-                ctx1.drawImage(containers[currentPlayer], 0, 0, window.innerWidth, window.innerHeight);
+                ctx1.drawImage(containers[prePlayer], 0, 0, window.innerWidth, window.innerHeight);
                 let rmaxBound = window.innerWidth > window.innerHeight ? window.innerWidth : window.innerHeight;
-                let rrad = rmaxBound * (1 - (videoAlpha > 1 ? 1 : videoAlpha < 0 ? 0 : videoAlpha));
+                let rrad = rmaxBound * (1 - (transitionPercent > 1 ? 1 : transitionPercent < 0 ? 0 : transitionPercent));
                 ctx1.globalAlpha = 1;
                 ctx1.fillStyle = "#000000";
                 ctx1.globalCompositeOperation = "destination-out";
                 ctx1.arc(window.innerWidth / 2, window.innerHeight / 2, rrad, 0, Math.PI * 2);
                 ctx1.fill();
+                ctx1.globalCompositeOperation = "destination-over";
+                ctx1.drawImage(containers[currentPlayer], 0, 0, window.innerWidth, window.innerHeight);
                 break;
         }
     } else {
@@ -529,10 +556,10 @@ function randomInt(min, max) {
 }
 
 //play a video
-//newVideo(currentPlayer);
+newVideo();
 
 electron.ipcRenderer.on('newVideo', () => {
-
+    newVideo();
 });
 
 electron.ipcRenderer.on('blankTheScreen', () => {
