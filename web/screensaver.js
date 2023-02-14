@@ -42,6 +42,7 @@ containers.forEach((video) => {
     });
     video.addEventListener('ended', (event) => {
         //newVideo(currentPlayer);
+        console.log("ended!");
         numErrors = 0;
     });
     video.addEventListener("error", videoError);
@@ -52,7 +53,7 @@ function videoError(event) {
         setTimeout(() => {
             if (event.srcElement.currentTime === 0) {
                 console.log('VIDEO PLAYBACK ERROR', event);
-                console.log(event.target.error.statusMessage);
+                console.log(event.target.error.message);
                 if (previousErrorId !== currentlyPlaying) {
                     newVideo();
                 }
@@ -111,11 +112,11 @@ function playVideo(videoContainer, loadedCallback) {
     }
     let id = containers[videoContainer].videoId;
 
-    containers[videoContainer].addEventListener('loadeddata', () => {
+    /*containers[videoContainer].addEventListener('durationchange', () => {
         if (loadedCallback) {
             loadedCallback();
         }
-    });
+    });*/
 
     let videoInfo;
     if (id[0] === "_") {
@@ -153,6 +154,9 @@ function playVideo(videoContainer, loadedCallback) {
         textArea.css('width', displayText[position].maxWidth ? displayText[position].maxWidth : "50%")
     }
 
+    if (loadedCallback) {
+        loadedCallback();
+    }
 }
 
 let videoWaitingTimeout;
@@ -161,6 +165,7 @@ function newVideo() {
     prepVideo(prePlayer, () => {
         clearTimeout(videoWaitingTimeout);
         videoWaitingTimeout = setTimeout(() => {
+            console.log("hi");
             playVideo(prePlayer, () => {
                 clearTimeout(transitionTimeout);
                 if (!videoQuality) {
