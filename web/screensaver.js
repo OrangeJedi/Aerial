@@ -48,7 +48,7 @@ containers.forEach((video) => {
 });
 
 function videoError(event) {
-        if (event.srcElement === containers[currentPlayer]) {
+    if (event.srcElement === containers[currentPlayer]) {
         setTimeout(() => {
             if (event.srcElement.currentTime === 0) {
                 console.log('VIDEO PLAYBACK ERROR', event);
@@ -257,6 +257,29 @@ function drawVideo() {
                 ctx1.fill();
                 ctx1.globalCompositeOperation = "destination-over";
                 ctx1.drawImage(containers[prePlayer], 0, 0, window.innerWidth, window.innerHeight);
+                break;
+            case "dip-to-black":
+                if (transitionPercent <= .5) {
+                    ctx1.drawImage(containers[currentPlayer], 0, 0, window.innerWidth, window.innerHeight);
+                    ctx1.globalCompositeOperation = "destination-out";
+                    ctx1.fillStyle = `rgba(0,0,0,${transitionPercent * 2})`;
+                    ctx1.rect(0, 0, window.innerWidth, window.innerHeight);
+                    ctx1.fill();
+                    ctx1.globalCompositeOperation = "destination-over";
+                    ctx1.fillStyle = `rgb(0, 0, 0)`;
+                    ctx1.rect(0, 0, window.innerWidth, window.innerHeight);
+                    ctx1.fill();
+                } else {
+                    ctx1.fillStyle = `rgb(0, 0, 0)`;
+                    ctx1.rect(0, 0, window.innerWidth, window.innerHeight);
+                    ctx1.fill();
+                    ctx1.globalCompositeOperation = "destination-out";
+                    ctx1.fillStyle = `rgba(0,0,0,${(transitionPercent - .5) * 2})`;
+                    ctx1.rect(0, 0, window.innerWidth, window.innerHeight);
+                    ctx1.fill();
+                    ctx1.globalCompositeOperation = "destination-over";
+                    ctx1.drawImage(containers[prePlayer], 0, 0, window.innerWidth, window.innerHeight);
+                }
                 break;
             case"fade-left":
                 ctx1.drawImage(containers[prePlayer], 0, 0, window.innerWidth, window.innerHeight);
