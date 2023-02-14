@@ -390,7 +390,11 @@ function setUpConfigFile() {
         suffix: "%",
         defaultValue: 0
     },]);
-    store.set('videoTransitionLength', store.get('videoTransitionLength') ?? 1000);
+    store.set('videoTransitionLength', store.get('videoTransitionLength') ?? 2000);
+    //1.2.0 changes the default transition length because of internal changes
+    if(store.get('videoTransitionLength') === 1000){
+        store.set('videoTransitionLength', 2000);
+    }
     //time & location settings
     store.set('timeOfDay', store.get('timeOfDay') ?? false);
     store.set('sunrise', store.get('sunrise') ?? "06:00");
@@ -442,8 +446,6 @@ function setUpConfigFile() {
     store.set('version', app.getVersion());
     store.set("configured", true);
 }
-
-setUpConfigFile();
 
 //check for update on GitHub
 function checkForUpdate() {

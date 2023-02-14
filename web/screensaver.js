@@ -48,11 +48,11 @@ containers.forEach((video) => {
 });
 
 function videoError(event) {
-    console.log(event.target.error.code);
-    if (event.srcElement === containers[currentPlayer]) {
+        if (event.srcElement === containers[currentPlayer]) {
         setTimeout(() => {
             if (event.srcElement.currentTime === 0) {
                 console.log('VIDEO PLAYBACK ERROR', event);
+                console.log(event.target.error.statusMessage);
                 if (previousErrorId !== currentlyPlaying) {
                     newVideo();
                 }
@@ -134,7 +134,6 @@ function playVideo(videoContainer, loadedCallback) {
     }
     currentlyPlaying = videoInfo.id;
     containers[videoContainer].play();
-    console.log("playing!");
     containers[videoContainer].playbackRate = Number(electron.store.get('playbackSpeed'));
 
     //display text
@@ -176,13 +175,11 @@ function newVideo() {
 }
 
 function switchVideoContainers() {
-    console.log("switching players");
     containers[currentPlayer].pause();
     let temp = currentPlayer;
     currentPlayer = prePlayer;
     transitionPercent = 1;
     prePlayer = temp;
-    console.log("Current: ", currentPlayer, "Pre: ", prePlayer);
 }
 
 let transitionLength = electron.store.get('videoTransitionLength');
