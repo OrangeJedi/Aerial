@@ -390,6 +390,8 @@ function setUpConfigFile() {
         suffix: "%",
         defaultValue: 0
     },]);
+    store.set('alternateRenderMethod', store.get("alternateRenderMethod") ?? false);
+    store.set('transitionType', store.get("transitionType") ?? "dissolve");
     store.set('videoTransitionLength', store.get('videoTransitionLength') ?? 2000);
     //1.2.0 changes the default transition length because of internal changes
     if(store.get('videoTransitionLength') === 1000){
