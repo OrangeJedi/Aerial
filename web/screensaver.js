@@ -40,11 +40,6 @@ containers.forEach((video) => {
     video.addEventListener('play', (event) => {
         video.style.backgroundColor = "black";
     });
-    video.addEventListener('ended', (event) => {
-        //newVideo(currentPlayer);
-        console.log("ended!");
-        numErrors = 0;
-    });
     video.addEventListener("error", videoError);
 });
 
@@ -52,8 +47,7 @@ function videoError(event) {
     if (event.srcElement === containers[currentPlayer]) {
         setTimeout(() => {
             if (event.srcElement.currentTime === 0) {
-                console.log('VIDEO PLAYBACK ERROR', event);
-                console.log(event.target.error.message);
+                console.log('VIDEO PLAYBACK ERROR', event.target.error.message, event);
                 if (previousErrorId !== currentlyPlaying) {
                     newVideo();
                 }
@@ -110,49 +104,10 @@ function playVideo(videoContainer, loadedCallback) {
     if (blackScreen) {
         return
     }
-    let id = containers[videoContainer].videoId;
 
-    /*containers[videoContainer].addEventListener('durationchange', () => {
-        if (loadedCallback) {
-            loadedCallback();
-        }
-    });*/
-
-    let videoInfo;
-    if (id[0] === "_") {
-        videoInfo = customVideos[customVideos.findIndex((e) => {
-            if (id === e.id) {
-                return true;
-            }
-        })];
-    } else {
-        let index = videos.findIndex((e) => {
-            if (id === e.id) {
-                return true;
-            }
-        });
-        videoInfo = videos[index];
-    }
-    currentlyPlaying = videoInfo.id;
+    currentlyPlaying = containers[videoContainer].videoId;
     containers[videoContainer].play();
     containers[videoContainer].playbackRate = Number(electron.store.get('playbackSpeed'));
-
-    //display text
-    for (let position of displayText.positionList) {
-        let textArea = $(`#textDisplay-${position}`);
-        if (displayText[position].type === "information") {
-            if (displayText[position].infoType === "poi") {
-                if (videoInfo["pointsOfInterest"] !== undefined) {
-                    changePOI(position, -1, videoInfo["pointsOfInterest"]);
-                } else {
-                    changePOI(position, -1, {"0": ""});
-                }
-            } else {
-                textArea.text(videoInfo[displayText[position].infoType]);
-            }
-        }
-        textArea.css('width', displayText[position].maxWidth ? displayText[position].maxWidth : "50%")
-    }
 
     if (loadedCallback) {
         loadedCallback();
@@ -164,15 +119,20 @@ let videoWaitingTimeout;
 function newVideo() {
     prepVideo(prePlayer, () => {
         clearTimeout(videoWaitingTimeout);
+        //give time for the video to load before tying to play it
         videoWaitingTimeout = setTimeout(() => {
-            console.log("hi");
             playVideo(prePlayer, () => {
                 clearTimeout(transitionTimeout);
                 if (!videoQuality) {
                     fadeVideoIn(transitionLength);
+                    //wait until the video is fully loaded before setting the end of video timeout
                     setTimeout(() => {
-                        newVideo();
-                    }, (containers[prePlayer].duration * 1000) - transitionLength - 500);
+                        //call a new video when the current one is over
+                        setTimeout(() => {
+                            newVideo();
+                            numErrors = 0;
+                        }, (containers[prePlayer].duration * 1000) - transitionLength - 500);
+                    }, 1000);
                 }
             });
         }, 500);
@@ -185,6 +145,53 @@ function switchVideoContainers() {
     currentPlayer = prePlayer;
     transitionPercent = 1;
     prePlayer = temp;
+}
+
+function drawDynamicText() {
+    let videoInfo;
+    if (currentlyPlaying[0] === "_") {
+        videoInfo = customVideos[customVideos.findIndex((e) => {
+            if (currentlyPlaying === e.id) {
+                return true;
+            }
+        })];
+    } else {
+        let index = videos.findIndex((e) => {
+            if (currentlyPlaying === e.id) {
+                return true;
+            }
+        });
+        videoInfo = videos[index];
+    }
+
+    //exit the function if no video info is found
+    if (!videoInfo) {
+        return;
+    }
+
+    for (let position of displayText.positionList) {
+        for (let i = 0; i < displayText[position].length; i++) {
+            let line = displayText[position][i];
+            let textArea;
+            if (position !== "random") {
+                textArea = $(`#${position}-${i}`);
+            } else {
+                textArea = $(`#${position}-${i}`);
+            }
+            if (line.type === "information") {
+                if (line.infoType === "poi" && position !== "random") {
+                    if (videoInfo["pointsOfInterest"] !== undefined) {
+                        changePOI(position, i, -1, videoInfo["pointsOfInterest"]);
+                    } else {
+                        changePOI(position, i, -1, {"0": ""});
+                    }
+                } else {
+                    textArea.text(videoInfo[line.infoType]);
+                }
+                $(`#textDisplayArea-${position}`).css('width', line.maxWidth ? displayText[position].maxWidth : "50%");
+            }
+        }
+    }
 }
 
 let transitionLength = electron.store.get('videoTransitionLength');
@@ -215,6 +222,11 @@ function fadeVideoIn(time) {
         transitionTimeout = setTimeout(fadeVideoIn, 16, time - 16);
     }
     transitionPercent = 1 - (time / transitionLength);
+
+    //update dynamic video text 1/3 of the way through the transition
+    if (transitionPercent >= .33) {
+        drawDynamicText();
+    }
     if (transitionPercent <= 0) {
         transitionPercent = 0;
     } else if (transitionPercent >= 1) {
@@ -224,14 +236,14 @@ function fadeVideoIn(time) {
     }
 }
 
-function changePOI(position, currentPOI, poiList) {
+function changePOI(position, line, currentPOI, poiList) {
     poiTimeout = clearTimeouts(poiTimeout);
     let poiS = Object.keys(poiList);
     for (let i = 0; i < poiS.length; i++) {
         if (Number(poiS[i]) > currentPOI) {
-            $(`#textDisplay-${position}`).text(poiList[poiS[i]]);
+            $(`#${position}-${line}`).text(poiList[poiS[i]]);
             if (i < poiS.length - 1) {
-                poiTimeout.push(setTimeout(changePOI, (Number(poiS[i + 1]) - Number(poiS[i])) * 1000 || 0, position, poiS[i], poiList));
+                poiTimeout.push(setTimeout(changePOI, (Number(poiS[i + 1]) - Number(poiS[i])) * 1000 || 0, position, line, poiS[i], poiList));
             }
             break;
         }
@@ -529,6 +541,9 @@ function createContentLine(contentLine, position, line) {
             }
             let eventTime = moment(astronomy[type]);
             html += eventTime.format(contentLine.astroTimeString);
+            break;
+        case "information":
+            html += "<script>drawDynamicText()</script>";
             break;
     }
     return html;

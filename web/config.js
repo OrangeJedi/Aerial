@@ -396,7 +396,7 @@ function updatePositionType(position, line) {
                                         <select onchange="updateTextSetting(this, '${position}', '${line}','infoType')">
                                         <option value="accessibilityLabel" ${selected === "accessibilityLabel" ? "selected" : ""}>Label</option>
                                         <option value="name" ${selected === "name" ? "selected" : ""}>Video Name</option>
-                                        <option value="poi" ${selected === "poi" ? "selected" : ""}>Location Information</option>
+                                        ${position !== "random" ? `<option value="poi" ${selected === "poi" ? "selected" : ""}>Location Information</option>` : ""}
                                         </select><br>`;
             break;
         case "astronomy":
