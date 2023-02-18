@@ -123,23 +123,25 @@ function newVideo() {
         videoWaitingTimeout = setTimeout(() => {
             playVideo(prePlayer, () => {
                 clearTimeout(transitionTimeout);
-                if (!videoQuality) {
-                    fadeVideoIn(transitionLength);
-                    //wait until the video is fully loaded before setting the end of video timeout
+                fadeVideoIn(transitionLength);
+                //wait until the video is fully loaded before setting the end of video timeout
+                setTimeout(() => {
+                    //call a new video when the current one is over
                     setTimeout(() => {
-                        //call a new video when the current one is over
-                        setTimeout(() => {
-                            newVideo();
-                            numErrors = 0;
-                        }, (containers[prePlayer].duration * 1000) - transitionLength - 500);
-                    }, 1000);
-                }
+                        newVideo();
+                        numErrors = 0;
+                    }, (containers[prePlayer].duration * 1000) - transitionLength - 500);
+                }, 1000);
             });
         }, 500);
     });
 }
 
 function switchVideoContainers() {
+    if (videoQuality) {
+        containers[currentPlayer].style.display = 'none';
+        containers[prePlayer].style.display = '';
+    }
     containers[currentPlayer].pause();
     let temp = currentPlayer;
     currentPlayer = prePlayer;

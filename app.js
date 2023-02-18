@@ -446,6 +446,7 @@ function setUpConfigFile() {
     store.set('version', app.getVersion());
     store.set("configured", true);
 }
+setUpConfigFile();
 
 //check for update on GitHub
 function checkForUpdate() {
