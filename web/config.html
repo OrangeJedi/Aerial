@@ -42,6 +42,8 @@
             <a onclick="selectSetting('customVideo')" id="settingsList-customVideo"
                class="w3-bar-item w3-button settingsListItem">Custom
                 Videos</a>
+            <a onclick="selectSetting('advanced')" id="settingsList-advanced"
+               class="w3-bar-item w3-button settingsListItem">Advanced</a>
             <a onclick="selectSetting('about')" id="settingsList-about" class="w3-bar-item w3-button settingsListItem">About
                 <span id="updateBadge" style="display: none" class="w3-badge w3-deep-orange">1</span></a>
         </div>
@@ -77,13 +79,6 @@
                     <input type="checkbox" id="lockAfterRun" class="w3-check"
                            onclick="updateSetting('lockAfterRun','check')">
                     <label for="lockAfterRun">Lock the computer after running</label>
-                    <br>
-                    <hr>
-                    <button class="w3-button w3-white w3-border w3-border-red w3-round-large" onclick="refreshAerial()">
-                        Refresh Aerial
-                    </button>
-                    <button class="w3-button w3-red w3-border-white w3-round-large" onclick="resetAerial()">Reset Aerial
-                    </button>
                 </div>
             </div>
             <div id="playbackSettings" class="settingsCard" style="display: none">
@@ -211,10 +206,6 @@
                         <span class="w3-right" onclick="resetFilterSettings()"><i class="fa fa-undo"></i></span></h4>
                     <div class="w3-display-container" id="videoFilterSettings"></div>
                     <br>
-                    <div class="w3-small">
-                        <input type="checkbox" id="videoQuality" class="w3-check"
-                               onclick="updateSetting('videoQuality','check')">
-                        <label for="videoQuality">Disable all video processing</label></div>
                 </div>
             </div>
             <div id="cacheSettings" class="settingsCard" style="display: none">
@@ -226,7 +217,8 @@
                            onclick="updateSetting('videoCache','check')">
                     <label for="videoCache"> Automatically download checked videos to the cache</label>
                     <br>
-                    <p class="w3-small" style="margin-left: 4%">The total size of all videos is approximately 20 GB</p>
+                    <p class="w3-small" style="margin-left: 4%">The total size of all videos is approximately 20
+                        GB</p>
                     <input type="checkbox" id="videoCacheProfiles" class="w3-check"
                            onclick="updateSetting('videoCacheProfiles','check')" style="margin-left: 8%">
                     <label for="videoCacheProfiles">Include videos in saved profiles</label>
@@ -239,10 +231,12 @@
                            onclick="updateSetting('immediatelyUpdateVideoCache','check')">
                     <label for="immediatelyUpdateVideoCache">Immediately update video cache</label>
                     <br><br>
-                    <button class="w3-button w3-white w3-border w3-border-blue w3-round-large" onclick="updateCache()">
+                    <button class="w3-button w3-white w3-border w3-border-blue w3-round-large"
+                            onclick="updateCache()">
                         Update cache
                     </button>
-                    <button class="w3-button w3-white w3-border w3-border-red w3-round-large" onclick="deleteCache()">
+                    <button class="w3-button w3-white w3-border w3-border-red w3-round-large"
+                            onclick="deleteCache()">
                         Delete
                         all files
                     </button>
@@ -267,6 +261,31 @@
                     <div id="customVideoList"></div>
                 </div>
             </div>
+            <div id="advancedSettings" class="settingsCard" style="display: none">
+                <div class="w3-container w3-blue cardHeader">
+                    <h3>Advanced Settings</h3>
+                </div>
+                <div class="w3-display-container cardContent" style="padding: 2%">
+                    <input type="checkbox" id="videoQuality" class="w3-check"
+                           onclick="updateSetting('videoQuality','check')">
+                    <label for="videoQuality">Disable all video processing</label>
+                    <br>
+                    <hr>
+                    <button class="w3-button w3-white w3-border w3-border-blue w3-round-large"
+                            style="font-size: small"
+                            onclick="electron.ipcRenderer.send('openConfigFolder');">
+                        View Local Files
+                    </button>
+                    <button class="w3-small w3-button w3-round-large w3-border w3-border-blue" onclick="electron.ipcRenderer.send('openInfoEditor');">Open Video Info Editor</button>
+                    <button class="w3-button w3-white w3-border w3-border-red w3-round-large"
+                            onclick="refreshAerial()">
+                        Refresh Aerial
+                    </button>
+                    <button class="w3-button w3-red w3-border-white w3-round-large" onclick="resetAerial()">Reset
+                        Aerial
+                    </button>
+                </div>
+            </div>
             <div id="aboutSettings" class="settingsCard" style="display: none">
                 <div class="w3-container w3-blue cardHeader">
                     <h3>About Aerial</h3>
@@ -275,12 +294,14 @@
                     <h4>Apple TV screen saver for Windows</h4>
                     <p style="font-size: small">
                         Developed by OrangeJedi, inspired by
-                        <a href="https://github.com/JohnCoates/Aerial" target="_blank">Mac Aerial Screen Saver</a> and
+                        <a href="https://github.com/JohnCoates/Aerial" target="_blank">Mac Aerial Screen Saver</a>
+                        and
                         <a href="https://github.com/cDima/Aerial" target="_blank">Aerial for Windows</a>.
                     </p>
                     <p style="font-size: small">
                         Visit our
-                        <a href="https://github.com/OrangeJedi/Aerial" target="_blank">GitHub repository</a> to report
+                        <a href="https://github.com/OrangeJedi/Aerial" target="_blank">GitHub repository</a> to
+                        report
                         bugs, suggest features, view or download the code, or contribute to Aerial.
                         For tips, tricks, a feature list, and other how-to information, visit the
                         <a href="https://github.com/OrangeJedi/Aerial/wiki" target="_blank">Wiki</a>, also hosted on
@@ -291,17 +312,14 @@
                         <a href="https://github.com/OrangeJedi/Aerial/blob/master/LICENSE" target="_blank">MIT
                             License</a>.
                     </p>
-                    <button class="w3-button w3-white w3-border w3-border-blue w3-round-large" style="font-size: small"
-                            onclick="electron.ipcRenderer.send('openConfigFolder');">
-                        View Local Files
-                    </button>
                     <hr>
                     Version: <span id="version"></span>
                     <div id="aboutUpdate" style="display: none">
                         <br>
                         <div class="w3-panel w3-pale-green" style="padding-bottom: 2%">
                             <h4>A new version of Aerial is available!</h4>
-                            <a href="https://github.com/OrangeJedi/Aerial/releases" target="_blank">Click here</a> to
+                            <a href="https://github.com/OrangeJedi/Aerial/releases" target="_blank">Click here</a>
+                            to
                             download version v<span id="updateAvailable"></span>
                         </div>
                     </div>
@@ -358,11 +376,13 @@
                                    onclick="positionSelect(this)"><label></label>
                         </div>
                         <div class="w3-display-bottomleft w3-container imagePositionRadio">
-                            <input class="w3-radio imagePosition" type="radio" name="imagePosition" value="bottomleft"
+                            <input class="w3-radio imagePosition" type="radio" name="imagePosition"
+                                   value="bottomleft"
                                    onclick="positionSelect(this)"><label></label>
                         </div>
                         <div class="w3-display-bottomright w3-container imagePositionRadio">
-                            <input class="w3-radio imagePosition" type="radio" name="imagePosition" value="bottomright"
+                            <input class="w3-radio imagePosition" type="radio" name="imagePosition"
+                                   value="bottomright"
                                    onclick="positionSelect(this)"><label></label>
                         </div>
                         <div class="w3-display-left w3-container imagePositionRadio">
@@ -378,11 +398,13 @@
                                    onclick="positionSelect(this)"><label></label>
                         </div>
                         <div class="w3-display-topmiddle w3-container imagePositionRadio">
-                            <input class="w3-radio imagePosition" type="radio" name="imagePosition" value="topmiddle"
+                            <input class="w3-radio imagePosition" type="radio" name="imagePosition"
+                                   value="topmiddle"
                                    onclick="positionSelect(this)"><label></label>
                         </div>
                         <div class="w3-display-bottommiddle w3-container imagePositionRadio">
-                            <input class="w3-radio imagePosition" type="radio" name="imagePosition" value="bottommiddle"
+                            <input class="w3-radio imagePosition" type="radio" name="imagePosition"
+                                   value="bottommiddle"
                                    onclick="positionSelect(this)"><label></label>
                         </div>
                     </div>
@@ -482,7 +504,8 @@
                                              style="width: 25%; display: inline; margin-top: 2%"
                                              onchange="updateSetting('textSize', 'number')">
                     <br>
-                    <label for="textColor">Color: </label><input class="w3-input" id="textColor" type="color" step=".25"
+                    <label for="textColor">Color: </label><input class="w3-input" id="textColor" type="color"
+                                                                 step=".25"
                                                                  style="width: 5%; display: inline; margin-top: 2%; padding: 0;"
                                                                  onchange="updateSetting('textColor', 'text')">
                     <hr>
@@ -504,7 +527,8 @@
             <span onclick="document.getElementById('timeFormatExplain').style.display='none'"
                   class="w3-button w3-display-topright">&times;</span>
             <br>
-            <p>Aerial uses Moment.js to display the current time. Use the characters in the table below to format the
+            <p>Aerial uses Moment.js to display the current time. Use the characters in the table below to format
+                the
                 time and date however you want it.</p>
             <table class="w3-table-all">
                 <tr>
@@ -653,7 +677,8 @@
                   class="w3-button w3-display-topright">&times;</span>
             <br>
             <p>
-                <label for="newProfileName">Profile Name</label><input class="w3-input" type="text" id="newProfileName">
+                <label for="newProfileName">Profile Name</label><input class="w3-input" type="text"
+                                                                       id="newProfileName">
                 <br>
                 <button class="w3-button w3-white w3-border w3-border-blue w3-round-large"
                         onclick="createProfile('newProfileName');document.getElementById('createVideoProfile').style.display='none';">
@@ -688,10 +713,13 @@
             <br>
             <p>
             <h2>Welcome to Aerial</h2>
-            <p>You've installed Aerial successfully! The next time your computer isn't doing anything Aerial will start
+            <p>You've installed Aerial successfully! The next time your computer isn't doing anything Aerial will
+                start
                 up and display those gorgeous screensavers.</p>
-            <p>If you want to fine-tweak how Aerial runs, chose what videos to play, or maybe even add a clock in the
-                corner, simply use this menu to configure it. To reopen the config window, right-click on the tray icon
+            <p>If you want to fine-tweak how Aerial runs, chose what videos to play, or maybe even add a clock in
+                the
+                corner, simply use this menu to configure it. To reopen the config window, right-click on the tray
+                icon
                 and select 'config'.</p>
             <p>If you have any questions find us online at
                 <a href="https://github.com/OrangeJedi/Aerial">github.com/OrangeJedi/Aerial</a>

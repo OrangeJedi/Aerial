@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Video Info Editor</title>
+    <script src="libraries/js/jquery-min.js"></script>
+    <script src="libraries/js/moment.min.js"></script>
+    <script src="libraries/js/numeral.min.js"></script>
+    <script>if (window.module) module = window.module;</script>
+    <link rel="stylesheet" href="libraries/css/w3.min.css">
+    <link rel="stylesheet" href="libraries/css/all.min.css">
+</head>
+<body>
+<div class="w3-bar w3-grey">
+    <span class="w3-bar-item w3-blue">Info Editor</span>
+    <button class="w3-bar-item w3-button" onclick="displayFilterModal()">Filter</button>
+    <button class="w3-bar-item w3-button w3-right" onclick="exportData()">Export</button>
+</div>
+
+<div id="videoList"></div>
+
+<div id="videoModal" class="w3-modal">
+    <div class="w3-modal-content">
+        <div class="w3-container w3-white">
+            <span onclick="document.getElementById('videoModal').style.display='none'"
+                  class="w3-button w3-display-topright">&times;</span>
+            <br>
+            <video controls id="modalVideo" width="95%"></video>
+        </div>
+    </div>
+</div>
+
+<div id="exportModal" class="w3-modal">
+    <div class="w3-modal-content">
+        <div class="w3-container w3-white">
+            <span onclick="document.getElementById('exportModal').style.display='none'"
+                  class="w3-button w3-display-topright">&times;</span>
+            <br>
+            <textarea id="exportText" style="width: 95%; height: 450px"></textarea>
+        </div>
+    </div>
+</div>
+
+<div id="filterModal" class="w3-modal">
+    <div class="w3-modal-content">
+        <div class="w3-container w3-white">
+            <h3>Filters</h3>
+            <span onclick="setFilters()"
+                  class="w3-button w3-display-topright">&times;</span>
+            <br>
+            Type: <select id="filterTypeSelect">
+                <option selected value=".*">Any</option>
+                <option value="cityscape">Cityscape</option>
+                <option value="landscape">Landscape</option>
+                <option value="space">Space</option>
+                <option value="underwater">Underwater</option>
+            </select>
+            <br><br>
+            Time of Day: <select id="filterToDSelect">
+            <option selected value=".*">Any</option>
+            <option value="day">Day</option>
+            <option value="night">Night</option>
+            <option value="undefined">undefined</option>
+        </select>
+            <br><br>
+        </div>
+    </div>
+</div>
+
+<script src="video-info.js"></script>
+</body>
+</html>

@@ -181,6 +181,35 @@ function createSSPWindow(argv) {
     preview = true;
 }
 
+function createEditWindow(argv) {
+    let win = new BrowserWindow({
+        width: 1000,
+        height: 750,
+        webPreferences: {
+            nodeIntegration: false,
+            contextIsolation: true,
+            enableRemoteModule: false,
+            sandbox: false,
+            preload: path.join(__dirname, "preload.js")
+        },
+        icon: path.join(__dirname, 'icon.ico')
+    });
+    win.loadFile('web/video-info.html');
+    win.on('closed', function () {
+        win = null;
+    });
+    if (argv) {
+        if (argv.includes("/dt")) {
+            win.webContents.openDevTools();
+        }
+    }
+    win.webContents.setWindowOpenHandler(({url}) => {
+        shell.openExternal(url);
+        return {action: 'deny'};
+    });
+    screens.push(win);
+}
+
 function createTrayWindow() {
     let trayWin = new BrowserWindow({
         width: 800, height: 600, center: true, minimizable: false, show: false,
@@ -448,7 +477,7 @@ function setUpConfigFile() {
     store.set('version', app.getVersion());
     store.set("configured", true);
 }
-setUpConfigFile();
+//setUpConfigFile();
 
 //check for update on GitHub
 function checkForUpdate() {
@@ -582,6 +611,10 @@ ipcMain.on('selectFile', async (event, args) => {
 
 ipcMain.on('openPreview', (event) => {
     createSSPWindow(process.argv);
+});
+
+ipcMain.on('openInfoEditor', (event) => {
+    createEditWindow(process.argv);
 });
 
 ipcMain.on('refreshConfig', (event) => {

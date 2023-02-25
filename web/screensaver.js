@@ -273,13 +273,13 @@ if (transitionName.match(/^\w*-/g)) {
 //put the video on the canvas
 function drawVideo() {
     ctx1.reset();
+    ctx1.filter = filterString;
     ctx1.globalCompositeOperation = "source-over";
     ctx1.globalAlpha = 1;
     if (transitionPercent < 1) {
         let gradient, maxBound, rad;
         switch (transitionSettings.type) {
             case "dissolve":
-                console.log(containers[currentPlayer].paused, containers[prePlayer].paused);
                 if (containers[currentPlayer].paused) {
                     ctx1.fillStyle = `rgb(0, 0, 0)`;
                     ctx1.rect(0, 0, window.innerWidth, window.innerHeight);
@@ -396,7 +396,7 @@ function drawVideo() {
                 ctx1.globalAlpha = 1;
                 ctx1.fillStyle = "#000000";
                 ctx1.globalCompositeOperation = "destination-out";
-                ctx1.arc(window.innerWidth / 2, window.innerHeight / 2, rrad, 0, Math.PI * 2);
+                ctx1.arc(window.innerWidth / 2, window.innerHeight / 2, rad, 0, Math.PI * 2);
                 ctx1.fill();
                 ctx1.globalCompositeOperation = "destination-over";
                 ctx1.drawImage(containers[currentPlayer], 0, 0, window.innerWidth, window.innerHeight);
@@ -433,13 +433,13 @@ let ctx1 = c1.getContext('2d');
 c1.width = window.innerWidth;
 c1.height = window.innerHeight;
 let videoFilters = electron.store.get('videoFilters');
-let filter = "";
+let filterString = "";
 for (let i = 0; i < videoFilters.length; i++) {
     if (videoFilters[i].value !== videoFilters[i].defaultValue) {
-        filter += `${videoFilters[i].name}(${videoFilters[i].value}${videoFilters[i].suffix}) `;
+        filterString += `${videoFilters[i].name}(${videoFilters[i].value}${videoFilters[i].suffix}) `;
     }
 }
-ctx1.filter = filter;
+ctx1.filter = filterString;
 
 // Fix for issue #110
 // Replace requestAnimationFrame with our own that never sleeps
