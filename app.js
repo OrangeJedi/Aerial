@@ -423,7 +423,7 @@ function setUpConfigFile() {
     store.set('transitionType', store.get("transitionType") ?? "dissolve");
     store.set('videoTransitionLength', store.get('videoTransitionLength') ?? 2000);
     //1.2.0 changes the default transition length because of internal changes
-    if(store.get('videoTransitionLength') === 1000){
+    if (store.get('videoTransitionLength') === 1000) {
         store.set('videoTransitionLength', 2000);
     }
     //time & location settings
@@ -481,11 +481,14 @@ function setUpConfigFile() {
 
 //check for update on GitHub
 function checkForUpdate() {
-    store.set('updateAvailable', false);
     request('https://raw.githubusercontent.com/OrangeJedi/Aerial/master/package.json', function (error, response, body) {
+        if (error) {
+            console.log("Error checking for updates: ", error);
+            return;
+        }
+        store.set('updateAvailable', false);
         const onlinePackage = JSON.parse(body);
         if (onlinePackage.version && app.isPackaged) {
-            //if (onlinePackage.version) {
             if (onlinePackage.version[0] > app.getVersion()[0] || onlinePackage.version[2] > app.getVersion()[2] || onlinePackage.version[4] > app.getVersion()[4]) {
                 store.set('updateAvailable', onlinePackage.version);
                 new Notification({
@@ -603,8 +606,8 @@ ipcMain.on('selectFile', async (event, args) => {
         if (!result.canceled) {
             let displayText = store.get('displayText');
             displayText[position][line].imagePath = result.filePaths[0];
-            store.set('displayText',displayText);
-            event.reply('updateAttribute',['imageFileName',result.filePaths[0]]);
+            store.set('displayText', displayText);
+            event.reply('updateAttribute', ['imageFileName', result.filePaths[0]]);
         }
     });
 });
@@ -968,7 +971,7 @@ function setTimeOfDayList() {
                 }
             });
             //some people seem to be getting errors where video[index] doesn't exit, this line will fix it.
-            if(videos[index]) {
+            if (videos[index]) {
                 switch (videos[index].timeOfDay) {
                     case "day":
                         tod.day.push(allowedVideos[i]);
