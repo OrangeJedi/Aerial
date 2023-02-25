@@ -967,15 +967,18 @@ function setTimeOfDayList() {
                     return true;
                 }
             });
-            switch (videos[index].timeOfDay) {
-                case "day":
-                    tod.day.push(allowedVideos[i]);
-                    break;
-                case "night":
-                    tod.night.push(allowedVideos[i]);
-                    break;
-                default:
-                    tod.none.push(allowedVideos[i]);
+            //some people seem to be getting errors where video[index] doesn't exit, this line will fix it.
+            if(videos[index]) {
+                switch (videos[index].timeOfDay) {
+                    case "day":
+                        tod.day.push(allowedVideos[i]);
+                        break;
+                    case "night":
+                        tod.night.push(allowedVideos[i]);
+                        break;
+                    default:
+                        tod.none.push(allowedVideos[i]);
+                }
             }
             if (tod.day.length <= 3) {
                 tod.day.push(...tod.none);
