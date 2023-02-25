@@ -285,18 +285,18 @@ function drawVideo() {
                     ctx1.rect(0, 0, window.innerWidth, window.innerHeight);
                     ctx1.fill();
                 } else {
-                    ctx1.drawImage(containers[currentPlayer], 0, 0, window.innerWidth, window.innerHeight);
+                    drawImage(ctx1, containers[currentPlayer]);
                 }
                 ctx1.globalCompositeOperation = "destination-out";
                 ctx1.fillStyle = `rgba(0,0,0,${transitionPercent})`;
                 ctx1.rect(0, 0, window.innerWidth, window.innerHeight);
                 ctx1.fill();
                 ctx1.globalCompositeOperation = "destination-over";
-                ctx1.drawImage(containers[prePlayer], 0, 0, window.innerWidth, window.innerHeight);
+                drawImage(ctx1, containers[prePlayer]);
                 break;
             case "dipToBlack":
                 if (transitionPercent <= .5) {
-                    ctx1.drawImage(containers[currentPlayer], 0, 0, window.innerWidth, window.innerHeight);
+                    drawImage(ctx1, containers[currentPlayer]);
                     ctx1.globalCompositeOperation = "destination-out";
                     ctx1.fillStyle = `rgba(0,0,0,${transitionPercent * 2})`;
                     ctx1.rect(0, 0, window.innerWidth, window.innerHeight);
@@ -314,11 +314,11 @@ function drawVideo() {
                     ctx1.rect(0, 0, window.innerWidth, window.innerHeight);
                     ctx1.fill();
                     ctx1.globalCompositeOperation = "destination-over";
-                    ctx1.drawImage(containers[prePlayer], 0, 0, window.innerWidth, window.innerHeight);
+                    drawImage(ctx1, containers[prePlayer]);
                 }
                 break;
             case"fade":
-                ctx1.drawImage(containers[prePlayer], 0, 0, window.innerWidth, window.innerHeight);
+                drawImage(ctx1, containers[prePlayer]);
                 ctx1.globalCompositeOperation = "destination-out";
                 switch (transitionSettings.direction) {
                     case "left":
@@ -352,10 +352,10 @@ function drawVideo() {
                 ctx1.rect(0, 0, window.innerWidth, window.innerHeight);
                 ctx1.fill();
                 ctx1.globalCompositeOperation = "destination-over";
-                ctx1.drawImage(containers[currentPlayer], 0, 0, window.innerWidth, window.innerHeight);
+                drawImage(ctx1, containers[currentPlayer]);
                 break;
             case "wipe":
-                ctx1.drawImage(containers[prePlayer], 0, 0, window.innerWidth, window.innerHeight);
+                drawImage(ctx1, containers[prePlayer]);
                 ctx1.globalCompositeOperation = "destination-in";
                 ctx1.globalAlpha = 1;
                 ctx1.fillStyle = "#000000";
@@ -376,10 +376,10 @@ function drawVideo() {
 
                 ctx1.fill();
                 ctx1.globalCompositeOperation = "destination-over";
-                ctx1.drawImage(containers[currentPlayer], 0, 0, window.innerWidth, window.innerHeight);
+                drawImage(ctx1, containers[currentPlayer]);
                 break;
             case "circle":
-                ctx1.drawImage(containers[prePlayer], 0, 0, window.innerWidth, window.innerHeight);
+                drawImage(ctx1, containers[prePlayer]);
                 maxBound = window.innerWidth > window.innerHeight ? window.innerWidth : window.innerHeight;
                 rad = maxBound * (transitionPercent > 1 ? 1 : transitionPercent < 0 ? 0 : transitionPercent);
                 ctx1.fillStyle = "#000000";
@@ -387,10 +387,10 @@ function drawVideo() {
                 ctx1.arc(window.innerWidth / 2, window.innerHeight / 2, rad, 0, Math.PI * 2);
                 ctx1.fill();
                 ctx1.globalCompositeOperation = "destination-over";
-                ctx1.drawImage(containers[currentPlayer], 0, 0, window.innerWidth, window.innerHeight);
+                drawImage(ctx1, containers[currentPlayer]);
                 break;
             case "reverseCircle":
-                ctx1.drawImage(containers[prePlayer], 0, 0, window.innerWidth, window.innerHeight);
+                drawImage(ctx1, containers[prePlayer]);
                 maxBound = window.innerWidth > window.innerHeight ? window.innerWidth : window.innerHeight;
                 rad = maxBound * (1 - (transitionPercent > 1 ? 1 : transitionPercent < 0 ? 0 : transitionPercent));
                 ctx1.globalAlpha = 1;
@@ -399,13 +399,13 @@ function drawVideo() {
                 ctx1.arc(window.innerWidth / 2, window.innerHeight / 2, rad, 0, Math.PI * 2);
                 ctx1.fill();
                 ctx1.globalCompositeOperation = "destination-over";
-                ctx1.drawImage(containers[currentPlayer], 0, 0, window.innerWidth, window.innerHeight);
+                drawImage(ctx1, containers[currentPlayer]);
                 break;
             case "fadeCircle" :
-                ctx1.drawImage(containers[prePlayer], 0, 0, window.innerWidth, window.innerHeight);
+                drawImage(ctx1, containers[prePlayer]);
                 ctx1.globalCompositeOperation = "destination-out";
                 maxBound = window.innerWidth > window.innerHeight ? window.innerWidth : window.innerHeight;
-                switch (transitionSettings.direction){
+                switch (transitionSettings.direction) {
                     case "reverse":
                         gradient = ctx1.createRadialGradient(window.innerWidth / 2, window.innerHeight / 2, maxBound, window.innerWidth / 2, window.innerHeight / 2, 0);
                         break;
@@ -419,13 +419,33 @@ function drawVideo() {
                 ctx1.rect(0, 0, window.innerWidth, window.innerHeight);
                 ctx1.fill();
                 ctx1.globalCompositeOperation = "destination-over";
-                ctx1.drawImage(containers[currentPlayer], 0, 0, window.innerWidth, window.innerHeight);
+                drawImage(ctx1, containers[currentPlayer]);
                 break;
         }
     } else {
-        ctx1.drawImage(containers[currentPlayer], 0, 0, window.innerWidth, window.innerHeight);
+        drawImage(ctx1, containers[currentPlayer]);
+        //ctx1.drawImage(containers[currentPlayer], 0, 0, window.innerWidth, window.innerHeight);
     }
     requestAnimationFrame(drawVideo);
+}
+
+//function to scale image properly when drawn
+let aspectRatio = window.innerWidth / window.innerHeight;
+let widthScale = window.innerWidth / ((16 / 9) * window.innerHeight);
+let heightScale = window.innerHeight / (window.innerWidth / (16 / 9));
+
+function drawImage(context, image) {
+    if (electron.store.get("fillMode") === "stretch" || aspectRatio === 16 / 9) {
+        //stretch
+        context.drawImage(image, 0, 0, window.innerWidth, window.innerHeight);
+    } else if (electron.store.get("fillMode") === "crop") {
+        //crop
+        if (widthScale > 1) {
+            context.drawImage(image, 0, (image.videoHeight - image.videoHeight / widthScale) / 2, image.videoWidth, image.videoHeight / widthScale, 0, 0, window.innerWidth, window.innerHeight);
+        } else {
+            context.drawImage(image, (image.videoWidth - image.videoWidth / heightScale) / 2, 0, image.videoWidth / heightScale, image.videoHeight, 0, 0, window.innerWidth, window.innerHeight);
+        }
+    }
 }
 
 let c1 = document.getElementById('canvasVideo');

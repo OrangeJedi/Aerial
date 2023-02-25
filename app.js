@@ -152,15 +152,16 @@ function createSSPWindow(argv) {
     previouslyPlayed = [];
     let displays = screen.getAllDisplays();
     let win = new BrowserWindow({
-        width: 1280,
+        width: 1280 * 2,
         height: 720,
         webPreferences: {
             nodeIntegration: false,
             contextIsolation: true,
             enableRemoteModule: false,
             sandbox: false,
-            preload: path.join(__dirname, "preload.js")
+            preload: path.join(__dirname, "preload.js"),
         },
+        frame: true,
         transparent: true,
         icon: path.join(__dirname, 'icon.ico')
     });
@@ -422,6 +423,7 @@ function setUpConfigFile() {
     store.set('alternateRenderMethod', store.get("alternateRenderMethod") ?? false);
     store.set('transitionType', store.get("transitionType") ?? "dissolve");
     store.set('videoTransitionLength', store.get('videoTransitionLength') ?? 2000);
+    store.set('fillMode', store.get('fillMode') ?? "stretch");
     //1.2.0 changes the default transition length because of internal changes
     if (store.get('videoTransitionLength') === 1000) {
         store.set('videoTransitionLength', 2000);
@@ -477,6 +479,7 @@ function setUpConfigFile() {
     store.set('version', app.getVersion());
     store.set("configured", true);
 }
+
 //setUpConfigFile();
 
 //check for update on GitHub

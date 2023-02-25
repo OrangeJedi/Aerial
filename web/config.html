@@ -94,6 +94,12 @@
                         the
                         most recently played videos</i>
                     <br><br>
+                    <label for="fillMode">Fill Mode: </label>
+                    <select id="fillMode" onclick="updateSetting('fillMode','select')">
+                        <option value="stretch">Stretch</option>
+                        <option value="crop">Crop</option>
+                    </select>
+                    <br><br>
                     <label for="transitionType">Transition Type: </label>
                     <select id="transitionType" onclick="updateSetting('transitionType','select')">
                         <option value="dissolve">Dissolve</option>
