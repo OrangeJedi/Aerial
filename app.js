@@ -38,6 +38,7 @@ let preview = false;
 let suspend = false;
 let suspendCountdown;
 let isComputerSleeping = false;
+let isComputerSuspendedOrLocked = false;
 let tod = {"day": [], "night": [], "none": []};
 let astronomy = {
     "sunrise": undefined,
@@ -385,6 +386,7 @@ function setUpConfigFile() {
     store.set('blankAfter', store.get('blankAfter') ?? 30);
     store.set('sleepAfterBlank', store.get('sleepAfterBlank') ?? true);
     store.set('lockAfterRun', store.get('lockAfterRun') ?? false);
+    store.set('runOnBattery', store.get('runOnBattery') ?? true);
     store.set('updateAvailable', false);
     //playback settings
     store.set('playbackSpeed', store.get('playbackSpeed') ?? 1);
@@ -686,6 +688,23 @@ ipcMain.handle('newVideoId', (event, lastPlayed) => {
 powerMonitor.on('resume', () => {
     //let Aerial know that the system has been woken up so it can run again
     isComputerSleeping = false;
+    isComputerSuspendedOrLocked = false;
+    closeAllWindows();
+});
+
+powerMonitor.on('suspend', () => {
+    isComputerSuspendedOrLocked = true;
+    closeAllWindows();
+});
+
+powerMonitor.on('lock-screen', () => {
+    isComputerSuspendedOrLocked = true;
+    closeAllWindows();
+});
+
+powerMonitor.on('unlock-screen', () => {
+    isComputerSuspendedOrLocked = false;
+    closeAllWindows();
 });
 
 //let Aerial load the video with Apple's self-signed cert
@@ -937,9 +956,14 @@ function lockComputer() {
 //idle startup timer
 function launchScreensaver() {
     //console.log(screens.length,powerMonitor.getSystemIdleTime(),store.get('startAfter') * 60)
-    if (screens.length === 0 && !suspend && !isComputerSleeping) {
+    if (screens.length === 0 && !suspend && !isComputerSleeping && !isComputerSuspendedOrLocked) {
         let idleTime = powerMonitor.getSystemIdleTime();
-        if (idleTime >= store.get('startAfter') * 60) {
+        if (powerMonitor.getSystemIdleState(store.get('startAfter') * 60) === "idle") {
+            if(!store.get("runOnBattery")){
+                if(powerMonitor.isOnBatteryPower()){
+                    return;
+                }
+            }
             createSSWindow();
         }
     }
