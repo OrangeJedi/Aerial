@@ -440,11 +440,12 @@ function updatePositionType(position, line) {
     }
     if (displayTextSettings[position][line].type !== "none") {
         html += `<br><input type="checkbox" class="w3-check" id="useDefaultFont" onchange="updateTextSettingCheck(this, '${position}','${line}', 'defaultFont'); updatePositionType('${position}','${line}');" ${displayTextSettings[position][line].defaultFont ? 'checked' : ''}><label> Use Default Font</label>`;
+        html += `<div style="text-align: right; margin-top: -4%">Custom CSS <input id="customCSS" onchange="updateTextSetting(this, '${position}','${line}', 'customCSS')" value="${displayTextSettings[position][line].customCSS ?? ''}"/></div>`;
         if (!displayTextSettings[position][line].defaultFont) {
             displayTextSettings[position][line]['font'] = displayTextSettings[position][line].font ? displayTextSettings[position][line].font : electron.store.get('textFont');
             displayTextSettings[position][line]['fontSize'] = displayTextSettings[position][line].fontSize ? displayTextSettings[position][line].fontSize : electron.store.get('textSize');
             displayTextSettings[position][line]['fontColor'] = displayTextSettings[position][line].fontColor ? displayTextSettings[position][line].fontColor : electron.store.get('textColor');
-            html += `<br><div class="autocomplete" style="width:300px;">
+            html += `<div class="autocomplete" style="width:300px;">
                     <label>Font: </label><input id="positionFont" type="text" onchange="updateTextSetting(this, '${position}','${line}', 'font')" value="${displayTextSettings[position][line]['font']}">
                     </div>
                     <label>Font Size: </label><input class="w3-input" id="positionTextSize" type="number" step=".25" style="width: 10%; display: inline; margin-top: 2%" onchange="updateTextSetting(this, '${position}','${line}', 'fontSize')" value="${displayTextSettings[position][line]['fontSize']}">

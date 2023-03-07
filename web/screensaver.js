@@ -542,7 +542,7 @@ function displayTextPosition(position, displayLocation) {
     let selector = displayLocation ? `#textDisplay-${displayLocation}` : `#textDisplay-${position}`;
     let html = "";
     for (let i = 0; i < displayText[position].length; i++) {
-        html += `<div id="${position}-${i}">${createContentLine(displayText[position][i], position, i)}</div>`;
+        html += `<div id="${position}-${i}" style="${displayText[position][i].customCSS}">${createContentLine(displayText[position][i], position, i)}</div>`;
     }
     $(selector).html(html);
     for (let i = 0; i < displayText[position].length; i++) {
