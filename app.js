@@ -9,7 +9,8 @@ const {
     Tray,
     Menu,
     powerMonitor,
-    Notification
+    Notification,
+    globalShortcut
 } = require('electron');
 const {exec} = require('child_process');
 const videos = require("./videos.json");
@@ -324,6 +325,7 @@ function startUp() {
     }
     calculateAstronomy();
     checkForUpdate();
+    setupGlobalShortcut();
     //configures Aerial to launch on startup
     if (store.get('useTray') && app.isPackaged) {
         autoLauncher.enable();
@@ -388,6 +390,9 @@ function setUpConfigFile() {
     store.set('lockAfterRun', store.get('lockAfterRun') ?? false);
     store.set('runOnBattery', store.get('runOnBattery') ?? true);
     store.set('updateAvailable', false);
+    store.set('enableGlobalShortcut', store.get('enableGlobalShortcut') ?? true);
+    store.set('globalShortcutModifier', store.get('globalShortcutModifier') ?? "Super+Control");
+    store.set('globalShortcutKey', store.get('globalShortcutKey') ?? "A");
     //playback settings
     store.set('playbackSpeed', store.get('playbackSpeed') ?? 1);
     store.set('skipVideosWithKey', store.get('skipVideosWithKey') ?? true);
@@ -684,6 +689,10 @@ ipcMain.handle('newVideoId', (event, lastPlayed) => {
     return currentlyPlaying;
 })
 
+ipcMain.on('newGlobalShortcut', (event) => {
+    setupGlobalShortcut();
+});
+
 //events from the system
 powerMonitor.on('resume', () => {
     //let Aerial know that the system has been woken up so it can run again
@@ -716,6 +725,15 @@ app.on('certificate-error', (event, webContents, url, error, certificate, callba
         callback(false)
     }
 });
+
+function setupGlobalShortcut() {
+    globalShortcut.unregisterAll();
+    if(store.get("enableGlobalShortcut")){
+        globalShortcut.register(`${store.get("globalShortcutModifier")}+${store.get("globalShortcutKey")}`, () => {
+            createSSWindow();
+        })
+    }
+}
 
 //video functions
 function updateCustomVideos() {
@@ -959,8 +977,8 @@ function launchScreensaver() {
     if (screens.length === 0 && !suspend && !isComputerSleeping && !isComputerSuspendedOrLocked) {
         let idleTime = powerMonitor.getSystemIdleTime();
         if (powerMonitor.getSystemIdleState(store.get('startAfter') * 60) === "idle") {
-            if(!store.get("runOnBattery")){
-                if(powerMonitor.isOnBatteryPower()){
+            if (!store.get("runOnBattery")) {
+                if (powerMonitor.isOnBatteryPower()) {
                     return;
                 }
             }

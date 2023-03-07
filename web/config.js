@@ -9,11 +9,11 @@ let customVideos = electron.store.get("customVideos");
 
 //Updates all the <input> tags with their proper values. Called on page load
 function displaySettings() {
-    let checked = ["timeOfDay", "skipVideosWithKey", "sameVideoOnScreens", "videoCache", "videoCacheProfiles", "videoCacheRemoveUnallowed", "avoidDuplicateVideos", "onlyShowVideoOnPrimaryMonitor", "videoQuality", "immediatelyUpdateVideoCache", "useTray", "blankScreen", "sleepAfterBlank", "lockAfterRun", "alternateRenderMethod", "useLocationForSunrise", "runOnBattery"];
+    let checked = ["timeOfDay", "skipVideosWithKey", "sameVideoOnScreens", "videoCache", "videoCacheProfiles", "videoCacheRemoveUnallowed", "avoidDuplicateVideos", "onlyShowVideoOnPrimaryMonitor", "videoQuality", "immediatelyUpdateVideoCache", "useTray", "blankScreen", "sleepAfterBlank", "lockAfterRun", "alternateRenderMethod", "useLocationForSunrise", "runOnBattery", "enableGlobalShortcut"];
     for (let i = 0; i < checked.length; i++) {
         $(`#${checked[i]}`).prop('checked', electron.store.get(checked[i]));
     }
-    let numTxt = ["sunrise", "sunset", "textFont", "textSize", "textColor", "startAfter", "blankAfter", "fps", "latitude", "longitude", "randomSpeed", "skipKey","transitionType", "fillMode"];
+    let numTxt = ["sunrise", "sunset", "textFont", "textSize", "textColor", "startAfter", "blankAfter", "fps", "latitude", "longitude", "randomSpeed", "skipKey", "transitionType", "fillMode", "globalShortcutModifier", "globalShortcutKey"];
     for (let i = 0; i < numTxt.length; i++) {
         $(`#${numTxt[i]}`).val(electron.store.get(numTxt[i]));
     }
@@ -201,12 +201,21 @@ function selectCacheLocation() {
 }
 
 let skipKeyInput = document.getElementById('skipKey');
-
 skipKeyInput.addEventListener('keyup', (e) => {
     skipKeyInput.value = e.code;
     updateSetting('skipKey', 'text');
 });
 
+let globalShortcutKeyInput = document.getElementById('globalShortcutKey');
+globalShortcutKeyInput.addEventListener('keyup', (e) => {
+    let key = e.key;
+    if (key.length === 1) {
+        key = key.toUpperCase();
+    }
+    globalShortcutKeyInput.value = key;
+    updateSetting('globalShortcutKey', 'text');
+    newGlobalShortcut();
+});
 electron.ipcRenderer.on('displaySettings', () => {
     displaySettings();
 });
@@ -896,4 +905,8 @@ electron.fontListUniversal.getFonts().then(fonts => {
 //Preview
 function openPreview() {
     electron.ipcRenderer.send('openPreview');
+}
+
+function newGlobalShortcut() {
+    electron.ipcRenderer.send('newGlobalShortcut');
 }

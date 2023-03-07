@@ -72,6 +72,27 @@
                            id="blankAfter" onchange="updateSetting('blankAfter','number')">
                     minutes
                     <br><br>
+                    <input type="checkbox" id="enableGlobalShortcut" class="w3-check"
+                           onclick="updateSetting('enableGlobalShortcut','check'); newGlobalShortcut();">
+                    <label for="enableGlobalShortcut">Use shortcut to launch Aerial</label>
+                    <br>
+                    <label for="globalShortcutModifier">Modifier: </label>
+                    <select id="globalShortcutModifier"
+                            onclick="updateSetting('globalShortcutModifier','select'); newGlobalShortcut();">
+                        <option value="Shift">Shift</option>
+                        <option value="Control">Control</option>
+                        <option value="Alt">Alt</option>
+                        <option value="Super">Windows</option>
+                        <option value="Control+Alt">Control + Alt</option>
+                        <option value="Control+Shift">Control + Shift</option>
+                        <option value="Super+Shift">Windows + Shift</option>
+                        <option value="Super+Control">Windows + Control</option>
+                        <option value="Super+Alt">Windows + Alt</option>
+                        <option value="Shift+Alt">Shift + Alt</option>
+                    </select>
+                    <label for="globalShortcutKey">Skip key: </label>
+                    <input type="text" id="globalShortcutKey">
+                    <br>
                     <input type="checkbox" id="sleepAfterBlank" class="w3-check"
                            onclick="updateSetting('sleepAfterBlank','check')">
                     <label for="sleepAfterBlank">Sleep the computer after screen blank</label>
@@ -286,7 +307,9 @@
                             onclick="electron.ipcRenderer.send('openConfigFolder');">
                         View Local Files
                     </button>
-                    <button class="w3-small w3-button w3-round-large w3-border w3-border-blue" onclick="electron.ipcRenderer.send('openInfoEditor');">Open Video Info Editor</button>
+                    <button class="w3-small w3-button w3-round-large w3-border w3-border-blue"
+                            onclick="electron.ipcRenderer.send('openInfoEditor');">Open Video Info Editor
+                    </button>
                     <button class="w3-button w3-white w3-border w3-border-red w3-round-large"
                             onclick="refreshAerial()">
                         Refresh Aerial
