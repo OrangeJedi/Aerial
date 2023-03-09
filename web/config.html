@@ -53,11 +53,6 @@
                     <h3>General Settings</h3>
                 </div>
                 <div class="w3-display-container cardContent" style="padding: 2%">
-                    <input type="checkbox" id="useTray" class="w3-check" onclick="updateSetting('useTray','check')">
-                    <label for="useTray">Auto launch from system tray</label>
-                    <p class="w3-small" style="margin-left: 4%">This option will cause Aerial to run on system start up
-                        and
-                        launch itself after your system is idle</p>
                     <label for="startAfter">Start Aerial After</label>
                     <input style="width: 10%; display: inline !important;" class="w3-input" type="number"
                            id="startAfter" onchange="updateSetting('startAfter','number')">
@@ -65,45 +60,23 @@
                     <br><br>
                     <input type="checkbox" id="blankScreen" class="w3-check"
                            onclick="updateSetting('blankScreen','check')">
-                    <label for="blankScreen">Automatically blank screen</label>
-                    <br>
-                    <label for="blankAfter">Blank screen after</label>
+                    <label for="blankScreen">Automatically blank screen after</label>
                     <input style="width: 10%; display: inline !important;" class="w3-input" type="number"
                            id="blankAfter" onchange="updateSetting('blankAfter','number')">
-                    minutes
-                    <br><br>
-                    <input type="checkbox" id="enableGlobalShortcut" class="w3-check"
-                           onclick="updateSetting('enableGlobalShortcut','check'); newGlobalShortcut();">
-                    <label for="enableGlobalShortcut">Use shortcut to launch Aerial</label>
+                    <label for="blankAfter">minutes</label>
                     <br>
-                    <label for="globalShortcutModifier">Modifier: </label>
-                    <select id="globalShortcutModifier"
-                            onclick="updateSetting('globalShortcutModifier','select'); newGlobalShortcut();">
-                        <option value="Shift">Shift</option>
-                        <option value="Control">Control</option>
-                        <option value="Alt">Alt</option>
-                        <option value="Super">Windows</option>
-                        <option value="Control+Alt">Control + Alt</option>
-                        <option value="Control+Shift">Control + Shift</option>
-                        <option value="Super+Shift">Windows + Shift</option>
-                        <option value="Super+Control">Windows + Control</option>
-                        <option value="Super+Alt">Windows + Alt</option>
-                        <option value="Shift+Alt">Shift + Alt</option>
-                    </select>
-                    <label for="globalShortcutKey">Skip key: </label>
-                    <input type="text" id="globalShortcutKey">
-                    <br><br>
                     <input type="checkbox" id="sleepAfterBlank" class="w3-check"
                            onclick="updateSetting('sleepAfterBlank','check')">
                     <label for="sleepAfterBlank">Sleep the computer after screen blank</label>
-                    <br>
+                    <br><br>
                     <input type="checkbox" id="lockAfterRun" class="w3-check"
                            onclick="updateSetting('lockAfterRun','check')">
                     <label for="lockAfterRun">Lock the computer after running</label>
                     <br>
+                    <label for="lockAfterRunAfter">
                     Wait <input style="width: 10%; display: inline !important;" class="w3-input" type="number" id="lockAfterRunAfter" onchange="updateSetting('lockAfterRunAfter','number')">
-                    seconds before locking on wakeup after Aerial starts.
-                    <br>
+                    seconds before locking on wakeup after Aerial starts.</label>
+                    <br><br>
                     <input type="checkbox" id="runOnBattery" class="w3-check"
                            onclick="updateSetting('runOnBattery','check')">
                     <label for="runOnBattery">Run Aerial on battery power</label>
@@ -300,11 +273,37 @@
                     <h3>Advanced Settings</h3>
                 </div>
                 <div class="w3-display-container cardContent" style="padding: 2%">
+                    <input type="checkbox" id="useTray" class="w3-check" onclick="updateSetting('useTray','check')">
+                    <label for="useTray">Auto launch from system tray</label>
+                    <p class="w3-small" style="margin-left: 4%">This option will cause Aerial to run on system start up
+                        and
+                        launch itself after your system is idle</p>
+                    <br>
+                    <input type="checkbox" id="enableGlobalShortcut" class="w3-check"
+                           onclick="updateSetting('enableGlobalShortcut','check'); newGlobalShortcut();">
+                    <label for="enableGlobalShortcut">Use a shortcut to launch Aerial</label>
+                    <br>
+                    <label for="globalShortcutModifier">Modifier: </label>
+                    <select id="globalShortcutModifier"
+                            onclick="updateSetting('globalShortcutModifier','select'); newGlobalShortcut();">
+                        <option value="Shift">Shift</option>
+                        <option value="Control">Control</option>
+                        <option value="Alt">Alt</option>
+                        <option value="Super">Windows</option>
+                        <option value="Control+Alt">Control + Alt</option>
+                        <option value="Control+Shift">Control + Shift</option>
+                        <option value="Super+Shift">Windows + Shift</option>
+                        <option value="Super+Control">Windows + Control</option>
+                        <option value="Super+Alt">Windows + Alt</option>
+                        <option value="Shift+Alt">Shift + Alt</option>
+                    </select>
+                    <label for="globalShortcutKey"> Key: </label>
+                    <input type="text" id="globalShortcutKey">
+                    <br><br>
                     <input type="checkbox" id="videoQuality" class="w3-check"
                            onclick="updateSetting('videoQuality','check')">
                     <label for="videoQuality">Disable all video processing</label>
-                    <br>
-                    <hr>
+                    <br><hr>
                     <button class="w3-button w3-white w3-border w3-border-blue w3-round-large"
                             style="font-size: small"
                             onclick="electron.ipcRenderer.send('openConfigFolder');">
