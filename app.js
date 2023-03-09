@@ -103,7 +103,8 @@ function createSSWindow(argv) {
     calculateAstronomy();
     previouslyPlayed = [];
     let displays = screen.getAllDisplays();
-    for (let i = 0; i < screen.getAllDisplays().length; i++) {
+    store.set('numDisplays',displays.length);
+    for (let i = 0; i < displays.length; i++) {
         let win = new BrowserWindow({
             width: displays[i].size.width,
             height: displays[i].size.height,
@@ -328,6 +329,7 @@ function startUp() {
     calculateAstronomy();
     checkForUpdate();
     setupGlobalShortcut();
+    store.set('numDisplays',screen.getAllDisplays().length);
     //configures Aerial to launch on startup
     if (store.get('useTray') && app.isPackaged) {
         autoLauncher.enable();

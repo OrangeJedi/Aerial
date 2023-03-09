@@ -333,6 +333,15 @@ function colorTextPositionRadio() {
     });
 }
 
+function loadScreenSelect() {
+    let html = '<option value="">All Screens</option>'
+    for(let i = 0;i < electron.store.get('numDisplays');i++) {
+        html += `<option value="${i}">Screen ${i + 1}</option>`
+    }
+    $('#screenSelectorSelect').html(html);
+}
+loadScreenSelect();
+
 //handles selecting a radio button from the position image
 function positionSelect(position) {
     position = position.value;
@@ -366,6 +375,12 @@ function lineSelect(position, line) {
     $('#positionLineNum3').css("font-weight", "normal");
 
     $('#positionLineNum' + line).css("font-weight", "bold");
+
+    if (electron.store.get('numDisplays') > 0) {
+        $('#screenSelectorDiv').css('display', "");
+        $('#screenSelectorSelect').val(displayTextSettings.onlyShowOnScreen);
+        document.getElementById("screenSelectorSelect").setAttribute('onchange', `updateScreenSelect('${position}',${line})`);
+    }
 
     updatePositionType(position, line);
 }
@@ -477,6 +492,12 @@ function updateTextSetting(input, position, line, setting) {
 function updateTextSettingCheck(input, position, line, setting) {
     let text = electron.store.get('displayText');
     text[position][line][setting] = input.checked;
+    electron.store.set('displayText', text);
+}
+
+function updateScreenSelect(position,line){
+    let text = electron.store.get('displayText');
+    text[position][line].onlyShowOnScreen = $('#screenSelectorSelect').val();
     electron.store.set('displayText', text);
 }
 
