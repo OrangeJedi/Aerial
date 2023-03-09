@@ -101,6 +101,9 @@
                            onclick="updateSetting('lockAfterRun','check')">
                     <label for="lockAfterRun">Lock the computer after running</label>
                     <br>
+                    Wait <input style="width: 10%; display: inline !important;" class="w3-input" type="number" id="lockAfterRunAfter" onchange="updateSetting('lockAfterRunAfter','number')">
+                    seconds before locking on wakeup after Aerial starts.
+                    <br>
                     <input type="checkbox" id="runOnBattery" class="w3-check"
                            onclick="updateSetting('runOnBattery','check')">
                     <label for="runOnBattery">Run Aerial on battery power</label>

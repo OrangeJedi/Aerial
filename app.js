@@ -40,6 +40,7 @@ let suspend = false;
 let suspendCountdown;
 let isComputerSleeping = false;
 let isComputerSuspendedOrLocked = false;
+let startTime = new Date();
 let tod = {"day": [], "night": [], "none": []};
 let astronomy = {
     "sunrise": undefined,
@@ -141,6 +142,7 @@ function createSSWindow(argv) {
     }
     //find the screen the cursor is on and focus it so the cursor will hide
     let mainScreen = screens[screenIds.indexOf(screen.getDisplayNearestPoint(screen.getCursorScreenPoint()).id)];
+    startTime = new Date();
     if (mainScreen) {
         if (!mainScreen.isDestroyed()) {
             mainScreen.focus();
@@ -388,6 +390,7 @@ function setUpConfigFile() {
     store.set('blankAfter', store.get('blankAfter') ?? 30);
     store.set('sleepAfterBlank', store.get('sleepAfterBlank') ?? true);
     store.set('lockAfterRun', store.get('lockAfterRun') ?? false);
+    store.set('lockAfterRunAfter', store.get('lockAfterRunAfter') ?? 15);
     store.set('runOnBattery', store.get('runOnBattery') ?? true);
     store.set('updateAvailable', false);
     store.set('enableGlobalShortcut', store.get('enableGlobalShortcut') ?? true);
@@ -938,7 +941,7 @@ function clearCacheTemp() {
 function quitApp() {
     if (!nq) {
         //app.quit();
-        if (store.get("lockAfterRun")) {
+        if (store.get("lockAfterRun") && (new Date() - startTime) / 1000 > store.get("lockAfterRunAfter")) {
             lockComputer();
         }
         closeAllWindows();
