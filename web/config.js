@@ -405,6 +405,7 @@ function lineSelect(position, line) {
     let displayTextSettings = electron.store.get('displayText')[position][line];
     document.getElementById("textWidthSelect").setAttribute('onchange', `updateTextSetting(this, '${position}','${line}', 'maxWidth')`);
     $('#textWidthSelect').val(displayTextSettings.maxWidth ? displayTextSettings.maxWidth : "50%");
+    $('#textWidthContainer').css('display', "");
 
     $('#positionLineNum0').css("font-weight", "normal");
     $('#positionLineNum1').css("font-weight", "normal");
