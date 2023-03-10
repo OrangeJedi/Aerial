@@ -74,8 +74,9 @@
                     <label for="lockAfterRun">Lock the computer after running</label>
                     <br>
                     <label for="lockAfterRunAfter">
-                    Wait <input style="width: 10%; display: inline !important;" class="w3-input" type="number" id="lockAfterRunAfter" onchange="updateSetting('lockAfterRunAfter','number')">
-                    seconds before locking on wakeup after Aerial starts.</label>
+                        Wait <input style="width: 10%; display: inline !important;" class="w3-input" type="number"
+                                    id="lockAfterRunAfter" onchange="updateSetting('lockAfterRunAfter','number')">
+                        seconds before locking on wakeup after Aerial starts.</label>
                     <br><br>
                     <input type="checkbox" id="runOnBattery" class="w3-check"
                            onclick="updateSetting('runOnBattery','check')">
@@ -303,7 +304,8 @@
                     <input type="checkbox" id="videoQuality" class="w3-check"
                            onclick="updateSetting('videoQuality','check')">
                     <label for="videoQuality">Disable all video processing</label>
-                    <br><hr>
+                    <br>
+                    <hr>
                     <button class="w3-button w3-white w3-border w3-border-blue w3-round-large"
                             style="font-size: small"
                             onclick="electron.ipcRenderer.send('openConfigFolder');">

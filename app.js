@@ -103,7 +103,7 @@ function createSSWindow(argv) {
     calculateAstronomy();
     previouslyPlayed = [];
     let displays = screen.getAllDisplays();
-    store.set('numDisplays',displays.length);
+    store.set('numDisplays', displays.length);
     for (let i = 0; i < displays.length; i++) {
         let win = new BrowserWindow({
             width: displays[i].size.width,
@@ -132,8 +132,8 @@ function createSSWindow(argv) {
         win.on('closed', function () {
             win = null;
         });
-        win.once('ready-to-show', ()=>{
-            win.webContents.send('screenNumber',i);
+        win.once('ready-to-show', () => {
+            win.webContents.send('screenNumber', i);
             win.show();
         })
         if (!nq) {
@@ -181,7 +181,7 @@ function createSSPWindow(argv) {
         win = null;
         preview = false;
     });
-    win.webContents.send('screenNumber',0);
+    win.webContents.send('screenNumber', 0);
     if (argv) {
         if (argv.includes("/dt")) {
             win.webContents.openDevTools();
@@ -334,7 +334,7 @@ function startUp() {
     calculateAstronomy();
     checkForUpdate();
     setupGlobalShortcut();
-    store.set('numDisplays',screen.getAllDisplays().length);
+    store.set('numDisplays', screen.getAllDisplays().length);
     //configures Aerial to launch on startup
     if (store.get('useTray') && app.isPackaged) {
         autoLauncher.enable();
@@ -742,7 +742,7 @@ app.on('certificate-error', (event, webContents, url, error, certificate, callba
 
 function setupGlobalShortcut() {
     globalShortcut.unregisterAll();
-    if(store.get("enableGlobalShortcut")){
+    if (store.get("enableGlobalShortcut")) {
         globalShortcut.register(`${store.get("globalShortcutModifier")}+${store.get("globalShortcutKey")}`, () => {
             createSSWindow();
         })
