@@ -9,7 +9,8 @@ const {
     Tray,
     Menu,
     powerMonitor,
-    Notification
+    Notification,
+    globalShortcut
 } = require('electron');
 const {exec} = require('child_process');
 const videos = require("./videos.json");
@@ -38,6 +39,8 @@ let preview = false;
 let suspend = false;
 let suspendCountdown;
 let isComputerSleeping = false;
+let isComputerSuspendedOrLocked = false;
+let startTime = new Date();
 let tod = {"day": [], "night": [], "none": []};
 let astronomy = {
     "sunrise": undefined,
@@ -100,7 +103,8 @@ function createSSWindow(argv) {
     calculateAstronomy();
     previouslyPlayed = [];
     let displays = screen.getAllDisplays();
-    for (let i = 0; i < screen.getAllDisplays().length; i++) {
+    store.set('numDisplays', displays.length);
+    for (let i = 0; i < displays.length; i++) {
         let win = new BrowserWindow({
             width: displays[i].size.width,
             height: displays[i].size.height,
@@ -117,9 +121,9 @@ function createSSWindow(argv) {
             fullscreen: !nq,
             transparent: true,
             frame: nq,
-            icon: path.join(__dirname, 'icon.ico')
+            icon: path.join(__dirname, 'icon.ico'),
+            show: false
         })
-
         if (store.get("onlyShowVideoOnPrimaryMonitor") && displays[i].id !== screen.getPrimaryDisplay().id) {
             win.loadFile('web/black.html');
         } else {
@@ -128,6 +132,10 @@ function createSSWindow(argv) {
         win.on('closed', function () {
             win = null;
         });
+        win.once('ready-to-show', () => {
+            win.webContents.send('screenNumber', i);
+            win.show();
+        })
         if (!nq) {
             win.setMenu(null);
             win.setAlwaysOnTop(true, "screen-saver");
@@ -135,10 +143,11 @@ function createSSWindow(argv) {
             win.frame = true;
         }
         screens.push(win);
-        screenIds.push(displays[i].id)
+        screenIds.push(displays[i].id);
     }
     //find the screen the cursor is on and focus it so the cursor will hide
     let mainScreen = screens[screenIds.indexOf(screen.getDisplayNearestPoint(screen.getCursorScreenPoint()).id)];
+    startTime = new Date();
     if (mainScreen) {
         if (!mainScreen.isDestroyed()) {
             mainScreen.focus();
@@ -159,10 +168,12 @@ function createSSPWindow(argv) {
             contextIsolation: true,
             enableRemoteModule: false,
             sandbox: false,
-            preload: path.join(__dirname, "preload.js")
+            preload: path.join(__dirname, "preload.js"),
         },
+        frame: true,
         transparent: true,
-        icon: path.join(__dirname, 'icon.ico')
+        icon: path.join(__dirname, 'icon.ico'),
+        show: false
     });
     win.loadFile('web/screensaver.html');
     win.on('closed', function () {
@@ -171,6 +182,10 @@ function createSSPWindow(argv) {
         win = null;
         preview = false;
     });
+    win.once('ready-to-show', () => {
+        win.webContents.send('screenNumber', 0);
+        win.show();
+    })
     if (argv) {
         if (argv.includes("/dt")) {
             win.webContents.openDevTools();
@@ -179,6 +194,35 @@ function createSSPWindow(argv) {
     }
     screens.push(win);
     preview = true;
+}
+
+function createEditWindow(argv) {
+    let win = new BrowserWindow({
+        width: 1000,
+        height: 750,
+        webPreferences: {
+            nodeIntegration: false,
+            contextIsolation: true,
+            enableRemoteModule: false,
+            sandbox: false,
+            preload: path.join(__dirname, "preload.js")
+        },
+        icon: path.join(__dirname, 'icon.ico')
+    });
+    win.loadFile('web/video-info.html');
+    win.on('closed', function () {
+        win = null;
+    });
+    if (argv) {
+        if (argv.includes("/dt")) {
+            win.webContents.openDevTools();
+        }
+    }
+    win.webContents.setWindowOpenHandler(({url}) => {
+        shell.openExternal(url);
+        return {action: 'deny'};
+    });
+    screens.push(win);
 }
 
 function createTrayWindow() {
@@ -249,6 +293,7 @@ function createTrayWindow() {
             },
         ]);
     }
+
     trayWin.tray = new Tray(path.join(__dirname, 'icon.ico'));
     trayWin.tray.setContextMenu(newMenu(false));
     trayWin.tray.setToolTip("Aerial");
@@ -292,6 +337,8 @@ function startUp() {
     }
     calculateAstronomy();
     checkForUpdate();
+    setupGlobalShortcut();
+    store.set('numDisplays', screen.getAllDisplays().length);
     //configures Aerial to launch on startup
     if (store.get('useTray') && app.isPackaged) {
         autoLauncher.enable();
@@ -354,10 +401,17 @@ function setUpConfigFile() {
     store.set('blankAfter', store.get('blankAfter') ?? 30);
     store.set('sleepAfterBlank', store.get('sleepAfterBlank') ?? true);
     store.set('lockAfterRun', store.get('lockAfterRun') ?? false);
+    store.set('lockAfterRunAfter', store.get('lockAfterRunAfter') ?? 15);
+    store.set('runOnBattery', store.get('runOnBattery') ?? true);
     store.set('updateAvailable', false);
+    store.set('enableGlobalShortcut', store.get('enableGlobalShortcut') ?? true);
+    store.set('globalShortcutModifier1', store.get('globalShortcutModifier1') ?? "Super");
+    store.set('globalShortcutModifier2', store.get('globalShortcutModifier2') ?? "+Control");
+    store.set('globalShortcutKey', store.get('globalShortcutKey') ?? "A");
     //playback settings
     store.set('playbackSpeed', store.get('playbackSpeed') ?? 1);
     store.set('skipVideosWithKey', store.get('skipVideosWithKey') ?? true);
+    store.set('skipKey', store.get('skipKey') ?? "ArrowRight");
     store.set('avoidDuplicateVideos', store.get('avoidDuplicateVideos') ?? true);
     store.set('videoFilters', store.get('videoFilters') ?? [{
         name: 'blur',
@@ -388,7 +442,15 @@ function setUpConfigFile() {
         suffix: "%",
         defaultValue: 0
     },]);
-    store.set('videoTransitionLength', store.get('videoTransitionLength') ?? 1000);
+    store.set('alternateRenderMethod', store.get("alternateRenderMethod") ?? false);
+    store.set('transitionType', store.get("transitionType") ?? "dissolve");
+    store.set('transitionDirection', store.get("transitionDirection") ?? "");
+    store.set('videoTransitionLength', store.get('videoTransitionLength') ?? 2000);
+    store.set('fillMode', store.get('fillMode') ?? "stretch");
+    //1.2.0 changes the default transition length because of internal changes
+    if (store.get('videoTransitionLength') === 1000) {
+        store.set('videoTransitionLength', 2000);
+    }
     //time & location settings
     store.set('timeOfDay', store.get('timeOfDay') ?? false);
     store.set('sunrise', store.get('sunrise') ?? "06:00");
@@ -413,18 +475,26 @@ function setUpConfigFile() {
     store.set('textFont', store.get('textFont') ?? "Segoe UI");
     store.set('textSize', store.get('textSize') ?? "2");
     store.set('textColor', store.get('textColor') ?? "#FFFFFF");
-    store.set('displayText', store.get('displayText') ?? {
-        'positionList': ["topleft", "topright", "bottomleft", "bottomright", "left", "right", "middle", "topmiddle", "bottommiddle"],
-        'topleft': {'type': "none", "defaultFont": true},
-        'topright': {'type': "none", "defaultFont": true},
-        'bottomleft': {'type': "none", "defaultFont": true},
-        'bottomright': {'type': "none", "defaultFont": true},
-        'left': {'type': "none", "defaultFont": true},
-        'right': {'type': "none", "defaultFont": true},
-        'middle': {'type': "none", "defaultFont": true},
-        'topmiddle': {'type': "none", "defaultFont": true},
-        'bottommiddle': {'type': "none", "defaultFont": true}
-    });
+    let displayText = store.get('displayText');
+    if (displayText) {
+        if (!displayText.topleft[0]) {
+            displayText = undefined;
+        }
+    }
+    if (!displayText) {
+        displayText = {
+            'positionList': ["topleft", "topright", "bottomleft", "bottomright", "left", "right", "middle", "topmiddle", "bottommiddle", "random"]
+        };
+        let temp = [];
+        for (let i = 0; i < 4; i++) {
+            temp.push({'type': "none", "defaultFont": true});
+        }
+        displayText.positionList.forEach((v) => {
+            displayText[v] = temp;
+        });
+        store.set('displayText', displayText);
+    }
+    store.set('randomSpeed', store.get('randomSpeed') ?? 30);
     store.set('videoQuality', store.get('videoQuality') ?? false);
     store.set('fps', store.get('fps') ?? 60);
 
@@ -433,13 +503,18 @@ function setUpConfigFile() {
     store.set("configured", true);
 }
 
+//setUpConfigFile();
+
 //check for update on GitHub
 function checkForUpdate() {
-    store.set('updateAvailable', false);
     request('https://raw.githubusercontent.com/OrangeJedi/Aerial/master/package.json', function (error, response, body) {
+        if (error) {
+            console.log("Error checking for updates: ", error);
+            return;
+        }
+        store.set('updateAvailable', false);
         const onlinePackage = JSON.parse(body);
         if (onlinePackage.version && app.isPackaged) {
-            //if (onlinePackage.version) {
             if (onlinePackage.version[0] > app.getVersion()[0] || onlinePackage.version[2] > app.getVersion()[2] || onlinePackage.version[4] > app.getVersion()[4]) {
                 store.set('updateAvailable', onlinePackage.version);
                 new Notification({
@@ -457,7 +532,7 @@ ipcMain.on('quitApp', (event, arg) => {
 });
 
 ipcMain.on('keyPress', (event, key) => {
-    if (key === "ArrowRight" && store.get('skipVideosWithKey')) {
+    if (key === store.get('skipKey') && store.get('skipVideosWithKey')) {
         for (let i = 0; i < screens.length; i++) {
             screens[i].webContents.send('newVideo');
         }
@@ -491,6 +566,10 @@ ipcMain.on('deleteCache', (event) => {
 
 ipcMain.on('openCache', (event) => {
     shell.openExternal(cachePath);
+});
+
+ipcMain.on('openConfigFolder', (event) => {
+    shell.openExternal(app.getPath('userData'));
 });
 
 ipcMain.on('selectCustomLocation', async (event, arg) => {
@@ -539,8 +618,32 @@ ipcMain.on('refreshCache', (event) => {
     }
 });
 
+ipcMain.on('selectFile', async (event, args) => {
+    let type = args[0];
+    let position = args[1];
+    let line = args[2];
+    const filters = {
+        'image': {name: 'Image', extensions: ['jpg', 'jpeg', 'png', 'gif']}
+    };
+    dialog.showOpenDialog(screens[0], {
+        properties: ['openFile'],
+        filters: [filters[type]]
+    }).then(result => {
+        if (!result.canceled) {
+            let displayText = store.get('displayText');
+            displayText[position][line].imagePath = result.filePaths[0];
+            store.set('displayText', displayText);
+            event.reply('updateAttribute', ['imageFileName', result.filePaths[0]]);
+        }
+    });
+});
+
 ipcMain.on('openPreview', (event) => {
     createSSPWindow(process.argv);
+});
+
+ipcMain.on('openInfoEditor', (event) => {
+    createEditWindow(process.argv);
 });
 
 ipcMain.on('refreshConfig', (event) => {
@@ -602,10 +705,35 @@ ipcMain.handle('newVideoId', (event, lastPlayed) => {
     return currentlyPlaying;
 })
 
+ipcMain.on('newGlobalShortcut', (event) => {
+    setupGlobalShortcut();
+});
+
+ipcMain.on('consoleLog', (event, msg) => {
+    console.log(msg);
+});
+
 //events from the system
 powerMonitor.on('resume', () => {
     //let Aerial know that the system has been woken up so it can run again
     isComputerSleeping = false;
+    isComputerSuspendedOrLocked = false;
+    closeAllWindows();
+});
+
+powerMonitor.on('suspend', () => {
+    isComputerSuspendedOrLocked = true;
+    closeAllWindows();
+});
+
+powerMonitor.on('lock-screen', () => {
+    isComputerSuspendedOrLocked = true;
+    closeAllWindows();
+});
+
+powerMonitor.on('unlock-screen', () => {
+    isComputerSuspendedOrLocked = false;
+    closeAllWindows();
 });
 
 //let Aerial load the video with Apple's self-signed cert
@@ -617,6 +745,15 @@ app.on('certificate-error', (event, webContents, url, error, certificate, callba
         callback(false)
     }
 });
+
+function setupGlobalShortcut() {
+    globalShortcut.unregisterAll();
+    if (store.get("enableGlobalShortcut")) {
+        globalShortcut.register(`${store.get("globalShortcutModifier1") + store.get("globalShortcutModifier2")}+${store.get("globalShortcutKey")}`, () => {
+            createSSWindow();
+        })
+    }
+}
 
 //video functions
 function updateCustomVideos() {
@@ -821,7 +958,7 @@ function clearCacheTemp() {
 function quitApp() {
     if (!nq) {
         //app.quit();
-        if (store.get("lockAfterRun")) {
+        if (store.get("lockAfterRun") && (new Date() - startTime) / 1000 > store.get("lockAfterRunAfter")) {
             lockComputer();
         }
         closeAllWindows();
@@ -857,9 +994,14 @@ function lockComputer() {
 //idle startup timer
 function launchScreensaver() {
     //console.log(screens.length,powerMonitor.getSystemIdleTime(),store.get('startAfter') * 60)
-    if (screens.length === 0 && !suspend && !isComputerSleeping) {
+    if (screens.length === 0 && !suspend && !isComputerSleeping && !isComputerSuspendedOrLocked) {
         let idleTime = powerMonitor.getSystemIdleTime();
-        if (idleTime >= store.get('startAfter') * 60) {
+        if (powerMonitor.getSystemIdleState(store.get('startAfter') * 60) === "idle") {
+            if (!store.get("runOnBattery")) {
+                if (powerMonitor.isOnBatteryPower()) {
+                    return;
+                }
+            }
             createSSWindow();
         }
     }
@@ -893,15 +1035,18 @@ function setTimeOfDayList() {
                     return true;
                 }
             });
-            switch (videos[index].timeOfDay) {
-                case "day":
-                    tod.day.push(allowedVideos[i]);
-                    break;
-                case "night":
-                    tod.night.push(allowedVideos[i]);
-                    break;
-                default:
-                    tod.none.push(allowedVideos[i]);
+            //some people seem to be getting errors where video[index] doesn't exit, this line will fix it.
+            if (videos[index]) {
+                switch (videos[index].timeOfDay) {
+                    case "day":
+                        tod.day.push(allowedVideos[i]);
+                        break;
+                    case "night":
+                        tod.night.push(allowedVideos[i]);
+                        break;
+                    default:
+                        tod.none.push(allowedVideos[i]);
+                }
             }
             if (tod.day.length <= 3) {
                 tod.day.push(...tod.none);
