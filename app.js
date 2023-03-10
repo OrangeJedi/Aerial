@@ -172,7 +172,8 @@ function createSSPWindow(argv) {
         },
         frame: true,
         transparent: true,
-        icon: path.join(__dirname, 'icon.ico')
+        icon: path.join(__dirname, 'icon.ico'),
+        show: false
     });
     win.loadFile('web/screensaver.html');
     win.on('closed', function () {
@@ -181,7 +182,10 @@ function createSSPWindow(argv) {
         win = null;
         preview = false;
     });
-    win.webContents.send('screenNumber', 0);
+    win.once('ready-to-show', () => {
+        win.webContents.send('screenNumber', 0);
+        win.show();
+    })
     if (argv) {
         if (argv.includes("/dt")) {
             win.webContents.openDevTools();

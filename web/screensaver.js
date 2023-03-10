@@ -231,7 +231,6 @@ function fadeVideoIn(time) {
             randomDirection = true;
             transitionSettings.direction = transitionDirections[transitionSettings.type][randomInt(0, transitionDirections[transitionSettings.type].length)];
         }
-        console.log(transitionSettings);
     }
     if (time > 0) {
         transitionTimeout = setTimeout(fadeVideoIn, 16, time - 16);
