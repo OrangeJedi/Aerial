@@ -10,34 +10,35 @@
 
 # Aerial - Apple TV Screen Saver for Windows
  
-Aerial is a Windows screen saver that mimics the Apple TV screen saver that displays the various videos Apple shot of cities, landscapes, underwater scenes, and even space.
+Aerial is a Windows screen saver that mimics Apple's  Apple TV screen saver. It plays the various videos Apple shot of cities, landscapes, underwater scenes, and the earth from the ISS.
 
-Aerial is inspired by [Mac Aerial Screen Saver](https://github.com/JohnCoates/Aerial) and [Aerial for Windows](https://github.com/cDima/Aerial).
-
-[Complete list of available videos.](https://docs.google.com/spreadsheets/d/1bboTohF06r-fafrImTExAPqM9m6h2m2lgJyAkQuYVJI/edit#gid=1684411812)
-
-###### Mac user? Try [JohnCoates/Aerial](https://github.com/JohnCoates/Aerial). Linux user? Try [graysky2/xscreensaver-aerial](https://github.com/graysky2/xscreensaver-aerial/).
-
-Aerial is open source so feel free to contribute. We love having the community help build and shape our project.
+> Mac user? Try [JohnCoates/Aerial](https://github.com/JohnCoates/Aerial). Linux user? Try [graysky2/xscreensaver-aerial](https://github.com/graysky2/xscreensaver-aerial/).
 
 ## Installing
->🚧 This project is still figuring a few things out. It might not always work or behave as expected. 🚧
+Download the latest release from [here](https://github.com/OrangeJedi/Aerial/releases). Run the installer and configure your settings.
 
-Download the latest release from [here](https://github.com/OrangeJedi/Aerial/releases). Follow the instructions to install Aerial.
-
-##### [Version History](https://github.com/OrangeJedi/Aerial/wiki/Version-History)
+Be sure to configure your system's screen and sleep settings accordingly and to disable any other screensavers.
 
 ## Features
-Aerial brings your AppleTV's wonderful screensavers to your Windows desktop. You can manually select which videos to play, or randomly play them all. Aerial can also display the time, date, other text, or the location of each video. You can also download the videos for faster viewing and include your own videos in the screensaver!
+![image](https://user-images.githubusercontent.com/25063853/224231865-f8716c9a-ff9a-4c2b-bf18-21dc1bd4d504.png)
+Aerial brings the AppleTV's wonderful screensavers to your Windows desktop. You can limit which videos to play, or randomly play them all. 
+Aerial seamlessly transitions between each video and can also display information like time, date, images, location, and sunrise/sunset times on top of the video.
+Aerial can download videos for offline and smoother viewing and can play your own local videos.
 
-[Full list of Features & To-Do items](https://github.com/OrangeJedi/Aerial/wiki/Features-&-To-Do-List)
+See the [full list of feature](https://github.com/OrangeJedi/Aerial/wiki/Features-&-To-Do-List) and the [version history](https://github.com/OrangeJedi/Aerial/wiki/Version-History) for detailed information.
 
-## Want to Contribute?
+>[Complete list of available videos.](https://docs.google.com/spreadsheets/d/1bboTohF06r-fafrImTExAPqM9m6h2m2lgJyAkQuYVJI/edit#gid=1684411812)
 
-Check out our [guide to contributing](https://github.com/OrangeJedi/Aerial/wiki/Contributing-Guide). It includes information on how to set up Aerial, launch flags, and other developer information.
+## Contributing
+
+We are always looking for more help on this project! Some of our best features were suggested or added by the community. We appreciate new issues and pull requests.
+
+Have an idea or want to help? Check out our [guide to contributing](https://github.com/OrangeJedi/Aerial/wiki/Contributing-Guide). 
+It includes information on submitting ideas, how to set up Aerial's dev environment, using launch flags, and other developer information
 
 ## About
-This is a [Node.JS](https://nodejs.org)/[Electron](https://www.electronjs.org/) based implementation of [Mac Aerial Screen Saver](https://github.com/JohnCoates/Aerial) for Windows. I was using cDima's [Aerial for Windows](https://github.com/cDima/Aerial) on my computer but wished it had more of the features found in the MacOS version, as well as being less buggy and having better 4K support. Not knowing much about C# and with the project seemingly dead I researched Windows screensavers and found I could make a screen saver with Node.JS and Electron – both of which I am very familiar with. Hopefully I’ll be able build on this implementation and it get it to near where the MacOS version is.
+Aerial is a [Node.JS](https://nodejs.org)/[Electron](https://www.electronjs.org/) based implementation of Apple's Apple TV screensaver for Windows inspired by [Mac Aerial Screen Saver](https://github.com/JohnCoates/Aerial) and [Aerial for Windows](https://github.com/cDima/Aerial).
 
-## License
-[MIT License](https://github.com/OrangeJedi/Aerial/blob/master/LICENSE)
+©2023 OrangeJedi
+
+Released under the [MIT License](https://github.com/OrangeJedi/Aerial/blob/master/LICENSE)
