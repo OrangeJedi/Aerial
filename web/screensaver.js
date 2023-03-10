@@ -8,6 +8,7 @@ let poiTimeout = [];
 let blackScreen = false;
 let previousErrorId = "";
 let numErrors = 1;
+let screenNumber = null;
 
 function quitApp() {
     electron.ipcRenderer.send('quitApp');
@@ -518,23 +519,25 @@ $('.displayText').css('font-family', `"${electron.store.get('textFont')}"`).css(
 let displayText = electron.store.get('displayText') ?? [];
 let html = "";
 
+function renderText() {
 //create content divs
-for (let position of displayText.positionList) {
-    let align = "";
-    if (position.includes("left")) {
-        align = "w3-left-align"
-    } else if (position.includes("middle")) {
-        align = "w3-center"
-    } else if (position.includes("right")) {
-        align = "w3-right-align"
+    for (let position of displayText.positionList) {
+        let align = "";
+        if (position.includes("left")) {
+            align = "w3-left-align"
+        } else if (position.includes("middle")) {
+            align = "w3-center"
+        } else if (position.includes("right")) {
+            align = "w3-right-align"
+        }
+        html += `<div class="w3-display-${position} ${align} w3-container textDisplayArea" id="textDisplay-${position}" style="text-shadow:.05vw .05vw 0 #444"></div>`;
+        $('#textDisplayArea').html(html);
     }
-    html += `<div class="w3-display-${position} ${align} w3-container textDisplayArea" id="textDisplay-${position}" style="text-shadow:.05vw .05vw 0 #444"></div>`;
-    $('#textDisplayArea').html(html);
-}
 //add text to the content
-for (let position of displayText.positionList) {
-    if (position !== "random") {
-        displayTextPosition(position);
+    for (let position of displayText.positionList) {
+        if (position !== "random") {
+            displayTextPosition(position);
+        }
     }
 }
 
@@ -542,7 +545,9 @@ function displayTextPosition(position, displayLocation) {
     let selector = displayLocation ? `#textDisplay-${displayLocation}` : `#textDisplay-${position}`;
     let html = "";
     for (let i = 0; i < displayText[position].length; i++) {
-        html += `<div id="${position}-${i}" style="${displayText[position][i].customCSS}">${createContentLine(displayText[position][i], position, i)}</div>`;
+        if(displayText[position][i].onlyShowOnScreen === undefined || Number(displayText[position][i].onlyShowOnScreen) === Number(screenNumber)) {
+            html += `<div id="${position}-${i}" style="${displayText[position][i].customCSS}">${createContentLine(displayText[position][i], position, i)}</div>`;
+        }
     }
     $(selector).html(html);
     for (let i = 0; i < displayText[position].length; i++) {
@@ -674,4 +679,9 @@ electron.ipcRenderer.on('blankTheScreen', () => {
         video.src = "";
         video2.src = "";
     }, transitionLength);
+});
+
+electron.ipcRenderer.on('screenNumber', (number) => {
+    screenNumber = number;
+    renderText();
 });

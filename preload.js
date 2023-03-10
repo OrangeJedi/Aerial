@@ -7,13 +7,13 @@ contextBridge.exposeInMainWorld("electron", {
         ipcRenderer: {
             send: (channel, data) => {
                 // whitelist channels
-                let validChannels = ["quitApp", "keyPress", "updateCache", "deleteCache", "openCache", "selectCustomLocation", "selectCacheLocation", "refreshCache", "openPreview", "refreshConfig", "resetConfig", "updateLocation","openConfigFolder","selectFile","openInfoEditor", "newGlobalShortcut"];
+                let validChannels = ["quitApp", "keyPress", "updateCache", "deleteCache", "openCache", "selectCustomLocation", "selectCacheLocation", "refreshCache", "openPreview", "refreshConfig", "resetConfig", "updateLocation","openConfigFolder","selectFile","openInfoEditor", "newGlobalShortcut", "consoleLog"];
                 if (validChannels.includes(channel)) {
                     ipcRenderer.send(channel, data);
                 }
             },
             on: (channel, func) => {
-                let validChannels = ["displaySettings", "newCustomVideos", "newVideo", "blankTheScreen", "showWelcome","updateAttribute"];
+                let validChannels = ["displaySettings", "newCustomVideos", "newVideo", "blankTheScreen", "showWelcome","updateAttribute","screenNumber"];
                 if (validChannels.includes(channel)) {
                     // Deliberately strip event as it includes `sender`
                     ipcRenderer.on(channel, (event, ...args) => func(...args));

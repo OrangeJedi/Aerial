@@ -121,9 +121,9 @@ function createSSWindow(argv) {
             fullscreen: !nq,
             transparent: true,
             frame: nq,
-            icon: path.join(__dirname, 'icon.ico')
+            icon: path.join(__dirname, 'icon.ico'),
+            show: false
         })
-
         if (store.get("onlyShowVideoOnPrimaryMonitor") && displays[i].id !== screen.getPrimaryDisplay().id) {
             win.loadFile('web/black.html');
         } else {
@@ -132,6 +132,10 @@ function createSSWindow(argv) {
         win.on('closed', function () {
             win = null;
         });
+        win.once('ready-to-show', ()=>{
+            win.webContents.send('screenNumber',i);
+            win.show();
+        })
         if (!nq) {
             win.setMenu(null);
             win.setAlwaysOnTop(true, "screen-saver");
@@ -139,7 +143,7 @@ function createSSWindow(argv) {
             win.frame = true;
         }
         screens.push(win);
-        screenIds.push(displays[i].id)
+        screenIds.push(displays[i].id);
     }
     //find the screen the cursor is on and focus it so the cursor will hide
     let mainScreen = screens[screenIds.indexOf(screen.getDisplayNearestPoint(screen.getCursorScreenPoint()).id)];
@@ -177,6 +181,7 @@ function createSSPWindow(argv) {
         win = null;
         preview = false;
     });
+    win.webContents.send('screenNumber',0);
     if (argv) {
         if (argv.includes("/dt")) {
             win.webContents.openDevTools();
@@ -696,6 +701,10 @@ ipcMain.handle('newVideoId', (event, lastPlayed) => {
 
 ipcMain.on('newGlobalShortcut', (event) => {
     setupGlobalShortcut();
+});
+
+ipcMain.on('consoleLog', (event, msg) => {
+    console.log(msg);
 });
 
 //events from the system

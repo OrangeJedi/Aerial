@@ -1,6 +1,6 @@
 {
   "name": "aerial",
-  "version": "1.1.991",
+  "version": "1.1.992",
   "videoJSONVersion": "1.15.0",
   "description": "Apple TV screen saver for Windows",
   "main": "app.js",
