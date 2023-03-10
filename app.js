@@ -401,7 +401,8 @@ function setUpConfigFile() {
     store.set('runOnBattery', store.get('runOnBattery') ?? true);
     store.set('updateAvailable', false);
     store.set('enableGlobalShortcut', store.get('enableGlobalShortcut') ?? true);
-    store.set('globalShortcutModifier', store.get('globalShortcutModifier') ?? "Super+Control");
+    store.set('globalShortcutModifier', store.get('globalShortcutModifier1') ?? "Super");
+    store.set('globalShortcutModifier', store.get('globalShortcutModifier2') ?? "+Control");
     store.set('globalShortcutKey', store.get('globalShortcutKey') ?? "A");
     //playback settings
     store.set('playbackSpeed', store.get('playbackSpeed') ?? 1);
@@ -744,7 +745,7 @@ app.on('certificate-error', (event, webContents, url, error, certificate, callba
 function setupGlobalShortcut() {
     globalShortcut.unregisterAll();
     if (store.get("enableGlobalShortcut")) {
-        globalShortcut.register(`${store.get("globalShortcutModifier")}+${store.get("globalShortcutKey")}`, () => {
+        globalShortcut.register(`${store.get("globalShortcutModifier1") + store.get("globalShortcutModifier2")}+${store.get("globalShortcutKey")}`, () => {
             createSSWindow();
         })
     }

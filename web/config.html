@@ -219,7 +219,7 @@
                            onclick="updateSetting('videoCache','check')">
                     <label for="videoCache"> Automatically download checked videos to the cache</label>
                     <br>
-                    <p class="w3-small" style="margin-left: 4%">The total size of all videos is approximately 20
+                    <p class="w3-small" style="margin-left: 4%">The total size of all videos is approximately 35
                         GB</p>
                     <input type="checkbox" id="videoCacheProfiles" class="w3-check"
                            onclick="updateSetting('videoCacheProfiles','check')" style="margin-left: 8%">
@@ -278,19 +278,22 @@
                            onclick="updateSetting('enableGlobalShortcut','check'); newGlobalShortcut();">
                     <label for="enableGlobalShortcut">Use a shortcut to launch Aerial</label>
                     <br>
-                    <label for="globalShortcutModifier">Modifier: </label>
-                    <select id="globalShortcutModifier"
-                            onclick="updateSetting('globalShortcutModifier','select'); newGlobalShortcut();">
+                    <label for="globalShortcutModifier1">Modifier: </label>
+                    <select id="globalShortcutModifier1"
+                            onclick="updateSetting('globalShortcutModifier1','select'); newGlobalShortcut();">
                         <option value="Shift">Shift</option>
                         <option value="Control">Control</option>
                         <option value="Alt">Alt</option>
                         <option value="Super">Windows</option>
-                        <option value="Control+Alt">Control + Alt</option>
-                        <option value="Control+Shift">Control + Shift</option>
-                        <option value="Super+Shift">Windows + Shift</option>
-                        <option value="Super+Control">Windows + Control</option>
-                        <option value="Super+Alt">Windows + Alt</option>
-                        <option value="Shift+Alt">Shift + Alt</option>
+                    </select>
+                    <label for="globalShortcutModifier2"> + </label>
+                    <select id="globalShortcutModifier2"
+                            onclick="updateSetting('globalShortcutModifier2','select'); newGlobalShortcut();">
+                        <option value="+Shift">Shift</option>
+                        <option value="+Control">Control</option>
+                        <option value="+Alt">Alt</option>
+                        <option value="+Super">Windows</option>
+                        <option value="">None</option>
                     </select>
                     <label for="globalShortcutKey"> Key: </label>
                     <input type="text" id="globalShortcutKey">
