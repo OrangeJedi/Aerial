@@ -401,8 +401,8 @@ function setUpConfigFile() {
     store.set('runOnBattery', store.get('runOnBattery') ?? true);
     store.set('updateAvailable', false);
     store.set('enableGlobalShortcut', store.get('enableGlobalShortcut') ?? true);
-    store.set('globalShortcutModifier', store.get('globalShortcutModifier1') ?? "Super");
-    store.set('globalShortcutModifier', store.get('globalShortcutModifier2') ?? "+Control");
+    store.set('globalShortcutModifier1', store.get('globalShortcutModifier1') ?? "Super");
+    store.set('globalShortcutModifier2', store.get('globalShortcutModifier2') ?? "+Control");
     store.set('globalShortcutKey', store.get('globalShortcutKey') ?? "A");
     //playback settings
     store.set('playbackSpeed', store.get('playbackSpeed') ?? 1);
@@ -440,7 +440,7 @@ function setUpConfigFile() {
     },]);
     store.set('alternateRenderMethod', store.get("alternateRenderMethod") ?? false);
     store.set('transitionType', store.get("transitionType") ?? "dissolve");
-    store.set('transitionType', store.get("transitionDirection") ?? "");
+    store.set('transitionDirection', store.get("transitionDirection") ?? "");
     store.set('videoTransitionLength', store.get('videoTransitionLength') ?? 2000);
     store.set('fillMode', store.get('fillMode') ?? "stretch");
     //1.2.0 changes the default transition length because of internal changes
