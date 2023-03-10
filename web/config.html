@@ -102,27 +102,21 @@
                         <option value="crop">Crop</option>
                     </select>
                     <br><br>
-                    <label for="transitionType">Transition Type: </label>
+                    <label for="transitionType"> Transition Type: </label>
                     <select id="transitionType" onclick="updateSetting('transitionType','select')">
                         <option value="dissolve">Dissolve</option>
                         <option value="dipToBlack">Dip to Black</option>
-                        <option value="fade-left">Fade Left</option>
-                        <option value="fade-right">Fade Right</option>
-                        <option value="fade-top">Fade Top</option>
-                        <option value="fade-bottom">Fade Bottom</option>
-                        <option value="fade-top-left">Fade Top Left</option>
-                        <option value="fade-top-right">Fade Top Right</option>
-                        <option value="fade-bottom-left">Fade Bottom Left</option>
-                        <option value="fade-bottom-right">Fade Bottom Right</option>
-                        <option value="wipe-left">Wipe Left</option>
-                        <option value="wipe-right">Wipe Right</option>
-                        <option value="wipe-top">Wipe Top</option>
-                        <option value="wipe-bottom">Wipe Bottom</option>
-                        <option value="circle">Circle</option>
-                        <option value="reverseCircle">Reverse Circle</option>
+                        <option value="fade">Fade</option>
                         <option value="fadeCircle">Fade Circle</option>
-                        <option value="fadeCircle-reverse">Reverse Fade Circle</option>
+                        <option value="wipe">Wipe</option>
+                        <option value="circle">Circle</option>
+                        <option value="random">Random</option>
                     </select>
+                    <span id="transitionDirectionSpan" style="margin-left: 10px;">
+                        <label for="transitionDirection">Transition Type: </label>
+                        <select id="transitionDirection" onclick="updateSetting('transitionDirection','select')">
+                        </select>
+                    </span>
                     <br><br>
                     <label for="videoTransitionLength">Transition speed:
                         <span id="videoTransitionLengthText"></span></label><span class="w3-right"

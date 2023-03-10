@@ -9,6 +9,7 @@ let blackScreen = false;
 let previousErrorId = "";
 let numErrors = 1;
 let screenNumber = null;
+let randomType, randomDirection;
 
 function quitApp() {
     electron.ipcRenderer.send('quitApp');
@@ -220,6 +221,18 @@ function fadeTextOut(time) {
 }
 
 function fadeVideoIn(time) {
+    if(time === transitionLength){
+        if (transitionSettings.type === "random") {
+            randomType = true;
+            transitionSettings.type = transitionTypes[randomInt(0, transitionTypes.length)];
+            transitionSettings.direction = transitionDirections[transitionSettings.type][randomInt(0, transitionDirections[transitionSettings.type].length)];
+        }
+        if (transitionSettings.direction === "random") {
+            randomDirection = true;
+            transitionSettings.direction = transitionDirections[transitionSettings.type][randomInt(0, transitionDirections[transitionSettings.type].length)];
+        }
+        console.log(transitionSettings);
+    }
     if (time > 0) {
         transitionTimeout = setTimeout(fadeVideoIn, 16, time - 16);
     }
@@ -235,6 +248,12 @@ function fadeVideoIn(time) {
         transitionPercent = 1;
         clearTimeout(transitionTimeout);
         switchVideoContainers();
+        if (randomType) {
+            transitionSettings.type = "random";
+        }
+        if (randomDirection) {
+            transitionSettings.direction = "random";
+        }
     }
 }
 
@@ -259,17 +278,19 @@ function clearTimeouts(arr) {
     return [];
 }
 
-let transitionName = electron.store.get("transitionType");
-let transitionSettings = {
-    "type": "",
-    "direction": ""
+const transitionTypes = ["dissolve", "dipToBlack", "fade", "wipe", "circle", "fadeCircle"];
+const transitionDirections = {
+    "dissolve": [""],
+    "dipToBlack": [""],
+    "fade": ["left", "right", "top", "down", "top-left", "top-right", "bottom-left", "bottom-right"],
+    "wipe": ["left", "right", "top", "down"],
+    "circle": ["normal", "reverse"],
+    "fadeCircle": ["normal", "reverse"]
 };
-if (transitionName.match(/^\w*-/g)) {
-    transitionSettings.type = transitionName.match(/^\w*-/g)[0].slice(0, -1);
-    transitionSettings.direction = transitionName.match(/-.*$/g)[0].slice(1);
-} else {
-    transitionSettings.type = transitionName;
-}
+let transitionSettings = {
+    "type": electron.store.get("transitionType"),
+    "direction": electron.store.get("transitionDirection")
+};
 
 //put the video on the canvas
 function drawVideo() {
@@ -380,27 +401,28 @@ function drawVideo() {
                 drawImage(ctx1, containers[currentPlayer]);
                 break;
             case "circle":
-                drawImage(ctx1, containers[prePlayer]);
-                maxBound = window.innerWidth > window.innerHeight ? window.innerWidth : window.innerHeight;
-                rad = maxBound * (transitionPercent > 1 ? 1 : transitionPercent < 0 ? 0 : transitionPercent);
-                ctx1.fillStyle = "#000000";
-                ctx1.globalCompositeOperation = "destination-in";
-                ctx1.arc(window.innerWidth / 2, window.innerHeight / 2, rad, 0, Math.PI * 2);
-                ctx1.fill();
-                ctx1.globalCompositeOperation = "destination-over";
-                drawImage(ctx1, containers[currentPlayer]);
-                break;
-            case "reverseCircle":
-                drawImage(ctx1, containers[prePlayer]);
-                maxBound = window.innerWidth > window.innerHeight ? window.innerWidth : window.innerHeight;
-                rad = maxBound * (1 - (transitionPercent > 1 ? 1 : transitionPercent < 0 ? 0 : transitionPercent));
-                ctx1.globalAlpha = 1;
-                ctx1.fillStyle = "#000000";
-                ctx1.globalCompositeOperation = "destination-out";
-                ctx1.arc(window.innerWidth / 2, window.innerHeight / 2, rad, 0, Math.PI * 2);
-                ctx1.fill();
-                ctx1.globalCompositeOperation = "destination-over";
-                drawImage(ctx1, containers[currentPlayer]);
+                if (transitionSettings.direction === 'normal') {
+                    drawImage(ctx1, containers[prePlayer]);
+                    maxBound = window.innerWidth > window.innerHeight ? window.innerWidth : window.innerHeight;
+                    rad = maxBound * (transitionPercent > 1 ? 1 : transitionPercent < 0 ? 0 : transitionPercent);
+                    ctx1.fillStyle = "#000000";
+                    ctx1.globalCompositeOperation = "destination-in";
+                    ctx1.arc(window.innerWidth / 2, window.innerHeight / 2, rad, 0, Math.PI * 2);
+                    ctx1.fill();
+
+                    ctx1.globalCompositeOperation = "destination-over";
+                    drawImage(ctx1, containers[currentPlayer]);
+                } else {
+                    drawImage(ctx1, containers[prePlayer]);
+                    maxBound = window.innerWidth > window.innerHeight ? window.innerWidth : window.innerHeight;
+                    rad = maxBound * (1 - (transitionPercent > 1 ? 1 : transitionPercent < 0 ? 0 : transitionPercent));
+                    ctx1.fillStyle = "#000000";
+                    ctx1.globalCompositeOperation = "destination-out";
+                    ctx1.arc(window.innerWidth / 2, window.innerHeight / 2, rad, 0, Math.PI * 2);
+                    ctx1.fill();
+                    ctx1.globalCompositeOperation = "destination-over";
+                    drawImage(ctx1, containers[currentPlayer]);
+                }
                 break;
             case "fadeCircle" :
                 drawImage(ctx1, containers[prePlayer]);

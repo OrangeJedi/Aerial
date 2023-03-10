@@ -439,6 +439,7 @@ function setUpConfigFile() {
     },]);
     store.set('alternateRenderMethod', store.get("alternateRenderMethod") ?? false);
     store.set('transitionType', store.get("transitionType") ?? "dissolve");
+    store.set('transitionType', store.get("transitionDirection") ?? "");
     store.set('videoTransitionLength', store.get('videoTransitionLength') ?? 2000);
     store.set('fillMode', store.get('fillMode') ?? "stretch");
     //1.2.0 changes the default transition length because of internal changes

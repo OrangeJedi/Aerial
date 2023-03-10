@@ -155,6 +155,42 @@ function updateSettingVisibility() {
         document.getElementById('sunrise').disabled = false;
         document.getElementById('sunset').disabled = false;
     }
+
+    //show directions for transitions
+    let directions, html = '';
+    switch (electron.store.get("transitionType")) {
+        case 'random':
+        case 'dissolve':
+        case 'dipToBlack':
+            document.getElementById('transitionDirectionSpan').style.display = 'none';
+            break;
+        case 'fade':
+            directions = [{name: "Left", value: "left"}, {name: "Right", value: "right"},
+                {name: "Top", value: "top"}, {name: "Bottom", value: "bottom"},
+                {name: "Top Left", value: "top-left"}, {name: "Top Right", value: "top-right"},
+                {name: "Bottom Left", value: "bottom-left"}, {name: "Bottom Right", value: "bottom-right"}];
+            break;
+        case 'wipe':
+            directions = [{name: "Left", value: "left"}, {name: "Right", value: "right"},
+                {name: "Top", value: "top"}, {name: "Bottom", value: "bottom"}];
+            break;
+        case 'fadeCircle':
+        case 'circle':
+            directions = [{name: "Normal", value: "normal"}, {name: "Reverse", value: "reverse"}];
+            break;
+    }
+    if (directions) {
+        let currentDirection = electron.store.get('transitionDirection');
+        directions.forEach((direction) => {
+            html += `<option value="${direction.value}" ${currentDirection === direction.value ? "selected" : ""}>${direction.name}</option>`;
+        });
+        html += `<option value="random" ${currentDirection === "random" ? "selected" : ""}>Random</option>`;
+        document.getElementById('transitionDirectionSpan').style.display = '';
+        document.getElementById('transitionDirection').innerHTML = html;
+        if (currentDirection === "") {
+            electron.store.set('transitionDirection', directions[0].value);
+        }
+    }
 }
 
 //config functions
@@ -335,11 +371,12 @@ function colorTextPositionRadio() {
 
 function loadScreenSelect() {
     let html = '<option value="">All Screens</option>'
-    for(let i = 0;i < electron.store.get('numDisplays');i++) {
+    for (let i = 0; i < electron.store.get('numDisplays'); i++) {
         html += `<option value="${i}">Screen ${i + 1}</option>`
     }
     $('#screenSelectorSelect').html(html);
 }
+
 loadScreenSelect();
 
 //handles selecting a radio button from the position image
@@ -495,7 +532,7 @@ function updateTextSettingCheck(input, position, line, setting) {
     electron.store.set('displayText', text);
 }
 
-function updateScreenSelect(position,line){
+function updateScreenSelect(position, line) {
     let text = electron.store.get('displayText');
     text[position][line].onlyShowOnScreen = $('#screenSelectorSelect').val();
     electron.store.set('displayText', text);
