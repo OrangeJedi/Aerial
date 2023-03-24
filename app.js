@@ -1001,10 +1001,11 @@ function lockComputer() {
 
 //idle startup timer
 function launchScreensaver() {
+    let startAfter = store.get('startAfter');
     //console.log(screens.length,powerMonitor.getSystemIdleTime(),store.get('startAfter') * 60)
-    if (screens.length === 0 && !suspend && !isComputerSleeping && !isComputerSuspendedOrLocked) {
+    if (screens.length === 0 && !suspend && !isComputerSleeping && !isComputerSuspendedOrLocked && startAfter > 0) {
         let idleTime = powerMonitor.getSystemIdleTime();
-        if (powerMonitor.getSystemIdleState(store.get('startAfter') * 60) === "idle" && getWakeLock()) {
+        if (powerMonitor.getSystemIdleState(startAfter * 60) === "idle" && getWakeLock()) {
             if (!store.get("runOnBattery")) {
                 if (powerMonitor.isOnBatteryPower()) {
                     return;
