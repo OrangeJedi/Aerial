@@ -49,6 +49,13 @@ let astronomy = {
     "moonset": undefined,
     "calculated": false
 };
+let admin = false;
+exec('NET SESSION', function (err, so, se) {
+    if (se.length === 0) {
+        admin = true;
+    }
+    //console.log(se.length === 0 ? "admin" : "not admin");
+});
 
 //window creation code
 function createConfigWindow(argv) {
@@ -997,7 +1004,7 @@ function launchScreensaver() {
     //console.log(screens.length,powerMonitor.getSystemIdleTime(),store.get('startAfter') * 60)
     if (screens.length === 0 && !suspend && !isComputerSleeping && !isComputerSuspendedOrLocked) {
         let idleTime = powerMonitor.getSystemIdleTime();
-        if (powerMonitor.getSystemIdleState(store.get('startAfter') * 60) === "idle") {
+        if (powerMonitor.getSystemIdleState(store.get('startAfter') * 60) === "idle" && getWakeLock()) {
             if (!store.get("runOnBattery")) {
                 if (powerMonitor.isOnBatteryPower()) {
                     return;
@@ -1086,6 +1093,23 @@ function calculateAstronomy() {
         astronomy.moonset = moonTimes.set;
         astronomy.calculated = true;
         store.set('astronomy', astronomy);
+    }
+}
+
+//check the system to see if any app is requesting the system to not sleep
+//Requires admin privileges to run
+function getWakeLock() {
+    if (admin) {
+        exec('powercfg /requests', function (error, stdout, stderr) {
+                if (error) {
+                    console.log(error);
+                    return true;
+                }
+                return stdout.match(/None./g).length !== 6;
+            }
+        );
+    } else {
+        return true;
     }
 }
 
