@@ -447,6 +447,7 @@ function setUpConfigFile() {
     store.set('transitionDirection', store.get("transitionDirection") ?? "");
     store.set('videoTransitionLength', store.get('videoTransitionLength') ?? 2000);
     store.set('fillMode', store.get('fillMode') ?? "stretch");
+    store.set('videoFileType', store.get('videoFileType') ?? "H2641080p");
     //1.2.0 changes the default transition length because of internal changes
     if (store.get('videoTransitionLength') === 1000) {
         store.set('videoTransitionLength', 2000);
