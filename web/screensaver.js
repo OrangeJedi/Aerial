@@ -639,7 +639,6 @@ function createContentLine(contentLine, position, line) {
     return html;
 }
 
-//Random is broken. Remove this when it is fixed.
 let random = false;
 for (let i = 0; i < displayText.random.length; i++) {
     if (displayText.random[i].type !== "none") {
@@ -648,7 +647,7 @@ for (let i = 0; i < displayText.random.length; i++) {
 }
 if (random) {
     displayText.random.currentLocation = "none";
-    switchRandomText();
+    setTimeout(switchRandomText,750);
     let randomInterval = setInterval(switchRandomText, electron.store.get('randomSpeed') * 1000);
 }
 
@@ -656,8 +655,9 @@ function switchRandomText() {
     let newLoc = false;
     let c = 0;
     do {
+        console.log("switching random text");
         if (c > 100) {
-            console.log("overload");
+            console.log("random overload - nowhere to go");
             break;
         }
         newLoc = displayText.positionList[randomInt(0, displayText.positionList.length - 1)];
