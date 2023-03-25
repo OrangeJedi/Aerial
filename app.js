@@ -1004,7 +1004,7 @@ function launchScreensaver() {
     let startAfter = store.get('startAfter');
     //console.log(screens.length,powerMonitor.getSystemIdleTime(),store.get('startAfter') * 60)
     if (screens.length === 0 && !suspend && !isComputerSleeping && !isComputerSuspendedOrLocked && startAfter > 0) {
-        let idleTime = powerMonitor.getSystemIdleTime();
+        //let idleTime = powerMonitor.getSystemIdleTime();
         if (powerMonitor.getSystemIdleState(startAfter * 60) === "idle" && getWakeLock()) {
             if (!store.get("runOnBattery")) {
                 if (powerMonitor.isOnBatteryPower()) {
@@ -1019,19 +1019,30 @@ function launchScreensaver() {
 setInterval(launchScreensaver, 5000);
 
 function onFirstVideoPlayed() {
+    let startTime = new Date();
     setTimeOfDayList();
     if (store.get('blankScreen')) {
-        setTimeout(() => {
-            for (let i = 0; i < screens.length; i++) {
-                screens[i].webContents.send('blankTheScreen');
-                if (store.get('sleepAfterBlank')) {
-                    //sleep the computer after a few seconds of blank screen
-                    setTimeout(() => {
-                        sleepComputer()
-                    }, store.get('videoTransitionLength') * 3)
-                }
+        let interval = setInterval(() => {
+            if (screens.length === 0) {
+                clearTimeout(interval);
+                return;
             }
-        }, store.get('blankAfter') * 60000);
+            if (new Date() - startTime >= store.get('blankAfter') * 60 * 1000) {
+                blankScreensaver();
+            }
+        }, 30000);
+    }
+}
+
+function blankScreensaver() {
+    for (let i = 0; i < screens.length; i++) {
+        screens[i].webContents.send('blankTheScreen');
+        if (store.get('sleepAfterBlank')) {
+            //sleep the computer after a few seconds of blank screen
+            setTimeout(() => {
+                sleepComputer()
+            }, store.get('videoTransitionLength') * 3)
+        }
     }
 }
 
