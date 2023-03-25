@@ -84,7 +84,7 @@ function prepVideo(videoContainer, callback) {
             });
             videoInfo = videos[index];
             downloadedVideos = electron.store.get("downloadedVideos");
-            videoSRC = videoInfo.src.H2641080p;
+            videoSRC = videoInfo.src[electron.store.get('videoFileType')];
             if (downloadedVideos.includes(videoInfo.id)) {
                 videoSRC = `${electron.store.get('cachePath')}/${videoInfo.id}.mov`;
             }

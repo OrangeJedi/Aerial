@@ -840,9 +840,9 @@ function downloadVideos() {
                     return true;
                 }
             });
-            console.log(allowedVideos[i]);
+            //console.log(allowedVideos[i]);
             //console.log(`Downloading ${videos[index].name}`);
-            downloadFile(videos[index].src.H2641080p, `${cachePath}/temp/${allowedVideos[i]}.mov`, () => {
+            downloadFile(videos[index].src[store.get('videoFileType')], `${cachePath}/temp/${allowedVideos[i]}.mov`, () => {
                 fs.copyFileSync(`${cachePath}/temp/${allowedVideos[i]}.mov`, `${cachePath}/${allowedVideos[i]}.mov`);
                 fs.unlink(`${cachePath}/temp/${allowedVideos[i]}.mov`, (err) => {
                 });

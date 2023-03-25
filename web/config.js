@@ -619,7 +619,7 @@ function selectVideo(index) {
     if (index > -1) {
         downloadedVideos = electron.store.get("downloadedVideos");
         document.getElementById("videoList-" + index).className += " w3-deep-orange";
-        let videoSRC = videos[index].src.H2641080p;
+        let videoSRC = videos[index].src[electron.store.get('videoFileType')];
         if (downloadedVideos.includes(videos[index].id)) {
             videoSRC = `${electron.store.get('cachePath')}/${videos[index].id}.mov`;
         }
