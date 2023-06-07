@@ -330,6 +330,8 @@ app.allowRendererProcessReuse = true
 app.whenReady().then(startUp);
 
 function startUp() {
+    //Uncomment the line below when compiling the .scr file
+    //store.set('useTray', false);
     let firstTime = false;
     if (!store.get("configured") || store.get("version") !== app.getVersion()) {
         firstTime = true;
