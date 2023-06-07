@@ -48,7 +48,7 @@ function videoError(event) {
     if (event.srcElement === containers[currentPlayer]) {
         setTimeout(() => {
             if (event.srcElement.currentTime === 0) {
-                console.log('VIDEO PLAYBACK ERROR', event.target.error.message, event);
+                console.error('VIDEO PLAYBACK ERROR', event.target.error.message, event);
                 if (previousErrorId !== currentlyPlaying) {
                     newVideo();
                 }
@@ -57,7 +57,7 @@ function videoError(event) {
             }
         }, 500 * numErrors);
     } else {
-        console.log("Error in Pre-Player");
+        console.warn("Error in Pre-Player");
     }
 }
 
@@ -667,9 +667,8 @@ function switchRandomText() {
     let newLoc = false;
     let c = 0;
     do {
-        console.log("switching random text");
         if (c > 100) {
-            console.log("random overload - nowhere to go");
+            console.error("random overload - nowhere to go");
             break;
         }
         newLoc = displayText.positionList[randomInt(0, displayText.positionList.length - 1)];
