@@ -954,6 +954,9 @@ function clearCacheTemp() {
     if (!fs.existsSync(`${app.getPath('userData')}/videos/temp`)) {
         fs.mkdirSync(`${app.getPath('userData')}/videos/temp`);
     }
+    if(!fs.existsSync(cachePath + "\\temp")){
+        fs.mkdirSync(cachePath + "\\temp");
+    }
     let dir = fs.readdirSync(cachePath + "\\temp").forEach(file => {
         if (fs.existsSync(`${cachePath}/temp/${file}`)) {
             fs.unlink(`${cachePath}/temp/${file}`, (err) => {
