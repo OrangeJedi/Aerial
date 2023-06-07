@@ -49,6 +49,13 @@ let astronomy = {
     "moonset": undefined,
     "calculated": false
 };
+let admin = false;
+exec('NET SESSION', function (err, so, se) {
+    if (se.length === 0) {
+        admin = true;
+    }
+    //console.log(se.length === 0 ? "admin" : "not admin");
+});
 
 //window creation code
 function createConfigWindow(argv) {
@@ -323,6 +330,8 @@ app.allowRendererProcessReuse = true
 app.whenReady().then(startUp);
 
 function startUp() {
+    //Uncomment the line below when compiling the .scr file
+    //store.set('useTray', false);
     let firstTime = false;
     if (!store.get("configured") || store.get("version") !== app.getVersion()) {
         firstTime = true;
@@ -447,6 +456,7 @@ function setUpConfigFile() {
     store.set('transitionDirection', store.get("transitionDirection") ?? "");
     store.set('videoTransitionLength', store.get('videoTransitionLength') ?? 2000);
     store.set('fillMode', store.get('fillMode') ?? "stretch");
+    store.set('videoFileType', store.get('videoFileType') ?? "H2641080p");
     //1.2.0 changes the default transition length because of internal changes
     if (store.get('videoTransitionLength') === 1000) {
         store.set('videoTransitionLength', 2000);
@@ -832,9 +842,9 @@ function downloadVideos() {
                     return true;
                 }
             });
-            console.log(allowedVideos[i]);
+            //console.log(allowedVideos[i]);
             //console.log(`Downloading ${videos[index].name}`);
-            downloadFile(videos[index].src.H2641080p, `${cachePath}/temp/${allowedVideos[i]}.mov`, () => {
+            downloadFile(videos[index].src[store.get('videoFileType')], `${cachePath}/temp/${allowedVideos[i]}.mov`, () => {
                 fs.copyFileSync(`${cachePath}/temp/${allowedVideos[i]}.mov`, `${cachePath}/${allowedVideos[i]}.mov`);
                 fs.unlink(`${cachePath}/temp/${allowedVideos[i]}.mov`, (err) => {
                 });
@@ -946,6 +956,9 @@ function clearCacheTemp() {
     if (!fs.existsSync(`${app.getPath('userData')}/videos/temp`)) {
         fs.mkdirSync(`${app.getPath('userData')}/videos/temp`);
     }
+    if(!fs.existsSync(cachePath + "\\temp")){
+        fs.mkdirSync(cachePath + "\\temp");
+    }
     let dir = fs.readdirSync(cachePath + "\\temp").forEach(file => {
         if (fs.existsSync(`${cachePath}/temp/${file}`)) {
             fs.unlink(`${cachePath}/temp/${file}`, (err) => {
@@ -993,10 +1006,11 @@ function lockComputer() {
 
 //idle startup timer
 function launchScreensaver() {
+    let startAfter = store.get('startAfter');
     //console.log(screens.length,powerMonitor.getSystemIdleTime(),store.get('startAfter') * 60)
-    if (screens.length === 0 && !suspend && !isComputerSleeping && !isComputerSuspendedOrLocked) {
-        let idleTime = powerMonitor.getSystemIdleTime();
-        if (powerMonitor.getSystemIdleState(store.get('startAfter') * 60) === "idle") {
+    if (screens.length === 0 && !suspend && !isComputerSleeping && !isComputerSuspendedOrLocked && startAfter > 0) {
+        //let idleTime = powerMonitor.getSystemIdleTime();
+        if (powerMonitor.getSystemIdleState(startAfter * 60) === "idle" && getWakeLock()) {
             if (!store.get("runOnBattery")) {
                 if (powerMonitor.isOnBatteryPower()) {
                     return;
@@ -1010,19 +1024,30 @@ function launchScreensaver() {
 setInterval(launchScreensaver, 5000);
 
 function onFirstVideoPlayed() {
+    let startTime = new Date();
     setTimeOfDayList();
     if (store.get('blankScreen')) {
-        setTimeout(() => {
-            for (let i = 0; i < screens.length; i++) {
-                screens[i].webContents.send('blankTheScreen');
-                if (store.get('sleepAfterBlank')) {
-                    //sleep the computer after a few seconds of blank screen
-                    setTimeout(() => {
-                        sleepComputer()
-                    }, store.get('videoTransitionLength') * 3)
-                }
+        let interval = setInterval(() => {
+            if (screens.length === 0) {
+                clearTimeout(interval);
+                return;
             }
-        }, store.get('blankAfter') * 60000);
+            if (new Date() - startTime >= store.get('blankAfter') * 60 * 1000) {
+                blankScreensaver();
+            }
+        }, 30000);
+    }
+}
+
+function blankScreensaver() {
+    for (let i = 0; i < screens.length; i++) {
+        screens[i].webContents.send('blankTheScreen');
+        if (store.get('sleepAfterBlank')) {
+            //sleep the computer after a few seconds of blank screen
+            setTimeout(() => {
+                sleepComputer()
+            }, store.get('videoTransitionLength') * 3)
+        }
     }
 }
 
@@ -1085,6 +1110,23 @@ function calculateAstronomy() {
         astronomy.moonset = moonTimes.set;
         astronomy.calculated = true;
         store.set('astronomy', astronomy);
+    }
+}
+
+//check the system to see if any app is requesting the system to not sleep
+//Requires admin privileges to run
+function getWakeLock() {
+    if (admin) {
+        exec('powercfg /requests', function (error, stdout, stderr) {
+                if (error) {
+                    console.log(error);
+                    return true;
+                }
+                return stdout.match(/None./g).length !== 6;
+            }
+        );
+    } else {
+        return true;
     }
 }
 

@@ -55,7 +55,7 @@
                 <div class="w3-display-container cardContent" style="padding: 2%">
                     <label for="startAfter">Start Aerial After</label>
                     <input style="width: 10%; display: inline !important;" class="w3-input" type="number"
-                           id="startAfter" onchange="updateSetting('startAfter','number')">
+                           id="startAfter" onchange="updateSetting('startAfter','number')" min=0>
                     minutes
                     <br><br>
                     <input type="checkbox" id="blankScreen" class="w3-check"
@@ -95,13 +95,25 @@
                     <i class="w3-small" style="padding-left: 4%">When this option is enabled Aerial will avoid playing
                         the
                         most recently played videos</i>
+                    <hr>
+                    <label for="videoFileType">Video Resolution: </label>
+                    <select id="videoFileType" onclick="updateSetting('videoFileType','select')">
+                        <option value="H2641080p">H.264 1080p</option>
+                        <option value="H2651080p">H.265 1080p</option>
+                        <option value="H2654k">H.265 4K</option>
+                    </select>
+                    <br>
+                    <i class="w3-small" style="padding-left: 4%;">H.265 videos may not play on all systems</i>
+                    <span style="padding-left: 8%; margin-top: -3%; position: absolute;">
+                        <button class="w3-button w3-white w3-border w3-border-green w3-round-large" onclick="document.getElementById('videoResolutionExplain').style.display='block'">More Info</button>
+                    </span>
                     <br><br>
                     <label for="fillMode">Fill Mode: </label>
                     <select id="fillMode" onclick="updateSetting('fillMode','select')">
                         <option value="stretch">Stretch</option>
                         <option value="crop">Crop</option>
                     </select>
-                    <br><br>
+                    <hr>
                     <label for="transitionType"> Transition Type: </label>
                     <select id="transitionType" onclick="updateSetting('transitionType','select')">
                         <option value="dissolve">Dissolve</option>
@@ -125,7 +137,7 @@
                     <br>
                     <input type="range" min="500" max="4000" value="2000" step="100" id="videoTransitionLength"
                            class="slider" onchange="updateSetting('videoTransitionLength','slider')">
-                    <br><br>
+                    <hr>
                     <input type="checkbox" id="skipVideosWithKey" class="w3-check"
                            onclick="updateSetting('skipVideosWithKey','check')">
                     <label for="skipVideosWithKey">Use a key to skip videos</label>
@@ -371,7 +383,7 @@
             </div>
             <div class="w3-display-container">
                 <video autoplay loop controls id="videoPlayer" class="w3-display-middle"
-                       style=" width: 90%; padding-top: 55%; display: inline"></video>
+                       style=" width: 90%; padding-top: 55%; display: inline; z-index: 100;"></video>
                 <div id="videoSettings"></div>
                 <div id="videoInfo" class="videoInfo"></div>
             </div>
@@ -397,7 +409,8 @@
                            onclick="positionSelect(this)"><label></label>
                      Random
                     </span>
-                    <div class="w3-container" id="textWidthContainer" style="display: none; position: absolute; left: 29.5%; margin-top: -1.8%">
+                    <div class="w3-container" id="textWidthContainer"
+                         style="display: none; position: absolute; left: 29.5%; margin-top: -1.8%">
                         <br>
                         <label for="textWidthSelect">Max Width:</label>
                         <select id="textWidthSelect">
@@ -545,10 +558,10 @@
                                                                  style="width: 5%; display: inline; margin-top: 2%; padding: 0;"
                                                                  onchange="updateSetting('textColor', 'text')">
                     <hr>
-                    <label for="textSize">Random Change Speed</label><input class="w3-input" id="randomSpeed"
+                    <label for="textSize">Change random position every </label><input class="w3-input" id="randomSpeed"
                                                                             type="number" step="1"
                                                                             style="width: 10%; display: inline; margin-top: 2%"
-                                                                            onchange="updateSetting('randomSpeed', 'number')">
+                                                                            onchange="updateSetting('randomSpeed', 'number')"> seconds
 
                 </div>
             </div>
@@ -780,6 +793,52 @@
             <br>
             <button class="w3-button w3-white w3-border w3-border-blue w3-round-large"
                     onclick="document.getElementById('needsLocation').style.display='none';">
+                Done
+            </button>
+            </p>
+        </div>
+    </div>
+</div>
+<div id="videoResolutionExplain" class="w3-modal">
+    <div class="w3-modal-content">
+        <div class="w3-container w3-white w3-medium">
+            <span onclick="document.getElementById('videoResolutionExplain').style.display='none'"
+                  class="w3-button w3-display-topright">&times;</span>
+            <br>
+            <h2>Video Resolutions</h2>
+            <p>
+                Apple hosts three different files for each video in two different formats and resolutions. They are:
+                <ul>
+                    <li>H.264</li>
+                    <ul>
+                        <li>1080p (1920x1080)</li>
+                    </ul>
+                    <li>H.265 (HVEC)</li>
+                    <ul>
+                        <li>1080p (1920x1080)</li>
+                        <li>4K (3840x2160)</li>
+                    </ul>
+                </ul>
+            </p>
+            <div style="width: 30%;margin-left: 70%; margin-top: -15%">
+                <video width="100%" autoplay controls src="https://sylvan.apple.com/Aerials/2x/Videos/G010_C026_UHD_SDR_v02_2K_HEVC.mov"></video>
+                <p class="w3-small" style="margin-top: -2%">An H.256 video</p>
+            </div>
+            <p>
+                H.264 is a universal standard that can be played on all devices.
+                It has a less compression, meaning videos will be larger, but potentially play back smoother.
+                Apple only hosts these videos in 1080p.
+            </p><p>
+                H.265 (HEVC) is a newer standards that isn't universally adopted, not all computers can play H.265 videos.
+                It has smaller more compression, meaning videos will be smaller.
+                Additionally, Apple hosts both 1080p and 4K H.265 videos.
+            </p><p>
+                If your computer supports H.265, use it. If it does not, or if you are having problems playing H.265 videos, switch back to H.264.
+                If you can see the video above, your computer can play H.265 videos.
+                When using the cache, you will need to delete and re-download your videos if you change types to see an effect.
+            </p>
+            <button class="w3-button w3-white w3-border w3-border-blue w3-round-large"
+                    onclick="document.getElementById('videoResolutionExplain').style.display='none';">
                 Done
             </button>
             </p>

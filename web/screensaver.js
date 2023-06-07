@@ -48,7 +48,7 @@ function videoError(event) {
     if (event.srcElement === containers[currentPlayer]) {
         setTimeout(() => {
             if (event.srcElement.currentTime === 0) {
-                console.log('VIDEO PLAYBACK ERROR', event.target.error.message, event);
+                console.error('VIDEO PLAYBACK ERROR', event.target.error.message, event);
                 if (previousErrorId !== currentlyPlaying) {
                     newVideo();
                 }
@@ -57,7 +57,7 @@ function videoError(event) {
             }
         }, 500 * numErrors);
     } else {
-        console.log("Error in Pre-Player");
+        console.warn("Error in Pre-Player");
     }
 }
 
@@ -84,7 +84,7 @@ function prepVideo(videoContainer, callback) {
             });
             videoInfo = videos[index];
             downloadedVideos = electron.store.get("downloadedVideos");
-            videoSRC = videoInfo.src.H2641080p;
+            videoSRC = videoInfo.src[electron.store.get('videoFileType')];
             if (downloadedVideos.includes(videoInfo.id)) {
                 videoSRC = `${electron.store.get('cachePath')}/${videoInfo.id}.mov`;
             }
@@ -199,8 +199,10 @@ function drawDynamicText() {
 
 let transitionLength = electron.store.get('videoTransitionLength');
 let transitionPercent = 1;
+let transitionSource = "";
 
 function fadeVideoOut(time) {
+    transitionSource = "fadeout";
     if (time > 0) {
         transitionTimeout = setTimeout(fadeVideoOut, 16, time - 16);
     }
@@ -208,6 +210,9 @@ function fadeVideoOut(time) {
     if (transitionPercent <= 0) {
         transitionPercent = 0;
         clearTimeout(transitionTimeout);
+        setTimeout(() => {
+            transitionSource = ""
+        }, 1000);
     } else if (transitionPercent >= 1) {
         transitionPercent = 1;
     }
@@ -221,7 +226,7 @@ function fadeTextOut(time) {
 }
 
 function fadeVideoIn(time) {
-    if(time === transitionLength){
+    if (time === transitionLength) {
         if (transitionSettings.type === "random") {
             randomType = true;
             transitionSettings.type = transitionTypes[randomInt(0, transitionTypes.length)];
@@ -298,151 +303,158 @@ function drawVideo() {
     ctx1.globalCompositeOperation = "source-over";
     ctx1.globalAlpha = 1;
     if (transitionPercent < 1) {
-        let gradient, maxBound, rad;
-        switch (transitionSettings.type) {
-            case "dissolve":
-                if (containers[currentPlayer].paused) {
-                    ctx1.fillStyle = `rgb(0, 0, 0)`;
-                    ctx1.rect(0, 0, window.innerWidth, window.innerHeight);
-                    ctx1.fill();
-                } else {
-                    drawImage(ctx1, containers[currentPlayer]);
-                }
-                ctx1.globalCompositeOperation = "destination-out";
-                ctx1.fillStyle = `rgba(0,0,0,${transitionPercent})`;
-                ctx1.rect(0, 0, window.innerWidth, window.innerHeight);
-                ctx1.fill();
-                ctx1.globalCompositeOperation = "destination-over";
-                drawImage(ctx1, containers[prePlayer]);
-                break;
-            case "dipToBlack":
-                if (transitionPercent <= .5) {
-                    drawImage(ctx1, containers[currentPlayer]);
+        if (transitionSource === "fadeout") {
+            drawImage(ctx1, containers[currentPlayer]);
+            ctx1.fillStyle = `rgba(0,0,0,${1 - transitionPercent})`;
+            ctx1.rect(0, 0, window.innerWidth, window.innerHeight);
+            ctx1.fill();
+        } else {
+            let gradient, maxBound, rad;
+            switch (transitionSettings.type) {
+                case "dissolve":
+                    if (containers[currentPlayer].paused) {
+                        ctx1.fillStyle = `rgb(0, 0, 0)`;
+                        ctx1.rect(0, 0, window.innerWidth, window.innerHeight);
+                        ctx1.fill();
+                    } else {
+                        drawImage(ctx1, containers[currentPlayer]);
+                    }
                     ctx1.globalCompositeOperation = "destination-out";
-                    ctx1.fillStyle = `rgba(0,0,0,${transitionPercent * 2})`;
-                    ctx1.rect(0, 0, window.innerWidth, window.innerHeight);
-                    ctx1.fill();
-                    ctx1.globalCompositeOperation = "destination-over";
-                    ctx1.fillStyle = `rgb(0, 0, 0)`;
-                    ctx1.rect(0, 0, window.innerWidth, window.innerHeight);
-                    ctx1.fill();
-                } else {
-                    ctx1.fillStyle = `rgb(0, 0, 0)`;
-                    ctx1.rect(0, 0, window.innerWidth, window.innerHeight);
-                    ctx1.fill();
-                    ctx1.globalCompositeOperation = "destination-out";
-                    ctx1.fillStyle = `rgba(0,0,0,${(transitionPercent - .5) * 2})`;
+                    ctx1.fillStyle = `rgba(0,0,0,${transitionPercent})`;
                     ctx1.rect(0, 0, window.innerWidth, window.innerHeight);
                     ctx1.fill();
                     ctx1.globalCompositeOperation = "destination-over";
                     drawImage(ctx1, containers[prePlayer]);
-                }
-                break;
-            case"fade":
-                drawImage(ctx1, containers[prePlayer]);
-                ctx1.globalCompositeOperation = "destination-out";
-                switch (transitionSettings.direction) {
-                    case "left":
-                        gradient = ctx1.createLinearGradient(0, window.innerHeight / 2, window.innerWidth, window.innerHeight / 2);
-                        break;
-                    case "right":
-                        gradient = ctx1.createLinearGradient(window.innerWidth, window.innerHeight / 2, 0, window.innerHeight / 2);
-                        break;
-                    case "top":
-                        gradient = ctx1.createLinearGradient(window.innerWidth / 2, 0, window.innerWidth / 2, window.innerHeight);
-                        break;
-                    case "bottom":
-                        gradient = ctx1.createLinearGradient(window.innerWidth / 2, window.innerHeight, window.innerWidth / 2, 0);
-                        break;
-                    case "top-left":
-                        gradient = ctx1.createLinearGradient(0, 0, window.innerWidth, window.innerHeight);
-                        break;
-                    case"top-right":
-                        gradient = ctx1.createLinearGradient(window.innerWidth, 0, 0, window.innerHeight);
-                        break;
-                    case"bottom-left":
-                        gradient = ctx1.createLinearGradient(0, window.innerHeight, window.innerWidth, 0);
-                        break;
-                    case"bottom-right":
-                        gradient = ctx1.createLinearGradient(window.innerWidth, window.innerHeight, 0, 0,);
-                        break;
-                }
-                gradient.addColorStop(transitionPercent, "rgba(0,0,0,0)");
-                gradient.addColorStop(transitionPercent + .15 > 1 ? 1 : transitionPercent + .15, `rgba(0, 0, 0, 1)`);
-                ctx1.fillStyle = gradient;
-                ctx1.rect(0, 0, window.innerWidth, window.innerHeight);
-                ctx1.fill();
-                ctx1.globalCompositeOperation = "destination-over";
-                drawImage(ctx1, containers[currentPlayer]);
-                break;
-            case "wipe":
-                drawImage(ctx1, containers[prePlayer]);
-                ctx1.globalCompositeOperation = "destination-in";
-                ctx1.globalAlpha = 1;
-                ctx1.fillStyle = "#000000";
-                switch (transitionSettings.direction) {
-                    case "left":
-                        ctx1.rect(0, 0, window.innerWidth * transitionPercent, window.innerHeight);
-                        break;
-                    case "right":
-                        ctx1.rect(window.innerWidth - (window.innerWidth * transitionPercent), 0, window.innerWidth, window.innerHeight);
-                        break;
-                    case "top":
-                        ctx1.rect(0, 0, window.innerWidth, window.innerHeight * transitionPercent);
-                        break;
-                    case "bottom":
-                        ctx1.rect(0, window.innerHeight - (window.innerHeight * transitionPercent), window.innerWidth, window.innerHeight);
-                        break;
-                }
-
-                ctx1.fill();
-                ctx1.globalCompositeOperation = "destination-over";
-                drawImage(ctx1, containers[currentPlayer]);
-                break;
-            case "circle":
-                if (transitionSettings.direction === 'normal') {
+                    break;
+                case "dipToBlack":
+                    if (transitionPercent <= .5) {
+                        drawImage(ctx1, containers[currentPlayer]);
+                        ctx1.globalCompositeOperation = "destination-out";
+                        ctx1.fillStyle = `rgba(0,0,0,${transitionPercent * 2})`;
+                        ctx1.rect(0, 0, window.innerWidth, window.innerHeight);
+                        ctx1.fill();
+                        ctx1.globalCompositeOperation = "destination-over";
+                        ctx1.fillStyle = `rgb(0, 0, 0)`;
+                        ctx1.rect(0, 0, window.innerWidth, window.innerHeight);
+                        ctx1.fill();
+                    } else {
+                        ctx1.fillStyle = `rgb(0, 0, 0)`;
+                        ctx1.rect(0, 0, window.innerWidth, window.innerHeight);
+                        ctx1.fill();
+                        ctx1.globalCompositeOperation = "destination-out";
+                        ctx1.fillStyle = `rgba(0,0,0,${(transitionPercent - .5) * 2})`;
+                        ctx1.rect(0, 0, window.innerWidth, window.innerHeight);
+                        ctx1.fill();
+                        ctx1.globalCompositeOperation = "destination-over";
+                        drawImage(ctx1, containers[prePlayer]);
+                    }
+                    break;
+                case"fade":
                     drawImage(ctx1, containers[prePlayer]);
-                    maxBound = window.innerWidth > window.innerHeight ? window.innerWidth : window.innerHeight;
-                    rad = maxBound * (transitionPercent > 1 ? 1 : transitionPercent < 0 ? 0 : transitionPercent);
-                    ctx1.fillStyle = "#000000";
+                    ctx1.globalCompositeOperation = "destination-out";
+                    switch (transitionSettings.direction) {
+                        case "left":
+                            gradient = ctx1.createLinearGradient(0, window.innerHeight / 2, window.innerWidth, window.innerHeight / 2);
+                            break;
+                        case "right":
+                            gradient = ctx1.createLinearGradient(window.innerWidth, window.innerHeight / 2, 0, window.innerHeight / 2);
+                            break;
+                        case "top":
+                            gradient = ctx1.createLinearGradient(window.innerWidth / 2, 0, window.innerWidth / 2, window.innerHeight);
+                            break;
+                        case "bottom":
+                            gradient = ctx1.createLinearGradient(window.innerWidth / 2, window.innerHeight, window.innerWidth / 2, 0);
+                            break;
+                        case "top-left":
+                            gradient = ctx1.createLinearGradient(0, 0, window.innerWidth, window.innerHeight);
+                            break;
+                        case"top-right":
+                            gradient = ctx1.createLinearGradient(window.innerWidth, 0, 0, window.innerHeight);
+                            break;
+                        case"bottom-left":
+                            gradient = ctx1.createLinearGradient(0, window.innerHeight, window.innerWidth, 0);
+                            break;
+                        case"bottom-right":
+                            gradient = ctx1.createLinearGradient(window.innerWidth, window.innerHeight, 0, 0,);
+                            break;
+                    }
+                    gradient.addColorStop(transitionPercent, "rgba(0,0,0,0)");
+                    gradient.addColorStop(transitionPercent + .15 > 1 ? 1 : transitionPercent + .15, `rgba(0, 0, 0, 1)`);
+                    ctx1.fillStyle = gradient;
+                    ctx1.rect(0, 0, window.innerWidth, window.innerHeight);
+                    ctx1.fill();
+                    ctx1.globalCompositeOperation = "destination-over";
+                    drawImage(ctx1, containers[currentPlayer]);
+                    break;
+                case "wipe":
+                    drawImage(ctx1, containers[prePlayer]);
                     ctx1.globalCompositeOperation = "destination-in";
-                    ctx1.arc(window.innerWidth / 2, window.innerHeight / 2, rad, 0, Math.PI * 2);
-                    ctx1.fill();
-
-                    ctx1.globalCompositeOperation = "destination-over";
-                    drawImage(ctx1, containers[currentPlayer]);
-                } else {
-                    drawImage(ctx1, containers[prePlayer]);
-                    maxBound = window.innerWidth > window.innerHeight ? window.innerWidth : window.innerHeight;
-                    rad = maxBound * (1 - (transitionPercent > 1 ? 1 : transitionPercent < 0 ? 0 : transitionPercent));
+                    ctx1.globalAlpha = 1;
                     ctx1.fillStyle = "#000000";
-                    ctx1.globalCompositeOperation = "destination-out";
-                    ctx1.arc(window.innerWidth / 2, window.innerHeight / 2, rad, 0, Math.PI * 2);
+                    switch (transitionSettings.direction) {
+                        case "left":
+                            ctx1.rect(0, 0, window.innerWidth * transitionPercent, window.innerHeight);
+                            break;
+                        case "right":
+                            ctx1.rect(window.innerWidth - (window.innerWidth * transitionPercent), 0, window.innerWidth, window.innerHeight);
+                            break;
+                        case "top":
+                            ctx1.rect(0, 0, window.innerWidth, window.innerHeight * transitionPercent);
+                            break;
+                        case "bottom":
+                            ctx1.rect(0, window.innerHeight - (window.innerHeight * transitionPercent), window.innerWidth, window.innerHeight);
+                            break;
+                    }
+
                     ctx1.fill();
                     ctx1.globalCompositeOperation = "destination-over";
                     drawImage(ctx1, containers[currentPlayer]);
-                }
-                break;
-            case "fadeCircle" :
-                drawImage(ctx1, containers[prePlayer]);
-                ctx1.globalCompositeOperation = "destination-out";
-                maxBound = window.innerWidth > window.innerHeight ? window.innerWidth : window.innerHeight;
-                switch (transitionSettings.direction) {
-                    case "reverse":
-                        gradient = ctx1.createRadialGradient(window.innerWidth / 2, window.innerHeight / 2, maxBound, window.innerWidth / 2, window.innerHeight / 2, 0);
-                        break;
-                    default:
-                        gradient = ctx1.createRadialGradient(window.innerWidth / 2, window.innerHeight / 2, 0, window.innerWidth / 2, window.innerHeight / 2, maxBound);
-                        break;
-                }
-                gradient.addColorStop(transitionPercent, "rgba(0,0,0,0)");
-                gradient.addColorStop(transitionPercent + .05 > 1 ? 1 : transitionPercent + .05, `rgba(0, 0, 0, 1)`);
-                ctx1.fillStyle = gradient;
-                ctx1.rect(0, 0, window.innerWidth, window.innerHeight);
-                ctx1.fill();
-                ctx1.globalCompositeOperation = "destination-over";
-                drawImage(ctx1, containers[currentPlayer]);
-                break;
+                    break;
+                case "circle":
+                    if (transitionSettings.direction === 'normal') {
+                        drawImage(ctx1, containers[prePlayer]);
+                        maxBound = window.innerWidth > window.innerHeight ? window.innerWidth : window.innerHeight;
+                        rad = maxBound * (transitionPercent > 1 ? 1 : transitionPercent < 0 ? 0 : transitionPercent);
+                        ctx1.fillStyle = "#000000";
+                        ctx1.globalCompositeOperation = "destination-in";
+                        ctx1.arc(window.innerWidth / 2, window.innerHeight / 2, rad, 0, Math.PI * 2);
+                        ctx1.fill();
+
+                        ctx1.globalCompositeOperation = "destination-over";
+                        drawImage(ctx1, containers[currentPlayer]);
+                    } else {
+                        drawImage(ctx1, containers[prePlayer]);
+                        maxBound = window.innerWidth > window.innerHeight ? window.innerWidth : window.innerHeight;
+                        rad = maxBound * (1 - (transitionPercent > 1 ? 1 : transitionPercent < 0 ? 0 : transitionPercent));
+                        ctx1.fillStyle = "#000000";
+                        ctx1.globalCompositeOperation = "destination-out";
+                        ctx1.arc(window.innerWidth / 2, window.innerHeight / 2, rad, 0, Math.PI * 2);
+                        ctx1.fill();
+                        ctx1.globalCompositeOperation = "destination-over";
+                        drawImage(ctx1, containers[currentPlayer]);
+                    }
+                    break;
+                case "fadeCircle" :
+                    drawImage(ctx1, containers[prePlayer]);
+                    ctx1.globalCompositeOperation = "destination-out";
+                    maxBound = window.innerWidth > window.innerHeight ? window.innerWidth : window.innerHeight;
+                    switch (transitionSettings.direction) {
+                        case "reverse":
+                            gradient = ctx1.createRadialGradient(window.innerWidth / 2, window.innerHeight / 2, maxBound, window.innerWidth / 2, window.innerHeight / 2, 0);
+                            break;
+                        default:
+                            gradient = ctx1.createRadialGradient(window.innerWidth / 2, window.innerHeight / 2, 0, window.innerWidth / 2, window.innerHeight / 2, maxBound);
+                            break;
+                    }
+                    gradient.addColorStop(transitionPercent, "rgba(0,0,0,0)");
+                    gradient.addColorStop(transitionPercent + .05 > 1 ? 1 : transitionPercent + .05, `rgba(0, 0, 0, 1)`);
+                    ctx1.fillStyle = gradient;
+                    ctx1.rect(0, 0, window.innerWidth, window.innerHeight);
+                    ctx1.fill();
+                    ctx1.globalCompositeOperation = "destination-over";
+                    drawImage(ctx1, containers[currentPlayer]);
+                    break;
+            }
         }
     } else {
         drawImage(ctx1, containers[currentPlayer]);
@@ -639,7 +651,6 @@ function createContentLine(contentLine, position, line) {
     return html;
 }
 
-//Random is broken. Remove this when it is fixed.
 let random = false;
 for (let i = 0; i < displayText.random.length; i++) {
     if (displayText.random[i].type !== "none") {
@@ -648,7 +659,7 @@ for (let i = 0; i < displayText.random.length; i++) {
 }
 if (random) {
     displayText.random.currentLocation = "none";
-    switchRandomText();
+    setTimeout(switchRandomText, 750);
     let randomInterval = setInterval(switchRandomText, electron.store.get('randomSpeed') * 1000);
 }
 
@@ -657,7 +668,7 @@ function switchRandomText() {
     let c = 0;
     do {
         if (c > 100) {
-            console.log("overload");
+            console.error("random overload - nowhere to go");
             break;
         }
         newLoc = displayText.positionList[randomInt(0, displayText.positionList.length - 1)];
@@ -699,7 +710,7 @@ electron.ipcRenderer.on('blankTheScreen', () => {
     setTimeout(() => {
         video.src = "";
         video2.src = "";
-    }, transitionLength);
+    }, transitionLength + 750);
 });
 
 electron.ipcRenderer.on('screenNumber', (number) => {

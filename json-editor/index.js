@@ -22,7 +22,9 @@ function createJSON() {
             'id' : newData[i].id,
             'accessibilityLabel' : newData[i].accessibilityLabel,
             'src' : {
-                'H2641080p' : newData[i]["url-1080-H264"]
+                'H2641080p' : newData[i]["url-1080-H264"],
+                'H2651080p' : newData[i]["url-1080-SDR"],
+                'H2654k' : newData[i]["url-4K-SDR"]
             }
             }
         )
@@ -53,6 +55,31 @@ function updateJSON() {
         }
     }
     document.getElementById('output').value = beautify(videos.sort(sortVideos),null,2,128);
+}
+
+function updateSource(){
+    let newData = JSON.parse(document.getElementById('input').value);
+    let newVideos = [];
+    for (const vid in newData) {
+        let index = videos.findIndex((e) => {
+            if(newData[vid].id === e.id){
+                return true;
+            }
+        });
+        if(index > -1) {
+            newVideos.push({
+                'id' : videos[index].id,
+                "accessibilityLabel": videos[index].accessibilityLabel,
+                "name": videos[index].name,
+                "pointsOfInterest": videos[index].pointsOfInterest,
+                "type": videos[index].type,
+                "timeOfDay": videos[index].timeOfDay,
+                'src': newData[vid].src
+            });
+        }
+    }
+    console.log(newVideos.length,videos.length);
+    document.getElementById('output').value = beautify(newVideos,null,2,128);
 }
 
 function addToJSON() {

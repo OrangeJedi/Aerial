@@ -13,7 +13,7 @@ function displaySettings() {
     for (let i = 0; i < checked.length; i++) {
         $(`#${checked[i]}`).prop('checked', electron.store.get(checked[i]));
     }
-    let numTxt = ["sunrise", "sunset", "textFont", "textSize", "textColor", "startAfter", "blankAfter", "fps", "latitude", "longitude", "randomSpeed", "skipKey", "transitionType", "fillMode", "globalShortcutModifier1", "globalShortcutModifier2", "globalShortcutKey", "lockAfterRunAfter"];
+    let numTxt = ["sunrise", "sunset", "textFont", "textSize", "textColor", "startAfter", "blankAfter", "fps", "latitude", "longitude", "randomSpeed", "skipKey", "transitionType", "fillMode", "globalShortcutModifier1", "globalShortcutModifier2", "globalShortcutKey", "lockAfterRunAfter", "videoFileType"];
     for (let i = 0; i < numTxt.length; i++) {
         $(`#${numTxt[i]}`).val(electron.store.get(numTxt[i]));
     }
@@ -619,7 +619,7 @@ function selectVideo(index) {
     if (index > -1) {
         downloadedVideos = electron.store.get("downloadedVideos");
         document.getElementById("videoList-" + index).className += " w3-deep-orange";
-        let videoSRC = videos[index].src.H2641080p;
+        let videoSRC = videos[index].src[electron.store.get('videoFileType')];
         if (downloadedVideos.includes(videos[index].id)) {
             videoSRC = `${electron.store.get('cachePath')}/${videos[index].id}.mov`;
         }
