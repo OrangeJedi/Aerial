@@ -20,8 +20,8 @@
   },
   "homepage": "https://github.com/OrangeJedi/Aerial#readme",
   "devDependencies": {
-    "electron": "^22.2.0",
-    "electron-builder": "^24.0.0"
+    "electron": "^27.0.0",
+    "electron-builder": "^24.6.4"
   },
   "dependencies": {
     "auto-launch": "*",
