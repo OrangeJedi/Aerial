@@ -129,7 +129,8 @@ function createSSWindow(argv) {
             transparent: true,
             frame: nq,
             icon: path.join(__dirname, 'icon.ico'),
-            show: false
+            show: false,
+            resizable: false //avoid user resize screensaver and click other element behind screensaver
         })
         if (store.get("onlyShowVideoOnPrimaryMonitor") && displays[i].id !== screen.getPrimaryDisplay().id) {
             win.loadFile('web/black.html');
@@ -506,6 +507,8 @@ function setUpConfigFile() {
     }
     store.set('randomSpeed', store.get('randomSpeed') ?? 30);
     store.set('videoQuality', store.get('videoQuality') ?? false);
+    store.set('wakeOnMouseMovement', store.get('wakeOnMouseMovement') ?? true);
+    store.set('wakeOnMouseClick', store.get('wakeOnMouseClick') ?? true);
     store.set('fps', store.get('fps') ?? 60);
 
     //config
