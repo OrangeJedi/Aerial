@@ -10,6 +10,8 @@ let previousErrorId = "";
 let numErrors = 1;
 let screenNumber = null;
 let randomType, randomDirection;
+let wakeOnMouseMovement = electron.store.get("wakeOnMouseMovement");
+let wakeOnMouseClick = electron.store.get("wakeOnMouseClick");
 
 function quitApp() {
     electron.ipcRenderer.send('quitApp');
@@ -19,15 +21,20 @@ function quitApp() {
 document.addEventListener('keydown', (e) => {
     electron.ipcRenderer.send('keyPress', e.code);
 });
-document.addEventListener('mousedown', quitApp);
+
+if (wakeOnMouseClick) {
+    document.addEventListener('mousedown', quitApp);
+}
 setTimeout(function () {
-    var threshold = 5;
-    document.addEventListener('mousemove', function (e) {
-        if (threshold * threshold < e.movementX * e.movementX
-            + e.movementY * e.movementY) {
-            quitApp();
-        }
-    });
+    if (wakeOnMouseMovement) {
+        var threshold = 5;
+        document.addEventListener('mousemove', function (e) {
+            if (threshold * threshold < e.movementX * e.movementX
+                + e.movementY * e.movementY) {
+                quitApp();
+            }
+        });
+    }
 }, 1500);
 
 let containers = [document.getElementById("video"), document.getElementById("video2")]
