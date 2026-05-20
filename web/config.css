@@ -37,6 +37,9 @@
     border-bottom: none;
     border-top: none;
     z-index: 99;
+    max-height: 320px;
+    overflow-y: auto;
+    overscroll-behavior: contain;
     /*position the autocomplete items to be the same width as the container:*/
     top: 100%;
     left: 0;
