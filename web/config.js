@@ -896,10 +896,32 @@ function autocomplete(inp, arr, func) {
     var currentFocus;
 
     function updateInputFontPreview() {
+        let preview = inp.parentNode.querySelector(".font-preview-sample");
+        if (!preview) {
+            preview = document.createElement("span");
+            preview.className = "font-preview-sample";
+            inp.parentNode.appendChild(preview);
+        }
+
         if (arr.includes(inp.value)) {
-            inp.style.fontFamily = cssFontFamily(inp.value);
+            preview.textContent = "AaBbCc 123";
+            preview.style.fontFamily = cssFontFamily(inp.value);
+            preview.style.display = "";
         } else {
-            inp.style.fontFamily = "";
+            preview.textContent = "";
+            preview.style.display = "none";
+        }
+    }
+
+    function appendFontName(target, font, val, matchIndex) {
+        if (val) {
+            target.appendChild(document.createTextNode(font.substr(0, matchIndex)));
+            let match = document.createElement("strong");
+            match.textContent = font.substr(matchIndex, val.length);
+            target.appendChild(match);
+            target.appendChild(document.createTextNode(font.substr(matchIndex + val.length)));
+        } else {
+            target.appendChild(document.createTextNode(font));
         }
     }
 
@@ -922,17 +944,17 @@ function autocomplete(inp, arr, func) {
             if (matchIndex > -1 || !val) {
                 /*create a DIV element for each matching element:*/
                 b = document.createElement("DIV");
-                b.style.fontFamily = cssFontFamily(arr[i]);
+                b.className = "autocomplete-option";
                 /*make the matching letters bold:*/
-                if (val) {
-                    b.appendChild(document.createTextNode(arr[i].substr(0, matchIndex)));
-                    let match = document.createElement("strong");
-                    match.textContent = arr[i].substr(matchIndex, val.length);
-                    b.appendChild(match);
-                    b.appendChild(document.createTextNode(arr[i].substr(matchIndex + val.length)));
-                } else {
-                    b.appendChild(document.createTextNode(arr[i]));
-                }
+                let name = document.createElement("span");
+                name.className = "autocomplete-option-name";
+                appendFontName(name, arr[i], val, matchIndex);
+                b.appendChild(name);
+                let sample = document.createElement("span");
+                sample.className = "autocomplete-option-sample";
+                sample.textContent = "AaBbCc 123";
+                sample.style.fontFamily = cssFontFamily(arr[i]);
+                b.appendChild(sample);
                 /*insert a input field that will hold the current array item's value:*/
                 let hiddenInput = document.createElement("input");
                 hiddenInput.type = "hidden";
