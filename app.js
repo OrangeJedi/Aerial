@@ -1053,33 +1053,43 @@ function blankScreensaver() {
 
 //Time of day code functions
 function setTimeOfDayList() {
-    if (store.get('timeOfDay')) {
-        for (let i = 0; i < allowedVideos.length; i++) {
-            let index = videos.findIndex((e) => {
-                if (allowedVideos[i] === e.id) {
-                    return true;
-                }
-            });
-            //some people seem to be getting errors where video[index] doesn't exit, this line will fix it.
-            if (videos[index]) {
-                switch (videos[index].timeOfDay) {
-                    case "day":
-                        tod.day.push(allowedVideos[i]);
-                        break;
-                    case "night":
-                        tod.night.push(allowedVideos[i]);
-                        break;
-                    default:
-                        tod.none.push(allowedVideos[i]);
-                }
+    if (!store.get('timeOfDay')) {
+        return;
+    }
+    //this function runs again once the first video plays, so start from scratch
+    tod = {"day": [], "night": [], "none": []};
+    for (let i = 0; i < allowedVideos.length; i++) {
+        let index = videos.findIndex((e) => {
+            if (allowedVideos[i] === e.id) {
+                return true;
             }
-            if (tod.day.length <= 3) {
-                tod.day.push(...tod.none);
-            }
-            if (tod.night.length <= 3) {
-                tod.night.push(...tod.none);
+        });
+        //some people seem to be getting errors where video[index] doesn't exit, this line will fix it.
+        if (videos[index]) {
+            switch (videos[index].timeOfDay) {
+                case "day":
+                    tod.day.push(allowedVideos[i]);
+                    break;
+                case "night":
+                    tod.night.push(allowedVideos[i]);
+                    break;
+                default:
+                    tod.none.push(allowedVideos[i]);
             }
         }
+    }
+    //most videos carry no time of day, so they suit either one. adding them to
+    //both lists also keeps neither list empty, which used to freeze things (#101)
+    tod.day.push(...tod.none);
+    tod.night.push(...tod.none);
+
+    //a list can still end up empty if every allowed video is tagged the other
+    //way. play something rather than freeze on an undefined video (#101)
+    if (tod.day.length === 0) {
+        tod.day.push(...allowedVideos);
+    }
+    if (tod.night.length === 0) {
+        tod.night.push(...allowedVideos);
     }
 }
 
