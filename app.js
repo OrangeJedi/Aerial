@@ -686,23 +686,55 @@ ipcMain.handle('newVideoId', (event, lastPlayed) => {
     }
 
     function newId() {
-        let id = "";
+        const customVideos = store.get('customVideos') ?? [];
+        const validVideoIds = new Set(videos.map((video) => video.id));
+        customVideos.forEach((video) => validVideoIds.add(video.id));
+        const validAllowedVideos = allowedVideos.filter((id) => validVideoIds.has(id));
+
+        let pool;
         if (store.get('timeOfDay')) {
             let time = getTimeOfDay();
-            id = tod[time][randomInt(0, tod[time].length)];
+            pool = tod[time];
         } else {
-            id = allowedVideos[randomInt(0, allowedVideos.length)];
+            pool = validAllowedVideos;
         }
-        if (store.get('avoidDuplicateVideos') && allowedVideos.length > 6) {
-            if (previouslyPlayed.includes(id)) {
-                return newId();
-            } else {
-                previouslyPlayed.push(id);
-                if (previouslyPlayed.length > (allowedVideos.length * .3)) {
-                    previouslyPlayed.shift();
-                }
+
+        // Ignore stale IDs in the saved configuration. If the active time of
+        // day has no usable videos, fall back to the user's valid selections.
+        pool = (pool ?? []).filter((id) => validVideoIds.has(id));
+        if (pool.length === 0) {
+            pool = validAllowedVideos;
+        }
+
+        // A corrupted allowedVideos setting should not send an empty ID to the
+        // renderer. Use the built-in catalogue as a final safe fallback.
+        if (pool.length === 0) {
+            pool = videos.map((video) => video.id);
+        }
+
+        const avoidDuplicates = store.get('avoidDuplicateVideos') && allowedVideos.length > 6;
+        let candidates = pool;
+
+        if (avoidDuplicates) {
+            candidates = pool.filter((id) => !previouslyPlayed.includes(id));
+
+            // If every video in the current pool was recently played, start a
+            // new history window instead of recursively retrying forever.
+            if (candidates.length === 0) {
+                previouslyPlayed = [];
+                candidates = pool;
             }
         }
+
+        const id = candidates[randomInt(0, candidates.length)];
+
+        if (avoidDuplicates && id !== undefined) {
+            previouslyPlayed.push(id);
+            if (previouslyPlayed.length > (allowedVideos.length * .3)) {
+                previouslyPlayed.shift();
+            }
+        }
+
         return id;
     }
 
@@ -1053,50 +1085,62 @@ function blankScreensaver() {
 
 //Time of day code functions
 function setTimeOfDayList() {
-    if (store.get('timeOfDay')) {
-        for (let i = 0; i < allowedVideos.length; i++) {
-            let index = videos.findIndex((e) => {
-                if (allowedVideos[i] === e.id) {
-                    return true;
-                }
-            });
-            //some people seem to be getting errors where video[index] doesn't exit, this line will fix it.
-            if (videos[index]) {
-                switch (videos[index].timeOfDay) {
-                    case "day":
-                        tod.day.push(allowedVideos[i]);
-                        break;
-                    case "night":
-                        tod.night.push(allowedVideos[i]);
-                        break;
-                    default:
-                        tod.none.push(allowedVideos[i]);
-                }
+    // Rebuild the lists from scratch. This function is called at startup and
+    // again whenever the screensaver starts, so retaining the old contents
+    // causes the same video IDs to be added repeatedly.
+    tod = { "day": [], "night": [], "none": [] };
+
+    if (!store.get('timeOfDay')) {
+        return;
+    }
+
+    const customVideoIds = new Set((store.get('customVideos') ?? []).map((video) => video.id));
+
+    for (let i = 0; i < allowedVideos.length; i++) {
+        let index = videos.findIndex((e) => allowedVideos[i] === e.id);
+
+        // Some people seem to be getting errors where video[index] doesn't exist;
+        // this line prevents that.
+        if (videos[index]) {
+            switch (videos[index].timeOfDay) {
+                case "day":
+                    tod.day.push(allowedVideos[i]);
+                    break;
+                case "night":
+                    tod.night.push(allowedVideos[i]);
+                    break;
+                default:
+                    tod.none.push(allowedVideos[i]);
             }
-            if (tod.day.length <= 3) {
-                tod.day.push(...tod.none);
-            }
-            if (tod.night.length <= 3) {
-                tod.night.push(...tod.none);
-            }
+        } else if (customVideoIds.has(allowedVideos[i])) {
+            // Custom videos have no time-of-day metadata, so keep them
+            // available as an untagged fallback.
+            tod.none.push(allowedVideos[i]);
         }
+    }
+
+    // If there are too few specifically tagged videos for a period, use the
+    // untagged videos as the fallback. This must happen AFTER classification
+    // is complete, not inside the loop above.
+    if (tod.day.length <= 3) {
+        tod.day.push(...tod.none);
+    }
+    if (tod.night.length <= 3) {
+        tod.night.push(...tod.none);
     }
 }
 
 setTimeOfDayList();
 
 function getTimeOfDay() {
-    let cHour = new Date().getHours();
-    let cMin = new Date().getMinutes();
-    let sunriseHour = store.get('sunrise').substring(0, 2);
-    let sunriseMinute = store.get('sunrise').substring(3, 5);
-    let sunsetHour = store.get('sunset').substring(0, 2);
-    let sunsetMinute = store.get('sunset').substring(3, 5);
-    let time = "night";
-    if ((cHour === sunriseHour && cMin >= sunriseMinute) || (cHour > sunriseHour && cHour < sunsetHour) || (cHour === sunsetHour && cMin < sunsetMinute)) {
-        time = "day";
-    }
-    return time;
+    const now = new Date();
+    const currentMinutes = now.getHours() * 60 + now.getMinutes();
+    const sunrise = store.get('sunrise');
+    const sunset = store.get('sunset');
+    const sunriseMinutes = Number(sunrise.substring(0, 2)) * 60 + Number(sunrise.substring(3, 5));
+    const sunsetMinutes = Number(sunset.substring(0, 2)) * 60 + Number(sunset.substring(3, 5));
+
+    return currentMinutes >= sunriseMinutes && currentMinutes < sunsetMinutes ? "day" : "night";
 }
 
 //astronomy code
@@ -1132,5 +1176,5 @@ function getWakeLock() {
 
 //helper functions
 function randomInt(min, max) {
-    return Math.floor(Math.random() * max) - min;
+    return Math.floor(Math.random() * (max - min)) + min;
 }
