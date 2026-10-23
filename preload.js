@@ -1,6 +1,16 @@
 const {contextBridge, ipcRenderer} = require("electron");
-module.exports = function initializePreload(Store) {
-    const store = new Store();
+module.exports = function initializePreload() {
+    const store = {
+        get store() {
+            return ipcRenderer.sendSync('settings-read');
+        },
+        set store(changes) {
+            const result = ipcRenderer.sendSync('settings-write', changes);
+            if (result.error) {
+                throw new Error(result.error);
+            }
+        }
+    };
     const {createSettingsStore} = require('./settings-store');
     const settings = createSettingsStore(store);
     const {getVideoSources} = require('./video-sources');
