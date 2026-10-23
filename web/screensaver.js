@@ -34,14 +34,18 @@ function quitApp() {
     electron.ipcRenderer.send('quitApp');
 }
 document.addEventListener('keydown', event => electron.ipcRenderer.send('keyPress', event.code));
-document.addEventListener('mousedown', quitApp);
-setTimeout(() => {
-    document.addEventListener('mousemove', event => {
-        if (event.movementX ** 2 + event.movementY ** 2 > 25) {
-            quitApp();
-        }
-    });
-}, 1500);
+if (electron.store.get('wakeOnMouseClick') !== false) {
+    document.addEventListener('mousedown', quitApp);
+}
+if (electron.store.get('wakeOnMouseMovement') !== false) {
+    setTimeout(() => {
+        document.addEventListener('mousemove', event => {
+            if (event.movementX ** 2 + event.movementY ** 2 > 25) {
+                quitApp();
+            }
+        });
+    }, 1500);
+}
 
 function resetLayer(player) {
     player.style.opacity = '1';

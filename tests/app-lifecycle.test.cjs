@@ -75,7 +75,7 @@ for (const flag of ['/c', '/p', '/s', '/t', '/j', undefined]) {
 
 test('settings migration preserves explicit choices, fills defaults and upgrades legacy transitions', () => {
     const original = {startAfter: 0, useTray: false, allowedVideos: [], videoTransitionLength: 1000,
-        prepareCompatibleVideos: false, customVideos: [{id: '_local', path: 'local.mov'}]};
+        prepareCompatibleVideos: false, wakeOnMouseClick: false, customVideos: [{id: '_local', path: 'local.mov'}]};
     let saved;
     const context = section('function setUpConfigFile()', '//setUpConfigFile();', {
         store: {get store() { return structuredClone(original); }, set: value => { saved = value; }},
@@ -88,6 +88,8 @@ test('settings migration preserves explicit choices, fills defaults and upgrades
     assert.equal(saved.customVideos[0].path, 'local.mov');
     assert.equal(saved.videoTransitionLength, 2000);
     assert.equal(saved.prepareCompatibleVideos, false);
+    assert.equal(saved.wakeOnMouseClick, false);
+    assert.equal(saved.wakeOnMouseMovement, true);
     assert.equal(saved.configured, true);
     assert.equal(saved.version, 'new');
     assert.equal(saved.displayText.positionList.length, 10);

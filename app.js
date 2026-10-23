@@ -481,6 +481,8 @@ function setUpConfigFile() {
     settings.set('globalShortcutModifier1', settings.get('globalShortcutModifier1') ?? "Super");
     settings.set('globalShortcutModifier2', settings.get('globalShortcutModifier2') ?? "+Control");
     settings.set('globalShortcutKey', settings.get('globalShortcutKey') ?? "A");
+    settings.set('wakeOnMouseMovement', settings.get('wakeOnMouseMovement') ?? true);
+    settings.set('wakeOnMouseClick', settings.get('wakeOnMouseClick') ?? true);
     //playback settings
     settings.set('playbackSpeed', settings.get('playbackSpeed') ?? 1);
     settings.set('skipVideosWithKey', settings.get('skipVideosWithKey') ?? true);

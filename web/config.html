@@ -138,6 +138,14 @@
                     <label for="skipVideosWithKey">Use a key to skip videos</label>
                     <br><br>
                     <label for="skipKey">Skip key: </label><input type="text" id="skipKey">
+                    <br><br>
+                    <input type="checkbox" id="wakeOnMouseMovement" class="w3-check"
+                           onchange="updateSetting('wakeOnMouseMovement','check')">
+                    <label for="wakeOnMouseMovement">Wake on mouse movement</label>
+                    <br>
+                    <input type="checkbox" id="wakeOnMouseClick" class="w3-check"
+                           onchange="updateSetting('wakeOnMouseClick','check')">
+                    <label for="wakeOnMouseClick">Wake on mouse click</label>
                 </div>
             </div>
             <div id="resolutionSettings" class="settingsCard" style="display: none">
