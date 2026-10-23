@@ -25,8 +25,55 @@ app.on('second-instance', (event, argv) => {
 const {exec} = require('child_process');
 const videos = require("./videos.json");
 const videosById = new Map(videos.map(video => [video.id, video]));
-const {default: Store} = require('electron-store');
-const store = new Store();
+const {createPersistentSettings} = require('./settings-persistence');
+const store = createPersistentSettings(require('path').join(app.getPath('userData'), 'config.json'), {
+    report: (message, error) => {
+        console.error(message, error);
+        app.whenReady().then(() => dialog.showMessageBox({
+            type: 'warning',
+            title: 'Aerial settings',
+            message,
+            detail: `Error: ${error.code || error.message}`
+        })).catch(console.error);
+    }
+});
+
+// Synchronous IPC preserves the existing settings API; these handlers only use memory.
+ipcMain.on('settings-read', event => {
+    event.returnValue = store.store;
+});
+ipcMain.on('settings-write', (event, changes) => {
+    try {
+        store.set(changes);
+        event.returnValue = {ok: true};
+    } catch (error) {
+        event.returnValue = {error: error.message};
+    }
+});
+
+let settingsQuitReady = false;
+let settingsQuitting = false;
+app.on('before-quit', event => {
+    if (settingsQuitReady) {
+        return;
+    }
+    event.preventDefault();
+    if (settingsQuitting) {
+        return;
+    }
+    settingsQuitting = true;
+    Promise.race([
+        store.flush(),
+        new Promise(resolve => setTimeout(() => resolve(false), 3000))
+    ]).then(saved => {
+        if (!saved) {
+            console.error('Aerial is exiting with unsaved settings. The previous config was preserved.');
+        }
+    }).finally(() => {
+        settingsQuitReady = true;
+        app.quit();
+    });
+});
 const request = require('request');
 const https = require('https');
 const fs = require('fs');
@@ -145,6 +192,7 @@ function createSSWindow(argv) {
             y: displays[i].bounds.y,
             //sets the screensaver to run as windows if the 'no-quit' mode had been set
             fullscreen: !nq,
+            resizable: nq,
             backgroundColor: '#000000',
             frame: nq,
             icon: path.join(__dirname, 'icon.ico'),
@@ -664,8 +712,7 @@ ipcMain.on('refreshConfig', (event) => {
 });
 
 ipcMain.on('resetConfig', (event) => {
-    fs.unlink(`${app.getPath('userData')}/config.json`, err => {
-    });
+    store.clear();
     setUpConfigFile();
     closeAllWindows();
     createConfigWindow();
