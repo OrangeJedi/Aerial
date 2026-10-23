@@ -47,7 +47,8 @@
     },
     "nsis": {
       "installerIcon": "icon.ico",
-      "perMachine": false
+      "perMachine": false,
+      "include": "build/installer.nsh"
     },
     "portable": {
       "artifactName": "aerial.exe",
