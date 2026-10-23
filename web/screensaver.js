@@ -538,7 +538,7 @@ function runClock(position, line, timeString) {
         return;
     }
     clearTimeout(displayText[position][line].clockTimeout);
-    $(`#${position}-${line}-clock`).text(moment().format(timeString));
+    $(`#${position}-${line}-clock`).text(localizedDateTime().format(timeString));
     displayText[position][line].clockTimeout = setTimeout(runClock, 1000 - new Date().getMilliseconds(), position, line, timeString);
 }
 
@@ -708,7 +708,7 @@ function createContentLine(contentLine, position, line) {
                     html += "Moonset @"
                     break
             }
-            let eventTime = moment(astronomy[type]);
+            let eventTime = localizedDateTime(astronomy[type]);
             html += eventTime.format(contentLine.astroTimeString);
             break;
         case "information":

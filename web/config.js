@@ -9,6 +9,7 @@ let customVideos = electron.store.get("customVideos");
 
 //Updates all the <input> tags with their proper values. Called on page load
 function displaySettings() {
+    displayDateTimeLanguages();
     let checked = ["wakeOnMouseMovement", "wakeOnMouseClick", "prepareCompatibleVideos", "deleteOriginalsAfterConversion", "easierTransitions", "allowH265", "allow4K", "prefer4K240", "timeOfDay", "skipVideosWithKey", "sameVideoOnScreens", "videoCache", "videoCacheProfiles", "videoCacheRemoveUnallowed", "avoidDuplicateVideos", "onlyShowVideoOnPrimaryMonitor", "immediatelyUpdateVideoCache", "useTray", "blankScreen", "sleepAfterBlank", "lockAfterRun", "useLocationForSunrise", "runOnBattery", "enableGlobalShortcut"];
     for (let i = 0; i < checked.length; i++) {
         $(`#${checked[i]}`).prop('checked', electron.store.get(checked[i]));
@@ -451,7 +452,7 @@ function updatePositionType(position, line) {
             displayTextSettings[position][line].timeString = displayTextSettings[position][line].timeString ? displayTextSettings[position][line].timeString : "hh:mm:ss";
             html = `
                                     <input class='w3-input' value='${displayTextSettings[position][line].timeString}' onchange="showMomentDisplay('positionTimeDisplay', this); updateTextSetting(this, '${position}','${line}', 'timeString')">
-                                    <span id="positionTimeDisplay">${moment().format(displayTextSettings[position][line].timeString)}</span>
+                                    <span id="positionTimeDisplay">${localizedDateTime().format(displayTextSettings[position][line].timeString)}</span>
                                     <br>
                                     <button onclick="document.getElementById('timeFormatExplain').style.display='block'" class="w3-button w3-white w3-border w3-border-blue w3-round-large" style="margin-top: 2%">Show Formatting Details</button>`;
             break;
@@ -487,7 +488,7 @@ function updatePositionType(position, line) {
                    <br><br>
                    <input class='w3-input'  style="width: 15%" value='${displayTextSettings[position][line].astroTimeString}' onchange="showMomentDisplay('positionTimeDisplay', this); updateTextSetting(this, '${position}', '${line}','astroTimeString')">
                 
-                   <span id="positionTimeDisplay" style="margin-left: .5%; line-height: 2.5;">${moment().format(displayTextSettings[position][line].astroTimeString)}</span>
+                   <span id="positionTimeDisplay" style="margin-left: .5%; line-height: 2.5;">${localizedDateTime().format(displayTextSettings[position][line].astroTimeString)}</span>
                    <button onclick="document.getElementById('timeFormatExplain').style.display='block'" class="w3-button w3-white w3-border w3-border-blue w3-round-large" style="margin-top: -6%; margin-left: 10%;">Show Formatting Details</button>
                    <br>            
             `;
@@ -862,7 +863,7 @@ function displayProfile(id) {
 
 //For formatting time and dates. Used throughout the config menu
 function showMomentDisplay(id, stringID) {
-    $(`#${id}`).text(moment().format(stringID.value));
+    $(`#${id}`).text(localizedDateTime().format(stringID.value));
 }
 
 //Autocomplete stuff

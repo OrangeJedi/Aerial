@@ -51,7 +51,7 @@ function renderer(type = 'dissolve', direction = 'left', easierTransitions, over
         setInterval(callback) { intervals.push(callback); return intervals.length; },
         clearInterval(id) { if (id) { intervals[id - 1] = () => {}; } },
         Date: class extends Date { getMilliseconds() { return 0; } },
-        moment: () => ({format: () => "12:34"}),
+        localizedDateTime: () => ({format: () => "12:34"}),
         requestAnimationFrame(callback) { const id = ++sequence; frames.set(id, callback); return id; },
         cancelAnimationFrame(id) { frames.delete(id); },
         document: {getElementById: id => id === 'video' ? players[0] : id === 'video2' ? players[1] : {style: {}}, addEventListener() {}},

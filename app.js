@@ -42,6 +42,9 @@ const store = createPersistentSettings(require('path').join(app.getPath('userDat
 ipcMain.on('settings-read', event => {
     event.returnValue = store.store;
 });
+ipcMain.on('system-language', event => {
+    event.returnValue = app.getPreferredSystemLanguages();
+});
 ipcMain.on('settings-write', (event, changes) => {
     try {
         store.set(changes);
@@ -531,6 +534,7 @@ function setUpConfigFile() {
     }
     //time & location settings
     settings.set('timeOfDay', settings.get('timeOfDay') ?? false);
+    settings.set('dateTimeLanguage', settings.get('dateTimeLanguage') ?? 'system');
     settings.set('sunrise', settings.get('sunrise') ?? "06:00");
     settings.set('sunset', settings.get('sunset') ?? "18:00");
     settings.set('useLocationForSunrise', settings.get('useLocationForSunrise') ?? false);

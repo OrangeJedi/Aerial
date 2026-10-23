@@ -9,6 +9,8 @@
     }</script>
     <script src="libraries/js/jquery-min.js"></script>
     <script src="libraries/js/moment.min.js"></script>
+    <script src="libraries/js/moment-locales.min.js"></script>
+    <script src="date-time-language.js"></script>
     <script src="libraries/js/numeral.min.js"></script>
     <script>if (window.module) module = window.module;</script>
     <link rel="stylesheet" href="libraries/css/w3.min.css">
@@ -174,6 +176,9 @@
                     <h3>Time & Location Settings</h3>
                 </div>
                 <div class="w3-display-container cardContent" style="padding: 2%">
+                    <label for="dateTimeLanguage">Date/time display language</label>
+                    <select id="dateTimeLanguage" class="w3-select" onchange="updateSetting('dateTimeLanguage','select')"></select>
+                    <p>Use your computer's language or choose a language for date/time text. Custom formatting and literal text stay as entered.</p>
                     <input type="checkbox" id="timeOfDay" class="w3-check" onclick="updateSetting('timeOfDay','check')">
                     <label for="timeOfDay">Prioritize videos for current time of day</label>
                     <div>

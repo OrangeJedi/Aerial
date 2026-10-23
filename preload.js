@@ -78,6 +78,9 @@ module.exports = function initializePreload() {
 
     // Expose protected methods from node modules
     contextBridge.exposeInMainWorld("electron", {
+            get systemLanguages() {
+                return ipcRenderer.sendSync('system-language');
+            },
             convertedVideo: video => {
                 if (!settings.get('prepareCompatibleVideos')) {
                     return null;
