@@ -214,12 +214,8 @@
                                                                           onclick="resetSetting('playbackSpeed', 'slider', 1)"><i
                         class="fa fa-undo"></i></span>
                     <br>
-                   <input type="range" min=".75" max="4" value="1" step=".05" id="playbackSpeed" class="slider"
-                          onchange="updateSetting('playbackSpeed','slider')">
-                    <br>
-                    <label for="accentColor">Accent Color: </label><input class="w3-input" id="accentColor" type="color"
-                                                                           style="width: 5%; display: inline; margin-top: 2%; padding: 0;"
-                                                                           onchange="updateSetting('accentColor','text')">
+                    <input type="range" min=".75" max="4" value="1" step=".05" id="playbackSpeed" class="slider"
+                           onchange="updateSetting('playbackSpeed','slider')">
                     <h4>Filter Settings
                         <span class="w3-right" onclick="resetFilterSettings()"><i class="fa fa-undo"></i></span></h4>
                     <div class="w3-display-container" id="videoFilterSettings"></div>

@@ -13,7 +13,7 @@ function displaySettings() {
     for (let i = 0; i < checked.length; i++) {
         $(`#${checked[i]}`).prop('checked', electron.store.get(checked[i]));
     }
-    let numTxt = ["sunrise", "sunset", "textFont", "textSize", "textColor", "accentColor", "startAfter", "blankAfter", "fps", "latitude", "longitude", "randomSpeed", "skipKey", "transitionType", "fillMode", "globalShortcutModifier1", "globalShortcutModifier2", "globalShortcutKey", "lockAfterRunAfter", "videoFileType"];
+    let numTxt = ["sunrise", "sunset", "textFont", "textSize", "textColor", "startAfter", "blankAfter", "fps", "latitude", "longitude", "randomSpeed", "skipKey", "transitionType", "fillMode", "globalShortcutModifier1", "globalShortcutModifier2", "globalShortcutKey", "lockAfterRunAfter", "videoFileType"];
     for (let i = 0; i < numTxt.length; i++) {
         $(`#${numTxt[i]}`).val(electron.store.get(numTxt[i]));
     }
@@ -34,7 +34,6 @@ function displaySettings() {
     displayCustomVideos();
     colorTextPositionRadio();
     updateSettingVisibility();
-    updateAccent();
 
     //display update, if there is one
     //console.log(electron.store.get('updateAvailable'));
@@ -42,10 +41,6 @@ function displaySettings() {
         document.getElementById(`aboutUpdate`).style.display = "";
         document.getElementById(`updateBadge`).style.display = "";
     }
-}
-
-function updateAccent() {
-    document.documentElement.style.setProperty('--accent-color', electron.store.get('accentColor'));
 }
 
 displaySettings();
@@ -74,7 +69,6 @@ function updateSetting(setting, type) {
         case "select":
         case "time":
             electron.store.set(setting, document.getElementById(setting).value);
-            if (setting === 'accentColor') { updateAccent(); }
             break;
         case "filterSlider":
             $(`#${setting}Text`).text(document.getElementById(setting).value);
@@ -112,7 +106,6 @@ function resetSetting(setting, type, value) {
         case "text":
         case "time":
             electron.store.set(setting, value);
-            if (setting === 'accentColor') { updateAccent(); }
             break;
         case "filterSlider":
             let s = electron.store.get('videoFilters');

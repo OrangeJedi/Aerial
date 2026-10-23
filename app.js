@@ -487,7 +487,6 @@ function setUpConfigFile() {
     store.set('textFont', store.get('textFont') ?? "Segoe UI");
     store.set('textSize', store.get('textSize') ?? "2");
     store.set('textColor', store.get('textColor') ?? "#FFFFFF");
-    store.set('accentColor', store.get('accentColor') ?? "#ff5722");
     let displayText = store.get('displayText');
     if (displayText) {
         if (!displayText.topleft[0]) {
