@@ -8,6 +8,7 @@
     "node": ">=22.12.0"
   },
   "scripts": {
+    "classify": "electron tools/classifier/main.cjs",
     "test": "node --test tests/*.test.cjs",
     "test:coverage": "node --experimental-test-coverage --test tests/*.test.cjs",
     "start": "electron .",

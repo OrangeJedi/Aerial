@@ -97,19 +97,54 @@ test('settings migration preserves explicit choices, fills defaults and upgrades
 for (const override of [{}, {screens: [{}]}, {suspend: true}, {isComputerSleeping: true},
     {isComputerSuspendedOrLocked: true}, {startAfter: 0}, {idle: 'active'}, {wake: false},
     {battery: true}, {battery: true, runOnBattery: true}]) {
-    test(`idle launch respects system and battery gates ${JSON.stringify(override)}`, () => {
+    test(`idle launch respects system and battery gates ${JSON.stringify(override)}`, async () => {
         let launches = 0;
         const data = {startAfter: 10, runOnBattery: false, ...override};
-        const context = section('function launchScreensaver()', 'setInterval(launchScreensaver', {
+        const context = section('let checkingDisplayPower = false;', 'setInterval(launchScreensaver', {
             screens: [], suspend: false, isComputerSleeping: false, isComputerSuspendedOrLocked: false, ...override,
-            store: {get: key => data[key]}, getWakeLock: () => override.wake !== false,
+            store: {get: key => data[key]}, isDisplayRequired: async () => override.wake === false,
             powerMonitor: {getSystemIdleState: seconds => { assert.equal(seconds, 600); return override.idle || 'idle'; },
                 isOnBatteryPower: () => !!override.battery}, createSSWindow: () => { launches++; }
         });
-        context.launchScreensaver();
+        await context.launchScreensaver();
         assert.equal(launches, Object.keys(override).length === 0 || override.runOnBattery ? 1 : 0);
     });
 }
+
+test('idle launch serializes queries, rechecks activity and recovers after errors', async () => {
+    let resolveQuery;
+    let queries = 0;
+    let launches = 0;
+    let idle = true;
+    let fail = false;
+    const context = section('let checkingDisplayPower = false;', 'setInterval(launchScreensaver', {
+        screens: [], suspend: false, isComputerSleeping: false, isComputerSuspendedOrLocked: false,
+        store: {get: key => key === 'startAfter' ? 10 : false},
+        console: {warn() {}},
+        powerMonitor: {getSystemIdleState: () => idle ? 'idle' : 'active', isOnBatteryPower: () => false},
+        isDisplayRequired: () => {
+            queries++;
+            return fail ? Promise.reject(new Error('query failed')) : new Promise(resolve => { resolveQuery = resolve; });
+        },
+        createSSWindow: () => { launches++; }
+    });
+    const pending = context.launchScreensaver();
+    await context.launchScreensaver();
+    assert.equal(queries, 1);
+    idle = false;
+    resolveQuery(false);
+    await pending;
+    assert.equal(launches, 0);
+    idle = true;
+    fail = true;
+    await context.launchScreensaver();
+    assert.equal(launches, 0);
+    fail = false;
+    const retry = context.launchScreensaver();
+    resolveQuery(false);
+    await retry;
+    assert.equal(launches, 1);
+});
 
 for (const preview of [true, false]) {
     test(`sleep and lock protect preview mode: ${preview}`, () => {
@@ -126,8 +161,9 @@ for (const preview of [true, false]) {
     });
 }
 
-for (const [hour, minute, expected] of [[5, 59, 'night'], [6, 0, 'day'], [6, 30, 'day'],
-    [12, 0, 'day'], [17, 59, 'day'], [18, 0, 'night'], [18, 30, 'night']]) {
+for (const [hour, minute, expected] of [[5, 29, 'night'], [5, 30, 'twilight'], [5, 59, 'twilight'],
+    [6, 0, 'twilight'], [6, 30, 'twilight'], [6, 31, 'day'], [12, 0, 'day'],
+    [17, 29, 'day'], [17, 30, 'twilight'], [18, 0, 'twilight'], [18, 30, 'twilight'], [18, 31, 'night']]) {
     test(`time of day classifies ${hour}:${minute} as ${expected}`, () => {
         const context = section('function getTimeOfDay(', '//astronomy code', {
             Date: class { getHours() { return hour; } getMinutes() { return minute; } },
@@ -136,6 +172,22 @@ for (const [hour, minute, expected] of [[5, 59, 'night'], [6, 0, 'day'], [6, 30,
         assert.equal(context.getTimeOfDay(), expected);
     });
 }
+
+test('time-of-day lists include twilight and rebuild without accumulating duplicates', () => {
+    const context = section('function setTimeOfDayList()', 'function getTimeOfDay(', {
+        store: {get: () => true},
+        allowedVideos: ['a', 'b', 'c', 'd'],
+        videos: [{id: 'a', timeOfDay: 'day'}, {id: 'b', timeOfDay: 'night'},
+            {id: 'c', timeOfDay: 'twilight'}, {id: 'd'}],
+        tod: {}
+    });
+    for (let i = 0; i < 2; i++) {
+        context.setTimeOfDayList();
+        assert.deepEqual(Array.from(context.tod.day), ['a', 'd']);
+        assert.deepEqual(Array.from(context.tod.night), ['b', 'd']);
+        assert.deepEqual(Array.from(context.tod.twilight), ['c', 'd']);
+    }
+});
 
 for (const primaryOnly of [true, false]) {
     test(`screensaver creates isolated windows at each monitor bounds, primary only: ${primaryOnly}`, () => {

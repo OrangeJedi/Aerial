@@ -19,6 +19,8 @@ Download the latest release from [here](https://github.com/OrangeJedi/Aerial/rel
 
 Be sure to configure your system's screen and sleep settings accordingly and to disable any other screensavers.
 
+Aerial's automatic startup respects Windows display power requests, so video players and other apps that request an awake display can prevent it from starting. This check does not require administrator rights. Apps that do not register a display request may still be interrupted. If the check fails, Aerial skips that startup attempt and retries on the next timer tick. Manual launches and previews remain available.
+
 ## Features
 ![image](https://user-images.githubusercontent.com/25063853/224231865-f8716c9a-ff9a-4c2b-bf18-21dc1bd4d504.png)
 Aerial brings the AppleTV's wonderful screensavers to your Windows desktop. You can limit which videos to play, or randomly play them all. 

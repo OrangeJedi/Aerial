@@ -33,6 +33,7 @@ const fs = require('fs');
 const path = require("path");
 const {createCompatibilityPlayer, convertedPath, deleteConvertedOriginal} = require('./playback');
 const {getVideoSources} = require('./video-sources');
+const {isDisplayRequired} = require('./display-power');
 const compatibleSource = createCompatibilityPlayer(() => path.join(store.get('cachePath'), 'converted'));
 const AutoLaunch = require('auto-launch');
 let autoLauncher = new AutoLaunch({
@@ -64,14 +65,6 @@ let astronomy = {
     "moonset": undefined,
     "calculated": false
 };
-let admin = false;
-exec('NET SESSION', function (err, so, se) {
-    if (se.length === 0) {
-        admin = true;
-    }
-    //console.log(se.length === 0 ? "admin" : "not admin");
-});
-
 //window creation code
 function createConfigWindow(argv) {
     if (configWindow && !configWindow.isDestroyed()) {
@@ -1099,19 +1092,32 @@ function lockComputer() {
 }
 
 //idle startup timer
-function launchScreensaver() {
-    let startAfter = store.get('startAfter');
-    //console.log(screens.length,powerMonitor.getSystemIdleTime(),store.get('startAfter') * 60)
-    if (screens.length === 0 && !suspend && !isComputerSleeping && !isComputerSuspendedOrLocked && startAfter > 0) {
-        //let idleTime = powerMonitor.getSystemIdleTime();
-        if (powerMonitor.getSystemIdleState(startAfter * 60) === "idle" && getWakeLock()) {
-            if (!store.get("runOnBattery")) {
-                if (powerMonitor.isOnBatteryPower()) {
-                    return;
-                }
-            }
+let checkingDisplayPower = false;
+
+function canLaunchScreensaver() {
+    const startAfter = store.get('startAfter');
+    return screens.length === 0 && !suspend && !isComputerSleeping &&
+        !isComputerSuspendedOrLocked && startAfter > 0 &&
+        powerMonitor.getSystemIdleState(startAfter * 60) === 'idle' &&
+        (store.get('runOnBattery') || !powerMonitor.isOnBatteryPower());
+}
+
+async function launchScreensaver() {
+    if (checkingDisplayPower || !canLaunchScreensaver()) {
+        return;
+    }
+    checkingDisplayPower = true;
+    try {
+        const displayRequired = await isDisplayRequired();
+        // Input, settings, or power state may have changed during the query.
+        if (!displayRequired && canLaunchScreensaver()) {
             createSSWindow();
         }
+    } catch (error) {
+        // Skip this attempt if Windows cannot confirm it is safe to start.
+        console.warn('Unable to query display power requests:', error.message);
+    } finally {
+        checkingDisplayPower = false;
     }
 }
 
@@ -1147,6 +1153,7 @@ function blankScreensaver() {
 
 //Time of day code functions
 function setTimeOfDayList() {
+    tod = {day: [], night: [], twilight: [], none: []};
     if (store.get('timeOfDay')) {
         for (let i = 0; i < allowedVideos.length; i++) {
             let index = videos.findIndex((e) => {
@@ -1163,15 +1170,17 @@ function setTimeOfDayList() {
                     case "night":
                         tod.night.push(allowedVideos[i]);
                         break;
+                    case "twilight":
+                        tod.twilight.push(allowedVideos[i]);
+                        break;
                     default:
                         tod.none.push(allowedVideos[i]);
                 }
             }
-            if (tod.day.length <= 3) {
-                tod.day.push(...tod.none);
-            }
-            if (tod.night.length <= 3) {
-                tod.night.push(...tod.none);
+        }
+        for (const period of ['day', 'night', 'twilight']) {
+            if (tod[period].length <= 3) {
+                tod[period].push(...tod.none);
             }
         }
     }
@@ -1186,11 +1195,15 @@ function getTimeOfDay(settings = store) {
     let sunriseMinute = Number(settings.get('sunrise').substring(3, 5));
     let sunsetHour = Number(settings.get('sunset').substring(0, 2));
     let sunsetMinute = Number(settings.get('sunset').substring(3, 5));
-    let time = "night";
-    if ((cHour === sunriseHour && cMin >= sunriseMinute) || (cHour > sunriseHour && cHour < sunsetHour) || (cHour === sunsetHour && cMin < sunsetMinute)) {
-        time = "day";
+    const minutes = cHour * 60 + cMin;
+    const sunrise = sunriseHour * 60 + sunriseMinute;
+    const sunset = sunsetHour * 60 + sunsetMinute;
+    const distance = boundary => Math.abs(((minutes - boundary + 2160) % 1440) - 720);
+    if (distance(sunrise) <= 30 || distance(sunset) <= 30) {
+        return 'twilight';
     }
-    return time;
+    const daylightLength = (sunset - sunrise + 1440) % 1440;
+    return (minutes - sunrise + 1440) % 1440 < daylightLength ? 'day' : 'night';
 }
 
 //astronomy code
@@ -1204,23 +1217,6 @@ function calculateAstronomy() {
         astronomy.moonset = moonTimes.set;
         astronomy.calculated = true;
         store.set('astronomy', astronomy);
-    }
-}
-
-//check the system to see if any app is requesting the system to not sleep
-//Requires admin privileges to run
-function getWakeLock() {
-    if (admin) {
-        exec('powercfg /requests', function (error, stdout, stderr) {
-                if (error) {
-                    console.log(error);
-                    return true;
-                }
-                return stdout.match(/None./g).length !== 6;
-            }
-        );
-    } else {
-        return true;
     }
 }
 
