@@ -3,7 +3,7 @@ const {test} = require('node:test');
 const fs = require('node:fs');
 const vm = require('node:vm');
 
-function bridge(realSettings = false) {
+function bridge(realSettings = false, fontOptions = {}) {
     const calls = [];
     const listeners = new Map();
     const values = {prepareCompatibleVideos: true, cachePath: 'cache'};
@@ -28,13 +28,23 @@ function bridge(realSettings = false) {
         'electron-store': class {}, './settings-store': realSettings ? require('../settings-store') : {createSettingsStore: () => settings},
         './video-sources': require('../video-sources'), './playback': {convertedPath: () => 'C:/cache/converted/a.mp4'},
         path: require('node:path'), fs: {existsSync: () => exists}, url: require('node:url'),
-        './videos.json': [], 'font-list-universal': {}
+        './videos.json': [], 'font-list-universal': {getFonts: async () => ['Fallback Font']},
+        child_process: {execFile: (command, args, callback) => {
+            assert.equal(command, 'cscript');
+            assert.equal(args[0], '//nologo');
+            callback(fontOptions.error, fontOptions.stdout, '');
+        }}, os: require('node:os')
     };
     const module = {exports: {}};
     vm.runInNewContext(fs.readFileSync(require.resolve('../preload.js'), 'utf8'), {
         module,
+        process: {platform: 'win32'},
+        console: {log() {}},
         setTimeout,
-        require: name => { assert.ok(name in modules, name); return modules[name]; }
+        require: Object.assign(name => {
+            assert.ok(name in modules, name);
+            return modules[name];
+        }, {resolve: () => 'C:/font-list-universal/index.js'})
     });
     module.exports(modules['electron-store']);
     return {api: exposed, calls, listeners, values, missing: () => { exists = false; }};
@@ -93,4 +103,15 @@ test('preload settings and source helpers honor current permissions', () => {
     f.api.store.set('allow4K', false);
     assert.deepEqual(f.calls, [['set', 'allow4K', false]]);
     assert.equal(f.api.store.get('cachePath'), 'cache');
+});
+
+test('Windows font enumeration returns sorted unique display names instead of file paths', async () => {
+    const f = bridge(false, {stdout: 'C:\\Fonts\\helvetica.otf\tHelvetica Neue LT Std Regular\r\n'
+        + 'C:\\Fonts\\arial.ttf\t"Arial"\r\nC:\\Fonts\\arial.ttf\tArial\r\nC:\\Fonts\\unknown.ttf\r\n'});
+    assert.deepEqual(Array.from(await f.api.fontListUniversal.getFonts()), ['Arial', 'Helvetica Neue LT Std Regular']);
+});
+
+test('Windows font enumeration falls back when the script fails', async () => {
+    const f = bridge(false, {error: new Error('Script unavailable')});
+    assert.deepEqual(await f.api.fontListUniversal.getFonts(), ['Fallback Font']);
 });

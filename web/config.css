@@ -47,6 +47,9 @@ input[type="checkbox"] {
     border-bottom: none;
     border-top: none;
     z-index: 99;
+    max-height: 320px;
+    overflow-y: auto;
+    overscroll-behavior: contain;
     /*position the autocomplete items to be the same width as the container:*/
     top: 100%;
     left: 0;
@@ -60,6 +63,35 @@ input[type="checkbox"] {
     border-bottom: 1px solid #d4d4d4;
 }
 
+.autocomplete-items .autocomplete-option {
+    align-items: center;
+    display: flex;
+    gap: 12px;
+    justify-content: space-between;
+}
+
+.autocomplete-option-name {
+    font-family: "Segoe UI", sans-serif;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.autocomplete-option-sample {
+    color: #555;
+    flex: 0 0 auto;
+    max-width: 40%;
+    overflow: hidden;
+    text-align: right;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.font-preview-sample {
+    display: block;
+    margin-top: 6px;
+}
+
 .autocomplete-items div:hover {
     /*when hovering an item:*/
     background-color: #e9e9e9;
@@ -68,6 +100,10 @@ input[type="checkbox"] {
 .autocomplete-active {
     /*when navigating through the items using the arrow keys:*/
     background-color: DodgerBlue !important;
+    color: #ffffff;
+}
+
+.autocomplete-active .autocomplete-option-sample {
     color: #ffffff;
 }
 

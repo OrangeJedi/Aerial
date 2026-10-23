@@ -866,38 +866,132 @@ function showMomentDisplay(id, stringID) {
 }
 
 //Autocomplete stuff
+let localFontFaces = {};
+
+function cssString(value) {
+    return `"${String(value).replace(/\\/g, "\\\\").replace(/"/g, '\\"')}"`;
+}
+
+function fontAlias(font) {
+    let hash = 0;
+    for (let i = 0; i < font.length; i++) {
+        hash = ((hash << 5) - hash) + font.charCodeAt(i);
+        hash |= 0;
+    }
+    return `AerialLocalFont-${Math.abs(hash)}`;
+}
+
+function ensureLocalFontFace(font) {
+    let fontName = String(font || "").trim().replace(/^["']|["']$/g, "");
+
+    if (!fontName) {
+        return "";
+    }
+
+    let alias = fontAlias(fontName);
+
+    if (!localFontFaces[alias]) {
+        let fontSources = [fontName];
+        let fontNameWithoutRegular = fontName.replace(/\s+Regular$/i, "");
+        if (fontNameWithoutRegular !== fontName) {
+            fontSources.push(fontNameWithoutRegular);
+        }
+
+        let style = document.getElementById("aerial-local-font-faces");
+        if (!style) {
+            style = document.createElement("style");
+            style.id = "aerial-local-font-faces";
+            document.head.appendChild(style);
+        }
+
+        style.appendChild(document.createTextNode(`@font-face { font-family: ${cssString(alias)}; src: ${fontSources.map(fontSource => `local(${cssString(fontSource)})`).join(", ")}; font-display: swap; }\n`));
+        localFontFaces[alias] = true;
+    }
+
+    return alias;
+}
+
+function cssFontFamily(font) {
+    let fontName = String(font || "").trim().replace(/^["']|["']$/g, "");
+    let alias = ensureLocalFontFace(fontName);
+
+    if (!fontName) {
+        return `"Segoe UI", sans-serif`;
+    }
+
+    return `${cssString(alias)}, ${cssString(fontName)}, "Segoe UI", sans-serif`;
+}
+
 function autocomplete(inp, arr, func) {
     /*the autocomplete function takes two arguments,
     the text field element and an array of possible autocompleted values:*/
     var currentFocus;
-    /*execute a function when someone writes in the text field:*/
-    inp.addEventListener("input", function (e) {
-        var a, b, i, val = this.value;
+
+    function updateInputFontPreview() {
+        let preview = inp.parentNode.querySelector(".font-preview-sample");
+        if (!preview) {
+            preview = document.createElement("span");
+            preview.className = "font-preview-sample";
+            inp.parentNode.appendChild(preview);
+        }
+
+        if (arr.includes(inp.value)) {
+            preview.textContent = "AaBbCc 123";
+            preview.style.fontFamily = cssFontFamily(inp.value);
+            preview.style.display = "";
+        } else {
+            preview.textContent = "";
+            preview.style.display = "none";
+        }
+    }
+
+    function appendFontName(target, font, val, matchIndex) {
+        if (val) {
+            target.appendChild(document.createTextNode(font.substr(0, matchIndex)));
+            let match = document.createElement("strong");
+            match.textContent = font.substr(matchIndex, val.length);
+            target.appendChild(match);
+            target.appendChild(document.createTextNode(font.substr(matchIndex + val.length)));
+        } else {
+            target.appendChild(document.createTextNode(font));
+        }
+    }
+
+    function showAutocompleteList(val) {
+        var a, b, i;
+        val = val || "";
         /*close any already open lists of autocompleted values*/
         closeAllLists();
-        if (!val) {
-            return;
-        }
         currentFocus = -1;
         /*create a DIV element that will contain the items (values):*/
         a = document.createElement("DIV");
-        a.setAttribute("id", this.id + "autocomplete-list");
+        a.setAttribute("id", inp.id + "autocomplete-list");
         a.setAttribute("class", "autocomplete-items");
         /*append the DIV element as a child of the autocomplete container:*/
-        this.parentNode.appendChild(a);
-        const fragment = document.createDocumentFragment();
-        let matches = 0;
+        inp.parentNode.appendChild(a);
         /*for each item in the array...*/
         for (i = 0; i < arr.length; i++) {
-            /*check if the item starts with the same letters as the text field value:*/
-            if (arr[i].substr(0, val.length).toUpperCase() == val.toUpperCase() || !val) {
+            let matchIndex = arr[i].toUpperCase().indexOf(val.toUpperCase());
+            /*check if the item contains the same letters as the text field value:*/
+            if (matchIndex > -1 || !val) {
                 /*create a DIV element for each matching element:*/
                 b = document.createElement("DIV");
+                b.className = "autocomplete-option";
                 /*make the matching letters bold:*/
-                b.innerHTML = "<strong>" + arr[i].substr(0, val.length) + "</strong>";
-                b.innerHTML += arr[i].substr(val.length);
+                let name = document.createElement("span");
+                name.className = "autocomplete-option-name";
+                appendFontName(name, arr[i], val, matchIndex);
+                b.appendChild(name);
+                let sample = document.createElement("span");
+                sample.className = "autocomplete-option-sample";
+                sample.textContent = "AaBbCc 123";
+                sample.style.fontFamily = cssFontFamily(arr[i]);
+                b.appendChild(sample);
                 /*insert a input field that will hold the current array item's value:*/
-                b.innerHTML += "<input type='hidden' value='" + arr[i] + "'>";
+                let hiddenInput = document.createElement("input");
+                hiddenInput.type = "hidden";
+                hiddenInput.value = arr[i];
+                b.appendChild(hiddenInput);
                 /*execute a function when someone clicks on the item value (DIV element):*/
                 b.addEventListener("click", function (e) {
                     /*insert the value for the autocomplete text field:*/
@@ -906,18 +1000,39 @@ function autocomplete(inp, arr, func) {
                     (or any other open lists of autocompleted values:*/
                     closeAllLists();
                     func(inp);
+                    updateInputFontPreview();
                 });
-                fragment.appendChild(b);
-                if (++matches === 30) {
+                a.appendChild(b);
+                if (val && a.children.length >= 30) {
                     break;
                 }
             }
         }
-        a.appendChild(fragment);
+    }
+
+    /*show all values when the input is opened like a dropdown:*/
+    inp.addEventListener("focus", function () {
+        showAutocompleteList("");
     });
+
+    inp.addEventListener("click", function (e) {
+        showAutocompleteList("");
+        e.stopPropagation();
+    });
+
+    /*execute a function when someone writes in the text field:*/
+    inp.addEventListener("input", function (e) {
+        showAutocompleteList(this.value);
+        updateInputFontPreview();
+    });
+    inp.addEventListener("change", updateInputFontPreview);
     /*execute a function presses a key on the keyboard:*/
     inp.addEventListener("keydown", function (e) {
         var x = document.getElementById(this.id + "autocomplete-list");
+        if (!x && (e.keyCode == 40 || e.keyCode == 38)) {
+            showAutocompleteList("");
+            x = document.getElementById(this.id + "autocomplete-list");
+        }
         if (x) x = x.getElementsByTagName("div");
         if (e.keyCode == 40) {
             /*If the arrow DOWN key is pressed,
@@ -940,16 +1055,18 @@ function autocomplete(inp, arr, func) {
             }
         }
     });
+    updateInputFontPreview();
 
     function addActive(x) {
         /*a function to classify an item as "active":*/
-        if (!x || !x.length) return false;
+        if (!x) return false;
         /*start by removing the "active" class on all items:*/
         removeActive(x);
         if (currentFocus >= x.length) currentFocus = 0;
         if (currentFocus < 0) currentFocus = (x.length - 1);
         /*add class "autocomplete-active":*/
         x[currentFocus].classList.add("autocomplete-active");
+        x[currentFocus].scrollIntoView({block: "nearest"});
     }
 
     function removeActive(x) {
@@ -964,7 +1081,7 @@ function autocomplete(inp, arr, func) {
         except the one passed as an argument:*/
         var x = document.getElementsByClassName("autocomplete-items");
         for (var i = 0; i < x.length; i++) {
-            if (elmnt != x[i] && elmnt != inp) {
+            if (!elmnt || !x[i].parentNode.contains(elmnt)) {
                 x[i].parentNode.removeChild(x[i]);
             }
         }
@@ -981,7 +1098,7 @@ function closeAllLists(elmnt) {
     except the one passed as an argument:*/
     var x = document.getElementsByClassName("autocomplete-items");
     for (var i = 0; i < x.length; i++) {
-        if (elmnt != x[i]) {
+        if (!elmnt || !x[i].parentNode.contains(elmnt)) {
             x[i].parentNode.removeChild(x[i]);
         }
     }
@@ -1012,7 +1129,7 @@ document.addEventListener('focusin', event => {
         });
     }
     fontListPromise.then(() => {
-        if (document.activeElement === event.target && event.target.value) {
+        if (document.activeElement === event.target) {
             event.target.dispatchEvent(new Event('input'));
         }
     });
