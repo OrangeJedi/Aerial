@@ -619,9 +619,10 @@ ipcMain.on('quitApp', (event, arg) => {
 });
 
 ipcMain.on('keyPress', (event, key) => {
-    if (key === store.get('skipKey') && store.get('skipVideosWithKey')) {
+    if (key === 'ArrowLeft' || key === 'ArrowRight'
+        || (key === store.get('skipKey') && store.get('skipVideosWithKey'))) {
         for (let i = 0; i < screens.length; i++) {
-            screens[i].webContents.send('newVideo');
+            screens[i].webContents.send(key === 'ArrowLeft' ? 'previousVideo' : 'newVideo');
         }
     } else {
         quitApp();

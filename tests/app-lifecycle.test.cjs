@@ -12,6 +12,25 @@ function section(start, end, globals) {
     return context;
 }
 
+test('arrow keys cycle screens while other keys retain skip and quit behavior', () => {
+    let handler;
+    let quits = 0;
+    const sent = [[], []];
+    section("ipcMain.on('keyPress'", "ipcMain.on('updateCache'", {
+        ipcMain: {on: (name, callback) => { handler = callback; }},
+        store: {get: key => ({skipKey: 'Space', skipVideosWithKey: true})[key]},
+        screens: sent.map(messages => ({webContents: {send: channel => messages.push(channel)}})),
+        quitApp: () => { quits++; }
+    });
+    for (const key of ['ArrowRight', 'ArrowLeft', 'Space', 'Escape']) {
+        handler({}, key);
+    }
+    for (const messages of sent) {
+        assert.deepEqual(messages, ['newVideo', 'previousVideo', 'newVideo']);
+    }
+    assert.equal(quits, 1);
+});
+
 test('secondary process quits before loading application services', () => {
     let quit = 0;
     const first = source.indexOf('if (!app.requestSingleInstanceLock())');
@@ -309,16 +328,16 @@ test('skip key advances all displays while other keys dismiss the screensaver', 
     let quit = 0;
     const messages = [];
     let handle;
-    const data = {skipKey: 'ArrowRight', skipVideosWithKey: true};
+    const data = {skipKey: 'Space', skipVideosWithKey: true};
     section("ipcMain.on('keyPress'", "ipcMain.on('updateCache'", {
         ipcMain: {on: (name, callback) => { handle = callback; }},
         store: {get: key => data[key]}, quitApp: () => { quit++; },
         screens: [0, 1].map(id => ({webContents: {send: message => messages.push([id, message])}}))
     });
-    handle({}, 'ArrowRight');
+    handle({}, 'Space');
     assert.deepEqual(messages, [[0, 'newVideo'], [1, 'newVideo']]);
     handle({}, 'Escape');
     data.skipVideosWithKey = false;
-    handle({}, 'ArrowRight');
+    handle({}, 'Space');
     assert.equal(quit, 2);
 });

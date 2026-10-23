@@ -100,6 +100,30 @@ async function flush() {
     }
 }
 
+test('previous video ignores preloads and keeps history local to each screen', async () => {
+    const first = renderer('none');
+    const second = renderer('none');
+    await flush();
+    first.events.previousVideo();
+    await flush();
+    assert.equal(first.control.selections, 1);
+    first.events.newVideo();
+    await flush();
+    vm.runInContext('prepareNext()', first.context);
+    await flush();
+    assert.equal(first.control.selections, 3);
+    first.events.previousVideo();
+    await flush();
+    assert.equal(first.control.selections, 3);
+    assert.equal(vm.runInContext('historyIndex', first.context), 0);
+    assert.equal(vm.runInContext('videoHistory.length', first.context), 2);
+    assert.equal(vm.runInContext('videoHistory.length', second.context), 1);
+    first.events.newVideo();
+    await flush();
+    assert.equal(vm.runInContext('videoHistory.length', first.context), 2);
+    assert.equal(vm.runInContext('historyIndex', first.context), 1);
+});
+
 for (const type of ['dissolve', 'dipToBlack', 'fade', 'wipe', 'circle', 'fadeCircle']) {
     test(`${type} freezes incoming until midpoint and outgoing after midpoint`, async () => {
         const result = renderer(type, 'left', true);

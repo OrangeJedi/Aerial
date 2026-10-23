@@ -4,6 +4,8 @@ const videosById = new Map([...videos, ...customVideos].map(video => [video.id, 
 const containers = [document.getElementById('video'), document.getElementById('video2')];
 const stage = document.getElementById('videoStage');
 let currentlyPlaying = '';
+let videoHistory = [];
+let historyIndex = -1;
 let screenNumber = null;
 let blackScreen = false;
 let poiTimeout = [];
@@ -322,7 +324,7 @@ function transitionTo(target, token) {
     });
 }
 
-async function newVideo(recover = false) {
+async function newVideo(recover = false, previousIndex = null) {
     if (blackScreen) {
         return;
     }
@@ -333,14 +335,15 @@ async function newVideo(recover = false) {
     clearTimeout(nextTimer);
     clearTimeout(preparationTimer);
     // A second skip can interrupt an active transition. Its spare is no longer usable.
-    if (recover || preparingVideo) {
+    if (recover || preparingVideo || previousIndex !== null) {
         discardPreparation();
     }
     preparingVideo = true;
     if (!recover) {
         failedSources = [];
     }
-    const job = preparation || prepareNext(recover ? currentlyPlaying : null, recover ? failedSources : []);
+    const forcedId = previousIndex !== null ? videoHistory[previousIndex] : null;
+    const job = preparation || prepareNext(recover ? currentlyPlaying : forcedId, recover ? failedSources : []);
     const player = containers[job.target];
     resetLayer(containers[currentPlayer]);
     let loaded = false;
@@ -353,6 +356,14 @@ async function newVideo(recover = false) {
         currentlyPlaying = id;
         await transitionTo(job.target, token);
         if (token === generation) {
+            if (previousIndex !== null) {
+                historyIndex = previousIndex;
+            } else if (!recover) {
+                videoHistory = videoHistory.slice(0, historyIndex + 1);
+                videoHistory.push(id);
+                videoHistory = videoHistory.slice(-100);
+                historyIndex = videoHistory.length - 1;
+            }
             preparation = null;
             preparingVideo = false;
             recoveryPending = false;
@@ -371,7 +382,7 @@ async function newVideo(recover = false) {
                 failedSources.push(source);
                 videoPlayback.markFailed(job.id, source);
                 currentlyPlaying = job.id;
-                return newVideo(true);
+                return newVideo(true, previousIndex);
             }
             console.error('VIDEO PLAYBACK ERROR', error);
             nextTimer = setTimeout(newVideo, 3000);
@@ -752,6 +763,11 @@ function randomInt(min, max) {
 
 newVideo();
 electron.ipcRenderer.on('newVideo', () => newVideo());
+electron.ipcRenderer.on('previousVideo', () => {
+    if (historyIndex > 0) {
+        newVideo(false, historyIndex - 1);
+    }
+});
 electron.ipcRenderer.on('blankTheScreen', () => {
     blackScreen = true;
     generation++;
