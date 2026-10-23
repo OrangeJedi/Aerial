@@ -19,6 +19,7 @@ function convertedPath(directory, video) {
 
 function createCompatibilityPlayer(location) {
     const pending = new Map();
+    let queue = Promise.resolve();
     return function compatibleSource(video) {
         const input = video.path || video.src.H2641080p || video.src.H2651080p || video.src.H2654k || video.src.H2654k240;
         if (!input) {
@@ -33,7 +34,7 @@ function createCompatibilityPlayer(location) {
         if (pending.has(key)) {
             return pending.get(key);
         }
-        const task = (async () => {
+        const task = queue.then(async () => {
             await fs.promises.mkdir(directory, {recursive: true});
             // Each attempt owns its temporary file, including after an abrupt app exit.
             const temporary = `${output}.${randomUUID()}.partial.mp4`;
@@ -53,9 +54,9 @@ function createCompatibilityPlayer(location) {
                     }
                 }
                 await new Promise((resolve, reject) => {
-                    execFile(executable, ['-nostdin', '-y', '-v', 'error', '-i', input,
+                    execFile(executable, ['-nostdin', '-y', '-v', 'error', '-threads', '2', '-i', input,
                         '-map', '0:v:0', '-an', '-vf', 'fps=30,scale=1920:1080:force_original_aspect_ratio=decrease:force_divisible_by=2',
-                        '-c:v', 'libx264', '-preset', 'veryfast', '-crf', '20', '-pix_fmt', 'yuv420p',
+                        '-c:v', 'libx264', '-threads', '2', '-preset', 'veryfast', '-crf', '20', '-pix_fmt', 'yuv420p',
                         '-movflags', '+faststart', temporary],
                     {windowsHide: true, timeout: 15 * 60 * 1000}, (error) => error ? reject(error) : resolve());
                 });
@@ -67,7 +68,9 @@ function createCompatibilityPlayer(location) {
             } finally {
                 await fs.promises.rm(temporary, {force: true});
             }
-        })();
+        });
+        // Rapid preview selections must not launch multiple CPU-heavy encoders.
+        queue = task.catch(() => {});
         pending.set(key, task);
         task.finally(() => pending.delete(key)).catch(() => {});
         return task;

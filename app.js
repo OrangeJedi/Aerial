@@ -334,19 +334,13 @@ function createJSONConfigWindow() {
 app.allowRendererProcessReuse = true
 app.whenReady().then(startUp);
 
-function startUp() {
+async function startUp() {
     //Uncomment the line below when compiling the .scr file
     //store.set('useTray', false);
     let firstTime = false;
     if (!store.get("configured") || store.get("version") !== app.getVersion()) {
         firstTime = true;
-        //make video cache directory
-        if (!fs.existsSync(path.join(app.getPath('userData'), "videos"))) {
-            fs.mkdirSync(path.join(app.getPath('userData'), "videos"));
-        }
-        if (!fs.existsSync(path.join(app.getPath('userData'), "videos", "temp"))) {
-            fs.mkdirSync(path.join(app.getPath('userData'), "videos", "temp"));
-        }
+        await fs.promises.mkdir(path.join(app.getPath('userData'), 'videos', 'temp'), {recursive: true});
         setUpConfigFile();
     }
     calculateAstronomy();
@@ -363,11 +357,8 @@ function startUp() {
     if (process.argv.includes("/nq")) {
         nq = true;
     }
-    clearCacheTemp();
-    if (store.get('videoCacheRemoveUnallowed')) {
-        removeAllUnallowedVideosInCache();
-    }
-    removeAllNeverAllowedVideosInCache();
+    await clearCacheTemp();
+    pruneVideoCache();
     if (process.argv.includes("/c")) {
         createConfigWindow(process.argv);
     } else if (process.argv.includes("/p")) {
@@ -394,40 +385,45 @@ function startUp() {
 
 //loads the config file with the default setting if not set up already
 function setUpConfigFile() {
+    const snapshot = store.store;
+    const settings = {
+        get: key => snapshot[key],
+        set: (key, value) => { snapshot[key] = value; }
+    };
     //update video info
-    if (!store.get('allowedVideos')) {
+    if (!settings.get('allowedVideos')) {
         let allowedVideos = [];
         for (let i = 0; i < videos.length; i++) {
             allowedVideos.push(videos[i].id);
         }
-        store.set('allowedVideos', allowedVideos);
+        settings.set('allowedVideos', allowedVideos);
     }
-    store.set('downloadedVideos', store.get('downloadedVideos') ?? []);
-    store.set('alwaysDownloadVideos', store.get('alwaysDownloadVideos') ?? []);
-    store.set('neverDownloadVideos', store.get('neverDownloadVideos') ?? []);
-    store.set('videoProfiles', store.get('videoProfiles') ?? []);
-    store.set('customVideos', store.get('customVideos') ?? []);
+    settings.set('downloadedVideos', settings.get('downloadedVideos') ?? []);
+    settings.set('alwaysDownloadVideos', settings.get('alwaysDownloadVideos') ?? []);
+    settings.set('neverDownloadVideos', settings.get('neverDownloadVideos') ?? []);
+    settings.set('videoProfiles', settings.get('videoProfiles') ?? []);
+    settings.set('customVideos', settings.get('customVideos') ?? []);
 
     //start up settings
-    store.set('useTray', store.get('useTray') ?? true);
-    store.set('startAfter', store.get('startAfter') ?? 10);
-    store.set('blankScreen', store.get('blankScreen') ?? true);
-    store.set('blankAfter', store.get('blankAfter') ?? 30);
-    store.set('sleepAfterBlank', store.get('sleepAfterBlank') ?? true);
-    store.set('lockAfterRun', store.get('lockAfterRun') ?? false);
-    store.set('lockAfterRunAfter', store.get('lockAfterRunAfter') ?? 15);
-    store.set('runOnBattery', store.get('runOnBattery') ?? true);
-    store.set('updateAvailable', false);
-    store.set('enableGlobalShortcut', store.get('enableGlobalShortcut') ?? true);
-    store.set('globalShortcutModifier1', store.get('globalShortcutModifier1') ?? "Super");
-    store.set('globalShortcutModifier2', store.get('globalShortcutModifier2') ?? "+Control");
-    store.set('globalShortcutKey', store.get('globalShortcutKey') ?? "A");
+    settings.set('useTray', settings.get('useTray') ?? true);
+    settings.set('startAfter', settings.get('startAfter') ?? 10);
+    settings.set('blankScreen', settings.get('blankScreen') ?? true);
+    settings.set('blankAfter', settings.get('blankAfter') ?? 30);
+    settings.set('sleepAfterBlank', settings.get('sleepAfterBlank') ?? true);
+    settings.set('lockAfterRun', settings.get('lockAfterRun') ?? false);
+    settings.set('lockAfterRunAfter', settings.get('lockAfterRunAfter') ?? 15);
+    settings.set('runOnBattery', settings.get('runOnBattery') ?? true);
+    settings.set('updateAvailable', false);
+    settings.set('enableGlobalShortcut', settings.get('enableGlobalShortcut') ?? true);
+    settings.set('globalShortcutModifier1', settings.get('globalShortcutModifier1') ?? "Super");
+    settings.set('globalShortcutModifier2', settings.get('globalShortcutModifier2') ?? "+Control");
+    settings.set('globalShortcutKey', settings.get('globalShortcutKey') ?? "A");
     //playback settings
-    store.set('playbackSpeed', store.get('playbackSpeed') ?? 1);
-    store.set('skipVideosWithKey', store.get('skipVideosWithKey') ?? true);
-    store.set('skipKey', store.get('skipKey') ?? "ArrowRight");
-    store.set('avoidDuplicateVideos', store.get('avoidDuplicateVideos') ?? true);
-    store.set('videoFilters', store.get('videoFilters') ?? [{
+    settings.set('playbackSpeed', settings.get('playbackSpeed') ?? 1);
+    settings.set('skipVideosWithKey', settings.get('skipVideosWithKey') ?? true);
+    settings.set('skipKey', settings.get('skipKey') ?? "ArrowRight");
+    settings.set('avoidDuplicateVideos', settings.get('avoidDuplicateVideos') ?? true);
+    settings.set('videoFilters', settings.get('videoFilters') ?? [{
         name: 'blur',
         value: 0,
         min: 0,
@@ -456,45 +452,45 @@ function setUpConfigFile() {
         suffix: "%",
         defaultValue: 0
     },]);
-    store.set('transitionType', store.get("transitionType") ?? "dissolve");
-    store.set('transitionDirection', store.get("transitionDirection") ?? "");
-    store.set('videoTransitionLength', store.get('videoTransitionLength') ?? 2000);
-    store.set('easierTransitions', store.get('easierTransitions') ?? false);
-    store.set('fillMode', store.get('fillMode') ?? "stretch");
-    store.set('allowH265', store.get('allowH265') ?? true);
-    store.set('allow4K', store.get('allow4K') ?? true);
-    store.set('prefer4K240', store.get('prefer4K240') ?? false);
+    settings.set('transitionType', settings.get("transitionType") ?? "dissolve");
+    settings.set('transitionDirection', settings.get("transitionDirection") ?? "");
+    settings.set('videoTransitionLength', settings.get('videoTransitionLength') ?? 2000);
+    settings.set('easierTransitions', settings.get('easierTransitions') ?? false);
+    settings.set('fillMode', settings.get('fillMode') ?? "stretch");
+    settings.set('allowH265', settings.get('allowH265') ?? true);
+    settings.set('allow4K', settings.get('allow4K') ?? true);
+    settings.set('prefer4K240', settings.get('prefer4K240') ?? false);
     //1.2.0 changes the default transition length because of internal changes
-    if (store.get('videoTransitionLength') === 1000) {
-        store.set('videoTransitionLength', 2000);
+    if (settings.get('videoTransitionLength') === 1000) {
+        settings.set('videoTransitionLength', 2000);
     }
     //time & location settings
-    store.set('timeOfDay', store.get('timeOfDay') ?? false);
-    store.set('sunrise', store.get('sunrise') ?? "06:00");
-    store.set('sunset', store.get('sunset') ?? "18:00");
-    store.set('useLocationForSunrise', store.get('useLocationForSunrise') ?? false);
-    store.set('latitude', store.get('latitude') ?? "");
-    store.set('longitude', store.get('longitude') ?? "");
-    store.set('astronomy', store.get('astronomy') ?? astronomy)
+    settings.set('timeOfDay', settings.get('timeOfDay') ?? false);
+    settings.set('sunrise', settings.get('sunrise') ?? "06:00");
+    settings.set('sunset', settings.get('sunset') ?? "18:00");
+    settings.set('useLocationForSunrise', settings.get('useLocationForSunrise') ?? false);
+    settings.set('latitude', settings.get('latitude') ?? "");
+    settings.set('longitude', settings.get('longitude') ?? "");
+    settings.set('astronomy', settings.get('astronomy') ?? astronomy)
     //multiscreen settings
-    store.set('sameVideoOnScreens', store.get('sameVideoOnScreens') ?? false);
-    store.set('onlyShowVideoOnPrimaryMonitor', store.get('onlyShowVideoOnPrimaryMonitor') ?? false);
+    settings.set('sameVideoOnScreens', settings.get('sameVideoOnScreens') ?? false);
+    settings.set('onlyShowVideoOnPrimaryMonitor', settings.get('onlyShowVideoOnPrimaryMonitor') ?? false);
     //cache settings
-    store.set('videoCache', store.get('videoCache') ?? false);
-    store.set('videoCacheProfiles', store.get('videoCacheProfiles') ?? false);
-    store.set('videoCacheSize', getCacheSize());
-    store.set('videoCacheRemoveUnallowed', store.get('videoCacheRemoveUnallowed') ?? false);
-    store.set('cachePath', store.get('cachePath') ?? cachePath);
-    store.set('prepareCompatibleVideos', store.get('prepareCompatibleVideos') ?? false);
-    store.set('deleteOriginalsAfterConversion', store.get('deleteOriginalsAfterConversion') ?? true);
-    store.set('immediatelyUpdateVideoCache', store.get('immediatelyUpdateVideoCache') ?? true);
+    settings.set('videoCache', settings.get('videoCache') ?? false);
+    settings.set('videoCacheProfiles', settings.get('videoCacheProfiles') ?? false);
+    settings.set('videoCacheSize', settings.get('videoCacheSize') ?? 0);
+    settings.set('videoCacheRemoveUnallowed', settings.get('videoCacheRemoveUnallowed') ?? false);
+    settings.set('cachePath', settings.get('cachePath') ?? cachePath);
+    settings.set('prepareCompatibleVideos', settings.get('prepareCompatibleVideos') ?? false);
+    settings.set('deleteOriginalsAfterConversion', settings.get('deleteOriginalsAfterConversion') ?? true);
+    settings.set('immediatelyUpdateVideoCache', settings.get('immediatelyUpdateVideoCache') ?? true);
     //check for downloaded videos
     updateVideoCache();
     //text settings
-    store.set('textFont', store.get('textFont') ?? "Segoe UI");
-    store.set('textSize', store.get('textSize') ?? "2");
-    store.set('textColor', store.get('textColor') ?? "#FFFFFF");
-    let displayText = store.get('displayText');
+    settings.set('textFont', settings.get('textFont') ?? "Segoe UI");
+    settings.set('textSize', settings.get('textSize') ?? "2");
+    settings.set('textColor', settings.get('textColor') ?? "#FFFFFF");
+    let displayText = settings.get('displayText');
     if (displayText) {
         if (!displayText.topleft[0]) {
             displayText = undefined;
@@ -511,13 +507,14 @@ function setUpConfigFile() {
         displayText.positionList.forEach((v) => {
             displayText[v] = temp;
         });
-        store.set('displayText', displayText);
+        settings.set('displayText', displayText);
     }
-    store.set('randomSpeed', store.get('randomSpeed') ?? 30);
+    settings.set('randomSpeed', settings.get('randomSpeed') ?? 30);
 
     //config
-    store.set('version', app.getVersion());
-    store.set("configured", true);
+    settings.set('version', app.getVersion());
+    settings.set("configured", true);
+    store.set(snapshot);
 }
 
 //setUpConfigFile();
@@ -559,25 +556,12 @@ ipcMain.on('keyPress', (event, key) => {
 });
 
 ipcMain.on('updateCache', (event) => {
-    const path = cachePath;
-    let videoList = [];
-    fs.readdir(path, (err, files) => {
-        files.forEach(file => {
-            if (file.includes('.mov')) {
-                videoList.push(file.slice(0, file.length - 4));
-            }
-        });
-        if (!downloading) {
-            store.set('downloadedVideos', videoList);
-        }
-        store.set('videoCacheSize', getCacheSize());
-        event.reply('displaySettings');
-    });
+    updateVideoCache(() => event.reply('displaySettings'));
     updateCustomVideos();
 });
 
-ipcMain.on('deleteCache', (event) => {
-    removeAllVideosInCache();
+ipcMain.on('deleteCache', async (event) => {
+    await removeAllVideosInCache();
     event.reply('displaySettings');
 });
 
@@ -616,22 +600,17 @@ ipcMain.on('selectCacheLocation', async (event, arg) => {
     if (newPath != undefined) {
         cachePath = newPath;
         store.set('cachePath', newPath);
-        fs.mkdirSync(path.join(store.get('cachePath'), "temp"), {recursive: true});
+        await fs.promises.mkdir(path.join(newPath, "temp"), {recursive: true});
         updateVideoCache(() => {
             event.reply('displaySettings');
         });
     }
 });
 
-ipcMain.on('refreshCache', (event) => {
+ipcMain.on('refreshCache', async (event) => {
     if (store.get('immediatelyUpdateVideoCache')) {
-        if (!downloading) {
-            downloadVideos();
-        }
-        if (store.get('videoCacheRemoveUnallowed')) {
-            removeAllUnallowedVideosInCache();
-            removeAllNeverAllowedVideosInCache();
-        }
+        await pruneVideoCache();
+        downloadVideos();
     }
 });
 
@@ -715,7 +694,7 @@ ipcMain.handle('compatibleVideo', async (event, id) => {
             console.error('Unable to delete converted original', error);
         }
     }
-    store.set('videoCacheSize', getCacheSize());
+    store.set('videoCacheSize', await getCacheSizeAsync());
     return source;
 });
 
@@ -837,201 +816,227 @@ function updateCustomVideos() {
     store.set('allowedVideos', allowedVideos);
 }
 
-function downloadFile(file_url, targetPath, callback) {
-    // Save variable to know progress
-    var received_bytes = 0;
-    var total_bytes = 0;
-
-    agentOptions = {
+function downloadFile(file_url, targetPath) {
+    const {pipeline} = require('stream/promises');
+    const agent = new https.Agent({
         host: 'sylvan.apple.com', path: '/', rejectUnauthorized: false
-    };
-
-    let agent = new https.Agent(agentOptions);
-
-    let req = request({
-        method: 'GET', uri: file_url, agent: agent
     });
-
-    let out = fs.createWriteStream(targetPath);
-    req.pipe(out);
-
-    req.on('response', function (data) {
-        // Change the total bytes value to get progress later.
-        total_bytes = parseInt(data.headers['content-length']);
+    const input = request({method: 'GET', uri: file_url, agent});
+    input.on('response', response => {
+        if (response.statusCode !== 200) {
+            input.destroy(new Error(`Video download returned HTTP ${response.statusCode}`));
+        }
     });
-
-    req.on('data', function (chunk) {
-        // Update the received bytes
-        received_bytes += chunk.length;
-
-        showProgress(received_bytes, total_bytes);
-    });
-
-    req.on('end', function (e) {
-        //console.log("File successfully downloaded");
-        callback();
-    });
-
-    req.on('error', function (err) {
-        //console.error(err)
-    });
-
-    function showProgress(received, total) {
-        let percentage = (received * 100) / total;
-        //console.log(percentage + "% | " + received + " bytes out of " + total + " bytes.");
-    }
+    // Pipeline waits for the output file to finish and propagates errors on either stream.
+    return pipeline(input, fs.createWriteStream(targetPath));
 }
 
-function downloadVideos() {
-    let allowedVideos = getVideosToDownload();
-    let downloadedVideos = store.get('downloadedVideos') ?? [];
-    let flag = false;
-    for (let i = 0; i < allowedVideos.length; i++) {
-        if (!downloadedVideos.includes(allowedVideos[i]) && allowedVideos[i][0] !== "_"
-            && !(store.get('prepareCompatibleVideos') && store.get('deleteOriginalsAfterConversion')
-                && fs.existsSync(convertedPath(path.join(cachePath, 'converted'), {id: allowedVideos[i]})))) {
-            let flag = true;
-            let index = videos.findIndex((v) => {
-                if (allowedVideos[i] === v.id) {
-                    return true;
+async function downloadVideos() {
+    if (downloading) {
+        return;
+    }
+    downloading = true;
+    try {
+        while (true) {
+            const snapshot = store.store;
+            const settings = {get: key => snapshot[key]};
+            const allowed = getVideosToDownload(settings);
+            const downloaded = new Set(snapshot.downloadedVideos || []);
+            let next;
+            const destination = cachePath;
+            for (const id of allowed) {
+                if (downloaded.has(id) || id[0] === '_') {
+                    continue;
                 }
-            });
-            //console.log(allowedVideos[i]);
-            //console.log(`Downloading ${videos[index].name}`);
-            const source = getVideoSources(videos[index], store)[0];
-            downloadFile(source, `${cachePath}/temp/${allowedVideos[i]}.mov`, () => {
-                fs.copyFileSync(`${cachePath}/temp/${allowedVideos[i]}.mov`, `${cachePath}/${allowedVideos[i]}.mov`);
-                fs.unlink(`${cachePath}/temp/${allowedVideos[i]}.mov`, (err) => {
+                if (snapshot.prepareCompatibleVideos && snapshot.deleteOriginalsAfterConversion) {
+                    try {
+                        await fs.promises.access(convertedPath(path.join(destination, 'converted'), {id}));
+                        continue;
+                    } catch (error) {
+                        if (error.code !== 'ENOENT') {
+                            throw error;
+                        }
+                    }
+                }
+                next = videosById.get(id);
+                break;
+            }
+            if (!next) {
+                break;
+            }
+            const temporary = path.join(destination, 'temp', `${next.id}.mov`);
+            try {
+                await downloadFile(getVideoSources(next, settings)[0], temporary);
+                // A cache location change invalidates work targeting the old directory.
+                if (destination !== cachePath) {
+                    continue;
+                }
+                await fs.promises.copyFile(temporary, path.join(destination, `${next.id}.mov`));
+                const size = await getCacheSizeAsync(destination);
+                if (destination === cachePath) {
+                    store.set({
+                        downloadedVideos: [...new Set([...(store.get('downloadedVideos') || []), next.id])],
+                        videoCacheSize: size
+                    });
+                }
+            } finally {
+                await fs.promises.unlink(temporary).catch(error => {
+                    if (error.code !== 'ENOENT') {
+                        console.error('Unable to remove temporary video', error);
+                    }
                 });
-                downloadedVideos.push(allowedVideos[i]);
-                store.set('downloadedVideos', downloadedVideos);
-                store.set('videoCacheSize', getCacheSize());
-                downloadVideos();
-            });
-            break;
-        }
-    }
-    downloading = flag;
-}
-
-function getVideosToDownload() {
-    let allowedVideos = store.get('videoCache') ? store.get('allowedVideos') : [];
-    store.get('alwaysDownloadVideos').forEach(e => {
-        allowedVideos.push(e);
-    });
-    if (store.get("videoCacheProfiles") && store.get('videoCache')) {
-        store.get('videoProfiles').forEach(e => {
-            allowedVideos.push(...e.videos);
-        });
-    }
-    allowedVideos = allowedVideos.filter(function (item, pos, self) {
-        return self.indexOf(item) === pos;
-    });
-    store.get('neverDownloadVideos').forEach(e => {
-        if (allowedVideos.includes(e)) {
-            allowedVideos = allowedVideos.splice(allowedVideos.indexOf(e), 1);
-        }
-    });
-    return allowedVideos.filter(id => {
-        const video = videos.find(video => video.id === id);
-        return video && getVideoSources(video, store).length > 0;
-    });
-}
-
-//cache functions
-function getAllFilesInCache() {
-    return fs.readdirSync(cachePath);
-}
-
-function getCacheSize() {
-    let totalSize = 0;
-    getAllFilesInCache().forEach(function (filePath) {
-        if (fs.existsSync(`${cachePath}/${filePath}`)) {
-            const entry = path.join(cachePath, filePath);
-            if (fs.statSync(entry).isDirectory()) {
-                if (filePath === 'converted') {
-                    totalSize += fs.readdirSync(entry).reduce((size, file) => size + fs.statSync(path.join(entry, file)).size, 0);
-                }
-            } else {
-                totalSize += fs.statSync(entry).size;
             }
         }
+    } catch (error) {
+        console.error('Unable to download video', error);
+    } finally {
+        downloading = false;
+    }
+}
+
+function getVideosToDownload(settings = store) {
+    const snapshot = settings === store ? store.store : null;
+    if (snapshot) {
+        settings = {get: key => snapshot[key]};
+    }
+    const allowed = new Set(settings.get('videoCache') ? settings.get('allowedVideos') : []);
+    for (const id of settings.get('alwaysDownloadVideos') || []) {
+        allowed.add(id);
+    }
+    if (settings.get('videoCacheProfiles') && settings.get('videoCache')) {
+        for (const profile of settings.get('videoProfiles') || []) {
+            profile.videos.forEach(id => allowed.add(id));
+        }
+    }
+    const never = new Set(settings.get('neverDownloadVideos') || []);
+    return [...allowed].filter(id => {
+        const video = videosById.get(id);
+        return !never.has(id) && video && getVideoSources(video, settings).length > 0;
     });
-    return totalSize;
+}
+
+async function getCacheSizeAsync(directory = cachePath) {
+    let size = 0;
+    const entries = await fs.promises.readdir(directory, {withFileTypes: true});
+    for (const entry of entries) {
+        const file = path.join(directory, entry.name);
+        try {
+            if (entry.isDirectory()) {
+                if (entry.name === 'converted') {
+                    size += await getCacheSizeAsync(file);
+                }
+            } else {
+                size += (await fs.promises.stat(file)).size;
+            }
+        } catch (error) {
+            if (error.code !== 'ENOENT') {
+                throw error;
+            }
+        }
+    }
+    return size;
+}
+
+// Cache maintenance runs in order so repeated changes do not overlap deletions.
+let cacheMaintenance = Promise.resolve();
+
+function maintainCache(work) {
+    cacheMaintenance = cacheMaintenance.then(work).catch(error => {
+        console.error('Unable to maintain video cache', error);
+    });
+    return cacheMaintenance;
+}
+
+async function unlinkCachedFile(file) {
+    try {
+        await fs.promises.unlink(file);
+        return true;
+    } catch (error) {
+        if (error.code !== 'ENOENT') {
+            throw error;
+        }
+        return false;
+    }
 }
 
 function removeAllVideosInCache() {
-    getAllFilesInCache().forEach(file => {
-        if (file === 'converted') {
-            fs.rmSync(path.join(cachePath, 'converted'), {recursive: true, force: true});
-        } else if (fs.existsSync(`${cachePath}/${file}`)) {
-            fs.unlink(`${cachePath}/${file}`, (err) => {
-            });
+    return maintainCache(async () => {
+        const directory = cachePath;
+        const entries = await fs.promises.readdir(directory, {withFileTypes: true});
+        for (const entry of entries) {
+            const file = path.join(directory, entry.name);
+            if (entry.name === 'converted' && entry.isDirectory()) {
+                // Converted outputs are files; preserve any unexpected subdirectories.
+                const converted = await fs.promises.readdir(file, {withFileTypes: true});
+                for (const output of converted) {
+                    if (!output.isDirectory()) {
+                        await unlinkCachedFile(path.join(file, output.name));
+                    }
+                }
+            } else if (!entry.isDirectory()) {
+                await unlinkCachedFile(file);
+            }
+        }
+        if (directory === cachePath) {
+            await updateVideoCache();
         }
     });
-    store.set('videoCacheSize', getCacheSize());
 }
 
-function removeAllUnallowedVideosInCache() {
-    let allowedVideos = getVideosToDownload();
-    let downloadedVideos = store.get('downloadedVideos') ?? [];
-    for (let i = 0; i < downloadedVideos.length; i++) {
-        if (!allowedVideos.includes(downloadedVideos[i])) {
-            fs.unlink(`${cachePath}/${downloadedVideos[i]}.mov`, (err) => {
-            });
-        }
-    }
-    updateVideoCache();
-}
-
-function removeAllNeverAllowedVideosInCache() {
-    let neverAllowedVideos = store.get('neverDownloadVideos');
-    let downloadedVideos = store.get('downloadedVideos') ?? [];
-    for (let i = 0; i < downloadedVideos.length; i++) {
-        if (neverAllowedVideos.includes(downloadedVideos[i])) {
-            fs.unlink(`${cachePath}/${downloadedVideos[i]}.mov`, (err) => {
-            });
-            downloadedVideos.splice(i, 1);
-            i--;
-        }
-    }
-    store.set('videoCacheSize', getCacheSize());
-}
-
-function updateVideoCache(callback) {
-    let videoList = [];
-    fs.readdir(cachePath, (err, files) => {
-        files.forEach(file => {
-            if (file.includes('.mov')) {
-                videoList.push(file.slice(0, file.length - 4));
+function pruneVideoCache() {
+    return maintainCache(async () => {
+        const snapshot = store.store;
+        const directory = cachePath;
+        const allowed = snapshot.videoCacheRemoveUnallowed
+            ? new Set(getVideosToDownload({get: key => snapshot[key]})) : null;
+        const never = new Set(snapshot.neverDownloadVideos || []);
+        let changed = false;
+        for (const id of snapshot.downloadedVideos || []) {
+            if (never.has(id) || (allowed && !allowed.has(id))) {
+                changed = await unlinkCachedFile(path.join(directory, `${id}.mov`)) || changed;
             }
-        });
-        if (!downloading) {
-            store.set('downloadedVideos', videoList);
         }
-        store.set('videoCacheSize', getCacheSize());
+        // No deletion means no reason to rescan the entire cache or rewrite settings.
+        if (changed && directory === cachePath) {
+            await updateVideoCache();
+        }
+    });
+}
+
+async function updateVideoCache(callback) {
+    const directory = cachePath;
+    try {
+        const files = await fs.promises.readdir(directory);
+        const size = await getCacheSizeAsync(directory);
+        if (directory !== cachePath) {
+            return;
+        }
+        const changes = {videoCacheSize: size};
+        if (!downloading) {
+            changes.downloadedVideos = files.filter(file => file.endsWith('.mov')).map(file => file.slice(0, -4));
+        }
+        store.set(changes);
         if (callback) {
             callback();
         }
-    });
+    } catch (error) {
+        console.error('Unable to update video cache', error);
+    }
 }
 
-function clearCacheTemp() {
-    if (!fs.existsSync(`${app.getPath('userData')}/videos/`)) {
-        fs.mkdirSync(`${app.getPath('userData')}/videos/`);
-    }
-    if (!fs.existsSync(`${app.getPath('userData')}/videos/temp`)) {
-        fs.mkdirSync(`${app.getPath('userData')}/videos/temp`);
-    }
-    if(!fs.existsSync(cachePath + "\\temp")){
-        fs.mkdirSync(cachePath + "\\temp");
-    }
-    let dir = fs.readdirSync(cachePath + "\\temp").forEach(file => {
-        if (fs.existsSync(`${cachePath}/temp/${file}`)) {
-            fs.unlink(`${cachePath}/temp/${file}`, (err) => {
-            });
+async function clearCacheTemp() {
+    const directory = path.join(cachePath, 'temp');
+    try {
+        await fs.promises.mkdir(directory, {recursive: true});
+        const entries = await fs.promises.readdir(directory, {withFileTypes: true});
+        for (const entry of entries) {
+            if (!entry.isDirectory()) {
+                await unlinkCachedFile(path.join(directory, entry.name));
+            }
         }
-    });
+    } catch (error) {
+        console.error('Unable to clear temporary cache', error);
+    }
 }
 
 //open & close functions

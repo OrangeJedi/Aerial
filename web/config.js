@@ -289,8 +289,7 @@ electron.ipcRenderer.on('newCustomVideos', (videoList, path) => {
         }
         allowedVideos.push(customVideos[customVideos.length - 1].id);
     }
-    electron.store.set('customVideos', customVideos);
-    electron.store.set("allowedVideos", allowedVideos);
+    electron.store.set({customVideos, allowedVideos});
     displayCustomVideos();
 });
 
@@ -543,15 +542,30 @@ function updateScreenSelect(position, line) {
     electron.store.set('displayText', text);
 }
 
+function stopVideoPreview() {
+    videoPlayback.release(document.getElementById('videoPlayer'));
+    $('#previewStatus').text('');
+    $('#videoPlayer').hide();
+}
+
+document.addEventListener('visibilitychange', () => {
+    if (document.hidden) {
+        stopVideoPreview();
+    }
+});
+
 //Handles changing menu tabs
 function changeTab(evt, tab) {
+    if (tab !== 'videoTab') {
+        stopVideoPreview();
+    }
     let i, x, tablinks;
     x = document.getElementsByClassName("tab");
     for (i = 0; i < x.length; i++) {
         x[i].style.display = "none";
     }
     tablinks = document.getElementsByClassName("tablink");
-    for (i = 0; i < x.length; i++) {
+    for (i = 0; i < tablinks.length; i++) {
         tablinks[i].className = tablinks[i].className.replace(" w3-blue", "");
     }
     document.getElementById(tab).style.display = "block";
@@ -562,10 +576,10 @@ function changeTab(evt, tab) {
 function selectSetting(item) {
     let list = document.getElementsByClassName("settingsListItem");
     for (i = 0; i < list.length; i++) {
-        list[i].className = list[i].className.replace("w3-deep-orange", "");
+        list[i].className = list[i].className.replace("config-highlight", "");
     }
     if (item !== "general") {
-        document.getElementById(`settingsList-${item}`).className += " w3-deep-orange";
+        document.getElementById(`settingsList-${item}`).className += " config-highlight";
     }
     let cards = document.getElementsByClassName("settingsCard");
     for (i = 0; i < cards.length; i++) {
@@ -577,10 +591,10 @@ function selectSetting(item) {
 function selectTextSetting(item) {
     let list = document.getElementsByClassName("textSettingsListItem");
     for (i = 0; i < list.length; i++) {
-        list[i].className = list[i].className.replace("w3-deep-orange", "");
+        list[i].className = list[i].className.replace("config-highlight", "");
     }
     if (item !== "general") {
-        document.getElementById(`textSettingsList-${item}`).className += " w3-deep-orange";
+        document.getElementById(`textSettingsList-${item}`).className += " config-highlight";
     }
     let cards = document.getElementsByClassName("textSettingsCard");
     for (i = 0; i < cards.length; i++) {
@@ -621,11 +635,11 @@ $(document).ready(() => {
 function selectVideo(index) {
     let x = document.getElementsByClassName("videoListItem");
     for (i = 0; i < x.length; i++) {
-        x[i].className = x[i].className.replace("w3-deep-orange", "");
+        x[i].className = x[i].className.replace("config-highlight", "");
     }
     if (index > -1) {
         downloadedVideos = electron.store.get("downloadedVideos");
-        document.getElementById("videoList-" + index).className += " w3-deep-orange";
+        document.getElementById("videoList-" + index).className += " config-highlight";
         const player = document.getElementById('videoPlayer');
         $('#videoPlayer').show();
         if (!document.getElementById('previewStatus')) {
@@ -657,9 +671,7 @@ function selectVideo(index) {
                               </div>`).css('display', '');
         $('#videoSettings').css('display', 'none');
     } else {
-        videoPlayback.cancel(document.getElementById('videoPlayer'));
-        $('#previewStatus').text('');
-        $('#videoPlayer').attr("src", "").hide();
+        stopVideoPreview();
         $('#videoName').text("Video Settings");
         $('#videoInfo').css('display', 'none');
         $('#videoSettings').html(`<br>
@@ -719,8 +731,7 @@ function changeVideoDownloadState(element, videoId) {
             neverDownloadVideos.push(videoId);
             break;
     }
-    electron.store.set("alwaysDownloadVideos", alwaysDownloadVideos);
-    electron.store.set("neverDownloadVideos", neverDownloadVideos);
+    electron.store.set({alwaysDownloadVideos, neverDownloadVideos});
 }
 
 function changeAllVideoDownloadState(elementId) {
@@ -740,9 +751,10 @@ function changeAllVideoDownloadState(elementId) {
             }
             break;
     }
-    electron.store.set("alwaysDownloadVideos", alwaysDownloadVideos);
-    electron.store.set("neverDownloadVideos", neverDownloadVideos);
+    electron.store.set({alwaysDownloadVideos, neverDownloadVideos});
 }
+
+let refreshCacheTimer;
 
 //Updates the video list when a video is checked
 function checkVideo(e, index) {
@@ -752,7 +764,8 @@ function checkVideo(e, index) {
         allowedVideos.splice(allowedVideos.indexOf(videos[index].id), 1);
     }
     electron.store.set("allowedVideos", allowedVideos);
-    setTimeout(refreshCache, 50);
+    clearTimeout(refreshCacheTimer);
+    refreshCacheTimer = setTimeout(refreshCache, 150);
 }
 
 //automated video selection buttons
@@ -862,9 +875,9 @@ function autocomplete(inp, arr, func) {
         var a, b, i, val = this.value;
         /*close any already open lists of autocompleted values*/
         closeAllLists();
-        /*if (!val) {
-            return false;
-        }*/
+        if (!val) {
+            return;
+        }
         currentFocus = -1;
         /*create a DIV element that will contain the items (values):*/
         a = document.createElement("DIV");
@@ -872,6 +885,8 @@ function autocomplete(inp, arr, func) {
         a.setAttribute("class", "autocomplete-items");
         /*append the DIV element as a child of the autocomplete container:*/
         this.parentNode.appendChild(a);
+        const fragment = document.createDocumentFragment();
+        let matches = 0;
         /*for each item in the array...*/
         for (i = 0; i < arr.length; i++) {
             /*check if the item starts with the same letters as the text field value:*/
@@ -892,9 +907,13 @@ function autocomplete(inp, arr, func) {
                     closeAllLists();
                     func(inp);
                 });
-                a.appendChild(b);
+                fragment.appendChild(b);
+                if (++matches === 30) {
+                    break;
+                }
             }
         }
+        a.appendChild(fragment);
     });
     /*execute a function presses a key on the keyboard:*/
     inp.addEventListener("keydown", function (e) {
@@ -924,7 +943,7 @@ function autocomplete(inp, arr, func) {
 
     function addActive(x) {
         /*a function to classify an item as "active":*/
-        if (!x) return false;
+        if (!x || !x.length) return false;
         /*start by removing the "active" class on all items:*/
         removeActive(x);
         if (currentFocus >= x.length) currentFocus = 0;
@@ -974,11 +993,29 @@ document.addEventListener("click", function (e) {
 
 //Still autocomplete stuff. This part sets up our font lists
 let fontList = [];
-electron.fontListUniversal.getFonts().then(fonts => {
-    autocomplete(document.getElementById('textFont'), fonts, () => {
-        updateSetting('textFont', 'autocomplete')
-    },);
-    fontList = fonts
+let fontListPromise;
+autocomplete(document.getElementById('textFont'), fontList, () => {
+    updateSetting('textFont', 'autocomplete');
+});
+
+// Enumerating installed fonts launches a system process; wait until a font field is used.
+document.addEventListener('focusin', event => {
+    if (!['textFont', 'positionFont'].includes(event.target.id)) {
+        return;
+    }
+    if (!fontListPromise) {
+        fontListPromise = electron.fontListUniversal.getFonts().then(fonts => {
+            fontList.push(...fonts);
+        }).catch(error => {
+            fontListPromise = undefined;
+            console.error('Unable to load installed fonts', error);
+        });
+    }
+    fontListPromise.then(() => {
+        if (document.activeElement === event.target && event.target.value) {
+            event.target.dispatchEvent(new Event('input'));
+        }
+    });
 });
 
 //Preview
