@@ -81,7 +81,8 @@ function prepareNext(id = null, skipSources = []) {
     player.style.visibility = 'hidden';
     resetLayer(player);
     job.promise = (async () => {
-        job.id = id || await electron.ipcRenderer.invoke('newVideoId', currentlyPlaying);
+        job.id = id || videoHistory[historyIndex + 1]
+            || await electron.ipcRenderer.invoke('newVideoId', currentlyPlaying);
         if (job.cancelled || blackScreen) {
             throw new Error('Playback cancelled');
         }
@@ -324,9 +325,12 @@ function transitionTo(target, token) {
     });
 }
 
-async function newVideo(recover = false, previousIndex = null) {
+async function newVideo(recover = false, navigationIndex = null) {
     if (blackScreen) {
         return;
+    }
+    if (!recover && navigationIndex === null && historyIndex < videoHistory.length - 1) {
+        navigationIndex = historyIndex + 1;
     }
     const token = ++generation;
     stopFrameSample();
@@ -335,14 +339,14 @@ async function newVideo(recover = false, previousIndex = null) {
     clearTimeout(nextTimer);
     clearTimeout(preparationTimer);
     // A second skip can interrupt an active transition. Its spare is no longer usable.
-    if (recover || preparingVideo || previousIndex !== null) {
+    if (recover || preparingVideo || navigationIndex !== null) {
         discardPreparation();
     }
     preparingVideo = true;
     if (!recover) {
         failedSources = [];
     }
-    const forcedId = previousIndex !== null ? videoHistory[previousIndex] : null;
+    const forcedId = navigationIndex !== null ? videoHistory[navigationIndex] : null;
     const job = preparation || prepareNext(recover ? currentlyPlaying : forcedId, recover ? failedSources : []);
     const player = containers[job.target];
     resetLayer(containers[currentPlayer]);
@@ -356,8 +360,8 @@ async function newVideo(recover = false, previousIndex = null) {
         currentlyPlaying = id;
         await transitionTo(job.target, token);
         if (token === generation) {
-            if (previousIndex !== null) {
-                historyIndex = previousIndex;
+            if (navigationIndex !== null) {
+                historyIndex = navigationIndex;
             } else if (!recover) {
                 videoHistory = videoHistory.slice(0, historyIndex + 1);
                 videoHistory.push(id);
@@ -382,7 +386,7 @@ async function newVideo(recover = false, previousIndex = null) {
                 failedSources.push(source);
                 videoPlayback.markFailed(job.id, source);
                 currentlyPlaying = job.id;
-                return newVideo(true, previousIndex);
+                return newVideo(true, navigationIndex);
             }
             console.error('VIDEO PLAYBACK ERROR', error);
             nextTimer = setTimeout(newVideo, 3000);

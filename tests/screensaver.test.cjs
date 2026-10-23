@@ -124,6 +124,36 @@ test('previous video ignores preloads and keeps history local to each screen', a
     assert.equal(vm.runInContext('historyIndex', first.context), 1);
 });
 
+test('forward after back replays history before selecting another video', async () => {
+    const result = renderer('none');
+    await flush();
+    vm.runInContext(`
+        videosById.set('second', {id: 'second'});
+        videosById.set('third', {id: 'third'});
+        electron.ipcRenderer.invoke = async () => 'second';
+    `, result.context);
+    result.events.newVideo();
+    await flush();
+    assert.equal(vm.runInContext('currentlyPlaying', result.context), 'second');
+    result.events.previousVideo();
+    await flush();
+    assert.equal(vm.runInContext('currentlyPlaying', result.context), 'sample');
+    vm.runInContext(`
+        electron.ipcRenderer.invoke = async () => 'third';
+        prepareNext();
+    `, result.context);
+    await flush();
+    assert.equal(vm.runInContext('preparation.id', result.context), 'second');
+    result.events.newVideo();
+    await flush();
+    assert.equal(vm.runInContext('currentlyPlaying', result.context), 'second');
+    assert.equal(vm.runInContext('videoHistory.length', result.context), 2);
+    result.events.newVideo();
+    await flush();
+    assert.equal(vm.runInContext('currentlyPlaying', result.context), 'third');
+    assert.equal(vm.runInContext('videoHistory.length', result.context), 3);
+});
+
 for (const type of ['dissolve', 'dipToBlack', 'fade', 'wipe', 'circle', 'fadeCircle']) {
     test(`${type} freezes incoming until midpoint and outgoing after midpoint`, async () => {
         const result = renderer(type, 'left', true);
