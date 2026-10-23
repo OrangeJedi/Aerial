@@ -9,7 +9,7 @@ let customVideos = electron.store.get("customVideos");
 
 //Updates all the <input> tags with their proper values. Called on page load
 function displaySettings() {
-    let checked = ["easierTransitions", "allowH265", "allow4K", "prefer4K240", "timeOfDay", "skipVideosWithKey", "sameVideoOnScreens", "videoCache", "videoCacheProfiles", "videoCacheRemoveUnallowed", "avoidDuplicateVideos", "onlyShowVideoOnPrimaryMonitor", "immediatelyUpdateVideoCache", "useTray", "blankScreen", "sleepAfterBlank", "lockAfterRun", "useLocationForSunrise", "runOnBattery", "enableGlobalShortcut"];
+    let checked = ["prepareCompatibleVideos", "deleteOriginalsAfterConversion", "easierTransitions", "allowH265", "allow4K", "prefer4K240", "timeOfDay", "skipVideosWithKey", "sameVideoOnScreens", "videoCache", "videoCacheProfiles", "videoCacheRemoveUnallowed", "avoidDuplicateVideos", "onlyShowVideoOnPrimaryMonitor", "immediatelyUpdateVideoCache", "useTray", "blankScreen", "sleepAfterBlank", "lockAfterRun", "useLocationForSunrise", "runOnBattery", "enableGlobalShortcut"];
     for (let i = 0; i < checked.length; i++) {
         $(`#${checked[i]}`).prop('checked', electron.store.get(checked[i]));
     }
@@ -78,7 +78,7 @@ function updateSetting(setting, type) {
                     return true;
                 }
             });
-            s[index].value = document.getElementById(setting).value;
+            s[index].value = Number(document.getElementById(setting).value);
             electron.store.set('videoFilters', s);
             break;
         case "autocomplete":
@@ -138,6 +138,9 @@ function resetFilterSettings() {
 
 //Updated input fields that may be effected by another input
 function updateSettingVisibility() {
+    const conversionDisabled = !electron.store.get('prepareCompatibleVideos');
+    $('#deleteOriginalsAfterConversion').prop('disabled', conversionDisabled);
+    $('label[for="deleteOriginalsAfterConversion"]').css('opacity', conversionDisabled ? '0.5' : '1');
     const disablePreference = !electron.store.get('allowH265') || !electron.store.get('allow4K');
     $('#prefer4K240').prop('disabled', disablePreference);
     $('#prefer4K240Setting').css('opacity', disablePreference ? '0.5' : '1');
@@ -159,6 +162,7 @@ function updateSettingVisibility() {
     //show directions for transitions
     let directions, html = '';
     switch (electron.store.get("transitionType")) {
+        case 'none':
         case 'random':
         case 'dissolve':
         case 'dipToBlack':

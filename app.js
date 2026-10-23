@@ -14,15 +14,16 @@ const {
 } = require('electron');
 const {exec} = require('child_process');
 const videos = require("./videos.json");
+const videosById = new Map(videos.map(video => [video.id, video]));
 const Store = require('electron-store');
 const store = new Store();
 const request = require('request');
 const https = require('https');
 const fs = require('fs');
 const path = require("path");
-const {createCompatibilityPlayer} = require('./playback');
+const {createCompatibilityPlayer, convertedPath, deleteConvertedOriginal} = require('./playback');
 const {getVideoSources} = require('./video-sources');
-const compatibleSource = createCompatibilityPlayer(path.join(app.getPath('userData'), 'compatible-videos'));
+const compatibleSource = createCompatibilityPlayer(() => path.join(store.get('cachePath'), 'converted'));
 const AutoLaunch = require('auto-launch');
 let autoLauncher = new AutoLaunch({
     name: 'Aerial',
@@ -484,6 +485,8 @@ function setUpConfigFile() {
     store.set('videoCacheSize', getCacheSize());
     store.set('videoCacheRemoveUnallowed', store.get('videoCacheRemoveUnallowed') ?? false);
     store.set('cachePath', store.get('cachePath') ?? cachePath);
+    store.set('prepareCompatibleVideos', store.get('prepareCompatibleVideos') ?? false);
+    store.set('deleteOriginalsAfterConversion', store.get('deleteOriginalsAfterConversion') ?? true);
     store.set('immediatelyUpdateVideoCache', store.get('immediatelyUpdateVideoCache') ?? true);
     //check for downloaded videos
     updateVideoCache();
@@ -613,7 +616,7 @@ ipcMain.on('selectCacheLocation', async (event, arg) => {
     if (newPath != undefined) {
         cachePath = newPath;
         store.set('cachePath', newPath);
-        fs.mkdirSync(path.join(store.get('cachePath'), "temp"));
+        fs.mkdirSync(path.join(store.get('cachePath'), "temp"), {recursive: true});
         updateVideoCache(() => {
             event.reply('displaySettings');
         });
@@ -684,7 +687,10 @@ ipcMain.on('updateLocation', (event) => {
     }
 });
 
-ipcMain.handle('compatibleVideo', (event, id) => {
+ipcMain.handle('compatibleVideo', async (event, id) => {
+    if (!store.get('prepareCompatibleVideos')) {
+        throw new Error('Compatible video preparation is disabled');
+    }
     const video = videos.find(video => video.id === id) || (store.get('customVideos') || []).find(video => video.id === id);
     if (!video) {
         throw new Error('Unknown video');
@@ -693,14 +699,24 @@ ipcMain.handle('compatibleVideo', (event, id) => {
     if (!sources.length) {
         throw new Error('Video is excluded by playback settings');
     }
-    const compatibleVideo = {...video, path: sources[0]};
-    if (!video.path && (store.get('downloadedVideos') || []).includes(id)) {
-        const cached = path.join(store.get('cachePath'), `${id}.mov`);
-        if (fs.existsSync(cached)) {
-            return compatibleSource({...video, path: cached}).catch(() => compatibleSource(compatibleVideo));
+    const cached = path.join(store.get('cachePath'), `${id}.mov`);
+    const original = video.path || cached;
+    let source;
+    if (!video.path && fs.existsSync(cached)) {
+        source = await compatibleSource({...video, path: cached}).catch(() => compatibleSource({...video, path: sources[0]}));
+    } else {
+        source = await compatibleSource({...video, path: sources[0]});
+    }
+    if (store.get('prepareCompatibleVideos') && store.get('deleteOriginalsAfterConversion')) {
+        try {
+            await deleteConvertedOriginal(source, original);
+            store.set('downloadedVideos', (store.get('downloadedVideos') || []).filter(value => value !== id));
+        } catch (error) {
+            console.error('Unable to delete converted original', error);
         }
     }
-    return compatibleSource(compatibleVideo);
+    store.set('videoCacheSize', getCacheSize());
+    return source;
 });
 
 ipcMain.handle('newVideoId', (event, lastPlayed) => {
@@ -708,12 +724,21 @@ ipcMain.handle('newVideoId', (event, lastPlayed) => {
         onFirstVideoPlayed();
     }
 
-    let candidates = (store.get('allowedVideos') || []).filter(id => {
-        const video = videos.find(video => video.id === id);
-        return video ? getVideoSources(video, store).length > 0 : (store.get('customVideos') || []).some(video => video.id === id);
+    const snapshot = store.store;
+    const settings = {get: key => snapshot[key]};
+    const customById = new Map((snapshot.customVideos || []).map(video => [video.id, video]));
+    let candidates = (settings.get('allowedVideos') || []).filter(id => {
+        const video = videosById.get(id);
+        return video ? getVideoSources(video, settings).length > 0 : customById.has(id);
     });
-    if (store.get('timeOfDay')) {
-        const timed = candidates.filter(id => tod[getTimeOfDay()].includes(id));
+    // Immediate repeats are allowed only when no other selected, playable video exists.
+    const alternatives = candidates.filter(id => id !== lastPlayed);
+    if (alternatives.length) {
+        candidates = alternatives;
+    }
+    if (settings.get('timeOfDay')) {
+        const timedIds = new Set(tod[getTimeOfDay(settings)]);
+        const timed = candidates.filter(id => timedIds.has(id));
         if (timed.length) {
             candidates = timed;
         }
@@ -721,12 +746,12 @@ ipcMain.handle('newVideoId', (event, lastPlayed) => {
     if (!candidates.length) {
         throw new Error('No selected videos match playback settings');
     }
-    if (store.get('sameVideoOnScreens') && currentlyPlaying !== lastPlayed && candidates.includes(currentlyPlaying)) {
+    if (settings.get('sameVideoOnScreens') && currentlyPlaying !== lastPlayed && candidates.includes(currentlyPlaying)) {
         return currentlyPlaying;
     }
     function newId() {
         let choices = candidates;
-        if (store.get('avoidDuplicateVideos') && candidates.length > 6) {
+        if (settings.get('avoidDuplicateVideos') && candidates.length > 6) {
             const fresh = candidates.filter(id => !previouslyPlayed.includes(id));
             if (fresh.length) {
                 choices = fresh;
@@ -862,7 +887,9 @@ function downloadVideos() {
     let downloadedVideos = store.get('downloadedVideos') ?? [];
     let flag = false;
     for (let i = 0; i < allowedVideos.length; i++) {
-        if (!downloadedVideos.includes(allowedVideos[i]) && allowedVideos[i][0] !== "_") {
+        if (!downloadedVideos.includes(allowedVideos[i]) && allowedVideos[i][0] !== "_"
+            && !(store.get('prepareCompatibleVideos') && store.get('deleteOriginalsAfterConversion')
+                && fs.existsSync(convertedPath(path.join(cachePath, 'converted'), {id: allowedVideos[i]})))) {
             let flag = true;
             let index = videos.findIndex((v) => {
                 if (allowedVideos[i] === v.id) {
@@ -920,7 +947,14 @@ function getCacheSize() {
     let totalSize = 0;
     getAllFilesInCache().forEach(function (filePath) {
         if (fs.existsSync(`${cachePath}/${filePath}`)) {
-            totalSize += fs.statSync(`${cachePath}/${filePath}`).size;
+            const entry = path.join(cachePath, filePath);
+            if (fs.statSync(entry).isDirectory()) {
+                if (filePath === 'converted') {
+                    totalSize += fs.readdirSync(entry).reduce((size, file) => size + fs.statSync(path.join(entry, file)).size, 0);
+                }
+            } else {
+                totalSize += fs.statSync(entry).size;
+            }
         }
     });
     return totalSize;
@@ -928,7 +962,9 @@ function getCacheSize() {
 
 function removeAllVideosInCache() {
     getAllFilesInCache().forEach(file => {
-        if (fs.existsSync(`${cachePath}/${file}`)) {
+        if (file === 'converted') {
+            fs.rmSync(path.join(cachePath, 'converted'), {recursive: true, force: true});
+        } else if (fs.existsSync(`${cachePath}/${file}`)) {
             fs.unlink(`${cachePath}/${file}`, (err) => {
             });
         }
@@ -1116,13 +1152,13 @@ function setTimeOfDayList() {
 
 setTimeOfDayList();
 
-function getTimeOfDay() {
+function getTimeOfDay(settings = store) {
     let cHour = new Date().getHours();
     let cMin = new Date().getMinutes();
-    let sunriseHour = store.get('sunrise').substring(0, 2);
-    let sunriseMinute = store.get('sunrise').substring(3, 5);
-    let sunsetHour = store.get('sunset').substring(0, 2);
-    let sunsetMinute = store.get('sunset').substring(3, 5);
+    let sunriseHour = settings.get('sunrise').substring(0, 2);
+    let sunriseMinute = settings.get('sunrise').substring(3, 5);
+    let sunsetHour = settings.get('sunset').substring(0, 2);
+    let sunsetMinute = settings.get('sunset').substring(3, 5);
     let time = "night";
     if ((cHour === sunriseHour && cMin >= sunriseMinute) || (cHour > sunriseHour && cHour < sunsetHour) || (cHour === sunsetHour && cMin < sunsetMinute)) {
         time = "day";

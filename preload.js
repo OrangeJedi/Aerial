@@ -2,10 +2,23 @@ const {contextBridge, ipcRenderer} = require("electron");
 const Store = require('electron-store');
 const store = new Store();
 const {getVideoSources} = require('./video-sources');
+const {convertedPath} = require('./playback');
+const path = require('path');
+const fs = require('fs');
 
 // Expose protected methods from node modules
 contextBridge.exposeInMainWorld("electron", {
-        videoSources: video => getVideoSources(video, store),
+        convertedVideo: video => {
+            if (!store.get('prepareCompatibleVideos')) {
+                return null;
+            }
+            const file = convertedPath(path.join(store.get('cachePath'), 'converted'), video);
+            return fs.existsSync(file) ? require('url').pathToFileURL(file).href : null;
+        },
+        videoSources: video => {
+            const snapshot = store.store;
+            return getVideoSources(video, {get: key => snapshot[key]});
+        },
         ipcRenderer: {
             send: (channel, data) => {
                 // whitelist channels
