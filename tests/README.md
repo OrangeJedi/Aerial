@@ -20,6 +20,11 @@ The suite covers these critical paths:
 | Preview cleanup, font search limits, unnecessary cache I/O | `config-performance.test.cjs` |
 | Catalog availability and selection/index preservation | `video-list.test.cjs` |
 
+Screensaver placement tests cover taskbars on all four edges, monitors with negative
+coordinates, video and black-screen monitors, and windowed no-quit mode. They simulate
+an upward shift and taskbar work-area placement when showing a window, then verify
+that screensaver mode restores full monitor bounds before reasserting topmost status.
+
 Main-process and renderer tests run production source in controlled VM contexts
 with Electron, DOM, timers and operating-system actions replaced by test doubles.
 These verify behavior without opening windows. Node's coverage report currently

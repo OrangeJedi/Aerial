@@ -191,18 +191,30 @@ test('time-of-day lists include twilight and rebuild without accumulating duplic
     }
 });
 
-for (const primaryOnly of [true, false]) {
-    test(`screensaver creates isolated windows at each monitor bounds, primary only: ${primaryOnly}`, () => {
+for (const [primaryOnly, noQuit, taskbarEdge] of [true, false].flatMap(primaryOnly =>
+    [true, false].flatMap(noQuit => ['bottom', 'top', 'left', 'right'].map(edge => [primaryOnly, noQuit, edge])))) {
+    test(`screensaver covers monitor bounds, primary only: ${primaryOnly}, no quit: ${noQuit}, taskbar: ${taskbarEdge}`, () => {
         const windows = [];
         const displays = [
-            {id: 1, size: {width: 1920, height: 1080}, bounds: {x: 0, y: 0}},
-            {id: 2, size: {width: 1280, height: 720}, bounds: {x: -1280, y: 100}}
+            {id: 1, size: {width: 1920, height: 1080}, bounds: {x: 0, y: 0, width: 1920, height: 1080},
+                workArea: {x: 0, y: 0, width: 1920, height: 1032}},
+            {id: 2, size: {width: 1280, height: 720}, bounds: {x: -1280, y: -100, width: 1280, height: 720},
+                workArea: {x: -1280, y: -100, width: 1280, height: 672}}
         ];
+        for (const display of displays) {
+            display.workArea = {...display.bounds};
+            const vertical = taskbarEdge === 'top' || taskbarEdge === 'bottom';
+            display.workArea[vertical ? 'height' : 'width'] -= 48;
+            if (taskbarEdge === 'top' || taskbarEdge === 'left') {
+                display.workArea[vertical ? 'y' : 'x'] += 48;
+            }
+        }
         class Window {
             constructor(options) {
                 this.options = options;
                 this.events = {};
                 this.messages = [];
+                this.calls = [];
                 this.webContents = {send: (...args) => this.messages.push(args)};
                 windows.push(this);
             }
@@ -210,14 +222,34 @@ for (const primaryOnly of [true, false]) {
             on(name, callback) { this.events[name] = callback; }
             once(name, callback) { this.events[name] = callback; }
             setMenu(value) { assert.equal(value, null); }
-            setAlwaysOnTop(value, level) { assert.equal(value, true); assert.equal(level, 'screen-saver'); }
-            show() { this.shown = true; }
-            focus() { this.focused = true; }
+            setAlwaysOnTop(value, level) {
+                assert.equal(value, true);
+                assert.equal(level, 'screen-saver');
+                this.calls.push('topmost');
+            }
+            show() {
+                this.shown = true;
+                // Simulate Windows shifting the window upward and reserving taskbar space.
+                this.bounds = {...displays[windows.indexOf(this)].workArea};
+                this.bounds.y -= 8;
+                this.calls.push('show');
+            }
+            setBounds(bounds) {
+                assert.equal(this.shown, true);
+                assert.deepEqual(bounds, displays[windows.indexOf(this)].bounds);
+                this.bounds = {...bounds};
+                this.calls.push('bounds');
+            }
+            focus() {
+                assert.equal(this.shown, true, 'focus only after the window is visible');
+                this.focused = true;
+                this.calls.push('focus');
+            }
             isDestroyed() { return false; }
         }
         const context = section('function createSSWindow(', 'function createSSPWindow(', {
             BrowserWindow: Window, path: require('node:path'), __dirname: require('node:path').resolve(__dirname, '..'),
-            nq: false, screens: [], screenIds: [], calculateAstronomy() {},
+            nq: noQuit, screens: [], screenIds: [], calculateAstronomy() {},
             store: {get: key => key === 'onlyShowVideoOnPrimaryMonitor' ? primaryOnly : ['a'], set() {}},
             screen: {getAllDisplays: () => displays, getPrimaryDisplay: () => displays[0],
                 getCursorScreenPoint: () => ({x: -100, y: 200}), getDisplayNearestPoint: () => displays[1]}
@@ -226,16 +258,30 @@ for (const primaryOnly of [true, false]) {
         assert.equal(windows.length, 2);
         windows.forEach((win, i) => {
             assert.equal(win.options.width, displays[i].size.width);
+            assert.equal(win.options.height, displays[i].size.height);
             assert.equal(win.options.x, displays[i].bounds.x);
             assert.equal(win.options.y, displays[i].bounds.y);
             assert.equal(win.options.webPreferences.contextIsolation, true);
             assert.equal(win.options.webPreferences.nodeIntegration, false);
             assert.equal(win.options.webPreferences.backgroundThrottling, false);
-            assert.equal(win.options.fullscreen, true);
+            assert.equal(win.options.fullscreen, false);
+            assert.equal(win.options.thickFrame, noQuit);
+            assert.equal(win.options.skipTaskbar, !noQuit);
+            assert.equal(win.options.frame, noQuit);
+            assert.equal(win.options.resizable, noQuit);
             assert.equal(win.shown, undefined);
             win.events['ready-to-show']();
             assert.deepEqual(win.messages, [['screenNumber', i]]);
             assert.equal(win.shown, true);
+            if (!noQuit) {
+                assert.deepEqual(win.bounds, displays[i].bounds,
+                    'restore every monitor edge after native placement, including the taskbar area');
+                assert.notDeepEqual(win.bounds, displays[i].workArea);
+            }
+            assert.deepEqual(win.calls, [
+                ...(noQuit ? [] : ['topmost']), 'show',
+                ...(noQuit ? [] : ['bounds', 'topmost']), ...(i === 1 ? ['focus'] : [])
+            ]);
         });
         assert.equal(windows[0].file, 'web/screensaver.html');
         assert.equal(windows[1].file, primaryOnly ? 'web/black.html' : 'web/screensaver.html');

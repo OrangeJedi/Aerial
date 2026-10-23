@@ -179,6 +179,7 @@ function createSSWindow(argv) {
     previouslyPlayed = [];
     let displays = screen.getAllDisplays();
     store.set('numDisplays', displays.length);
+    const cursorDisplayId = screen.getDisplayNearestPoint(screen.getCursorScreenPoint()).id;
     for (let i = 0; i < displays.length; i++) {
         let win = new BrowserWindow({
             width: displays[i].size.width,
@@ -193,9 +194,11 @@ function createSSWindow(argv) {
             },
             x: displays[i].bounds.x,
             y: displays[i].bounds.y,
-            //sets the screensaver to run as windows if the 'no-quit' mode had been set
-            fullscreen: !nq,
+            // Use explicit borderless monitor bounds instead of native fullscreen transitions.
+            fullscreen: false,
             resizable: nq,
+            thickFrame: nq,
+            skipTaskbar: !nq,
             backgroundColor: '#000000',
             frame: nq,
             icon: path.join(__dirname, 'icon.ico'),
@@ -212,6 +215,14 @@ function createSSWindow(argv) {
         win.once('ready-to-show', () => {
             win.webContents.send('screenNumber', i);
             win.show();
+            if (!nq) {
+                // Apply full monitor bounds after Windows has placed the visible window.
+                win.setBounds(displays[i].bounds);
+                win.setAlwaysOnTop(true, 'screen-saver');
+            }
+            if (displays[i].id === cursorDisplayId) {
+                win.focus();
+            }
         })
         if (!nq) {
             win.setMenu(null);
@@ -222,14 +233,7 @@ function createSSWindow(argv) {
         screens.push(win);
         screenIds.push(displays[i].id);
     }
-    //find the screen the cursor is on and focus it so the cursor will hide
-    let mainScreen = screens[screenIds.indexOf(screen.getDisplayNearestPoint(screen.getCursorScreenPoint()).id)];
     startTime = new Date();
-    if (mainScreen) {
-        if (!mainScreen.isDestroyed()) {
-            mainScreen.focus();
-        }
-    }
 }
 
 function createSSPWindow(argv) {
