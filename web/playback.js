@@ -74,6 +74,9 @@ const videoPlayback = (() => {
 
     async function load(player, video, onStatus = () => {}, options = {}) {
         cancel(player);
+        if (!video || typeof video.id !== 'string' || !video.id) {
+            throw new Error('Video metadata is missing or invalid');
+        }
         const state = {pending: true, cancelled: false, abortAttempt: null};
         const cancelled = new Promise((resolve, reject) => {
             state.cancel = () => {

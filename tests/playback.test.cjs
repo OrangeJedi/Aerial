@@ -49,6 +49,16 @@ function renderer(successfulSources, downloaded = [], convert = async () => 'con
 
 const video = {id: 'sample', src: {H2641080p: '1080', H2651080p: 'hevc1080', H2654k: '4k', H2654k240: '240'}};
 
+test('missing video metadata rejects cleanly and leaves playback usable', async () => {
+    const result = renderer(['1080']);
+    for (const missing of [undefined, null, {}, {id: ''}]) {
+        await assert.rejects(result.playback.load(result.player, missing), /Video metadata is missing or invalid/);
+    }
+    assert.deepEqual(result.attempts, []);
+    await result.playback.load(result.player, video);
+    assert.equal(result.player.src, '1080');
+});
+
 test('preview prefers cache and falls back through all qualities', async () => {
     const cached = renderer(['/cache/sample.mov'], ['sample']);
     await cached.playback.load(cached.player, video);

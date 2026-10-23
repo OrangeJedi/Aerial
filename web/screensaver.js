@@ -282,6 +282,13 @@ function transitionTo(target, token) {
             tick(started);
         }
         function tick(now) {
+            try {
+                renderFrame(now);
+            } catch (error) {
+                fail(error);
+            }
+        }
+        function renderFrame(now) {
             if (settled) {
                 return;
             }

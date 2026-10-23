@@ -62,6 +62,9 @@ function renderer(type = 'dissolve', direction = 'left', easierTransitions, over
             release(player) { player.pause(); player.src = ''; player.playbackSource = null; },
             markFailed(id, source) { control.failures.push({id, source}); },
             async load(player, video, status, options) {
+            if (!video) {
+                throw new Error('Video metadata is missing or invalid');
+            }
             status('Preparing a compatible video. This may take a few minutes the first time.');
             loads.push(options);
             player.pause();
@@ -99,6 +102,47 @@ async function flush() {
         await Promise.resolve();
     }
 }
+
+test('transition frame exceptions recover through another source and finish playback', async () => {
+    const result = renderer('wipe');
+    await flush();
+    let failOnce = true;
+    const incoming = result.players[1];
+    Object.defineProperty(incoming.style, 'clipPath', {
+        configurable: true,
+        set(value) {
+            if (failOnce) {
+                failOnce = false;
+                throw new Error('Transition frame failed');
+            }
+        }
+    });
+    await result.tick(500);
+    assert.deepEqual(result.control.failures, [{id: 'sample', source: 'primary'}]);
+    assert.equal(result.loads.length, 2);
+    assert.deepEqual(Array.from(result.loads[1].skipSources), ['primary']);
+    await result.tick(3000);
+    assert.equal(incoming.style.visibility, 'visible');
+    assert.equal(incoming.paused, false);
+    assert.equal(result.players[0].style.visibility, 'hidden');
+    assert.ok([...result.timers.values()].some(timer => timer.delay > 10000));
+});
+
+test('unknown video IDs schedule another selection and recover playback', async () => {
+    const result = renderer('none');
+    await flush();
+    const errors = [];
+    result.context.console = {error: (...args) => errors.push(args)};
+    result.context.electron.ipcRenderer.invoke = async () => 'unknown';
+    result.events.newVideo();
+    await flush();
+    assert.match(errors[0][1].message, /Video metadata is missing or invalid/);
+    assert.ok([...result.timers.values()].some(timer => timer.delay === 3000));
+    result.context.electron.ipcRenderer.invoke = async () => 'sample';
+    await result.tick(3000);
+    assert.equal(result.players[0].style.visibility, 'visible');
+    assert.equal(result.players[0].paused, false);
+});
 
 test('previous video ignores preloads and keeps history local to each screen', async () => {
     const first = renderer('none');
