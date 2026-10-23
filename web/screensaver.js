@@ -1,133 +1,283 @@
 const videos = electron.videos;
-const allowedVideos = electron.store.get("allowedVideos");
-let customVideos = electron.store.get("customVideos");
+const customVideos = electron.store.get('customVideos') || [];
+const containers = [document.getElementById('video'), document.getElementById('video2')];
+const stage = document.getElementById('videoStage');
 let currentlyPlaying = '';
-let transitionTimeout;
-let poiTimeout = [];
-let blackScreen = false;
 let screenNumber = null;
-let randomType, randomDirection;
+let blackScreen = false;
+let poiTimeout = [];
+let currentPlayer = 0;
+let generation = 0;
+let preparingVideo = false;
+let nextTimer;
+let transitionFrame;
+let activeTransition;
+let recoveryPending = false;
+const easierTransitions = electron.store.get('easierTransitions') === true;
+const duration = Math.max(0, Number(electron.store.get('videoTransitionLength')) || 0);
+const playbackRate = Math.max(0.1, Number(electron.store.get('playbackSpeed')) || 1);
+const filters = (electron.store.get('videoFilters') || [])
+    .filter(filter => filter.value !== filter.defaultValue)
+    .map(filter => filter.name + '(' + filter.value + filter.suffix + ')').join(' ');
+for (const player of containers) {
+    player.style.objectFit = electron.store.get('fillMode') === 'crop' ? 'cover' : 'fill';
+    player.style.filter = filters || 'none';
+    player.muted = true;
+}
 
 function quitApp() {
     electron.ipcRenderer.send('quitApp');
 }
-
-//quit when a key is pressed
-document.addEventListener('keydown', (e) => {
-    electron.ipcRenderer.send('keyPress', e.code);
-});
+document.addEventListener('keydown', event => electron.ipcRenderer.send('keyPress', event.code));
 document.addEventListener('mousedown', quitApp);
-setTimeout(function () {
-    var threshold = 5;
-    document.addEventListener('mousemove', function (e) {
-        if (threshold * threshold < e.movementX * e.movementX
-            + e.movementY * e.movementY) {
+setTimeout(() => {
+    document.addEventListener('mousemove', event => {
+        if (event.movementX ** 2 + event.movementY ** 2 > 25) {
             quitApp();
         }
     });
 }, 1500);
 
-let containers = [document.getElementById("video"), document.getElementById("video2")]
-let currentPlayer = 0;
-let prePlayer = 1;
+function resetLayer(player) {
+    player.style.opacity = '1';
+    player.style.clipPath = 'none';
+    player.style.webkitMaskImage = 'none';
+}
 
-let playbackGeneration = 0;
-let videoWaitingTimeout;
-let preparingVideo = false;
+function stopTransition() {
+    cancelAnimationFrame(transitionFrame);
+    if (activeTransition) {
+        activeTransition.cancel();
+        activeTransition = null;
+    }
+}
 
-containers.forEach((player) => {
-    player.addEventListener('play', () => {
-        player.style.backgroundColor = "black";
+function scheduleNext() {
+    clearTimeout(nextTimer);
+    const player = containers[currentPlayer];
+    if (Number.isFinite(player.duration)) {
+        nextTimer = setTimeout(newVideo, Math.max(500,
+            (player.duration - player.currentTime) * 1000 / player.playbackRate - duration - 500));
+    }
+}
+
+// CSS handles all pixels; this loop only advances transition properties.
+async function transitionTo(target, token) {
+    const outgoing = containers[currentPlayer];
+    const incoming = containers[target];
+    const types = ['dissolve', 'dipToBlack', 'fade', 'wipe', 'circle', 'fadeCircle'];
+    let type = electron.store.get('transitionType');
+    if (type === 'random') {
+        type = types[randomInt(0, types.length)];
+    }
+    const directions = ['left', 'right', 'top', 'bottom'];
+    let direction = electron.store.get('transitionDirection');
+    if (direction === 'random') {
+        direction = (type === 'circle' || type === 'fadeCircle')
+            ? (Math.random() < 0.5 ? 'normal' : 'reverse') : directions[randomInt(0, directions.length)];
+    }
+    resetLayer(incoming);
+    incoming.style.visibility = 'visible';
+    incoming.style.zIndex = '1';
+    outgoing.style.zIndex = '0';
+    incoming.pause();
+    const started = performance.now();
+    let switched = false;
+    let textUpdated = false;
+    let playPromise = Promise.resolve();
+    let playDeadline;
+    return new Promise((resolve, reject) => {
+        activeTransition = {cancel: () => {
+            clearTimeout(playDeadline);
+            reject(new Error('Playback cancelled'));
+        }};
+        function tick(now) {
+            if (token !== generation || blackScreen) {
+                reject(new Error('Playback cancelled'));
+                return;
+            }
+            const progress = duration ? Math.min(1, (now - started) / duration) : 1;
+            if (!textUpdated && progress >= 0.33) {
+                textUpdated = true;
+                drawDynamicText();
+            }
+            if (!switched && (!easierTransitions || progress >= 0.5)) {
+                switched = true;
+                if (easierTransitions) {
+                    outgoing.pause();
+                }
+                playPromise = new Promise((resolvePlay, rejectPlay) => {
+                    playDeadline = setTimeout(() => rejectPlay(new Error('Video did not start')), 10000);
+                    incoming.play().then(resolvePlay, rejectPlay);
+                }).finally(() => clearTimeout(playDeadline));
+                playPromise.catch(reject);
+            }
+            if (type === 'dipToBlack') {
+                outgoing.style.opacity = String(Math.max(0, 1 - progress * 2));
+                incoming.style.opacity = String(Math.max(0, progress * 2 - 1));
+            } else if (type === 'wipe') {
+                const hidden = (1 - progress) * 100;
+                const edges = {left: '0 ' + hidden + '% 0 0', right: '0 0 0 ' + hidden + '%',
+                    top: '0 0 ' + hidden + '% 0', bottom: hidden + '% 0 0 0'};
+                incoming.style.clipPath = 'inset(' + (edges[direction] || edges.left) + ')';
+            } else if (type === 'circle' || type === 'fadeCircle') {
+                const reverse = direction === 'reverse';
+                const radius = Math.hypot(innerWidth, innerHeight) / 2;
+                const value = radius * (reverse ? 1 - progress : progress);
+                if (type === 'circle' && !reverse) {
+                    incoming.style.clipPath = 'circle(' + value + 'px at center)';
+                } else {
+                    const inside = reverse ? 'transparent' : 'black';
+                    const outside = reverse ? 'black' : 'transparent';
+                    const feather = type === 'fadeCircle' ? radius * 0.05 : 0;
+                    incoming.style.webkitMaskImage = 'radial-gradient(circle at center, ' + inside + ' '
+                        + Math.max(0, value - feather) + 'px, ' + outside + ' ' + value + 'px)';
+                }
+            } else if (type === 'fade') {
+                const angles = {left: 'to right', right: 'to left', top: 'to bottom', bottom: 'to top',
+                    'top-left': 'to bottom right', 'top-right': 'to bottom left',
+                    'bottom-left': 'to top right', 'bottom-right': 'to top left'};
+                incoming.style.webkitMaskImage = 'linear-gradient(' + (angles[direction] || 'to right')
+                    + ', black ' + (progress * 115 - 15) + '%, transparent ' + (progress * 115) + '%)';
+            } else {
+                incoming.style.opacity = String(progress);
+            }
+            if (progress < 1) {
+                transitionFrame = requestAnimationFrame(tick);
+            } else {
+                playPromise.then(() => {
+                    if (token !== generation || blackScreen) {
+                        reject(new Error('Playback cancelled'));
+                        return;
+                    }
+                    outgoing.pause();
+                    outgoing.style.visibility = 'hidden';
+                    resetLayer(outgoing);
+                    resetLayer(incoming);
+                    currentPlayer = target;
+                    videoPlayback.cancel(outgoing);
+                    outgoing.removeAttribute('src');
+                    outgoing.load();
+                    activeTransition = null;
+                    resolve();
+                }, reject);
+            }
+        }
+        tick(started);
     });
+}
+
+async function newVideo(recover = false) {
+    if (blackScreen) {
+        return;
+    }
+    const token = ++generation;
+    stopTransition();
+    clearTimeout(nextTimer);
+    preparingVideo = true;
+    const target = 1 - currentPlayer;
+    const player = containers[target];
+    videoPlayback.cancel(player);
+    player.pause();
+    player.style.visibility = 'hidden';
+    resetLayer(containers[currentPlayer]);
+    let selectedId;
+    try {
+        const id = recover ? currentlyPlaying : await electron.ipcRenderer.invoke('newVideoId', currentlyPlaying);
+        if (token !== generation || blackScreen) {
+            return;
+        }
+        if (!recover) {
+            failedSources = [];
+        }
+        selectedId = id;
+        const info = (id.startsWith('_') ? customVideos : videos).find(video => video.id === id);
+        await videoPlayback.load(player, info, status => {
+            if (token === generation) {
+                $('#playbackStatus').text(status);
+            }
+        }, {skipSources: recover ? failedSources : []});
+        if (token !== generation || blackScreen) {
+            return;
+        }
+        player.playbackRate = playbackRate;
+        // Easier Transitions holds the loaded first frame until the midpoint.
+        currentlyPlaying = id;
+        await transitionTo(target, token);
+        if (token === generation) {
+            preparingVideo = false;
+            recoveryPending = false;
+            scheduleNext();
+        }
+    } catch (error) {
+        if (token === generation && !blackScreen && error.message !== 'Playback cancelled') {
+            preparingVideo = false;
+            recoveryPending = false;
+            stopTransition();
+            player.pause();
+            player.style.visibility = 'hidden';
+            resetLayer(containers[currentPlayer]);
+            if (player.playbackSource && !failedSources.includes(player.playbackSource)) {
+                failedSources.push(player.playbackSource);
+                currentlyPlaying = selectedId;
+                return newVideo(true);
+            }
+            console.error('VIDEO PLAYBACK ERROR', error);
+            $('#playbackStatus').text('Unable to play this video. Trying another...');
+            nextTimer = setTimeout(newVideo, 3000);
+        }
+    }
+}
+
+let failedSources = [];
+function recoverPlayback() {
+    if (preparingVideo || recoveryPending || blackScreen) {
+        return;
+    }
+    recoveryPending = true;
+    failedSources.push(containers[currentPlayer].playbackSource);
+    newVideo(true);
+}
+for (const player of containers) {
     player.addEventListener('ended', () => {
-        if (player === containers[currentPlayer] && !preparingVideo) {
+        if (player === containers[currentPlayer] && !preparingVideo && !blackScreen) {
             newVideo();
         }
     });
     player.addEventListener('error', () => {
-        if (player === containers[currentPlayer] && !preparingVideo && player.currentTime > 0) {
-            newVideo();
+        if (player === containers[currentPlayer]) {
+            recoverPlayback();
         }
     });
-});
-
-async function newVideo() {
-    if (blackScreen) {
+}
+let health = null;
+setInterval(() => {
+    const player = containers[currentPlayer];
+    if (preparingVideo || blackScreen || player.paused || player.ended) {
+        health = null;
         return;
     }
-    const generation = ++playbackGeneration;
-    preparingVideo = true;
-    const target = prePlayer;
-    const player = containers[target];
-    clearTimeout(videoWaitingTimeout);
-    videoPlayback.cancel(player);
-    try {
-        const id = await electron.ipcRenderer.invoke('newVideoId', currentlyPlaying);
-        if (generation !== playbackGeneration || blackScreen) {
-            return;
+    const quality = player.getVideoPlaybackQuality();
+    if (health && health.source === player.src) {
+        const total = quality.totalVideoFrames - health.total;
+        const dropped = quality.droppedVideoFrames - health.dropped;
+        const stalled = player.currentTime <= health.time + 0.05;
+        health.bad = stalled || (total > 20 && dropped / total > 0.15) ? health.bad + 1 : 0;
+        if (health.bad >= 2) {
+            recoverPlayback();
         }
-        const videoInfo = (id[0] === "_" ? customVideos : videos).find(video => video.id === id);
-        player.pause();
-        player.videoId = id;
-        await videoPlayback.load(player, videoInfo, status => {
-            if (generation === playbackGeneration && !blackScreen) {
-                $('#playbackStatus').text(status);
-            }
-        });
-        if (generation !== playbackGeneration || blackScreen) {
-            return;
-        }
-        player.playbackRate = Number(electron.store.get('playbackSpeed')) || 1;
-        await player.play();
-        if (generation !== playbackGeneration || blackScreen) {
-            return;
-        }
-        currentlyPlaying = id;
-        clearTimeout(transitionTimeout);
-        fadeVideoIn(transitionLength);
-        if (Number.isFinite(player.duration)) {
-            videoWaitingTimeout = setTimeout(newVideo,
-                Math.max(transitionLength + 500, player.duration * 1000 / player.playbackRate - transitionLength - 500));
-        }
-    } catch (error) {
-        if (generation === playbackGeneration && !blackScreen && error.message !== 'Playback cancelled') {
-            preparingVideo = false;
-            console.error('VIDEO PLAYBACK ERROR', error);
-            $('#playbackStatus').text('Unable to play this video. Trying another...');
-            videoWaitingTimeout = setTimeout(newVideo, 3000);
-        }
+    } else {
+        health = {source: player.src, bad: 0};
     }
-}
-
-function switchVideoContainers() {
-    preparingVideo = false;
-    if (videoQuality) {
-        containers[currentPlayer].style.display = 'none';
-        containers[prePlayer].style.display = '';
-    }
-    containers[currentPlayer].pause();
-    let temp = currentPlayer;
-    currentPlayer = prePlayer;
-    transitionPercent = 1;
-    prePlayer = temp;
-}
+    health.time = player.currentTime;
+    health.total = quality.totalVideoFrames;
+    health.dropped = quality.droppedVideoFrames;
+}, 3000);
 
 function drawDynamicText() {
-    let videoInfo;
-    if (currentlyPlaying[0] === "_") {
-        videoInfo = customVideos[customVideos.findIndex((e) => {
-            if (currentlyPlaying === e.id) {
-                return true;
-            }
-        })];
-    } else {
-        let index = videos.findIndex((e) => {
-            if (currentlyPlaying === e.id) {
-                return true;
-            }
-        });
-        videoInfo = videos[index];
-    }
+    poiTimeout = clearTimeouts(poiTimeout);
+    const videoInfo = (currentlyPlaying.startsWith('_') ? customVideos : videos)
+        .find(video => video.id === currentlyPlaying);
 
     //exit the function if no video info is found
     if (!videoInfo) {
@@ -137,12 +287,7 @@ function drawDynamicText() {
     for (let position of displayText.positionList) {
         for (let i = 0; i < displayText[position].length; i++) {
             let line = displayText[position][i];
-            let textArea;
-            if (position !== "random") {
-                textArea = $(`#${position}-${i}`);
-            } else {
-                textArea = $(`#${position}-${i}`);
-            }
+            const textArea = $(`#${position}-${i}`);
             if (line.type === "information") {
                 if (line.infoType === "poi" && position !== "random") {
                     if (videoInfo["pointsOfInterest"] !== undefined) {
@@ -159,78 +304,13 @@ function drawDynamicText() {
     }
 }
 
-let transitionLength = electron.store.get('videoTransitionLength');
-let transitionPercent = 1;
-let transitionSource = "";
-
-function fadeVideoOut(time) {
-    transitionSource = "fadeout";
-    if (time > 0) {
-        transitionTimeout = setTimeout(fadeVideoOut, 16, time - 16);
-    }
-    transitionPercent = time / transitionLength;
-    if (transitionPercent <= 0) {
-        transitionPercent = 0;
-        clearTimeout(transitionTimeout);
-        setTimeout(() => {
-            transitionSource = ""
-        }, 1000);
-    } else if (transitionPercent >= 1) {
-        transitionPercent = 1;
-    }
-}
-
-function fadeTextOut(time) {
-    if (time > 0) {
-        transitionTimeout = setTimeout(fadeTextOut, 16, time - 16);
-    }
-    $('#textDisplayArea').css('opacity', time / transitionLength);
-}
-
-function fadeVideoIn(time) {
-    if (time === transitionLength) {
-        if (transitionSettings.type === "random") {
-            randomType = true;
-            transitionSettings.type = transitionTypes[randomInt(0, transitionTypes.length)];
-            transitionSettings.direction = transitionDirections[transitionSettings.type][randomInt(0, transitionDirections[transitionSettings.type].length)];
-        }
-        if (transitionSettings.direction === "random") {
-            randomDirection = true;
-            transitionSettings.direction = transitionDirections[transitionSettings.type][randomInt(0, transitionDirections[transitionSettings.type].length)];
-        }
-    }
-    if (time > 0) {
-        transitionTimeout = setTimeout(fadeVideoIn, 16, time - 16);
-    }
-    transitionPercent = 1 - (time / transitionLength);
-
-    //update dynamic video text 1/3 of the way through the transition
-    if (transitionPercent >= .33) {
-        drawDynamicText();
-    }
-    if (transitionPercent <= 0) {
-        transitionPercent = 0;
-    } else if (transitionPercent >= 1) {
-        transitionPercent = 1;
-        clearTimeout(transitionTimeout);
-        switchVideoContainers();
-        if (randomType) {
-            transitionSettings.type = "random";
-        }
-        if (randomDirection) {
-            transitionSettings.direction = "random";
-        }
-    }
-}
-
 function changePOI(position, line, currentPOI, poiList) {
-    poiTimeout = clearTimeouts(poiTimeout);
     let poiS = Object.keys(poiList);
     for (let i = 0; i < poiS.length; i++) {
         if (Number(poiS[i]) > currentPOI) {
             $(`#${position}-${line}`).text(poiList[poiS[i]]);
             if (i < poiS.length - 1) {
-                poiTimeout.push(setTimeout(changePOI, (Number(poiS[i + 1]) - Number(poiS[i])) * 1000 || 0, position, line, poiS[i], poiList));
+                poiTimeout.push(setTimeout(changePOI, (Number(poiS[i + 1]) - Number(poiS[i])) * 1000 / playbackRate || 0, position, line, poiS[i], poiList));
             }
             break;
         }
@@ -242,264 +322,6 @@ function clearTimeouts(arr) {
         clearTimeout(arr[i]);
     }
     return [];
-}
-
-const transitionTypes = ["dissolve", "dipToBlack", "fade", "wipe", "circle", "fadeCircle"];
-const transitionDirections = {
-    "dissolve": [""],
-    "dipToBlack": [""],
-    "fade": ["left", "right", "top", "down", "top-left", "top-right", "bottom-left", "bottom-right"],
-    "wipe": ["left", "right", "top", "down"],
-    "circle": ["normal", "reverse"],
-    "fadeCircle": ["normal", "reverse"]
-};
-let transitionSettings = {
-    "type": electron.store.get("transitionType"),
-    "direction": electron.store.get("transitionDirection")
-};
-
-//put the video on the canvas
-function drawVideo() {
-    ctx1.reset();
-    ctx1.filter = filterString;
-    ctx1.globalCompositeOperation = "source-over";
-    ctx1.globalAlpha = 1;
-    if (transitionPercent < 1) {
-        if (transitionSource === "fadeout") {
-            drawImage(ctx1, containers[currentPlayer]);
-            ctx1.fillStyle = `rgba(0,0,0,${1 - transitionPercent})`;
-            ctx1.rect(0, 0, window.innerWidth, window.innerHeight);
-            ctx1.fill();
-        } else {
-            let gradient, maxBound, rad;
-            switch (transitionSettings.type) {
-                case "dissolve":
-                    if (containers[currentPlayer].paused) {
-                        ctx1.fillStyle = `rgb(0, 0, 0)`;
-                        ctx1.rect(0, 0, window.innerWidth, window.innerHeight);
-                        ctx1.fill();
-                    } else {
-                        drawImage(ctx1, containers[currentPlayer]);
-                    }
-                    ctx1.globalCompositeOperation = "destination-out";
-                    ctx1.fillStyle = `rgba(0,0,0,${transitionPercent})`;
-                    ctx1.rect(0, 0, window.innerWidth, window.innerHeight);
-                    ctx1.fill();
-                    ctx1.globalCompositeOperation = "destination-over";
-                    drawImage(ctx1, containers[prePlayer]);
-                    break;
-                case "dipToBlack":
-                    if (transitionPercent <= .5) {
-                        drawImage(ctx1, containers[currentPlayer]);
-                        ctx1.globalCompositeOperation = "destination-out";
-                        ctx1.fillStyle = `rgba(0,0,0,${transitionPercent * 2})`;
-                        ctx1.rect(0, 0, window.innerWidth, window.innerHeight);
-                        ctx1.fill();
-                        ctx1.globalCompositeOperation = "destination-over";
-                        ctx1.fillStyle = `rgb(0, 0, 0)`;
-                        ctx1.rect(0, 0, window.innerWidth, window.innerHeight);
-                        ctx1.fill();
-                    } else {
-                        ctx1.fillStyle = `rgb(0, 0, 0)`;
-                        ctx1.rect(0, 0, window.innerWidth, window.innerHeight);
-                        ctx1.fill();
-                        ctx1.globalCompositeOperation = "destination-out";
-                        ctx1.fillStyle = `rgba(0,0,0,${(transitionPercent - .5) * 2})`;
-                        ctx1.rect(0, 0, window.innerWidth, window.innerHeight);
-                        ctx1.fill();
-                        ctx1.globalCompositeOperation = "destination-over";
-                        drawImage(ctx1, containers[prePlayer]);
-                    }
-                    break;
-                case"fade":
-                    drawImage(ctx1, containers[prePlayer]);
-                    ctx1.globalCompositeOperation = "destination-out";
-                    switch (transitionSettings.direction) {
-                        case "left":
-                            gradient = ctx1.createLinearGradient(0, window.innerHeight / 2, window.innerWidth, window.innerHeight / 2);
-                            break;
-                        case "right":
-                            gradient = ctx1.createLinearGradient(window.innerWidth, window.innerHeight / 2, 0, window.innerHeight / 2);
-                            break;
-                        case "top":
-                            gradient = ctx1.createLinearGradient(window.innerWidth / 2, 0, window.innerWidth / 2, window.innerHeight);
-                            break;
-                        case "bottom":
-                            gradient = ctx1.createLinearGradient(window.innerWidth / 2, window.innerHeight, window.innerWidth / 2, 0);
-                            break;
-                        case "top-left":
-                            gradient = ctx1.createLinearGradient(0, 0, window.innerWidth, window.innerHeight);
-                            break;
-                        case"top-right":
-                            gradient = ctx1.createLinearGradient(window.innerWidth, 0, 0, window.innerHeight);
-                            break;
-                        case"bottom-left":
-                            gradient = ctx1.createLinearGradient(0, window.innerHeight, window.innerWidth, 0);
-                            break;
-                        case"bottom-right":
-                            gradient = ctx1.createLinearGradient(window.innerWidth, window.innerHeight, 0, 0,);
-                            break;
-                    }
-                    gradient.addColorStop(transitionPercent, "rgba(0,0,0,0)");
-                    gradient.addColorStop(transitionPercent + .15 > 1 ? 1 : transitionPercent + .15, `rgba(0, 0, 0, 1)`);
-                    ctx1.fillStyle = gradient;
-                    ctx1.rect(0, 0, window.innerWidth, window.innerHeight);
-                    ctx1.fill();
-                    ctx1.globalCompositeOperation = "destination-over";
-                    drawImage(ctx1, containers[currentPlayer]);
-                    break;
-                case "wipe":
-                    drawImage(ctx1, containers[prePlayer]);
-                    ctx1.globalCompositeOperation = "destination-in";
-                    ctx1.globalAlpha = 1;
-                    ctx1.fillStyle = "#000000";
-                    switch (transitionSettings.direction) {
-                        case "left":
-                            ctx1.rect(0, 0, window.innerWidth * transitionPercent, window.innerHeight);
-                            break;
-                        case "right":
-                            ctx1.rect(window.innerWidth - (window.innerWidth * transitionPercent), 0, window.innerWidth, window.innerHeight);
-                            break;
-                        case "top":
-                            ctx1.rect(0, 0, window.innerWidth, window.innerHeight * transitionPercent);
-                            break;
-                        case "bottom":
-                            ctx1.rect(0, window.innerHeight - (window.innerHeight * transitionPercent), window.innerWidth, window.innerHeight);
-                            break;
-                    }
-
-                    ctx1.fill();
-                    ctx1.globalCompositeOperation = "destination-over";
-                    drawImage(ctx1, containers[currentPlayer]);
-                    break;
-                case "circle":
-                    if (transitionSettings.direction === 'normal') {
-                        drawImage(ctx1, containers[prePlayer]);
-                        maxBound = window.innerWidth > window.innerHeight ? window.innerWidth : window.innerHeight;
-                        rad = maxBound * (transitionPercent > 1 ? 1 : transitionPercent < 0 ? 0 : transitionPercent);
-                        ctx1.fillStyle = "#000000";
-                        ctx1.globalCompositeOperation = "destination-in";
-                        ctx1.arc(window.innerWidth / 2, window.innerHeight / 2, rad, 0, Math.PI * 2);
-                        ctx1.fill();
-
-                        ctx1.globalCompositeOperation = "destination-over";
-                        drawImage(ctx1, containers[currentPlayer]);
-                    } else {
-                        drawImage(ctx1, containers[prePlayer]);
-                        maxBound = window.innerWidth > window.innerHeight ? window.innerWidth : window.innerHeight;
-                        rad = maxBound * (1 - (transitionPercent > 1 ? 1 : transitionPercent < 0 ? 0 : transitionPercent));
-                        ctx1.fillStyle = "#000000";
-                        ctx1.globalCompositeOperation = "destination-out";
-                        ctx1.arc(window.innerWidth / 2, window.innerHeight / 2, rad, 0, Math.PI * 2);
-                        ctx1.fill();
-                        ctx1.globalCompositeOperation = "destination-over";
-                        drawImage(ctx1, containers[currentPlayer]);
-                    }
-                    break;
-                case "fadeCircle" :
-                    drawImage(ctx1, containers[prePlayer]);
-                    ctx1.globalCompositeOperation = "destination-out";
-                    maxBound = window.innerWidth > window.innerHeight ? window.innerWidth : window.innerHeight;
-                    switch (transitionSettings.direction) {
-                        case "reverse":
-                            gradient = ctx1.createRadialGradient(window.innerWidth / 2, window.innerHeight / 2, maxBound, window.innerWidth / 2, window.innerHeight / 2, 0);
-                            break;
-                        default:
-                            gradient = ctx1.createRadialGradient(window.innerWidth / 2, window.innerHeight / 2, 0, window.innerWidth / 2, window.innerHeight / 2, maxBound);
-                            break;
-                    }
-                    gradient.addColorStop(transitionPercent, "rgba(0,0,0,0)");
-                    gradient.addColorStop(transitionPercent + .05 > 1 ? 1 : transitionPercent + .05, `rgba(0, 0, 0, 1)`);
-                    ctx1.fillStyle = gradient;
-                    ctx1.rect(0, 0, window.innerWidth, window.innerHeight);
-                    ctx1.fill();
-                    ctx1.globalCompositeOperation = "destination-over";
-                    drawImage(ctx1, containers[currentPlayer]);
-                    break;
-            }
-        }
-    } else {
-        drawImage(ctx1, containers[currentPlayer]);
-        //ctx1.drawImage(containers[currentPlayer], 0, 0, window.innerWidth, window.innerHeight);
-    }
-    requestAnimationFrame(drawVideo);
-}
-
-//function to scale image properly when drawn
-let aspectRatio = window.innerWidth / window.innerHeight;
-let widthScale = window.innerWidth / ((16 / 9) * window.innerHeight);
-let heightScale = window.innerHeight / (window.innerWidth / (16 / 9));
-
-function drawImage(context, image) {
-    if (image.readyState < 2 || !image.videoWidth) {
-        return;
-    }
-    if (electron.store.get("fillMode") === "stretch" || aspectRatio === 16 / 9) {
-        //stretch
-        context.drawImage(image, 0, 0, window.innerWidth, window.innerHeight);
-    } else if (electron.store.get("fillMode") === "crop") {
-        //crop
-        if (widthScale > 1) {
-            context.drawImage(image, 0, (image.videoHeight - image.videoHeight / widthScale) / 2, image.videoWidth, image.videoHeight / widthScale, 0, 0, window.innerWidth, window.innerHeight);
-        } else {
-            context.drawImage(image, (image.videoWidth - image.videoWidth / heightScale) / 2, 0, image.videoWidth / heightScale, image.videoHeight, 0, 0, window.innerWidth, window.innerHeight);
-        }
-    }
-}
-
-let c1 = document.getElementById('canvasVideo');
-let ctx1 = c1.getContext('2d');
-c1.width = window.innerWidth;
-c1.height = window.innerHeight;
-let videoFilters = electron.store.get('videoFilters');
-let filterString = "";
-for (let i = 0; i < videoFilters.length; i++) {
-    if (videoFilters[i].value !== videoFilters[i].defaultValue) {
-        filterString += `${videoFilters[i].name}(${videoFilters[i].value}${videoFilters[i].suffix}) `;
-    }
-}
-ctx1.filter = filterString;
-
-// Fix for issue #110
-// Replace requestAnimationFrame with our own that never sleeps
-const drawVideoRequests = [];
-const animationFPS = electron.store.get("fps")
-const useAlternateRenderMethod = electron.store.get("alternateRenderMethod")
-let videoQuality = electron.store.get("videoQuality");
-
-if (useAlternateRenderMethod) {
-    function getAnimationFrame(start) {
-        let time = start;
-        const fns = drawVideoRequests.slice();
-        drawVideoRequests.length = 0;
-
-        const t = performance.now();
-        const dt = t - start;
-        const t1 = 1e3 / animationFPS; //60 FPS;
-
-        for (const f of fns) f(dt);
-
-        while (time <= t + t1 / 4) time += t1;
-        setTimeout(getAnimationFrame, time - t, performance.now());
-    }
-
-    function requestAnimationFrame(func) {
-        drawVideoRequests.push(func);
-        return drawVideoRequests.length - 1;
-    }
-
-    if (videoQuality) {
-        $('#video').css('display', '');
-    } else {
-        getAnimationFrame(performance.now());
-        drawVideo();
-    }
-} else {
-    if (videoQuality) {
-        $('#video').css('display', '');
-    } else {
-        drawVideo();
-    }
 }
 
 function runClock(position, line, timeString) {
@@ -519,6 +341,7 @@ let html = "";
 
 function renderText() {
 //create content divs
+    html = "";
     for (let position of displayText.positionList) {
         let align = "";
         if (position.includes("left")) {
@@ -625,13 +448,14 @@ for (let i = 0; i < displayText.random.length; i++) {
 if (random) {
     displayText.random.currentLocation = "none";
     setTimeout(switchRandomText, 750);
-    let randomInterval = setInterval(switchRandomText, electron.store.get('randomSpeed') * 1000);
+    setInterval(switchRandomText, electron.store.get('randomSpeed') * 1000);
 }
 
 function switchRandomText() {
     let newLoc = false;
     let c = 0;
     do {
+        c++;
         if (c > 100) {
             console.error("random overload - nowhere to go");
             break;
@@ -653,36 +477,36 @@ function switchRandomText() {
         $(`#textDisplay-${displayText.random.currentLocation}`).html("");
         displayText.random.currentLocation = newLoc;
         displayTextPosition("random", newLoc);
-        c++;
     } while (!newLoc);
 }
 
 function randomInt(min, max) {
-    return Math.floor(Math.random() * max) - min;
+    return Math.floor(Math.random() * (max - min)) + min;
 }
 
-//play a video
+
 newVideo();
-
-electron.ipcRenderer.on('newVideo', () => {
-    newVideo();
-});
-
+electron.ipcRenderer.on('newVideo', () => newVideo());
 electron.ipcRenderer.on('blankTheScreen', () => {
     blackScreen = true;
-    playbackGeneration++;
-    clearTimeout(videoWaitingTimeout);
-    containers.forEach(player => videoPlayback.cancel(player));
+    generation++;
+    stopTransition();
+    clearTimeout(nextTimer);
+    poiTimeout = clearTimeouts(poiTimeout);
+    containers.forEach(player => {
+        videoPlayback.cancel(player);
+        player.pause();
+    });
     $('#playbackStatus').text('');
-    fadeVideoOut(transitionLength);
-    fadeTextOut(transitionLength)
-    setTimeout(() => {
-        video.src = "";
-        video2.src = "";
-    }, transitionLength + 750);
+    stage.style.transition = 'opacity ' + duration + 'ms linear';
+    stage.style.opacity = '0';
+    $('#textDisplayArea').css({transition: 'opacity ' + duration + 'ms linear', opacity: 0});
+    setTimeout(() => containers.forEach(player => {
+        player.removeAttribute('src');
+        player.load();
+    }), duration);
 });
-
-electron.ipcRenderer.on('screenNumber', (number) => {
+electron.ipcRenderer.on('screenNumber', number => {
     screenNumber = number;
     renderText();
 });

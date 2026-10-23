@@ -119,6 +119,7 @@ function createSSWindow(argv) {
             width: displays[i].size.width,
             height: displays[i].size.height,
             webPreferences: {
+                backgroundThrottling: false,
                 nodeIntegration: false,
                 contextIsolation: true,
                 enableRemoteModule: false,
@@ -129,7 +130,7 @@ function createSSWindow(argv) {
             y: displays[i].bounds.y,
             //sets the screensaver to run as windows if the 'no-quit' mode had been set
             fullscreen: !nq,
-            transparent: true,
+            backgroundColor: '#000000',
             frame: nq,
             icon: path.join(__dirname, 'icon.ico'),
             show: false
@@ -454,10 +455,10 @@ function setUpConfigFile() {
         suffix: "%",
         defaultValue: 0
     },]);
-    store.set('alternateRenderMethod', store.get("alternateRenderMethod") ?? false);
     store.set('transitionType', store.get("transitionType") ?? "dissolve");
     store.set('transitionDirection', store.get("transitionDirection") ?? "");
     store.set('videoTransitionLength', store.get('videoTransitionLength') ?? 2000);
+    store.set('easierTransitions', store.get('easierTransitions') ?? false);
     store.set('fillMode', store.get('fillMode') ?? "stretch");
     store.set('allowH265', store.get('allowH265') ?? true);
     store.set('allow4K', store.get('allow4K') ?? true);
@@ -510,8 +511,6 @@ function setUpConfigFile() {
         store.set('displayText', displayText);
     }
     store.set('randomSpeed', store.get('randomSpeed') ?? 30);
-    store.set('videoQuality', store.get('videoQuality') ?? false);
-    store.set('fps', store.get('fps') ?? 60);
 
     //config
     store.set('version', app.getVersion());

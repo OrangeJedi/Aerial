@@ -14,14 +14,13 @@
     <link href="screensaver.css" rel="stylesheet" type="text/css">
 </head>
 <body style="background-color: #000000">
-<video autoplay width="100%" class="fullscreen-bg__video" id="video" style="display: none">
+<div id="videoStage" aria-hidden="true">
+<video muted playsinline preload="auto" width="100%" class="fullscreen-bg__video" id="video">
     Your browser doesn't support HTML video tags
 </video>
-<video autoplay width="100%" class="fullscreen-bg__video" id="video2" style="display: none">
+<video muted playsinline preload="auto" width="100%" class="fullscreen-bg__video" id="video2">
     Your browser doesn't support HTML video tags
 </video>
-<div class="w3-display-container displayText fullscreen-bg ">
-    <canvas width="1080" height="1920" id="canvasVideo"></canvas>
 </div>
 <div id="textDisplayArea" class="displayText"></div>
 

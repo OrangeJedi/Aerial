@@ -117,3 +117,25 @@ test('4K240 preference keeps cached playback first', async () => {
     await result.playback.load(result.player, video);
     assert.deepEqual(result.attempts, ['/cache/sample.mov']);
 });
+
+
+test('runtime recovery skips sources that loaded but did not play smoothly', async () => {
+    const result = renderer(['240', '4k'], [], undefined, {prefer4K240: true});
+    await result.playback.load(result.player, video, () => {}, {skipSources: ['240']});
+    assert.deepEqual(result.attempts, ['4k']);
+    assert.equal(result.player.playbackSource, '4k');
+});
+
+test('runtime recovery keeps cache preference unless the cache itself failed', async () => {
+    const result = renderer(['1080'], ['sample']);
+    await result.playback.load(result.player, video, () => {}, {skipSources: ['/cache/sample.mov']});
+    assert.deepEqual(result.attempts, ['1080']);
+});
+
+test('an already failed compatibility output is not retried indefinitely', async () => {
+    const result = renderer(['converted']);
+    await assert.rejects(result.playback.load(result.player, video, () => {}, {
+        skipSources: ['1080', 'hevc1080', '4k', '240', 'converted']
+    }), /could not play smoothly/);
+    assert.deepEqual(result.attempts, []);
+});

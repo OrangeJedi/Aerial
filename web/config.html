@@ -32,6 +32,8 @@
                 <h3 class="w3-bar-item"><i class="fa fa-cog"></i> Settings</h3></a>
             <a onclick="selectSetting('playback')" id="settingsList-playback"
                class="w3-bar-item w3-button settingsListItem">Playback</a>
+            <a onclick="selectSetting('resolution')" id="settingsList-resolution"
+               class="w3-bar-item w3-button settingsListItem">Video Resolution</a>
             <a onclick="selectSetting('time')" id="settingsList-time" class="w3-bar-item w3-button settingsListItem">Time
                 & Location</a>
             <a onclick="selectSetting('multiscreen')" id="settingsList-multiscreen"
@@ -96,20 +98,6 @@
                         the
                         most recently played videos</i>
                     <hr>
-                    <input type="checkbox" id="allowH265" class="w3-check"
-                           onchange="updateSetting('allowH265','check')">
-                    <label for="allowH265">Allow H.265 videos</label>
-                    <br>
-                    <input type="checkbox" id="allow4K" class="w3-check"
-                           onchange="updateSetting('allow4K','check')">
-                    <label for="allow4K">Allow 4K videos</label>
-                    <br>
-                    <span id="prefer4K240Setting">
-                        <input type="checkbox" id="prefer4K240" class="w3-check"
-                               onchange="updateSetting('prefer4K240','check')">
-                        <label for="prefer4K240">Prefer 4k240</label>
-                    </span>
-                    <br><br>
                     <label for="fillMode">Fill Mode: </label>
                     <select id="fillMode" onclick="updateSetting('fillMode','select')">
                         <option value="stretch">Stretch</option>
@@ -139,12 +127,37 @@
                     <br>
                     <input type="range" min="500" max="4000" value="2000" step="100" id="videoTransitionLength"
                            class="slider" onchange="updateSetting('videoTransitionLength','slider')">
+                    <br>
+                    <input type="checkbox" id="easierTransitions" class="w3-check"
+                           onchange="updateSetting('easierTransitions','check')">
+                    <label for="easierTransitions">Easier Transitions</label>
                     <hr>
                     <input type="checkbox" id="skipVideosWithKey" class="w3-check"
                            onclick="updateSetting('skipVideosWithKey','check')">
                     <label for="skipVideosWithKey">Use a key to skip videos</label>
                     <br><br>
                     <label for="skipKey">Skip key: </label><input type="text" id="skipKey">
+                </div>
+            </div>
+            <div id="resolutionSettings" class="settingsCard" style="display: none">
+                <div class="w3-container w3-blue cardHeader">
+                    <h3>Video Resolution</h3>
+                </div>
+                <div class="w3-display-container cardContent" style="padding: 2%">
+                    <input type="checkbox" id="allowH265" class="w3-check"
+                           onchange="updateSetting('allowH265','check')">
+                    <label for="allowH265">Allow H.265 videos</label>
+                    <br>
+                    <input type="checkbox" id="allow4K" class="w3-check"
+                           onchange="updateSetting('allow4K','check')">
+                    <label for="allow4K">Allow 4K videos</label>
+                    <br>
+                    <span id="prefer4K240Setting">
+                        <input type="checkbox" id="prefer4K240" class="w3-check"
+                               onchange="updateSetting('prefer4K240','check')">
+                        <label for="prefer4K240">Prefer 4k240</label>
+                    </span>
+                    <br><br>
                 </div>
             </div>
             <div id="timeSettings" class="settingsCard" style="display: none">
@@ -190,20 +203,6 @@
                            onclick="updateSetting('onlyShowVideoOnPrimaryMonitor','check')">
                     <label for="onlyShowVideoOnPrimaryMonitor">Only play videos on the primary screen</label>
                     <br>
-                    <input type="checkbox" id="alternateRenderMethod" class="w3-check"
-                           onclick="updateSetting('alternateRenderMethod','check');">
-                    <label for="alternateRenderMethod">Alternate Render Method
-                        <i>*Use this option if your screensaver freezes on multiple displays</i></label>
-                    <br>
-                    <br>
-                    <div id="alternateRenderMethodFPS">
-                        <label for="fps" id="fpsText">Set the FPS for the Alternate Render Method.</label>
-                        <span class="w3-right" onclick="resetSetting('fps', 'number', 60)"><i
-                                class="fa fa-undo"></i></span>
-                        <br>
-                        <input style="width: 10%; display: inline !important;" class="w3-input" type="number" id="fps"
-                               onchange="updateSetting('fps','number')">
-                    </div>
                 </div>
             </div>
             <div id="styleSettings" class="settingsCard" style="display: none">
@@ -312,10 +311,6 @@
                     <label for="globalShortcutKey"> Key: </label>
                     <input type="text" id="globalShortcutKey">
                     <br><br>
-                    <input type="checkbox" id="videoQuality" class="w3-check"
-                           onclick="updateSetting('videoQuality','check')">
-                    <label for="videoQuality">Disable all video processing</label>
-                    <br>
                     <hr>
                     <button class="w3-button w3-white w3-border w3-border-blue w3-round-large"
                             style="font-size: small"
