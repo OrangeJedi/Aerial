@@ -43,7 +43,12 @@
       "node_modules/ffmpeg-static/**"
     ],
     "win": {
-      "target": "nsis"
+      "target": [
+        {
+          "target": "nsis",
+          "arch": ["x64", "arm64"]
+        }
+      ]
     },
     "nsis": {
       "installerIcon": "icon.ico",
