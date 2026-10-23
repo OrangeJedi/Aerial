@@ -20,6 +20,9 @@ const request = require('request');
 const https = require('https');
 const fs = require('fs');
 const path = require("path");
+const {createCompatibilityPlayer} = require('./playback');
+const {getVideoSources} = require('./video-sources');
+const compatibleSource = createCompatibilityPlayer(path.join(app.getPath('userData'), 'compatible-videos'));
 const AutoLaunch = require('auto-launch');
 let autoLauncher = new AutoLaunch({
     name: 'Aerial',
@@ -456,7 +459,9 @@ function setUpConfigFile() {
     store.set('transitionDirection', store.get("transitionDirection") ?? "");
     store.set('videoTransitionLength', store.get('videoTransitionLength') ?? 2000);
     store.set('fillMode', store.get('fillMode') ?? "stretch");
-    store.set('videoFileType', store.get('videoFileType') ?? "H2641080p");
+    store.set('allowH265', store.get('allowH265') ?? true);
+    store.set('allow4K', store.get('allow4K') ?? true);
+    store.set('prefer4K240', store.get('prefer4K240') ?? false);
     //1.2.0 changes the default transition length because of internal changes
     if (store.get('videoTransitionLength') === 1000) {
         store.set('videoTransitionLength', 2000);
@@ -680,37 +685,60 @@ ipcMain.on('updateLocation', (event) => {
     }
 });
 
+ipcMain.handle('compatibleVideo', (event, id) => {
+    const video = videos.find(video => video.id === id) || (store.get('customVideos') || []).find(video => video.id === id);
+    if (!video) {
+        throw new Error('Unknown video');
+    }
+    const sources = getVideoSources(video, store);
+    if (!sources.length) {
+        throw new Error('Video is excluded by playback settings');
+    }
+    const compatibleVideo = {...video, path: sources[0]};
+    if (!video.path && (store.get('downloadedVideos') || []).includes(id)) {
+        const cached = path.join(store.get('cachePath'), `${id}.mov`);
+        if (fs.existsSync(cached)) {
+            return compatibleSource({...video, path: cached}).catch(() => compatibleSource(compatibleVideo));
+        }
+    }
+    return compatibleSource(compatibleVideo);
+});
+
 ipcMain.handle('newVideoId', (event, lastPlayed) => {
     if (currentlyPlaying === '') {
         onFirstVideoPlayed();
     }
 
-    function newId() {
-        let id = "";
-        if (store.get('timeOfDay')) {
-            let time = getTimeOfDay();
-            id = tod[time][randomInt(0, tod[time].length)];
-        } else {
-            id = allowedVideos[randomInt(0, allowedVideos.length)];
+    let candidates = (store.get('allowedVideos') || []).filter(id => {
+        const video = videos.find(video => video.id === id);
+        return video ? getVideoSources(video, store).length > 0 : (store.get('customVideos') || []).some(video => video.id === id);
+    });
+    if (store.get('timeOfDay')) {
+        const timed = candidates.filter(id => tod[getTimeOfDay()].includes(id));
+        if (timed.length) {
+            candidates = timed;
         }
-        if (store.get('avoidDuplicateVideos') && allowedVideos.length > 6) {
-            if (previouslyPlayed.includes(id)) {
-                return newId();
-            } else {
-                previouslyPlayed.push(id);
-                if (previouslyPlayed.length > (allowedVideos.length * .3)) {
-                    previouslyPlayed.shift();
-                }
+    }
+    if (!candidates.length) {
+        throw new Error('No selected videos match playback settings');
+    }
+    if (store.get('sameVideoOnScreens') && currentlyPlaying !== lastPlayed && candidates.includes(currentlyPlaying)) {
+        return currentlyPlaying;
+    }
+    function newId() {
+        let choices = candidates;
+        if (store.get('avoidDuplicateVideos') && candidates.length > 6) {
+            const fresh = candidates.filter(id => !previouslyPlayed.includes(id));
+            if (fresh.length) {
+                choices = fresh;
             }
         }
+        const id = choices[randomInt(0, choices.length)];
+        previouslyPlayed.push(id);
+        previouslyPlayed = previouslyPlayed.slice(-Math.max(1, Math.floor(candidates.length * 0.3)));
         return id;
     }
 
-    if (store.get('sameVideoOnScreens')) {
-        if (currentlyPlaying !== lastPlayed) {
-            return currentlyPlaying
-        }
-    }
     currentlyPlaying = newId();
     return currentlyPlaying;
 })
@@ -844,7 +872,8 @@ function downloadVideos() {
             });
             //console.log(allowedVideos[i]);
             //console.log(`Downloading ${videos[index].name}`);
-            downloadFile(videos[index].src[store.get('videoFileType')], `${cachePath}/temp/${allowedVideos[i]}.mov`, () => {
+            const source = getVideoSources(videos[index], store)[0];
+            downloadFile(source, `${cachePath}/temp/${allowedVideos[i]}.mov`, () => {
                 fs.copyFileSync(`${cachePath}/temp/${allowedVideos[i]}.mov`, `${cachePath}/${allowedVideos[i]}.mov`);
                 fs.unlink(`${cachePath}/temp/${allowedVideos[i]}.mov`, (err) => {
                 });
@@ -877,7 +906,10 @@ function getVideosToDownload() {
             allowedVideos = allowedVideos.splice(allowedVideos.indexOf(e), 1);
         }
     });
-    return allowedVideos;
+    return allowedVideos.filter(id => {
+        const video = videos.find(video => video.id === id);
+        return video && getVideoSources(video, store).length > 0;
+    });
 }
 
 //cache functions

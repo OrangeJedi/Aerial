@@ -5,6 +5,7 @@
   "description": "Apple TV screen saver for Windows",
   "main": "app.js",
   "scripts": {
+    "test": "node --test tests/*.test.cjs",
     "start": "electron .",
     "dist": "electron-builder",
     "build": "electron-builder build"
@@ -26,12 +27,14 @@
   "dependencies": {
     "auto-launch": "*",
     "electron-store": "*",
+    "ffmpeg-static": "^5.3.0",
     "font-list-universal": "*",
     "json-beautify": "*",
     "request": "*",
     "suncalc": "*"
   },
   "build": {
+    "asarUnpack": ["node_modules/ffmpeg-static/**"],
     "win": {
       "target": "nsis"
     },

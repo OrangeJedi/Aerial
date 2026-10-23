@@ -1,9 +1,11 @@
 const {contextBridge, ipcRenderer} = require("electron");
 const Store = require('electron-store');
 const store = new Store();
+const {getVideoSources} = require('./video-sources');
 
 // Expose protected methods from node modules
 contextBridge.exposeInMainWorld("electron", {
+        videoSources: video => getVideoSources(video, store),
         ipcRenderer: {
             send: (channel, data) => {
                 // whitelist channels
@@ -21,7 +23,7 @@ contextBridge.exposeInMainWorld("electron", {
             },
             // From render to main and back again.
             invoke: (channel, args) => {
-                let validChannels = ["newVideoId"];
+                let validChannels = ["newVideoId", "compatibleVideo"];
                 if (validChannels.includes(channel)) {
                     return ipcRenderer.invoke(channel, args);
                 }

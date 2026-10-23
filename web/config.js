@@ -9,11 +9,11 @@ let customVideos = electron.store.get("customVideos");
 
 //Updates all the <input> tags with their proper values. Called on page load
 function displaySettings() {
-    let checked = ["timeOfDay", "skipVideosWithKey", "sameVideoOnScreens", "videoCache", "videoCacheProfiles", "videoCacheRemoveUnallowed", "avoidDuplicateVideos", "onlyShowVideoOnPrimaryMonitor", "videoQuality", "immediatelyUpdateVideoCache", "useTray", "blankScreen", "sleepAfterBlank", "lockAfterRun", "alternateRenderMethod", "useLocationForSunrise", "runOnBattery", "enableGlobalShortcut"];
+    let checked = ["allowH265", "allow4K", "prefer4K240", "timeOfDay", "skipVideosWithKey", "sameVideoOnScreens", "videoCache", "videoCacheProfiles", "videoCacheRemoveUnallowed", "avoidDuplicateVideos", "onlyShowVideoOnPrimaryMonitor", "videoQuality", "immediatelyUpdateVideoCache", "useTray", "blankScreen", "sleepAfterBlank", "lockAfterRun", "alternateRenderMethod", "useLocationForSunrise", "runOnBattery", "enableGlobalShortcut"];
     for (let i = 0; i < checked.length; i++) {
         $(`#${checked[i]}`).prop('checked', electron.store.get(checked[i]));
     }
-    let numTxt = ["sunrise", "sunset", "textFont", "textSize", "textColor", "startAfter", "blankAfter", "fps", "latitude", "longitude", "randomSpeed", "skipKey", "transitionType", "fillMode", "globalShortcutModifier1", "globalShortcutModifier2", "globalShortcutKey", "lockAfterRunAfter", "videoFileType"];
+    let numTxt = ["sunrise", "sunset", "textFont", "textSize", "textColor", "startAfter", "blankAfter", "fps", "latitude", "longitude", "randomSpeed", "skipKey", "transitionType", "fillMode", "globalShortcutModifier1", "globalShortcutModifier2", "globalShortcutKey", "lockAfterRunAfter"];
     for (let i = 0; i < numTxt.length; i++) {
         $(`#${numTxt[i]}`).val(electron.store.get(numTxt[i]));
     }
@@ -93,6 +93,10 @@ function updateSetting(setting, type) {
 
     }
     updateSettingVisibility();
+    if (['allowH265', 'allow4K', 'prefer4K240'].includes(setting)) {
+        makeList();
+        selectVideo(-1);
+    }
 }
 
 //Sets a setting to its default value, if it exists
@@ -134,6 +138,9 @@ function resetFilterSettings() {
 
 //Updated input fields that may be effected by another input
 function updateSettingVisibility() {
+    const disablePreference = !electron.store.get('allowH265') || !electron.store.get('allow4K');
+    $('#prefer4K240').prop('disabled', disablePreference);
+    $('#prefer4K240Setting').css('opacity', disablePreference ? '0.5' : '1');
     // Shows or hides the FPS settings for the alternate render method
     if (electron.store.get("alternateRenderMethod")) {
         $("#alternateRenderMethodFPS").show(300);
@@ -592,6 +599,9 @@ function makeList() {
     let videoList = "<a onclick=\"selectVideo(-1)\"><h3 class=\"w3-bar-item videoListItem\" id='videoListTitle'><i class=\"fa fa-film\"></i> Videos</h3></a>";
     let headertxt = "";
     for (let i = 0; i < videos.length; i++) {
+        if (!electron.videoSources(videos[i]).length) {
+            continue;
+        }
         if (headertxt !== videos[i].accessibilityLabel) {
             videoList += `<h5 class="w3-bar-item videoListItem" id='videoListTitle'>${videos[i].accessibilityLabel}</h5>`;
             headertxt = videos[i].accessibilityLabel;
@@ -619,11 +629,19 @@ function selectVideo(index) {
     if (index > -1) {
         downloadedVideos = electron.store.get("downloadedVideos");
         document.getElementById("videoList-" + index).className += " w3-deep-orange";
-        let videoSRC = videos[index].src[electron.store.get('videoFileType')];
-        if (downloadedVideos.includes(videos[index].id)) {
-            videoSRC = `${electron.store.get('cachePath')}/${videos[index].id}.mov`;
+        const player = document.getElementById('videoPlayer');
+        $('#videoPlayer').show();
+        if (!document.getElementById('previewStatus')) {
+            $('#videoPlayer').after('<p id="previewStatus" role="status"></p>');
         }
-        $('#videoPlayer').attr("src", videoSRC).show();
+        $('#previewStatus').text('Loading video…');
+        videoPlayback.load(player, videos[index], status => $('#previewStatus').text(status)).then(() => {
+            return player.play();
+        }).catch(error => {
+            if (error.message !== 'Playback cancelled') {
+                $('#previewStatus').text(`Unable to play video: ${error.message}`);
+            }
+        });
         $('#videoName').text(videos[index].accessibilityLabel);
         let videoDownloadState = "whenChecked";
         if (alwaysDownloadVideos.includes(videos[index].id)) {
@@ -642,6 +660,8 @@ function selectVideo(index) {
                               </div>`).css('display', '');
         $('#videoSettings').css('display', 'none');
     } else {
+        videoPlayback.cancel(document.getElementById('videoPlayer'));
+        $('#previewStatus').text('');
         $('#videoPlayer').attr("src", "").hide();
         $('#videoName').text("Video Settings");
         $('#videoInfo').css('display', 'none');
@@ -748,7 +768,9 @@ function deselectAll() {
 function selectAll() {
     allowedVideos = [];
     for (let i = 0; i < videos.length; i++) {
-        allowedVideos.push(videos[i].id);
+        if (electron.videoSources(videos[i]).length) {
+            allowedVideos.push(videos[i].id);
+        }
     }
     electron.store.set("allowedVideos", allowedVideos);
     makeList();
@@ -757,7 +779,7 @@ function selectAll() {
 function selectType() {
     let type = $('#videoType').val();
     for (let i = 0; i < videos.length; i++) {
-        if (videos[i].type === type) {
+        if (videos[i].type === type && electron.videoSources(videos[i]).length) {
             if (!allowedVideos.includes(videos[i].id)) {
                 allowedVideos.push(videos[i].id);
             }
@@ -770,7 +792,7 @@ function selectType() {
 function deselectType() {
     let type = $('#videoType').val();
     for (let i = 0; i < videos.length; i++) {
-        if (videos[i].type === type) {
+        if (videos[i].type === type && electron.videoSources(videos[i]).length) {
             if (allowedVideos.includes(videos[i].id)) {
                 allowedVideos.splice(allowedVideos.indexOf(videos[i].id), 1);
             }

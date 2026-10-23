@@ -1,13 +1,10 @@
 const videos = electron.videos;
 const allowedVideos = electron.store.get("allowedVideos");
-let downloadedVideos = electron.store.get("downloadedVideos");
 let customVideos = electron.store.get("customVideos");
 let currentlyPlaying = '';
 let transitionTimeout;
 let poiTimeout = [];
 let blackScreen = false;
-let previousErrorId = "";
-let numErrors = 1;
 let screenNumber = null;
 let randomType, randomDirection;
 
@@ -34,111 +31,76 @@ let containers = [document.getElementById("video"), document.getElementById("vid
 let currentPlayer = 0;
 let prePlayer = 1;
 
-/*let video = document.getElementById("video");
-let video2 = document.getElementById("video2");*/
+let playbackGeneration = 0;
+let videoWaitingTimeout;
+let preparingVideo = false;
 
-containers.forEach((video) => {
-    video.addEventListener('play', () => {
-        video.style.backgroundColor = "black";
+containers.forEach((player) => {
+    player.addEventListener('play', () => {
+        player.style.backgroundColor = "black";
     });
-    video.addEventListener("error", videoError);
+    player.addEventListener('ended', () => {
+        if (player === containers[currentPlayer] && !preparingVideo) {
+            newVideo();
+        }
+    });
+    player.addEventListener('error', () => {
+        if (player === containers[currentPlayer] && !preparingVideo && player.currentTime > 0) {
+            newVideo();
+        }
+    });
 });
 
-function videoError(event) {
-    if (event.srcElement === containers[currentPlayer]) {
-        setTimeout(() => {
-            if (event.srcElement.currentTime === 0) {
-                console.error('VIDEO PLAYBACK ERROR', event.target.error.message, event);
-                if (previousErrorId !== currentlyPlaying) {
-                    newVideo();
-                }
-                previousErrorId = currentlyPlaying;
-                numErrors++;
-            }
-        }, 500 * numErrors);
-    } else {
-        console.warn("Error in Pre-Player");
-    }
-}
-
-function prepVideo(videoContainer, callback) {
+async function newVideo() {
     if (blackScreen) {
-        return
+        return;
     }
-    containers[videoContainer].src = "";
-    electron.ipcRenderer.invoke('newVideoId', currentlyPlaying).then((id) => {
-        let videoInfo, videoSRC;
-        //grab video info and file location based on whether it is a custom video or not
-        if (id[0] === "_") {
-            videoInfo = customVideos[customVideos.findIndex((e) => {
-                if (id === e.id) {
-                    return true;
-                }
-            })];
-            videoSRC = videoInfo.path;
-        } else {
-            let index = videos.findIndex((e) => {
-                if (id === e.id) {
-                    return true;
-                }
-            });
-            videoInfo = videos[index];
-            downloadedVideos = electron.store.get("downloadedVideos");
-            videoSRC = videoInfo.src[electron.store.get('videoFileType')];
-            if (downloadedVideos.includes(videoInfo.id)) {
-                videoSRC = `${electron.store.get('cachePath')}/${videoInfo.id}.mov`;
+    const generation = ++playbackGeneration;
+    preparingVideo = true;
+    const target = prePlayer;
+    const player = containers[target];
+    clearTimeout(videoWaitingTimeout);
+    videoPlayback.cancel(player);
+    try {
+        const id = await electron.ipcRenderer.invoke('newVideoId', currentlyPlaying);
+        if (generation !== playbackGeneration || blackScreen) {
+            return;
+        }
+        const videoInfo = (id[0] === "_" ? customVideos : videos).find(video => video.id === id);
+        player.pause();
+        player.videoId = id;
+        await videoPlayback.load(player, videoInfo, status => {
+            if (generation === playbackGeneration && !blackScreen) {
+                $('#playbackStatus').text(status);
             }
+        });
+        if (generation !== playbackGeneration || blackScreen) {
+            return;
         }
-        //load video in video player
-        containers[videoContainer].videoId = id;
-        containers[videoContainer].src = videoSRC;
-        containers[videoContainer].playbackRate = Number(electron.store.get('playbackSpeed'));
-        containers[videoContainer].pause();
-
-        if (callback) {
-            callback();
+        player.playbackRate = Number(electron.store.get('playbackSpeed')) || 1;
+        await player.play();
+        if (generation !== playbackGeneration || blackScreen) {
+            return;
         }
-    });
-}
-
-function playVideo(videoContainer, loadedCallback) {
-    if (blackScreen) {
-        return
+        currentlyPlaying = id;
+        clearTimeout(transitionTimeout);
+        fadeVideoIn(transitionLength);
+        if (Number.isFinite(player.duration)) {
+            videoWaitingTimeout = setTimeout(newVideo,
+                Math.max(transitionLength + 500, player.duration * 1000 / player.playbackRate - transitionLength - 500));
+        }
+    } catch (error) {
+        if (generation === playbackGeneration && !blackScreen && error.message !== 'Playback cancelled') {
+            preparingVideo = false;
+            console.error('VIDEO PLAYBACK ERROR', error);
+            $('#playbackStatus').text('Unable to play this video. Trying another...');
+            videoWaitingTimeout = setTimeout(newVideo, 3000);
+        }
     }
-
-    currentlyPlaying = containers[videoContainer].videoId;
-    containers[videoContainer].play();
-    containers[videoContainer].playbackRate = Number(electron.store.get('playbackSpeed'));
-
-    if (loadedCallback) {
-        loadedCallback();
-    }
-}
-
-let videoWaitingTimeout;
-
-function newVideo() {
-    prepVideo(prePlayer, () => {
-        clearTimeout(videoWaitingTimeout);
-        //give time for the video to load before tying to play it
-        videoWaitingTimeout = setTimeout(() => {
-            playVideo(prePlayer, () => {
-                clearTimeout(transitionTimeout);
-                fadeVideoIn(transitionLength);
-                //wait until the video is fully loaded before setting the end of video timeout
-                setTimeout(() => {
-                    //call a new video when the current one is over
-                    setTimeout(() => {
-                        newVideo();
-                        numErrors = 0;
-                    }, (containers[prePlayer].duration * 1000) - transitionLength - 500);
-                }, 1000);
-            });
-        }, 500);
-    });
 }
 
 function switchVideoContainers() {
+    preparingVideo = false;
     if (videoQuality) {
         containers[currentPlayer].style.display = 'none';
         containers[prePlayer].style.display = '';
@@ -469,6 +431,9 @@ let widthScale = window.innerWidth / ((16 / 9) * window.innerHeight);
 let heightScale = window.innerHeight / (window.innerWidth / (16 / 9));
 
 function drawImage(context, image) {
+    if (image.readyState < 2 || !image.videoWidth) {
+        return;
+    }
     if (electron.store.get("fillMode") === "stretch" || aspectRatio === 16 / 9) {
         //stretch
         context.drawImage(image, 0, 0, window.innerWidth, window.innerHeight);
@@ -705,6 +670,10 @@ electron.ipcRenderer.on('newVideo', () => {
 
 electron.ipcRenderer.on('blankTheScreen', () => {
     blackScreen = true;
+    playbackGeneration++;
+    clearTimeout(videoWaitingTimeout);
+    containers.forEach(player => videoPlayback.cancel(player));
+    $('#playbackStatus').text('');
     fadeVideoOut(transitionLength);
     fadeTextOut(transitionLength)
     setTimeout(() => {
