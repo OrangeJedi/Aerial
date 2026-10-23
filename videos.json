@@ -12,7 +12,8 @@
       "H2651080p": "https://sylvan.apple.com/Aerials/2x/Videos/comp_CH_C007_C011_PSNK_v02_SDR_PS_FINAL_20180709_SDR_2K_HEVC.mov",
       "H2654k": "https://sylvan.apple.com/Aerials/2x/Videos/comp_CH_C007_C011_PSNK_v02_SDR_PS_FINAL_20180709_SDR_4K_HEVC.mov",
       "H2654k240": "https://sylvan.apple.com/itunes-assets/Aerials116/v4/cb/5b/50/cb5b5035-6701-619f-9065-3d7d0e5fbef4/comp_CH_C007_C011_PSNK_v02_SDR_PS_FINAL_20180709_FRC_sdr_4k_qp25_240p_t2160_tsa.mov"
-    }
+    },
+    "timeOfDay": "day"
   },
   {
     "id": "9CCB8297-E9F5-4699-AE1F-890CFBD5E29C",
@@ -27,7 +28,8 @@
       "H2651080p": "https://sylvan.apple.com/Aerials/2x/Videos/comp_CH_C002_C005_PSNK_v05_SDR_PS_FINAL_20180709_SDR_2K_HEVC.mov",
       "H2654k": "https://sylvan.apple.com/Aerials/2x/Videos/comp_CH_C002_C005_PSNK_v05_SDR_PS_FINAL_20180709_SDR_4K_HEVC.mov",
       "H2654k240": "https://sylvan.apple.com/itunes-assets/Aerials116/v4/cb/5b/50/cb5b5035-6701-619f-9065-3d7d0e5fbef4/comp_CH_C002_C005_PSNK_v05_SDR_PS_FINAL_20180709_FRC240fps_sdr_4k_qp26_240p_t2160_tsa.mov"
-    }
+    },
+    "timeOfDay": "day"
   },
   {
     "id": "D5E76230-81A3-4F65-A1BA-51B8CADED625",
@@ -42,7 +44,8 @@
       "H2651080p": "https://sylvan.apple.com/Aerials/2x/Videos/comp_CH_C007_C004_PSNK_v02_SDR_PS_FINAL_20180709_SDR_2K_HEVC.mov",
       "H2654k": "https://sylvan.apple.com/Aerials/2x/Videos/comp_CH_C007_C004_PSNK_v02_SDR_PS_FINAL_20180709_SDR_4K_HEVC.mov",
       "H2654k240": "https://sylvan.apple.com/itunes-assets/Aerials116/v4/cb/5b/50/cb5b5035-6701-619f-9065-3d7d0e5fbef4/comp_CH_C007_C004_PSNK_v02_SDR_PS_FINAL_20180709_FRC_sdr_4k_qp26_240p_t2160_tsa.mov"
-    }
+    },
+    "timeOfDay": "day"
   },
   {
     "id": "22162A9B-DB90-4517-867C-C676BC3E8E95",
@@ -57,7 +60,8 @@
       "H2651080p": "https://sylvan.apple.com/Aerials/2x/Videos/comp_C004_C003_PS_v01_SDR_PS_20180925_SDR_2K_HEVC.mov",
       "H2654k": "https://sylvan.apple.com/Aerials/2x/Videos/comp_C004_C003_PS_v01_SDR_PS_20180925_SDR_4K_HEVC.mov",
       "H2654k240": "https://sylvan.apple.com/itunes-assets/Aerials116/v4/cb/5b/50/cb5b5035-6701-619f-9065-3d7d0e5fbef4/comp_C004_C003_PS_v01_SDR_PS_20180925_240fps_8a74d51b-9b6c-4cde-8286-1108585c6aabq17_tsa_sRGB.mov"
-    }
+    },
+    "timeOfDay": "day"
   },
   {
     "id": "044AD56C-A107-41B2-90CC-E60CCACFBCF5",
@@ -72,7 +76,8 @@
       "H2651080p": "https://sylvan.apple.com/Aerials/2x/Videos/comp_C003_C003_PS_v01_SDR_PS_20180925_SDR_2K_HEVC.mov",
       "H2654k": "https://sylvan.apple.com/Aerials/2x/Videos/comp_C003_C003_PS_v01_SDR_PS_20180925_SDR_4K_HEVC.mov",
       "H2654k240": "https://sylvan.apple.com/itunes-assets/Aerials116/v4/cb/5b/50/cb5b5035-6701-619f-9065-3d7d0e5fbef4/comp_C003_C003_PS_v01_SDR_PS_20180925_FRC240fps_sdr_4k_qp17_240p_t2160_tsa.mov"
-    }
+    },
+    "timeOfDay": "twilight"
   },
   {
     "id": "F0236EC5-EE72-4058-A6CE-1F7D2E8253BF",
@@ -87,7 +92,8 @@
       "H2651080p": "https://sylvan.apple.com/Aerials/2x/Videos/comp_C001_C005_PS_v01_SDR_PS_20180925_SDR_2K_HEVC.mov",
       "H2654k": "https://sylvan.apple.com/Aerials/2x/Videos/comp_C001_C005_PS_v01_SDR_PS_20180925_SDR_4K_HEVC.mov",
       "H2654k240": "https://sylvan.apple.com/itunes-assets/Aerials116/v4/cb/5b/50/cb5b5035-6701-619f-9065-3d7d0e5fbef4/comp_C001_C005_PS_v01_SDR_PS_20180925_FRC_sdr_4k_qp21_240p_t2160_tsa.mov"
-    }
+    },
+    "timeOfDay": "day"
   },
   {
     "id": "876D51F4-3D78-4221-8AD2-F9E78C0FD9B9",
@@ -102,7 +108,8 @@
       "H2651080p": "https://sylvan.apple.com/Aerials/2x/Videos/comp_DB_D008_C010_PSNK_v21_SDR_PS_20180914_F0F16157_SDR_2K_HEVC.mov",
       "H2654k": "https://sylvan.apple.com/Aerials/2x/Videos/comp_DB_D008_C010_PSNK_v21_SDR_PS_20180914_F0F16157_SDR_4K_HEVC.mov",
       "H2654k240": "https://sylvan.apple.com/itunes-assets/Aerials116/v4/cb/5b/50/cb5b5035-6701-619f-9065-3d7d0e5fbef4/comp_DB_D008_C010_PSNK_v21_SDR_PS_20180914_sdr_4k_qp26_240p_t2160_tsa.mov"
-    }
+    },
+    "timeOfDay": "day"
   },
   {
     "id": "E991AC0C-F272-44D8-88F3-05F44EDFE3AE",
@@ -117,7 +124,8 @@
       "H2651080p": "https://sylvan.apple.com/Aerials/2x/Videos/comp_DB_D001_C001_PSNK_v06_SDR_PS_20180824_SDR_2K_HEVC.mov",
       "H2654k": "https://sylvan.apple.com/Aerials/2x/Videos/comp_DB_D001_C001_PSNK_v06_SDR_PS_20180824_SDR_4K_HEVC.mov",
       "H2654k240": "https://sylvan.apple.com/itunes-assets/Aerials116/v4/cb/5b/50/cb5b5035-6701-619f-9065-3d7d0e5fbef4/comp_DB_D001_C001_PSNK_v06_SDR_PS_20180824_sdr_4k_qp27_240p_t2160_tsa.mov"
-    }
+    },
+    "timeOfDay": "day"
   },
   {
     "id": "9680B8EB-CE2A-4395-AF41-402801F4D6A6",
@@ -151,7 +159,8 @@
       "H2651080p": "https://sylvan.apple.com/Aerials/2x/Videos/comp_DB_D002_C003_PSNK_v04_SDR_PS_20180914_SDR_2K_HEVC.mov",
       "H2654k": "https://sylvan.apple.com/Aerials/2x/Videos/comp_DB_D002_C003_PSNK_v04_SDR_PS_20180914_SDR_4K_HEVC.mov",
       "H2654k240": "https://sylvan.apple.com/itunes-assets/Aerials116/v4/cb/5b/50/cb5b5035-6701-619f-9065-3d7d0e5fbef4/comp_DB_D002_C003_PSNK_v04_SDR_PS_20180914_240fps_74088e40-f8e4-4876-920c-af0e62aa1a60q19_sRGB_tsa.mov"
-    }
+    },
+    "timeOfDay": "twilight"
   },
   {
     "id": "3FFA2A97-7D28-49EA-AA39-5BC9051B2745",
@@ -166,7 +175,8 @@
       "H2651080p": "https://sylvan.apple.com/Aerials/2x/Videos/comp_DB_D001_C005_COMP_PSNK_v12_SDR_PS_20180912_SDR_2K_HEVC.mov",
       "H2654k": "https://sylvan.apple.com/Aerials/2x/Videos/comp_DB_D001_C005_COMP_PSNK_v12_SDR_PS_20180912_SDR_4K_HEVC.mov",
       "H2654k240": "https://sylvan.apple.com/itunes-assets/Aerials116/v4/cb/5b/50/cb5b5035-6701-619f-9065-3d7d0e5fbef4/comp_DB_D001_C005_COMP_PSNK_v12_SDR_PS_20180912_FRC_sdr_4k_qp26_240p_t2160_tsa.mov"
-    }
+    },
+    "timeOfDay": "day"
   },
   {
     "id": "E334A6D2-7145-47C8-9B00-C20DED08B2D5",
@@ -181,7 +191,8 @@
       "H2651080p": "https://sylvan.apple.com/Aerials/2x/Videos/G007_C004_UHD_SDR_2K_HEVC.mov",
       "H2654k": "https://sylvan.apple.com/Aerials/2x/Videos/G007_C004_UHD_SDR_4K_HEVC.mov",
       "H2654k240": "https://sylvan.apple.com/itunes-assets/Aerials116/v4/cb/5b/50/cb5b5035-6701-619f-9065-3d7d0e5fbef4/G007_C004_UHD_SDR_FRC240fps_sdr_4k_qp24_240p_t2160_tsa.mov"
-    }
+    },
+    "timeOfDay": "twilight"
   },
   {
     "id": "DD266E1F-5DF2-4CDB-A2EB-26CE35664657",
@@ -196,7 +207,8 @@
       "H2651080p": "https://sylvan.apple.com/Aerials/2x/Videos/G008_C015_UHD_SDR_2K_HEVC.mov",
       "H2654k": "https://sylvan.apple.com/Aerials/2x/Videos/G008_C015_UHD_SDR_4K_HEVC.mov",
       "H2654k240": "https://sylvan.apple.com/itunes-assets/Aerials116/v4/cb/5b/50/cb5b5035-6701-619f-9065-3d7d0e5fbef4/G008_C015_UHD_SDR_240fps_65f07d0e-f0bf-4e5d-8e09-71ff632c7b92q26_sRGB_tsa.mov"
-    }
+    },
+    "timeOfDay": "day"
   },
   {
     "id": "F9F918CD-E15F-4F01-A326-84A44650C5C9",
@@ -211,7 +223,8 @@
       "H2651080p": "https://sylvan.apple.com/Aerials/2x/Videos/G009_C003_UHD_SDR_2K_HEVC.mov",
       "H2654k": "https://sylvan.apple.com/Aerials/2x/Videos/G009_C003_UHD_SDR_4K_HEVC.mov",
       "H2654k240": "https://sylvan.apple.com/itunes-assets/Aerials116/v4/cb/5b/50/cb5b5035-6701-619f-9065-3d7d0e5fbef4/G009_C003_UHD_SDR_FRC240fps_sdr_4k_qp20_240p_t2160_tsa.mov"
-    }
+    },
+    "timeOfDay": "twilight"
   },
   {
     "id": "AE0115AE-C53B-4DB9-B12F-CA4B7B630CC9",
@@ -226,7 +239,8 @@
       "H2651080p": "https://sylvan.apple.com/Aerials/2x/Videos/G009_C014_UHD_SDR_2K_HEVC.mov",
       "H2654k": "https://sylvan.apple.com/Aerials/2x/Videos/G009_C014_UHD_SDR_4K_HEVC.mov",
       "H2654k240": "https://sylvan.apple.com/itunes-assets/Aerials116/v4/cb/5b/50/cb5b5035-6701-619f-9065-3d7d0e5fbef4/G009_C014_UHD_SDR_FRC240fps_sdr_4k_qp20_240p_t2160_tsa.mov"
-    }
+    },
+    "timeOfDay": "twilight"
   },
   {
     "id": "8002C4C8-C611-4894-A068-3D3A3C03472A",
@@ -241,7 +255,8 @@
       "H2651080p": "https://sylvan.apple.com/Aerials/2x/Videos/G010_C026_UHD_SDR_v02_2K_HEVC.mov",
       "H2654k": "https://sylvan.apple.com/Aerials/2x/Videos/G010_C026_UHD_SDR_v02_4K_HEVC.mov",
       "H2654k240": "https://sylvan.apple.com/itunes-assets/Aerials126/v4/ec/eb/c8/ecebc8d2-5486-c2b2-52ae-6f0ab2d6b65f/G010_C026_UHD_SDR_v02_240fps_5e903ed6-1acf-495d-a0b5-8a9dd94df96bq26_sRGB_tsa.mov"
-    }
+    },
+    "timeOfDay": "day"
   },
   {
     "id": "B8F204CE-6024-49AB-85F9-7CA2F6DCD226",
@@ -256,7 +271,8 @@
       "H2651080p": "https://sylvan.apple.com/Aerials/2x/Videos/comp_GL_G004_C010_PSNK_v04_SDR_PS_FINAL_20180709_SDR_2K_HEVC.mov",
       "H2654k": "https://sylvan.apple.com/Aerials/2x/Videos/comp_GL_G004_C010_PSNK_v04_SDR_PS_FINAL_20180709_SDR_4K_HEVC.mov",
       "H2654k240": "https://sylvan.apple.com/itunes-assets/Aerials126/v4/ec/eb/c8/ecebc8d2-5486-c2b2-52ae-6f0ab2d6b65f/comp_GL_G004_C010_PSNK_v04_SDR_PS_FINAL_20180709_240fps_54d7bb68-1b1d-4c05-9cd7-7eefd4de1b28q19_sRGB_tsa.mov"
-    }
+    },
+    "timeOfDay": "twilight"
   },
   {
     "id": "2F52E34C-39D4-4AB1-9025-8F7141FAA720",
@@ -271,7 +287,8 @@
       "H2651080p": "https://sylvan.apple.com/Aerials/2x/Videos/comp_GL_G002_C002_PSNK_v03_SDR_PS_20180925_SDR_2K_HEVC.mov",
       "H2654k": "https://sylvan.apple.com/Aerials/2x/Videos/comp_GL_G002_C002_PSNK_v03_SDR_PS_20180925_SDR_4K_HEVC.mov",
       "H2654k240": "https://sylvan.apple.com/itunes-assets/Aerials116/v4/cb/5b/50/cb5b5035-6701-619f-9065-3d7d0e5fbef4/comp_GL_G002_C002_PSNK_v03_SDR_PS_20180925_FRC240fps_sdr_4k_qp23_240p_t2160_tsa.mov"
-    }
+    },
+    "timeOfDay": "day"
   },
   {
     "id": "EE01F02D-1413-436C-AB05-410F224A5B7B",
@@ -302,7 +319,8 @@
       "H2651080p": "https://sylvan.apple.com/Aerials/2x/Videos/comp_H007_C003_PS_v01_SDR_PS_20180925_SDR_2K_HEVC.mov",
       "H2654k": "https://sylvan.apple.com/Aerials/2x/Videos/comp_H007_C003_PS_v01_SDR_PS_20180925_SDR_4K_HEVC.mov",
       "H2654k240": "https://sylvan.apple.com/itunes-assets/Aerials126/v4/ec/eb/c8/ecebc8d2-5486-c2b2-52ae-6f0ab2d6b65f/comp_H007_C003_PS_v01_SDR_PS_20180925_240fps_ad61d98e-fb4b-41c7-b981-9ff4b8a2ef27q25_sRGB_tsa.mov"
-    }
+    },
+    "timeOfDay": "day"
   },
   {
     "id": "258A6797-CC13-4C3A-AB35-4F25CA3BF474",
@@ -317,7 +335,8 @@
       "H2651080p": "https://sylvan.apple.com/Aerials/2x/Videos/comp_H004_C009_PS_v01_SDR_PS_20180925_SDR_2K_HEVC.mov",
       "H2654k": "https://sylvan.apple.com/Aerials/2x/Videos/comp_H004_C009_PS_v01_SDR_PS_20180925_SDR_4K_HEVC.mov",
       "H2654k240": "https://sylvan.apple.com/itunes-assets/Aerials116/v4/cb/5b/50/cb5b5035-6701-619f-9065-3d7d0e5fbef4/comp_H004_C009_PS_v01_SDR_PS_20180925_FRC240fps_sdr_4k_qp19_240p_t2160_tsa.mov"
-    }
+    },
+    "timeOfDay": "twilight"
   },
   {
     "id": "3D729CFC-9000-48D3-A052-C5BD5B7A6842",
@@ -348,7 +367,8 @@
       "H2651080p": "https://sylvan.apple.com/Aerials/2x/Videos/comp_H005_C012_PS_v01_SDR_PS_20180925_SDR_2K_HEVC.mov",
       "H2654k": "https://sylvan.apple.com/Aerials/2x/Videos/comp_H005_C012_PS_v01_SDR_PS_20180925_SDR_4K_HEVC.mov",
       "H2654k240": "https://sylvan.apple.com/itunes-assets/Aerials116/v4/cb/5b/50/cb5b5035-6701-619f-9065-3d7d0e5fbef4/comp_H005_C012_PS_v01_SDR_PS_20180925_FRC_sdr_4k_qp26_240p_t2160_tsa.mov"
-    }
+    },
+    "timeOfDay": "day"
   },
   {
     "id": "82BD33C9-B6D2-47E7-9C42-AA3B7758921A",
@@ -397,7 +417,8 @@
       "H2651080p": "https://sylvan.apple.com/Aerials/2x/Videos/comp_HK_H004_C010_PSNK_v08_SDR_PS_20181009_SDR_2K_HEVC.mov",
       "H2654k": "https://sylvan.apple.com/Aerials/2x/Videos/comp_HK_H004_C010_PSNK_v08_SDR_PS_20181009_SDR_4K_HEVC.mov",
       "H2654k240": "https://sylvan.apple.com/itunes-assets/Aerials116/v4/cb/5b/50/cb5b5035-6701-619f-9065-3d7d0e5fbef4/comp_HK_H004_C010_PSNK_v08_SDR_PS_20181009_FRC_sdr_4k_qp18_240p_t2160_tsa.mov"
-    }
+    },
+    "timeOfDay": "day"
   },
   {
     "id": "024891DE-B7F6-4187-BFE0-E6D237702EF0",
@@ -414,7 +435,8 @@
       "H2651080p": "https://sylvan.apple.com/Aerials/2x/Videos/HK_H004_C013_2K_SDR_HEVC.mov",
       "H2654k": "https://sylvan.apple.com/Aerials/2x/Videos/HK_H004_C013_4K_SDR_HEVC.mov",
       "H2654k240": "https://sylvan.apple.com/itunes-assets/Aerials116/v4/cb/5b/50/cb5b5035-6701-619f-9065-3d7d0e5fbef4/comp_HK_H004_C013_v05_FRC_sdr_4k_qp26_240p_t2160_tsa.mov"
-    }
+    },
+    "timeOfDay": "day"
   },
   {
     "id": "FE8E1F9D-59BA-4207-B626-28E34D810D0A",
@@ -429,7 +451,8 @@
       "H2651080p": "https://sylvan.apple.com/Aerials/2x/Videos/comp_HK_H004_C008_PSNK_v19_SDR_PS_20180914_SDR_2K_HEVC.mov",
       "H2654k": "https://sylvan.apple.com/Aerials/2x/Videos/comp_HK_H004_C008_PSNK_v19_SDR_PS_20180914_SDR_4K_HEVC.mov",
       "H2654k240": "https://sylvan.apple.com/itunes-assets/Aerials116/v4/cb/5b/50/cb5b5035-6701-619f-9065-3d7d0e5fbef4/comp_HK_H004_C008_PSNK_v19_SDR_PS_20180914_fcp_sharpen1p7_FRC240fps_sdr_4k_qp26_240p_t2160_tsa.mov"
-    }
+    },
+    "timeOfDay": "day"
   },
   {
     "id": "8590D0C5-E344-4FAC-A39A-FD7BC652AEDA",
@@ -444,7 +467,8 @@
       "H2651080p": "https://sylvan.apple.com/Aerials/2x/Videos/I003_C004_SDR_2K_HEVC.mov",
       "H2654k": "https://sylvan.apple.com/Aerials/2x/Videos/I003_C004_SDR_4K_HEVC.mov",
       "H2654k240": "https://sylvan.apple.com/itunes-assets/Aerials116/v4/cb/5b/50/cb5b5035-6701-619f-9065-3d7d0e5fbef4/I003_C004_UHD_SDR_FRC240fps_sdr_4k_qp22_240p_t2160_tsa.mov"
-    }
+    },
+    "timeOfDay": "day"
   },
   {
     "id": "DDE50C77-B7CB-4488-9EB1-D1B13BF21FFE",
@@ -459,7 +483,8 @@
       "H2651080p": "https://sylvan.apple.com/Aerials/2x/Videos/I003_C008_SDR_2K_HEVC.mov",
       "H2654k": "https://sylvan.apple.com/Aerials/2x/Videos/I003_C008_SDR_4K_HEVC.mov",
       "H2654k240": "https://sylvan.apple.com/itunes-assets/Aerials126/v4/ec/eb/c8/ecebc8d2-5486-c2b2-52ae-6f0ab2d6b65f/I003_C008__0623CJ_UHD_SDR_240fps_ace2a32f-f189-4206-ba4c-e395fb1b4ea4q23_sRGB_tsa.mov"
-    }
+    },
+    "timeOfDay": "day"
   },
   {
     "id": "E54D5AFE-F362-4D48-A20D-F2C21D2B5330",
@@ -475,7 +500,8 @@
       "H2651080p": "https://sylvan.apple.com/Aerials/2x/Videos/I003_C011_SDR_2K_HEVC.mov",
       "H2654k": "https://sylvan.apple.com/Aerials/2x/Videos/I003_C011_SDR_4K_HEVC.mov",
       "H2654k240": "https://sylvan.apple.com/itunes-assets/Aerials116/v4/cb/5b/50/cb5b5035-6701-619f-9065-3d7d0e5fbef4/I003_C011_0623P8_UHD_SDR_FRC240fps_sdr_4k_qp22_240p_t2160_tsa.mov"
-    }
+    },
+    "timeOfDay": "day"
   },
   {
     "id": "F9518D54-04A7-4793-8666-CFC114D73CE5",
@@ -490,7 +516,8 @@
       "H2651080p": "https://sylvan.apple.com/Aerials/2x/Videos/I003_C015_SDR_2K_HEVC.mov",
       "H2654k": "https://sylvan.apple.com/Aerials/2x/Videos/I003_C015_SDR_4K_HEVC.mov",
       "H2654k240": "https://sylvan.apple.com/itunes-assets/Aerials116/v4/cb/5b/50/cb5b5035-6701-619f-9065-3d7d0e5fbef4/I003_C015_UHD_SDR_FRC240fps_sdr_4k_qp22_240p_t2160_tsa.mov"
-    }
+    },
+    "timeOfDay": "day"
   },
   {
     "id": "8ACF5D77-B22C-416F-B12A-72FB35E2834F",
@@ -505,7 +532,8 @@
       "H2651080p": "https://sylvan.apple.com/Aerials/2x/Videos/I004_C014_SDR_2K_HEVC.mov",
       "H2654k": "https://sylvan.apple.com/Aerials/2x/Videos/I004_C014_SDR_4K_HEVC.mov",
       "H2654k240": "https://sylvan.apple.com/itunes-assets/Aerials116/v4/cb/5b/50/cb5b5035-6701-619f-9065-3d7d0e5fbef4/I004_C014_UHD_SDR_FRC240fps_sdr_4k_qp20_240p_t2160_tsa.mov"
-    }
+    },
+    "timeOfDay": "day"
   },
   {
     "id": "2F17FCCE-6CCA-4AFA-A08A-C50BF9812DA5",
@@ -523,7 +551,8 @@
       "H2651080p": "https://sylvan.apple.com/Aerials/2x/Videos/I005_C008_CROP_SDR_2K_HEVC.mov",
       "H2654k": "https://sylvan.apple.com/Aerials/2x/Videos/I005_C008_CROP_SDR_4K_HEVC.mov",
       "H2654k240": "https://sylvan.apple.com/itunes-assets/Aerials116/v4/cb/5b/50/cb5b5035-6701-619f-9065-3d7d0e5fbef4/I005_C008_CROP_UHD_SDR_FRC240fps_sdr_4k_qp21_240p_t2160_tsa.mov"
-    }
+    },
+    "timeOfDay": "day"
   },
   {
     "id": "cb5b5035-6701-619f-9065-3d7d0e5fbef4-113",
@@ -535,7 +564,8 @@
     "type": "landscape",
     "src": {
       "H2654k240": "https://sylvan.apple.com/itunes-assets/Aerials116/v4/cb/5b/50/cb5b5035-6701-619f-9065-3d7d0e5fbef4/I003_C005_UHD_SDR_240fps_10d589e5-2709-4c6d-8ae0-a3e0e1e1cb37q18_sRGB_tsa.mov"
-    }
+    },
+    "timeOfDay": "day"
   },
   {
     "id": "cb5b5035-6701-619f-9065-3d7d0e5fbef4-133",
@@ -547,7 +577,8 @@
     "type": "landscape",
     "src": {
       "H2654k240": "https://sylvan.apple.com/itunes-assets/Aerials116/v4/cb/5b/50/cb5b5035-6701-619f-9065-3d7d0e5fbef4/SDR_ann0060_flamecomp_v0003.00815886_FRC_sdr_4k_rate12000_240p_t2160_grover74_tsa.mov"
-    }
+    },
+    "timeOfDay": "day"
   },
   {
     "id": "cb5b5035-6701-619f-9065-3d7d0e5fbef4-134",
@@ -559,7 +590,8 @@
     "type": "landscape",
     "src": {
       "H2654k240": "https://sylvan.apple.com/itunes-assets/Aerials116/v4/cb/5b/50/cb5b5035-6701-619f-9065-3d7d0e5fbef4/SDR_ann0080_flamecomp_v0004.00853686_sdr_4k_rate14000_240p_t2160_grover74_tsa.mov"
-    }
+    },
+    "timeOfDay": "twilight"
   },
   {
     "id": "cb5b5035-6701-619f-9065-3d7d0e5fbef4-135",
@@ -571,7 +603,8 @@
     "type": "landscape",
     "src": {
       "H2654k240": "https://sylvan.apple.com/itunes-assets/Aerials116/v4/cb/5b/50/cb5b5035-6701-619f-9065-3d7d0e5fbef4/SDR_ann0110_flamecomp_v0002.00896432_trim_FRC_sdr_4k_rate14000_240p_t2160_grover74_tsa.mov"
-    }
+    },
+    "timeOfDay": "day"
   },
   {
     "id": "cb5b5035-6701-619f-9065-3d7d0e5fbef4-136",
@@ -583,7 +616,8 @@
     "type": "landscape",
     "src": {
       "H2654k240": "https://sylvan.apple.com/itunes-assets/Aerials116/v4/cb/5b/50/cb5b5035-6701-619f-9065-3d7d0e5fbef4/SDR_ann0010_flamecomp_v0007.00735687_edit_FRC_sdr_4k_rate12000_240p_t2160_grover74_tsa.mov"
-    }
+    },
+    "timeOfDay": "day"
   },
   {
     "id": "cb5b5035-6701-619f-9065-3d7d0e5fbef4-137",
@@ -595,7 +629,8 @@
     "type": "landscape",
     "src": {
       "H2654k240": "https://sylvan.apple.com/itunes-assets/Aerials116/v4/cb/5b/50/cb5b5035-6701-619f-9065-3d7d0e5fbef4/SDR_ann0020_flamecomp_v0003.00776567_FRC_sdr_4k_rate12000_240p_t2160_grover74_tsa.mov"
-    }
+    },
+    "timeOfDay": "day"
   },
   {
     "id": "cb5b5035-6701-619f-9065-3d7d0e5fbef4-138",
@@ -607,7 +642,8 @@
     "type": "landscape",
     "src": {
       "H2654k240": "https://sylvan.apple.com/itunes-assets/Aerials116/v4/cb/5b/50/cb5b5035-6701-619f-9065-3d7d0e5fbef4/SDR_ann0120_flamecomp_v0011.00400416_FRC_sdr_4k_rate12000_240p_t2160_grover74_tsa.mov"
-    }
+    },
+    "timeOfDay": "day"
   },
   {
     "id": "cb5b5035-6701-619f-9065-3d7d0e5fbef4-139",
@@ -619,7 +655,8 @@
     "type": "landscape",
     "src": {
       "H2654k240": "https://sylvan.apple.com/itunes-assets/Aerials116/v4/cb/5b/50/cb5b5035-6701-619f-9065-3d7d0e5fbef4/SDR_ann0090_flamecomp_v0007.00872132_sdr_4k_rate12000_240p_t2160_grover74_tsa.mov"
-    }
+    },
+    "timeOfDay": "day"
   },
   {
     "id": "cb5b5035-6701-619f-9065-3d7d0e5fbef4-140",
@@ -631,7 +668,8 @@
     "type": "landscape",
     "src": {
       "H2654k240": "https://sylvan.apple.com/itunes-assets/Aerials116/v4/cb/5b/50/cb5b5035-6701-619f-9065-3d7d0e5fbef4/SDR_ann0100_flamecomp_v0002.00880232_FRC_sdr_4k_rate12000_240p_t2160_grover74_tsa.mov"
-    }
+    },
+    "timeOfDay": "day"
   },
   {
     "id": "cb5b5035-6701-619f-9065-3d7d0e5fbef4-141",
@@ -643,7 +681,8 @@
     "type": "landscape",
     "src": {
       "H2654k240": "https://sylvan.apple.com/itunes-assets/Aerials116/v4/cb/5b/50/cb5b5035-6701-619f-9065-3d7d0e5fbef4/SDR_ann0130_flamecomp_v0002.00193199_FRC_sdr_4k_rate12000_240p_t2160_grover74_tsa.mov"
-    }
+    },
+    "timeOfDay": "day"
   },
   {
     "id": "cb5b5035-6701-619f-9065-3d7d0e5fbef4-142",
@@ -655,7 +694,8 @@
     "type": "landscape",
     "src": {
       "H2654k240": "https://sylvan.apple.com/itunes-assets/Aerials116/v4/cb/5b/50/cb5b5035-6701-619f-9065-3d7d0e5fbef4/SDR_ann0040_flamecomp_v0006.00789786_sdr_4k_rate16000_240p_t2160_grover74_tsa.mov"
-    }
+    },
+    "timeOfDay": "day"
   },
   {
     "id": "cb5b5035-6701-619f-9065-3d7d0e5fbef4-143",
@@ -667,7 +707,8 @@
     "type": "landscape",
     "src": {
       "H2654k240": "https://sylvan.apple.com/itunes-assets/Aerials116/v4/cb/5b/50/cb5b5035-6701-619f-9065-3d7d0e5fbef4/SDR_ann0070_flamecomp_v0008.00289423_sdr_4k_rate12000_240p_t2160_grover74_tsa.mov"
-    }
+    },
+    "timeOfDay": "day"
   },
   {
     "id": "A837FA8C-C643-4705-AE92-074EFDD067F7",
@@ -749,7 +790,8 @@
       "H2651080p": "https://sylvan.apple.com/Aerials/2x/Videos/comp_A001_C001_120530_v04_SDR_FINAL_20180706_SDR_2K_HEVC.mov",
       "H2654k": "https://sylvan.apple.com/Aerials/2x/Videos/comp_A001_C001_120530_v04_SDR_FINAL_20180706_SDR_4K_HEVC.mov",
       "H2654k240": "https://sylvan.apple.com/itunes-assets/Aerials116/v4/cb/5b/50/cb5b5035-6701-619f-9065-3d7d0e5fbef4/comp_A001_C001_120530_v04_SDR_FINAL_20180706_240fps_d64ae958-3d0d-4e8c-8ae8-5d33f843c2a3q17_sRGB_tsa.mov"
-    }
+    },
+    "timeOfDay": "night"
   },
   {
     "id": "81337355-E156-4242-AAF4-711768D30A54",
@@ -768,7 +810,8 @@
       "H2651080p": "https://sylvan.apple.com/Aerials/2x/Videos/comp_GMT060_117NC_363D_1034_AUSTRALIA_v35_SDR_PS_FINAL_20180731_SDR_2K_HEVC.mov",
       "H2654k": "https://sylvan.apple.com/Aerials/2x/Videos/comp_GMT060_117NC_363D_1034_AUSTRALIA_v35_SDR_PS_FINAL_20180731_SDR_4K_HEVC.mov",
       "H2654k240": "https://sylvan.apple.com/itunes-assets/Aerials116/v4/cb/5b/50/cb5b5035-6701-619f-9065-3d7d0e5fbef4/comp_GMT060_117NC_363D_1034_AUSTRALIA_v35_SDR_PS_FINAL_20180731_FRC_sdr_4k_qp20_240p_t2160_tsa.mov"
-    }
+    },
+    "timeOfDay": "night"
   },
   {
     "id": "12318CCB-3F78-43B7-A854-EFDCCE5312CD",
@@ -835,7 +878,8 @@
       "H2651080p": "https://sylvan.apple.com/Aerials/2x/Videos/comp_A105_C002_v06_SDR_FINAL_25062018_SDR_2K_HEVC.mov",
       "H2654k": "https://sylvan.apple.com/Aerials/2x/Videos/comp_A105_C002_v06_SDR_FINAL_25062018_SDR_4K_HEVC.mov",
       "H2654k240": "https://sylvan.apple.com/itunes-assets/Aerials116/v4/cb/5b/50/cb5b5035-6701-619f-9065-3d7d0e5fbef4/comp_A105_C002_v06_SDR_FINAL_25062018_FRC240fps_sdr_4k_qp24_240p_t2160_tsa.mov"
-    }
+    },
+    "timeOfDay": "day"
   },
   {
     "id": "4F881F8B-A7D9-4FDB-A917-17BF6AC5A589",
@@ -877,7 +921,8 @@
       "H2651080p": "https://sylvan.apple.com/Aerials/2x/Videos/comp_GMT329_113NC_396B_1105_CHINA_v04_SDR_FINAL_20180706_F900F2700_SDR_2K_HEVC.mov",
       "H2654k": "https://sylvan.apple.com/Aerials/2x/Videos/comp_GMT329_113NC_396B_1105_CHINA_v04_SDR_FINAL_20180706_F900F2700_SDR_4K_HEVC.mov",
       "H2654k240": "https://sylvan.apple.com/itunes-assets/Aerials116/v4/cb/5b/50/cb5b5035-6701-619f-9065-3d7d0e5fbef4/comp_GMT329_113NC_396B_1105_CHINA_v04_SDR_FINAL_20180706_FRC_sdr_4k_grover402qp24_240p_t2160_tsa.mov"
-    }
+    },
+    "timeOfDay": "night"
   },
   {
     "id": "F439B0A7-D18C-4B14-9681-6520E6A74FE9",
@@ -1030,7 +1075,8 @@
       "H2651080p": "https://sylvan.apple.com/Aerials/2x/Videos/comp_A050_C004_1027V8_v16_SDR_FINAL_20180706_SDR_2K_HEVC.mov",
       "H2654k": "https://sylvan.apple.com/Aerials/2x/Videos/comp_A050_C004_1027V8_v16_SDR_FINAL_20180706_SDR_4K_HEVC.mov",
       "H2654k240": "https://sylvan.apple.com/itunes-assets/Aerials126/v4/ec/eb/c8/ecebc8d2-5486-c2b2-52ae-6f0ab2d6b65f/comp_A050_C004_1027V8_v16_SDR_FINAL_20180706_240fps_42f29097-fda3-4ff3-be89-dbfb8bf5b3e9q23_sRGB_tsa.mov"
-    }
+    },
+    "timeOfDay": "day"
   },
   {
     "id": "737E9E24-49BE-4104-9B72-F352DE1AD2BF",
@@ -1110,7 +1156,8 @@
       "H2651080p": "https://sylvan.apple.com/Aerials/2x/Videos/comp_A351_C001_v06_SDR_PS_20180725_SDR_2K_HEVC.mov",
       "H2654k": "https://sylvan.apple.com/Aerials/2x/Videos/comp_A351_C001_v06_SDR_PS_20180725_SDR_4K_HEVC.mov",
       "H2654k240": "https://sylvan.apple.com/itunes-assets/Aerials116/v4/cb/5b/50/cb5b5035-6701-619f-9065-3d7d0e5fbef4/comp_A351_C001_v06_SDR_PS_20180725_sdr_4k_qp19_240p_t2160_tsa.mov"
-    }
+    },
+    "timeOfDay": "day"
   },
   {
     "id": "7719B48A-2005-4011-9280-2F64EEC6FD91",
@@ -1174,7 +1221,8 @@
       "H2651080p": "https://sylvan.apple.com/Aerials/2x/Videos/comp_LW_L001_C006_PSNK_DENOISE_v02_SDR_PS_FINAL_20180709_SDR_2K_HEVC.mov",
       "H2654k": "https://sylvan.apple.com/Aerials/2x/Videos/comp_LW_L001_C006_PSNK_DENOISE_v02_SDR_PS_FINAL_20180709_SDR_4K_HEVC.mov",
       "H2654k240": "https://sylvan.apple.com/itunes-assets/Aerials116/v4/cb/5b/50/cb5b5035-6701-619f-9065-3d7d0e5fbef4/comp_LW_L001_C006_PSNK_DENOISE_v02_SDR_PS_FINAL_20180709_FRC_sdr_4k_qp20_240p_t2160_tsa.mov"
-    }
+    },
+    "timeOfDay": "day"
   },
   {
     "id": "AFA22C08-A486-4CE8-9A13-E355B6C38559",
@@ -1189,7 +1237,8 @@
       "H2651080p": "https://sylvan.apple.com/Aerials/2x/Videos/comp_LW_L001_C003__PSNK_DENOISE_v04_SDR_PS_FINAL_20180803_SDR_2K_HEVC.mov",
       "H2654k": "https://sylvan.apple.com/Aerials/2x/Videos/comp_LW_L001_C003__PSNK_DENOISE_v04_SDR_PS_FINAL_20180803_SDR_4K_HEVC.mov",
       "H2654k240": "https://sylvan.apple.com/itunes-assets/Aerials116/v4/cb/5b/50/cb5b5035-6701-619f-9065-3d7d0e5fbef4/comp_LW_L001_C003__PSNK_DENOISE_v04_SDR_PS_FINAL_20180803_FRC_sdr_4k_qp22_240p_t2160_tsa.mov"
-    }
+    },
+    "timeOfDay": "day"
   },
   {
     "id": "F604AF56-EA77-4960-AEF7-82533CC1A8B3",
@@ -1253,7 +1302,8 @@
       "H2651080p": "https://sylvan.apple.com/Aerials/2x/Videos/comp_L007_C007_PS_v01_SDR_PS_20180925_SDR_2K_HEVC.mov",
       "H2654k": "https://sylvan.apple.com/Aerials/2x/Videos/comp_L007_C007_PS_v01_SDR_PS_20180925_SDR_4K_HEVC.mov",
       "H2654k240": "https://sylvan.apple.com/itunes-assets/Aerials116/v4/cb/5b/50/cb5b5035-6701-619f-9065-3d7d0e5fbef4/comp_L007_C007_PS_v01_SDR_PS_20180925_FRC_sdr_4k_qp25_240p_t2160_tsa.mov"
-    }
+    },
+    "timeOfDay": "day"
   },
   {
     "id": "58754319-8709-4AB0-8674-B34F04E7FFE2",
@@ -1271,7 +1321,8 @@
       "H2651080p": "https://sylvan.apple.com/Aerials/2x/Videos/comp_L010_C006_PS_v01_SDR_PS_20180925_SDR_2K_HEVC.mov",
       "H2654k": "https://sylvan.apple.com/Aerials/2x/Videos/comp_L010_C006_PS_v01_SDR_PS_20180925_SDR_4K_HEVC.mov",
       "H2654k240": "https://sylvan.apple.com/itunes-assets/Aerials116/v4/cb/5b/50/cb5b5035-6701-619f-9065-3d7d0e5fbef4/comp_L010_C006_PS_v01_SDR_PS_20180925_sdr_4k_qp19_240p_t2160_tsa.mov"
-    }
+    },
+    "timeOfDay": "day"
   },
   {
     "id": "CE279831-1CA7-4A83-A97B-FF1E20234396",
@@ -1286,7 +1337,8 @@
       "H2651080p": "https://sylvan.apple.com/Aerials/2x/Videos/comp_LA_A006_C008_PSNK_ALL_LOGOS_v10_SDR_PS_FINAL_20180801_SDR_2K_HEVC.mov",
       "H2654k": "https://sylvan.apple.com/Aerials/2x/Videos/comp_LA_A006_C008_PSNK_ALL_LOGOS_v10_SDR_PS_FINAL_20180801_SDR_4K_HEVC.mov",
       "H2654k240": "https://sylvan.apple.com/itunes-assets/Aerials116/v4/cb/5b/50/cb5b5035-6701-619f-9065-3d7d0e5fbef4/comp_LA_A006_C008_PSNK_ALL_LOGOS_v10_SDR_PS_FINAL_20180801_240fps_a9350064-5869-41c2-9422-05f93a075390q23_sRGB_tsa.mov"
-    }
+    },
+    "timeOfDay": "day"
   },
   {
     "id": "89B1643B-06DD-4DEC-B1B0-774493B0F7B7",
@@ -1319,7 +1371,8 @@
       "H2651080p": "https://sylvan.apple.com/Aerials/2x/Videos/comp_LA_A008_C004_ALTB_ED_FROM_FLAME_RETIME_v46_SDR_PS_20180917_SDR_2K_HEVC.mov",
       "H2654k": "https://sylvan.apple.com/Aerials/2x/Videos/comp_LA_A008_C004_ALTB_ED_FROM_FLAME_RETIME_v46_SDR_PS_20180917_SDR_4K_HEVC.mov",
       "H2654k240": "https://sylvan.apple.com/itunes-assets/Aerials116/v4/cb/5b/50/cb5b5035-6701-619f-9065-3d7d0e5fbef4/comp_LA_A008_C004_ALTB_ED_FROM_FLAME_RETIME_v46_SDR_PS_20180917_fcp_sharpen2p5_FRC240fps_sdr_4k_qp23_240p_t2160_tsa.mov"
-    }
+    },
+    "timeOfDay": "day"
   },
   {
     "id": "EC67726A-8212-4C5E-83CF-8412932740D2",
@@ -1351,7 +1404,8 @@
       "H2651080p": "https://sylvan.apple.com/Aerials/2x/Videos/comp_LA_A005_C009_PSNK_ALT_v09_SDR_PS_201809134_SDR_2K_HEVC.mov",
       "H2654k": "https://sylvan.apple.com/Aerials/2x/Videos/comp_LA_A005_C009_PSNK_ALT_v09_SDR_PS_201809134_SDR_4K_HEVC.mov",
       "H2654k240": "https://sylvan.apple.com/itunes-assets/Aerials116/v4/cb/5b/50/cb5b5035-6701-619f-9065-3d7d0e5fbef4/comp_LA_A005_C009_PSNK_ALT_v09_SDR_PS_201809134_240fps_bacf2a31-3a9a-4fe2-ba3b-cce4aa6855d4q21_sRGB_tsa.mov"
-    }
+    },
+    "timeOfDay": "day"
   },
   {
     "id": "F5804DD6-5963-40DA-9FA0-39C0C6E6DEF9",
@@ -1379,7 +1433,8 @@
     "type": "landscape",
     "src": {
       "H2654k240": "https://sylvan.apple.com/itunes-assets/Aerials116/v4/cb/5b/50/cb5b5035-6701-619f-9065-3d7d0e5fbef4/M013_C012_F01_FRC240fps_sdr_4k_qp25_240p_t2160_grover401_tsa.mov"
-    }
+    },
+    "timeOfDay": "day"
   },
   {
     "id": "cb5b5035-6701-619f-9065-3d7d0e5fbef4-115",
@@ -1391,7 +1446,8 @@
     "type": "landscape",
     "src": {
       "H2654k240": "https://sylvan.apple.com/itunes-assets/Aerials116/v4/cb/5b/50/cb5b5035-6701-619f-9065-3d7d0e5fbef4/M012_C065_S04_FRC240fps_sdr_4k_qp22_240p_t2160_grover401_tsa.mov"
-    }
+    },
+    "timeOfDay": "day"
   },
   {
     "id": "cb5b5035-6701-619f-9065-3d7d0e5fbef4-116",
@@ -1403,7 +1459,8 @@
     "type": "landscape",
     "src": {
       "H2654k240": "https://sylvan.apple.com/itunes-assets/Aerials116/v4/cb/5b/50/cb5b5035-6701-619f-9065-3d7d0e5fbef4/M010_C005_F01_clipF6556F13846_sdr_4k_qp23_240p_t2160_grover401_tsa.mov"
-    }
+    },
+    "timeOfDay": "twilight"
   },
   {
     "id": "cb5b5035-6701-619f-9065-3d7d0e5fbef4-117",
@@ -1415,7 +1472,8 @@
     "type": "landscape",
     "src": {
       "H2654k240": "https://sylvan.apple.com/itunes-assets/Aerials116/v4/cb/5b/50/cb5b5035-6701-619f-9065-3d7d0e5fbef4/M012_C023_S04_FRC_sdr_4k_qp22_240p_t2160_grover401_tsa.mov"
-    }
+    },
+    "timeOfDay": "day"
   },
   {
     "id": "cb5b5035-6701-619f-9065-3d7d0e5fbef4-118",
@@ -1427,7 +1485,8 @@
     "type": "landscape",
     "src": {
       "H2654k240": "https://sylvan.apple.com/itunes-assets/Aerials116/v4/cb/5b/50/cb5b5035-6701-619f-9065-3d7d0e5fbef4/M010_C009_F01_FRC_sdr_4k_qp22_240p_t2160_grover401_tsa.mov"
-    }
+    },
+    "timeOfDay": "twilight"
   },
   {
     "id": "cb5b5035-6701-619f-9065-3d7d0e5fbef4-119",
@@ -1439,7 +1498,8 @@
     "type": "landscape",
     "src": {
       "H2654k240": "https://sylvan.apple.com/itunes-assets/Aerials116/v4/cb/5b/50/cb5b5035-6701-619f-9065-3d7d0e5fbef4/M007_C007_F02_sdr_4k_qp20_240p_t2160_grover401_tsa.mov"
-    }
+    },
+    "timeOfDay": "twilight"
   },
   {
     "id": "cb5b5035-6701-619f-9065-3d7d0e5fbef4-120",
@@ -1451,7 +1511,8 @@
     "type": "landscape",
     "src": {
       "H2654k240": "https://sylvan.apple.com/itunes-assets/Aerials116/v4/cb/5b/50/cb5b5035-6701-619f-9065-3d7d0e5fbef4/M005_C017_F01_FRC_sdr_4k_qp22_240p_t2160_grover401_tsa.mov"
-    }
+    },
+    "timeOfDay": "day"
   },
   {
     "id": "44166C39-8566-4ECA-BD16-43159429B52F",
@@ -1487,7 +1548,8 @@
       "H2651080p": "https://sylvan.apple.com/Aerials/2x/Videos/comp_N003_C006_PS_v01_SDR_PS_20180925_SDR_2K_HEVC.mov",
       "H2654k": "https://sylvan.apple.com/Aerials/2x/Videos/comp_N003_C006_PS_v01_SDR_PS_20180925_SDR_4K_HEVC.mov",
       "H2654k240": "https://sylvan.apple.com/itunes-assets/Aerials116/v4/cb/5b/50/cb5b5035-6701-619f-9065-3d7d0e5fbef4/comp_N003_C006_PS_v01_SDR_PS_20180925_240fps_d5d9b36c-937b-45b5-b57c-d532c300fc07q20_sRGB_tsa.mov"
-    }
+    },
+    "timeOfDay": "day"
   },
   {
     "id": "640DFB00-FBB9-45DA-9444-9F663859F4BC",
@@ -1522,7 +1584,8 @@
       "H2651080p": "https://sylvan.apple.com/Aerials/2x/Videos/comp_N008_C009_PS_v01_SDR_PS_20180925_SDR_2K_HEVC.mov",
       "H2654k": "https://sylvan.apple.com/Aerials/2x/Videos/comp_N008_C009_PS_v01_SDR_PS_20180925_SDR_4K_HEVC.mov",
       "H2654k240": "https://sylvan.apple.com/itunes-assets/Aerials116/v4/cb/5b/50/cb5b5035-6701-619f-9065-3d7d0e5fbef4/comp_N008_C009_PS_v01_SDR_PS_20180925_240fps_2f1e8a37-c8e6-4107-92bf-c9a94b585bedq21_tsa_sRGB.mov"
-    }
+    },
+    "timeOfDay": "day"
   },
   {
     "id": "5C987900-AD53-469C-8210-CABBCCDDFCAE",
@@ -1537,7 +1600,8 @@
       "H2651080p": "https://sylvan.apple.com/Aerials/2x/Videos/P001_C005_UHD_SDR_2K_HEVC.mov",
       "H2654k": "https://sylvan.apple.com/Aerials/2x/Videos/P001_C005_UHD_SDR_4K_HEVC.mov",
       "H2654k240": "https://sylvan.apple.com/itunes-assets/Aerials126/v4/ec/eb/c8/ecebc8d2-5486-c2b2-52ae-6f0ab2d6b65f/P001_C005_UHD_SDR_240fps_89dfd1a5-485c-4572-8e9e-757bd06bcfa3q20_sRGB_tsa.mov"
-    }
+    },
+    "timeOfDay": "day"
   },
   {
     "id": "B004358B-5A27-42E5-B49E-93FC100B2371",
@@ -1552,7 +1616,8 @@
       "H2651080p": "https://sylvan.apple.com/Aerials/2x/Videos/P005_C002_UHD_SDR_2K_HEVC.mov",
       "H2654k": "https://sylvan.apple.com/Aerials/2x/Videos/P005_C002_UHD_SDR_4K_HEVC.mov",
       "H2654k240": "https://sylvan.apple.com/itunes-assets/Aerials116/v4/cb/5b/50/cb5b5035-6701-619f-9065-3d7d0e5fbef4/P005_C002_UHD_SDR_FRC240fps_sdr_4k_qp21_240p_t2160_tsa.mov"
-    }
+    },
+    "timeOfDay": "day"
   },
   {
     "id": "25A6CFB2-3570-4448-B114-244A4E454B7A",
@@ -1567,7 +1632,8 @@
       "H2651080p": "https://sylvan.apple.com/Aerials/2x/Videos/P006_C002_UHD_SDR_2K_HEVC.mov",
       "H2654k": "https://sylvan.apple.com/Aerials/2x/Videos/P006_C002_UHD_SDR_4K_HEVC.mov",
       "H2654k240": "https://sylvan.apple.com/itunes-assets/Aerials126/v4/ec/eb/c8/ecebc8d2-5486-c2b2-52ae-6f0ab2d6b65f/P006_C002_UHD_SDR_240fps_e99d74b1-ff85-422a-b553-5563571594a1q17_sRGB_tsa.mov"
-    }
+    },
+    "timeOfDay": "twilight"
   },
   {
     "id": "E5D58CC2-3C52-4206-9DA2-427DC88B5896",
@@ -1582,7 +1648,8 @@
       "H2651080p": "https://sylvan.apple.com/Aerials/2x/Videos/P007_C027_UHD_SDR_2K_HEVC.mov",
       "H2654k": "https://sylvan.apple.com/Aerials/2x/Videos/P007_C027_UHD_SDR_4K_HEVC.mov",
       "H2654k240": "https://sylvan.apple.com/itunes-assets/Aerials116/v4/cb/5b/50/cb5b5035-6701-619f-9065-3d7d0e5fbef4/P007_C027_UHD_SDR_FRC240fps_sdr_4k_qp20_240p_t2160_tsa.mov"
-    }
+    },
+    "timeOfDay": "day"
   },
   {
     "id": "cb5b5035-6701-619f-9065-3d7d0e5fbef4-121",
@@ -1594,7 +1661,8 @@
     "type": "landscape",
     "src": {
       "H2654k240": "https://sylvan.apple.com/itunes-assets/Aerials116/v4/cb/5b/50/cb5b5035-6701-619f-9065-3d7d0e5fbef4/R004_C012_F01_FRC_sdr_4k_qp32_240p_t2160_grover401_tsa.mov"
-    }
+    },
+    "timeOfDay": "day"
   },
   {
     "id": "cb5b5035-6701-619f-9065-3d7d0e5fbef4-122",
@@ -1606,7 +1674,8 @@
     "type": "landscape",
     "src": {
       "H2654k240": "https://sylvan.apple.com/itunes-assets/Aerials116/v4/cb/5b/50/cb5b5035-6701-619f-9065-3d7d0e5fbef4/R006_C013_S05_FRC_sdr_4k_qp24_240p_t2160_grover401_tsa.mov"
-    }
+    },
+    "timeOfDay": "twilight"
   },
   {
     "id": "cb5b5035-6701-619f-9065-3d7d0e5fbef4-123",
@@ -1618,7 +1687,8 @@
     "type": "landscape",
     "src": {
       "H2654k240": "https://sylvan.apple.com/itunes-assets/Aerials116/v4/cb/5b/50/cb5b5035-6701-619f-9065-3d7d0e5fbef4/R013_C039_F01_FRC_sdr_4k_qp27_240p_t2160_grover401_tsa.mov"
-    }
+    },
+    "timeOfDay": "day"
   },
   {
     "id": "cb5b5035-6701-619f-9065-3d7d0e5fbef4-124",
@@ -1630,7 +1700,8 @@
     "type": "landscape",
     "src": {
       "H2654k240": "https://sylvan.apple.com/itunes-assets/Aerials116/v4/cb/5b/50/cb5b5035-6701-619f-9065-3d7d0e5fbef4/R010_C003_F02_sdr_4k_qp26_240p_t2160_grover401_tsa.mov"
-    }
+    },
+    "timeOfDay": "day"
   },
   {
     "id": "3E94AE98-EAF2-4B09-96E3-452F46BC114E",
@@ -1664,7 +1735,8 @@
       "H2651080p": "https://sylvan.apple.com/Aerials/2x/Videos/comp_A012_C014_1223PT_v53_SDR_PS_FINAL_20180709_F0F8700_SDR_2K_HEVC.mov",
       "H2654k": "https://sylvan.apple.com/Aerials/2x/Videos/comp_A012_C014_1223PT_v53_SDR_PS_FINAL_20180709_F0F8700_SDR_4K_HEVC.mov",
       "H2654k240": "https://sylvan.apple.com/itunes-assets/Aerials116/v4/cb/5b/50/cb5b5035-6701-619f-9065-3d7d0e5fbef4/comp_A012_C014_1223PT_v53_SDR_PS_FINAL_20180709_FRC_sdr_4k_qp21_240p_t2160_tsa.mov"
-    }
+    },
+    "timeOfDay": "twilight"
   },
   {
     "id": "29BDF297-EB43-403A-8719-A78DA11A2948",
@@ -1700,7 +1772,8 @@
       "H2651080p": "https://sylvan.apple.com/Aerials/2x/Videos/comp_A006_C003_1219EE_CC_v01_SDR_PS_FINAL_20180709_SDR_2K_HEVC.mov",
       "H2654k": "https://sylvan.apple.com/Aerials/2x/Videos/comp_A006_C003_1219EE_CC_v01_SDR_PS_FINAL_20180709_SDR_4K_HEVC.mov",
       "H2654k240": "https://sylvan.apple.com/itunes-assets/Aerials116/v4/cb/5b/50/cb5b5035-6701-619f-9065-3d7d0e5fbef4/comp_A006_C003_1219EE_CC_v01_SDR_PS_FINAL_20180709_sdr_4k_qp23_240p_t2160_tsa.mov"
-    }
+    },
+    "timeOfDay": "day"
   },
   {
     "id": "EE533FBD-90AE-419A-AD13-D7A60E2015D6",
@@ -1716,7 +1789,8 @@
       "H2651080p": "https://sylvan.apple.com/Aerials/2x/Videos/comp_A008_C007_011550_CC_v01_SDR_PS_FINAL_20180709_SDR_2K_HEVC.mov",
       "H2654k": "https://sylvan.apple.com/Aerials/2x/Videos/comp_A008_C007_011550_CC_v01_SDR_PS_FINAL_20180709_SDR_4K_HEVC.mov",
       "H2654k240": "https://sylvan.apple.com/itunes-assets/Aerials116/v4/cb/5b/50/cb5b5035-6701-619f-9065-3d7d0e5fbef4/comp_A008_C007_011550_CC_v01_SDR_PS_FINAL_20180709_FRC_sdr_4k_qp22_240p_t2160_tsa.mov"
-    }
+    },
+    "timeOfDay": "twilight"
   },
   {
     "id": "72B4390D-DF1D-4D51-B179-229BBAEFFF2C",
@@ -1735,7 +1809,8 @@
       "H2651080p": "https://sylvan.apple.com/Aerials/2x/Videos/comp_A013_C012_0122D6_CC_v01_SDR_PS_FINAL_20180709_SDR_2K_HEVC.mov",
       "H2654k": "https://sylvan.apple.com/Aerials/2x/Videos/comp_A013_C012_0122D6_CC_v01_SDR_PS_FINAL_20180709_SDR_4K_HEVC.mov",
       "H2654k240": "https://sylvan.apple.com/itunes-assets/Aerials116/v4/cb/5b/50/cb5b5035-6701-619f-9065-3d7d0e5fbef4/comp_A013_C012_0122D6_CC_v01_SDR_PS_FINAL_20180709_FRC_sdr_4k_qp21_240p_t2160_tsa.mov"
-    }
+    },
+    "timeOfDay": "day"
   },
   {
     "id": "4AD99907-9E76-408D-A7FC-8429FF014201",
@@ -1753,7 +1828,8 @@
       "H2651080p": "https://sylvan.apple.com/Aerials/2x/Videos/comp_1223LV_FLARE_v21_SDR_PS_FINAL_20180709_F0F5700_SDR_2K_HEVC.mov",
       "H2654k": "https://sylvan.apple.com/Aerials/2x/Videos/comp_1223LV_FLARE_v21_SDR_PS_FINAL_20180709_F0F5700_SDR_4K_HEVC.mov",
       "H2654k240": "https://sylvan.apple.com/itunes-assets/Aerials116/v4/cb/5b/50/cb5b5035-6701-619f-9065-3d7d0e5fbef4/comp_1223LV_FLARE_v21_SDR_PS_FINAL_20180709_sdr_4k_qp15_240p_t2160_tsa.mov"
-    }
+    },
+    "timeOfDay": "twilight"
   },
   {
     "id": "0C747C29-4BF8-43F6-A5CC-2E012E555341",
@@ -1770,7 +1846,8 @@
       "H2651080p": "https://sylvan.apple.com/Aerials/2x/Videos/S003_C020_SDR_2K_HEVC.mov",
       "H2654k": "https://sylvan.apple.com/Aerials/2x/Videos/S003_C020_SDR_4K_HEVC.mov",
       "H2654k240": "https://sylvan.apple.com/itunes-assets/Aerials116/v4/cb/5b/50/cb5b5035-6701-619f-9065-3d7d0e5fbef4/S003_C020_UHD_SDR_FRC240fps_sdr_4k_qp25_240p_t2160_tsa.mov"
-    }
+    },
+    "timeOfDay": "day"
   },
   {
     "id": "3954A7C4-51EC-4ABC-ABA3-6757AC91C7CF",
@@ -1786,7 +1863,8 @@
       "H2651080p": "https://sylvan.apple.com/Aerials/2x/Videos/S005_C015_SDR_2K_HEVC.mov",
       "H2654k": "https://sylvan.apple.com/Aerials/2x/Videos/S005_C015_SDR_4K_HEVC.mov",
       "H2654k240": "https://sylvan.apple.com/itunes-assets/Aerials116/v4/cb/5b/50/cb5b5035-6701-619f-9065-3d7d0e5fbef4/S005_C015_UHD_SDR_FRC_sdr_4k_grover401qp32_240p_t2160_tsa.mov"
-    }
+    },
+    "timeOfDay": "day"
   },
   {
     "id": "E161929C-0819-4BC2-8359-550C081C7D54",
@@ -1804,7 +1882,8 @@
       "H2651080p": "https://sylvan.apple.com/Aerials/2x/Videos/S006_C007_SDR_2K_HEVC.mov",
       "H2654k": "https://sylvan.apple.com/Aerials/2x/Videos/S006_C007_SDR_4K_HEVC.mov",
       "H2654k240": "https://sylvan.apple.com/itunes-assets/Aerials116/v4/cb/5b/50/cb5b5035-6701-619f-9065-3d7d0e5fbef4/S006_C007_UHD_SDR_FRC240fps_sdr_4k_qp20_240p_t2160_tsa.mov"
-    }
+    },
+    "timeOfDay": "day"
   },
   {
     "id": "cb5b5035-6701-619f-9065-3d7d0e5fbef4-144",
@@ -1816,7 +1895,8 @@
     "type": "landscape",
     "src": {
       "H2654k240": "https://sylvan.apple.com/itunes-assets/Aerials116/v4/cb/5b/50/cb5b5035-6701-619f-9065-3d7d0e5fbef4/A007C0001_Final_v2_HEVC.mov"
-    }
+    },
+    "timeOfDay": "day"
   },
   {
     "id": "cb5b5035-6701-619f-9065-3d7d0e5fbef4-145",
@@ -1828,7 +1908,8 @@
     "type": "landscape",
     "src": {
       "H2654k240": "https://sylvan.apple.com/itunes-assets/Aerials116/v4/cb/5b/50/cb5b5035-6701-619f-9065-3d7d0e5fbef4/A010C0005_Final_v2_HEVC.mov"
-    }
+    },
+    "timeOfDay": "day"
   },
   {
     "id": "cb5b5035-6701-619f-9065-3d7d0e5fbef4-146",
@@ -1840,7 +1921,8 @@
     "type": "landscape",
     "src": {
       "H2654k240": "https://sylvan.apple.com/itunes-assets/Aerials116/v4/cb/5b/50/cb5b5035-6701-619f-9065-3d7d0e5fbef4/A018C0002_Final_v2_HEVC.mov"
-    }
+    },
+    "timeOfDay": "night"
   },
   {
     "id": "ecebc8d2-5486-c2b2-52ae-6f0ab2d6b65f-125",
@@ -1852,7 +1934,8 @@
     "type": "landscape",
     "src": {
       "H2654k240": "https://sylvan.apple.com/itunes-assets/Aerials126/v4/ec/eb/c8/ecebc8d2-5486-c2b2-52ae-6f0ab2d6b65f/S011_C003_F01_FRC240fps_sdr_4k_qp18_240p_t2160_grover401_tsa.mov"
-    }
+    },
+    "timeOfDay": "twilight"
   },
   {
     "id": "ecebc8d2-5486-c2b2-52ae-6f0ab2d6b65f-126",
@@ -1864,7 +1947,8 @@
     "type": "landscape",
     "src": {
       "H2654k240": "https://sylvan.apple.com/itunes-assets/Aerials126/v4/ec/eb/c8/ecebc8d2-5486-c2b2-52ae-6f0ab2d6b65f/S013_C001_F01_FRC240fps_sdr_4k_qp20_240p_t2160_tsa.mov"
-    }
+    },
+    "timeOfDay": "twilight"
   },
   {
     "id": "ecebc8d2-5486-c2b2-52ae-6f0ab2d6b65f-127",
@@ -1876,7 +1960,8 @@
     "type": "landscape",
     "src": {
       "H2654k240": "https://sylvan.apple.com/itunes-assets/Aerials126/v4/ec/eb/c8/ecebc8d2-5486-c2b2-52ae-6f0ab2d6b65f/W010_C003_F01_third_sdr_4k_qp24_15Mbps_240p_t2160_tsa.mov"
-    }
+    },
+    "timeOfDay": "day"
   },
   {
     "id": "ecebc8d2-5486-c2b2-52ae-6f0ab2d6b65f-128",
@@ -1888,7 +1973,8 @@
     "type": "landscape",
     "src": {
       "H2654k240": "https://sylvan.apple.com/itunes-assets/Aerials126/v4/ec/eb/c8/ecebc8d2-5486-c2b2-52ae-6f0ab2d6b65f/S005_C013_F01_FRC240fps_sdr_4k_qp18_240p_t2160_tsa.mov"
-    }
+    },
+    "timeOfDay": "twilight"
   },
   {
     "id": "ecebc8d2-5486-c2b2-52ae-6f0ab2d6b65f-129",
@@ -1900,7 +1986,8 @@
     "type": "landscape",
     "src": {
       "H2654k240": "https://sylvan.apple.com/itunes-assets/Aerials126/v4/ec/eb/c8/ecebc8d2-5486-c2b2-52ae-6f0ab2d6b65f/S009_C018_F01_FRC240fps_sdr_4k_qp18_240p_t2160_tsa.mov"
-    }
+    },
+    "timeOfDay": "day"
   },
   {
     "id": "cb5b5035-6701-619f-9065-3d7d0e5fbef4-130",
@@ -1912,7 +1999,8 @@
     "type": "landscape",
     "src": {
       "H2654k240": "https://sylvan.apple.com/itunes-assets/Aerials116/v4/cb/5b/50/cb5b5035-6701-619f-9065-3d7d0e5fbef4/W015_C006_F01_FRC_sdr_4k_qp28_240p_t2160_grover401_tsa.mov"
-    }
+    },
+    "timeOfDay": "day"
   },
   {
     "id": "cb5b5035-6701-619f-9065-3d7d0e5fbef4-131",
@@ -1924,7 +2012,8 @@
     "type": "landscape",
     "src": {
       "H2654k240": "https://sylvan.apple.com/itunes-assets/Aerials116/v4/cb/5b/50/cb5b5035-6701-619f-9065-3d7d0e5fbef4/W015_C010_F01_clipF0F4200_sdr_4k_qp31_240p_t2160_grover401_tsa.mov"
-    }
+    },
+    "timeOfDay": "day"
   },
   {
     "id": "cb5b5035-6701-619f-9065-3d7d0e5fbef4-132",
@@ -1936,7 +2025,8 @@
     "type": "landscape",
     "src": {
       "H2654k240": "https://sylvan.apple.com/itunes-assets/Aerials116/v4/cb/5b/50/cb5b5035-6701-619f-9065-3d7d0e5fbef4/W014_C018_F01_FRC_sdr_4k_qp29_240p_t2160_grover401_tsa.mov"
-    }
+    },
+    "timeOfDay": "day"
   },
   {
     "id": "cb5b5035-6701-619f-9065-3d7d0e5fbef4-147",
@@ -1948,7 +2038,8 @@
     "type": "landscape",
     "src": {
       "H2654k240": "https://sylvan.apple.com/itunes-assets/Aerials116/v4/cb/5b/50/cb5b5035-6701-619f-9065-3d7d0e5fbef4/LIGHT01_20250623_V3_sdr_4k_rate12000_240p_t2160_grover74_tsa_nclc111.mov"
-    }
+    },
+    "timeOfDay": "twilight"
   },
   {
     "id": "cb5b5035-6701-619f-9065-3d7d0e5fbef4-148",
@@ -1960,7 +2051,8 @@
     "type": "landscape",
     "src": {
       "H2654k240": "https://sylvan.apple.com/itunes-assets/Aerials116/v4/cb/5b/50/cb5b5035-6701-619f-9065-3d7d0e5fbef4/LIGHT02_20250613_V2_sdr_4k_rate12000_240p_t2160_grover74_tsa_MTE-Modified.mov"
-    }
+    },
+    "timeOfDay": "day"
   },
   {
     "id": "cb5b5035-6701-619f-9065-3d7d0e5fbef4-149",
@@ -1972,7 +2064,8 @@
     "type": "landscape",
     "src": {
       "H2654k240": "https://sylvan.apple.com/itunes-assets/Aerials116/v4/cb/5b/50/cb5b5035-6701-619f-9065-3d7d0e5fbef4/DARK01_20250703_v10_sdr_4k_rate12000_240p_t2160_grover74_tsa_nclc111.mov"
-    }
+    },
+    "timeOfDay": "twilight"
   },
   {
     "id": "cb5b5035-6701-619f-9065-3d7d0e5fbef4-150",
@@ -1984,7 +2077,8 @@
     "type": "landscape",
     "src": {
       "H2654k240": "https://sylvan.apple.com/itunes-assets/Aerials116/v4/cb/5b/50/cb5b5035-6701-619f-9065-3d7d0e5fbef4/DARK02_20250719_V1_FRC_240fps_sdr_4k_rate12000_240p_t2160_grover74_tsa_nclc111.mov"
-    }
+    },
+    "timeOfDay": "night"
   },
   {
     "id": "C6DC4E54-1130-44F8-AF6F-A551D8E8A181",
@@ -1999,7 +2093,8 @@
       "H2651080p": "https://sylvan.apple.com/Aerials/2x/Videos/AK_A004_C012_SDR_20191217_SDR_2K_HEVC.mov",
       "H2654k": "https://sylvan.apple.com/Aerials/2x/Videos/AK_A004_C012_SDR_20191217_SDR_4K_HEVC.mov",
       "H2654k240": "https://sylvan.apple.com/itunes-assets/Aerials116/v4/cb/5b/50/cb5b5035-6701-619f-9065-3d7d0e5fbef4/AK_A004_C012_SDR_20191217_240fps_dbcfb14a-bb2b-4cf1-b171-acf85ce92960q20_sRGB_tsa.mov"
-    }
+    },
+    "timeOfDay": "day"
   },
   {
     "id": "C7AD3D0A-7EDF-412C-A237-B3C9D27381A1",
@@ -2014,7 +2109,8 @@
       "H2651080p": "https://sylvan.apple.com/Aerials/2x/Videos/g201_AK_A003_C014_SDR_20191113_SDR_2K_HEVC.mov",
       "H2654k": "https://sylvan.apple.com/Aerials/2x/Videos/g201_AK_A003_C014_SDR_20191113_SDR_4K_HEVC.mov",
       "H2654k240": "https://sylvan.apple.com/itunes-assets/Aerials116/v4/cb/5b/50/cb5b5035-6701-619f-9065-3d7d0e5fbef4/AK_A003_C014_SDR_20191113_240fps_e63a81f1-412d-4a76-bb6e-370980b4bd80q26_sRGB_tsa.mov"
-    }
+    },
+    "timeOfDay": "night"
   },
   {
     "id": "2B30E324-E4FF-4CC1-BA45-A958C2D2B2EC",
@@ -2029,7 +2125,8 @@
       "H2651080p": "https://sylvan.apple.com/Aerials/2x/Videos/BO_A018_C029_SDR_20190812_SDR_2K_HEVC.mov",
       "H2654k": "https://sylvan.apple.com/Aerials/2x/Videos/BO_A018_C029_SDR_20190812_SDR_4K_HEVC.mov",
       "H2654k240": "https://sylvan.apple.com/itunes-assets/Aerials126/v4/ec/eb/c8/ecebc8d2-5486-c2b2-52ae-6f0ab2d6b65f/BO_A018_C029_SDR_20190812_240fps_7e014e89-e09c-4842-ae69-94c585f77aceq21_sRGB_tsa.mov"
-    }
+    },
+    "timeOfDay": "day"
   },
   {
     "id": "687D03A2-18A5-4181-8E85-38F3A13409B9",
@@ -2044,7 +2141,8 @@
       "H2651080p": "https://sylvan.apple.com/Aerials/2x/Videos/BO_A014_C008_SDR_20190719_SDR_2K_HEVC.mov",
       "H2654k": "https://sylvan.apple.com/Aerials/2x/Videos/BO_A014_C008_SDR_20190719_SDR_4K_HEVC.mov",
       "H2654k240": "https://sylvan.apple.com/itunes-assets/Aerials116/v4/cb/5b/50/cb5b5035-6701-619f-9065-3d7d0e5fbef4/BO_A014_C008_SDR_20190719_FRC_sdr_4k_grover341qp32_240p_t2160_tsa.mov"
-    }
+    },
+    "timeOfDay": "day"
   },
   {
     "id": "27A37B0F-738D-4644-A7A4-E33E7A6C1175",
@@ -2059,7 +2157,8 @@
       "H2651080p": "https://sylvan.apple.com/Aerials/2x/Videos/DL_B002_C011_SDR_20191122_SDR_2K_HEVC.mov",
       "H2654k": "https://sylvan.apple.com/Aerials/2x/Videos/DL_B002_C011_SDR_20191122_SDR_4K_HEVC.mov",
       "H2654k240": "https://sylvan.apple.com/itunes-assets/Aerials126/v4/ec/eb/c8/ecebc8d2-5486-c2b2-52ae-6f0ab2d6b65f/DL_B002_C011_SDR_20191122_240fps_521bacfa-65b2-4938-92b1-4d069187ddfcq24_sRGB_tsa.mov"
-    }
+    },
+    "timeOfDay": "day"
   },
   {
     "id": "EB3F48E7-D30F-4079-858F-1A61331D5026",
@@ -2074,7 +2173,8 @@
       "H2651080p": "https://sylvan.apple.com/Aerials/2x/Videos/g201_CA_A016_C002_SDR_20191114_SDR_2K_HEVC.mov",
       "H2654k": "https://sylvan.apple.com/Aerials/2x/Videos/g201_CA_A016_C002_SDR_20191114_SDR_4K_HEVC.mov",
       "H2654k240": "https://sylvan.apple.com/itunes-assets/Aerials126/v4/ec/eb/c8/ecebc8d2-5486-c2b2-52ae-6f0ab2d6b65f/CA_A016_C002_SDR_20191114_240fps_21aa64e8-2a10-48c8-bc1a-96e9fa872ef5q25_sRGB_tsa.mov"
-    }
+    },
+    "timeOfDay": "day"
   },
   {
     "id": "CE9B5D5B-B6E7-47C5-8C04-59BF182E98FB",
@@ -2089,7 +2189,8 @@
       "H2651080p": "https://sylvan.apple.com/Aerials/2x/Videos/CR_A009_C007_SDR_20191113_SDR_2K_HEVC.mov",
       "H2654k": "https://sylvan.apple.com/Aerials/2x/Videos/CR_A009_C007_SDR_20191113_SDR_4K_HEVC.mov",
       "H2654k240": "https://sylvan.apple.com/itunes-assets/Aerials116/v4/cb/5b/50/cb5b5035-6701-619f-9065-3d7d0e5fbef4/CR_A009_C007_SDR_20191113_FRC240fps_dpmdq17_tsa.mov"
-    }
+    },
+    "timeOfDay": "day"
   },
   {
     "id": "58C75C62-3290-47B8-849C-56A583173570",
@@ -2104,7 +2205,8 @@
       "H2651080p": "https://sylvan.apple.com/Aerials/2x/Videos/MEX_A006_C008_SDR_20190923_SDR_2K_HEVC.mov",
       "H2654k": "https://sylvan.apple.com/Aerials/2x/Videos/MEX_A006_C008_SDR_20190923_SDR_4K_HEVC.mov",
       "H2654k240": "https://sylvan.apple.com/itunes-assets/Aerials116/v4/cb/5b/50/cb5b5035-6701-619f-9065-3d7d0e5fbef4/MEX_A006_C008_SDR_20190923_FRC_sdr_4k_qp25_240p_t2160_tsa.mov"
-    }
+    },
+    "timeOfDay": "day"
   },
   {
     "id": "3716DD4B-01C0-4F5B-8DD6-DB771EC472FB",
@@ -2119,7 +2221,8 @@
       "H2651080p": "https://sylvan.apple.com/Aerials/2x/Videos/FK_U009_C004_SDR_20191220_SDR_2K_HEVC.mov",
       "H2654k": "https://sylvan.apple.com/Aerials/2x/Videos/FK_U009_C004_SDR_20191220_SDR_4K_HEVC.mov",
       "H2654k240": "https://sylvan.apple.com/itunes-assets/Aerials116/v4/cb/5b/50/cb5b5035-6701-619f-9065-3d7d0e5fbef4/FK_U009_C004_SDR_20191220_FRC_sdr_4k_qp18_240p_t2160_tsa.mov"
-    }
+    },
+    "timeOfDay": "day"
   },
   {
     "id": "DD47D8E1-CB66-4C12-BFEA-2ADB0D8D1E2E",
@@ -2134,7 +2237,8 @@
       "H2651080p": "https://sylvan.apple.com/Aerials/2x/Videos/g201_WH_D004_L014_SDR_20191031_SDR_2K_HEVC.mov",
       "H2654k": "https://sylvan.apple.com/Aerials/2x/Videos/g201_WH_D004_L014_SDR_20191031_SDR_4K_HEVC.mov",
       "H2654k240": "https://sylvan.apple.com/itunes-assets/Aerials126/v4/ec/eb/c8/ecebc8d2-5486-c2b2-52ae-6f0ab2d6b65f/WH_D004_L014_SDR_20191031_240fps_39bd3ba0-b3c3-4d46-8daa-ec23be081676q24_sRGB_tsa.mov"
-    }
+    },
+    "timeOfDay": "day"
   },
   {
     "id": "537A4DAB-83B0-4B66-BCD1-05E5DBB4A268",
@@ -2149,7 +2253,8 @@
       "H2651080p": "https://sylvan.apple.com/Aerials/2x/Videos/BO_A014_C023_SDR_20190717_F240F3709_SDR_2K_HEVC.mov",
       "H2654k": "https://sylvan.apple.com/Aerials/2x/Videos/BO_A014_C023_SDR_20190717_F240F3709_SDR_4K_HEVC.mov",
       "H2654k240": "https://sylvan.apple.com/itunes-assets/Aerials116/v4/cb/5b/50/cb5b5035-6701-619f-9065-3d7d0e5fbef4/BO_A014_C023_SDR_20190717_240fps_fc33a391-4b78-41be-b2f4-8e66ff4568c6q29_sRGB_tsa.mov"
-    }
+    },
+    "timeOfDay": "day"
   },
   {
     "id": "6143116D-03BB-485E-864E-A8CF58ACF6F1",
@@ -2164,7 +2269,8 @@
       "H2651080p": "https://sylvan.apple.com/Aerials/2x/Videos/KP_A010_C002_SDR_20190717_SDR_2K_HEVC.mov",
       "H2654k": "https://sylvan.apple.com/Aerials/2x/Videos/KP_A010_C002_SDR_20190717_SDR_4K_HEVC.mov",
       "H2654k240": "https://sylvan.apple.com/itunes-assets/Aerials116/v4/cb/5b/50/cb5b5035-6701-619f-9065-3d7d0e5fbef4/KP_A010_C002_SDR_20190717_FRC_sdr_4k_qp16_240p_t2160_tsa.mov"
-    }
+    },
+    "timeOfDay": "night"
   },
   {
     "id": "F07CC61B-30FC-4614-BDAD-3240B61F6793",
@@ -2179,7 +2285,8 @@
       "H2651080p": "https://sylvan.apple.com/Aerials/2x/Videos/PA_A004_C003_SDR_20190719_SDR_2K_HEVC.mov",
       "H2654k": "https://sylvan.apple.com/Aerials/2x/Videos/PA_A004_C003_SDR_20190719_SDR_4K_HEVC.mov",
       "H2654k240": "https://sylvan.apple.com/itunes-assets/Aerials116/v4/cb/5b/50/cb5b5035-6701-619f-9065-3d7d0e5fbef4/PA_A004_C003_SDR_20190719_240fps_ee722c45-c37e-467e-ad34-d86898486facq29_sRGB_tsa.mov"
-    }
+    },
+    "timeOfDay": "day"
   },
   {
     "id": "BA4ECA11-592F-4727-9221-D2A32A16EB28",
@@ -2196,7 +2303,8 @@
       "H2651080p": "https://sylvan.apple.com/Aerials/2x/Videos/PA_A001_C007_SDR_20190717_SDR_2K_HEVC.mov",
       "H2654k": "https://sylvan.apple.com/Aerials/2x/Videos/PA_A001_C007_SDR_20190717_SDR_4K_HEVC.mov",
       "H2654k240": "https://sylvan.apple.com/itunes-assets/Aerials116/v4/cb/5b/50/cb5b5035-6701-619f-9065-3d7d0e5fbef4/PA_A001_C007_SDR_20190717_240fps_7c3c9b51-37bd-415e-aee7-c18a096667e4q20_sRGB_tsa.mov"
-    }
+    },
+    "timeOfDay": "night"
   },
   {
     "id": "E580E5A5-0888-4BE8-A4CA-F74A18A643C3",
@@ -2211,7 +2319,8 @@
       "H2651080p": "https://sylvan.apple.com/Aerials/2x/Videos/PA_A002_C009_SDR_20190730_ALT01_SDR_2K_HEVC.mov",
       "H2654k": "https://sylvan.apple.com/Aerials/2x/Videos/PA_A002_C009_SDR_20190730_ALT01_SDR_4K_HEVC.mov",
       "H2654k240": "https://sylvan.apple.com/itunes-assets/Aerials116/v4/cb/5b/50/cb5b5035-6701-619f-9065-3d7d0e5fbef4/PA_A002_C009_SDR_20190730_ALT01_FRC_sdr_4k_qp20_240p_t2160_tsa.mov"
-    }
+    },
+    "timeOfDay": "day"
   },
   {
     "id": "EC3DC957-D4C2-4732-AACE-7D0C0F390EC8",
@@ -2226,7 +2335,8 @@
       "H2651080p": "https://sylvan.apple.com/Aerials/2x/Videos/PA_A010_C007_SDR_20190717_SDR_2K_HEVC.mov",
       "H2654k": "https://sylvan.apple.com/Aerials/2x/Videos/PA_A010_C007_SDR_20190717_SDR_4K_HEVC.mov",
       "H2654k240": "https://sylvan.apple.com/itunes-assets/Aerials116/v4/cb/5b/50/cb5b5035-6701-619f-9065-3d7d0e5fbef4/PA_A010_C007_SDR_20190717_240fps_e955ffdd-21c5-456a-a44b-0429aa869c61q24_sRGB_tsa.mov"
-    }
+    },
+    "timeOfDay": "day"
   },
   {
     "id": "82175C1F-153C-4EC8-AE37-2860EA828004",
@@ -2241,7 +2351,8 @@
       "H2651080p": "https://sylvan.apple.com/Aerials/2x/Videos/RS_A008_C010_SDR_20191218_SDR_2K_HEVC.mov",
       "H2654k": "https://sylvan.apple.com/Aerials/2x/Videos/RS_A008_C010_SDR_20191218_SDR_4K_HEVC.mov",
       "H2654k240": "https://sylvan.apple.com/itunes-assets/Aerials116/v4/cb/5b/50/cb5b5035-6701-619f-9065-3d7d0e5fbef4/RS_A008_C010_SDR_20191218_FRC_sdr_4k_qp30_240p_t2160_tsa.mov"
-    }
+    },
+    "timeOfDay": "day"
   },
   {
     "id": "581A4F1A-2B6D-468C-A1BE-6F473F06D10B",
@@ -2256,7 +2367,8 @@
       "H2651080p": "https://sylvan.apple.com/Aerials/2x/Videos/BO_A012_C031_SDR_20190726_SDR_2K_HEVC.mov",
       "H2654k": "https://sylvan.apple.com/Aerials/2x/Videos/BO_A012_C031_SDR_20190726_SDR_4K_HEVC.mov",
       "H2654k240": "https://sylvan.apple.com/itunes-assets/Aerials116/v4/cb/5b/50/cb5b5035-6701-619f-9065-3d7d0e5fbef4/BO_A012_C031_SDR_20190726_FRC_sdr_4k_qp26_240p_t2160_tsa.mov"
-    }
+    },
+    "timeOfDay": "day"
   },
   {
     "id": "83C65C90-270C-4490-9C69-F51FE03D7F06",
@@ -2271,7 +2383,8 @@
       "H2651080p": "https://sylvan.apple.com/Aerials/2x/Videos/SE_A016_C009_SDR_20190717_SDR_2K_HEVC.mov",
       "H2654k": "https://sylvan.apple.com/Aerials/2x/Videos/SE_A016_C009_SDR_20190717_SDR_4K_HEVC.mov",
       "H2654k240": "https://sylvan.apple.com/itunes-assets/Aerials116/v4/cb/5b/50/cb5b5035-6701-619f-9065-3d7d0e5fbef4/SE_A016_C009_SDR_20190717_FRC240fps_sdr_4k_grover402qp26_240p_t2160_tsa.mov"
-    }
+    },
+    "timeOfDay": "day"
   },
   {
     "id": "8C31B06F-91A4-4F7C-93ED-56146D7F48B9",
@@ -2286,7 +2399,8 @@
       "H2651080p": "https://sylvan.apple.com/Aerials/2x/Videos/g201_TH_804_A001_8_SDR_20191031_SDR_2K_HEVC.mov",
       "H2654k": "https://sylvan.apple.com/Aerials/2x/Videos/g201_TH_804_A001_8_SDR_20191031_SDR_4K_HEVC.mov",
       "H2654k240": "https://sylvan.apple.com/itunes-assets/Aerials116/v4/cb/5b/50/cb5b5035-6701-619f-9065-3d7d0e5fbef4/TH_804_A001_8_SDR_20191031_240fps_e79c4f82-9068-40c2-afc6-0d6ad48aa70eq19_sRGB_tsa.mov"
-    }
+    },
+    "timeOfDay": "day"
   },
   {
     "id": "149E7795-DBDA-4F5D-B39A-14712F841118",
@@ -2301,7 +2415,8 @@
       "H2651080p": "https://sylvan.apple.com/Aerials/2x/Videos/g201_TH_803_A001_8_SDR_20191031_SDR_2K_HEVC.mov",
       "H2654k": "https://sylvan.apple.com/Aerials/2x/Videos/g201_TH_803_A001_8_SDR_20191031_SDR_4K_HEVC.mov",
       "H2654k240": "https://sylvan.apple.com/itunes-assets/Aerials116/v4/cb/5b/50/cb5b5035-6701-619f-9065-3d7d0e5fbef4/TH_803_A001_8_SDR_20191031_240fps_b602776f-63ed-45cf-89d0-b0dfa4660cf7q31_sRGB_tsa.mov"
-    }
+    },
+    "timeOfDay": "day"
   },
   {
     "id": "E540DEE6-4C40-42C8-9CCC-D4CB0FAD7D7B",
@@ -2319,7 +2434,8 @@
       "H2651080p": "https://sylvan.apple.com/Aerials/2x/Videos/Y002_C013_SDR_2K_HEVC.mov",
       "H2654k": "https://sylvan.apple.com/Aerials/2x/Videos/Y002_C013_SDR_4K_HEVC.mov",
       "H2654k240": "https://sylvan.apple.com/itunes-assets/Aerials116/v4/cb/5b/50/cb5b5035-6701-619f-9065-3d7d0e5fbef4/Y002_C013_UHD_SDR_FRC240fps_sdr_4k_qp22_240p_t2160_tsa.mov"
-    }
+    },
+    "timeOfDay": "day"
   },
   {
     "id": "81CA5ACD-E682-4D8B-A948-0F147EB6ED4F",
@@ -2338,7 +2454,8 @@
       "H2651080p": "https://sylvan.apple.com/Aerials/2x/Videos/Y003_C009_SDR_2K_HEVC.mov",
       "H2654k": "https://sylvan.apple.com/Aerials/2x/Videos/Y003_C009_SDR_4K_HEVC.mov",
       "H2654k240": "https://sylvan.apple.com/itunes-assets/Aerials116/v4/cb/5b/50/cb5b5035-6701-619f-9065-3d7d0e5fbef4/Y003_C009_UHD_SDR_FRC240fps_sdr_4k_qp23_240p_t2160_tsa.mov"
-    }
+    },
+    "timeOfDay": "day"
   },
   {
     "id": "E5799A24-1949-4E66-A17B-B5EB05F28C5D",
@@ -2355,7 +2472,8 @@
       "H2651080p": "https://sylvan.apple.com/Aerials/2x/Videos/Y004_C015_SDR_2K_HEVC.mov",
       "H2654k": "https://sylvan.apple.com/Aerials/2x/Videos/Y004_C015_SDR_4K_HEVC.mov",
       "H2654k240": "https://sylvan.apple.com/itunes-assets/Aerials116/v4/cb/5b/50/cb5b5035-6701-619f-9065-3d7d0e5fbef4/Y004_C015_UHD_SDR_240fps_1b32206c-d1ff-4c0b-88ee-f15346c59daaq19_sRGB_tsa.mov"
-    }
+    },
+    "timeOfDay": "day"
   },
   {
     "id": "E487C6EF-B3FB-427B-A2BE-8CBA60F902F0",
@@ -2375,7 +2493,8 @@
       "H2651080p": "https://sylvan.apple.com/Aerials/2x/Videos/Y005_C003_SDR_2K_HEVC.mov",
       "H2654k": "https://sylvan.apple.com/Aerials/2x/Videos/Y005_C003_SDR_4K_HEVC.mov",
       "H2654k240": "https://sylvan.apple.com/itunes-assets/Aerials116/v4/cb/5b/50/cb5b5035-6701-619f-9065-3d7d0e5fbef4/Y005_C003_UHD_SDR_FRC240fps_sdr_4k_qp18_240p_t2160_tsa.mov"
-    }
+    },
+    "timeOfDay": "day"
   },
   {
     "id": "DAD82DCE-F3AE-4AEC-8A79-1694D412FC0A",
@@ -2390,7 +2509,8 @@
       "H2651080p": "https://sylvan.apple.com/Aerials/2x/Videos/Y009_C015_SDR_2K_HEVC.mov",
       "H2654k": "https://sylvan.apple.com/Aerials/2x/Videos/Y009_C015_SDR_4K_HEVC.mov",
       "H2654k240": "https://sylvan.apple.com/itunes-assets/Aerials116/v4/cb/5b/50/cb5b5035-6701-619f-9065-3d7d0e5fbef4/Y009_C015_UHD_SDR_FRC240fps_sdr_4k_qp23_240p_t2160_tsa.mov"
-    }
+    },
+    "timeOfDay": "day"
   },
   {
     "id": "4109D42A-D717-46A7-A9A2-FE53A82B25C0",
@@ -2411,7 +2531,8 @@
       "H2651080p": "https://sylvan.apple.com/Aerials/2x/Videos/Y011_C001_SDR_2K_HEVC.mov",
       "H2654k": "https://sylvan.apple.com/Aerials/2x/Videos/Y011_C001_SDR_4K_HEVC.mov",
       "H2654k240": "https://sylvan.apple.com/itunes-assets/Aerials116/v4/cb/5b/50/cb5b5035-6701-619f-9065-3d7d0e5fbef4/Y011_C001_UHD_SDR_FRC240fps_sdr_4k_qp22_240p_t2160_tsa.mov"
-    }
+    },
+    "timeOfDay": "day"
   },
   {
     "id": "8D04D70F-738B-441D-8D43-AF46B2BF8062",
@@ -2430,6 +2551,7 @@
       "H2651080p": "https://sylvan.apple.com/Aerials/2x/Videos/Y011_C008_SDR_2K_HEVC.mov",
       "H2654k": "https://sylvan.apple.com/Aerials/2x/Videos/Y011_C008_SDR_4K_HEVC.mov",
       "H2654k240": "https://sylvan.apple.com/itunes-assets/Aerials126/v4/ec/eb/c8/ecebc8d2-5486-c2b2-52ae-6f0ab2d6b65f/Y011_C008_FIN_UHD_SDR_240fps_f3150c20-ef0d-4a53-9535-ce4a3e65ed79q22_sRGB_tsa.mov"
-    }
+    },
+    "timeOfDay": "day"
   }
 ]

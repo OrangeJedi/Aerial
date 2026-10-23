@@ -1,6 +1,6 @@
 const videos = structuredClone(electron.videos);
 let types = ["cityscape", "landscape", "underwater", "space"];
-let timeOfDays = [undefined, "day", "night"];
+let timeOfDays = [undefined, "day", "night", "twilight"];
 
 
 function renderVideos() {

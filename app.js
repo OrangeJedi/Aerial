@@ -57,7 +57,7 @@ let suspendCountdown;
 let isComputerSleeping = false;
 let isComputerSuspendedOrLocked = false;
 let startTime = new Date();
-let tod = {"day": [], "night": [], "none": []};
+let tod = {"day": [], "night": [], "twilight": [], "none": []};
 let astronomy = {
     "sunrise": undefined,
     "sunset": undefined,
