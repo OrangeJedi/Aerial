@@ -1160,10 +1160,10 @@ setTimeOfDayList();
 function getTimeOfDay(settings = store) {
     let cHour = new Date().getHours();
     let cMin = new Date().getMinutes();
-    let sunriseHour = settings.get('sunrise').substring(0, 2);
-    let sunriseMinute = settings.get('sunrise').substring(3, 5);
-    let sunsetHour = settings.get('sunset').substring(0, 2);
-    let sunsetMinute = settings.get('sunset').substring(3, 5);
+    let sunriseHour = Number(settings.get('sunrise').substring(0, 2));
+    let sunriseMinute = Number(settings.get('sunrise').substring(3, 5));
+    let sunsetHour = Number(settings.get('sunset').substring(0, 2));
+    let sunsetMinute = Number(settings.get('sunset').substring(3, 5));
     let time = "night";
     if ((cHour === sunriseHour && cMin >= sunriseMinute) || (cHour > sunriseHour && cHour < sunsetHour) || (cHour === sunsetHour && cMin < sunsetMinute)) {
         time = "day";

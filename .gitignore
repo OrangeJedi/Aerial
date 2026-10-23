@@ -3,3 +3,4 @@ node_modules
 aerial-win32-x64
 dist
 test.js
+.test-tmp/
