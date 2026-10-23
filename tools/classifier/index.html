@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' file:; style-src 'self'; script-src 'self'">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Video time of day classifier</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <main>
+        <header>
+            <h1>Classify videos</h1>
+            <label>Show <select id="filter"><option value="untagged">Untagged videos</option><option value="all">All videos</option></select></label>
+        </header>
+        <p id="progress"></p>
+        <h2 id="title"></h2>
+        <p id="details"></p>
+        <div id="preview"><img id="frame" alt="First frame of the selected video" hidden><span id="loading">Loading…</span></div>
+        <p id="status" role="status" aria-live="polite"></p>
+        <div id="choices">
+            <button data-tag="day">1 · Day</button>
+            <button data-tag="night">2 · Night</button>
+            <button data-tag="twilight">3 · Twilight</button>
+        </div>
+        <nav>
+            <button id="previous">← Previous</button>
+            <button id="retry">Reload frame</button>
+            <button id="next">Skip / Next →</button>
+        </nav>
+        <p class="hint">Each choice saves to videos.json and advances. Use 1, 2, 3 or the arrow keys. Close anytime and resume later.</p>
+    </main>
+    <script src="renderer.js"></script>
+</body>
+</html>

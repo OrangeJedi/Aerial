@@ -9,11 +9,12 @@ let customVideos = electron.store.get("customVideos");
 
 //Updates all the <input> tags with their proper values. Called on page load
 function displaySettings() {
-    let checked = ["timeOfDay", "skipVideosWithKey", "sameVideoOnScreens", "videoCache", "videoCacheProfiles", "videoCacheRemoveUnallowed", "avoidDuplicateVideos", "onlyShowVideoOnPrimaryMonitor", "videoQuality", "immediatelyUpdateVideoCache", "useTray", "blankScreen", "sleepAfterBlank", "lockAfterRun", "alternateRenderMethod", "useLocationForSunrise", "runOnBattery", "enableGlobalShortcut"];
+    displayDateTimeLanguages();
+    let checked = ["wakeOnMouseMovement", "wakeOnMouseClick", "prepareCompatibleVideos", "deleteOriginalsAfterConversion", "easierTransitions", "allowH265", "allow4K", "prefer4K240", "timeOfDay", "skipVideosWithKey", "sameVideoOnScreens", "videoCache", "videoCacheProfiles", "videoCacheRemoveUnallowed", "avoidDuplicateVideos", "onlyShowVideoOnPrimaryMonitor", "immediatelyUpdateVideoCache", "useTray", "blankScreen", "sleepAfterBlank", "lockAfterRun", "useLocationForSunrise", "runOnBattery", "enableGlobalShortcut"];
     for (let i = 0; i < checked.length; i++) {
         $(`#${checked[i]}`).prop('checked', electron.store.get(checked[i]));
     }
-    let numTxt = ["sunrise", "sunset", "textFont", "textSize", "textColor", "startAfter", "blankAfter", "fps", "latitude", "longitude", "randomSpeed", "skipKey", "transitionType", "fillMode", "globalShortcutModifier1", "globalShortcutModifier2", "globalShortcutKey", "lockAfterRunAfter", "videoFileType"];
+    let numTxt = ["sunrise", "sunset", "textFont", "textSize", "textColor", "startAfter", "blankAfter", "latitude", "longitude", "randomSpeed", "skipKey", "transitionType", "fillMode", "globalShortcutModifier1", "globalShortcutModifier2", "globalShortcutKey", "lockAfterRunAfter"];
     for (let i = 0; i < numTxt.length; i++) {
         $(`#${numTxt[i]}`).val(electron.store.get(numTxt[i]));
     }
@@ -78,7 +79,7 @@ function updateSetting(setting, type) {
                     return true;
                 }
             });
-            s[index].value = document.getElementById(setting).value;
+            s[index].value = Number(document.getElementById(setting).value);
             electron.store.set('videoFilters', s);
             break;
         case "autocomplete":
@@ -93,6 +94,10 @@ function updateSetting(setting, type) {
 
     }
     updateSettingVisibility();
+    if (['allowH265', 'allow4K', 'prefer4K240'].includes(setting)) {
+        makeList();
+        selectVideo(-1);
+    }
 }
 
 //Sets a setting to its default value, if it exists
@@ -134,13 +139,12 @@ function resetFilterSettings() {
 
 //Updated input fields that may be effected by another input
 function updateSettingVisibility() {
-    // Shows or hides the FPS settings for the alternate render method
-    if (electron.store.get("alternateRenderMethod")) {
-        $("#alternateRenderMethodFPS").show(300);
-    } else {
-        $("#alternateRenderMethodFPS").hide(200);
-
-    }
+    const conversionDisabled = !electron.store.get('prepareCompatibleVideos');
+    $('#deleteOriginalsAfterConversion').prop('disabled', conversionDisabled);
+    $('label[for="deleteOriginalsAfterConversion"]').css('opacity', conversionDisabled ? '0.5' : '1');
+    const disablePreference = !electron.store.get('allowH265') || !electron.store.get('allow4K');
+    $('#prefer4K240').prop('disabled', disablePreference);
+    $('#prefer4K240Setting').css('opacity', disablePreference ? '0.5' : '1');
     //disabled sunrise & sunset fields if they are calculated automatically
     if (electron.store.get("useLocationForSunrise")) {
         if (document.getElementById('latitude').value !== "" && document.getElementById('longitude').value !== "") {
@@ -159,6 +163,7 @@ function updateSettingVisibility() {
     //show directions for transitions
     let directions, html = '';
     switch (electron.store.get("transitionType")) {
+        case 'none':
         case 'random':
         case 'dissolve':
         case 'dipToBlack':
@@ -285,8 +290,7 @@ electron.ipcRenderer.on('newCustomVideos', (videoList, path) => {
         }
         allowedVideos.push(customVideos[customVideos.length - 1].id);
     }
-    electron.store.set('customVideos', customVideos);
-    electron.store.set("allowedVideos", allowedVideos);
+    electron.store.set({customVideos, allowedVideos});
     displayCustomVideos();
 });
 
@@ -448,7 +452,7 @@ function updatePositionType(position, line) {
             displayTextSettings[position][line].timeString = displayTextSettings[position][line].timeString ? displayTextSettings[position][line].timeString : "hh:mm:ss";
             html = `
                                     <input class='w3-input' value='${displayTextSettings[position][line].timeString}' onchange="showMomentDisplay('positionTimeDisplay', this); updateTextSetting(this, '${position}','${line}', 'timeString')">
-                                    <span id="positionTimeDisplay">${moment().format(displayTextSettings[position][line].timeString)}</span>
+                                    <span id="positionTimeDisplay">${localizedDateTime().format(displayTextSettings[position][line].timeString)}</span>
                                     <br>
                                     <button onclick="document.getElementById('timeFormatExplain').style.display='block'" class="w3-button w3-white w3-border w3-border-blue w3-round-large" style="margin-top: 2%">Show Formatting Details</button>`;
             break;
@@ -484,7 +488,7 @@ function updatePositionType(position, line) {
                    <br><br>
                    <input class='w3-input'  style="width: 15%" value='${displayTextSettings[position][line].astroTimeString}' onchange="showMomentDisplay('positionTimeDisplay', this); updateTextSetting(this, '${position}', '${line}','astroTimeString')">
                 
-                   <span id="positionTimeDisplay" style="margin-left: .5%; line-height: 2.5;">${moment().format(displayTextSettings[position][line].astroTimeString)}</span>
+                   <span id="positionTimeDisplay" style="margin-left: .5%; line-height: 2.5;">${localizedDateTime().format(displayTextSettings[position][line].astroTimeString)}</span>
                    <button onclick="document.getElementById('timeFormatExplain').style.display='block'" class="w3-button w3-white w3-border w3-border-blue w3-round-large" style="margin-top: -6%; margin-left: 10%;">Show Formatting Details</button>
                    <br>            
             `;
@@ -539,15 +543,30 @@ function updateScreenSelect(position, line) {
     electron.store.set('displayText', text);
 }
 
+function stopVideoPreview() {
+    videoPlayback.release(document.getElementById('videoPlayer'));
+    $('#previewStatus').text('');
+    $('#videoPlayer').hide();
+}
+
+document.addEventListener('visibilitychange', () => {
+    if (document.hidden) {
+        stopVideoPreview();
+    }
+});
+
 //Handles changing menu tabs
 function changeTab(evt, tab) {
+    if (tab !== 'videoTab') {
+        stopVideoPreview();
+    }
     let i, x, tablinks;
     x = document.getElementsByClassName("tab");
     for (i = 0; i < x.length; i++) {
         x[i].style.display = "none";
     }
     tablinks = document.getElementsByClassName("tablink");
-    for (i = 0; i < x.length; i++) {
+    for (i = 0; i < tablinks.length; i++) {
         tablinks[i].className = tablinks[i].className.replace(" w3-blue", "");
     }
     document.getElementById(tab).style.display = "block";
@@ -558,10 +577,10 @@ function changeTab(evt, tab) {
 function selectSetting(item) {
     let list = document.getElementsByClassName("settingsListItem");
     for (i = 0; i < list.length; i++) {
-        list[i].className = list[i].className.replace("w3-deep-orange", "");
+        list[i].className = list[i].className.replace("config-highlight", "");
     }
     if (item !== "general") {
-        document.getElementById(`settingsList-${item}`).className += " w3-deep-orange";
+        document.getElementById(`settingsList-${item}`).className += " config-highlight";
     }
     let cards = document.getElementsByClassName("settingsCard");
     for (i = 0; i < cards.length; i++) {
@@ -573,10 +592,10 @@ function selectSetting(item) {
 function selectTextSetting(item) {
     let list = document.getElementsByClassName("textSettingsListItem");
     for (i = 0; i < list.length; i++) {
-        list[i].className = list[i].className.replace("w3-deep-orange", "");
+        list[i].className = list[i].className.replace("config-highlight", "");
     }
     if (item !== "general") {
-        document.getElementById(`textSettingsList-${item}`).className += " w3-deep-orange";
+        document.getElementById(`textSettingsList-${item}`).className += " config-highlight";
     }
     let cards = document.getElementsByClassName("textSettingsCard");
     for (i = 0; i < cards.length; i++) {
@@ -592,6 +611,9 @@ function makeList() {
     let videoList = "<a onclick=\"selectVideo(-1)\"><h3 class=\"w3-bar-item videoListItem\" id='videoListTitle'><i class=\"fa fa-film\"></i> Videos</h3></a>";
     let headertxt = "";
     for (let i = 0; i < videos.length; i++) {
+        if (!electron.videoSources(videos[i]).length) {
+            continue;
+        }
         if (headertxt !== videos[i].accessibilityLabel) {
             videoList += `<h5 class="w3-bar-item videoListItem" id='videoListTitle'>${videos[i].accessibilityLabel}</h5>`;
             headertxt = videos[i].accessibilityLabel;
@@ -614,16 +636,24 @@ $(document).ready(() => {
 function selectVideo(index) {
     let x = document.getElementsByClassName("videoListItem");
     for (i = 0; i < x.length; i++) {
-        x[i].className = x[i].className.replace("w3-deep-orange", "");
+        x[i].className = x[i].className.replace("config-highlight", "");
     }
     if (index > -1) {
         downloadedVideos = electron.store.get("downloadedVideos");
-        document.getElementById("videoList-" + index).className += " w3-deep-orange";
-        let videoSRC = videos[index].src[electron.store.get('videoFileType')];
-        if (downloadedVideos.includes(videos[index].id)) {
-            videoSRC = `${electron.store.get('cachePath')}/${videos[index].id}.mov`;
+        document.getElementById("videoList-" + index).className += " config-highlight";
+        const player = document.getElementById('videoPlayer');
+        $('#videoPlayer').show();
+        if (!document.getElementById('previewStatus')) {
+            $('#videoPlayer').after('<p id="previewStatus" role="status"></p>');
         }
-        $('#videoPlayer').attr("src", videoSRC).show();
+        $('#previewStatus').text('Loading video…');
+        videoPlayback.load(player, videos[index], status => $('#previewStatus').text(status)).then(() => {
+            return player.play();
+        }).catch(error => {
+            if (error.message !== 'Playback cancelled') {
+                $('#previewStatus').text(`Unable to play video: ${error.message}`);
+            }
+        });
         $('#videoName').text(videos[index].accessibilityLabel);
         let videoDownloadState = "whenChecked";
         if (alwaysDownloadVideos.includes(videos[index].id)) {
@@ -642,7 +672,7 @@ function selectVideo(index) {
                               </div>`).css('display', '');
         $('#videoSettings').css('display', 'none');
     } else {
-        $('#videoPlayer').attr("src", "").hide();
+        stopVideoPreview();
         $('#videoName').text("Video Settings");
         $('#videoInfo').css('display', 'none');
         $('#videoSettings').html(`<br>
@@ -702,8 +732,7 @@ function changeVideoDownloadState(element, videoId) {
             neverDownloadVideos.push(videoId);
             break;
     }
-    electron.store.set("alwaysDownloadVideos", alwaysDownloadVideos);
-    electron.store.set("neverDownloadVideos", neverDownloadVideos);
+    electron.store.set({alwaysDownloadVideos, neverDownloadVideos});
 }
 
 function changeAllVideoDownloadState(elementId) {
@@ -723,9 +752,10 @@ function changeAllVideoDownloadState(elementId) {
             }
             break;
     }
-    electron.store.set("alwaysDownloadVideos", alwaysDownloadVideos);
-    electron.store.set("neverDownloadVideos", neverDownloadVideos);
+    electron.store.set({alwaysDownloadVideos, neverDownloadVideos});
 }
+
+let refreshCacheTimer;
 
 //Updates the video list when a video is checked
 function checkVideo(e, index) {
@@ -735,7 +765,8 @@ function checkVideo(e, index) {
         allowedVideos.splice(allowedVideos.indexOf(videos[index].id), 1);
     }
     electron.store.set("allowedVideos", allowedVideos);
-    setTimeout(refreshCache, 50);
+    clearTimeout(refreshCacheTimer);
+    refreshCacheTimer = setTimeout(refreshCache, 150);
 }
 
 //automated video selection buttons
@@ -748,7 +779,9 @@ function deselectAll() {
 function selectAll() {
     allowedVideos = [];
     for (let i = 0; i < videos.length; i++) {
-        allowedVideos.push(videos[i].id);
+        if (electron.videoSources(videos[i]).length) {
+            allowedVideos.push(videos[i].id);
+        }
     }
     electron.store.set("allowedVideos", allowedVideos);
     makeList();
@@ -757,7 +790,7 @@ function selectAll() {
 function selectType() {
     let type = $('#videoType').val();
     for (let i = 0; i < videos.length; i++) {
-        if (videos[i].type === type) {
+        if (videos[i].type === type && electron.videoSources(videos[i]).length) {
             if (!allowedVideos.includes(videos[i].id)) {
                 allowedVideos.push(videos[i].id);
             }
@@ -770,7 +803,7 @@ function selectType() {
 function deselectType() {
     let type = $('#videoType').val();
     for (let i = 0; i < videos.length; i++) {
-        if (videos[i].type === type) {
+        if (videos[i].type === type && electron.videoSources(videos[i]).length) {
             if (allowedVideos.includes(videos[i].id)) {
                 allowedVideos.splice(allowedVideos.indexOf(videos[i].id), 1);
             }
@@ -830,40 +863,136 @@ function displayProfile(id) {
 
 //For formatting time and dates. Used throughout the config menu
 function showMomentDisplay(id, stringID) {
-    $(`#${id}`).text(moment().format(stringID.value));
+    $(`#${id}`).text(localizedDateTime().format(stringID.value));
 }
 
 //Autocomplete stuff
+let localFontFaces = {};
+
+function cssString(value) {
+    return `"${String(value).replace(/\\/g, "\\\\").replace(/"/g, '\\"')}"`;
+}
+
+function fontAlias(font) {
+    let hash = 0;
+    for (let i = 0; i < font.length; i++) {
+        hash = ((hash << 5) - hash) + font.charCodeAt(i);
+        hash |= 0;
+    }
+    return `AerialLocalFont-${Math.abs(hash)}`;
+}
+
+function ensureLocalFontFace(font) {
+    let fontName = String(font || "").trim().replace(/^["']|["']$/g, "");
+
+    if (!fontName) {
+        return "";
+    }
+
+    let alias = fontAlias(fontName);
+
+    if (!localFontFaces[alias]) {
+        let fontSources = [fontName];
+        let fontNameWithoutRegular = fontName.replace(/\s+Regular$/i, "");
+        if (fontNameWithoutRegular !== fontName) {
+            fontSources.push(fontNameWithoutRegular);
+        }
+
+        let style = document.getElementById("aerial-local-font-faces");
+        if (!style) {
+            style = document.createElement("style");
+            style.id = "aerial-local-font-faces";
+            document.head.appendChild(style);
+        }
+
+        style.appendChild(document.createTextNode(`@font-face { font-family: ${cssString(alias)}; src: ${fontSources.map(fontSource => `local(${cssString(fontSource)})`).join(", ")}; font-display: swap; }\n`));
+        localFontFaces[alias] = true;
+    }
+
+    return alias;
+}
+
+function cssFontFamily(font) {
+    let fontName = String(font || "").trim().replace(/^["']|["']$/g, "");
+    let alias = ensureLocalFontFace(fontName);
+
+    if (!fontName) {
+        return `"Segoe UI", sans-serif`;
+    }
+
+    return `${cssString(alias)}, ${cssString(fontName)}, "Segoe UI", sans-serif`;
+}
+
 function autocomplete(inp, arr, func) {
     /*the autocomplete function takes two arguments,
     the text field element and an array of possible autocompleted values:*/
     var currentFocus;
-    /*execute a function when someone writes in the text field:*/
-    inp.addEventListener("input", function (e) {
-        var a, b, i, val = this.value;
+
+    function updateInputFontPreview() {
+        let preview = inp.parentNode.querySelector(".font-preview-sample");
+        if (!preview) {
+            preview = document.createElement("span");
+            preview.className = "font-preview-sample";
+            inp.parentNode.appendChild(preview);
+        }
+
+        if (arr.includes(inp.value)) {
+            preview.textContent = "AaBbCc 123";
+            preview.style.fontFamily = cssFontFamily(inp.value);
+            preview.style.display = "";
+        } else {
+            preview.textContent = "";
+            preview.style.display = "none";
+        }
+    }
+
+    function appendFontName(target, font, val, matchIndex) {
+        if (val) {
+            target.appendChild(document.createTextNode(font.substr(0, matchIndex)));
+            let match = document.createElement("strong");
+            match.textContent = font.substr(matchIndex, val.length);
+            target.appendChild(match);
+            target.appendChild(document.createTextNode(font.substr(matchIndex + val.length)));
+        } else {
+            target.appendChild(document.createTextNode(font));
+        }
+    }
+
+    function showAutocompleteList(val) {
+        var a, b, i;
+        val = val || "";
         /*close any already open lists of autocompleted values*/
         closeAllLists();
-        /*if (!val) {
-            return false;
-        }*/
         currentFocus = -1;
         /*create a DIV element that will contain the items (values):*/
         a = document.createElement("DIV");
-        a.setAttribute("id", this.id + "autocomplete-list");
+        a.setAttribute("id", inp.id + "autocomplete-list");
         a.setAttribute("class", "autocomplete-items");
         /*append the DIV element as a child of the autocomplete container:*/
-        this.parentNode.appendChild(a);
+        inp.parentNode.appendChild(a);
         /*for each item in the array...*/
         for (i = 0; i < arr.length; i++) {
-            /*check if the item starts with the same letters as the text field value:*/
-            if (arr[i].substr(0, val.length).toUpperCase() == val.toUpperCase() || !val) {
+            let matchIndex = arr[i].toUpperCase().indexOf(val.toUpperCase());
+            /*check if the item contains the same letters as the text field value:*/
+            if (matchIndex > -1 || !val) {
                 /*create a DIV element for each matching element:*/
                 b = document.createElement("DIV");
+                b.className = "autocomplete-option";
                 /*make the matching letters bold:*/
-                b.innerHTML = "<strong>" + arr[i].substr(0, val.length) + "</strong>";
-                b.innerHTML += arr[i].substr(val.length);
+                let name = document.createElement("span");
+                name.className = "autocomplete-option-name";
+                appendFontName(name, arr[i], val, matchIndex);
+                b.appendChild(name);
+                let sample = document.createElement("span");
+                sample.className = "autocomplete-option-sample";
+                sample.textContent = "AaBbCc 123";
+                sample.style.fontFamily = cssFontFamily(arr[i]);
+                b.appendChild(sample);
                 /*insert a input field that will hold the current array item's value:*/
-                b.innerHTML += "<input type='hidden' value='" + arr[i] + "'>";
+                let hiddenInput = document.createElement("input");
+                hiddenInput.type = "hidden";
+                hiddenInput.value = arr[i];
+                b.appendChild(hiddenInput);
                 /*execute a function when someone clicks on the item value (DIV element):*/
                 b.addEventListener("click", function (e) {
                     /*insert the value for the autocomplete text field:*/
@@ -872,14 +1001,39 @@ function autocomplete(inp, arr, func) {
                     (or any other open lists of autocompleted values:*/
                     closeAllLists();
                     func(inp);
+                    updateInputFontPreview();
                 });
                 a.appendChild(b);
+                if (val && a.children.length >= 30) {
+                    break;
+                }
             }
         }
+    }
+
+    /*show all values when the input is opened like a dropdown:*/
+    inp.addEventListener("focus", function () {
+        showAutocompleteList("");
     });
+
+    inp.addEventListener("click", function (e) {
+        showAutocompleteList("");
+        e.stopPropagation();
+    });
+
+    /*execute a function when someone writes in the text field:*/
+    inp.addEventListener("input", function (e) {
+        showAutocompleteList(this.value);
+        updateInputFontPreview();
+    });
+    inp.addEventListener("change", updateInputFontPreview);
     /*execute a function presses a key on the keyboard:*/
     inp.addEventListener("keydown", function (e) {
         var x = document.getElementById(this.id + "autocomplete-list");
+        if (!x && (e.keyCode == 40 || e.keyCode == 38)) {
+            showAutocompleteList("");
+            x = document.getElementById(this.id + "autocomplete-list");
+        }
         if (x) x = x.getElementsByTagName("div");
         if (e.keyCode == 40) {
             /*If the arrow DOWN key is pressed,
@@ -902,6 +1056,7 @@ function autocomplete(inp, arr, func) {
             }
         }
     });
+    updateInputFontPreview();
 
     function addActive(x) {
         /*a function to classify an item as "active":*/
@@ -912,6 +1067,7 @@ function autocomplete(inp, arr, func) {
         if (currentFocus < 0) currentFocus = (x.length - 1);
         /*add class "autocomplete-active":*/
         x[currentFocus].classList.add("autocomplete-active");
+        x[currentFocus].scrollIntoView({block: "nearest"});
     }
 
     function removeActive(x) {
@@ -926,7 +1082,7 @@ function autocomplete(inp, arr, func) {
         except the one passed as an argument:*/
         var x = document.getElementsByClassName("autocomplete-items");
         for (var i = 0; i < x.length; i++) {
-            if (elmnt != x[i] && elmnt != inp) {
+            if (!elmnt || !x[i].parentNode.contains(elmnt)) {
                 x[i].parentNode.removeChild(x[i]);
             }
         }
@@ -943,7 +1099,7 @@ function closeAllLists(elmnt) {
     except the one passed as an argument:*/
     var x = document.getElementsByClassName("autocomplete-items");
     for (var i = 0; i < x.length; i++) {
-        if (elmnt != x[i]) {
+        if (!elmnt || !x[i].parentNode.contains(elmnt)) {
             x[i].parentNode.removeChild(x[i]);
         }
     }
@@ -955,11 +1111,29 @@ document.addEventListener("click", function (e) {
 
 //Still autocomplete stuff. This part sets up our font lists
 let fontList = [];
-electron.fontListUniversal.getFonts().then(fonts => {
-    autocomplete(document.getElementById('textFont'), fonts, () => {
-        updateSetting('textFont', 'autocomplete')
-    },);
-    fontList = fonts
+let fontListPromise;
+autocomplete(document.getElementById('textFont'), fontList, () => {
+    updateSetting('textFont', 'autocomplete');
+});
+
+// Enumerating installed fonts launches a system process; wait until a font field is used.
+document.addEventListener('focusin', event => {
+    if (!['textFont', 'positionFont'].includes(event.target.id)) {
+        return;
+    }
+    if (!fontListPromise) {
+        fontListPromise = electron.fontListUniversal.getFonts().then(fonts => {
+            fontList.push(...fonts);
+        }).catch(error => {
+            fontListPromise = undefined;
+            console.error('Unable to load installed fonts', error);
+        });
+    }
+    fontListPromise.then(() => {
+        if (document.activeElement === event.target) {
+            event.target.dispatchEvent(new Event('input'));
+        }
+    });
 });
 
 //Preview

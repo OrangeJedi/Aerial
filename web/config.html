@@ -9,6 +9,8 @@
     }</script>
     <script src="libraries/js/jquery-min.js"></script>
     <script src="libraries/js/moment.min.js"></script>
+    <script src="libraries/js/moment-locales.min.js"></script>
+    <script src="date-time-language.js"></script>
     <script src="libraries/js/numeral.min.js"></script>
     <script>if (window.module) module = window.module;</script>
     <link rel="stylesheet" href="libraries/css/w3.min.css">
@@ -32,6 +34,8 @@
                 <h3 class="w3-bar-item"><i class="fa fa-cog"></i> Settings</h3></a>
             <a onclick="selectSetting('playback')" id="settingsList-playback"
                class="w3-bar-item w3-button settingsListItem">Playback</a>
+            <a onclick="selectSetting('resolution')" id="settingsList-resolution"
+               class="w3-bar-item w3-button settingsListItem">Video Resolution</a>
             <a onclick="selectSetting('time')" id="settingsList-time" class="w3-bar-item w3-button settingsListItem">Time
                 & Location</a>
             <a onclick="selectSetting('multiscreen')" id="settingsList-multiscreen"
@@ -45,7 +49,7 @@
             <a onclick="selectSetting('advanced')" id="settingsList-advanced"
                class="w3-bar-item w3-button settingsListItem">Advanced</a>
             <a onclick="selectSetting('about')" id="settingsList-about" class="w3-bar-item w3-button settingsListItem">About
-                <span id="updateBadge" style="display: none" class="w3-badge w3-deep-orange">1</span></a>
+                <span id="updateBadge" style="display: none" class="w3-badge config-highlight">1</span></a>
         </div>
         <div id="generalCard" style="margin-left:20%">
             <div id="generalSettings" class="settingsCard">
@@ -96,18 +100,6 @@
                         the
                         most recently played videos</i>
                     <hr>
-                    <label for="videoFileType">Video Resolution: </label>
-                    <select id="videoFileType" onclick="updateSetting('videoFileType','select')">
-                        <option value="H2641080p">H.264 1080p</option>
-                        <option value="H2651080p">H.265 1080p</option>
-                        <option value="H2654k">H.265 4K</option>
-                    </select>
-                    <br>
-                    <i class="w3-small" style="padding-left: 4%;">H.265 videos may not play on all systems</i>
-                    <span style="padding-left: 8%; margin-top: -3%; position: absolute;">
-                        <button class="w3-button w3-white w3-border w3-border-green w3-round-large" onclick="document.getElementById('videoResolutionExplain').style.display='block'">More Info</button>
-                    </span>
-                    <br><br>
                     <label for="fillMode">Fill Mode: </label>
                     <select id="fillMode" onclick="updateSetting('fillMode','select')">
                         <option value="stretch">Stretch</option>
@@ -116,6 +108,7 @@
                     <hr>
                     <label for="transitionType"> Transition Type: </label>
                     <select id="transitionType" onclick="updateSetting('transitionType','select')">
+                        <option value="none">None</option>
                         <option value="dissolve">Dissolve</option>
                         <option value="dipToBlack">Dip to Black</option>
                         <option value="fade">Fade</option>
@@ -137,12 +130,45 @@
                     <br>
                     <input type="range" min="500" max="4000" value="2000" step="100" id="videoTransitionLength"
                            class="slider" onchange="updateSetting('videoTransitionLength','slider')">
+                    <br>
+                    <input type="checkbox" id="easierTransitions" class="w3-check"
+                           onchange="updateSetting('easierTransitions','check')">
+                    <label for="easierTransitions">Easier Transitions</label>
                     <hr>
                     <input type="checkbox" id="skipVideosWithKey" class="w3-check"
                            onclick="updateSetting('skipVideosWithKey','check')">
                     <label for="skipVideosWithKey">Use a key to skip videos</label>
                     <br><br>
                     <label for="skipKey">Skip key: </label><input type="text" id="skipKey">
+                    <br><br>
+                    <input type="checkbox" id="wakeOnMouseMovement" class="w3-check"
+                           onchange="updateSetting('wakeOnMouseMovement','check')">
+                    <label for="wakeOnMouseMovement">Wake on mouse movement</label>
+                    <br>
+                    <input type="checkbox" id="wakeOnMouseClick" class="w3-check"
+                           onchange="updateSetting('wakeOnMouseClick','check')">
+                    <label for="wakeOnMouseClick">Wake on mouse click</label>
+                </div>
+            </div>
+            <div id="resolutionSettings" class="settingsCard" style="display: none">
+                <div class="w3-container w3-blue cardHeader">
+                    <h3>Video Resolution</h3>
+                </div>
+                <div class="w3-display-container cardContent" style="padding: 2%">
+                    <input type="checkbox" id="allowH265" class="w3-check"
+                           onchange="updateSetting('allowH265','check')">
+                    <label for="allowH265">Allow H.265 videos</label>
+                    <br>
+                    <input type="checkbox" id="allow4K" class="w3-check"
+                           onchange="updateSetting('allow4K','check')">
+                    <label for="allow4K">Allow 4K videos</label>
+                    <br>
+                    <span id="prefer4K240Setting">
+                        <input type="checkbox" id="prefer4K240" class="w3-check"
+                               onchange="updateSetting('prefer4K240','check')">
+                        <label for="prefer4K240">Prefer 4k240</label>
+                    </span>
+                    <br><br>
                 </div>
             </div>
             <div id="timeSettings" class="settingsCard" style="display: none">
@@ -150,6 +176,9 @@
                     <h3>Time & Location Settings</h3>
                 </div>
                 <div class="w3-display-container cardContent" style="padding: 2%">
+                    <label for="dateTimeLanguage">Date/time display language</label>
+                    <select id="dateTimeLanguage" class="w3-select" onchange="updateSetting('dateTimeLanguage','select')"></select>
+                    <p>Use your computer's language or choose a language for date/time text. Custom formatting and literal text stay as entered.</p>
                     <input type="checkbox" id="timeOfDay" class="w3-check" onclick="updateSetting('timeOfDay','check')">
                     <label for="timeOfDay">Prioritize videos for current time of day</label>
                     <div>
@@ -188,20 +217,6 @@
                            onclick="updateSetting('onlyShowVideoOnPrimaryMonitor','check')">
                     <label for="onlyShowVideoOnPrimaryMonitor">Only play videos on the primary screen</label>
                     <br>
-                    <input type="checkbox" id="alternateRenderMethod" class="w3-check"
-                           onclick="updateSetting('alternateRenderMethod','check');">
-                    <label for="alternateRenderMethod">Alternate Render Method
-                        <i>*Use this option if your screensaver freezes on multiple displays</i></label>
-                    <br>
-                    <br>
-                    <div id="alternateRenderMethodFPS">
-                        <label for="fps" id="fpsText">Set the FPS for the Alternate Render Method.</label>
-                        <span class="w3-right" onclick="resetSetting('fps', 'number', 60)"><i
-                                class="fa fa-undo"></i></span>
-                        <br>
-                        <input style="width: 10%; display: inline !important;" class="w3-input" type="number" id="fps"
-                               onchange="updateSetting('fps','number')">
-                    </div>
                 </div>
             </div>
             <div id="styleSettings" class="settingsCard" style="display: none">
@@ -214,7 +229,7 @@
                                                                           onclick="resetSetting('playbackSpeed', 'slider', 1)"><i
                         class="fa fa-undo"></i></span>
                     <br>
-                    <input type="range" min=".75" max="4" value="1" step=".05" id="playbackSpeed" class="slider"
+                    <input type="range" min=".1" max="4" value="1" step=".05" id="playbackSpeed" class="slider"
                            onchange="updateSetting('playbackSpeed','slider')">
                     <h4>Filter Settings
                         <span class="w3-right" onclick="resetFilterSettings()"><i class="fa fa-undo"></i></span></h4>
@@ -231,7 +246,7 @@
                            onclick="updateSetting('videoCache','check')">
                     <label for="videoCache"> Automatically download checked videos to the cache</label>
                     <br>
-                    <p class="w3-small" style="margin-left: 4%">The total size of all videos is approximately 35
+                    <p class="w3-small" style="margin-left: 4%">The total size of all videos is approximately 72
                         GB</p>
                     <input type="checkbox" id="videoCacheProfiles" class="w3-check"
                            onclick="updateSetting('videoCacheProfiles','check')" style="margin-left: 8%">
@@ -240,6 +255,14 @@
                     <input type="checkbox" id="videoCacheRemoveUnallowed" class="w3-check"
                            onclick="updateSetting('videoCacheRemoveUnallowed','check')" style="margin-left: 8%">
                     <label for="videoCacheRemoveUnallowed">Automatically remove unchecked videos</label>
+                    <br>
+                    <input type="checkbox" id="prepareCompatibleVideos" class="w3-check"
+                           onclick="updateSetting('prepareCompatibleVideos','check')">
+                    <label for="prepareCompatibleVideos">Prepare compatible videos</label>
+                    <br>
+                    <input type="checkbox" id="deleteOriginalsAfterConversion" class="w3-check"
+                           onclick="updateSetting('deleteOriginalsAfterConversion','check')">
+                    <label for="deleteOriginalsAfterConversion">Delete originals after conversion</label>
                     <br>
                     <input type="checkbox" id="immediatelyUpdateVideoCache" class="w3-check"
                            onclick="updateSetting('immediatelyUpdateVideoCache','check')">
@@ -310,10 +333,6 @@
                     <label for="globalShortcutKey"> Key: </label>
                     <input type="text" id="globalShortcutKey">
                     <br><br>
-                    <input type="checkbox" id="videoQuality" class="w3-check"
-                           onclick="updateSetting('videoQuality','check')">
-                    <label for="videoQuality">Disable all video processing</label>
-                    <br>
                     <hr>
                     <button class="w3-button w3-white w3-border w3-border-blue w3-round-large"
                             style="font-size: small"
@@ -393,7 +412,7 @@
         <div class="w3-sidebar w3-light-grey w3-bar-block" style="width:20%">
             <div class="settingsListItem"><h3 class="w3-bar-item"><i class="fa fa-paragraph"></i> Text</h3></div>
             <a onclick="selectTextSetting('position')" id="textSettingsList-position"
-               class="w3-bar-item w3-button textSettingsListItem w3-deep-orange">Position</a>
+               class="w3-bar-item w3-button textSettingsListItem config-highlight">Position</a>
             <a onclick="selectTextSetting('textOptions')" id="textSettingsList-textOptions"
                class="w3-bar-item w3-button textSettingsListItem">Text
                 Options</a>
@@ -799,53 +818,7 @@
         </div>
     </div>
 </div>
-<div id="videoResolutionExplain" class="w3-modal">
-    <div class="w3-modal-content">
-        <div class="w3-container w3-white w3-medium">
-            <span onclick="document.getElementById('videoResolutionExplain').style.display='none'"
-                  class="w3-button w3-display-topright">&times;</span>
-            <br>
-            <h2>Video Resolutions</h2>
-            <p>
-                Apple hosts three different files for each video in two different formats and resolutions. They are:
-                <ul>
-                    <li>H.264</li>
-                    <ul>
-                        <li>1080p (1920x1080)</li>
-                    </ul>
-                    <li>H.265 (HVEC)</li>
-                    <ul>
-                        <li>1080p (1920x1080)</li>
-                        <li>4K (3840x2160)</li>
-                    </ul>
-                </ul>
-            </p>
-            <div style="width: 30%;margin-left: 70%; margin-top: -15%">
-                <video width="100%" autoplay controls src="https://sylvan.apple.com/Aerials/2x/Videos/G010_C026_UHD_SDR_v02_2K_HEVC.mov"></video>
-                <p class="w3-small" style="margin-top: -2%">An H.256 video</p>
-            </div>
-            <p>
-                H.264 is a universal standard that can be played on all devices.
-                It has a less compression, meaning videos will be larger, but potentially play back smoother.
-                Apple only hosts these videos in 1080p.
-            </p><p>
-                H.265 (HEVC) is a newer standards that isn't universally adopted, not all computers can play H.265 videos.
-                It has smaller more compression, meaning videos will be smaller.
-                Additionally, Apple hosts both 1080p and 4K H.265 videos.
-            </p><p>
-                If your computer supports H.265, use it. If it does not, or if you are having problems playing H.265 videos, switch back to H.264.
-                If you can see the video above, your computer can play H.265 videos.
-                When using the cache, you will need to delete and re-download your videos if you change types to see an effect.
-            </p>
-            <button class="w3-button w3-white w3-border w3-border-blue w3-round-large"
-                    onclick="document.getElementById('videoResolutionExplain').style.display='none';">
-                Done
-            </button>
-            </p>
-        </div>
-    </div>
-</div>
-
+<script src="playback.js"></script>
 <script src="config.js"></script>
 </body>
 </html>
