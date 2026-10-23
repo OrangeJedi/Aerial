@@ -21,9 +21,12 @@ function bridge() {
         path: require('node:path'), fs: {existsSync: () => exists}, url: require('node:url'),
         './videos.json': [], 'font-list-universal': {}
     };
+    const module = {exports: {}};
     vm.runInNewContext(fs.readFileSync(require.resolve('../preload.js'), 'utf8'), {
+        module,
         require: name => { assert.ok(name in modules, name); return modules[name]; }
     });
+    module.exports(modules['electron-store']);
     return {api: exposed, calls, listeners, values, missing: () => { exists = false; }};
 }
 

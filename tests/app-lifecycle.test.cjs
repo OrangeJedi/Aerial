@@ -12,6 +12,45 @@ function section(start, end, globals) {
     return context;
 }
 
+test('secondary process quits before loading application services', () => {
+    let quit = 0;
+    const first = source.indexOf('if (!app.requestSingleInstanceLock())');
+    const end = source.indexOf("const {exec}", first);
+    vm.runInNewContext(`(function () { ${source.slice(first, end)} })()`, {
+        app: {requestSingleInstanceLock: () => false, quit: () => { quit++; },
+            on: () => assert.fail('secondary process must exit before registering handlers')}
+    });
+    assert.equal(quit, 1);
+});
+
+test('repeat launch waits for startup before opening config', async () => {
+    let handler;
+    let ready;
+    const calls = [];
+    section("app.on('second-instance'", 'const {exec}', {
+        app: {on: (name, callback) => { assert.equal(name, 'second-instance'); handler = callback; }},
+        startupReady: new Promise(resolve => { ready = resolve; }),
+        createConfigWindow: argv => calls.push(argv)
+    });
+    handler({}, ['/c']);
+    assert.equal(calls.length, 0);
+    ready();
+    await Promise.resolve();
+    assert.deepEqual(calls, [['/c']]);
+});
+
+test('existing minimized config is restored, shown and focused without another window', () => {
+    const calls = [];
+    const context = section('function createConfigWindow(', 'function createSSWindow(', {
+        configWindow: {isDestroyed: () => false, isMinimized: () => true,
+            restore: () => calls.push('restore'), show: () => calls.push('show'),
+            focus: () => calls.push('focus')},
+        BrowserWindow: function () { assert.fail('must reuse config'); }
+    });
+    context.createConfigWindow();
+    assert.deepEqual(calls, ['restore', 'show', 'focus']);
+});
+
 for (const flag of ['/c', '/p', '/s', '/t', '/j', undefined]) {
     test(`startup routes ${flag || 'default'} after preparing settings and cache`, async () => {
         const calls = [];

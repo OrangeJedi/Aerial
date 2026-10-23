@@ -12,10 +12,20 @@ const {
     Notification,
     globalShortcut
 } = require('electron');
+
+if (!app.requestSingleInstanceLock()) {
+    app.quit();
+    return;
+}
+
+app.on('second-instance', (event, argv) => {
+    startupReady.then(() => createConfigWindow(argv));
+});
+
 const {exec} = require('child_process');
 const videos = require("./videos.json");
 const videosById = new Map(videos.map(video => [video.id, video]));
-const Store = require('electron-store');
+const {default: Store} = require('electron-store');
 const store = new Store();
 const request = require('request');
 const https = require('https');
@@ -32,6 +42,7 @@ const SunCalc = require('suncalc');
 
 //initialize variables
 let screens = [];
+let configWindow = null;
 let screenIds = [];
 let nq = false;
 let cachePath = store.get('cachePath') ?? path.join(app.getPath('userData'), "videos");
@@ -63,6 +74,14 @@ exec('NET SESSION', function (err, so, se) {
 
 //window creation code
 function createConfigWindow(argv) {
+    if (configWindow && !configWindow.isDestroyed()) {
+        if (configWindow.isMinimized()) {
+            configWindow.restore();
+        }
+        configWindow.show();
+        configWindow.focus();
+        return;
+    }
     let win = new BrowserWindow({
         width: 1000,
         height: 750,
@@ -71,15 +90,17 @@ function createConfigWindow(argv) {
             contextIsolation: true,
             enableRemoteModule: false,
             sandbox: false,
-            preload: path.join(__dirname, "preload.js")
+            preload: path.join(__dirname, "preload.mjs")
         },
         resizable: false,
         icon: path.join(__dirname, 'icon.ico')
     });
+    configWindow = win;
     win.loadFile('web/config.html');
     win.on('closed', function () {
+        configWindow = null;
+        screens = screens.filter(screenWindow => screenWindow !== win);
         win = null;
-        screens = [];
     });
     if (argv) {
         if (argv.includes("/dt")) {
@@ -125,7 +146,7 @@ function createSSWindow(argv) {
                 contextIsolation: true,
                 enableRemoteModule: false,
                 sandbox: false,
-                preload: path.join(__dirname, "preload.js")
+                preload: path.join(__dirname, "preload.mjs")
             },
             x: displays[i].bounds.x,
             y: displays[i].bounds.y,
@@ -180,10 +201,10 @@ function createSSPWindow(argv) {
             contextIsolation: true,
             enableRemoteModule: false,
             sandbox: false,
-            preload: path.join(__dirname, "preload.js"),
+            preload: path.join(__dirname, "preload.mjs"),
         },
         frame: true,
-        transparent: true,
+        backgroundColor: '#000000',
         icon: path.join(__dirname, 'icon.ico'),
         show: false
     });
@@ -217,7 +238,7 @@ function createEditWindow(argv) {
             contextIsolation: true,
             enableRemoteModule: false,
             sandbox: false,
-            preload: path.join(__dirname, "preload.js")
+            preload: path.join(__dirname, "preload.mjs")
         },
         icon: path.join(__dirname, 'icon.ico')
     });
@@ -320,7 +341,7 @@ function createJSONConfigWindow() {
             contextIsolation: true,
             enableRemoteModule: false,
             sandbox: false,
-            preload: path.join(__dirname, "json-editor", "preload.js")
+            preload: path.join(__dirname, "json-editor", "preload.mjs")
         },
         icon: path.join(__dirname, 'icon.ico')
     });
@@ -331,8 +352,9 @@ function createJSONConfigWindow() {
 }
 
 //start up code
+Menu.setApplicationMenu(null);
 app.allowRendererProcessReuse = true
-app.whenReady().then(startUp);
+const startupReady = app.whenReady().then(startUp);
 
 async function startUp() {
     //Uncomment the line below when compiling the .scr file
