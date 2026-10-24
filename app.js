@@ -83,8 +83,7 @@ app.on('before-quit', event => {
         app.quit();
     });
 });
-const request = require('request');
-const https = require('https');
+const {downloadFile} = require('./download');
 const fs = require('fs');
 const path = require("path");
 const {createCompatibilityPlayer, convertedPath, deleteConvertedOriginal} = require('./playback');
@@ -609,14 +608,16 @@ function setUpConfigFile() {
 //setUpConfigFile();
 
 //check for update on GitHub
-function checkForUpdate() {
-    request('https://raw.githubusercontent.com/OrangeJedi/Aerial/master/package.json', function (error, response, body) {
-        if (error) {
-            console.log("Error checking for updates: ", error);
-            return;
+async function checkForUpdate() {
+    try {
+        const response = await fetch('https://raw.githubusercontent.com/OrangeJedi/Aerial/master/package.json', {
+            signal: AbortSignal.timeout(30000)
+        });
+        if (!response.ok) {
+            throw new Error(`Update check returned HTTP ${response.status}`);
         }
+        const onlinePackage = await response.json();
         store.set('updateAvailable', false);
-        const onlinePackage = JSON.parse(body);
         if (onlinePackage.version && app.isPackaged) {
             if (onlinePackage.version[0] > app.getVersion()[0] || onlinePackage.version[2] > app.getVersion()[2] || onlinePackage.version[4] > app.getVersion()[4]) {
                 store.set('updateAvailable', onlinePackage.version);
@@ -626,7 +627,9 @@ function checkForUpdate() {
                 }).show()
             }
         }
-    });
+    } catch (error) {
+        console.log("Error checking for updates: ", error);
+    }
 }
 
 //events from browser windows
@@ -903,21 +906,6 @@ function updateCustomVideos() {
         }
     }
     store.set('allowedVideos', allowedVideos);
-}
-
-function downloadFile(file_url, targetPath) {
-    const {pipeline} = require('stream/promises');
-    const agent = new https.Agent({
-        host: 'sylvan.apple.com', path: '/', rejectUnauthorized: false
-    });
-    const input = request({method: 'GET', uri: file_url, agent});
-    input.on('response', response => {
-        if (response.statusCode !== 200) {
-            input.destroy(new Error(`Video download returned HTTP ${response.statusCode}`));
-        }
-    });
-    // Pipeline waits for the output file to finish and propagates errors on either stream.
-    return pipeline(input, fs.createWriteStream(targetPath));
 }
 
 async function downloadVideos() {
