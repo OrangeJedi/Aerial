@@ -12,6 +12,59 @@ function section(start, end, globals) {
     return context;
 }
 
+for (const channel of ['selectCustomLocation', 'selectCacheLocation', 'selectFile']) {
+    for (const failure of ['cancel', 'dialog', 'filesystem', 'closed renderer']) {
+        test(`${channel} handles ${failure}`, async () => {
+            let handler;
+            let errors = 0;
+            let writes = 0;
+            let reads = 0;
+            const nextChannel = {selectCustomLocation: 'selectCacheLocation', selectCacheLocation: 'refreshCache', selectFile: 'openPreview'}[channel];
+            const context = section(`ipcMain.on('${channel}'`, `ipcMain.on('${nextChannel}'`, {
+                ipcMain: {on: (name, callback) => { handler = callback; }},
+                screens: [], cachePath: 'original', path: require('node:path'),
+                console: {error: () => { errors++; }},
+                dialog: {showOpenDialog: async () => {
+                    if (failure === 'dialog') {
+                        throw new Error('dialog failed');
+                    }
+                    return {canceled: failure === 'cancel', filePaths: failure === 'cancel' ? [] : ['selected']};
+                }},
+                fs: {promises: {
+                    readdir: async () => {
+                        reads++;
+                        if (failure === 'filesystem') {
+                            throw new Error('access denied');
+                        }
+                        return ['video.mp4'];
+                    },
+                    mkdir: async () => {
+                        if (failure === 'filesystem') {
+                            throw new Error('access denied');
+                        }
+                    }
+                }},
+                store: {get: () => [[{}]], set: () => { writes++; }},
+                updateVideoCache: async callback => callback()
+            });
+            await handler({reply: () => {
+                if (failure === 'closed renderer') {
+                    throw new Error('renderer destroyed');
+                }
+            }}, ['image', 0, 0]);
+            if (failure === 'cancel' || failure === 'dialog') {
+                assert.equal(writes, 0);
+                assert.equal(reads, 0);
+            }
+            if (channel === 'selectCacheLocation' && failure === 'filesystem') {
+                assert.equal(context.cachePath, 'original');
+                assert.equal(writes, 0);
+            }
+            assert.equal(errors, failure === 'cancel' || (channel === 'selectFile' && failure === 'filesystem') ? 0 : 1);
+        });
+    }
+}
+
 test('tray exit closes the hidden window without requiring a sender on the close event', () => {
     let window;
     let menu;
@@ -106,6 +159,33 @@ test('repeat launch waits for startup before opening config', async () => {
     ready();
     await Promise.resolve();
     assert.deepEqual(calls, [['/c']]);
+});
+
+test('closing config before the welcome timer fires does not access a destroyed window', () => {
+    let welcome;
+    let closed;
+    class Window {
+        constructor() {
+            this.webContents = {
+                send: () => assert.fail('closed config must not receive welcome'),
+                setWindowOpenHandler() {}
+            };
+        }
+        loadFile() {}
+        on(name, callback) {
+            if (name === 'closed') {
+                closed = callback;
+            }
+        }
+    }
+    const context = section('function createConfigWindow(', 'function createSSWindow(', {
+        configWindow: null, BrowserWindow: Window, screens: [],
+        path: require('node:path'), __dirname,
+        setTimeout: callback => { welcome = callback; }
+    });
+    context.createConfigWindow(['/w']);
+    closed();
+    assert.doesNotThrow(() => welcome());
 });
 
 test('existing minimized config is restored, shown and focused without another window', () => {

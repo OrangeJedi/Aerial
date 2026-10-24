@@ -161,7 +161,9 @@ function createConfigWindow(argv) {
     if (argv) {
         if (argv.includes("/w")) {
             setTimeout(() => {
-                win.webContents.send('showWelcome')
+                if (win && !win.isDestroyed()) {
+                    win.webContents.send('showWelcome');
+                }
             }, 1500);
         }
     }
@@ -661,36 +663,39 @@ ipcMain.on('openConfigFolder', (event) => {
 });
 
 ipcMain.on('selectCustomLocation', async (event, arg) => {
-    const result = await dialog.showOpenDialog(screens[0], {
-        properties: ['openDirectory']
-    });
-    const path = result.filePaths[0];
-    let videoList = [];
-    videoList.path = path;
-    fs.readdir(path, (err, files) => {
-        files.forEach(file => {
-            if (file.includes('.mp4') || file.includes('.webm') || file.includes('.ogv')) {
-                videoList.push(file);
-            }
+    try {
+        const result = await dialog.showOpenDialog(screens[0], {
+            properties: ['openDirectory']
         });
-        event.reply('newCustomVideos', videoList, path);
-    });
-    //event.reply('filePath', result.filePaths);
+        if (result.canceled || !result.filePaths.length) {
+            return;
+        }
+        const directory = result.filePaths[0];
+        const files = await fs.promises.readdir(directory);
+        const videoList = files.filter(file => file.includes('.mp4') || file.includes('.webm') || file.includes('.ogv'));
+        videoList.path = directory;
+        event.reply('newCustomVideos', videoList, directory);
+    } catch (error) {
+        console.error('Unable to select custom video location', error);
+    }
 });
 
 ipcMain.on('selectCacheLocation', async (event, arg) => {
-    const result = await dialog.showOpenDialog(screens[0], {
-        properties: ['openDirectory']
-    });
-    const newPath = result.filePaths[0];
-    //removeAllVideosInCache();
-    if (newPath != undefined) {
-        cachePath = newPath;
-        store.set('cachePath', newPath);
-        await fs.promises.mkdir(path.join(newPath, "temp"), {recursive: true});
-        updateVideoCache(() => {
-            event.reply('displaySettings');
+    try {
+        const result = await dialog.showOpenDialog(screens[0], {
+            properties: ['openDirectory']
         });
+        const newPath = result.filePaths[0];
+        if (!result.canceled && newPath !== undefined) {
+            await fs.promises.mkdir(path.join(newPath, "temp"), {recursive: true});
+            cachePath = newPath;
+            store.set('cachePath', newPath);
+            await updateVideoCache(() => {
+                event.reply('displaySettings');
+            });
+        }
+    } catch (error) {
+        console.error('Unable to select cache location', error);
     }
 });
 
@@ -708,17 +713,20 @@ ipcMain.on('selectFile', async (event, args) => {
     const filters = {
         'image': {name: 'Image', extensions: ['jpg', 'jpeg', 'png', 'gif']}
     };
-    dialog.showOpenDialog(screens[0], {
-        properties: ['openFile'],
-        filters: [filters[type]]
-    }).then(result => {
-        if (!result.canceled) {
+    try {
+        const result = await dialog.showOpenDialog(screens[0], {
+            properties: ['openFile'],
+            filters: [filters[type]]
+        });
+        if (!result.canceled && result.filePaths.length) {
             let displayText = store.get('displayText');
             displayText[position][line].imagePath = result.filePaths[0];
             store.set('displayText', displayText);
             event.reply('updateAttribute', ['imageFileName', result.filePaths[0]]);
         }
-    });
+    } catch (error) {
+        console.error('Unable to select image file', error);
+    }
 });
 
 ipcMain.on('openPreview', (event) => {
