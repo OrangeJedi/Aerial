@@ -42,6 +42,21 @@ test('secondary process quits before loading application services', () => {
     assert.equal(quit, 1);
 });
 
+test('all new web contents mute audio output without touching player controls', () => {
+    let handler;
+    section("app.on('web-contents-created'", "app.on('second-instance'", {
+        app: {on: (name, callback) => {
+            assert.equal(name, 'web-contents-created');
+            handler = callback;
+        }}
+    });
+    const calls = [];
+    for (let index = 0; index < 3; index++) {
+        handler({}, {setAudioMuted: muted => calls.push([index, muted])});
+    }
+    assert.deepEqual(calls, [[0, true], [1, true], [2, true]]);
+});
+
 test('repeat launch waits for startup before opening config', async () => {
     let handler;
     let ready;

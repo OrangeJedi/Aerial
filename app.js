@@ -18,6 +18,11 @@ if (!app.requestSingleInstanceLock()) {
     return;
 }
 
+// Mute output without changing media elements or their visible volume controls.
+app.on('web-contents-created', (event, contents) => {
+    contents.setAudioMuted(true);
+});
+
 app.on('second-instance', (event, argv) => {
     startupReady.then(() => createConfigWindow(argv));
 });
