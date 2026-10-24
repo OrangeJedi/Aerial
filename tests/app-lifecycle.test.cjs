@@ -12,6 +12,41 @@ function section(start, end, globals) {
     return context;
 }
 
+test('tray exit closes the hidden window without requiring a sender on the close event', () => {
+    let window;
+    let menu;
+    let quits = 0;
+    class Window {
+        constructor() {
+            this.events = {};
+            window = this;
+        }
+        on(name, callback) {
+            this.events[name] = callback;
+        }
+        close() {
+            const event = {preventDefault: () => assert.fail('exit must allow the window to close')};
+            this.events.close?.(event);
+            this.closed = true;
+        }
+    }
+    class Tray {
+        setContextMenu(value) {
+            menu = value;
+        }
+        setToolTip() {}
+    }
+    const context = section('function createTrayWindow()', 'function createJSONConfigWindow()', {
+        BrowserWindow: Window, Tray, Menu: {buildFromTemplate: template => template},
+        path: require('node:path'), __dirname,
+        app: {quit: () => { quits++; window.close(); }}
+    });
+    context.createTrayWindow();
+    menu.find(item => item.label === 'Exit Aerial').click();
+    assert.equal(quits, 1);
+    assert.equal(window.closed, true);
+});
+
 test('arrow keys cycle screens while other keys retain skip and quit behavior', () => {
     let handler;
     let quits = 0;

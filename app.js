@@ -331,12 +331,6 @@ function createTrayWindow() {
         },
         icon: path.join(__dirname, 'icon.ico')
     });
-    //trayWin.loadURL("https://google.com/");
-    trayWin.on("close", ev => {
-        //console.log(ev);
-        ev.sender.hide();
-        //ev.preventDefault(); // prevent quit process
-    });
 
     function newMenu(isSuspendChecked) {
         return Menu.buildFromTemplate([
