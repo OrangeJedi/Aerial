@@ -131,6 +131,8 @@ function createConfigWindow(argv) {
         width: 1000,
         height: 750,
         webPreferences: {
+            // Let video fullscreen fill this window without moving or resizing it.
+            disableHtmlFullscreenWindowResize: true,
             nodeIntegration: false,
             contextIsolation: true,
             enableRemoteModule: false,
