@@ -14,9 +14,9 @@ function displaySettings() {
     for (let i = 0; i < checked.length; i++) {
         $(`#${checked[i]}`).prop('checked', electron.store.get(checked[i]));
     }
-    let numTxt = ["sunrise", "sunset", "textFont", "textSize", "textColor", "startAfter", "blankAfter", "latitude", "longitude", "randomSpeed", "skipKey", "transitionType", "fillMode", "globalShortcutModifier1", "globalShortcutModifier2", "globalShortcutKey", "lockAfterRunAfter"];
+    let numTxt = ["sunrise", "sunset", "textFont", "textSize", "textColor", "startAfter", "blankAfter", "sleepAfterBlankDelay", "latitude", "longitude", "randomSpeed", "skipKey", "transitionType", "fillMode", "globalShortcutModifier1", "globalShortcutModifier2", "globalShortcutKey", "lockAfterRunAfter"];
     for (let i = 0; i < numTxt.length; i++) {
-        $(`#${numTxt[i]}`).val(electron.store.get(numTxt[i]));
+        $(`#${numTxt[i]}`).val(electron.store.get(numTxt[i]) ?? (numTxt[i] === 'sleepAfterBlankDelay' ? 0 : ''));
     }
     let slider = ["playbackSpeed", "videoTransitionLength"];
     for (let i = 0; i < slider.length; i++) {
@@ -36,12 +36,13 @@ function displaySettings() {
     colorTextPositionRadio();
     updateSettingVisibility();
 
-    //display update, if there is one
-    //console.log(electron.store.get('updateAvailable'));
-    if (electron.store.get('updateAvailable') !== false) {
-        document.getElementById(`aboutUpdate`).style.display = "";
-        document.getElementById(`updateBadge`).style.display = "";
-    }
+    displayAvailableUpdate();
+}
+
+function displayAvailableUpdate() {
+    const display = electron.store.get('updateAvailable') ? '' : 'none';
+    document.getElementById('aboutUpdate').style.display = display;
+    document.getElementById('updateBadge').style.display = display;
 }
 
 displaySettings();
@@ -139,6 +140,9 @@ function resetFilterSettings() {
 
 //Updated input fields that may be effected by another input
 function updateSettingVisibility() {
+    const sleepDisabled = !electron.store.get('blankScreen') || !electron.store.get('sleepAfterBlank');
+    $('#sleepAfterBlankDelay').prop('disabled', sleepDisabled);
+    $('#sleepAfterBlankDelaySetting').css('opacity', sleepDisabled ? '0.5' : '1');
     const conversionDisabled = !electron.store.get('prepareCompatibleVideos');
     $('#deleteOriginalsAfterConversion').prop('disabled', conversionDisabled);
     $('label[for="deleteOriginalsAfterConversion"]').css('opacity', conversionDisabled ? '0.5' : '1');

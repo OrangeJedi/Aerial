@@ -239,6 +239,7 @@ test('settings migration preserves explicit choices, fills defaults and upgrades
     assert.equal(saved.prepareCompatibleVideos, false);
     assert.equal(saved.wakeOnMouseClick, false);
     assert.equal(saved.wakeOnMouseMovement, true);
+    assert.equal(saved.sleepAfterBlankDelay, 0);
     assert.equal(saved.configured, true);
     assert.equal(saved.version, 'new');
     assert.equal(saved.displayText.positionList.length, 10);
@@ -316,7 +317,7 @@ function dismissalContext(overrides = {}) {
     const closed = [];
     const commands = [];
     const context = section('function quitApp()', '//idle startup timer', {
-        nq: false, preview: false, lockRequested: false,
+        nq: false, preview: false, lockRequested: false, clearScreensaverTimers() {},
         startTime: new Date(Date.now() - 60000), currentlyPlaying: 'video',
         store: {get: key => ({lockAfterRun: true, lockAfterRunAfter: 5})[key]},
         screens: [0, 1].map(id => ({isDestroyed: () => false, close: () => closed.push(id)})),

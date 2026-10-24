@@ -5,14 +5,14 @@ const vm = require('node:vm');
 
 test('update checks handle successful responses, HTTP errors, invalid JSON and network failures', async () => {
     const source = fs.readFileSync(require.resolve('../app.js'), 'utf8');
-    const start = source.indexOf('async function checkForUpdate()');
+    const start = source.indexOf('function availableUpdate(');
     const end = source.indexOf('//events from browser windows', start);
     for (const outcome of ['success', 'http', 'json', 'network']) {
         const writes = [];
         const errors = [];
         let notifications = 0;
         const context = vm.createContext({
-            AbortSignal,
+            AbortSignal, semver: require('semver'), configWindow: null,
             fetch: async () => {
                 if (outcome === 'network') {
                     throw new Error('Offline');
@@ -23,7 +23,7 @@ test('update checks handle successful responses, HTTP errors, invalid JSON and n
                         if (outcome === 'json') {
                             throw new SyntaxError('Invalid JSON');
                         }
-                        return {version: '2.0.0'};
+                        return {tag_name: 'v2.0.0'};
                     }
                 };
             },
@@ -38,6 +38,6 @@ test('update checks handle successful responses, HTTP errors, invalid JSON and n
         await context.checkForUpdate();
         assert.equal(notifications, outcome === 'success' ? 1 : 0);
         assert.equal(errors.length, outcome === 'success' ? 0 : 1);
-        assert.equal(writes.length, outcome === 'success' ? 2 : 0);
+        assert.equal(writes.length, outcome === 'success' ? 2 : 1);
     }
 });
