@@ -1,0 +1,27 @@
+name: Retarget fork pull requests
+
+on:
+  pull_request_target:
+    branches: [master]
+    types: [opened, reopened, edited]
+
+permissions:
+  pull-requests: write
+
+jobs:
+  retarget:
+    if: github.event.pull_request.head.repo.fork == true && github.event.pull_request.head.repo.id != github.event.pull_request.base.repo.id
+    runs-on: ubuntu-latest
+    steps:
+      # Never check out or execute code from the fork with this write token.
+      - name: Change base branch to development
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+        run: |
+          # Recheck current state in case the PR changed after the event.
+          pr=$(gh api "repos/$GH_REPO/pulls/$PR_NUMBER")
+          if jq -e '.state == "open" and .base.ref == "master" and .head.repo.fork == true and .head.repo.id != .base.repo.id' <<< "$pr" > /dev/null; then
+            gh api --method PATCH "repos/$GH_REPO/pulls/$PR_NUMBER" -f base=development
+          fi
