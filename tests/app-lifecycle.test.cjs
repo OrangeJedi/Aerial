@@ -172,7 +172,7 @@ for (const preview of [true, false]) {
         const commands = [];
         let closed = 0;
         const context = section('function sleepComputer()', '//idle startup timer', {
-            preview, exec: command => commands.push(command), closeAllWindows: () => { closed++; }, isComputerSleeping: false
+            preview, lockRequested: false, exec: command => commands.push(command), closeAllWindows: () => { closed++; }, isComputerSleeping: false
         });
         context.sleepComputer();
         context.lockComputer();
@@ -181,6 +181,80 @@ for (const preview of [true, false]) {
         assert.equal(context.isComputerSleeping, !preview);
     });
 }
+
+function dismissalContext(overrides = {}) {
+    const closed = [];
+    const commands = [];
+    const context = section('function quitApp()', '//idle startup timer', {
+        nq: false, preview: false, lockRequested: false,
+        startTime: new Date(Date.now() - 60000), currentlyPlaying: 'video',
+        store: {get: key => ({lockAfterRun: true, lockAfterRunAfter: 5})[key]},
+        screens: [0, 1].map(id => ({isDestroyed: () => false, close: () => closed.push(id)})),
+        exec: (command, callback) => commands.push({command, callback}),
+        console: {error() {}}, ...overrides
+    });
+    return {context, closed, commands};
+}
+
+test('dismissal keeps all displays covered until Windows confirms the lock', () => {
+    const {context, closed, commands} = dismissalContext();
+    context.quitApp();
+    context.quitApp();
+    assert.equal(commands.length, 1);
+    assert.match(commands[0].command, /LockWorkStation/);
+    commands[0].callback(null);
+    assert.deepEqual(closed, []);
+    assert.equal(context.currentlyPlaying, 'video');
+    const handlers = {};
+    section("powerMonitor.on('resume'", '//let Aerial load', {
+        powerMonitor: {on: (name, callback) => { handlers[name] = callback; }},
+        closeAllWindows: context.closeAllWindows
+    });
+    handlers['lock-screen']();
+    assert.deepEqual(closed, [0, 1]);
+    assert.equal(context.screens.length, 0);
+    assert.equal(context.lockRequested, false);
+    assert.equal(context.currentlyPlaying, '');
+});
+
+for (const synchronous of [false, true]) {
+    test(`failed lock keeps windows covered and allows retry, synchronous: ${synchronous}`, () => {
+        const {context, closed, commands} = dismissalContext();
+        if (synchronous) {
+            context.exec = () => { throw new Error('launch failed'); };
+        }
+        context.quitApp();
+        if (!synchronous) {
+            commands[0].callback(new Error('launch failed'));
+        }
+        assert.deepEqual(closed, []);
+        assert.equal(context.lockRequested, false);
+        context.exec = (command, callback) => commands.push({command, callback});
+        context.quitApp();
+        assert.equal(context.lockRequested, true);
+        assert.deepEqual(closed, []);
+    });
+}
+
+for (const overrides of [
+    {preview: true},
+    {store: {get: () => false}},
+    {startTime: new Date(Date.now() + 60000)}
+]) {
+    test(`dismissal closes immediately when locking is not required: ${Object.keys(overrides)[0]}`, () => {
+        const {context, closed, commands} = dismissalContext(overrides);
+        context.quitApp();
+        assert.deepEqual(closed, [0, 1]);
+        assert.equal(commands.length, 0);
+    });
+}
+
+test('no-quit mode ignores dismissal', () => {
+    const {context, closed, commands} = dismissalContext({nq: true});
+    context.quitApp();
+    assert.deepEqual(closed, []);
+    assert.equal(commands.length, 0);
+});
 
 for (const [hour, minute, expected] of [[5, 29, 'night'], [5, 30, 'twilight'], [5, 59, 'twilight'],
     [6, 0, 'twilight'], [6, 30, 'twilight'], [6, 31, 'day'], [12, 0, 'day'],

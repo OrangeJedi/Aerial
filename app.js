@@ -107,6 +107,7 @@ let suspend = false;
 let suspendCountdown;
 let isComputerSleeping = false;
 let isComputerSuspendedOrLocked = false;
+let lockRequested = false;
 let startTime = new Date();
 let tod = {"day": [], "night": [], "twilight": [], "none": []};
 let astronomy = {
@@ -1123,9 +1124,14 @@ async function clearCacheTemp() {
 //open & close functions
 function quitApp() {
     if (!nq) {
-        //app.quit();
-        if (store.get("lockAfterRun") && (new Date() - startTime) / 1000 > store.get("lockAfterRunAfter")) {
+        if (lockRequested) {
+            return;
+        }
+        if (!preview && store.get("lockAfterRun") && (new Date() - startTime) / 1000 > store.get("lockAfterRunAfter")) {
             lockComputer();
+            // LockWorkStation is asynchronous. Keep every display covered until
+            // powerMonitor confirms the session lock and closes the windows.
+            return;
         }
         closeAllWindows();
         currentlyPlaying = '';
@@ -1133,12 +1139,14 @@ function quitApp() {
 }
 
 function closeAllWindows() {
+    lockRequested = false;
     for (let i = 0; i < screens.length; i++) {
         if (!screens[i].isDestroyed()) {
             screens[i].close();
         }
     }
     screens = [];
+    currentlyPlaying = '';
 }
 
 function sleepComputer() {
@@ -1151,10 +1159,21 @@ function sleepComputer() {
 }
 
 function lockComputer() {
-    if (preview) {
-        return
+    if (preview || lockRequested) {
+        return;
     }
-    exec("Rundll32.exe user32.dll,LockWorkStation");
+    lockRequested = true;
+    try {
+        exec("Rundll32.exe user32.dll,LockWorkStation", error => {
+            if (error) {
+                lockRequested = false;
+                console.error('Unable to lock the computer:', error);
+            }
+        });
+    } catch (error) {
+        lockRequested = false;
+        console.error('Unable to lock the computer:', error);
+    }
 }
 
 //idle startup timer
