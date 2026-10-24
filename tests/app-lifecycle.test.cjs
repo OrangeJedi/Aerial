@@ -212,8 +212,11 @@ test('time-of-day lists include twilight and rebuild without accumulating duplic
 
 for (const [primaryOnly, noQuit, taskbarEdge] of [true, false].flatMap(primaryOnly =>
     [true, false].flatMap(noQuit => ['bottom', 'top', 'left', 'right'].map(edge => [primaryOnly, noQuit, edge])))) {
-    test(`screensaver covers monitor bounds, primary only: ${primaryOnly}, no quit: ${noQuit}, taskbar: ${taskbarEdge}`, () => {
+    test(`screensaver covers monitor bounds, primary only: ${primaryOnly}, no quit: ${noQuit}, taskbar: ${taskbarEdge}`, async () => {
         const windows = [];
+        let finishDismissal;
+        let dismissals = 0;
+        const dismissal = new Promise(resolve => { finishDismissal = resolve; });
         const displays = [
             {id: 1, size: {width: 1920, height: 1080}, bounds: {x: 0, y: 0, width: 1920, height: 1080},
                 workArea: {x: 0, y: 0, width: 1920, height: 1032}},
@@ -269,13 +272,15 @@ for (const [primaryOnly, noQuit, taskbarEdge] of [true, false].flatMap(primaryOn
         const context = section('function createSSWindow(', 'function createSSPWindow(', {
             BrowserWindow: Window, path: require('node:path'), __dirname: require('node:path').resolve(__dirname, '..'),
             nq: noQuit, screens: [], screenIds: [], calculateAstronomy() {},
+            dismissStartMenu: () => { dismissals++; return dismissal; },
             store: {get: key => key === 'onlyShowVideoOnPrimaryMonitor' ? primaryOnly : ['a'], set() {}},
             screen: {getAllDisplays: () => displays, getPrimaryDisplay: () => displays[0],
                 getCursorScreenPoint: () => ({x: -100, y: 200}), getDisplayNearestPoint: () => displays[1]}
         });
         context.createSSWindow();
+        assert.equal(dismissals, noQuit ? 0 : 1);
         assert.equal(windows.length, 2);
-        windows.forEach((win, i) => {
+        for (const [i, win] of windows.entries()) {
             assert.equal(win.options.width, displays[i].size.width);
             assert.equal(win.options.height, displays[i].size.height);
             assert.equal(win.options.x, displays[i].bounds.x);
@@ -289,7 +294,10 @@ for (const [primaryOnly, noQuit, taskbarEdge] of [true, false].flatMap(primaryOn
             assert.equal(win.options.frame, noQuit);
             assert.equal(win.options.resizable, noQuit);
             assert.equal(win.shown, undefined);
-            win.events['ready-to-show']();
+            const ready = win.events['ready-to-show']();
+            assert.equal(win.shown, undefined, 'wait for Start menu dismissal before showing');
+            finishDismissal();
+            await ready;
             assert.deepEqual(win.messages, [['screenNumber', i]]);
             assert.equal(win.shown, true);
             if (!noQuit) {
@@ -301,7 +309,7 @@ for (const [primaryOnly, noQuit, taskbarEdge] of [true, false].flatMap(primaryOn
                 ...(noQuit ? [] : ['topmost']), 'show',
                 ...(noQuit ? [] : ['bounds', 'topmost']), ...(i === 1 ? ['focus'] : [])
             ]);
-        });
+        }
         assert.equal(windows[0].file, 'web/screensaver.html');
         assert.equal(windows[1].file, primaryOnly ? 'web/black.html' : 'web/screensaver.html');
         assert.equal(windows[1].focused, true);

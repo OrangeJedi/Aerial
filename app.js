@@ -23,6 +23,7 @@ app.on('second-instance', (event, argv) => {
 });
 
 const {exec} = require('child_process');
+const {dismissStartMenu} = require('./start-menu');
 const videos = require("./videos.json");
 const videosById = new Map(videos.map(video => [video.id, video]));
 const {createPersistentSettings} = require('./settings-persistence');
@@ -180,6 +181,9 @@ function createSSWindow(argv) {
     let displays = screen.getAllDisplays();
     store.set('numDisplays', displays.length);
     const cursorDisplayId = screen.getDisplayNearestPoint(screen.getCursorScreenPoint()).id;
+    const startMenuDismissed = nq ? Promise.resolve() : dismissStartMenu().catch(() => {
+        // A blocked or unavailable shell helper must not prevent the saver from starting.
+    });
     for (let i = 0; i < displays.length; i++) {
         let win = new BrowserWindow({
             width: displays[i].size.width,
@@ -212,7 +216,11 @@ function createSSWindow(argv) {
         win.on('closed', function () {
             win = null;
         });
-        win.once('ready-to-show', () => {
+        win.once('ready-to-show', async () => {
+            await startMenuDismissed;
+            if (!win || win.isDestroyed()) {
+                return;
+            }
             win.webContents.send('screenNumber', i);
             win.show();
             if (!nq) {
