@@ -18,11 +18,17 @@ if (!app.requestSingleInstanceLock()) {
     return;
 }
 
+// Mute output without changing media elements or their visible volume controls.
+app.on('web-contents-created', (event, contents) => {
+    contents.setAudioMuted(true);
+});
+
 app.on('second-instance', (event, argv) => {
     startupReady.then(() => createConfigWindow(argv));
 });
 
 const {exec} = require('child_process');
+const {dismissStartMenu} = require('./start-menu');
 const videos = require("./videos.json");
 const videosById = new Map(videos.map(video => [video.id, video]));
 const {createPersistentSettings} = require('./settings-persistence');
@@ -77,9 +83,8 @@ app.on('before-quit', event => {
         app.quit();
     });
 });
-const request = require('request');
 const semver = require('semver');
-const https = require('https');
+const {downloadFile} = require('./download');
 const fs = require('fs');
 const path = require("path");
 const {createCompatibilityPlayer, convertedPath, deleteConvertedOriginal} = require('./playback');
@@ -107,6 +112,7 @@ let suspend = false;
 let suspendCountdown;
 let isComputerSleeping = false;
 let isComputerSuspendedOrLocked = false;
+let lockRequested = false;
 let startTime = new Date();
 let tod = {"day": [], "night": [], "twilight": [], "none": []};
 let astronomy = {
@@ -130,6 +136,8 @@ function createConfigWindow(argv) {
         width: 1000,
         height: 750,
         webPreferences: {
+            // Let video fullscreen fill this window without moving or resizing it.
+            disableHtmlFullscreenWindowResize: true,
             nodeIntegration: false,
             contextIsolation: true,
             enableRemoteModule: false,
@@ -154,7 +162,9 @@ function createConfigWindow(argv) {
     if (argv) {
         if (argv.includes("/w")) {
             setTimeout(() => {
-                win.webContents.send('showWelcome')
+                if (win && !win.isDestroyed()) {
+                    win.webContents.send('showWelcome');
+                }
             }, 1500);
         }
     }
@@ -181,6 +191,9 @@ function createSSWindow(argv) {
     let displays = screen.getAllDisplays();
     store.set('numDisplays', displays.length);
     const cursorDisplayId = screen.getDisplayNearestPoint(screen.getCursorScreenPoint()).id;
+    const startMenuDismissed = nq ? Promise.resolve() : dismissStartMenu().catch(() => {
+        // A blocked or unavailable shell helper must not prevent the saver from starting.
+    });
     for (let i = 0; i < displays.length; i++) {
         let win = new BrowserWindow({
             width: displays[i].size.width,
@@ -213,7 +226,11 @@ function createSSWindow(argv) {
         win.on('closed', function () {
             win = null;
         });
-        win.once('ready-to-show', () => {
+        win.once('ready-to-show', async () => {
+            await startMenuDismissed;
+            if (!win || win.isDestroyed()) {
+                return;
+            }
             win.webContents.send('screenNumber', i);
             win.show();
             if (!nq) {
@@ -316,12 +333,6 @@ function createTrayWindow() {
             sandbox: true,
         },
         icon: path.join(__dirname, 'icon.ico')
-    });
-    //trayWin.loadURL("https://google.com/");
-    trayWin.on("close", ev => {
-        //console.log(ev);
-        ev.sender.hide();
-        //ev.preventDefault(); // prevent quit process
     });
 
     function newMenu(isSuspendChecked) {
@@ -610,30 +621,30 @@ function setAvailableUpdate(version) {
     }
 }
 
-function checkForUpdate() {
+async function checkForUpdate() {
     setAvailableUpdate(false);
     if (!app.isPackaged) {
         return;
     }
-    request({
-        url: 'https://api.github.com/repos/OrangeJedi/Aerial/releases/latest',
-        headers: {'User-Agent': 'Aerial', 'Accept': 'application/vnd.github+json'},
-        json: true,
-        timeout: 10000
-    }, (error, response, release) => {
-        if (error || !response || response.statusCode !== 200) {
-            console.log('Error checking for updates: ', error || (response && response.statusCode));
-            return;
+    try {
+        const response = await fetch('https://api.github.com/repos/OrangeJedi/Aerial/releases/latest', {
+            headers: {'User-Agent': 'Aerial', 'Accept': 'application/vnd.github+json'},
+            signal: AbortSignal.timeout(10000)
+        });
+        if (!response.ok) {
+            throw new Error('Update check returned HTTP ' + response.status);
         }
-        const version = availableUpdate(release);
+        const version = availableUpdate(await response.json());
         setAvailableUpdate(version);
         if (version) {
             new Notification({
                 title: "An update for Aerial is available",
-                body: `Version ${version} is available for download. Visit https://github.com/OrangeJedi/Aerial/releases to update Aerial.`
+                body: 'Version ' + version + ' is available for download. Visit https://github.com/OrangeJedi/Aerial/releases to update Aerial.'
             }).show();
         }
-    });
+    } catch (error) {
+        console.log('Error checking for updates: ', error);
+    }
 }
 
 //events from browser windows
@@ -671,36 +682,39 @@ ipcMain.on('openConfigFolder', (event) => {
 });
 
 ipcMain.on('selectCustomLocation', async (event, arg) => {
-    const result = await dialog.showOpenDialog(screens[0], {
-        properties: ['openDirectory']
-    });
-    const path = result.filePaths[0];
-    let videoList = [];
-    videoList.path = path;
-    fs.readdir(path, (err, files) => {
-        files.forEach(file => {
-            if (file.includes('.mp4') || file.includes('.webm') || file.includes('.ogv')) {
-                videoList.push(file);
-            }
+    try {
+        const result = await dialog.showOpenDialog(screens[0], {
+            properties: ['openDirectory']
         });
-        event.reply('newCustomVideos', videoList, path);
-    });
-    //event.reply('filePath', result.filePaths);
+        if (result.canceled || !result.filePaths.length) {
+            return;
+        }
+        const directory = result.filePaths[0];
+        const files = await fs.promises.readdir(directory);
+        const videoList = files.filter(file => file.includes('.mp4') || file.includes('.webm') || file.includes('.ogv'));
+        videoList.path = directory;
+        event.reply('newCustomVideos', videoList, directory);
+    } catch (error) {
+        console.error('Unable to select custom video location', error);
+    }
 });
 
 ipcMain.on('selectCacheLocation', async (event, arg) => {
-    const result = await dialog.showOpenDialog(screens[0], {
-        properties: ['openDirectory']
-    });
-    const newPath = result.filePaths[0];
-    //removeAllVideosInCache();
-    if (newPath != undefined) {
-        cachePath = newPath;
-        store.set('cachePath', newPath);
-        await fs.promises.mkdir(path.join(newPath, "temp"), {recursive: true});
-        updateVideoCache(() => {
-            event.reply('displaySettings');
+    try {
+        const result = await dialog.showOpenDialog(screens[0], {
+            properties: ['openDirectory']
         });
+        const newPath = result.filePaths[0];
+        if (!result.canceled && newPath !== undefined) {
+            await fs.promises.mkdir(path.join(newPath, "temp"), {recursive: true});
+            cachePath = newPath;
+            store.set('cachePath', newPath);
+            await updateVideoCache(() => {
+                event.reply('displaySettings');
+            });
+        }
+    } catch (error) {
+        console.error('Unable to select cache location', error);
     }
 });
 
@@ -718,17 +732,20 @@ ipcMain.on('selectFile', async (event, args) => {
     const filters = {
         'image': {name: 'Image', extensions: ['jpg', 'jpeg', 'png', 'gif']}
     };
-    dialog.showOpenDialog(screens[0], {
-        properties: ['openFile'],
-        filters: [filters[type]]
-    }).then(result => {
-        if (!result.canceled) {
+    try {
+        const result = await dialog.showOpenDialog(screens[0], {
+            properties: ['openFile'],
+            filters: [filters[type]]
+        });
+        if (!result.canceled && result.filePaths.length) {
             let displayText = store.get('displayText');
             displayText[position][line].imagePath = result.filePaths[0];
             store.set('displayText', displayText);
             event.reply('updateAttribute', ['imageFileName', result.filePaths[0]]);
         }
-    });
+    } catch (error) {
+        console.error('Unable to select image file', error);
+    }
 });
 
 ipcMain.on('openPreview', (event) => {
@@ -910,21 +927,6 @@ function updateCustomVideos() {
         }
     }
     store.set('allowedVideos', allowedVideos);
-}
-
-function downloadFile(file_url, targetPath) {
-    const {pipeline} = require('stream/promises');
-    const agent = new https.Agent({
-        host: 'sylvan.apple.com', path: '/', rejectUnauthorized: false
-    });
-    const input = request({method: 'GET', uri: file_url, agent});
-    input.on('response', response => {
-        if (response.statusCode !== 200) {
-            input.destroy(new Error(`Video download returned HTTP ${response.statusCode}`));
-        }
-    });
-    // Pipeline waits for the output file to finish and propagates errors on either stream.
-    return pipeline(input, fs.createWriteStream(targetPath));
 }
 
 async function downloadVideos() {
@@ -1138,9 +1140,14 @@ async function clearCacheTemp() {
 //open & close functions
 function quitApp() {
     if (!nq) {
-        //app.quit();
-        if (store.get("lockAfterRun") && (new Date() - startTime) / 1000 > store.get("lockAfterRunAfter")) {
+        if (lockRequested) {
+            return;
+        }
+        if (!preview && store.get("lockAfterRun") && (new Date() - startTime) / 1000 > store.get("lockAfterRunAfter")) {
             lockComputer();
+            // LockWorkStation is asynchronous. Keep every display covered until
+            // powerMonitor confirms the session lock and closes the windows.
+            return;
         }
         closeAllWindows();
         currentlyPlaying = '';
@@ -1149,12 +1156,14 @@ function quitApp() {
 
 function closeAllWindows() {
     clearScreensaverTimers();
+    lockRequested = false;
     for (let i = 0; i < screens.length; i++) {
         if (!screens[i].isDestroyed()) {
             screens[i].close();
         }
     }
     screens = [];
+    currentlyPlaying = '';
 }
 
 function sleepComputer() {
@@ -1167,10 +1176,21 @@ function sleepComputer() {
 }
 
 function lockComputer() {
-    if (preview) {
-        return
+    if (preview || lockRequested) {
+        return;
     }
-    exec("Rundll32.exe user32.dll,LockWorkStation");
+    lockRequested = true;
+    try {
+        exec("Rundll32.exe user32.dll,LockWorkStation", error => {
+            if (error) {
+                lockRequested = false;
+                console.error('Unable to lock the computer:', error);
+            }
+        });
+    } catch (error) {
+        lockRequested = false;
+        console.error('Unable to lock the computer:', error);
+    }
 }
 
 //idle startup timer

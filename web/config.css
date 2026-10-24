@@ -148,6 +148,19 @@ input[type="checkbox"] {
     display: block;
 }
 
+/* Fullscreen must not inherit the preview's spacing and centering transform. */
+#videoPlayer:fullscreen {
+    width: 100% !important;
+    height: 100% !important;
+    padding: 0 !important;
+    margin: 0;
+    top: 0;
+    left: 0;
+    transform: none;
+    object-fit: contain;
+    background: #000;
+}
+
 .videoInfo {
     position: absolute;
     padding-top: 55%;

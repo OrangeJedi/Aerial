@@ -7,7 +7,7 @@ const source = fs.readFileSync(require.resolve('../app.js'), 'utf8');
 function fixture(options = {}) {
     const data = {updateAvailable: '1.3.0'};
     const notifications = [];
-    let callback;
+    let respond;
     let requestOptions;
     let refreshes = 0;
     const context = vm.createContext({
@@ -18,14 +18,26 @@ function fixture(options = {}) {
             assert.equal(channel, 'displaySettings');
             refreshes++;
         }}},
-        request: (settings, handler) => { requestOptions = settings; callback = handler; },
+        AbortSignal,
+        fetch: (url, settings) => {
+            requestOptions = {url, ...settings};
+            return new Promise((resolve, reject) => {
+                respond = (release, status = 200, error = null) => {
+                    if (error) {
+                        reject(error);
+                    } else {
+                        resolve({ok: status === 200, status, json: async () => release});
+                    }
+                };
+            });
+        },
         console: {log() {}},
         Notification: function (settings) { this.show = () => notifications.push(settings); }
     });
     vm.runInContext(source.slice(source.indexOf('function availableUpdate('),
         source.indexOf('//events from browser windows')), context);
     return {context, data, notifications, refreshes: () => refreshes, options: () => requestOptions,
-        respond: (release, statusCode = 200, error = null) => callback(error, {statusCode}, release)};
+        respond: (...args) => respond(...args)};
 }
 
 for (const [current, latest, expected] of [
@@ -35,11 +47,12 @@ for (const [current, latest, expected] of [
     ['1.3.0', '2.0.0', '2.0.0'], ['1.3.0-beta.1', 'v1.3.0', '1.3.0'],
     ['1.3.0+build.1', 'v1.3.0', false]
 ]) {
-    test(`update check compares ${current} with ${latest}`, () => {
+    test(`update check compares ${current} with ${latest}`, async () => {
         const f = fixture({version: current});
-        f.context.checkForUpdate();
+        const pending = f.context.checkForUpdate();
         assert.equal(f.data.updateAvailable, false);
         f.respond({tag_name: latest});
+        await pending;
         assert.equal(f.data.updateAvailable, expected);
         assert.equal(f.notifications.length, expected ? 1 : 0);
         assert.equal(f.refreshes(), 2);
@@ -49,31 +62,34 @@ for (const [current, latest, expected] of [
 for (const release of [null, {}, 'not json', {tag_name: 130}, {tag_name: 'invalid'},
     {tag_name: 'v1.4.0-beta.1'}, {tag_name: 'v1.4.0', prerelease: true},
     {tag_name: 'v1.4.0', draft: true}]) {
-    test(`invalid or unpublished release is ignored: ${JSON.stringify(release)}`, () => {
+    test(`invalid or unpublished release is ignored: ${JSON.stringify(release)}`, async () => {
         const f = fixture();
-        f.context.checkForUpdate();
+        const pending = f.context.checkForUpdate();
         f.respond(release);
+        await pending;
         assert.equal(f.data.updateAvailable, false);
         assert.equal(f.notifications.length, 0);
     });
 }
 
-test('failed requests clear stale updates and development copies do not check for releases', () => {
+test('failed requests clear stale updates and development copies do not check for releases', async () => {
     for (const status of [403, 404, 500]) {
         const f = fixture();
-        f.context.checkForUpdate();
+        const pending = f.context.checkForUpdate();
         assert.ok(f.options().url.endsWith('/releases/latest'));
-        assert.ok(f.options().timeout > 0);
+        assert.ok(f.options().signal instanceof AbortSignal);
         f.respond({tag_name: 'v9.0.0'}, status);
+        await pending;
         assert.equal(f.data.updateAvailable, false);
         assert.equal(f.notifications.length, 0);
     }
     const failed = fixture();
-    failed.context.checkForUpdate();
+    const pending = failed.context.checkForUpdate();
     failed.respond(null, 200, new Error('offline'));
+    await pending;
     assert.equal(failed.data.updateAvailable, false);
     const dev = fixture({packaged: false});
-    dev.context.checkForUpdate();
+    await dev.context.checkForUpdate();
     assert.equal(dev.options(), undefined);
     assert.equal(dev.data.updateAvailable, false);
 });
