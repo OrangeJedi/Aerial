@@ -78,6 +78,7 @@ app.on('before-quit', event => {
     });
 });
 const request = require('request');
+const semver = require('semver');
 const https = require('https');
 const fs = require('fs');
 const path = require("path");
@@ -480,6 +481,7 @@ function setUpConfigFile() {
     settings.set('blankScreen', settings.get('blankScreen') ?? true);
     settings.set('blankAfter', settings.get('blankAfter') ?? 30);
     settings.set('sleepAfterBlank', settings.get('sleepAfterBlank') ?? true);
+    settings.set('sleepAfterBlankDelay', settings.get('sleepAfterBlankDelay') ?? 0);
     settings.set('lockAfterRun', settings.get('lockAfterRun') ?? false);
     settings.set('lockAfterRunAfter', settings.get('lockAfterRunAfter') ?? 15);
     settings.set('runOnBattery', settings.get('runOnBattery') ?? true);
@@ -592,23 +594,44 @@ function setUpConfigFile() {
 
 //setUpConfigFile();
 
-//check for update on GitHub
+function availableUpdate(release) {
+    if (!release || release.draft || release.prerelease) {
+        return false;
+    }
+    const latest = typeof release.tag_name === 'string' && semver.clean(release.tag_name);
+    const current = semver.clean(app.getVersion());
+    return latest && current && !semver.prerelease(latest) && semver.gt(latest, current) ? latest : false;
+}
+
+function setAvailableUpdate(version) {
+    store.set('updateAvailable', version);
+    if (configWindow && !configWindow.isDestroyed()) {
+        configWindow.webContents.send('displaySettings');
+    }
+}
+
 function checkForUpdate() {
-    request('https://raw.githubusercontent.com/OrangeJedi/Aerial/master/package.json', function (error, response, body) {
-        if (error) {
-            console.log("Error checking for updates: ", error);
+    setAvailableUpdate(false);
+    if (!app.isPackaged) {
+        return;
+    }
+    request({
+        url: 'https://api.github.com/repos/OrangeJedi/Aerial/releases/latest',
+        headers: {'User-Agent': 'Aerial', 'Accept': 'application/vnd.github+json'},
+        json: true,
+        timeout: 10000
+    }, (error, response, release) => {
+        if (error || !response || response.statusCode !== 200) {
+            console.log('Error checking for updates: ', error || (response && response.statusCode));
             return;
         }
-        store.set('updateAvailable', false);
-        const onlinePackage = JSON.parse(body);
-        if (onlinePackage.version && app.isPackaged) {
-            if (onlinePackage.version[0] > app.getVersion()[0] || onlinePackage.version[2] > app.getVersion()[2] || onlinePackage.version[4] > app.getVersion()[4]) {
-                store.set('updateAvailable', onlinePackage.version);
-                new Notification({
-                    title: "An update for Aerial is available",
-                    body: `Version ${onlinePackage.version} is available for download. Visit https://github.com/OrangeJedi/Aerial/releases to update Aerial.`
-                }).show()
-            }
+        const version = availableUpdate(release);
+        setAvailableUpdate(version);
+        if (version) {
+            new Notification({
+                title: "An update for Aerial is available",
+                body: `Version ${version} is available for download. Visit https://github.com/OrangeJedi/Aerial/releases to update Aerial.`
+            }).show();
         }
     });
 }
@@ -1125,6 +1148,7 @@ function quitApp() {
 }
 
 function closeAllWindows() {
+    clearScreensaverTimers();
     for (let i = 0; i < screens.length; i++) {
         if (!screens[i].isDestroyed()) {
             screens[i].close();
@@ -1181,32 +1205,59 @@ async function launchScreensaver() {
 
 setInterval(launchScreensaver, 5000);
 
+let blankInterval;
+let sleepTimeout;
+let screensBlanked = false;
+
+function clearScreensaverTimers() {
+    clearInterval(blankInterval);
+    clearTimeout(sleepTimeout);
+    blankInterval = undefined;
+    sleepTimeout = undefined;
+    screensBlanked = false;
+}
+
 function onFirstVideoPlayed() {
-    let startTime = new Date();
     setTimeOfDayList();
-    if (store.get('blankScreen')) {
-        let interval = setInterval(() => {
-            if (screens.length === 0) {
-                clearTimeout(interval);
-                return;
-            }
-            if (new Date() - startTime >= store.get('blankAfter') * 60 * 1000) {
-                blankScreensaver();
-            }
-        }, 30000);
+    if (preview || blankInterval !== undefined || screensBlanked || !store.get('blankScreen')) {
+        return;
     }
+    const started = Date.now();
+    blankInterval = setInterval(() => {
+        if (screens.length === 0) {
+            clearScreensaverTimers();
+        } else if (Date.now() - started >= store.get('blankAfter') * 60 * 1000) {
+            blankScreensaver();
+        }
+    }, 30000);
+}
+
+function scheduleSleepAfterBlank() {
+    if (!store.get('sleepAfterBlank')) {
+        return;
+    }
+    const minutes = Number(store.get('sleepAfterBlankDelay') ?? 0);
+    const delay = Number.isFinite(minutes) ? Math.max(0, minutes) * 60 * 1000 : 0;
+    const transition = Math.max(0, Number(store.get('videoTransitionLength')) || 0) * 3;
+    sleepTimeout = setTimeout(() => {
+        sleepTimeout = undefined;
+        if (screensBlanked && screens.length > 0 && !preview && store.get('sleepAfterBlank')) {
+            sleepComputer();
+        }
+    }, transition + delay);
 }
 
 function blankScreensaver() {
+    if (preview || screensBlanked || screens.length === 0) {
+        return;
+    }
+    screensBlanked = true;
+    clearInterval(blankInterval);
+    blankInterval = undefined;
     for (let i = 0; i < screens.length; i++) {
         screens[i].webContents.send('blankTheScreen');
-        if (store.get('sleepAfterBlank')) {
-            //sleep the computer after a few seconds of blank screen
-            setTimeout(() => {
-                sleepComputer()
-            }, store.get('videoTransitionLength') * 3)
-        }
     }
+    scheduleSleepAfterBlank();
 }
 
 //Time of day code functions

@@ -109,6 +109,7 @@ test('settings migration preserves explicit choices, fills defaults and upgrades
     assert.equal(saved.prepareCompatibleVideos, false);
     assert.equal(saved.wakeOnMouseClick, false);
     assert.equal(saved.wakeOnMouseMovement, true);
+    assert.equal(saved.sleepAfterBlankDelay, 0);
     assert.equal(saved.configured, true);
     assert.equal(saved.version, 'new');
     assert.equal(saved.displayText.positionList.length, 10);

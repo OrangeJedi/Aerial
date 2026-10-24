@@ -72,6 +72,13 @@
                     <input type="checkbox" id="sleepAfterBlank" class="w3-check"
                            onclick="updateSetting('sleepAfterBlank','check')">
                     <label for="sleepAfterBlank">Sleep the computer after screen blank</label>
+                    <span id="sleepAfterBlankDelaySetting">
+                        <br>
+                        <label for="sleepAfterBlankDelay">Wait</label>
+                        <input style="width: 10%; display: inline !important;" class="w3-input" type="number"
+                               id="sleepAfterBlankDelay" min="0" step="1" onchange="updateSetting('sleepAfterBlankDelay','number')">
+                        <label for="sleepAfterBlankDelay">minutes after blanking before sleeping</label>
+                    </span>
                     <br><br>
                     <input type="checkbox" id="lockAfterRun" class="w3-check"
                            onclick="updateSetting('lockAfterRun','check')">

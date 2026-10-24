@@ -36,6 +36,7 @@
     "font-list-universal": "^1.0.0",
     "json-beautify": "^2.0.0",
     "request": "^2.88.2",
+    "semver": "^7.8.5",
     "suncalc": "^2.1.1"
   },
   "build": {
