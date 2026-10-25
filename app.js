@@ -275,17 +275,38 @@ function createSSPWindow(argv) {
         icon: path.join(__dirname, 'icon.ico'),
         show: false
     });
-    win.loadFile('web/screensaver.html');
+    let startupFinished = false;
+    let startupTimer;
+    const failStartup = error => {
+        if (startupFinished || !win || win.isDestroyed()) {
+            return;
+        }
+        startupFinished = true;
+        clearTimeout(startupTimer);
+        console.error('Unable to open preview', error);
+        win.destroy();
+        dialog.showErrorBox('Unable to open preview', `Aerial could not load the preview.\n\n${error.message || error}`);
+    };
     win.on('closed', function () {
-        screens.pop(screens.indexOf(win));
+        startupFinished = true;
+        clearTimeout(startupTimer);
+        screens = screens.filter(screenWindow => screenWindow !== win);
         nq = false;
         win = null;
         preview = false;
     });
     win.once('ready-to-show', () => {
+        if (startupFinished || !win || win.isDestroyed()) {
+            return;
+        }
+        startupFinished = true;
+        clearTimeout(startupTimer);
         win.webContents.send('screenNumber', 0);
         win.show();
     })
+    win.webContents.on('render-process-gone', (event, details) => {
+        failStartup(new Error(`The preview renderer stopped (${details.reason}).`));
+    });
     if (argv) {
         if (argv.includes("/dt")) {
             win.webContents.openDevTools();
@@ -294,6 +315,10 @@ function createSSPWindow(argv) {
     }
     screens.push(win);
     preview = true;
+    startupTimer = setTimeout(() => {
+        failStartup(new Error('The preview did not become ready within 30 seconds.'));
+    }, 30000);
+    win.loadFile('web/screensaver.html').catch(failStartup);
 }
 
 function createEditWindow(argv) {

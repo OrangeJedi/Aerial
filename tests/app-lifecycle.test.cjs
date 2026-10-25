@@ -4,6 +4,66 @@ const fs = require('node:fs');
 const vm = require('node:vm');
 const source = fs.readFileSync(require.resolve('../app.js'), 'utf8');
 
+for (const outcome of ['load failure', 'renderer crash', 'timeout', 'ready', 'closed']) {
+    test(`preview startup handles ${outcome}`, async () => {
+        const {EventEmitter} = require('node:events');
+        const config = {};
+        const errors = [];
+        let window;
+        let timeout;
+        let cleared = 0;
+        class PreviewWindow extends EventEmitter {
+            constructor() {
+                super();
+                window = this;
+                this.webContents = new EventEmitter();
+                this.webContents.send = () => {};
+            }
+            isDestroyed() {
+                return !!this.destroyed;
+            }
+            destroy() {
+                this.destroyed = true;
+                this.emit('closed');
+            }
+            show() {
+                this.shown = true;
+            }
+            loadFile() {
+                return outcome === 'load failure' ? Promise.reject(new Error('Missing preview page')) : Promise.resolve();
+            }
+        }
+        const context = section('function createSSPWindow(', 'function createEditWindow(', {
+            BrowserWindow: PreviewWindow, screen: {getAllDisplays: () => []},
+            store: {get: () => []}, path: require('node:path'), __dirname: 'test',
+            screens: [config], nq: false, preview: false,
+            setTimeout: callback => { timeout = callback; return 1; },
+            clearTimeout: () => { cleared++; },
+            console: {error() {}}, dialog: {showErrorBox: (title, message) => errors.push(message)}
+        });
+        context.createSSPWindow();
+        if (outcome === 'renderer crash') {
+            window.webContents.emit('render-process-gone', {}, {reason: 'crashed'});
+        } else if (outcome === 'timeout') {
+            timeout();
+        } else if (outcome === 'ready') {
+            window.emit('ready-to-show');
+            timeout();
+        } else if (outcome === 'closed') {
+            window.destroy();
+            timeout();
+        }
+        await Promise.resolve();
+        const failed = ['load failure', 'renderer crash', 'timeout'].includes(outcome);
+        assert.equal(errors.length, failed ? 1 : 0);
+        assert.ok(cleared > 0);
+        assert.equal(!!window.shown, outcome === 'ready');
+        assert.equal(context.preview, outcome === 'ready');
+        assert.equal(context.screens[0], config);
+        assert.equal(context.screens.length, outcome === 'ready' ? 2 : 1);
+    });
+}
+
 function section(start, end, globals) {
     const first = source.indexOf(start);
     assert.ok(first >= 0 && source.indexOf(end, first) > first);
