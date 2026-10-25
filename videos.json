@@ -4,7 +4,7 @@
     "accessibilityLabel": "China",
     "name": "Mountains",
     "pointsOfInterest": {
-      "0": "Traveling through Wulingyuan National Park in China"
+      "0": "Traveling through Wulingyuan National Park in China"
     },
     "type": "landscape",
     "src": {
@@ -20,7 +20,7 @@
     "accessibilityLabel": "China",
     "name": "Paddy Field",
     "pointsOfInterest": {
-      "0": "Passing over the Longji rice terraces in Guangxi Province China"
+      "0": "Passing over the Longji rice terraces in Guangxi Province, China"
     },
     "type": "landscape",
     "src": {
@@ -36,7 +36,7 @@
     "accessibilityLabel": "China",
     "name": "Cliffs",
     "pointsOfInterest": {
-      "0": "Exploring Wulingyuan National Park in China"
+      "0": "Exploring Wulingyuan National Park in China"
     },
     "type": "landscape",
     "src": {
@@ -52,7 +52,7 @@
     "accessibilityLabel": "China",
     "name": "Great Wall",
     "pointsOfInterest": {
-      "0": "The Mutianyu section of the Great Wall in Huairou District, China"
+      "0": "The Mutianyu section of the Great Wall in Huairou District, China"
     },
     "type": "landscape",
     "src": {
@@ -68,7 +68,7 @@
     "accessibilityLabel": "China",
     "name": "Silhouette",
     "pointsOfInterest": {
-      "0": "The Mutianyu section of the Great Wall in Huairou District China"
+      "0": "The Mutianyu section of the Great Wall in Huairou District, China"
     },
     "type": "landscape",
     "src": {
@@ -84,7 +84,7 @@
     "accessibilityLabel": "China",
     "name": "Great Wall 2",
     "pointsOfInterest": {
-      "0": "The Mutianyu section of the Great Wall in Huairou District, China"
+      "0": "The Mutianyu section of the Great Wall in Huairou District, China"
     },
     "type": "landscape",
     "src": {
@@ -100,7 +100,7 @@
     "accessibilityLabel": "Dubai",
     "name": "Dubai from Above",
     "pointsOfInterest": {
-      "0": "Traveling along Sheikh Zayed Road in Dubai United Arab Emirates"
+      "0": "Traveling along Sheikh Zayed Road in Dubai, United Arab Emirates"
     },
     "type": "cityscape",
     "src": {
@@ -116,7 +116,7 @@
     "accessibilityLabel": "Dubai",
     "name": "Creek Harbor",
     "pointsOfInterest": {
-      "0": "Flying over Dubai Marina in the United Arab Emirates"
+      "0": "Flying over Dubai Marina in the United Arab Emirates"
     },
     "type": "cityscape",
     "src": {
@@ -132,9 +132,9 @@
     "accessibilityLabel": "Dubai",
     "name": "Night",
     "pointsOfInterest": {
-      "0": "Approaching Burj Khalifa in Downtown Dubai United Arab Emirates",
-      "280": "Passing by Burj Khalifa in Downtown Dubai, United Arab Emirates",
-      "330": "Over Downtown Dubai approaching the coast"
+      "0": "Approaching Burj Khalifa in Downtown Dubai, United Arab Emirates",
+      "280": "Passing by Burj Khalifa in Downtown Dubai, United Arab Emirates",
+      "330": "Over Downtown Dubai approaching the coast"
     },
     "type": "cityscape",
     "timeOfDay": "night",
@@ -150,8 +150,8 @@
     "accessibilityLabel": "Dubai",
     "name": "Skyline",
     "pointsOfInterest": {
-      "0": "Approaching Downtown Dubai in the United Arab Emirates",
-      "210": "Heading over Downtown Dubai in the United Arab Emirates"
+      "0": "Approaching Downtown Dubai in the United Arab Emirates",
+      "210": "Heading over Downtown Dubai in the United Arab Emirates"
     },
     "type": "cityscape",
     "src": {
@@ -167,7 +167,7 @@
     "accessibilityLabel": "Dubai",
     "name": "Creek",
     "pointsOfInterest": {
-      "0": "Flying along Dubai Marina in the United Arab Emirates"
+      "0": "Flying along Dubai Marina in the United Arab Emirates"
     },
     "type": "cityscape",
     "src": {
@@ -183,7 +183,7 @@
     "accessibilityLabel": "Grand Canyon",
     "name": "Evening",
     "pointsOfInterest": {
-      "0": "Following the Colorado River through the Grand Canyon in the United States"
+      "0": "Following the Colorado River through the Grand Canyon in the United States"
     },
     "type": "landscape",
     "src": {
@@ -199,7 +199,7 @@
     "accessibilityLabel": "Grand Canyon",
     "name": "Grand Canyon from Above",
     "pointsOfInterest": {
-      "0": "Flying over the Burnt Canyon area of the Grand Canyon, United States"
+      "0": "Flying over the Burnt Canyon area of the Grand Canyon, United States"
     },
     "type": "landscape",
     "src": {
@@ -215,7 +215,7 @@
     "accessibilityLabel": "Grand Canyon",
     "name": "Sunset",
     "pointsOfInterest": {
-      "0": "Traveling over the Grand Canyon in the United States"
+      "0": "Traveling over the Grand Canyon\nin the United States"
     },
     "type": "landscape",
     "src": {
@@ -231,7 +231,7 @@
     "accessibilityLabel": "Grand Canyon",
     "name": "Sediment",
     "pointsOfInterest": {
-      "0": "Traveling through the Grand Canyon in the United States"
+      "0": "Traveling through the Grand Canyon\nin the United States"
     },
     "type": "landscape",
     "src": {
@@ -247,7 +247,7 @@
     "accessibilityLabel": "Grand Canyon",
     "name": "River Valley",
     "pointsOfInterest": {
-      "0": "Traveling along the Colorado River in the Grand Canyon, United States"
+      "0": "Traveling along the Colorado River\nin the Grand Canyon, United States"
     },
     "type": "landscape",
     "src": {
@@ -263,7 +263,7 @@
     "accessibilityLabel": "Greenland",
     "name": "Glacier",
     "pointsOfInterest": {
-      "0": "Traveling along the Nuussuaq Peninsula in Greenland"
+      "0": "Traveling along the Nuussuaq Peninsula in Greenland"
     },
     "type": "landscape",
     "src": {
@@ -279,7 +279,7 @@
     "accessibilityLabel": "Greenland",
     "name": "Coast",
     "pointsOfInterest": {
-      "0": "The Ilulissat Icefjord off the coast of Greenland"
+      "0": "The Ilulissat Icefjord off the coast of Greenland"
     },
     "type": "landscape",
     "src": {
@@ -295,7 +295,7 @@
     "accessibilityLabel": "Greenland",
     "name": "Evening",
     "pointsOfInterest": {
-      "0": "The Ilulissat Icefjord off the coast of Greenland"
+      "0": "The Ilulissat Icefjord off the coast of Greenland"
     },
     "type": "landscape",
     "timeOfDay": "night",
@@ -311,7 +311,7 @@
     "accessibilityLabel": "Hawaii",
     "name": "Coastline",
     "pointsOfInterest": {
-      "0": "Flying over Laupāhoehoe Nui in the Kohala Forest Reserve on the island of Hawaii"
+      "0": "Flying over Laupāhoehoe Nui in the Kohala Forest Reserve on the island of Hawai‘i"
     },
     "type": "landscape",
     "src": {
@@ -327,7 +327,7 @@
     "accessibilityLabel": "Hawaii",
     "name": "Clouds 1",
     "pointsOfInterest": {
-      "0": "Above the Pu‘u O ‘Umi Natural Area Reserve on the island of Hawaii"
+      "0": "Above the Pu‘u O ‘Umi Natural Area Reserve, on the island of Hawai‘i"
     },
     "type": "landscape",
     "src": {
@@ -343,7 +343,7 @@
     "accessibilityLabel": "Hawaii",
     "name": "Ocean",
     "pointsOfInterest": {
-      "0": "Following the Kohala coastline on the island of Hawaii"
+      "0": "Following the Kohala coastline on the island of Hawai‘i"
     },
     "type": "landscape",
     "timeOfDay": "night",
@@ -359,7 +359,7 @@
     "accessibilityLabel": "Hawaii",
     "name": "Valley 2",
     "pointsOfInterest": {
-      "0": "The Waimanu Valley in the Kohala Forest Reserve on the island of Hawaii"
+      "0": "The Waimanu Valley in the Kohala Forest Reserve on the island of Hawai‘i"
     },
     "type": "landscape",
     "src": {
@@ -375,7 +375,7 @@
     "accessibilityLabel": "Hawaii",
     "name": "Clouds 2",
     "pointsOfInterest": {
-      "0": "Above the Pu‘u O ‘Umi Natural Area Reserve on the island of Hawaii"
+      "0": "Above the Pu‘u O ‘Umi Natural Area Reserve, on the island of Hawai‘i"
     },
     "type": "landscape",
     "timeOfDay": "night",
@@ -391,7 +391,7 @@
     "accessibilityLabel": "Hong Kong",
     "name": "Night",
     "pointsOfInterest": {
-      "0": "Over Victoria Harbour heading toward Central Hong Kong"
+      "0": "Over Victoria Harbour heading toward Central Hong Kong"
     },
     "type": "cityscape",
     "timeOfDay": "night",
@@ -407,9 +407,9 @@
     "accessibilityLabel": "Hong Kong",
     "name": "Horizon",
     "pointsOfInterest": {
-      "0": "Flying over Victoria Peak in Hong Kong",
-      "150": "Flying over Hong Kong toward Victoria Harbour",
-      "330": "Over Victoria Harbour approaching the Kowloon Peninsulao"
+      "0": "Flying over Victoria Peak in Hong Kong",
+      "150": "Flying over Hong Kong toward Victoria Harbour",
+      "330": "Over Victoria Harbour approaching the Kowloon Peninsula"
     },
     "type": "cityscape",
     "src": {
@@ -425,9 +425,9 @@
     "accessibilityLabel": "Hong Kong",
     "name": "Skyline",
     "pointsOfInterest": {
-      "0": "Over Wan Chai approaching Central Hong Kong",
-      "150": "Over Central Hong Kongo",
-      "270": "Over Hong Kong Island"
+      "0": "Over Wan Chai approaching Central Hong Kong",
+      "150": "Over Central Hong Kong",
+      "270": "Over Hong Kong Island"
     },
     "type": "cityscape",
     "src": {
@@ -443,7 +443,7 @@
     "accessibilityLabel": "Hong Kong",
     "name": "Harbor 2",
     "pointsOfInterest": {
-      "0": "Over Victoria Harbour facing Hong Kong Island"
+      "0": "Over Victoria Harbour facing Hong Kong Island"
     },
     "type": "cityscape",
     "src": {
@@ -572,7 +572,7 @@
     "accessibilityLabel": "India",
     "name": "Goa Beaches",
     "pointsOfInterest": {
-      "0": "Flying over India"
+      "0": "Over Cola and Small Cola Beach in Goa, India"
     },
     "type": "landscape",
     "src": {
@@ -585,7 +585,8 @@
     "accessibilityLabel": "India",
     "name": "Goa Coast",
     "pointsOfInterest": {
-      "0": "Flying over India"
+      "0": "Passing Small Cola Beach in Goa, India",
+      "150": "Approaching Cola Beach in Goa, India"
     },
     "type": "landscape",
     "src": {
@@ -598,7 +599,7 @@
     "accessibilityLabel": "India",
     "name": "The Ganges",
     "pointsOfInterest": {
-      "0": "Flying over India"
+      "0": "Following the Ganges from Rishikesh in Uttarakhand, India"
     },
     "type": "landscape",
     "src": {
@@ -611,7 +612,7 @@
     "accessibilityLabel": "India",
     "name": "Ghansali from Above",
     "pointsOfInterest": {
-      "0": "Flying over India"
+      "0": "Over terraced fields near Akhori in Uttarakhand, India"
     },
     "type": "landscape",
     "src": {
@@ -624,7 +625,7 @@
     "accessibilityLabel": "India",
     "name": "Through Himalayas",
     "pointsOfInterest": {
-      "0": "Flying over India"
+      "0": "Traveling toward Nanda Devi through the Garhwal Himalayas in Uttarakhand, India"
     },
     "type": "landscape",
     "src": {
@@ -637,7 +638,7 @@
     "accessibilityLabel": "India",
     "name": "Himalanyan Peaks",
     "pointsOfInterest": {
-      "0": "Flying over India"
+      "0": "Passing the Garhwal Himalayas in Uttarakhand, India"
     },
     "type": "landscape",
     "src": {
@@ -650,7 +651,7 @@
     "accessibilityLabel": "India",
     "name": "Himalayas Day",
     "pointsOfInterest": {
-      "0": "Flying over India"
+      "0": "Passing the Garhwal Himalayas in Uttarakhand, India"
     },
     "type": "landscape",
     "src": {
@@ -663,7 +664,7 @@
     "accessibilityLabel": "India",
     "name": "Tea Gardens Day",
     "pointsOfInterest": {
-      "0": "Flying over India"
+      "0": "Passing Munnar tea gardens in Kerala, India"
     },
     "type": "landscape",
     "src": {
@@ -676,7 +677,7 @@
     "accessibilityLabel": "India",
     "name": "Tea Gardens Mist",
     "pointsOfInterest": {
-      "0": "Flying over India"
+      "0": "Heading east over Munnar tea gardens in Kerala, India"
     },
     "type": "landscape",
     "src": {
@@ -689,7 +690,7 @@
     "accessibilityLabel": "India",
     "name": "Tea Gardens from Above",
     "pointsOfInterest": {
-      "0": "Flying over India"
+      "0": "Over Munnar tea gardens in Kerala, India"
     },
     "type": "landscape",
     "src": {
@@ -702,7 +703,7 @@
     "accessibilityLabel": "India",
     "name": "Reservoir Day",
     "pointsOfInterest": {
-      "0": "Flying over India"
+      "0": "Following Upper Sholayar Reservoir in Tamil Nadu, India"
     },
     "type": "landscape",
     "src": {
@@ -716,13 +717,13 @@
     "name": "Africa (night)",
     "pointsOfInterest": {
       "0": "Traveling northeast over the Sahara at night",
-      "70": "Over the Grand Erg Oriental heading toward the Mediterranean Sea",
+      "70": "Over the Grand Erg Oriental heading toward the Mediterranean Sea",
       "100": "The Mediterranean coast of Tunisia and Libya",
       "120": "Moving over the Mediterranean Sea toward Italy",
-      "140": "Over southern Italy approaching the Balkan Peninsula with Turkey in the distance",
-      "165": "Over the Balkan Peninsula moving toward the Black Sea",
-      "180": "Over the Balkan Peninsula approaching the Black Sea",
-      "210": "Traveling over the Black Sea toward Ukraine",
+      "140": "Over southern Italy approaching the Balkan Peninsula with Türkiye in the distance",
+      "165": "Over the Balkan Peninsula moving toward the Black Sea",
+      "180": "Over the Balkan Peninsula approaching the Black Sea",
+      "210": "Traveling over the Black Sea toward Ukraine",
       "230": "Traveling over Ukraine toward Russia"
     },
     "type": "space",
@@ -739,15 +740,15 @@
     "accessibilityLabel": "ISS (Space)",
     "name": "Africa and the Middle East",
     "pointsOfInterest": {
-      "0": "Over the Horn of Africa traveling toward the Gulf of Adeno",
-      "45": "The southeastern Arabian Peninsula",
-      "115": "The Gulf of Oman approaching the Makran Coast",
-      "145": "The Makran Coast of Iran and Pakistan",
+      "0": "Over the Horn of Africa traveling toward the Gulf of Aden",
+      "45": "The southeastern Arabian Peninsula",
+      "115": "The Gulf of Oman approaching the Makran Coast",
+      "145": "The Makran Coast of Iran and Pakistan",
       "160": "Over Iran moving toward Afghanistan and Pakistan",
-      "180": "Over Afghanistan and Pakistan moving toward the Karakoram Range",
-      "235": "Over the Karakoram Range traveling into China",
-      "280": "The Takla Makan Desert in western China",
-      "315": "The Tian Shan mountains in Central Asia"
+      "180": "Over Afghanistan and Pakistan moving toward the Karakoram Range",
+      "235": "Over the Karakoram Range traveling into China",
+      "280": "The Takla Makan Desert in western China",
+      "315": "The Tian Shan mountains in Central Asia"
     },
     "type": "space",
     "timeOfDay": "day",
@@ -763,7 +764,7 @@
     "accessibilityLabel": "ISS (Space)",
     "name": "Antarctic Aurora",
     "pointsOfInterest": {
-      "0": "Aurora Australis over Antarctica"
+      "0": "Aurora Australis over Antarctica"
     },
     "type": "space",
     "timeOfDay": "night",
@@ -779,10 +780,10 @@
     "accessibilityLabel": "ISS (Space)",
     "name": "Atlantic Ocean to Spain and France",
     "pointsOfInterest": {
-      "0": "Over the North Atlantic Ocean heading toward Portugal",
+      "0": "Over the North Atlantic Ocean heading toward Portugal",
       "115": "Over Portugal and Spain",
-      "150": "Moving away from the Iberian Peninsula and passing over the Bay of Biscay and France",
-      "180": "Over Western Europe with the North Atlantic Ocean in the distance"
+      "150": "Moving away from the Iberian Peninsula and passing over the Bay of Biscay and France",
+      "180": "Over Western Europe with the North Atlantic Ocean in the distance"
     },
     "type": "space",
     "src": {
@@ -798,11 +799,11 @@
     "accessibilityLabel": "ISS (Space)",
     "name": "Australia",
     "pointsOfInterest": {
-      "0": "Over the Indian Ocean heading toward Perth Australia",
+      "0": "Over the Indian Ocean heading toward Perth, Australia",
       "50": "Traveling northeast across Western Australia",
-      "170": "Over Western Australia approaching Northern Territory",
-      "220": "Over Northern Territory Australia moving toward New Guinea",
-      "335": "Over the Arafura Sea traveling toward New Guineao"
+      "170": "Over Western Australia approaching Northern Territory",
+      "220": "Over Northern Territory, Australia moving toward New Guinea",
+      "335": "Over the Arafura Sea traveling toward New Guinea"
     },
     "type": "space",
     "src": {
@@ -818,14 +819,14 @@
     "accessibilityLabel": "ISS (Space)",
     "name": "California to Vegas",
     "pointsOfInterest": {
-      "0": "Over the Pacific Ocean moving toward the California coast",
+      "0": "Over the Pacific Ocean moving toward the California coast",
       "70": "Over the California coast traveling inland",
-      "85": "Passing over Los Angeles on the west coast of the United States",
-      "95": "Over Los Angeles approaching Las Vegas in the United States",
-      "110": "Over Las Vegas heading toward Salt Lake City in the United States",
-      "120": "Over the western United States approaching Salt Lake City",
-      "155": "Passing between Salt Lake City and Denver in the United States",
-      "170": "Over the Rocky Mountains in the United States"
+      "85": "Passing over Los Angeles on the west coast of the United States",
+      "95": "Over Los Angeles approaching Las Vegas in the United States",
+      "110": "Over Las Vegas heading toward Salt Lake City in the United States",
+      "120": "Over the western United States approaching Salt Lake City",
+      "155": "Passing between Salt Lake City and Denver in the United States",
+      "170": "Over the Rocky Mountains in the United States"
     },
     "type": "space",
     "timeOfDay": "night",
@@ -841,14 +842,15 @@
     "accessibilityLabel": "ISS (Space)",
     "name": "Caribbean 1",
     "pointsOfInterest": {
-      "0": "Traveling over the Pacific Ocean toward Central America",
-      "35": "The Pacific coasts of Nicaragua Costa Rica and Panama",
-      "50": "Passing over Central America with South America in the distance",
+      "0": "Traveling over the Pacific Ocean toward Central America",
+      "35": "The Pacific coasts of Nicaragua, Costa Rica, and Panama",
+      "50": "Passing over Central America with South America in the distance",
       "65": "The Mosquito Coast of Nicaragua",
-      "85": "Over the Caribbean Sea traveling toward Cuba",
-      "110": "Passing by a cloud-covered Jamaica in the Caribbean Sea",
-      "125": "Crossing over Cuba looking toward Haiti and the Dominican Republic",
-      "170": "Traveling over the Bahamas looking toward Haiti and the Dominican Republic"
+      "85": "Over the Caribbean Sea traveling toward Cuba",
+      "110": "Passing by a cloud-covered Jamaica in the Caribbean Sea",
+      "125": "Crossing over Cuba looking toward Haiti and the Dominican Republic",
+      "170": "Traveling over the Bahamas looking toward Haiti and the Dominican Republic",
+      "190": "Turks and Caicos Islands in the Atlantic Ocean"
     },
     "type": "space",
     "timeOfDay": "day",
@@ -864,13 +866,13 @@
     "accessibilityLabel": "ISS (Space)",
     "name": "Caribbean 2",
     "pointsOfInterest": {
-      "0": "Over the Pacific Ocean moving toward Central America",
-      "70": "The southwest coast of Central America heading toward the Caribbean Sea",
-      "100": "Crossing Central America toward the Caribbean Sea",
-      "150": "Over the Caribbean Sea moving toward Cuba",
+      "0": "Over the Pacific Ocean moving toward Central America",
+      "70": "The southwest coast of Central America heading toward the Caribbean Sea",
+      "100": "Crossing Central America toward the Caribbean Sea",
+      "150": "Over the Caribbean Sea moving toward Cuba",
       "240": "Over Cuba with Florida and the Bahamas beyond",
-      "300": "Over Florida and the Bahamas traveling toward the Sargasso Seao",
-      "350": "Over the Sargasso Sea heading out into the Atlantic Ocean"
+      "300": "Over Florida and the Bahamas traveling toward the Sargasso Sea",
+      "350": "Over the Sargasso Sea heading out into the Atlantic Ocean"
     },
     "type": "space",
     "src": {
@@ -886,14 +888,14 @@
     "accessibilityLabel": "ISS (Space)",
     "name": "Caribbean Day",
     "pointsOfInterest": {
-      "0": "Heading southeast over the Great Plains of the United States",
-      "90": "Heading southeast over the Midwest United States",
-      "120": "Over the southeast United States heading toward Florida",
+      "0": "Heading southeast over the Great Plains of the United States",
+      "90": "Heading southeast over the Midwest United States",
+      "120": "Over the southeast United States heading toward Florida",
       "220": "Over Florida traveling toward the Bahamas",
       "240": "Moving southeast over the Bahamas",
-      "285": "Over the Bahamas approaching the Dominican Republic and Haiti",
-      "300": "Over the Dominican Republic and Haiti approaching the Caribbean",
-      "315": "Over the Caribbean Sea heading south toward Venezuela"
+      "285": "Over the Bahamas approaching the Dominican Republic and Haiti",
+      "300": "Over the Dominican Republic and Haiti approaching the Caribbean Sea",
+      "315": "Over the Caribbean Sea heading south toward Venezuela"
     },
     "type": "space",
     "timeOfDay": "day",
@@ -912,8 +914,8 @@
       "0": "Over central Asia traveling toward coastal China",
       "10": "Over central China traveling toward Shanghai",
       "30": "Heading over eastern China approaching Shanghai",
-      "45": "Approaching Shanghai heading toward the East China Sea",
-      "50": "Over Shanghai moving toward the East China Sea"
+      "45": "Approaching Shanghai heading toward the East China Sea",
+      "50": "Over Shanghai moving toward the East China Sea"
     },
     "type": "space",
     "src": {
@@ -947,9 +949,9 @@
     "accessibilityLabel": "ISS (Space)",
     "name": "Ireland to Asia",
     "pointsOfInterest": {
-      "0": "Over the North Atlantic approaching the British Isles",
-      "15": "Ireland and Great Britain",
-      "45": "Over Great Britain traveling toward mainland Europe",
+      "0": "Over the North Atlantic approaching Ireland and Great Britain",
+      "15": "Ireland and Great Britain",
+      "45": "Over Great Britain traveling toward mainland Europe",
       "65": "Over northwestern Europe heading toward Russia",
       "105": "Over central Europe heading toward Russia",
       "150": "Over eastern Europe with Moscow in the distance",
@@ -972,10 +974,10 @@
     "name": "Italy to Asia",
     "pointsOfInterest": {
       "0": "Over Tunisia heading toward Italy",
-      "5": "Over the Mediterranean Sea looking toward Sicily and the Italian Peninsula",
-      "15": "Over southern Italy with the Balkan Peninsula beyond",
-      "25": "Over the Balkan Peninsula moving toward central Asia",
-      "40": "Over the Balkan Peninsula passing by the Black Sea",
+      "5": "Over the Mediterranean Sea looking toward Sicily and the Italian Peninsula",
+      "15": "Over southern Italy with the Balkan Peninsula beyond",
+      "25": "Over the Balkan Peninsula moving toward central Asia",
+      "40": "Over the Balkan Peninsula passing by the Black Sea",
       "55": "Over Ukraine with Russia beyond",
       "75": "Over southwest Russia passing by Kazakhstan"
     },
@@ -996,12 +998,12 @@
       "0": "Moving southeast over Siberia and Mongolia",
       "22": "Heading toward Inner Mongolia",
       "32": "Over Mongolia traveling toward China",
-      "60": "Over northern China moving toward the Korean Peninsula",
-      "110": "Over China heading toward the Korean Peninsula",
-      "150": "The Korean Peninsula with Japan in the distance",
+      "60": "Over northern China moving toward the Korean Peninsula",
+      "110": "Over China heading toward the Korean Peninsula",
+      "150": "The Korean Peninsula with Japan in the distance",
       "180": "Over South Korea traveling toward Japan",
-      "195": "Over Japan looking toward the Pacific Ocean",
-      "260": "Over the Pacific Ocean southeast of Japan"
+      "195": "Over Japan looking toward the Pacific Ocean",
+      "260": "Over the Pacific Ocean southeast of Japan"
     },
     "type": "space",
     "timeOfDay": "night",
@@ -1017,14 +1019,14 @@
     "accessibilityLabel": "ISS (Space)",
     "name": "Mexico City to New York",
     "pointsOfInterest": {
-      "0": "Over the Pacific Ocean heading toward Mexico",
-      "105": "Passing over Mexico City toward the Gulf of Mexico",
-      "122": "Flying over the Gulf of Mexico toward the United States",
-      "180": "Passing by Houston and approaching New Orleans in the United States",
-      "190": "Heading over New Orleans and the Gulf Coast of the United States",
-      "215": "Moving over the southeastern United States",
-      "280": "Over the eastern United States traveling toward New York",
-      "320": "Over the eastern United States approaching New York City"
+      "0": "Over the Pacific Ocean heading toward Mexico",
+      "105": "Passing over Mexico City toward the Gulf of Mexico",
+      "122": "Flying over the Gulf of Mexico toward the United States",
+      "180": "Passing by Houston and approaching New Orleans in the United States",
+      "190": "Heading over New Orleans and the Gulf Coast of the United States",
+      "215": "Moving over the southeastern United States",
+      "280": "Over the eastern United States traveling toward New York",
+      "320": "Over the eastern United States approaching New York City"
     },
     "type": "space",
     "timeOfDay": "night",
@@ -1040,10 +1042,10 @@
     "accessibilityLabel": "ISS (Space)",
     "name": "New Zealand",
     "pointsOfInterest": {
-      "0": "Crossing from night to day over the South Pacific Ocean",
-      "70": "Crossing from night to day over New Zealand",
-      "110": "Approaching sunrise over New Zealand",
-      "170": "Leaving New Zealand heading northeast over the Pacific Ocean"
+      "0": "Crossing from night to day over the South Pacific Ocean",
+      "70": "Crossing from night to day over New Zealand",
+      "110": "Approaching sunrise over New Zealand",
+      "170": "Leaving New Zealand heading northeast over the Pacific Ocean"
     },
     "type": "space",
     "timeOfDay": "day",
@@ -1059,15 +1061,15 @@
     "accessibilityLabel": "ISS (Space)",
     "name": "Nile Delta",
     "pointsOfInterest": {
-      "0": "Traveling over Western Europe with the British Isles in the distance",
-      "20": "Heading southeast over the Alps and the Po River Valley",
-      "50": "Moving down the Italian Peninsula and the Adriatic Sea",
+      "0": "Traveling over Western Europe with Great Britain and Ireland in the distance",
+      "20": "Heading southeast over the Alps and the Po River Valley",
+      "50": "Moving down the Italian Peninsula and the Adriatic Sea",
       "100": "Greece flanked by the Ionian and Aegean Seas",
-      "160": "Traveling southeast over the Mediterranean Sea",
-      "185": "The Mediterranean Sea and the Nile River Delta",
-      "205": "The Nile River flowing through the Sahara in Egypt",
-      "220": "The Eastern Desert flanked by the Nile River and the Gulf of Suez",
-      "240": "Heading southeast over the Red Sea"
+      "160": "Traveling southeast over the Mediterranean Sea",
+      "185": "The Mediterranean Sea and the Nile River Delta",
+      "205": "The Nile River flowing through the Sahara in Egypt",
+      "220": "The Eastern Desert flanked by the Nile River and the Gulf of Suez",
+      "240": "Heading southeast over the Red Sea"
     },
     "type": "space",
     "src": {
@@ -1083,18 +1085,18 @@
     "accessibilityLabel": "ISS (Space)",
     "name": "North America Aurora",
     "pointsOfInterest": {
-      "0": "Over the Pacific Ocean moving toward Baja, California",
-      "45": "Over Baja California looking north toward the United States",
-      "55": "Over Mexico heading toward the southwest United States",
-      "75": "Over the southwest United States",
-      "110": "Over the Rocky Mountains approaching Denver",
-      "125": "Traveling over the Great Plains of the United States",
-      "185": "Approaching the Great Lakes with Ontario, Canada beyond",
-      "200": "Over the Great Lakes approaching Ontario Canada",
-      "210": "The Aurora Borealis over western Ontario, Canada",
-      "235": "The Aurora Borealis over northern Ontario Canadao Turks and Caicos Islands in the Atlantic Ocean",
-      "250": "The Aurora Borealis over northern Quebec Canada",
-      "300": "Heading toward the North Atlantic with the Aurora Borealis over Labrador, Canada"
+      "0": "Over the Pacific Ocean moving toward Baja California",
+      "45": "Over Baja California looking north toward the United States",
+      "55": "Over Mexico heading toward the southwest United States",
+      "75": "Over the southwest United States",
+      "110": "Over the Rocky Mountains approaching Denver",
+      "125": "Traveling over the Great Plains of the United States",
+      "185": "Approaching the Great Lakes with Ontario, Canada beyond",
+      "200": "Over the Great Lakes approaching Ontario, Canada",
+      "210": "The Aurora Borealis over western Ontario, Canada",
+      "235": "The Aurora Borealis over northern Ontario, Canada",
+      "250": "The Aurora Borealis over northern Quebec, Canada",
+      "300": "Heading toward the North Atlantic with the Aurora Borealis over Labrador, Canada"
     },
     "type": "space",
     "timeOfDay": "night",
@@ -1110,16 +1112,16 @@
     "accessibilityLabel": "ISS (Space)",
     "name": "Sahara and Italy",
     "pointsOfInterest": {
-      "0": "Over western Africa moving toward the Saharao",
+      "0": "Over western Africa moving toward the Sahara",
       "30": "Crossing the Sahara in North Africa",
       "110": "Passing over the Ahaggar Mountains in the Sahara, North Africa",
-      "155": "Over the Grand Erg Oriental in North Africa moving toward the Mediterranean Sea",
-      "195": "The coast of Tunisia and the Mediterranean Sea",
+      "155": "Over the Grand Erg Oriental in North Africa moving toward the Mediterranean Sea",
+      "195": "The coast of Tunisia and the Mediterranean Sea",
       "210": "Over the coast of Tunisia traveling toward Italy",
-      "230": "Approaching Italy in the Mediterranean Sea",
-      "245": "Over Italy traveling toward the Balkan Peninsula",
-      "285": "Over the Balkan Peninsula heading toward the Carpathian Mountains",
-      "310": "The Carpathian Mountains and the Black Sea"
+      "230": "Approaching Italy in the Mediterranean Sea",
+      "245": "Over Italy traveling toward the Balkan Peninsula",
+      "285": "Over the Balkan Peninsula heading toward the Carpathian Mountains",
+      "310": "The Carpathian Mountains and the Black Sea"
     },
     "type": "space",
     "timeOfDay": "day",
@@ -1136,19 +1138,19 @@
     "name": "South Africa to North Asia",
     "pointsOfInterest": {
       "0": "Traveling northeast over the Ethiopian Highlands",
-      "45": "Traveling over the Red Sea into the Arabian Peninsula",
-      "100": "Heading northeast over the Arabian Peninsula",
-      "130": "Over the Arabian Peninsula moving toward Iran",
-      "165": "Over the Arabian Peninsula approaching Iran",
-      "190": "Over Afghanistan and Pakistan moving toward the Karakoram Range",
+      "45": "Traveling over the Red Sea into the Arabian Peninsula",
+      "100": "Heading northeast over the Arabian Peninsula",
+      "130": "Over the Arabian Peninsula moving toward Iran",
+      "165": "Over the Arabian Peninsula approaching Iran",
+      "190": "Approaching the coast of Iran with the Zagros Mountains beyond",
       "210": "Over the Zagros Mountains in Iran",
-      "240": "Over the Dasht-e Lut desert in Iran",
+      "240": "Over the Dasht-e Lut desert in Iran",
       "265": "Moving toward Turkmenistan and the Garagum desert",
-      "305": "The Amu Darya River and the Pamir-Alay Mountains in central Asia",
-      "322": "The Pamir-Alay Mountains and the Fergana Valley in central Asia",
-      "360": "Heading into southeastern Kazakhstan from Kyrgyzstano",
+      "305": "The Amu Darya River and the Pamir-Alay Mountains in central Asia",
+      "322": "The Pamir-Alay Mountains and the Fergana Valley in central Asia",
+      "360": "Heading into southeastern Kazakhstan from Kyrgyzstan",
       "400": "Traveling north over Kazakhstan",
-      "450": "Over the Altai Mountains moving into Mongolia"
+      "450": "Over the Altai Mountains moving into Mongolia"
     },
     "type": "space",
     "src": {
@@ -1164,16 +1166,16 @@
     "accessibilityLabel": "ISS (Space)",
     "name": "Southern California to Baja",
     "pointsOfInterest": {
-      "0": "Over the Pacific Ocean heading toward the United States",
+      "0": "Over the Pacific Ocean heading toward the United States",
       "20": "Traveling south down the coast of California",
-      "50": "Over southern California moving towards Mexico",
-      "65": "Approaching the Mojave Desert in southern California with Mexico beyond",
-      "95": "The Gulf of California flanked by the Sonoran Desert and the Baja California Peninsula",
-      "130": "The Sierra Madre Occidental mountains on the west coast of Mexico",
-      "185": "Over the Sierra Madre Occidental mountains moving toward the west coast of Mexico",
-      "225": "Looking south to the Pacific Ocean over the Sierra Madre del Sur in Mexico",
-      "280": "The Pacific Ocean off the coast of Mexico",
-      "290": "The Pacific Ocean off the coast of Mexico and Guatemalao"
+      "50": "Over southern California moving toward Mexico",
+      "65": "Approaching the Mojave Desert in southern California with Mexico beyond",
+      "95": "The Gulf of California flanked by the Sonoran Desert and the Baja California Peninsula",
+      "130": "The Sierra Madre Occidental mountains on the west coast of Mexico",
+      "185": "Over the Sierra Madre Occidental mountains moving toward the west coast of Mexico",
+      "225": "Looking south to the Pacific Ocean over the Sierra Madre del Sur in Mexico",
+      "280": "The Pacific Ocean off the coast of Mexico",
+      "290": "The Pacific Ocean off the coast of Mexico and Guatemala"
     },
     "type": "space",
     "timeOfDay": "day",
@@ -1189,14 +1191,14 @@
     "accessibilityLabel": "ISS (Space)",
     "name": "West Africa to the Alps",
     "pointsOfInterest": {
-      "0": "The Canary Islands Atlantic Ocean and coast of Africa",
-      "45": "Moving north east along the coast of Morocco",
-      "75": "Passing over the Atlas Mountains in Morocco",
-      "105": "Over Morocco approaching the Mediterranean Sea",
-      "125": "The Mediterranean Sea and southern Spain",
-      "145": "Traveling northeast over Spain's Costa Blanca",
-      "165": "Traveling northeast over Spain's Balearic Islands",
-      "185": "Over the western Mediterranean Sea with the Alps beyond",
+      "0": "The Canary Islands, Atlantic Ocean, and coast of Africa",
+      "45": "Moving northeast along the coast of Morocco",
+      "75": "Passing over the Atlas Mountains in Morocco",
+      "105": "Over Morocco approaching the Mediterranean Sea",
+      "125": "The Mediterranean Sea and southern Spain",
+      "145": "Traveling northeast over Spain’s Costa Blanca",
+      "165": "Traveling northeast over Spain’s Balearic Islands",
+      "185": "Over the western Mediterranean Sea with the Alps beyond",
       "220": "Moving northeast over the Alps"
     },
     "type": "space",
@@ -1213,7 +1215,7 @@
     "accessibilityLabel": "Liwa",
     "name": "Dune Fields",
     "pointsOfInterest": {
-      "0": "Flying over Liwa Oasis in the United Arab Emirates"
+      "0": "Flying over Liwa Oasis in the United Arab Emirates"
     },
     "type": "landscape",
     "src": {
@@ -1229,7 +1231,7 @@
     "accessibilityLabel": "Liwa",
     "name": "Horizon",
     "pointsOfInterest": {
-      "0": "Flying over Liwa Oasis in the United Arab Emirates"
+      "0": "Flying over Liwa Oasis in the United Arab Emirates"
     },
     "type": "landscape",
     "src": {
@@ -1245,11 +1247,11 @@
     "accessibilityLabel": "London",
     "name": "Evening",
     "pointsOfInterest": {
-      "0": "Approaching the River Thames in London",
-      "20": "Crossing the River Thames in London",
-      "60": "Passing The Shard in South London",
-      "92": "South of the River Thames heading toward the London Eye",
-      "200": "Crossing the River Thames toward Westminster London",
+      "0": "Approaching Tower Bridge on the River Thames, London",
+      "20": "Crossing the River Thames in London",
+      "60": "Passing The Shard in South London",
+      "92": "South of the River Thames heading toward the London Eye",
+      "200": "Crossing the River Thames toward Westminster, London",
       "270": "Over Westminster, London"
     },
     "type": "cityscape",
@@ -1266,12 +1268,12 @@
     "accessibilityLabel": "London",
     "name": "Thames",
     "pointsOfInterest": {
-      "0": "Approaching Tower Bridge on the River Thames, London",
-      "20": "Following the River Thames in London",
-      "130": "Following the River Thames toward the London Eye",
-      "210": "Approaching the London Eye on the River Thames",
-      "310": "Following the River Thames past the London Eye",
-      "325": "Passing the Houses of Parliament on the River Thames in London"
+      "0": "Approaching Tower Bridge on the River Thames, London",
+      "20": "Following the River Thames in London",
+      "130": "Following the River Thames toward the London Eye",
+      "210": "Approaching the London Eye on the River Thames",
+      "310": "Following the River Thames past the London Eye",
+      "325": "Passing the Houses of Parliament on the River Thames in London"
     },
     "type": "cityscape",
     "timeOfDay": "night",
@@ -1287,14 +1289,14 @@
     "accessibilityLabel": "London",
     "name": "London from Above",
     "pointsOfInterest": {
-      "0": "Passing over the grounds of Buckingham Palace London",
-      "24": "Over Buckingham Palace in London",
-      "49": "Over St James's Park heading toward the River Thames, London",
-      "104": "Crossing the River Thames and passing over the London Eye",
+      "0": "Passing over the grounds of Buckingham Palace, London",
+      "24": "Over Buckingham Palace in London",
+      "49": "Over St James’s Park heading toward the River Thames, London",
+      "104": "Crossing the River Thames and passing over the London Eye",
       "149": "Passing over South London",
-      "279": "Passing by The Shard in South London",
-      "299": "Crossing the River Thames in London",
-      "324": "Crossing the River Thames at Tower Bridge in London"
+      "279": "Passing by The Shard in South London",
+      "299": "Crossing the River Thames in London",
+      "324": "Crossing the River Thames at Tower Bridge in London"
     },
     "type": "cityscape",
     "src": {
@@ -1310,10 +1312,10 @@
     "accessibilityLabel": "London",
     "name": "Skyline",
     "pointsOfInterest": {
-      "0": "Approaching Tower Bridge on the River Thames, London",
-      "78": "Following the River Thames in London",
-      "178": "South of the River Thames in London",
-      "258": "Crossing the River Thames in London"
+      "0": "Approaching Tower Bridge on the River Thames, London",
+      "78": "Following the River Thames in London",
+      "178": "South of the River Thames in London",
+      "258": "Crossing the River Thames in London"
     },
     "type": "cityscape",
     "src": {
@@ -1329,7 +1331,7 @@
     "accessibilityLabel": "Los Angeles",
     "name": "LAX Airport",
     "pointsOfInterest": {
-      "0": "Heading west over Los Angeles International Airport"
+      "0": "Flying over Los Angeles International Airport"
     },
     "type": "cityscape",
     "src": {
@@ -1345,7 +1347,7 @@
     "accessibilityLabel": "Los Angeles",
     "name": "Sunset (Griffith Park)",
     "pointsOfInterest": {
-      "0": "Griffith Observatory and the Hollywood Hills in Los Angeles"
+      "0": "Griffith Observatory and the Hollywood Hills in Los Angeles"
     },
     "type": "cityscape",
     "timeOfDay": "night",
@@ -1361,9 +1363,9 @@
     "accessibilityLabel": "Los Angeles",
     "name": "Beach",
     "pointsOfInterest": {
-      "0": "Over Santa Monica State Beach near Los Angeles",
-      "365": "Passing over Santa Monica Pier near Los Angeles",
-      "430": "Over Santa Monica State Beach near Los Angeles"
+      "0": "Over Santa Monica State Beach near Los Angeles",
+      "365": "Passing over Santa Monica Pier near Los Angeles",
+      "430": "Over Santa Monica State Beach near Los Angeles"
     },
     "type": "cityscape",
     "src": {
@@ -1379,8 +1381,8 @@
     "accessibilityLabel": "Los Angeles",
     "name": "LA Hills (Hollywood Sign)",
     "pointsOfInterest": {
-      "0": "The Hollywood Sign in Los Angeles",
-      "250": "Over the Hollywood Hills approaching Burbank California"
+      "0": "The Hollywood Sign in Los Angeles",
+      "250": "Over the Hollywood Hills approaching Burbank, California"
     },
     "type": "cityscape",
     "timeOfDay": "night",
@@ -1396,7 +1398,7 @@
     "accessibilityLabel": "Los Angeles",
     "name": "Overpass",
     "pointsOfInterest": {
-      "0": "Following Interstate 110 north through Los Angeles"
+      "0": "Following Interstate 110 north through Los Angeles"
     },
     "type": "cityscape",
     "src": {
@@ -1412,7 +1414,7 @@
     "accessibilityLabel": "Los Angeles",
     "name": "Night (Downtown)",
     "pointsOfInterest": {
-      "0": "Downtown Los Angeles"
+      "0": "Passing Downtown Los Angeles"
     },
     "type": "cityscape",
     "timeOfDay": "night",
@@ -1428,7 +1430,7 @@
     "accessibilityLabel": "Monument Valley",
     "name": "Coal Mine Canyon",
     "pointsOfInterest": {
-      "0": "Flying over Monument Valley"
+      "0": "Passing through the Navajo Nation in Arizona"
     },
     "type": "landscape",
     "src": {
@@ -1441,7 +1443,9 @@
     "accessibilityLabel": "Monument Valley",
     "name": "Utah Evening",
     "pointsOfInterest": {
-      "0": "Flying over Monument Valley"
+      "0": "Alongside Brighams Tomb\nin Monument Valley, Utah",
+      "150": "Passing the King-on-his-Throne butte, Utah",
+      "180": "Heading southeast\nacross Monument Valley, Utah"
     },
     "type": "landscape",
     "src": {
@@ -1454,7 +1458,8 @@
     "accessibilityLabel": "Monument Valley",
     "name": "Cathedral Canyon",
     "pointsOfInterest": {
-      "0": "Flying over Monument Valley"
+      "0": "Over Cathedral Canyon in Utah",
+      "100": "Crossing the Colorado River\nand Lake Powell, Utah"
     },
     "type": "landscape",
     "src": {
@@ -1467,7 +1472,7 @@
     "accessibilityLabel": "Monument Valley",
     "name": "Factory Butte",
     "pointsOfInterest": {
-      "0": "Flying over Monument Valley"
+      "0": "Passing Factory Butte in Utah"
     },
     "type": "landscape",
     "src": {
@@ -1480,7 +1485,9 @@
     "accessibilityLabel": "Monument Valley",
     "name": "Lake Powell",
     "pointsOfInterest": {
-      "0": "Flying over Monument Valley"
+      "0": "Following the Colorado River through Utah",
+      "134": "Passing over Cascade Canyon in Utah",
+      "265": "Approaching Cathedral Canyon, Utah"
     },
     "type": "landscape",
     "src": {
@@ -1493,7 +1500,7 @@
     "accessibilityLabel": "Monument Valley",
     "name": "Monument Valley",
     "pointsOfInterest": {
-      "0": "Flying over Monument Valley"
+      "0": "Passing over Monument Valley in Arizona"
     },
     "type": "landscape",
     "src": {
@@ -1506,7 +1513,8 @@
     "accessibilityLabel": "Monument Valley",
     "name": "Olympia Bar",
     "pointsOfInterest": {
-      "0": "Flying over Monument Valley"
+      "0": "Following the Colorado River in Utah",
+      "205": "Approaching Tapestry Wall\non Lake Powell, Utah"
     },
     "type": "landscape",
     "src": {
@@ -1519,9 +1527,9 @@
     "accessibilityLabel": "New York City",
     "name": "NYC Night from Above",
     "pointsOfInterest": {
-      "0": "Heading down 7th Avenue toward Times Square New York",
-      "40": "Over Times Square in New York",
-      "120": "Heading down 7th Avenue in Midtown Manhattan, New York"
+      "0": "Heading down 7th Avenue toward Times Square, New York",
+      "40": "Over Times Square in New York",
+      "120": "Heading down 7th Avenue in Midtown Manhattan, New York"
     },
     "type": "cityscape",
     "timeOfDay": "night",
@@ -1537,10 +1545,10 @@
     "accessibilityLabel": "New York City",
     "name": "Midtown",
     "pointsOfInterest": {
-      "0": "Over the Upper East Side and Central Park in New York",
-      "50": "Over Midtown Manhattan heading downtown toward the Empire State Building",
-      "160": "Approaching the Empire State Building in New York",
-      "205": "Passing the Empire State Building moving toward Lower Manhattan"
+      "0": "Over the Upper East Side and Central Park in New York",
+      "50": "Over Midtown Manhattan heading downtown toward the Empire State Building",
+      "160": "Approaching the Empire State Building in New York",
+      "205": "Passing the Empire State Building moving toward Lower Manhattan"
     },
     "type": "cityscape",
     "src": {
@@ -1556,10 +1564,10 @@
     "accessibilityLabel": "New York City",
     "name": "Skyline",
     "pointsOfInterest": {
-      "0": "Approaching Lower Manhattan from New York Harbor",
-      "110": "Alongside Lower Manhattan approaching One World Trade Center",
-      "180": "Passing One World Trade Center toward Midtown Manhattan",
-      "210": "Over Lower Manhattan in New York moving toward Midtown"
+      "0": "Approaching Lower Manhattan from New York Harbor",
+      "110": "Alongside Lower Manhattan approaching One World Trade Center",
+      "180": "Passing One World Trade Center toward Midtown Manhattan",
+      "210": "Over Lower Manhattan in New York moving toward Midtown"
     },
     "type": "cityscape",
     "timeOfDay": "night",
@@ -1575,8 +1583,8 @@
     "accessibilityLabel": "New York City",
     "name": "NYC from Above",
     "pointsOfInterest": {
-      "0": "Over Central Park traveling toward Midtown Manhattan in New York",
-      "246": "Over Midtown Manhattan in New York"
+      "0": "Over Central Park traveling toward Midtown Manhattan in New York",
+      "246": "Over Midtown Manhattan in New York"
     },
     "type": "cityscape",
     "src": {
@@ -1592,7 +1600,7 @@
     "accessibilityLabel": "Patagonia",
     "name": "Mountain",
     "pointsOfInterest": {
-      "0": "Moving along Cuernos del Paine in Torres del Paine National Park, Chile"
+      "0": "Moving along Cuernos del Paine in\nTorres del Paine National Park, Chile"
     },
     "type": "landscape",
     "src": {
@@ -1608,7 +1616,7 @@
     "accessibilityLabel": "Patagonia",
     "name": "Lake",
     "pointsOfInterest": {
-      "0": "Traveling along Lago Nordenskjöld in Torres del Paine National Park, Chile"
+      "0": "Traveling along Lago Nordenskjöld in\nTorres del Paine National Park, Chile"
     },
     "type": "landscape",
     "src": {
@@ -1624,7 +1632,7 @@
     "accessibilityLabel": "Patagonia",
     "name": "River",
     "pointsOfInterest": {
-      "0": "Over Lago Nordenskjöld in Torres del Paine National Park, Chile"
+      "0": "Over Lago Nordenskjöld in\nTorres del Paine National Park, Chile"
     },
     "type": "landscape",
     "src": {
@@ -1640,7 +1648,7 @@
     "accessibilityLabel": "Patagonia",
     "name": "Range",
     "pointsOfInterest": {
-      "0": "Traveling over Torres del Paine National Park in Chile"
+      "0": "Traveling over Torres del Paine\nNational Park in Chile"
     },
     "type": "landscape",
     "src": {
@@ -1656,7 +1664,8 @@
     "accessibilityLabel": "Redwoods",
     "name": "Oregon Coastline",
     "pointsOfInterest": {
-      "0": "Flying over Redwoods"
+      "0": "Traveling over Secret Beach moving toward Brookings, Oregon",
+      "240": "Passing Natural Bridges in Oregon"
     },
     "type": "landscape",
     "src": {
@@ -1669,7 +1678,7 @@
     "accessibilityLabel": "Redwoods",
     "name": "Sunset",
     "pointsOfInterest": {
-      "0": "Flying over Redwoods"
+      "0": "Heading west over China Beach near Brookings, Oregon  "
     },
     "type": "landscape",
     "src": {
@@ -1682,7 +1691,7 @@
     "accessibilityLabel": "Redwoods",
     "name": "Redwoods River",
     "pointsOfInterest": {
-      "0": "Flying over Redwoods"
+      "0": "Following the Trinity River\nthrough northern California"
     },
     "type": "landscape",
     "src": {
@@ -1695,7 +1704,7 @@
     "accessibilityLabel": "Redwoods",
     "name": "Redwoods from Above",
     "pointsOfInterest": {
-      "0": "Flying over Redwoods"
+      "0": "Over redwoods in northern California"
     },
     "type": "landscape",
     "src": {
@@ -1708,9 +1717,9 @@
     "accessibilityLabel": "San Francisco",
     "name": "Bay Bridge Night",
     "pointsOfInterest": {
-      "0": "Approaching the Bay Bridge and downtown San Francisco",
-      "80": "Crossing over the Bay Bridge heading toward downtown San Francisco",
-      "116": "Over San Francisco Bay heading toward downtown"
+      "0": "Approaching the Bay Bridge and downtown San Francisco",
+      "80": "Crossing over the Bay Bridge heading toward downtown San Francisco",
+      "116": "Over San Francisco Bay heading toward downtown"
     },
     "type": "cityscape",
     "timeOfDay": "night",
@@ -1726,8 +1735,8 @@
     "accessibilityLabel": "San Francisco",
     "name": "Skyline",
     "pointsOfInterest": {
-      "0": "Over San Francisco Bay moving toward the Embarcader",
-      "208": "Following Market Street through San Francisco"
+      "0": "Over San Francisco Bay moving toward the Embarcadero",
+      "208": "Following Market Street through San Francisco"
     },
     "type": "cityscape",
     "src": {
@@ -1743,9 +1752,9 @@
     "accessibilityLabel": "San Francisco",
     "name": "Fisherman's Wharf",
     "pointsOfInterest": {
-      "0": "Over Fisherman's Wharf heading toward downtown San Francisco",
-      "80": "Approaching Coit Tower with downtown San Francisco and the Bay Bridge in the background",
-      "150": "Passing Coit Tower toward downtown San Francisco and the Bay Bridge",
+      "0": "Over Fisherman’s Wharf heading toward downtown San Francisco",
+      "80": "Approaching Coit Tower with downtown San Francisco and the Bay Bridge\nin the background",
+      "150": "Passing Coit Tower toward downtown San Francisco and the Bay Bridge",
       "196": "Downtown San Francisco"
     },
     "type": "cityscape",
@@ -1762,8 +1771,8 @@
     "accessibilityLabel": "San Francisco",
     "name": "San Francisco Bay",
     "pointsOfInterest": {
-      "0": "San Francisco Bay and the Golden Gate Bridge",
-      "140": "Heading over the north tower of the Golden Gate Bridge toward San Francisco",
+      "0": "San Francisco Bay and the Golden Gate Bridge",
+      "140": "Heading over the north tower of the Golden Gate Bridge toward San Francisco",
       "191": "Over San Francisco Bay"
     },
     "type": "cityscape",
@@ -1780,8 +1789,8 @@
     "accessibilityLabel": "San Francisco",
     "name": "Morning Fog",
     "pointsOfInterest": {
-      "0": "Over the Marin Headlands looking toward the Golden Gate Bridge",
-      "150": "Crossing the Golden Gate Bridge toward the Presidio of San Francisco"
+      "0": "Over the Marin Headlands looking toward the Golden Gate Bridge",
+      "150": "Crossing the Golden Gate Bridge toward the Presidio of San Francisco"
     },
     "type": "cityscape",
     "src": {
@@ -1797,11 +1806,11 @@
     "accessibilityLabel": "San Francisco",
     "name": "Golden Gate Bridge",
     "pointsOfInterest": {
-      "0": "Approaching the Golden Gate Bridge from San Francisco",
-      "60": "Alongside the Golden Gate Bridge heading toward the Marin Headlands",
-      "140": "Crossing over the Golden Gate Bridge",
-      "230": "Passing by the North Tower of the Golden Gate Bridge",
-      "260": "Over San Francisco Bay traveling alongside the Golden Gate Bridge"
+      "0": "Approaching the Golden Gate Bridge from San Francisco",
+      "60": "Alongside the Golden Gate Bridge heading toward the Marin Headlands",
+      "140": "Crossing over the Golden Gate Bridge",
+      "230": "Passing by the North Tower of the Golden Gate Bridge",
+      "260": "Over San Francisco Bay traveling alongside the Golden Gate Bridge"
     },
     "type": "cityscape",
     "src": {
@@ -1817,10 +1826,10 @@
     "accessibilityLabel": "San Francisco",
     "name": "Embarcadero/Ferry Building",
     "pointsOfInterest": {
-      "0": "Over the San Francisco Bay moving toward the Embarcader",
-      "90": "Over the Embarcadero looking down Market Street in San Francisco",
-      "150": "Following Market Street through downtown San Francisco",
-      "360": "Following Market Street through San Francisco"
+      "0": "Over the San Francisco Bay moving toward the Embarcadero",
+      "90": "Over the Embarcadero looking down Market Street in San Francisco",
+      "150": "Following Market Street through downtown San Francisco",
+      "360": "Following Market Street through San Francisco"
     },
     "type": "cityscape",
     "src": {
@@ -1836,9 +1845,9 @@
     "accessibilityLabel": "Scotland",
     "name": "Coast",
     "pointsOfInterest": {
-      "0": "Traveling along the coast of the Isle of Skye, Scotland",
+      "0": "Traveling along the coast of the\nIsle of Skye, Scotland",
       "338": "Neist Point Lighthouse, Isle of Skye, Scotland",
-      "372": "Over Victoria Harbour heading toward Central Hong Kong"
+      "372": "Isle of Skye, Scotland"
     },
     "type": "landscape",
     "src": {
@@ -1854,7 +1863,7 @@
     "accessibilityLabel": "Scotland",
     "name": "Lake",
     "pointsOfInterest": {
-      "0": "Over Loch Moidart on the west coast of Scotland",
+      "0": "Over Loch Moidart on the\nwest coast of Scotland",
       "252": "Approaching the Sea of Hebrides, Scotland"
     },
     "type": "landscape",
@@ -1872,8 +1881,8 @@
     "name": "Castle",
     "pointsOfInterest": {
       "0": "Loch Moidart on the west coast of Scotland",
-      "139": "Approaching Castle Tioram on the west coast of Scotland",
-      "181": "Castle Tioramon, the west coast of Scotland",
+      "139": "Approaching Castle Tioram on the\nwest coast of Scotland",
+      "181": "Castle Tioram on the west coast of Scotland",
       "214": "Traveling over the west coast of Scotland"
     },
     "type": "landscape",
@@ -1890,7 +1899,7 @@
     "accessibilityLabel": "Sequoia",
     "name": "Sunrise",
     "pointsOfInterest": {
-      "0": "Flying over Sequoia"
+      "0": "In Sequoia National Park at sunrise"
     },
     "type": "landscape",
     "src": {
@@ -1903,7 +1912,7 @@
     "accessibilityLabel": "Sequoia",
     "name": "Morning",
     "pointsOfInterest": {
-      "0": "Flying over Sequoia"
+      "0": "In Sequoia National Park in the morning"
     },
     "type": "landscape",
     "src": {
@@ -1916,7 +1925,7 @@
     "accessibilityLabel": "Sequoia",
     "name": "Night",
     "pointsOfInterest": {
-      "0": "Flying over Sequoia"
+      "0": "In Sequoia National Park at night"
     },
     "type": "landscape",
     "src": {
@@ -1929,7 +1938,7 @@
     "accessibilityLabel": "Sonoma",
     "name": "Sonoma Clouds",
     "pointsOfInterest": {
-      "0": "Flying over Sonoma"
+      "0": "Flying over Sonoma, California"
     },
     "type": "landscape",
     "src": {
@@ -1942,7 +1951,7 @@
     "accessibilityLabel": "Sonoma",
     "name": "Evening",
     "pointsOfInterest": {
-      "0": "Flying over Sonoma"
+      "0": "Flying over Sonoma, California"
     },
     "type": "landscape",
     "src": {
@@ -1955,7 +1964,7 @@
     "accessibilityLabel": "Sonoma",
     "name": "Horizon",
     "pointsOfInterest": {
-      "0": "Flying over Sonoma"
+      "0": "Flying over Sonoma, California"
     },
     "type": "landscape",
     "src": {
@@ -1968,7 +1977,7 @@
     "accessibilityLabel": "Sonoma",
     "name": "Sonoma River",
     "pointsOfInterest": {
-      "0": "Flying over Sonoma"
+      "0": "Flying over Sonoma, California"
     },
     "type": "landscape",
     "src": {
@@ -1981,7 +1990,7 @@
     "accessibilityLabel": "Sonoma",
     "name": "Sonoma from Above",
     "pointsOfInterest": {
-      "0": "Flying over Sonoma"
+      "0": "Flying over Sonoma, California"
     },
     "type": "landscape",
     "src": {
@@ -1994,7 +2003,7 @@
     "accessibilityLabel": "Superbloom",
     "name": "Wildflowers",
     "pointsOfInterest": {
-      "0": "Flying over Superbloom"
+      "0": "Over California wildflowers"
     },
     "type": "landscape",
     "src": {
@@ -2007,7 +2016,7 @@
     "accessibilityLabel": "Superbloom",
     "name": "Carrizo Plain",
     "pointsOfInterest": {
-      "0": "Flying over Superbloom"
+      "0": "Traveling north over California wildflowers"
     },
     "type": "landscape",
     "src": {
@@ -2020,7 +2029,7 @@
     "accessibilityLabel": "Superbloom",
     "name": "Temblor Range",
     "pointsOfInterest": {
-      "0": "Flying over Superbloom"
+      "0": "Following the Temblor Range\nin southern California"
     },
     "type": "landscape",
     "src": {
@@ -2033,7 +2042,7 @@
     "accessibilityLabel": "Tahoe",
     "name": "Morning",
     "pointsOfInterest": {
-      "0": "Flying over Tahoe"
+      "0": "Lake Tahoe in the morning"
     },
     "type": "landscape",
     "src": {
@@ -2046,7 +2055,7 @@
     "accessibilityLabel": "Tahoe",
     "name": "Day",
     "pointsOfInterest": {
-      "0": "Flying over Tahoe"
+      "0": "Lake Tahoe during the day"
     },
     "type": "landscape",
     "src": {
@@ -2059,7 +2068,7 @@
     "accessibilityLabel": "Tahoe",
     "name": "Evening",
     "pointsOfInterest": {
-      "0": "Flying over Tahoe"
+      "0": "Lake Tahoe in the evening"
     },
     "type": "landscape",
     "src": {
@@ -2072,7 +2081,7 @@
     "accessibilityLabel": "Tahoe",
     "name": "Night",
     "pointsOfInterest": {
-      "0": "Flying over Tahoe"
+      "0": "Lake Tahoe at night"
     },
     "type": "landscape",
     "src": {
@@ -2085,7 +2094,7 @@
     "accessibilityLabel": "Undersea",
     "name": "Alaskan Jellies 1",
     "pointsOfInterest": {
-      "0": "Drifting under Moon Jellyfish near the coast of Alaska United States"
+      "0": "Moon Jellyfish near the coast of Alaska, United States"
     },
     "type": "underwater",
     "src": {
@@ -2101,7 +2110,7 @@
     "accessibilityLabel": "Undersea",
     "name": "Alaskan Jellies 2",
     "pointsOfInterest": {
-      "0": "Drifting over Moon Jellyfish near the coast of Alaska United States"
+      "0": "Drifting over Moon Jellyfish near the coast of Alaska, United States"
     },
     "type": "underwater",
     "src": {
@@ -2117,7 +2126,7 @@
     "accessibilityLabel": "Undersea",
     "name": "Barracudas",
     "pointsOfInterest": {
-      "0": "A school of Chevron Barracuda in the waters near Borne"
+      "0": "A school of Chevron Barracuda\nin the waters near Borneo"
     },
     "type": "underwater",
     "src": {
@@ -2133,7 +2142,7 @@
     "accessibilityLabel": "Undersea",
     "name": "Bumpheads",
     "pointsOfInterest": {
-      "0": "Bumphead Parrotfish over the coral reefs off Borneoo"
+      "0": "Bumphead Parrotfish over the\ncoral reefs off Borneo"
     },
     "type": "underwater",
     "src": {
@@ -2149,7 +2158,7 @@
     "accessibilityLabel": "Undersea",
     "name": "California Dolphins",
     "pointsOfInterest": {
-      "0": "Short-beaked Common Dolphins off the California coast, United States"
+      "0": "Short-beaked Common Dolphins off the California coast, United States"
     },
     "type": "underwater",
     "src": {
@@ -2165,7 +2174,7 @@
     "accessibilityLabel": "Undersea",
     "name": "California Kelp Forest",
     "pointsOfInterest": {
-      "0": "Moving through a kelp forest off of the California coast, United States"
+      "0": "Moving through a kelp forest off of the California coast, United States"
     },
     "type": "underwater",
     "src": {
@@ -2181,7 +2190,7 @@
     "accessibilityLabel": "Undersea",
     "name": "Costa Rica Dolphins",
     "pointsOfInterest": {
-      "0": "Sea Spinner Dolphins in the waters off of Costa Rica"
+      "0": "Spinner Dolphins in the waters off\nof Costa Rica"
     },
     "type": "underwater",
     "src": {
@@ -2197,7 +2206,7 @@
     "accessibilityLabel": "Undersea",
     "name": "Cownose Rays",
     "pointsOfInterest": {
-      "0": "Golden Cownose Rays off the coast of Mexico"
+      "0": "Golden Cownose Rays off the\ncoast of Mexico"
     },
     "type": "underwater",
     "src": {
@@ -2213,7 +2222,7 @@
     "accessibilityLabel": "Undersea",
     "name": "Gray Reef Sharks",
     "pointsOfInterest": {
-      "0": "Gray Reef Sharks swimming near French Polynesia"
+      "0": "Gray Reef Sharks swimming near French Polynesia"
     },
     "type": "underwater",
     "src": {
@@ -2229,7 +2238,7 @@
     "accessibilityLabel": "Undersea",
     "name": "Humpback Whale",
     "pointsOfInterest": {
-      "0": "A Humpback Whale off of French Polynesia"
+      "0": "A Humpback Whale off of French Polynesia"
     },
     "type": "underwater",
     "src": {
@@ -2245,7 +2254,7 @@
     "accessibilityLabel": "Undersea",
     "name": "Jacks",
     "pointsOfInterest": {
-      "0": "A school of Bigeye Jacks off the coast of Borneo"
+      "0": "A school of Bigeye Jacks\noff the coast of Borneo"
     },
     "type": "underwater",
     "src": {
@@ -2261,7 +2270,7 @@
     "accessibilityLabel": "Undersea",
     "name": "Kelp",
     "pointsOfInterest": {
-      "0": "Drifting through a kelp forest near Cape Peninsula South Africa"
+      "0": "Drifting through a kelp forest near Cape Peninsula, South Africa"
     },
     "type": "underwater",
     "src": {
@@ -2277,7 +2286,7 @@
     "accessibilityLabel": "Undersea",
     "name": "Palau Coral",
     "pointsOfInterest": {
-      "0": "Coral reef near Palauo"
+      "0": "Coral reef near Palau"
     },
     "type": "underwater",
     "src": {
@@ -2293,9 +2302,9 @@
     "accessibilityLabel": "Undersea",
     "name": "Palau Jellies 1",
     "pointsOfInterest": {
-      "0": "Golden Jellyfish in the waters of Palau",
-      "282": "Golden Jellyfish with a Moon Jellyfish in their midst",
-      "348": "Golden Jellyfish in the waters of Palau"
+      "0": "Golden Jellyfish in the waters of Palau",
+      "282": "Golden Jellyfish with a Moon Jellyfish\nin their midst",
+      "348": "Golden Jellyfish in the waters of Palau"
     },
     "type": "underwater",
     "src": {
@@ -2311,7 +2320,7 @@
     "accessibilityLabel": "Undersea",
     "name": "Palau Jellies 2",
     "pointsOfInterest": {
-      "0": "Golden Jellyfish in the waters of Palau"
+      "0": "Golden Jellyfish in the waters of Palau"
     },
     "type": "underwater",
     "src": {
@@ -2327,7 +2336,7 @@
     "accessibilityLabel": "Undersea",
     "name": "Palau Jellies 3",
     "pointsOfInterest": {
-      "0": "Golden Jellyfish in the waters of Palauo"
+      "0": "Golden Jellyfish in the waters of Palau"
     },
     "type": "underwater",
     "src": {
@@ -2343,7 +2352,7 @@
     "accessibilityLabel": "Undersea",
     "name": "Red Sea Coral",
     "pointsOfInterest": {
-      "0": "Coral reef in the Red Sea near Egypt"
+      "0": "Coral reef in the Red Sea near Egypt"
     },
     "type": "underwater",
     "src": {
@@ -2359,7 +2368,7 @@
     "accessibilityLabel": "Undersea",
     "name": "Sea Stars",
     "pointsOfInterest": {
-      "0": "Horned Sea Stars on the ocean floor near Borneo"
+      "0": "Horned Sea Stars on the\nocean floor near Borneo"
     },
     "type": "underwater",
     "src": {
@@ -2375,7 +2384,7 @@
     "accessibilityLabel": "Undersea",
     "name": "Seals",
     "pointsOfInterest": {
-      "0": "Cape Fur Seals off the coast of Cape Peninsula, South Africa"
+      "0": "Cape Fur Seals off the coast of Cape Peninsula, South Africa"
     },
     "type": "underwater",
     "src": {
@@ -2423,10 +2432,10 @@
     "accessibilityLabel": "Yosemite",
     "name": "Horizon",
     "pointsOfInterest": {
-      "0": "",
-      "70": "Approaching Half Dome in Yosemite National Park, United States",
-      "87": "",
-      "210": ""
+      "0": "Over Yosemite National Park\nin the United States",
+      "70": "Approaching Half Dome in Yosemite National Park, United States",
+      "87": "Half Dome in Yosemite National Park, United States",
+      "210": "Over Yosemite National Park\nin the United States"
     },
     "type": "landscape",
     "src": {
@@ -2442,11 +2451,11 @@
     "accessibilityLabel": "Yosemite",
     "name": "Mountains",
     "pointsOfInterest": {
-      "0": "Over Yosemite National Park, United States",
-      "93": "Traveling toward Merced Peak in Yosemite National Park, United States",
-      "130": "Merced Peak in Yosemite National Park, United States",
-      "221": "Passing by Merced Peak in Yosemite National Park, United States",
-      "244": "Traveling over Yosemite National Park, United States"
+      "0": "Over Yosemite National Park, United States",
+      "93": "Traveling toward Merced Peak in\nYosemite National Park, United States",
+      "130": "Merced Peak in Yosemite National Park, United States",
+      "221": "Passing by Merced Peak in Yosemite National Park, United States",
+      "244": "Traveling over Yosemite National Park, United States"
     },
     "type": "landscape",
     "src": {
@@ -2462,9 +2471,9 @@
     "accessibilityLabel": "Yosemite",
     "name": "Silhouette",
     "pointsOfInterest": {
-      "0": "",
-      "124": "Passing by Half Dome and approaching Nevada Fall in Yosemite National Park",
-      "146": "Half Dome and Nevada Fall in Yosemite National Park, United States"
+      "0": "Half Dome in Yosemite National Park, United States",
+      "124": "Passing by Half Dome and approaching Nevada Fall in Yosemite National Park",
+      "146": "Half Dome and Nevada Fall in Yosemite National Park, United States"
     },
     "type": "landscape",
     "src": {
@@ -2480,12 +2489,12 @@
     "accessibilityLabel": "Yosemite",
     "name": "Clouds",
     "pointsOfInterest": {
-      "0": "Over Yosemite National Park in the United States",
-      "40": "Traveling toward Half Dome in Yosemite National Park, United States",
-      "60": "Half Dome in Yosemite National Park, United States",
-      "155": "Over Yosemite National Park with Nevada Fall in the distance",
-      "255": "Nevada and Illilouette Falls in Yosemite National Park, United States",
-      "285": ""
+      "0": "Over Yosemite National Park\nin the United States",
+      "40": "Traveling toward Half Dome in\nYosemite National Park, United States",
+      "60": "Half Dome in Yosemite National Park, United States",
+      "155": "Over Yosemite National Park with\nNevada Fall in the distance",
+      "255": "Nevada and Illilouette Falls in\nYosemite National Park, United States",
+      "285": "Nevada, Vernal, and Illilouette Falls in\nYosemite National Park, United States"
     },
     "type": "landscape",
     "src": {
@@ -2501,7 +2510,7 @@
     "accessibilityLabel": "Yosemite",
     "name": "Yosemite from Above",
     "pointsOfInterest": {
-      "0": "Passing over Tuolumne Meadows in Yosemite National Park, United States"
+      "0": "Passing over Tuolumne Meadows in\nYosemite National Park, United States"
     },
     "type": "landscape",
     "src": {
@@ -2517,13 +2526,13 @@
     "accessibilityLabel": "Yosemite",
     "name": "Yosemite Valley",
     "pointsOfInterest": {
-      "0": "Traveling toward Bridalveil Fall and El Capitan in Yosemite National Park",
-      "44": "Traveling east toward El Capitan in Yosemite National Park, United States",
-      "87": "Passing El Capitan, Yosemite National Park, United States",
-      "120": "Traveling east toward Half Dome in Yosemite National Park, United States",
-      "390": "",
-      "470": "Traveling past Half Dome in Yosemite Valley, United States",
-      "585": "Traveling east over Yosemite Valley, United States"
+      "0": "Traveling toward Bridalveil Fall and\nEl Capitan in Yosemite National Park",
+      "44": "Traveling east toward El Capitan in\nYosemite National Park, United States",
+      "87": "Passing El Capitan, Yosemite National Park, United States",
+      "120": "Traveling east toward Half Dome in\nYosemite National Park, United States",
+      "390": "Half Dome in Yosemite National Park, United States",
+      "470": "Traveling past Half Dome in\nYosemite Valley, United States",
+      "585": "Traveling east over Yosemite Valley, United States"
     },
     "type": "landscape",
     "src": {
@@ -2539,11 +2548,11 @@
     "accessibilityLabel": "Yosemite",
     "name": "Snow Caps",
     "pointsOfInterest": {
-      "0": "Traveling toward Matthes Crest in Yosemite National Park, United States",
-      "75": "",
-      "124": "Flying through Matthes Crest in Yosemite National Park, United States",
-      "215": "Flying over Matthes Crest in Yosemite National Park, United States",
-      "396": "Moving toward Tuolumne Meadows in Yosemite National Park, United States"
+      "0": "Traveling toward Matthes Crest in\nYosemite National Park, United States",
+      "75": "Flying over Matthes Crest in\nYosemite National Park, United States",
+      "124": "Flying through Matthes Crest in\nYosemite National Park, United States",
+      "215": "Flying over Matthes Crest in\nYosemite National Park, United States",
+      "396": "Moving toward Tuolumne Meadows in\nYosemite National Park, United States"
     },
     "type": "landscape",
     "src": {
