@@ -269,6 +269,7 @@ test('settings migration preserves explicit choices, fills defaults and upgrades
     assert.equal(saved.prepareCompatibleVideos, false);
     assert.equal(saved.wakeOnMouseClick, false);
     assert.equal(saved.wakeOnMouseMovement, true);
+    assert.equal(saved.preventActivationDuringFullscreen, true);
     assert.equal(saved.sleepAfterBlankDelay, 0);
     assert.equal(saved.configured, true);
     assert.equal(saved.version, 'new');
@@ -291,6 +292,33 @@ for (const override of [{}, {screens: [{}]}, {suspend: true}, {isComputerSleepin
         await context.launchScreensaver();
         assert.equal(launches, Object.keys(override).length === 0 || override.runOnBattery ? 1 : 0);
     });
+}
+
+for (const enabled of [true, false]) {
+    for (const result of ['fullscreen', 'desktop', 'error']) {
+        test(`fullscreen guard enabled ${enabled} with ${result}`, async () => {
+            let launches = 0;
+            let queries = 0;
+            const context = section('let checkingDisplayPower = false;', 'setInterval(launchScreensaver', {
+                screens: [], suspend: false, isComputerSleeping: false, isComputerSuspendedOrLocked: false,
+                store: {get: key => ({startAfter: 10, preventActivationDuringFullscreen: enabled})[key]},
+                console: {warn() {}},
+                powerMonitor: {getSystemIdleState: () => 'idle', isOnBatteryPower: () => false},
+                isDisplayRequired: async () => false,
+                isFullscreenAppActive: async () => {
+                    queries++;
+                    if (result === 'error') {
+                        throw new Error('query failed');
+                    }
+                    return result === 'fullscreen';
+                },
+                createSSWindow: () => { launches++; }
+            });
+            await context.launchScreensaver();
+            assert.equal(queries, enabled ? 1 : 0);
+            assert.equal(launches, !enabled || result === 'desktop' ? 1 : 0);
+        });
+    }
 }
 
 test('idle launch serializes queries, rechecks activity and recovers after errors', async () => {

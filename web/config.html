@@ -316,6 +316,12 @@
                         and
                         launch itself after your system is idle</p>
                     <br>
+                    <input type="checkbox" id="preventActivationDuringFullscreen" class="w3-check"
+                           onclick="updateSetting('preventActivationDuringFullscreen','check')">
+                    <label for="preventActivationDuringFullscreen">Prevent activation during fullscreen apps</label>
+                    <p class="w3-small" style="margin-left: 4%">Pause automatic activation while Windows reports a
+                        fullscreen app or presentation mode.</p>
+                    <br>
                     <input type="checkbox" id="enableGlobalShortcut" class="w3-check"
                            onclick="updateSetting('enableGlobalShortcut','check'); newGlobalShortcut();">
                     <label for="enableGlobalShortcut">Use a shortcut to launch Aerial</label>

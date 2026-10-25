@@ -90,6 +90,7 @@ const path = require("path");
 const {createCompatibilityPlayer, convertedPath, deleteConvertedOriginal} = require('./playback');
 const {getVideoSources} = require('./video-sources');
 const {isDisplayRequired} = require('./display-power');
+const {isFullscreenAppActive} = require('./fullscreen-app');
 const compatibleSource = createCompatibilityPlayer(() => path.join(store.get('cachePath'), 'converted'));
 const AutoLaunch = require('auto-launch');
 let autoLauncher = new AutoLaunch({
@@ -499,6 +500,7 @@ function setUpConfigFile() {
     settings.set('lockAfterRun', settings.get('lockAfterRun') ?? false);
     settings.set('lockAfterRunAfter', settings.get('lockAfterRunAfter') ?? 15);
     settings.set('runOnBattery', settings.get('runOnBattery') ?? true);
+    settings.set('preventActivationDuringFullscreen', settings.get('preventActivationDuringFullscreen') ?? true);
     settings.set('updateAvailable', false);
     settings.set('enableGlobalShortcut', settings.get('enableGlobalShortcut') ?? true);
     settings.set('globalShortcutModifier1', settings.get('globalShortcutModifier1') ?? "Super");
@@ -1214,13 +1216,16 @@ async function launchScreensaver() {
     checkingDisplayPower = true;
     try {
         const displayRequired = await isDisplayRequired();
+        if (displayRequired || (store.get('preventActivationDuringFullscreen') && await isFullscreenAppActive())) {
+            return;
+        }
         // Input, settings, or power state may have changed during the query.
         if (!displayRequired && canLaunchScreensaver()) {
             createSSWindow();
         }
     } catch (error) {
         // Skip this attempt if Windows cannot confirm it is safe to start.
-        console.warn('Unable to query display power requests:', error.message);
+        console.warn('Unable to query screensaver activation guards:', error.message);
     } finally {
         checkingDisplayPower = false;
     }

@@ -10,7 +10,7 @@ let customVideos = electron.store.get("customVideos");
 //Updates all the <input> tags with their proper values. Called on page load
 function displaySettings() {
     displayDateTimeLanguages();
-    let checked = ["wakeOnMouseMovement", "wakeOnMouseClick", "prepareCompatibleVideos", "deleteOriginalsAfterConversion", "easierTransitions", "allowH265", "allow4K", "prefer4K240", "timeOfDay", "skipVideosWithKey", "sameVideoOnScreens", "videoCache", "videoCacheProfiles", "videoCacheRemoveUnallowed", "avoidDuplicateVideos", "onlyShowVideoOnPrimaryMonitor", "immediatelyUpdateVideoCache", "useTray", "blankScreen", "sleepAfterBlank", "lockAfterRun", "useLocationForSunrise", "runOnBattery", "enableGlobalShortcut"];
+    let checked = ["wakeOnMouseMovement", "wakeOnMouseClick", "prepareCompatibleVideos", "deleteOriginalsAfterConversion", "easierTransitions", "allowH265", "allow4K", "prefer4K240", "timeOfDay", "skipVideosWithKey", "sameVideoOnScreens", "videoCache", "videoCacheProfiles", "videoCacheRemoveUnallowed", "avoidDuplicateVideos", "onlyShowVideoOnPrimaryMonitor", "immediatelyUpdateVideoCache", "useTray", "blankScreen", "sleepAfterBlank", "lockAfterRun", "useLocationForSunrise", "runOnBattery", "preventActivationDuringFullscreen", "enableGlobalShortcut"];
     for (let i = 0; i < checked.length; i++) {
         $(`#${checked[i]}`).prop('checked', electron.store.get(checked[i]));
     }
