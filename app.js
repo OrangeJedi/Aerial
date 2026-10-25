@@ -364,8 +364,9 @@ function createTrayWindow() {
                     clearTimeout(suspendCountdown);
                     trayWin.tray.setContextMenu(newMenu(true));
                     suspendCountdown = setTimeout(() => {
-                        suspend = false
-                    }, (1000 * 60) + (store.get('startAfter') * 60));
+                        suspend = false;
+                        trayWin.tray.setContextMenu(newMenu(false));
+                    }, 1000 * 60 * 60);
                 }
             },
             {
@@ -373,9 +374,11 @@ function createTrayWindow() {
                 click: (e) => {
                     suspend = true;
                     clearTimeout(suspendCountdown);
+                    trayWin.tray.setContextMenu(newMenu(true));
                     suspendCountdown = setTimeout(() => {
-                        suspend = false
-                    }, (1000 * 60 * 3) + (store.get('startAfter') * 60));
+                        suspend = false;
+                        trayWin.tray.setContextMenu(newMenu(false));
+                    }, 1000 * 60 * 60 * 3);
                 }
             },
             {type: "separator"},

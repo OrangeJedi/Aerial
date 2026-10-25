@@ -12,6 +12,36 @@ function section(start, end, globals) {
     return context;
 }
 
+for (const hours of [1, 3]) {
+    test(`tray suspension lasts ${hours} hours and restores the menu`, () => {
+        let callback;
+        let delay;
+        let menu;
+        const cleared = [];
+        const context = section('    function newMenu(isSuspendChecked)', '    trayWin.tray = new Tray', {
+            Menu: {buildFromTemplate: items => items},
+            trayWin: {tray: {setContextMenu: items => { menu = items; }}},
+            suspend: false,
+            suspendCountdown: 42,
+            clearTimeout: timer => cleared.push(timer),
+            setTimeout: (fn, milliseconds) => {
+                callback = fn;
+                delay = milliseconds;
+                return 43;
+            }
+        });
+        const items = context.newMenu(false);
+        items.find(item => item.label === `Suspend for ${hours} ${hours === 1 ? 'hour' : 'hours'}`).click();
+        assert.equal(delay, hours * 60 * 60 * 1000);
+        assert.deepEqual(cleared, [42]);
+        assert.equal(context.suspend, true);
+        assert.equal(menu.find(item => item.label === 'Suspend Aerial').checked, true);
+        callback();
+        assert.equal(context.suspend, false);
+        assert.equal(menu.find(item => item.label === 'Suspend Aerial').checked, false);
+    });
+}
+
 for (const channel of ['selectCustomLocation', 'selectCacheLocation', 'selectFile']) {
     for (const failure of ['cancel', 'dialog', 'filesystem', 'closed renderer']) {
         test(`${channel} handles ${failure}`, async () => {
