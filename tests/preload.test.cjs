@@ -72,6 +72,13 @@ test('preload reads and edits central settings through IPC without a disk store'
     assert.ok(f.calls.some(call => call[1] === 'settings-write'));
 });
 
+test('preload forwards monitor playback state to the main process', () => {
+    const f = bridge();
+    const state = {playing: ['old', 'new'], pending: 'next'};
+    f.api.ipcRenderer.send('videoPlaybackState', state);
+    assert.deepEqual(f.calls, [['send', 'videoPlaybackState', state]]);
+});
+
 test('preload forwards approved IPC and strips privileged events before callbacks', async () => {
     const f = bridge();
     f.api.ipcRenderer.send('keyPress', 'Escape');
@@ -84,6 +91,21 @@ test('preload forwards approved IPC and strips privileged events before callback
     f.listeners.get('displaySettings')({sender: 'privileged'}, 'one', 'two');
     assert.deepEqual(received, ['one', 'two']);
     assert.deepEqual(f.calls.slice(0, 2), [['send', 'keyPress', 'Escape'], ['invoke', 'newVideoId', 'old']]);
+});
+
+test('update IPC exposes status and restart commands without forwarding privileged events', async () => {
+    const f = bridge();
+    f.api.ipcRenderer.send('restartForUpdate');
+    f.api.ipcRenderer.send('checkForUpdates');
+    assert.equal(await f.api.ipcRenderer.invoke('getUpdateStatus'), 'reply');
+    let received;
+    f.api.ipcRenderer.on('updateStatus', state => { received = state; });
+    f.listeners.get('updateStatus')({sender: 'privileged'}, {status: 'ready', version: '1.4.0'});
+    assert.deepEqual(received, {status: 'ready', version: '1.4.0'});
+    assert.deepEqual(f.calls.slice(0, 3), [
+        ['send', 'restartForUpdate', undefined], ['send', 'checkForUpdates', undefined],
+        ['invoke', 'getUpdateStatus', undefined]
+    ]);
 });
 
 test('converted playback requires enabled preparation and an existing output', () => {

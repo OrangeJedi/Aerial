@@ -9,14 +9,15 @@ let customVideos = electron.store.get("customVideos");
 
 //Updates all the <input> tags with their proper values. Called on page load
 function displaySettings() {
+    $('#preventSameVideoOnScreens').prop('checked', electron.store.get('preventSameVideoOnScreens'));
     displayDateTimeLanguages();
-    let checked = ["wakeOnMouseMovement", "wakeOnMouseClick", "prepareCompatibleVideos", "deleteOriginalsAfterConversion", "easierTransitions", "allowH265", "allow4K", "prefer4K240", "timeOfDay", "skipVideosWithKey", "sameVideoOnScreens", "videoCache", "videoCacheProfiles", "videoCacheRemoveUnallowed", "avoidDuplicateVideos", "onlyShowVideoOnPrimaryMonitor", "immediatelyUpdateVideoCache", "useTray", "blankScreen", "sleepAfterBlank", "lockAfterRun", "useLocationForSunrise", "runOnBattery", "enableGlobalShortcut"];
+    let checked = ["wakeOnMouseMovement", "wakeOnMouseClick", "prepareCompatibleVideos", "deleteOriginalsAfterConversion", "easierTransitions", "allowH265", "allow4K", "prefer4K240", "timeOfDay", "skipVideosWithKey", "sameVideoOnScreens", "videoCache", "videoCacheProfiles", "videoCacheRemoveUnallowed", "avoidDuplicateVideos", "onlyShowVideoOnPrimaryMonitor", "immediatelyUpdateVideoCache", "useTray", "blankScreen", "sleepAfterBlank", "lockAfterRun", "useLocationForSunrise", "runOnBattery", "preventActivationDuringFullscreen", "enableGlobalShortcut"];
     for (let i = 0; i < checked.length; i++) {
         $(`#${checked[i]}`).prop('checked', electron.store.get(checked[i]));
     }
-    let numTxt = ["sunrise", "sunset", "textFont", "textSize", "textColor", "startAfter", "blankAfter", "latitude", "longitude", "randomSpeed", "skipKey", "transitionType", "fillMode", "globalShortcutModifier1", "globalShortcutModifier2", "globalShortcutKey", "lockAfterRunAfter"];
+    let numTxt = ["sunrise", "sunset", "textFont", "textSize", "textColor", "startAfter", "blankAfter", "sleepAfterBlankDelay", "latitude", "longitude", "randomSpeed", "skipKey", "transitionType", "fillMode", "globalShortcutModifier1", "globalShortcutModifier2", "globalShortcutKey", "lockAfterRunAfter"];
     for (let i = 0; i < numTxt.length; i++) {
-        $(`#${numTxt[i]}`).val(electron.store.get(numTxt[i]));
+        $(`#${numTxt[i]}`).val(electron.store.get(numTxt[i]) ?? (numTxt[i] === 'sleepAfterBlankDelay' ? 0 : ''));
     }
     let slider = ["playbackSpeed", "videoTransitionLength"];
     for (let i = 0; i < slider.length; i++) {
@@ -27,7 +28,7 @@ function displaySettings() {
     for (let i = 0; i < numeralText.length; i++) {
         $(`#${numeralText[i].id}`).text(numeral(electron.store.get(numeralText[i].id)).format(numeralText[i].format));
     }
-    let staticText = ["version", "updateAvailable"];
+    let staticText = ["version"];
     for (let i = 0; i < staticText.length; i++) {
         $(`#${staticText[i]}`).text(electron.store.get(staticText[i]));
     }
@@ -36,13 +37,29 @@ function displaySettings() {
     colorTextPositionRadio();
     updateSettingVisibility();
 
-    //display update, if there is one
-    //console.log(electron.store.get('updateAvailable'));
-    if (electron.store.get('updateAvailable') !== false) {
-        document.getElementById(`aboutUpdate`).style.display = "";
-        document.getElementById(`updateBadge`).style.display = "";
-    }
+    electron.ipcRenderer.invoke('getUpdateStatus').then(displayAvailableUpdate)
+        .catch(() => displayAvailableUpdate({status: 'error'}));
 }
+
+function displayAvailableUpdate(state) {
+    const messages = {
+        idle: 'Updates download automatically in the background.',
+        unsupported: 'Automatic updates are available in installed copies of Aerial.',
+        checking: 'Checking for updates…',
+        current: 'Aerial is up to date.',
+        downloading: `Downloading Aerial ${state.version}… ${state.percent || 0}%`,
+        ready: `Aerial ${state.version} is ready. Restart to install the update.`,
+        installing: 'Restarting Aerial to install the update…',
+        error: 'Aerial could not update automatically. You can update manually from GitHub.'
+    };
+    document.getElementById('updateStatusText').textContent = messages[state.status] || messages.idle;
+    document.getElementById('updateBadge').style.display = ['downloading', 'ready', 'error'].includes(state.status) ? '' : 'none';
+    document.getElementById('restartForUpdate').style.display = state.status === 'ready' ? '' : 'none';
+    document.getElementById('manualUpdate').style.display = state.status === 'error' ? '' : 'none';
+    document.getElementById('checkForUpdates').style.display = ['idle', 'current', 'error'].includes(state.status) ? '' : 'none';
+}
+
+electron.ipcRenderer.on('updateStatus', displayAvailableUpdate);
 
 displaySettings();
 
@@ -61,6 +78,11 @@ function displayPlaybackSettings() {
 function updateSetting(setting, type) {
     switch (type) {
         case "check":
+            if (document.getElementById(setting).checked && ['sameVideoOnScreens', 'preventSameVideoOnScreens'].includes(setting)) {
+                const other = setting === 'sameVideoOnScreens' ? 'preventSameVideoOnScreens' : 'sameVideoOnScreens';
+                document.getElementById(other).checked = false;
+                electron.store.set(other, false);
+            }
             electron.store.set(setting, document.getElementById(setting).checked);
             break;
         case "slider":
@@ -139,6 +161,9 @@ function resetFilterSettings() {
 
 //Updated input fields that may be effected by another input
 function updateSettingVisibility() {
+    const sleepDisabled = !electron.store.get('blankScreen') || !electron.store.get('sleepAfterBlank');
+    $('#sleepAfterBlankDelay').prop('disabled', sleepDisabled);
+    $('#sleepAfterBlankDelaySetting').css('opacity', sleepDisabled ? '0.5' : '1');
     const conversionDisabled = !electron.store.get('prepareCompatibleVideos');
     $('#deleteOriginalsAfterConversion').prop('disabled', conversionDisabled);
     $('label[for="deleteOriginalsAfterConversion"]').css('opacity', conversionDisabled ? '0.5' : '1');

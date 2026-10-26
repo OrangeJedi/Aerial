@@ -19,6 +19,8 @@ Download the latest release from [here](https://github.com/OrangeJedi/Aerial/rel
 
 Be sure to configure your system's screen and sleep settings accordingly and to disable any other screensavers.
 
+Installed copies check GitHub Releases for stable updates at startup and every six hours, then download updates in the background. When an update is ready, click its Windows notification or open **Config → About** and select **Restart Aerial to update**. Aerial saves your settings before installing and restarting. The About panel shows download progress and lets you check again; if automatic updating fails, it provides a link to download the release manually from GitHub. Automatic updating starts with releases that include this updater; older copies need one manual upgrade.
+
 Aerial's automatic startup respects Windows display power requests, so video players and other apps that request an awake display can prevent it from starting. This check does not require administrator rights. Apps that do not register a display request may still be interrupted. If the check fails, Aerial skips that startup attempt and retries on the next timer tick. Manual launches and previews remain available.
 
 Uninstalling through Windows Installed apps removes Aerial's settings, application data, default video cache, and startup entry. If you moved the video cache, the uninstaller asks whether to delete Aerial's cached downloads and conversions there; unrelated files are kept. Silent uninstall (`/S`) keeps moved caches. Upgrading preserves settings and videos.

@@ -18,11 +18,17 @@ if (!app.requestSingleInstanceLock()) {
     return;
 }
 
+// Mute output without changing media elements or their visible volume controls.
+app.on('web-contents-created', (event, contents) => {
+    contents.setAudioMuted(true);
+});
+
 app.on('second-instance', (event, argv) => {
     startupReady.then(() => createConfigWindow(argv));
 });
 
 const {exec} = require('child_process');
+const {dismissStartMenu} = require('./start-menu');
 const videos = require("./videos.json");
 const videosById = new Map(videos.map(video => [video.id, video]));
 const {createPersistentSettings} = require('./settings-persistence');
@@ -77,13 +83,13 @@ app.on('before-quit', event => {
         app.quit();
     });
 });
-const request = require('request');
-const https = require('https');
+const {downloadFile} = require('./download');
 const fs = require('fs');
 const path = require("path");
 const {createCompatibilityPlayer, convertedPath, deleteConvertedOriginal} = require('./playback');
 const {getVideoSources} = require('./video-sources');
 const {isDisplayRequired} = require('./display-power');
+const {isFullscreenAppActive} = require('./fullscreen-app');
 const compatibleSource = createCompatibilityPlayer(() => path.join(store.get('cachePath'), 'converted'));
 const AutoLaunch = require('auto-launch');
 let autoLauncher = new AutoLaunch({
@@ -100,12 +106,14 @@ let cachePath = store.get('cachePath') ?? path.join(app.getPath('userData'), "vi
 let downloading = false;
 let allowedVideos = store.get("allowedVideos");
 let previouslyPlayed = [];
+const monitorPlayback = new Map();
 let currentlyPlaying = '';
 let preview = false;
 let suspend = false;
 let suspendCountdown;
 let isComputerSleeping = false;
 let isComputerSuspendedOrLocked = false;
+let lockRequested = false;
 let startTime = new Date();
 let tod = {"day": [], "night": [], "twilight": [], "none": []};
 let astronomy = {
@@ -129,6 +137,8 @@ function createConfigWindow(argv) {
         width: 1000,
         height: 750,
         webPreferences: {
+            // Let video fullscreen fill this window without moving or resizing it.
+            disableHtmlFullscreenWindowResize: true,
             nodeIntegration: false,
             contextIsolation: true,
             enableRemoteModule: false,
@@ -153,7 +163,9 @@ function createConfigWindow(argv) {
     if (argv) {
         if (argv.includes("/w")) {
             setTimeout(() => {
-                win.webContents.send('showWelcome')
+                if (win && !win.isDestroyed()) {
+                    win.webContents.send('showWelcome');
+                }
             }, 1500);
         }
     }
@@ -180,7 +192,11 @@ function createSSWindow(argv) {
     let displays = screen.getAllDisplays();
     store.set('numDisplays', displays.length);
     const cursorDisplayId = screen.getDisplayNearestPoint(screen.getCursorScreenPoint()).id;
+    const startMenuDismissed = nq ? Promise.resolve() : dismissStartMenu().catch(() => {
+        // A blocked or unavailable shell helper must not prevent the saver from starting.
+    });
     for (let i = 0; i < displays.length; i++) {
+        const showVideo = !store.get("onlyShowVideoOnPrimaryMonitor") || displays[i].id === screen.getPrimaryDisplay().id;
         let win = new BrowserWindow({
             width: displays[i].size.width,
             height: displays[i].size.height,
@@ -199,12 +215,13 @@ function createSSWindow(argv) {
             resizable: nq,
             thickFrame: nq,
             skipTaskbar: !nq,
-            backgroundColor: '#000000',
+            transparent: showVideo,
+            backgroundColor: showVideo ? '#00000000' : '#000000',
             frame: nq,
             icon: path.join(__dirname, 'icon.ico'),
             show: false
         })
-        if (store.get("onlyShowVideoOnPrimaryMonitor") && displays[i].id !== screen.getPrimaryDisplay().id) {
+        if (!showVideo) {
             win.loadFile('web/black.html');
         } else {
             win.loadFile('web/screensaver.html');
@@ -212,7 +229,11 @@ function createSSWindow(argv) {
         win.on('closed', function () {
             win = null;
         });
-        win.once('ready-to-show', () => {
+        win.once('ready-to-show', async () => {
+            await startMenuDismissed;
+            if (!win || win.isDestroyed()) {
+                return;
+            }
             win.webContents.send('screenNumber', i);
             win.show();
             if (!nq) {
@@ -256,17 +277,38 @@ function createSSPWindow(argv) {
         icon: path.join(__dirname, 'icon.ico'),
         show: false
     });
-    win.loadFile('web/screensaver.html');
+    let startupFinished = false;
+    let startupTimer;
+    const failStartup = error => {
+        if (startupFinished || !win || win.isDestroyed()) {
+            return;
+        }
+        startupFinished = true;
+        clearTimeout(startupTimer);
+        console.error('Unable to open preview', error);
+        win.destroy();
+        dialog.showErrorBox('Unable to open preview', `Aerial could not load the preview.\n\n${error.message || error}`);
+    };
     win.on('closed', function () {
-        screens.pop(screens.indexOf(win));
+        startupFinished = true;
+        clearTimeout(startupTimer);
+        screens = screens.filter(screenWindow => screenWindow !== win);
         nq = false;
         win = null;
         preview = false;
     });
     win.once('ready-to-show', () => {
+        if (startupFinished || !win || win.isDestroyed()) {
+            return;
+        }
+        startupFinished = true;
+        clearTimeout(startupTimer);
         win.webContents.send('screenNumber', 0);
         win.show();
     })
+    win.webContents.on('render-process-gone', (event, details) => {
+        failStartup(new Error(`The preview renderer stopped (${details.reason}).`));
+    });
     if (argv) {
         if (argv.includes("/dt")) {
             win.webContents.openDevTools();
@@ -275,6 +317,10 @@ function createSSPWindow(argv) {
     }
     screens.push(win);
     preview = true;
+    startupTimer = setTimeout(() => {
+        failStartup(new Error('The preview did not become ready within 30 seconds.'));
+    }, 30000);
+    win.loadFile('web/screensaver.html').catch(failStartup);
 }
 
 function createEditWindow(argv) {
@@ -316,12 +362,6 @@ function createTrayWindow() {
         },
         icon: path.join(__dirname, 'icon.ico')
     });
-    //trayWin.loadURL("https://google.com/");
-    trayWin.on("close", ev => {
-        //console.log(ev);
-        ev.sender.hide();
-        //ev.preventDefault(); // prevent quit process
-    });
 
     function newMenu(isSuspendChecked) {
         return Menu.buildFromTemplate([
@@ -352,8 +392,9 @@ function createTrayWindow() {
                     clearTimeout(suspendCountdown);
                     trayWin.tray.setContextMenu(newMenu(true));
                     suspendCountdown = setTimeout(() => {
-                        suspend = false
-                    }, (1000 * 60) + (store.get('startAfter') * 60));
+                        suspend = false;
+                        trayWin.tray.setContextMenu(newMenu(false));
+                    }, 1000 * 60 * 60);
                 }
             },
             {
@@ -361,9 +402,11 @@ function createTrayWindow() {
                 click: (e) => {
                     suspend = true;
                     clearTimeout(suspendCountdown);
+                    trayWin.tray.setContextMenu(newMenu(true));
                     suspendCountdown = setTimeout(() => {
-                        suspend = false
-                    }, (1000 * 60 * 3) + (store.get('startAfter') * 60));
+                        suspend = false;
+                        trayWin.tray.setContextMenu(newMenu(false));
+                    }, 1000 * 60 * 60 * 3);
                 }
             },
             {type: "separator"},
@@ -480,10 +523,12 @@ function setUpConfigFile() {
     settings.set('blankScreen', settings.get('blankScreen') ?? true);
     settings.set('blankAfter', settings.get('blankAfter') ?? 30);
     settings.set('sleepAfterBlank', settings.get('sleepAfterBlank') ?? true);
+    settings.set('sleepAfterBlankDelay', settings.get('sleepAfterBlankDelay') ?? 0);
     settings.set('lockAfterRun', settings.get('lockAfterRun') ?? false);
     settings.set('lockAfterRunAfter', settings.get('lockAfterRunAfter') ?? 15);
     settings.set('runOnBattery', settings.get('runOnBattery') ?? true);
-    settings.set('updateAvailable', false);
+    settings.set('preventActivationDuringFullscreen', settings.get('preventActivationDuringFullscreen') ?? true);
+    delete snapshot.updateAvailable;
     settings.set('enableGlobalShortcut', settings.get('enableGlobalShortcut') ?? true);
     settings.set('globalShortcutModifier1', settings.get('globalShortcutModifier1') ?? "Super");
     settings.set('globalShortcutModifier2', settings.get('globalShortcutModifier2') ?? "+Control");
@@ -547,6 +592,7 @@ function setUpConfigFile() {
     settings.set('astronomy', settings.get('astronomy') ?? astronomy)
     //multiscreen settings
     settings.set('sameVideoOnScreens', settings.get('sameVideoOnScreens') ?? false);
+    settings.set('preventSameVideoOnScreens', settings.get('sameVideoOnScreens') ? false : (settings.get('preventSameVideoOnScreens') ?? true));
     settings.set('onlyShowVideoOnPrimaryMonitor', settings.get('onlyShowVideoOnPrimaryMonitor') ?? false);
     //cache settings
     settings.set('videoCache', settings.get('videoCache') ?? false);
@@ -573,12 +619,11 @@ function setUpConfigFile() {
         displayText = {
             'positionList': ["topleft", "topright", "bottomleft", "bottomright", "left", "right", "middle", "topmiddle", "bottommiddle", "random"]
         };
-        let temp = [];
-        for (let i = 0; i < 4; i++) {
-            temp.push({'type': "none", "defaultFont": true});
-        }
-        displayText.positionList.forEach((v) => {
-            displayText[v] = temp;
+        displayText.positionList.forEach((position) => {
+            displayText[position] = Array.from({length: 4}, () => ({
+                type: "none",
+                defaultFont: true
+            }));
         });
         settings.set('displayText', displayText);
     }
@@ -592,26 +637,58 @@ function setUpConfigFile() {
 
 //setUpConfigFile();
 
-//check for update on GitHub
+let applicationUpdater;
 function checkForUpdate() {
-    request('https://raw.githubusercontent.com/OrangeJedi/Aerial/master/package.json', function (error, response, body) {
-        if (error) {
-            console.log("Error checking for updates: ", error);
-            return;
+    if (!applicationUpdater) {
+        if (app.isPackaged) {
+            app.setAppUserModelId('com.electron.aerial');
         }
-        store.set('updateAvailable', false);
-        const onlinePackage = JSON.parse(body);
-        if (onlinePackage.version && app.isPackaged) {
-            if (onlinePackage.version[0] > app.getVersion()[0] || onlinePackage.version[2] > app.getVersion()[2] || onlinePackage.version[4] > app.getVersion()[4]) {
-                store.set('updateAvailable', onlinePackage.version);
-                new Notification({
-                    title: "An update for Aerial is available",
-                    body: `Version ${onlinePackage.version} is available for download. Visit https://github.com/OrangeJedi/Aerial/releases to update Aerial.`
-                }).show()
+        applicationUpdater = require('./updates').createAppUpdater({
+            updater: require('electron-updater').autoUpdater,
+            app,
+            Notification,
+            cancelInstall: () => { settingsQuitReady = false; },
+            openExternal: url => shell.openExternal(url),
+            onState: state => {
+                if (configWindow && !configWindow.isDestroyed()) {
+                    configWindow.webContents.send('updateStatus', state);
+                }
+            },
+            beforeInstall: async () => {
+                let timeout;
+                try {
+                    const saved = await Promise.race([
+                        store.flush(),
+                        new Promise(resolve => { timeout = setTimeout(() => resolve(false), 3000); })
+                    ]);
+                    if (!saved) {
+                        throw new Error('Settings could not be saved before updating.');
+                    }
+                    // The updater starts the installer before quitting. Flush first and
+                    // let its quit proceed without the normal asynchronous quit guard.
+                    settingsQuitReady = true;
+                } finally {
+                    clearTimeout(timeout);
+                }
             }
-        }
-    });
+        });
+        const timer = setInterval(() => applicationUpdater.check(), 6 * 60 * 60 * 1000);
+        timer.unref();
+    }
+    return applicationUpdater.check();
 }
+
+ipcMain.handle('getUpdateStatus', () => applicationUpdater?.getState() || {status: 'idle'});
+ipcMain.on('checkForUpdates', event => {
+    if (configWindow && event.sender === configWindow.webContents) {
+        checkForUpdate();
+    }
+});
+ipcMain.on('restartForUpdate', event => {
+    if (configWindow && event.sender === configWindow.webContents) {
+        applicationUpdater?.restart();
+    }
+});
 
 //events from browser windows
 ipcMain.on('quitApp', (event, arg) => {
@@ -648,36 +725,39 @@ ipcMain.on('openConfigFolder', (event) => {
 });
 
 ipcMain.on('selectCustomLocation', async (event, arg) => {
-    const result = await dialog.showOpenDialog(screens[0], {
-        properties: ['openDirectory']
-    });
-    const path = result.filePaths[0];
-    let videoList = [];
-    videoList.path = path;
-    fs.readdir(path, (err, files) => {
-        files.forEach(file => {
-            if (file.includes('.mp4') || file.includes('.webm') || file.includes('.ogv')) {
-                videoList.push(file);
-            }
+    try {
+        const result = await dialog.showOpenDialog(screens[0], {
+            properties: ['openDirectory']
         });
-        event.reply('newCustomVideos', videoList, path);
-    });
-    //event.reply('filePath', result.filePaths);
+        if (result.canceled || !result.filePaths.length) {
+            return;
+        }
+        const directory = result.filePaths[0];
+        const files = await fs.promises.readdir(directory);
+        const videoList = files.filter(file => file.includes('.mp4') || file.includes('.webm') || file.includes('.ogv'));
+        videoList.path = directory;
+        event.reply('newCustomVideos', videoList, directory);
+    } catch (error) {
+        console.error('Unable to select custom video location', error);
+    }
 });
 
 ipcMain.on('selectCacheLocation', async (event, arg) => {
-    const result = await dialog.showOpenDialog(screens[0], {
-        properties: ['openDirectory']
-    });
-    const newPath = result.filePaths[0];
-    //removeAllVideosInCache();
-    if (newPath != undefined) {
-        cachePath = newPath;
-        store.set('cachePath', newPath);
-        await fs.promises.mkdir(path.join(newPath, "temp"), {recursive: true});
-        updateVideoCache(() => {
-            event.reply('displaySettings');
+    try {
+        const result = await dialog.showOpenDialog(screens[0], {
+            properties: ['openDirectory']
         });
+        const newPath = result.filePaths[0];
+        if (!result.canceled && newPath !== undefined) {
+            await fs.promises.mkdir(path.join(newPath, "temp"), {recursive: true});
+            cachePath = newPath;
+            store.set('cachePath', newPath);
+            await updateVideoCache(() => {
+                event.reply('displaySettings');
+            });
+        }
+    } catch (error) {
+        console.error('Unable to select cache location', error);
     }
 });
 
@@ -695,17 +775,20 @@ ipcMain.on('selectFile', async (event, args) => {
     const filters = {
         'image': {name: 'Image', extensions: ['jpg', 'jpeg', 'png', 'gif']}
     };
-    dialog.showOpenDialog(screens[0], {
-        properties: ['openFile'],
-        filters: [filters[type]]
-    }).then(result => {
-        if (!result.canceled) {
+    try {
+        const result = await dialog.showOpenDialog(screens[0], {
+            properties: ['openFile'],
+            filters: [filters[type]]
+        });
+        if (!result.canceled && result.filePaths.length) {
             let displayText = store.get('displayText');
             displayText[position][line].imagePath = result.filePaths[0];
             store.set('displayText', displayText);
             event.reply('updateAttribute', ['imageFileName', result.filePaths[0]]);
         }
-    });
+    } catch (error) {
+        console.error('Unable to select image file', error);
+    }
 });
 
 ipcMain.on('openPreview', (event) => {
@@ -772,18 +855,54 @@ ipcMain.handle('compatibleVideo', async (event, id) => {
 });
 
 ipcMain.handle('newVideoId', (event, lastPlayed) => {
+    const requestedId = typeof lastPlayed === 'object' && lastPlayed ? lastPlayed.requestedId : null;
+    lastPlayed = typeof lastPlayed === 'object' && lastPlayed ? lastPlayed.lastPlayed : lastPlayed;
     if (currentlyPlaying === '') {
         onFirstVideoPlayed();
     }
 
     const snapshot = store.store;
+    const senderId = event.sender.id;
+    if (!monitorPlayback.has(senderId)) {
+        monitorPlayback.set(senderId, {playing: [], pending: null});
+        event.sender.once('destroyed', () => monitorPlayback.delete(senderId));
+    }
+    const playback = monitorPlayback.get(senderId);
+    if (lastPlayed && !playback.playing.length) {
+        playback.playing = [lastPlayed];
+    }
     const settings = {get: key => snapshot[key]};
     const customById = new Map((snapshot.customVideos || []).map(video => [video.id, video]));
     let candidates = (settings.get('allowedVideos') || []).filter(id => {
         const video = videosById.get(id);
         return video ? getVideoSources(video, settings).length > 0 : customById.has(id);
     });
-    // Immediate repeats are allowed only when no other selected, playable video exists.
+    const strict = settings.get('preventSameVideoOnScreens') && !settings.get('sameVideoOnScreens');
+    const scarce = new Set(candidates).size < screen.getAllDisplays().length;
+    if ((strict || settings.get('avoidDuplicateVideos')) && !settings.get('sameVideoOnScreens')) {
+        const occupied = new Set();
+        for (const [id, state] of monitorPlayback) {
+            if (id !== senderId) {
+                state.playing.forEach(videoId => occupied.add(videoId));
+                if (state.pending) {
+                    occupied.add(state.pending);
+                }
+            }
+        }
+        const available = candidates.filter(id => !occupied.has(id));
+        if (available.length || (strict && !scarce)) {
+            candidates = available;
+        }
+    }
+    if (!candidates.length) {
+        throw new Error('No selected videos are currently available for this monitor');
+    }
+    // Explicit history navigation and recovery still reserve and validate the video.
+    if (requestedId && candidates.includes(requestedId)) {
+        playback.pending = requestedId;
+        return requestedId;
+    }
+    // Cross-monitor uniqueness takes priority when only this monitor's video is free.
     const alternatives = candidates.filter(id => id !== lastPlayed);
     if (alternatives.length) {
         candidates = alternatives;
@@ -799,25 +918,40 @@ ipcMain.handle('newVideoId', (event, lastPlayed) => {
         throw new Error('No selected videos match playback settings');
     }
     if (settings.get('sameVideoOnScreens') && currentlyPlaying !== lastPlayed && candidates.includes(currentlyPlaying)) {
+        playback.pending = currentlyPlaying;
         return currentlyPlaying;
     }
     function newId() {
         let choices = candidates;
-        if (settings.get('avoidDuplicateVideos') && candidates.length > 6) {
-            const fresh = candidates.filter(id => !previouslyPlayed.includes(id));
+        if (settings.get('avoidDuplicateVideos')) {
+            const fresh = choices.filter(id => !previouslyPlayed.includes(id));
             if (fresh.length) {
                 choices = fresh;
+            } else {
+                // Relax history oldest first, retaining active-video exclusions.
+                const oldest = Math.min(...choices.map(id => previouslyPlayed.lastIndexOf(id)));
+                choices = choices.filter(id => previouslyPlayed.lastIndexOf(id) === oldest);
             }
         }
         const id = choices[randomInt(0, choices.length)];
         previouslyPlayed.push(id);
-        previouslyPlayed = previouslyPlayed.slice(-Math.max(1, Math.floor(candidates.length * 0.3)));
+        previouslyPlayed = previouslyPlayed.slice(-Math.max(2, screen.getAllDisplays().length * 2));
+        playback.pending = id;
         return id;
     }
 
     currentlyPlaying = newId();
     return currentlyPlaying;
 })
+
+ipcMain.on('videoPlaybackState', (event, state) => {
+    const playback = monitorPlayback.get(event.sender.id);
+    if (!playback || !state || !Array.isArray(state.playing)) {
+        return;
+    }
+    playback.playing = state.playing.filter(id => typeof id === 'string' && id.length > 0).slice(0, 2);
+    playback.pending = typeof state.pending === 'string' ? state.pending : null;
+});
 
 ipcMain.on('newGlobalShortcut', (event) => {
     setupGlobalShortcut();
@@ -887,21 +1021,6 @@ function updateCustomVideos() {
         }
     }
     store.set('allowedVideos', allowedVideos);
-}
-
-function downloadFile(file_url, targetPath) {
-    const {pipeline} = require('stream/promises');
-    const agent = new https.Agent({
-        host: 'sylvan.apple.com', path: '/', rejectUnauthorized: false
-    });
-    const input = request({method: 'GET', uri: file_url, agent});
-    input.on('response', response => {
-        if (response.statusCode !== 200) {
-            input.destroy(new Error(`Video download returned HTTP ${response.statusCode}`));
-        }
-    });
-    // Pipeline waits for the output file to finish and propagates errors on either stream.
-    return pipeline(input, fs.createWriteStream(targetPath));
 }
 
 async function downloadVideos() {
@@ -1115,9 +1234,14 @@ async function clearCacheTemp() {
 //open & close functions
 function quitApp() {
     if (!nq) {
-        //app.quit();
-        if (store.get("lockAfterRun") && (new Date() - startTime) / 1000 > store.get("lockAfterRunAfter")) {
+        if (lockRequested) {
+            return;
+        }
+        if (!preview && store.get("lockAfterRun") && (new Date() - startTime) / 1000 > store.get("lockAfterRunAfter")) {
             lockComputer();
+            // LockWorkStation is asynchronous. Keep every display covered until
+            // powerMonitor confirms the session lock and closes the windows.
+            return;
         }
         closeAllWindows();
         currentlyPlaying = '';
@@ -1125,12 +1249,16 @@ function quitApp() {
 }
 
 function closeAllWindows() {
+    monitorPlayback.clear();
+    clearScreensaverTimers();
+    lockRequested = false;
     for (let i = 0; i < screens.length; i++) {
         if (!screens[i].isDestroyed()) {
             screens[i].close();
         }
     }
     screens = [];
+    currentlyPlaying = '';
 }
 
 function sleepComputer() {
@@ -1143,10 +1271,21 @@ function sleepComputer() {
 }
 
 function lockComputer() {
-    if (preview) {
-        return
+    if (preview || lockRequested) {
+        return;
     }
-    exec("Rundll32.exe user32.dll,LockWorkStation");
+    lockRequested = true;
+    try {
+        exec("Rundll32.exe user32.dll,LockWorkStation", error => {
+            if (error) {
+                lockRequested = false;
+                console.error('Unable to lock the computer:', error);
+            }
+        });
+    } catch (error) {
+        lockRequested = false;
+        console.error('Unable to lock the computer:', error);
+    }
 }
 
 //idle startup timer
@@ -1167,13 +1306,16 @@ async function launchScreensaver() {
     checkingDisplayPower = true;
     try {
         const displayRequired = await isDisplayRequired();
+        if (displayRequired || (store.get('preventActivationDuringFullscreen') && await isFullscreenAppActive())) {
+            return;
+        }
         // Input, settings, or power state may have changed during the query.
         if (!displayRequired && canLaunchScreensaver()) {
             createSSWindow();
         }
     } catch (error) {
         // Skip this attempt if Windows cannot confirm it is safe to start.
-        console.warn('Unable to query display power requests:', error.message);
+        console.warn('Unable to query screensaver activation guards:', error.message);
     } finally {
         checkingDisplayPower = false;
     }
@@ -1181,32 +1323,59 @@ async function launchScreensaver() {
 
 setInterval(launchScreensaver, 5000);
 
+let blankInterval;
+let sleepTimeout;
+let screensBlanked = false;
+
+function clearScreensaverTimers() {
+    clearInterval(blankInterval);
+    clearTimeout(sleepTimeout);
+    blankInterval = undefined;
+    sleepTimeout = undefined;
+    screensBlanked = false;
+}
+
 function onFirstVideoPlayed() {
-    let startTime = new Date();
     setTimeOfDayList();
-    if (store.get('blankScreen')) {
-        let interval = setInterval(() => {
-            if (screens.length === 0) {
-                clearTimeout(interval);
-                return;
-            }
-            if (new Date() - startTime >= store.get('blankAfter') * 60 * 1000) {
-                blankScreensaver();
-            }
-        }, 30000);
+    if (preview || blankInterval !== undefined || screensBlanked || !store.get('blankScreen')) {
+        return;
     }
+    const started = Date.now();
+    blankInterval = setInterval(() => {
+        if (screens.length === 0) {
+            clearScreensaverTimers();
+        } else if (Date.now() - started >= store.get('blankAfter') * 60 * 1000) {
+            blankScreensaver();
+        }
+    }, 30000);
+}
+
+function scheduleSleepAfterBlank() {
+    if (!store.get('sleepAfterBlank')) {
+        return;
+    }
+    const minutes = Number(store.get('sleepAfterBlankDelay') ?? 0);
+    const delay = Number.isFinite(minutes) ? Math.max(0, minutes) * 60 * 1000 : 0;
+    const transition = Math.max(0, Number(store.get('videoTransitionLength')) || 0) * 3;
+    sleepTimeout = setTimeout(() => {
+        sleepTimeout = undefined;
+        if (screensBlanked && screens.length > 0 && !preview && store.get('sleepAfterBlank')) {
+            sleepComputer();
+        }
+    }, transition + delay);
 }
 
 function blankScreensaver() {
+    if (preview || screensBlanked || screens.length === 0) {
+        return;
+    }
+    screensBlanked = true;
+    clearInterval(blankInterval);
+    blankInterval = undefined;
     for (let i = 0; i < screens.length; i++) {
         screens[i].webContents.send('blankTheScreen');
-        if (store.get('sleepAfterBlank')) {
-            //sleep the computer after a few seconds of blank screen
-            setTimeout(() => {
-                sleepComputer()
-            }, store.get('videoTransitionLength') * 3)
-        }
     }
+    scheduleSleepAfterBlank();
 }
 
 //Time of day code functions

@@ -72,6 +72,13 @@
                     <input type="checkbox" id="sleepAfterBlank" class="w3-check"
                            onclick="updateSetting('sleepAfterBlank','check')">
                     <label for="sleepAfterBlank">Sleep the computer after screen blank</label>
+                    <span id="sleepAfterBlankDelaySetting">
+                        <br>
+                        <label for="sleepAfterBlankDelay">Wait</label>
+                        <input style="width: 10%; display: inline !important;" class="w3-input" type="number"
+                               id="sleepAfterBlankDelay" min="0" step="1" onchange="updateSetting('sleepAfterBlankDelay','number')">
+                        <label for="sleepAfterBlankDelay">minutes after blanking before sleeping</label>
+                    </span>
                     <br><br>
                     <input type="checkbox" id="lockAfterRun" class="w3-check"
                            onclick="updateSetting('lockAfterRun','check')">
@@ -96,9 +103,9 @@
                            onclick="updateSetting('avoidDuplicateVideos','check')">
                     <label for="avoidDuplicateVideos">Avoid duplicate videos</label>
                     <br>
-                    <i class="w3-small" style="padding-left: 4%">When this option is enabled Aerial will avoid playing
-                        the
-                        most recently played videos</i>
+                    <i class="w3-small" style="padding-left: 4%">Avoid recently selected videos across all monitors
+                        (monitor count &times; 2), plus videos playing or loading on other monitors. Small playlists reuse older videos as needed.
+                        Same video on screens overrides avoidance across monitors.</i>
                     <hr>
                     <label for="fillMode">Fill Mode: </label>
                     <select id="fillMode" onclick="updateSetting('fillMode','select')">
@@ -213,6 +220,12 @@
                            onclick="updateSetting('sameVideoOnScreens','check')">
                     <label for="sameVideoOnScreens">Play the same video on each screen</label>
                     <br>
+                    <input type="checkbox" id="preventSameVideoOnScreens" class="w3-check"
+                           onclick="updateSetting('preventSameVideoOnScreens','check')">
+                    <label for="preventSameVideoOnScreens">Prevent the same video from playing on multiple monitors</label>
+                    <br>
+                    <i class="w3-small" style="padding-left: 4%">Videos may appear on multiple monitors only when fewer playable videos are selected than monitors.</i>
+                    <br>
                     <input type="checkbox" id="onlyShowVideoOnPrimaryMonitor" class="w3-check"
                            onclick="updateSetting('onlyShowVideoOnPrimaryMonitor','check')">
                     <label for="onlyShowVideoOnPrimaryMonitor">Only play videos on the primary screen</label>
@@ -309,6 +322,12 @@
                         and
                         launch itself after your system is idle</p>
                     <br>
+                    <input type="checkbox" id="preventActivationDuringFullscreen" class="w3-check"
+                           onclick="updateSetting('preventActivationDuringFullscreen','check')">
+                    <label for="preventActivationDuringFullscreen">Prevent activation during fullscreen apps</label>
+                    <p class="w3-small" style="margin-left: 4%">Pause automatic activation while Windows reports a
+                        fullscreen app or presentation mode.</p>
+                    <br>
                     <input type="checkbox" id="enableGlobalShortcut" class="w3-check"
                            onclick="updateSetting('enableGlobalShortcut','check'); newGlobalShortcut();">
                     <label for="enableGlobalShortcut">Use a shortcut to launch Aerial</label>
@@ -379,14 +398,14 @@
                     </p>
                     <hr>
                     Version: <span id="version"></span>
-                    <div id="aboutUpdate" style="display: none">
-                        <br>
-                        <div class="w3-panel w3-pale-green" style="padding-bottom: 2%">
-                            <h4>A new version of Aerial is available!</h4>
-                            <a href="https://github.com/OrangeJedi/Aerial/releases" target="_blank">Click here</a>
-                            to
-                            download version v<span id="updateAvailable"></span>
-                        </div>
+                    <div id="aboutUpdate" class="w3-panel w3-light-grey" style="padding: 16px">
+                        <p id="updateStatusText" role="status" aria-live="polite">Checking for updates…</p>
+                        <button id="restartForUpdate" class="w3-button w3-green" style="display: none"
+                                onclick="electron.ipcRenderer.send('restartForUpdate')">Restart Aerial to update</button>
+                        <button id="checkForUpdates" class="w3-button w3-white" style="display: none"
+                                onclick="electron.ipcRenderer.send('checkForUpdates')">Check for updates</button>
+                        <a id="manualUpdate" href="https://github.com/OrangeJedi/Aerial/releases"
+                           target="_blank" style="display: none">Download the latest version from GitHub</a>
                     </div>
                 </div>
             </div>

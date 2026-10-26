@@ -5,7 +5,7 @@ const path = require('node:path');
 const vm = require('node:vm');
 
 function renderer(type = 'dissolve', direction = 'left', easierTransitions, overrides = {}) {
-    const control = {holdLoads: false, pendingLoads: [], selections: 0, failures: [], statuses: [], htmlWrites: []};
+    const control = {holdLoads: false, pendingLoads: [], selections: 0, failures: [], statuses: [], htmlWrites: [], messages: []};
     const players = [0, 1].map(() => ({
         style: {}, paused: true, currentTime: 0, duration: 60, playbackRate: 1, readyState: 4,
         listeners: {}, quality: {totalVideoFrames: 0, droppedVideoFrames: 0},
@@ -20,6 +20,7 @@ function renderer(type = 'dissolve', direction = 'left', easierTransitions, over
     const events = {};
     const loads = [];
     const intervals = [];
+    const textOverlay = {style: {opacity: '0'}};
     let sequence = 0;
     let now = 0;
     const chain = {css() { return chain; }, text(value) { control.statuses.push(value); return chain; }, html() { return chain; }};
@@ -54,10 +55,12 @@ function renderer(type = 'dissolve', direction = 'left', easierTransitions, over
         localizedDateTime: () => ({format: () => "12:34"}),
         requestAnimationFrame(callback) { const id = ++sequence; frames.set(id, callback); return id; },
         cancelAnimationFrame(id) { frames.delete(id); },
-        document: {getElementById: id => id === 'video' ? players[0] : id === 'video2' ? players[1] : {style: {}}, addEventListener() {}},
+        document: {body: {style: {}}, getElementById: id => id === 'video' ? players[0] : id === 'video2' ? players[1] : id === 'textDisplayArea' ? textOverlay : {style: {}}, addEventListener() {}},
         $: selector => ({...chain, html(value) { control.htmlWrites.push({selector, value}); return chain; }}),
         electron: {videos: [{id: 'sample'}], store: {get: key => settings[key]},
-            ipcRenderer: {invoke: async () => { control.selections++; return 'sample'; }, send() {}, on: (name, callback) => { events[name] = callback; }}},
+            ipcRenderer: {invoke: async () => { control.selections++; return 'sample'; },
+                send(channel, data) { control.messages.push({channel, data}); },
+                on: (name, callback) => { events[name] = callback; }}},
         videoPlayback: {cancel() {}, bufferedAhead: player => player.bufferedSeconds ?? 60,
             release(player) { player.pause(); player.src = ''; player.playbackSource = null; },
             markFailed(id, source) { control.failures.push({id, source}); },
@@ -102,6 +105,69 @@ async function flush() {
         await Promise.resolve();
     }
 }
+
+test('renderer reports transition occupancy and releases it only after blanking finishes', async () => {
+    const result = renderer('dissolve');
+    await flush();
+    let messages = result.control.messages.filter(message => message.channel === 'videoPlaybackState');
+    assert.deepEqual(Array.from(messages.at(-1).data.playing), ['', 'sample']);
+    assert.equal(messages.at(-1).data.pending, 'sample');
+    await result.tick(2000);
+    messages = result.control.messages.filter(message => message.channel === 'videoPlaybackState');
+    assert.deepEqual(Array.from(messages.at(-1).data.playing), ['sample']);
+    assert.equal(messages.at(-1).data.pending, null);
+    result.events.blankTheScreen();
+    await result.tick(3999);
+    messages = result.control.messages.filter(message => message.channel === 'videoPlaybackState');
+    assert.deepEqual(Array.from(messages.at(-1).data.playing), ['sample']);
+    await result.tick(4000);
+    messages = result.control.messages.filter(message => message.channel === 'videoPlaybackState');
+    assert.deepEqual(Array.from(messages.at(-1).data.playing), []);
+});
+
+test('screensaver markup allows the desktop to show through at startup', () => {
+    const html = fs.readFileSync(path.join(__dirname, '../web/screensaver.html'), 'utf8');
+    const css = fs.readFileSync(path.join(__dirname, '../web/screensaver.css'), 'utf8');
+    assert.match(html, /<body>/);
+    assert.match(css, /html,\s*body\s*\{\s*background-color: transparent;/);
+    assert.match(css, /#videoStage\s*\{[^}]*background: transparent;/);
+});
+
+test('startup stays transparent through the first transition and later transitions stay black', async () => {
+    const result = renderer('dissolve');
+    const background = result.context.document.body.style;
+    await flush();
+    await result.tick(1000);
+    assert.equal(background.backgroundColor, undefined);
+    await result.tick(2000);
+    assert.equal(background.backgroundColor, 'black');
+    result.events.newVideo();
+    await flush();
+    await result.tick(3000);
+    assert.equal(background.backgroundColor, 'black');
+});
+
+test('text fades in only after the first transition finishes', async () => {
+    const result = renderer('dissolve');
+    const overlay = result.context.document.getElementById('textDisplayArea');
+    const css = fs.readFileSync(path.join(__dirname, '../web/screensaver.css'), 'utf8');
+    assert.match(css, /#textDisplayArea\s*\{\s*opacity: 0;\s*transition: opacity 750ms linear;/);
+    await flush();
+    await result.tick(1000);
+    assert.equal(overlay.style.opacity, '0');
+    await result.tick(2000);
+    assert.equal(overlay.style.opacity, '1');
+    result.events.newVideo();
+    await flush();
+    await result.tick(3000);
+    assert.equal(overlay.style.opacity, '1');
+});
+
+test('blanking during startup makes the transparent window black', () => {
+    const result = renderer('dissolve');
+    result.events.blankTheScreen();
+    assert.equal(result.context.document.body.style.backgroundColor, 'black');
+});
 
 test('transition frame exceptions recover through another source and finish playback', async () => {
     const result = renderer('wipe');
@@ -158,7 +224,7 @@ test('previous video ignores preloads and keeps history local to each screen', a
     assert.equal(first.control.selections, 3);
     first.events.previousVideo();
     await flush();
-    assert.equal(first.control.selections, 3);
+    assert.equal(first.control.selections, 4);
     assert.equal(vm.runInContext('historyIndex', first.context), 0);
     assert.equal(vm.runInContext('videoHistory.length', first.context), 2);
     assert.equal(vm.runInContext('videoHistory.length', second.context), 1);
@@ -174,7 +240,7 @@ test('forward after back replays history before selecting another video', async 
     vm.runInContext(`
         videosById.set('second', {id: 'second'});
         videosById.set('third', {id: 'third'});
-        electron.ipcRenderer.invoke = async () => 'second';
+        electron.ipcRenderer.invoke = async (channel, request) => request.requestedId || 'second';
     `, result.context);
     result.events.newVideo();
     await flush();
@@ -183,7 +249,7 @@ test('forward after back replays history before selecting another video', async 
     await flush();
     assert.equal(vm.runInContext('currentlyPlaying', result.context), 'sample');
     vm.runInContext(`
-        electron.ipcRenderer.invoke = async () => 'third';
+        electron.ipcRenderer.invoke = async (channel, request) => request.requestedId || 'third';
         prepareNext();
     `, result.context);
     await flush();
@@ -196,6 +262,28 @@ test('forward after back replays history before selecting another video', async 
     await flush();
     assert.equal(vm.runInContext('currentlyPlaying', result.context), 'third');
     assert.equal(vm.runInContext('videoHistory.length', result.context), 3);
+});
+
+test('occupied history videos are replaced by the main-process selection', async () => {
+    const result = renderer('none');
+    await flush();
+    vm.runInContext(`
+        videosById.set('second', {id: 'second'});
+        videosById.set('third', {id: 'third'});
+        electron.ipcRenderer.invoke = async () => 'second';
+    `, result.context);
+    result.events.newVideo();
+    await flush();
+    let request;
+    result.context.electron.ipcRenderer.invoke = async (channel, value) => {
+        request = value;
+        return 'third';
+    };
+    result.events.previousVideo();
+    await flush();
+    assert.equal(request.requestedId, 'sample');
+    assert.equal(vm.runInContext('currentlyPlaying', result.context), 'third');
+    assert.equal(vm.runInContext('videoHistory[historyIndex]', result.context), 'third');
 });
 
 for (const type of ['dissolve', 'dipToBlack', 'fade', 'wipe', 'circle', 'fadeCircle']) {
@@ -280,6 +368,35 @@ test('a rejected play promise advances to another source for the same video', as
     await result.tick(1000);
     assert.deepEqual(Array.from(result.loads.at(-1).skipSources), ['primary']);
     assert.equal(result.players[1].src, 'fallback');
+});
+
+test('failed transitions keep the visible outgoing video reserved through recovery', async () => {
+    const result = renderer('dissolve');
+    await flush();
+    await result.tick(2000);
+    vm.runInContext("videosById.set('next', {id: 'next'})", result.context);
+    result.context.electron.ipcRenderer.invoke = async () => 'next';
+    const incoming = result.players[0];
+    incoming.play = () => {
+        result.control.holdLoads = true;
+        return Promise.reject(new Error('Decoder failed'));
+    };
+    result.events.newVideo();
+    await flush();
+    await flush();
+    const reports = () => result.control.messages.filter(message => message.channel === 'videoPlaybackState');
+    assert.equal(result.players[1].style.visibility, 'visible');
+    assert.deepEqual(Array.from(reports().at(-1).data.playing), ['sample']);
+    assert.equal(result.control.pendingLoads.length, 1);
+
+    incoming.play = () => { incoming.paused = false; return Promise.resolve(); };
+    result.control.holdLoads = false;
+    result.control.pendingLoads.shift()();
+    await flush();
+    assert.deepEqual(Array.from(reports().at(-1).data.playing), ['sample', 'next']);
+    await result.tick(4000);
+    assert.deepEqual(Array.from(reports().at(-1).data.playing), ['next']);
+    assert.equal(result.players[1].style.visibility, 'hidden');
 });
 
 test('sustained dropped frames trigger fallback but paused frames do not', async () => {

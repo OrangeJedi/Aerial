@@ -3,6 +3,30 @@ const {test} = require('node:test');
 const fs = require('node:fs');
 const vm = require('node:vm');
 
+test('multiscreen checkboxes uncheck and persist the opposite option only when enabled', () => {
+    const script = fs.readFileSync(require.resolve('../web/config.js'), 'utf8');
+    const elements = {sameVideoOnScreens: {checked: true}, preventSameVideoOnScreens: {checked: true}};
+    const saved = {};
+    const context = vm.createContext({
+        document: {getElementById: id => elements[id]},
+        electron: {store: {set: (key, value) => { saved[key] = value; }}},
+        updateSettingVisibility() {}
+    });
+    vm.runInContext(script.slice(script.indexOf('function updateSetting('), script.indexOf('//Sets a setting to its default')), context);
+    context.updateSetting('preventSameVideoOnScreens', 'check');
+    assert.equal(elements.sameVideoOnScreens.checked, false);
+    assert.equal(saved.sameVideoOnScreens, false);
+    assert.equal(saved.preventSameVideoOnScreens, true);
+    elements.sameVideoOnScreens.checked = true;
+    context.updateSetting('sameVideoOnScreens', 'check');
+    assert.equal(elements.preventSameVideoOnScreens.checked, false);
+    assert.equal(saved.preventSameVideoOnScreens, false);
+    assert.equal(saved.sameVideoOnScreens, true);
+    elements.sameVideoOnScreens.checked = false;
+    context.updateSetting('sameVideoOnScreens', 'check');
+    assert.equal(elements.preventSameVideoOnScreens.checked, false);
+});
+
 test('leaving the video tab and hiding the window release preview media', () => {
     const script = fs.readFileSync(require.resolve('../web/config.js'), 'utf8');
     const start = script.indexOf('function stopVideoPreview()');
