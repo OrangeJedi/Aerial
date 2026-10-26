@@ -14,7 +14,7 @@ Aerial is a Windows screen saver that mimics Apple's Apple TV aerial screen save
 
 <p align="center">
     <a href="https://github.com/OrangeJedi/Aerial/releases/download/v1.4.0/Aerial-Setup-1.4.0.exe">
-        <img alt="Download now" src="https://img.shields.io/badge/Download%20now-2ea44f?style=for-the-badge" />
+        <img alt="Download now" width="240" src="https://img.shields.io/badge/Download%20now-2ea44f?style=for-the-badge" />
     </a>
 </p>
 
