@@ -1,6 +1,6 @@
 {
   "name": "aerial",
-  "version": "1.4.0",
+  "version": "1.4.1",
   "description": "Apple TV screen saver for Windows",
   "main": "app.js",
   "engines": {
@@ -52,7 +52,8 @@
       ]
     },
     "nsis": {
-      "artifactName": "Aerial-Setup-${version}.${ext}",
+      "artifactName": "Aerial-Setup.${ext}",
+      "buildUniversalInstaller": true,
       "installerIcon": "icon.ico",
       "perMachine": false,
       "include": "build/installer.nsh"

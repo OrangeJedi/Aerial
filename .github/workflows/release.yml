@@ -50,7 +50,7 @@ jobs:
       - name: Run tests
         run: npm test
 
-      - name: Build Windows installers
+      - name: Build universal Windows installer
         run: npm run dist -- --win --x64 --arm64 --publish never
 
       - name: Verify automatic update metadata
@@ -68,8 +68,9 @@ jobs:
             ($_.Extension -in '.exe', '.blockmap') -or
               ($_.Extension -eq '.yml' -and $_.Name -notlike 'builder-*')
           } | ForEach-Object { $_.FullName })
-          if (-not ($assets | Where-Object { $_ -like '*.exe' })) {
-            throw 'No Windows installer was produced.'
+          $installers = @($assets | Where-Object { $_ -like '*.exe' })
+          if ($installers.Count -ne 1 -or (Split-Path -Leaf $installers[0]) -ne 'Aerial-Setup.exe') {
+            throw 'Expected exactly one Windows installer named Aerial-Setup.exe.'
           }
 
           $existing = gh release view "$env:RELEASE_TAG" --json isDraft 2>$null

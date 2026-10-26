@@ -10,26 +10,26 @@
 
 # Aerial - Apple TV Screen Saver for Windows
  
-Aerial is a Windows screen saver that mimics Apple's  Apple TV screen saver. It plays the various videos Apple shot of cities, landscapes, underwater scenes, and the earth from the ISS.
+Aerial is a Windows screen saver that mimics Apple's Apple TV aerial screen saver. It plays the various videos Apple shot of cities, landscapes, underwater scenes, and the earth from the ISS.
 
-> Mac user? Try [JohnCoates/Aerial](https://github.com/JohnCoates/Aerial). Linux user? Try [graysky2/xscreensaver-aerial](https://github.com/graysky2/xscreensaver-aerial/).
+<p align="center">
+    <a href="https://github.com/OrangeJedi/Aerial/releases/latest/download/Aerial-Setup.exe">
+        <img alt="Download now" width="240" src="https://img.shields.io/badge/Download%20now-2ea44f?style=for-the-badge" />
+    </a>
+</p>
 
-## Installing
-Download the latest release from [here](https://github.com/OrangeJedi/Aerial/releases). Run the installer and configure your settings.
+> Mac user? Try [Aerial for macOS](https://github.com/AerialScreensaver/Aerial). Linux user? Try [graysky2/xscreensaver-aerial](https://github.com/graysky2/xscreensaver-aerial/). Or [View all releases](https://github.com/OrangeJedi/Aerial/releases)
 
 Be sure to configure your system's screen and sleep settings accordingly and to disable any other screensavers.
 
-Installed copies check GitHub Releases for stable updates at startup and every six hours, then download updates in the background. When an update is ready, click its Windows notification or open **Config → About** and select **Restart Aerial to update**. Aerial saves your settings before installing and restarting. The About panel shows download progress and lets you check again; if automatic updating fails, it provides a link to download the release manually from GitHub. Automatic updating starts with releases that include this updater; older copies need one manual upgrade.
-
-Aerial's automatic startup respects Windows display power requests, so video players and other apps that request an awake display can prevent it from starting. This check does not require administrator rights. Apps that do not register a display request may still be interrupted. If the check fails, Aerial skips that startup attempt and retries on the next timer tick. Manual launches and previews remain available.
-
-Uninstalling through Windows Installed apps removes Aerial's settings, application data, default video cache, and startup entry. If you moved the video cache, the uninstaller asks whether to delete Aerial's cached downloads and conversions there; unrelated files are kept. Silent uninstall (`/S`) keeps moved caches. Upgrading preserves settings and videos.
-
 ## Features
+Aerial brings the AppleTV's wonderful screensavers to your Windows desktop. 
+It randomly cycles through 152 beautiful slow moving videos from Apple.
+You can customize the selection of used videos, tweak playback speed, set transitions, and display information like time, date, images, video location, and sunrise/sunset times on top of the video.
+Aerial can download videos for offline and smoother viewing.
+You can also add your own custom videos.
+
 ![image](https://user-images.githubusercontent.com/25063853/224231865-f8716c9a-ff9a-4c2b-bf18-21dc1bd4d504.png)
-Aerial brings the AppleTV's wonderful screensavers to your Windows desktop. You can limit which videos to play, or randomly play them all. 
-Aerial seamlessly transitions between each video and can also display information like time, date, images, location, and sunrise/sunset times on top of the video.
-Aerial can download videos for offline and smoother viewing and can play your own local videos.
 
 See the [full list of feature](https://github.com/OrangeJedi/Aerial/wiki/Features-&-To-Do-List) and the [version history](https://github.com/OrangeJedi/Aerial/wiki/Version-History) for detailed information.
 
@@ -37,14 +37,16 @@ See the [full list of feature](https://github.com/OrangeJedi/Aerial/wiki/Feature
 
 ## Contributing
 
-We are always looking for more help on this project! Some of our best features were suggested or added by the community. We appreciate new issues and pull requests.
+We are always looking for more help on this project! Some of our best features were suggested or added by the community, and we can only fix bugs if you report them. We appreciate new issues and pull requests.
 
-Have an idea or want to help? Check out our [guide to contributing](https://github.com/OrangeJedi/Aerial/wiki/Contributing-Guide). 
+[Report a bug or suggest a feature](https://github.com/OrangeJedi/Aerial/issues/new/choose).
+
+Want to help write code? Check out our [guide to contributing](https://github.com/OrangeJedi/Aerial/wiki/Contributing-Guide). 
 It includes information on submitting ideas, how to set up Aerial's dev environment, using launch flags, and other developer information
 
 ## About
 Aerial is a [Node.JS](https://nodejs.org)/[Electron](https://www.electronjs.org/) based implementation of Apple's Apple TV screensaver for Windows inspired by [Mac Aerial Screen Saver](https://github.com/JohnCoates/Aerial) and [Aerial for Windows](https://github.com/cDima/Aerial).
 
-©2023 OrangeJedi
+©2026 OrangeJedi & irampton
 
 Released under the [MIT License](https://github.com/OrangeJedi/Aerial/blob/master/LICENSE)
