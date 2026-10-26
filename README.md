@@ -22,8 +22,6 @@ Aerial is a Windows screen saver that mimics Apple's Apple TV aerial screen save
 
 Be sure to configure your system's screen and sleep settings accordingly and to disable any other screensavers.
 
-Aerial will auto-update to the latest version once installed.
-
 ## Features
 Aerial brings the AppleTV's wonderful screensavers to your Windows desktop. 
 It randomly cycles through 152 beautiful slow moving videos from Apple.
