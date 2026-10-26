@@ -41,7 +41,7 @@ We are always looking for more help on this project! Some of our best features w
 
 [Report a bug or suggest a feature](https://github.com/OrangeJedi/Aerial/issues/new/choose).
 
-Have an idea or want to help? Check out our [guide to contributing](https://github.com/OrangeJedi/Aerial/wiki/Contributing-Guide). 
+Want to help write code? Check out our [guide to contributing](https://github.com/OrangeJedi/Aerial/wiki/Contributing-Guide). 
 It includes information on submitting ideas, how to set up Aerial's dev environment, using launch flags, and other developer information
 
 ## About
