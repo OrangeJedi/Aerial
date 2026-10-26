@@ -633,6 +633,9 @@ for (const [primaryOnly, noQuit, taskbarEdge] of [true, false].flatMap(primaryOn
             assert.equal(win.options.webPreferences.nodeIntegration, false);
             assert.equal(win.options.webPreferences.backgroundThrottling, false);
             assert.equal(win.options.fullscreen, false);
+            const showVideo = !primaryOnly || i === 0;
+            assert.equal(win.options.transparent, showVideo);
+            assert.equal(win.options.backgroundColor, showVideo ? '#00000000' : '#000000');
             assert.equal(win.options.thickFrame, noQuit);
             assert.equal(win.options.skipTaskbar, !noQuit);
             assert.equal(win.options.frame, noQuit);

@@ -195,6 +195,7 @@ function createSSWindow(argv) {
         // A blocked or unavailable shell helper must not prevent the saver from starting.
     });
     for (let i = 0; i < displays.length; i++) {
+        const showVideo = !store.get("onlyShowVideoOnPrimaryMonitor") || displays[i].id === screen.getPrimaryDisplay().id;
         let win = new BrowserWindow({
             width: displays[i].size.width,
             height: displays[i].size.height,
@@ -213,12 +214,13 @@ function createSSWindow(argv) {
             resizable: nq,
             thickFrame: nq,
             skipTaskbar: !nq,
-            backgroundColor: '#000000',
+            transparent: showVideo,
+            backgroundColor: showVideo ? '#00000000' : '#000000',
             frame: nq,
             icon: path.join(__dirname, 'icon.ico'),
             show: false
         })
-        if (store.get("onlyShowVideoOnPrimaryMonitor") && displays[i].id !== screen.getPrimaryDisplay().id) {
+        if (!showVideo) {
             win.loadFile('web/black.html');
         } else {
             win.loadFile('web/screensaver.html');

@@ -3,6 +3,8 @@ const customVideos = electron.store.get('customVideos') || [];
 const videosById = new Map([...videos, ...customVideos].map(video => [video.id, video]));
 const containers = [document.getElementById('video'), document.getElementById('video2')];
 const stage = document.getElementById('videoStage');
+const textOverlay = document.getElementById('textDisplayArea');
+let textRevealed = false;
 let currentlyPlaying = '';
 let videoHistory = [];
 let historyIndex = -1;
@@ -239,6 +241,12 @@ function transitionTo(target, token) {
                 outgoing.style.visibility = 'hidden';
                 resetLayer(outgoing);
                 resetLayer(incoming);
+                // Keep the desktop visible until the first video has fully transitioned in.
+                document.body.style.backgroundColor = 'black';
+                if (!textRevealed) {
+                    textRevealed = true;
+                    textOverlay.style.opacity = '1';
+                }
                 currentPlayer = target;
                 videoPlayback.release(outgoing);
                 settled = true;
@@ -781,6 +789,7 @@ electron.ipcRenderer.on('previousVideo', () => {
 });
 electron.ipcRenderer.on('blankTheScreen', () => {
     blackScreen = true;
+    document.body.style.backgroundColor = 'black';
     generation++;
     stopFrameSample();
     clearInterval(healthInterval);

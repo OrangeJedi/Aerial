@@ -20,6 +20,7 @@ function renderer(type = 'dissolve', direction = 'left', easierTransitions, over
     const events = {};
     const loads = [];
     const intervals = [];
+    const textOverlay = {style: {opacity: '0'}};
     let sequence = 0;
     let now = 0;
     const chain = {css() { return chain; }, text(value) { control.statuses.push(value); return chain; }, html() { return chain; }};
@@ -54,7 +55,7 @@ function renderer(type = 'dissolve', direction = 'left', easierTransitions, over
         localizedDateTime: () => ({format: () => "12:34"}),
         requestAnimationFrame(callback) { const id = ++sequence; frames.set(id, callback); return id; },
         cancelAnimationFrame(id) { frames.delete(id); },
-        document: {getElementById: id => id === 'video' ? players[0] : id === 'video2' ? players[1] : {style: {}}, addEventListener() {}},
+        document: {body: {style: {}}, getElementById: id => id === 'video' ? players[0] : id === 'video2' ? players[1] : id === 'textDisplayArea' ? textOverlay : {style: {}}, addEventListener() {}},
         $: selector => ({...chain, html(value) { control.htmlWrites.push({selector, value}); return chain; }}),
         electron: {videos: [{id: 'sample'}], store: {get: key => settings[key]},
             ipcRenderer: {invoke: async () => { control.selections++; return 'sample'; }, send() {}, on: (name, callback) => { events[name] = callback; }}},
@@ -102,6 +103,50 @@ async function flush() {
         await Promise.resolve();
     }
 }
+
+test('screensaver markup allows the desktop to show through at startup', () => {
+    const html = fs.readFileSync(path.join(__dirname, '../web/screensaver.html'), 'utf8');
+    const css = fs.readFileSync(path.join(__dirname, '../web/screensaver.css'), 'utf8');
+    assert.match(html, /<body>/);
+    assert.match(css, /html,\s*body\s*\{\s*background-color: transparent;/);
+    assert.match(css, /#videoStage\s*\{[^}]*background: transparent;/);
+});
+
+test('startup stays transparent through the first transition and later transitions stay black', async () => {
+    const result = renderer('dissolve');
+    const background = result.context.document.body.style;
+    await flush();
+    await result.tick(1000);
+    assert.equal(background.backgroundColor, undefined);
+    await result.tick(2000);
+    assert.equal(background.backgroundColor, 'black');
+    result.events.newVideo();
+    await flush();
+    await result.tick(3000);
+    assert.equal(background.backgroundColor, 'black');
+});
+
+test('text fades in only after the first transition finishes', async () => {
+    const result = renderer('dissolve');
+    const overlay = result.context.document.getElementById('textDisplayArea');
+    const css = fs.readFileSync(path.join(__dirname, '../web/screensaver.css'), 'utf8');
+    assert.match(css, /#textDisplayArea\s*\{\s*opacity: 0;\s*transition: opacity 750ms linear;/);
+    await flush();
+    await result.tick(1000);
+    assert.equal(overlay.style.opacity, '0');
+    await result.tick(2000);
+    assert.equal(overlay.style.opacity, '1');
+    result.events.newVideo();
+    await flush();
+    await result.tick(3000);
+    assert.equal(overlay.style.opacity, '1');
+});
+
+test('blanking during startup makes the transparent window black', () => {
+    const result = renderer('dissolve');
+    result.events.blankTheScreen();
+    assert.equal(result.context.document.body.style.backgroundColor, 'black');
+});
 
 test('transition frame exceptions recover through another source and finish playback', async () => {
     const result = renderer('wipe');
