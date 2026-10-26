@@ -10,7 +10,7 @@
 
 # Aerial - Apple TV Screen Saver for Windows
  
-Aerial is a Windows screen saver that mimics Apple's  Apple TV screen saver. It plays the various videos Apple shot of cities, landscapes, underwater scenes, and the earth from the ISS.
+Aerial is a Windows screen saver that mimics Apple's Apple TV aerial screen saver. It plays the various videos Apple shot of cities, landscapes, underwater scenes, and the earth from the ISS.
 
 > Mac user? Try [Aerial for macOS](https://github.com/AerialScreensaver/Aerial). Linux user? Try [graysky2/xscreensaver-aerial](https://github.com/graysky2/xscreensaver-aerial/).
 
@@ -27,12 +27,13 @@ Be sure to configure your system's screen and sleep settings accordingly and to 
 Aerial will auto-update to the latest version once installed.
 
 ## Features
-![image](https://user-images.githubusercontent.com/25063853/224231865-f8716c9a-ff9a-4c2b-bf18-21dc1bd4d504.png)
 Aerial brings the AppleTV's wonderful screensavers to your Windows desktop. 
 It randomly cycles through 152 beautiful slow moving videos from Apple.
 You can customize the selection of used videos, tweak playback speed, set transitions, and display information like time, date, images, video location, and sunrise/sunset times on top of the video.
 Aerial can download videos for offline and smoother viewing.
 You can also add your own custom videos.
+
+![image](https://user-images.githubusercontent.com/25063853/224231865-f8716c9a-ff9a-4c2b-bf18-21dc1bd4d504.png)
 
 See the [full list of feature](https://github.com/OrangeJedi/Aerial/wiki/Features-&-To-Do-List) and the [version history](https://github.com/OrangeJedi/Aerial/wiki/Version-History) for detailed information.
 
