@@ -370,6 +370,35 @@ test('a rejected play promise advances to another source for the same video', as
     assert.equal(result.players[1].src, 'fallback');
 });
 
+test('failed transitions keep the visible outgoing video reserved through recovery', async () => {
+    const result = renderer('dissolve');
+    await flush();
+    await result.tick(2000);
+    vm.runInContext("videosById.set('next', {id: 'next'})", result.context);
+    result.context.electron.ipcRenderer.invoke = async () => 'next';
+    const incoming = result.players[0];
+    incoming.play = () => {
+        result.control.holdLoads = true;
+        return Promise.reject(new Error('Decoder failed'));
+    };
+    result.events.newVideo();
+    await flush();
+    await flush();
+    const reports = () => result.control.messages.filter(message => message.channel === 'videoPlaybackState');
+    assert.equal(result.players[1].style.visibility, 'visible');
+    assert.deepEqual(Array.from(reports().at(-1).data.playing), ['sample']);
+    assert.equal(result.control.pendingLoads.length, 1);
+
+    incoming.play = () => { incoming.paused = false; return Promise.resolve(); };
+    result.control.holdLoads = false;
+    result.control.pendingLoads.shift()();
+    await flush();
+    assert.deepEqual(Array.from(reports().at(-1).data.playing), ['sample', 'next']);
+    await result.tick(4000);
+    assert.deepEqual(Array.from(reports().at(-1).data.playing), ['next']);
+    assert.equal(result.players[1].style.visibility, 'hidden');
+});
+
 test('sustained dropped frames trigger fallback but paused frames do not', async () => {
     const result = renderer();
     await flush();

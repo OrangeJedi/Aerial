@@ -6,6 +6,7 @@ const stage = document.getElementById('videoStage');
 const textOverlay = document.getElementById('textDisplayArea');
 let textRevealed = false;
 let currentlyPlaying = '';
+let displayedVideo = '';
 let videoHistory = [];
 let historyIndex = -1;
 let screenNumber = null;
@@ -71,7 +72,7 @@ function discardPreparation() {
         videoPlayback.release(containers[preparation.target]);
         preparation = null;
         if (!blackScreen) {
-            electron.ipcRenderer.send('videoPlaybackState', {playing: [currentlyPlaying], pending: null});
+            electron.ipcRenderer.send('videoPlaybackState', {playing: [displayedVideo], pending: null});
         }
     }
 }
@@ -252,6 +253,7 @@ function transitionTo(target, token) {
                     textOverlay.style.opacity = '1';
                 }
                 currentPlayer = target;
+                displayedVideo = currentlyPlaying;
                 videoPlayback.release(outgoing);
                 settled = true;
                 cleanup();
@@ -382,7 +384,7 @@ async function newVideo(recover = false, navigationIndex = null) {
         if (navigationIndex !== null && id !== forcedId) {
             navigationIndex = null;
         }
-        const outgoingId = currentlyPlaying;
+        const outgoingId = displayedVideo;
         currentlyPlaying = id;
         electron.ipcRenderer.send('videoPlaybackState', {playing: [outgoingId, id], pending: id});
         await transitionTo(job.target, token);
