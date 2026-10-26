@@ -14,6 +14,7 @@ function fixture(settings = {}, preview = false) {
     let now = 0;
     let slept = 0;
     const context = vm.createContext({
+        monitorPlayback: new Map(),
         preview, store: {get: key => data[key]}, Date: {now: () => now}, setTimeOfDayList() {},
         screens: messages.map(sent => ({isDestroyed: () => false, close() {},
             webContents: {send: message => sent.push(message)}})),

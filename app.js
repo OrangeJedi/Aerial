@@ -106,6 +106,7 @@ let cachePath = store.get('cachePath') ?? path.join(app.getPath('userData'), "vi
 let downloading = false;
 let allowedVideos = store.get("allowedVideos");
 let previouslyPlayed = [];
+const monitorPlayback = new Map();
 let currentlyPlaying = '';
 let preview = false;
 let suspend = false;
@@ -591,6 +592,7 @@ function setUpConfigFile() {
     settings.set('astronomy', settings.get('astronomy') ?? astronomy)
     //multiscreen settings
     settings.set('sameVideoOnScreens', settings.get('sameVideoOnScreens') ?? false);
+    settings.set('preventSameVideoOnScreens', settings.get('sameVideoOnScreens') ? false : (settings.get('preventSameVideoOnScreens') ?? true));
     settings.set('onlyShowVideoOnPrimaryMonitor', settings.get('onlyShowVideoOnPrimaryMonitor') ?? false);
     //cache settings
     settings.set('videoCache', settings.get('videoCache') ?? false);
@@ -853,18 +855,54 @@ ipcMain.handle('compatibleVideo', async (event, id) => {
 });
 
 ipcMain.handle('newVideoId', (event, lastPlayed) => {
+    const requestedId = typeof lastPlayed === 'object' && lastPlayed ? lastPlayed.requestedId : null;
+    lastPlayed = typeof lastPlayed === 'object' && lastPlayed ? lastPlayed.lastPlayed : lastPlayed;
     if (currentlyPlaying === '') {
         onFirstVideoPlayed();
     }
 
     const snapshot = store.store;
+    const senderId = event.sender.id;
+    if (!monitorPlayback.has(senderId)) {
+        monitorPlayback.set(senderId, {playing: [], pending: null});
+        event.sender.once('destroyed', () => monitorPlayback.delete(senderId));
+    }
+    const playback = monitorPlayback.get(senderId);
+    if (lastPlayed && !playback.playing.length) {
+        playback.playing = [lastPlayed];
+    }
     const settings = {get: key => snapshot[key]};
     const customById = new Map((snapshot.customVideos || []).map(video => [video.id, video]));
     let candidates = (settings.get('allowedVideos') || []).filter(id => {
         const video = videosById.get(id);
         return video ? getVideoSources(video, settings).length > 0 : customById.has(id);
     });
-    // Immediate repeats are allowed only when no other selected, playable video exists.
+    const strict = settings.get('preventSameVideoOnScreens') && !settings.get('sameVideoOnScreens');
+    const scarce = new Set(candidates).size < screen.getAllDisplays().length;
+    if ((strict || settings.get('avoidDuplicateVideos')) && !settings.get('sameVideoOnScreens')) {
+        const occupied = new Set();
+        for (const [id, state] of monitorPlayback) {
+            if (id !== senderId) {
+                state.playing.forEach(videoId => occupied.add(videoId));
+                if (state.pending) {
+                    occupied.add(state.pending);
+                }
+            }
+        }
+        const available = candidates.filter(id => !occupied.has(id));
+        if (available.length || (strict && !scarce)) {
+            candidates = available;
+        }
+    }
+    if (!candidates.length) {
+        throw new Error('No selected videos are currently available for this monitor');
+    }
+    // Explicit history navigation and recovery still reserve and validate the video.
+    if (requestedId && candidates.includes(requestedId)) {
+        playback.pending = requestedId;
+        return requestedId;
+    }
+    // Cross-monitor uniqueness takes priority when only this monitor's video is free.
     const alternatives = candidates.filter(id => id !== lastPlayed);
     if (alternatives.length) {
         candidates = alternatives;
@@ -880,25 +918,40 @@ ipcMain.handle('newVideoId', (event, lastPlayed) => {
         throw new Error('No selected videos match playback settings');
     }
     if (settings.get('sameVideoOnScreens') && currentlyPlaying !== lastPlayed && candidates.includes(currentlyPlaying)) {
+        playback.pending = currentlyPlaying;
         return currentlyPlaying;
     }
     function newId() {
         let choices = candidates;
-        if (settings.get('avoidDuplicateVideos') && candidates.length > 6) {
-            const fresh = candidates.filter(id => !previouslyPlayed.includes(id));
+        if (settings.get('avoidDuplicateVideos')) {
+            const fresh = choices.filter(id => !previouslyPlayed.includes(id));
             if (fresh.length) {
                 choices = fresh;
+            } else {
+                // Relax history oldest first, retaining active-video exclusions.
+                const oldest = Math.min(...choices.map(id => previouslyPlayed.lastIndexOf(id)));
+                choices = choices.filter(id => previouslyPlayed.lastIndexOf(id) === oldest);
             }
         }
         const id = choices[randomInt(0, choices.length)];
         previouslyPlayed.push(id);
-        previouslyPlayed = previouslyPlayed.slice(-Math.max(1, Math.floor(candidates.length * 0.3)));
+        previouslyPlayed = previouslyPlayed.slice(-Math.max(2, screen.getAllDisplays().length * 2));
+        playback.pending = id;
         return id;
     }
 
     currentlyPlaying = newId();
     return currentlyPlaying;
 })
+
+ipcMain.on('videoPlaybackState', (event, state) => {
+    const playback = monitorPlayback.get(event.sender.id);
+    if (!playback || !state || !Array.isArray(state.playing)) {
+        return;
+    }
+    playback.playing = state.playing.filter(id => typeof id === 'string' && id.length > 0).slice(0, 2);
+    playback.pending = typeof state.pending === 'string' ? state.pending : null;
+});
 
 ipcMain.on('newGlobalShortcut', (event) => {
     setupGlobalShortcut();
@@ -1196,6 +1249,7 @@ function quitApp() {
 }
 
 function closeAllWindows() {
+    monitorPlayback.clear();
     clearScreensaverTimers();
     lockRequested = false;
     for (let i = 0; i < screens.length; i++) {

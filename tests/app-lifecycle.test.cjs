@@ -67,7 +67,7 @@ for (const outcome of ['load failure', 'renderer crash', 'timeout', 'ready', 'cl
 function section(start, end, globals) {
     const first = source.indexOf(start);
     assert.ok(first >= 0 && source.indexOf(end, first) > first);
-    const context = vm.createContext(globals);
+    const context = vm.createContext({monitorPlayback: new Map(), ...globals});
     vm.runInContext(source.slice(first, source.indexOf(end, first)), context);
     return context;
 }
@@ -332,10 +332,24 @@ test('settings migration preserves explicit choices, fills defaults and upgrades
     assert.equal(saved.preventActivationDuringFullscreen, true);
     assert.equal(saved.sleepAfterBlankDelay, 0);
     assert.equal(saved.configured, true);
+    assert.equal(saved.preventSameVideoOnScreens, true);
     assert.equal(saved.version, 'new');
     assert.equal(saved.displayText.positionList.length, 10);
     assert.equal(saved.displayText.topleft.length, 4);
 });
+
+for (const initial of [{}, {preventSameVideoOnScreens: false}, {sameVideoOnScreens: true}, {sameVideoOnScreens: true, preventSameVideoOnScreens: true}]) {
+    test(`multiscreen settings default and migrate without contradictory options: ${JSON.stringify(initial)}`, () => {
+        let saved;
+        const context = section('function setUpConfigFile()', '//setUpConfigFile();', {
+            store: {get store() { return {...initial}; }, set: value => { saved = value; }},
+            videos: [], astronomy: {}, cachePath: 'cache', app: {getVersion: () => 'test'}, updateVideoCache() {}
+        });
+        context.setUpConfigFile();
+        assert.equal(saved.preventSameVideoOnScreens, initial.sameVideoOnScreens ? false : (initial.preventSameVideoOnScreens ?? true));
+        assert.equal(saved.sameVideoOnScreens, initial.sameVideoOnScreens ?? false);
+    });
+}
 
 test('default text positions and their lines can be edited independently', () => {
     let saved;

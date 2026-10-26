@@ -72,6 +72,13 @@ test('preload reads and edits central settings through IPC without a disk store'
     assert.ok(f.calls.some(call => call[1] === 'settings-write'));
 });
 
+test('preload forwards monitor playback state to the main process', () => {
+    const f = bridge();
+    const state = {playing: ['old', 'new'], pending: 'next'};
+    f.api.ipcRenderer.send('videoPlaybackState', state);
+    assert.deepEqual(f.calls, [['send', 'videoPlaybackState', state]]);
+});
+
 test('preload forwards approved IPC and strips privileged events before callbacks', async () => {
     const f = bridge();
     f.api.ipcRenderer.send('keyPress', 'Escape');

@@ -5,7 +5,7 @@ const path = require('node:path');
 const vm = require('node:vm');
 
 function renderer(type = 'dissolve', direction = 'left', easierTransitions, overrides = {}) {
-    const control = {holdLoads: false, pendingLoads: [], selections: 0, failures: [], statuses: [], htmlWrites: []};
+    const control = {holdLoads: false, pendingLoads: [], selections: 0, failures: [], statuses: [], htmlWrites: [], messages: []};
     const players = [0, 1].map(() => ({
         style: {}, paused: true, currentTime: 0, duration: 60, playbackRate: 1, readyState: 4,
         listeners: {}, quality: {totalVideoFrames: 0, droppedVideoFrames: 0},
@@ -58,7 +58,9 @@ function renderer(type = 'dissolve', direction = 'left', easierTransitions, over
         document: {body: {style: {}}, getElementById: id => id === 'video' ? players[0] : id === 'video2' ? players[1] : id === 'textDisplayArea' ? textOverlay : {style: {}}, addEventListener() {}},
         $: selector => ({...chain, html(value) { control.htmlWrites.push({selector, value}); return chain; }}),
         electron: {videos: [{id: 'sample'}], store: {get: key => settings[key]},
-            ipcRenderer: {invoke: async () => { control.selections++; return 'sample'; }, send() {}, on: (name, callback) => { events[name] = callback; }}},
+            ipcRenderer: {invoke: async () => { control.selections++; return 'sample'; },
+                send(channel, data) { control.messages.push({channel, data}); },
+                on: (name, callback) => { events[name] = callback; }}},
         videoPlayback: {cancel() {}, bufferedAhead: player => player.bufferedSeconds ?? 60,
             release(player) { player.pause(); player.src = ''; player.playbackSource = null; },
             markFailed(id, source) { control.failures.push({id, source}); },
@@ -103,6 +105,25 @@ async function flush() {
         await Promise.resolve();
     }
 }
+
+test('renderer reports transition occupancy and releases it only after blanking finishes', async () => {
+    const result = renderer('dissolve');
+    await flush();
+    let messages = result.control.messages.filter(message => message.channel === 'videoPlaybackState');
+    assert.deepEqual(Array.from(messages.at(-1).data.playing), ['', 'sample']);
+    assert.equal(messages.at(-1).data.pending, 'sample');
+    await result.tick(2000);
+    messages = result.control.messages.filter(message => message.channel === 'videoPlaybackState');
+    assert.deepEqual(Array.from(messages.at(-1).data.playing), ['sample']);
+    assert.equal(messages.at(-1).data.pending, null);
+    result.events.blankTheScreen();
+    await result.tick(3999);
+    messages = result.control.messages.filter(message => message.channel === 'videoPlaybackState');
+    assert.deepEqual(Array.from(messages.at(-1).data.playing), ['sample']);
+    await result.tick(4000);
+    messages = result.control.messages.filter(message => message.channel === 'videoPlaybackState');
+    assert.deepEqual(Array.from(messages.at(-1).data.playing), []);
+});
 
 test('screensaver markup allows the desktop to show through at startup', () => {
     const html = fs.readFileSync(path.join(__dirname, '../web/screensaver.html'), 'utf8');
@@ -203,7 +224,7 @@ test('previous video ignores preloads and keeps history local to each screen', a
     assert.equal(first.control.selections, 3);
     first.events.previousVideo();
     await flush();
-    assert.equal(first.control.selections, 3);
+    assert.equal(first.control.selections, 4);
     assert.equal(vm.runInContext('historyIndex', first.context), 0);
     assert.equal(vm.runInContext('videoHistory.length', first.context), 2);
     assert.equal(vm.runInContext('videoHistory.length', second.context), 1);
@@ -219,7 +240,7 @@ test('forward after back replays history before selecting another video', async 
     vm.runInContext(`
         videosById.set('second', {id: 'second'});
         videosById.set('third', {id: 'third'});
-        electron.ipcRenderer.invoke = async () => 'second';
+        electron.ipcRenderer.invoke = async (channel, request) => request.requestedId || 'second';
     `, result.context);
     result.events.newVideo();
     await flush();
@@ -228,7 +249,7 @@ test('forward after back replays history before selecting another video', async 
     await flush();
     assert.equal(vm.runInContext('currentlyPlaying', result.context), 'sample');
     vm.runInContext(`
-        electron.ipcRenderer.invoke = async () => 'third';
+        electron.ipcRenderer.invoke = async (channel, request) => request.requestedId || 'third';
         prepareNext();
     `, result.context);
     await flush();
@@ -241,6 +262,28 @@ test('forward after back replays history before selecting another video', async 
     await flush();
     assert.equal(vm.runInContext('currentlyPlaying', result.context), 'third');
     assert.equal(vm.runInContext('videoHistory.length', result.context), 3);
+});
+
+test('occupied history videos are replaced by the main-process selection', async () => {
+    const result = renderer('none');
+    await flush();
+    vm.runInContext(`
+        videosById.set('second', {id: 'second'});
+        videosById.set('third', {id: 'third'});
+        electron.ipcRenderer.invoke = async () => 'second';
+    `, result.context);
+    result.events.newVideo();
+    await flush();
+    let request;
+    result.context.electron.ipcRenderer.invoke = async (channel, value) => {
+        request = value;
+        return 'third';
+    };
+    result.events.previousVideo();
+    await flush();
+    assert.equal(request.requestedId, 'sample');
+    assert.equal(vm.runInContext('currentlyPlaying', result.context), 'third');
+    assert.equal(vm.runInContext('videoHistory[historyIndex]', result.context), 'third');
 });
 
 for (const type of ['dissolve', 'dipToBlack', 'fade', 'wipe', 'circle', 'fadeCircle']) {

@@ -70,6 +70,9 @@ function discardPreparation() {
         preparation.cancelled = true;
         videoPlayback.release(containers[preparation.target]);
         preparation = null;
+        if (!blackScreen) {
+            electron.ipcRenderer.send('videoPlaybackState', {playing: [currentlyPlaying], pending: null});
+        }
     }
 }
 
@@ -83,8 +86,9 @@ function prepareNext(id = null, skipSources = []) {
     player.style.visibility = 'hidden';
     resetLayer(player);
     job.promise = (async () => {
-        job.id = id || videoHistory[historyIndex + 1]
-            || await electron.ipcRenderer.invoke('newVideoId', currentlyPlaying);
+        const requestedId = id || videoHistory[historyIndex + 1];
+        job.id = await electron.ipcRenderer.invoke('newVideoId', requestedId
+            ? {lastPlayed: currentlyPlaying, requestedId} : currentlyPlaying);
         if (job.cancelled || blackScreen) {
             throw new Error('Playback cancelled');
         }
@@ -372,9 +376,18 @@ async function newVideo(recover = false, navigationIndex = null) {
             return;
         }
         loaded = true;
+        if (recover && id !== currentlyPlaying) {
+            recover = false;
+        }
+        if (navigationIndex !== null && id !== forcedId) {
+            navigationIndex = null;
+        }
+        const outgoingId = currentlyPlaying;
         currentlyPlaying = id;
+        electron.ipcRenderer.send('videoPlaybackState', {playing: [outgoingId, id], pending: id});
         await transitionTo(job.target, token);
         if (token === generation) {
+            electron.ipcRenderer.send('videoPlaybackState', {playing: [id], pending: null});
             if (navigationIndex !== null) {
                 historyIndex = navigationIndex;
             } else if (!recover) {
@@ -789,6 +802,7 @@ electron.ipcRenderer.on('previousVideo', () => {
 });
 electron.ipcRenderer.on('blankTheScreen', () => {
     blackScreen = true;
+    setTimeout(() => electron.ipcRenderer.send('videoPlaybackState', {playing: [], pending: null}), duration);
     document.body.style.backgroundColor = 'black';
     generation++;
     stopFrameSample();
