@@ -14,14 +14,13 @@ Aerial is a Windows screen saver that mimics Apple's  Apple TV screen saver. It 
 
 > Mac user? Try [Aerial for macOS](https://github.com/AerialScreensaver/Aerial). Linux user? Try [graysky2/xscreensaver-aerial](https://github.com/graysky2/xscreensaver-aerial/).
 
-## Installing
 <p align="center">
     <a href="https://github.com/OrangeJedi/Aerial/releases/latest/download/Aerial-Setup.exe">
         <img alt="Download now" src="https://img.shields.io/badge/Download%20now-2ea44f?style=for-the-badge" />
     </a>
 </p>
 
-> [View all releases](https://github.com/OrangeJedi/Aerial/releases)
+##### [View all releases](https://github.com/OrangeJedi/Aerial/releases)
 
 Be sure to configure your system's screen and sleep settings accordingly and to disable any other screensavers.
 
