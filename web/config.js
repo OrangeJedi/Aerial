@@ -27,7 +27,7 @@ function displaySettings() {
     for (let i = 0; i < numeralText.length; i++) {
         $(`#${numeralText[i].id}`).text(numeral(electron.store.get(numeralText[i].id)).format(numeralText[i].format));
     }
-    let staticText = ["version", "updateAvailable"];
+    let staticText = ["version"];
     for (let i = 0; i < staticText.length; i++) {
         $(`#${staticText[i]}`).text(electron.store.get(staticText[i]));
     }
@@ -36,14 +36,29 @@ function displaySettings() {
     colorTextPositionRadio();
     updateSettingVisibility();
 
-    displayAvailableUpdate();
+    electron.ipcRenderer.invoke('getUpdateStatus').then(displayAvailableUpdate)
+        .catch(() => displayAvailableUpdate({status: 'error'}));
 }
 
-function displayAvailableUpdate() {
-    const display = electron.store.get('updateAvailable') ? '' : 'none';
-    document.getElementById('aboutUpdate').style.display = display;
-    document.getElementById('updateBadge').style.display = display;
+function displayAvailableUpdate(state) {
+    const messages = {
+        idle: 'Updates download automatically in the background.',
+        unsupported: 'Automatic updates are available in installed copies of Aerial.',
+        checking: 'Checking for updates…',
+        current: 'Aerial is up to date.',
+        downloading: `Downloading Aerial ${state.version}… ${state.percent || 0}%`,
+        ready: `Aerial ${state.version} is ready. Restart to install the update.`,
+        installing: 'Restarting Aerial to install the update…',
+        error: 'Aerial could not update automatically. You can update manually from GitHub.'
+    };
+    document.getElementById('updateStatusText').textContent = messages[state.status] || messages.idle;
+    document.getElementById('updateBadge').style.display = ['downloading', 'ready', 'error'].includes(state.status) ? '' : 'none';
+    document.getElementById('restartForUpdate').style.display = state.status === 'ready' ? '' : 'none';
+    document.getElementById('manualUpdate').style.display = state.status === 'error' ? '' : 'none';
+    document.getElementById('checkForUpdates').style.display = ['idle', 'current', 'error'].includes(state.status) ? '' : 'none';
 }
+
+electron.ipcRenderer.on('updateStatus', displayAvailableUpdate);
 
 displaySettings();
 

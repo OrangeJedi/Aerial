@@ -392,14 +392,14 @@
                     </p>
                     <hr>
                     Version: <span id="version"></span>
-                    <div id="aboutUpdate" style="display: none">
-                        <br>
-                        <div class="w3-panel w3-pale-green" style="padding-bottom: 2%">
-                            <h4>A new version of Aerial is available!</h4>
-                            <a href="https://github.com/OrangeJedi/Aerial/releases" target="_blank">Click here</a>
-                            to
-                            download version v<span id="updateAvailable"></span>
-                        </div>
+                    <div id="aboutUpdate" class="w3-panel w3-light-grey" style="padding: 16px">
+                        <p id="updateStatusText" role="status" aria-live="polite">Checking for updates…</p>
+                        <button id="restartForUpdate" class="w3-button w3-green" style="display: none"
+                                onclick="electron.ipcRenderer.send('restartForUpdate')">Restart Aerial to update</button>
+                        <button id="checkForUpdates" class="w3-button w3-white" style="display: none"
+                                onclick="electron.ipcRenderer.send('checkForUpdates')">Check for updates</button>
+                        <a id="manualUpdate" href="https://github.com/OrangeJedi/Aerial/releases"
+                           target="_blank" style="display: none">Download the latest version from GitHub</a>
                     </div>
                 </div>
             </div>

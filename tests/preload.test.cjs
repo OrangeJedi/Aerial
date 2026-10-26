@@ -86,6 +86,21 @@ test('preload forwards approved IPC and strips privileged events before callback
     assert.deepEqual(f.calls.slice(0, 2), [['send', 'keyPress', 'Escape'], ['invoke', 'newVideoId', 'old']]);
 });
 
+test('update IPC exposes status and restart commands without forwarding privileged events', async () => {
+    const f = bridge();
+    f.api.ipcRenderer.send('restartForUpdate');
+    f.api.ipcRenderer.send('checkForUpdates');
+    assert.equal(await f.api.ipcRenderer.invoke('getUpdateStatus'), 'reply');
+    let received;
+    f.api.ipcRenderer.on('updateStatus', state => { received = state; });
+    f.listeners.get('updateStatus')({sender: 'privileged'}, {status: 'ready', version: '1.4.0'});
+    assert.deepEqual(received, {status: 'ready', version: '1.4.0'});
+    assert.deepEqual(f.calls.slice(0, 3), [
+        ['send', 'restartForUpdate', undefined], ['send', 'checkForUpdates', undefined],
+        ['invoke', 'getUpdateStatus', undefined]
+    ]);
+});
+
 test('converted playback requires enabled preparation and an existing output', () => {
     const f = bridge();
     assert.match(f.api.convertedVideo({id: 'a'}), /^file:.*a\.mp4$/);

@@ -83,7 +83,6 @@ app.on('before-quit', event => {
         app.quit();
     });
 });
-const semver = require('semver');
 const {downloadFile} = require('./download');
 const fs = require('fs');
 const path = require("path");
@@ -526,7 +525,7 @@ function setUpConfigFile() {
     settings.set('lockAfterRunAfter', settings.get('lockAfterRunAfter') ?? 15);
     settings.set('runOnBattery', settings.get('runOnBattery') ?? true);
     settings.set('preventActivationDuringFullscreen', settings.get('preventActivationDuringFullscreen') ?? true);
-    settings.set('updateAvailable', false);
+    delete snapshot.updateAvailable;
     settings.set('enableGlobalShortcut', settings.get('enableGlobalShortcut') ?? true);
     settings.set('globalShortcutModifier1', settings.get('globalShortcutModifier1') ?? "Super");
     settings.set('globalShortcutModifier2', settings.get('globalShortcutModifier2') ?? "+Control");
@@ -634,47 +633,58 @@ function setUpConfigFile() {
 
 //setUpConfigFile();
 
-function availableUpdate(release) {
-    if (!release || release.draft || release.prerelease) {
-        return false;
-    }
-    const latest = typeof release.tag_name === 'string' && semver.clean(release.tag_name);
-    const current = semver.clean(app.getVersion());
-    return latest && current && !semver.prerelease(latest) && semver.gt(latest, current) ? latest : false;
-}
-
-function setAvailableUpdate(version) {
-    store.set('updateAvailable', version);
-    if (configWindow && !configWindow.isDestroyed()) {
-        configWindow.webContents.send('displaySettings');
-    }
-}
-
-async function checkForUpdate() {
-    setAvailableUpdate(false);
-    if (!app.isPackaged) {
-        return;
-    }
-    try {
-        const response = await fetch('https://api.github.com/repos/OrangeJedi/Aerial/releases/latest', {
-            headers: {'User-Agent': 'Aerial', 'Accept': 'application/vnd.github+json'},
-            signal: AbortSignal.timeout(10000)
+let applicationUpdater;
+function checkForUpdate() {
+    if (!applicationUpdater) {
+        if (app.isPackaged) {
+            app.setAppUserModelId('com.electron.aerial');
+        }
+        applicationUpdater = require('./updates').createAppUpdater({
+            updater: require('electron-updater').autoUpdater,
+            app,
+            Notification,
+            cancelInstall: () => { settingsQuitReady = false; },
+            openExternal: url => shell.openExternal(url),
+            onState: state => {
+                if (configWindow && !configWindow.isDestroyed()) {
+                    configWindow.webContents.send('updateStatus', state);
+                }
+            },
+            beforeInstall: async () => {
+                let timeout;
+                try {
+                    const saved = await Promise.race([
+                        store.flush(),
+                        new Promise(resolve => { timeout = setTimeout(() => resolve(false), 3000); })
+                    ]);
+                    if (!saved) {
+                        throw new Error('Settings could not be saved before updating.');
+                    }
+                    // The updater starts the installer before quitting. Flush first and
+                    // let its quit proceed without the normal asynchronous quit guard.
+                    settingsQuitReady = true;
+                } finally {
+                    clearTimeout(timeout);
+                }
+            }
         });
-        if (!response.ok) {
-            throw new Error('Update check returned HTTP ' + response.status);
-        }
-        const version = availableUpdate(await response.json());
-        setAvailableUpdate(version);
-        if (version) {
-            new Notification({
-                title: "An update for Aerial is available",
-                body: 'Version ' + version + ' is available for download. Visit https://github.com/OrangeJedi/Aerial/releases to update Aerial.'
-            }).show();
-        }
-    } catch (error) {
-        console.log('Error checking for updates: ', error);
+        const timer = setInterval(() => applicationUpdater.check(), 6 * 60 * 60 * 1000);
+        timer.unref();
     }
+    return applicationUpdater.check();
 }
+
+ipcMain.handle('getUpdateStatus', () => applicationUpdater?.getState() || {status: 'idle'});
+ipcMain.on('checkForUpdates', event => {
+    if (configWindow && event.sender === configWindow.webContents) {
+        checkForUpdate();
+    }
+});
+ipcMain.on('restartForUpdate', event => {
+    if (configWindow && event.sender === configWindow.webContents) {
+        applicationUpdater?.restart();
+    }
+});
 
 //events from browser windows
 ipcMain.on('quitApp', (event, arg) => {

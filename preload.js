@@ -94,13 +94,13 @@ module.exports = function initializePreload() {
             ipcRenderer: {
                 send: (channel, data) => {
                     // whitelist channels
-                    let validChannels = ["quitApp", "keyPress", "updateCache", "deleteCache", "openCache", "selectCustomLocation", "selectCacheLocation", "refreshCache", "openPreview", "refreshConfig", "resetConfig", "updateLocation", "openConfigFolder", "selectFile", "openInfoEditor", "newGlobalShortcut", "consoleLog"];
+                    let validChannels = ["restartForUpdate", "checkForUpdates", "quitApp", "keyPress", "updateCache", "deleteCache", "openCache", "selectCustomLocation", "selectCacheLocation", "refreshCache", "openPreview", "refreshConfig", "resetConfig", "updateLocation", "openConfigFolder", "selectFile", "openInfoEditor", "newGlobalShortcut", "consoleLog"];
                     if (validChannels.includes(channel)) {
                         ipcRenderer.send(channel, data);
                     }
                 },
                 on: (channel, func) => {
-                    let validChannels = ["displaySettings", "newCustomVideos", "newVideo", "previousVideo", "blankTheScreen", "showWelcome", "updateAttribute", "screenNumber"];
+                    let validChannels = ["updateStatus", "displaySettings", "newCustomVideos", "newVideo", "previousVideo", "blankTheScreen", "showWelcome", "updateAttribute", "screenNumber"];
                     if (validChannels.includes(channel)) {
                         // Deliberately strip event as it includes `sender`
                         ipcRenderer.on(channel, (event, ...args) => {
@@ -111,7 +111,7 @@ module.exports = function initializePreload() {
                 },
                 // From render to main and back again.
                 invoke: (channel, args) => {
-                    let validChannels = ["newVideoId", "compatibleVideo"];
+                    let validChannels = ["getUpdateStatus", "newVideoId", "compatibleVideo"];
                     if (validChannels.includes(channel)) {
                         return ipcRenderer.invoke(channel, args);
                     }
