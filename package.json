@@ -1,6 +1,6 @@
 {
   "name": "aerial",
-  "version": "1.4.1",
+  "version": "1.4.2",
   "description": "Apple TV screen saver for Windows",
   "main": "app.js",
   "engines": {
@@ -16,14 +16,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/OrangeJedi/Aerial.git"
+    "url": "git+https://github.com/AerialWindows/Aerial.git"
   },
-  "author": "OrangeJedi",
+  "author": "AerialWindows",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/OrangeJedi/Aerial/issues"
+    "url": "https://github.com/AerialWindows/Aerial/issues"
   },
-  "homepage": "https://github.com/OrangeJedi/Aerial#readme",
+  "homepage": "https://github.com/AerialWindows/Aerial#readme",
   "devDependencies": {
     "electron": "^45.0.0",
     "electron-builder": "^26.15.3"
@@ -73,7 +73,7 @@
     "publish": [
       {
         "provider": "github",
-        "owner": "OrangeJedi",
+        "owner": "AerialWindows",
         "repo": "Aerial"
       }
     ]

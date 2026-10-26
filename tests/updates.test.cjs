@@ -115,7 +115,7 @@ for (const failure of ['check', 'download', 'flush', 'install']) {
         }
         assert.deepEqual(f.controller.getState(), {status: 'error'});
         f.notifications.at(-1).emit('click');
-        assert.deepEqual(f.opened, ['https://github.com/OrangeJedi/Aerial/releases']);
+        assert.deepEqual(f.opened, ['https://github.com/AerialWindows/Aerial/releases']);
         if (failure === 'check') {
             assert.equal(f.notifications.length, 1);
         }
