@@ -1,4 +1,4 @@
-const RELEASES_URL = 'https://github.com/OrangeJedi/Aerial/releases';
+const RELEASES_URL = 'https://github.com/AerialWindows/Aerial/releases';
 
 function createAppUpdater({updater, app, Notification, onState, beforeInstall, cancelInstall = () => {}, openExternal, logger = console}) {
     let state = {status: app.isPackaged ? 'idle' : 'unsupported'};

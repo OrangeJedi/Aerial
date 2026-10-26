@@ -3,9 +3,9 @@
 </p>
 <p align="center">
     <img alt="" src="https://img.shields.io/badge/platform-Windows-blue?style=flat-square" />
-    <img alt="" src="https://img.shields.io/github/last-commit/OrangeJedi/Aerial?style=flat-square" />
-    <img alt="" src="https://img.shields.io/github/v/release/OrangeJedi/Aerial?style=flat-square" />
-    <img alt="" src="https://img.shields.io/github/downloads/OrangeJedi/Aerial/total?style=flat-square" />
+    <img alt="" src="https://img.shields.io/github/last-commit/AerialWindows/Aerial?style=flat-square" />
+    <img alt="" src="https://img.shields.io/github/v/release/AerialWindows/Aerial?style=flat-square" />
+    <img alt="" src="https://img.shields.io/github/downloads/AerialWindows/Aerial/total?style=flat-square" />
 </p>
 
 # Aerial - Apple TV Screen Saver for Windows
@@ -13,12 +13,12 @@
 Aerial is a Windows screen saver that mimics Apple's Apple TV aerial screen saver. It plays the various videos Apple shot of cities, landscapes, underwater scenes, and the earth from the ISS.
 
 <p align="center">
-    <a href="https://github.com/OrangeJedi/Aerial/releases/latest/download/Aerial-Setup.exe">
+    <a href="https://github.com/AerialWindows/Aerial/releases/latest/download/Aerial-Setup.exe">
         <img alt="Download now" width="240" src="https://img.shields.io/badge/Download%20now-2ea44f?style=for-the-badge" />
     </a>
 </p>
 
-> Mac user? Try [Aerial for macOS](https://github.com/AerialScreensaver/Aerial). Linux user? Try [graysky2/xscreensaver-aerial](https://github.com/graysky2/xscreensaver-aerial/). Or [View all releases](https://github.com/OrangeJedi/Aerial/releases)
+> Mac user? Try [Aerial for macOS](https://github.com/AerialScreensaver/Aerial). Linux user? Try [graysky2/xscreensaver-aerial](https://github.com/graysky2/xscreensaver-aerial/). Or [View all releases](https://github.com/AerialWindows/Aerial/releases)
 
 Be sure to configure your system's screen and sleep settings accordingly and to disable any other screensavers.
 
@@ -31,7 +31,7 @@ You can also add your own custom videos.
 
 ![image](https://user-images.githubusercontent.com/25063853/224231865-f8716c9a-ff9a-4c2b-bf18-21dc1bd4d504.png)
 
-See the [full list of feature](https://github.com/OrangeJedi/Aerial/wiki/Features-&-To-Do-List) and the [version history](https://github.com/OrangeJedi/Aerial/wiki/Version-History) for detailed information.
+See the [full list of feature](https://github.com/AerialWindows/Aerial/wiki/Features-&-To-Do-List) and the [version history](https://github.com/AerialWindows/Aerial/wiki/Version-History) for detailed information.
 
 >[Complete list of available videos.](https://docs.google.com/spreadsheets/d/1bboTohF06r-fafrImTExAPqM9m6h2m2lgJyAkQuYVJI/edit#gid=1684411812)
 
@@ -39,14 +39,14 @@ See the [full list of feature](https://github.com/OrangeJedi/Aerial/wiki/Feature
 
 We are always looking for more help on this project! Some of our best features were suggested or added by the community, and we can only fix bugs if you report them. We appreciate new issues and pull requests.
 
-[Report a bug or suggest a feature](https://github.com/OrangeJedi/Aerial/issues/new/choose).
+[Report a bug or suggest a feature](https://github.com/AerialWindows/Aerial/issues/new/choose).
 
-Want to help write code? Check out our [guide to contributing](https://github.com/OrangeJedi/Aerial/wiki/Contributing-Guide). 
+Want to help write code? Check out our [guide to contributing](https://github.com/AerialWindows/Aerial/wiki/Contributing-Guide).
 It includes information on submitting ideas, how to set up Aerial's dev environment, using launch flags, and other developer information
 
 ## About
 Aerial is a [Node.JS](https://nodejs.org)/[Electron](https://www.electronjs.org/) based implementation of Apple's Apple TV screensaver for Windows inspired by [Mac Aerial Screen Saver](https://github.com/JohnCoates/Aerial) and [Aerial for Windows](https://github.com/cDima/Aerial).
 
-©2026 OrangeJedi & irampton
+©2026 AerialWindows
 
-Released under the [MIT License](https://github.com/OrangeJedi/Aerial/blob/master/LICENSE)
+Released under the [MIT License](https://github.com/AerialWindows/Aerial/blob/master/LICENSE)
