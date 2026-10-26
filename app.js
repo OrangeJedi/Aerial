@@ -616,12 +616,11 @@ function setUpConfigFile() {
         displayText = {
             'positionList': ["topleft", "topright", "bottomleft", "bottomright", "left", "right", "middle", "topmiddle", "bottommiddle", "random"]
         };
-        let temp = [];
-        for (let i = 0; i < 4; i++) {
-            temp.push({'type': "none", "defaultFont": true});
-        }
-        displayText.positionList.forEach((v) => {
-            displayText[v] = temp;
+        displayText.positionList.forEach((position) => {
+            displayText[position] = Array.from({length: 4}, () => ({
+                type: "none",
+                defaultFont: true
+            }));
         });
         settings.set('displayText', displayText);
     }

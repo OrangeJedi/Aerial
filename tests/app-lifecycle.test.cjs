@@ -337,6 +337,27 @@ test('settings migration preserves explicit choices, fills defaults and upgrades
     assert.equal(saved.displayText.topleft.length, 4);
 });
 
+test('default text positions and their lines can be edited independently', () => {
+    let saved;
+    const context = section('function setUpConfigFile()', '//setUpConfigFile();', {
+        store: {get store() { return {}; }, set: value => { saved = value; }},
+        videos: [], astronomy: {}, cachePath: 'cache', app: {getVersion: () => 'test'}, updateVideoCache() {}
+    });
+    context.setUpConfigFile();
+    const text = saved.displayText;
+    text.topleft[0].type = 'custom';
+    text.topleft[0].text = 'Top left only';
+    for (const position of text.positionList.filter(position => position !== 'topleft')) {
+        assert.equal(text[position][0].type, 'none', `${position} must remain independent`);
+        assert.equal(text[position][0].text, undefined);
+        text[position][0].type = 'none';
+        assert.equal(text.topleft[0].type, 'custom');
+    }
+    text.topleft[1].defaultFont = false;
+    assert.equal(text.topleft[0].defaultFont, true);
+    assert.equal(text.topleft[2].defaultFont, true);
+});
+
 for (const override of [{}, {screens: [{}]}, {suspend: true}, {isComputerSleeping: true},
     {isComputerSuspendedOrLocked: true}, {startAfter: 0}, {idle: 'active'}, {wake: false},
     {battery: true}, {battery: true, runOnBattery: true}]) {
