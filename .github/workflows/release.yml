@@ -1,0 +1,95 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - 'v*'
+      - '[0-9]*'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: release-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  release:
+    name: Build and publish Windows release
+    runs-on: windows-latest
+    timeout-minutes: 45
+    permissions:
+      contents: write
+    defaults:
+      run:
+        shell: pwsh
+    env:
+      RELEASE_TAG: ${{ github.ref_name }}
+      CSC_IDENTITY_AUTO_DISCOVERY: 'false'
+    steps:
+      - name: Check out tagged source
+        uses: actions/checkout@v6
+        with:
+          persist-credentials: false
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v6
+        with:
+          node-version: '22'
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Read version from tag
+        run: node .github/scripts/release-version.cjs
+
+      - name: Set application version
+        run: npm version "$env:RELEASE_VERSION" --no-git-tag-version --allow-same-version --ignore-scripts
+
+      - name: Run tests
+        run: npm test
+
+      - name: Build Windows installers
+        run: npm run dist -- --win --x64 --arm64 --publish never
+
+      - name: Publish release with generated PR notes
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+        run: |
+          $assets = @(Get-ChildItem dist -File | Where-Object {
+            $_.Extension -in '.exe', '.blockmap', '.yml'
+          } | ForEach-Object { $_.FullName })
+          if (-not ($assets | Where-Object { $_ -like '*.exe' })) {
+            throw 'No Windows installer was produced.'
+          }
+
+          $existing = gh release view "$env:RELEASE_TAG" --json isDraft 2>$null
+          if ($LASTEXITCODE -eq 0) {
+            if (-not ($existing | ConvertFrom-Json).isDraft) {
+              throw 'This tag already has a published release.'
+            }
+          } else {
+            $releaseArgs = @(
+              'release', 'create', $env:RELEASE_TAG,
+              '--verify-tag', '--draft', '--generate-notes',
+              '--title', $env:RELEASE_TAG
+            )
+            if ($env:RELEASE_PRERELEASE -eq 'true') {
+              $releaseArgs += '--prerelease'
+            }
+            gh @releaseArgs
+            if ($LASTEXITCODE -ne 0) {
+              throw 'Could not create the draft release.'
+            }
+          }
+
+          gh release upload "$env:RELEASE_TAG" @assets --clobber
+          if ($LASTEXITCODE -ne 0) {
+            throw 'Could not upload release assets; release remains a draft.'
+          }
+          gh release edit "$env:RELEASE_TAG" --draft=false
+          if ($LASTEXITCODE -ne 0) {
+            throw 'Could not publish the release.'
+          }
