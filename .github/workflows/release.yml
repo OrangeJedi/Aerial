@@ -59,10 +59,6 @@ jobs:
             throw 'The build did not produce latest.yml for automatic updates.'
           }
 
-      - name: Create stable installer download
-        run: |
-          Copy-Item -LiteralPath "dist/Aerial-Setup-$env:RELEASE_VERSION.exe" -Destination 'dist/Aerial-Setup.exe'
-
       - name: Publish release with generated PR notes
         env:
           GH_TOKEN: ${{ github.token }}
