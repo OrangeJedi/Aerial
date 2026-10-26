@@ -26,7 +26,7 @@
   "homepage": "https://github.com/AerialWindows/Aerial#readme",
   "devDependencies": {
     "electron": "^45.0.0",
-    "electron-builder": "^26.15.3"
+    "electron-builder": "26.15.6"
   },
   "dependencies": {
     "auto-launch": "^5.0.6",
