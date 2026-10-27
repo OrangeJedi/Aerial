@@ -23,7 +23,7 @@ function renderer(type = 'dissolve', direction = 'left', easierTransitions, over
     const textOverlay = {style: {opacity: '0'}};
     let sequence = 0;
     let now = 0;
-    const chain = {css() { return chain; }, text(value) { control.statuses.push(value); return chain; }, html() { return chain; }};
+    const chain = {css() { return chain; }, attr() { return chain; }, text(value) { control.statuses.push(value); return chain; }, html() { return chain; }};
     function schedule(callback, delay, ...args) {
         const id = ++sequence;
         timers.set(id, {callback: () => callback(...args), delay, due: now + Math.max(0, delay)});
@@ -57,7 +57,7 @@ function renderer(type = 'dissolve', direction = 'left', easierTransitions, over
         cancelAnimationFrame(id) { frames.delete(id); },
         document: {body: {style: {}}, getElementById: id => id === 'video' ? players[0] : id === 'video2' ? players[1] : id === 'textDisplayArea' ? textOverlay : {style: {}}, addEventListener() {}},
         $: selector => ({...chain, html(value) { control.htmlWrites.push({selector, value}); return chain; }}),
-        electron: {videos: [{id: 'sample'}], store: {get: key => settings[key]},
+        electron: {videoText: video => video, videos: [{id: 'sample'}], store: {get: key => settings[key]},
             ipcRenderer: {invoke: async () => { control.selections++; return 'sample'; },
                 send(channel, data) { control.messages.push({channel, data}); },
                 on: (name, callback) => { events[name] = callback; }}},
@@ -105,6 +105,22 @@ async function flush() {
         await Promise.resolve();
     }
 }
+
+test('information overlays and caption timers use localized video text', async () => {
+    const result = renderer('none', 'left', false, {displayText: {
+        positionList: ['bottomLeft'], bottomLeft: [
+            {type: 'information', infoType: 'name'},
+            {type: 'information', infoType: 'poi'}
+        ], random: []
+    }});
+    result.context.electron.videoText = () => ({name: 'Localized title', pointsOfInterest: {'0': 'First caption', '5': 'Second caption'}});
+    await flush();
+    result.context.drawDynamicText();
+    assert.ok(result.control.statuses.includes('Localized title'));
+    assert.ok(result.control.statuses.includes('First caption'));
+    await result.tick(5000);
+    assert.ok(result.control.statuses.includes('Second caption'));
+});
 
 test('renderer reports transition occupancy and releases it only after blanking finishes', async () => {
     const result = renderer('dissolve');

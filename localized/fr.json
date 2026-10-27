@@ -1,0 +1,1283 @@
+{
+  "B876B645-3955-420E-99DF-60139E451CF3": {
+    "name": "Montagnes de Chine",
+    "group": "Chine",
+    "pointsOfInterest": {
+      "0": "Traversée du parc national de Wulingyuan en Chine"
+    }
+  },
+  "9CCB8297-E9F5-4699-AE1F-890CFBD5E29C": {
+    "name": "Rizière chinoise",
+    "group": "Chine",
+    "pointsOfInterest": {
+      "0": "Passage au-dessus des rizières de Longji dans la province de Guangxi, Chine"
+    }
+  },
+  "D5E76230-81A3-4F65-A1BA-51B8CADED625": {
+    "name": "Falaises de Chine",
+    "group": "Chine",
+    "pointsOfInterest": {
+      "0": "Exploration du parc national de Wulingyuan en Chine"
+    }
+  },
+  "22162A9B-DB90-4517-867C-C676BC3E8E95": {
+    "name": "Grande Muraille de Chine",
+    "group": "Chine",
+    "pointsOfInterest": {
+      "0": "La section Mutianyu de la Grande Muraille dans le district de Huairou, Chine"
+    }
+  },
+  "044AD56C-A107-41B2-90CC-E60CCACFBCF5": {
+    "name": "Contours de la Chine",
+    "group": "Chine",
+    "pointsOfInterest": {
+      "0": "La section Mutianyu de la Grande Muraille dans le district de Huairou, Chine"
+    }
+  },
+  "F0236EC5-EE72-4058-A6CE-1F7D2E8253BF": {
+    "name": "Grande Muraille de Chine de jour",
+    "group": "Chine",
+    "pointsOfInterest": {
+      "0": "La section Mutianyu de la Grande Muraille dans le district de Huairou, Chine"
+    }
+  },
+  "876D51F4-3D78-4221-8AD2-F9E78C0FD9B9": {
+    "name": "Survol de Dubaï",
+    "group": "Dubaï",
+    "pointsOfInterest": {
+      "0": "Sur la Sheikh Zayed Road à Dubaï, Émirats arabes unis"
+    }
+  },
+  "E991AC0C-F272-44D8-88F3-05F44EDFE3AE": {
+    "name": "Port du Khor Dubaï",
+    "group": "Dubaï",
+    "pointsOfInterest": {
+      "0": "Survol de Dubai Marina aux Émirats arabes unis"
+    }
+  },
+  "9680B8EB-CE2A-4395-AF41-402801F4D6A6": {
+    "name": "Dubaï (nuit)",
+    "group": "Dubaï",
+    "pointsOfInterest": {
+      "0": "À l’approche du Burj Khalifa à Downtown Dubai, Émirats arabes unis",
+      "280": "Passage à côté du Burj Khalifa à Downtown Dubai, Émirats arabes unis",
+      "330": "Au-dessus de Downtown Dubai à l’approche de la côte"
+    }
+  },
+  "00BA71CD-2C54-415A-A68A-8358E677D750": {
+    "name": "Skyline de Dubaï",
+    "group": "Dubaï",
+    "pointsOfInterest": {
+      "0": "À l’approche de Downtown Dubai aux Émirats arabes unis",
+      "210": "En direction de Downtown Dubai aux Émirats arabes unis"
+    }
+  },
+  "3FFA2A97-7D28-49EA-AA39-5BC9051B2745": {
+    "name": "Khor Dubaï",
+    "group": "Dubaï",
+    "pointsOfInterest": {
+      "0": "Survol le long de Dubai Marina aux Émirats arabes unis"
+    }
+  },
+  "E334A6D2-7145-47C8-9B00-C20DED08B2D5": {
+    "name": "Grand Canyon (soir)",
+    "group": "Grand Canyon",
+    "pointsOfInterest": {
+      "0": "Sur le fleuve Colorado à travers le Grand Canyon, aux États-Unis"
+    }
+  },
+  "DD266E1F-5DF2-4CDB-A2EB-26CE35664657": {
+    "name": "Survol du Grand Canyon",
+    "group": "Grand Canyon",
+    "pointsOfInterest": {
+      "0": "Survol de la zone du Burnt Canyon du Grand Canyon, aux États-Unis"
+    }
+  },
+  "F9F918CD-E15F-4F01-A326-84A44650C5C9": {
+    "name": "Grand Canyon (coucher de soleil)",
+    "group": "Grand Canyon",
+    "pointsOfInterest": {
+      "0": "En voyage au-dessus du Grand Canyon\naux États-Unis"
+    }
+  },
+  "AE0115AE-C53B-4DB9-B12F-CA4B7B630CC9": {
+    "name": "Géologie du Grand Canyon",
+    "group": "Grand Canyon",
+    "pointsOfInterest": {
+      "0": "Traversée du Grand Canyon\naux États-Unis"
+    }
+  },
+  "8002C4C8-C611-4894-A068-3D3A3C03472A": {
+    "name": "Vallée fluviale du Grand Canyon",
+    "group": "Grand Canyon",
+    "pointsOfInterest": {
+      "0": "Le long du fleuve Colorado\ndans le Grand Canyon, aux États-Unis"
+    }
+  },
+  "B8F204CE-6024-49AB-85F9-7CA2F6DCD226": {
+    "name": "Glacier au Groenland",
+    "group": "Groenland",
+    "pointsOfInterest": {
+      "0": "Le long de la péninsule de Nuussuaq au Groenland"
+    }
+  },
+  "2F52E34C-39D4-4AB1-9025-8F7141FAA720": {
+    "name": "Côte du Groenland",
+    "group": "Groenland",
+    "pointsOfInterest": {
+      "0": "Le fjord glacé d’Ilulissat au large du Groenland"
+    }
+  },
+  "EE01F02D-1413-436C-AB05-410F224A5B7B": {
+    "name": "Groenland (soir)",
+    "group": "Groenland",
+    "pointsOfInterest": {
+      "0": "Le fjord glacé d’Ilulissat au large du Groenland"
+    }
+  },
+  "12E0343D-2CD9-48EA-AB57-4D680FB6D0C7": {
+    "name": "Côte de Hawaï",
+    "group": "Hawaï",
+    "pointsOfInterest": {
+      "0": "Survol de Laupāhoehoe Nui dans la réserve forestière de Kohala sur l’île de Hawaii"
+    }
+  },
+  "258A6797-CC13-4C3A-AB35-4F25CA3BF474": {
+    "name": "Nuages à HawaÏ (clair)",
+    "group": "Hawaï",
+    "pointsOfInterest": {
+      "0": "Au-dessus de la réserve naturelle de Pu‘u O ‘Umi sur l’île de Hawaii"
+    }
+  },
+  "3D729CFC-9000-48D3-A052-C5BD5B7A6842": {
+    "name": "Océan à Hawaï",
+    "group": "Hawaï",
+    "pointsOfInterest": {
+      "0": "Sur la côte de Kohala sur l’île de Hawaii"
+    }
+  },
+  "499995FA-E51A-4ACE-8DFD-BDF8AFF6C943": {
+    "name": "Vallée de Hawaï",
+    "group": "Hawaï",
+    "pointsOfInterest": {
+      "0": "Waimanu Valley dans la réserve forestière de Kohala sur l’île de Hawaii"
+    }
+  },
+  "82BD33C9-B6D2-47E7-9C42-AA3B7758921A": {
+    "name": "Nuages à Hawaï (sombre)",
+    "group": "Hawaï",
+    "pointsOfInterest": {
+      "0": "Au-dessus de la réserve naturelle de Pu‘u O ‘Umi sur l’île de Hawaii"
+    }
+  },
+  "E99FA658-A59A-4A2D-9F3B-58E7BDC71A9A": {
+    "name": "Hong Kong (nuit)",
+    "group": "Hong Kong",
+    "pointsOfInterest": {
+      "0": "Au-dessus de Victoria Harbour en direction de Central à Hong Kong"
+    }
+  },
+  "C8559883-6F3E-4AF2-8960-903710CD47B7": {
+    "name": "Ligne d’horizon de Hong Kong",
+    "group": "Hong Kong",
+    "pointsOfInterest": {
+      "0": "Survol du pic Victoria à Hong Kong",
+      "150": "Survol de Hong Kong en direction de Victoria Harbour",
+      "330": "Au-dessus de Victoria Harbour à l’approche de la péninsule de Kowloon"
+    }
+  },
+  "024891DE-B7F6-4187-BFE0-E6D237702EF0": {
+    "name": "Skyline de Hong Kong",
+    "group": "Hong Kong",
+    "pointsOfInterest": {
+      "0": "Au-dessus de Wan Chai à l’approche de Central à Hong Kong",
+      "150": "Au-dessus de Central à Hong Kong",
+      "270": "Au-dessus de l’île de Hong Kong"
+    }
+  },
+  "FE8E1F9D-59BA-4207-B626-28E34D810D0A": {
+    "name": "Port de Hong Kong",
+    "group": "Hong Kong",
+    "pointsOfInterest": {
+      "0": "Au-dessus de Victoria Harbour face à l’île de Hong Kong"
+    }
+  },
+  "8590D0C5-E344-4FAC-A39A-FD7BC652AEDA": {
+    "name": "Côte de l’Islande",
+    "group": "Islande",
+    "pointsOfInterest": {
+      "0": "Survol du lac Langisjór en Islande"
+    }
+  },
+  "DDE50C77-B7CB-4488-9EB1-D1B13BF21FFE": {
+    "name": "Glacier islandais",
+    "group": "Islande",
+    "pointsOfInterest": {
+      "0": "Survol de la rivière Tungnaá dans les Hautes Terres d’Islande"
+    }
+  },
+  "E54D5AFE-F362-4D48-A20D-F2C21D2B5330": {
+    "name": "Fjord islandais",
+    "group": "Islande",
+    "pointsOfInterest": {
+      "0": "Le long du fleuve Jökulgilskvísl dans le Landmannalaugar, Islande",
+      "308": "Survol des Hautes Terres d’Islande"
+    }
+  },
+  "F9518D54-04A7-4793-8666-CFC114D73CE5": {
+    "name": "Lit d’une rivière en Islande",
+    "group": "Islande",
+    "pointsOfInterest": {
+      "0": "Traversée de la gorge Jökulgil dans le Landmannalaugar, Islande"
+    }
+  },
+  "8ACF5D77-B22C-416F-B12A-72FB35E2834F": {
+    "name": "Survol d’un fjord islandais",
+    "group": "Islande",
+    "pointsOfInterest": {
+      "0": "Survol du Landmannalaugar en Islande"
+    }
+  },
+  "2F17FCCE-6CCA-4AFA-A08A-C50BF9812DA5": {
+    "name": "Sommets enneigés en Islande",
+    "group": "Islande",
+    "pointsOfInterest": {
+      "0": "Vers le glacier Mýrdalsjökull en Islande",
+      "150": "À l’approche du glacier Mýrdalsjökull en Islande",
+      "225": "Glacier Mýrdalsjökull en Islande",
+      "324": "Survol du glacier Mýrdalsjökull en Islande"
+    }
+  },
+  "cb5b5035-6701-619f-9065-3d7d0e5fbef4-113": {
+    "name": "Lac islandais",
+    "group": "Islande",
+    "pointsOfInterest": {}
+  },
+  "cb5b5035-6701-619f-9065-3d7d0e5fbef4-133": {
+    "name": "Plages de Goa",
+    "pointsOfInterest": {
+      "0": "Au-dessus des plages de Cola et Small Cola à Goa, en Inde"
+    }
+  },
+  "cb5b5035-6701-619f-9065-3d7d0e5fbef4-134": {
+    "name": "Côte de Goa",
+    "pointsOfInterest": {
+      "0": "Passage sur la plage de Small Cola à Goa, en Inde",
+      "150": "À proximité de la plage de Cola à Goa, en Inde"
+    }
+  },
+  "cb5b5035-6701-619f-9065-3d7d0e5fbef4-135": {
+    "name": "Le Gange",
+    "pointsOfInterest": {
+      "0": "En suivant le Gange depuis Rishikesh dans l’Uttarakhand, en Inde"
+    }
+  },
+  "cb5b5035-6701-619f-9065-3d7d0e5fbef4-136": {
+    "name": "Ghansali vue d’en haut",
+    "pointsOfInterest": {
+      "0": "Au-dessus des champs en terrasse près d’Akhori dans l’Uttarakhand, en Inde"
+    }
+  },
+  "cb5b5035-6701-619f-9065-3d7d0e5fbef4-137": {
+    "name": "À travers l’Himalaya",
+    "pointsOfInterest": {
+      "0": "En voyage vers la Nanda Devi par la chaîne himalayenne du Garhwal dans l’Uttarakhand, en Inde"
+    }
+  },
+  "cb5b5035-6701-619f-9065-3d7d0e5fbef4-138": {
+    "name": "Sommets de l’Himalaya",
+    "pointsOfInterest": {
+      "0": "Traverser la chaîne himalayenne du Garhwal dans l’Uttarakhand, en Inde"
+    }
+  },
+  "cb5b5035-6701-619f-9065-3d7d0e5fbef4-139": {
+    "name": "L’Himalaya en journée",
+    "pointsOfInterest": {
+      "0": "Traverser la chaîne himalayenne du Garhwal dans l’Uttarakhand, en Inde"
+    }
+  },
+  "cb5b5035-6701-619f-9065-3d7d0e5fbef4-140": {
+    "name": "Les plantations de thé en journée",
+    "pointsOfInterest": {
+      "0": "Traverser les plantations de thé de Munnar au Kerala, en Inde"
+    }
+  },
+  "cb5b5035-6701-619f-9065-3d7d0e5fbef4-141": {
+    "name": "Brume sur les plantations de thé",
+    "pointsOfInterest": {
+      "0": "En direction de l’est au-dessus des plantations de thé de Munnar au Kerala, en Inde"
+    }
+  },
+  "cb5b5035-6701-619f-9065-3d7d0e5fbef4-142": {
+    "name": "Plantations de thé vues du ciel",
+    "pointsOfInterest": {
+      "0": "Au-dessus des plantations de thé de Munnar au Kerala, en Inde"
+    }
+  },
+  "cb5b5035-6701-619f-9065-3d7d0e5fbef4-143": {
+    "name": "Le barrage en journée",
+    "pointsOfInterest": {
+      "0": "Après le barrage de Sholayar au Tamil Nadu, en Inde"
+    }
+  },
+  "A837FA8C-C643-4705-AE92-074EFDD067F7": {
+    "name": "Afrique",
+    "group": "Terre",
+    "pointsOfInterest": {
+      "0": "En voyage vers le nord-est au-dessus du Sahara de nuit",
+      "70": "Au-dessus du Grand Erg oriental en direction de la mer Méditerranée",
+      "100": "La côte Méditerranéenne de Tunisie et de Libye",
+      "120": "Déplacement au-dessus de la mer Méditerranée vers l’Italie",
+      "140": "Au-dessus du sud de l’Italie à l’approche des Balkans, avec la Turquie au loin",
+      "165": "Au-dessus des Balkans, en déplacement vers la mer Noire",
+      "180": "Au-dessus des Balkans à l’approche de la mer Noire",
+      "210": "En voyage au-dessus de la mer Noire en direction de l’Ukraine",
+      "230": "En voyage au-dessus de l’Ukraine en direction de la Russie"
+    }
+  },
+  "2F72BC1E-3D76-456C-81EB-842EBA488C27": {
+    "name": "Afrique du Nord",
+    "group": "Terre",
+    "pointsOfInterest": {
+      "0": "Au-dessus de la Corne de l’Afrique, en voyage vers le golfe d’Aden",
+      "45": "Le sud-est de l’Arabie",
+      "115": "Le golfe d’Oman à l’approche de la côte du Makran",
+      "145": "La côte du Makran de l’Iran et du Pakistan",
+      "160": "Au-dessus de l’Iran, en déplacement vers l’Afghanistan et le Pakistan",
+      "180": "Au-dessus de l’Afghanistan et du Pakistan, en déplacement vers le Karakoram",
+      "235": "Au-dessus du Karakoram, en voyage vers la Chine",
+      "280": "Le désert du Taklamakan en Chine occidentale",
+      "315": "Le Tian Shan en Asie centrale"
+    }
+  },
+  "03EC0F5E-CCA8-4E0A-9FEC-5BD1CE151182": {
+    "name": "Aurore australe en Antarctique",
+    "group": "Terre",
+    "pointsOfInterest": {
+      "0": "Aurore australe au-dessus de l’Antarctique"
+    }
+  },
+  "64D11DAB-3B57-4F14-AD2F-E59A9282FA44": {
+    "name": "Atlantique Nord",
+    "group": "Terre",
+    "pointsOfInterest": {
+      "0": "Au-dessus du nord de l’océan Atlantique en direction du Portugal",
+      "115": "Au-dessus du Portugal et de l’Espagne",
+      "150": "Éloignement de la péninsule Ibérique et passage au-dessus du golfe de Gascogne et de la France",
+      "180": "Au-dessus de l’Europe occidentale avec le nord de l’océan Atlantique au loin"
+    }
+  },
+  "81337355-E156-4242-AAF4-711768D30A54": {
+    "name": "Australie",
+    "group": "Terre",
+    "pointsOfInterest": {
+      "0": "Au-dessus de l’océan Indien en direction de Perth, en Australie",
+      "50": "En voyage vers le nord-est à travers l’Australie occidentale",
+      "170": "Au-dessus de l’Australie occidentale à l’approche du Territoire du Nord",
+      "220": "Au-dessus du Territoire du Nord, en Australie, en déplacement vers la Nouvelle‑Guinée",
+      "335": "Au-dessus de la mer d’Arafur, en voyage vers la Nouvelle‑Guinée"
+    }
+  },
+  "12318CCB-3F78-43B7-A854-EFDCCE5312CD": {
+    "name": "Californie",
+    "group": "Terre",
+    "pointsOfInterest": {
+      "0": "Au-dessus de l’océan Pacifique, en déplacement vers la côte californienne",
+      "70": "Au-dessus de la côte californienne, en voyage vers les terres",
+      "85": "Passage au-dessus de Los Angeles sur la côte ouest des États‑Unis",
+      "95": "Au-dessus de Los Angeles à l’approche de Las Vegas aux États‑Unis",
+      "110": "Au-dessus de Las Vegas en direction de Salt Lake City aux États‑Unis",
+      "120": "Au-dessus de l’ouest des États‑Unis à l’approche de Salt Lake City",
+      "155": "Passage entre Salt Lake City et Denver aux États‑Unis",
+      "170": "Au-dessus des montagnes Rocheuses aux États‑Unis"
+    }
+  },
+  "D5CFB2FF-5F8C-4637-816B-3E42FC1229B8": {
+    "name": "Îles Caraïbes",
+    "group": "Terre",
+    "pointsOfInterest": {
+      "0": "En voyage au-dessus de l’océan Pacifique vers l’Amérique centrale",
+      "35": "Les côtes Pacifique du Nicaragua, du Costa Rica et du Panama",
+      "50": "Passage au-dessus de l’Amérique centrale avec l’Amérique du Sud au loin",
+      "65": "La côte des Mosquitos du Nicaragua",
+      "85": "Au-dessus de la mer des Caraïbes, en voyage vers Cuba",
+      "110": "Passage par la Jamaïque recouverte de nuages dans la mer des Caraïbes",
+      "125": "Traversée de Cuba en direction d’Haïti et de la République dominicaine",
+      "170": "En voyage au-dessus des Bahamas en direction d’Haïti et de la République dominicaine",
+      "190": "Îles Turques-et-Caïques dans l’océan Atlantique"
+    }
+  },
+  "1088217C-1410-4CF7-BDE9-8F573A4DBCD9": {
+    "name": "Mer des Caraïbes",
+    "group": "Terre",
+    "pointsOfInterest": {
+      "0": "Au-dessus de l’océan Pacifique, en déplacement vers l’Amérique centrale",
+      "70": "La côte du sud-ouest de l’Amérique centrale en direction de la mer des Caraïbes",
+      "100": "Traversée de l’Amérique centrale en direction de la mer des Caraïbes",
+      "150": "Au-dessus de la mer des Caraïbes, en déplacement vers Cuba",
+      "240": "Au-dessus de Cuba avec la Floride et les Bahamas en arrière-plan",
+      "300": "Au-dessus de la Floride et des Bahamas, en voyage vers la mer des Sargasses",
+      "350": "Au-dessus de la mer des Sargasses en direction de l’océan Atlantique"
+    }
+  },
+  "4F881F8B-A7D9-4FDB-A917-17BF6AC5A589": {
+    "name": "Caraïbes",
+    "group": "Terre",
+    "pointsOfInterest": {
+      "0": "En direction du sud-est au-dessus des Grandes Plaines des États‑Unis",
+      "90": "En direction du sud-est au-dessus du Midwest américain",
+      "120": "Au-dessus du sud-est des États‑Unis en direction de la Floride",
+      "220": "Au-dessus de la Floride, en voyage vers les Bahamas",
+      "240": "Déplacement vers le sud-est au-dessus des Bahamas",
+      "285": "Au-dessus des Bahamas à l’approche de la République dominicaine et d’Haïti",
+      "300": "Au-dessus de la République dominicaine et d’Haïti, à l’approche de la mer des Caraïbes",
+      "315": "Au-dessus de la mer des Caraïbes en direction du sud vers le Venezuela"
+    }
+  },
+  "6324F6EB-E0F1-468F-AC2E-A983EBDDD53B": {
+    "name": "Chine (nuit)",
+    "group": "Terre",
+    "pointsOfInterest": {
+      "0": "Au-dessus de l’Asie centrale, en voyage vers la côte chinoise",
+      "10": "Au-dessus de la Chine, en voyage vers Shanghai",
+      "30": "En direction de la Chine orientale, en approche de Shanghai",
+      "45": "À l’approche de Shanghai en direction de la mer de Chine orientale",
+      "50": "Au-dessus de Shanghai, en déplacement vers la mer de Chine orientale"
+    }
+  },
+  "F439B0A7-D18C-4B14-9681-6520E6A74FE9": {
+    "name": "Moyen-Orient",
+    "group": "Terre",
+    "pointsOfInterest": {
+      "0": "Le reflet du soleil le long de la côte iranienne",
+      "15": "Déplacement au crépuscule au-dessus de l’Iran",
+      "60": "Déplacement au crépuscule au-dessus de l’Asie centrale"
+    }
+  },
+  "7C643A39-C0B2-4BA0-8BC2-2EAA47CC580E": {
+    "name": "Europe (nuit)",
+    "group": "Terre",
+    "pointsOfInterest": {
+      "0": "Au-dessus du nord de l’Atlantique à l’approche de l’Irlande et de la Grande‑Bretagne",
+      "15": "Irlande et Grande‑Bretagne",
+      "45": "Au-dessus de la Grande‑Bretagne, en voyage vers l’Europe continentale",
+      "65": "Au-dessus du Nord-ouest de l’Europe, en déplacement vers la Russie",
+      "105": "Au-dessus de l’Europe en direction de la Russie",
+      "150": "Au-dessus de l’Europe orientale avec Moscou au loin",
+      "165": "Au-dessus de l’Europe orientale en direction de Moscou",
+      "185": "Au-dessus de la Russie occidentale en passant par Moscou",
+      "195": "Au-dessus de la Russie, en voyage vers l’Asie centrale"
+    }
+  },
+  "E5DB138A-F04E-4619-B896-DE5CB538C534": {
+    "name": "Europe du Sud (nuit)",
+    "group": "Terre",
+    "pointsOfInterest": {
+      "0": "Au-dessus de la Tunisie, en direction de l’Italie",
+      "5": "Au-dessus de la mer Méditerranée, en direction de la Sicile et de la péninsule italienne",
+      "15": "Au-dessus du sud de l’Italie avec les Balkans au loin",
+      "25": "Au-dessus des Balkans, en déplacement vers l’Asie centrale",
+      "40": "Au-dessus des Balkans en passant par la mer Noire",
+      "55": "Au-dessus de l’Ukraine avec la Russie au loin",
+      "75": "Au-dessus de la Russie du Sud-ouest en passant par le Kazakhstan"
+    }
+  },
+  "009BA758-7060-4479-8EE8-FB9B40C8FB97": {
+    "name": "Asie de lʼEst",
+    "group": "Terre",
+    "pointsOfInterest": {
+      "0": "Déplacement vers le sud-est au-dessus de la Sibérie et de la Mongolie",
+      "22": "En direction de la Mongolie-Intérieure",
+      "32": "Au-dessus de la Mongolie, en voyage vers la Chine",
+      "60": "Au-dessus de la Chine du Nord, en déplacement vers la péninsule coréenne",
+      "110": "Au-dessus de la Chine en direction de la péninsule coréenne",
+      "150": "La péninsule coréenne avec le Japon au loin",
+      "180": "Au-dessus de la Corée du Sud, en voyage vers le Japon",
+      "195": "Au-dessus du Japon en direction de l’océan Pacifique",
+      "260": "Au-dessus de l’océan Pacifique au sud-est du Japon"
+    }
+  },
+  "B1B5DDC5-73C8-4920-8133-BACCE38A08DE": {
+    "name": "New York",
+    "group": "Terre",
+    "pointsOfInterest": {
+      "0": "Au-dessus de l’océan Pacifique en direction du Mexique",
+      "105": "Passage au-dessus de Mexico en direction du golfe du Mexique",
+      "122": "Survol du golfe du Mexique en direction des États‑Unis",
+      "180": "Passage par Houston à l’approche de la Nouvelle‑Orléans aux États‑Unis",
+      "190": "En direction de la Nouvelle‑Orléans et de la côte du Golfe des États‑Unis",
+      "215": "Au-dessus du sud-est des États‑Unis",
+      "280": "Au-dessus de l’est des États‑Unis, en voyage vers New York",
+      "320": "Au-dessus de l’est des États‑Unis à l’approche de la ville de New York"
+    }
+  },
+  "78911B7E-3C69-47AD-B635-9C2486F6301D": {
+    "name": "Nouvelle-Zélande",
+    "group": "Terre",
+    "pointsOfInterest": {
+      "0": "Traversée à l’aube au-dessus de l’océan Pacifique",
+      "70": "Traversée à l’aube au-dessus de la Nouvelle‑Zélande",
+      "110": "À l’approche du lever de soleil au-dessus de la Nouvelle‑Zélande",
+      "170": "Départ de la Nouvelle‑Zélande en direction du nord-est, au-dessus de l’océan Pacifique"
+    }
+  },
+  "3C4678E4-4D3D-4A40-8817-77752AEA62EB": {
+    "name": "Delta du Nil",
+    "group": "Terre",
+    "pointsOfInterest": {
+      "0": "En voyage au-dessus de l’Europe occidentale avec la Grande‑Bretagne et l’Irlande au loin",
+      "20": "En direction du sud-est au-dessus des Alpes et de la plaine du Pô",
+      "50": "Le long de la péninsule italienne et de la mer Adriatique",
+      "100": "Grèce flanquée par la mer Ionienne et Égée",
+      "160": "En voyage vers le sud-est au-dessus de la mer Méditerranée",
+      "185": "La mer Méditerranée et le delta du Nil",
+      "205": "Le Nil traversant le Sahara en Égypte",
+      "220": "Le désert Arabique flanqué par le Nil et le golfe de Suez",
+      "240": "En direction du sud-est au-dessus de la mer Rouge"
+    }
+  },
+  "737E9E24-49BE-4104-9B72-F352DE1AD2BF": {
+    "name": "Aurore boréale en Amérique du Nord",
+    "group": "Terre",
+    "pointsOfInterest": {
+      "0": "Au-dessus de l’océan Pacifique, en déplacement vers la Basse‑Californie",
+      "45": "Au-dessus de la Basse‑Californie, en direction du nord vers les États-Unis",
+      "55": "Au-dessus du Mexique en direction du sud-ouest des États‑Unis",
+      "75": "Au-dessus du sud-ouest des États‑Unis",
+      "110": "Au-dessus des montagnes Rocheuses à l’approche de Denver",
+      "125": "En voyage au-dessus des Grandes Plaines des États‑Unis",
+      "185": "À l’approche des Grands Lacs avec l’Ontario, au Canada, au loin",
+      "200": "Au-dessus des Grands Lacs à l’approche de l’Ontario, au Canada",
+      "210": "L’aurore boréale au-dessus de l’ouest de l’Ontario, au Canada",
+      "235": "L’aurore boréale au-dessus du nord de l’Ontario, au Canada",
+      "250": "L’aurore boréale au-dessus du nord du Québec, au Canada",
+      "300": "En direction de l’Atlantique nord avec l’aurore boréale au-dessus du Labrador canadien"
+    }
+  },
+  "E556BBC5-D0A0-4DB1-AC77-BC76E4A526F4": {
+    "name": "Sahara",
+    "group": "Terre",
+    "pointsOfInterest": {
+      "0": "Au-dessus de l’Afrique occidentale, en déplacement vers le Sahara",
+      "30": "Traversée du Sahara en Afrique du Nord",
+      "110": "Passage au-dessus du Hoggar dans le Sahara, en Afrique du Nord",
+      "155": "Au-dessus du Grand Erg oriental en Afrique du Nord, en déplacement vers la mer Méditerranée",
+      "195": "La côte tunisienne et la mer Méditerranée",
+      "210": "Au-dessus de la côte tunisienne, en voyage vers l’Italie",
+      "230": "À l’approche de l’Italie dans la mer Méditerranée",
+      "245": "Au-dessus de l’Italie, en voyage vers les Balkans",
+      "285": "Au-dessus des Balkans en direction des Carpates",
+      "310": "Les Carpates et la mer Noire"
+    }
+  },
+  "87060EC2-D006-4102-98CC-3005C68BB343": {
+    "name": "Afrique du Sud",
+    "group": "Terre",
+    "pointsOfInterest": {
+      "0": "En voyage vers le nord-est au-dessus des plateaux d’Éthiopie",
+      "45": "En voyage au-dessus de la mer Rouge, vers l’Arabie",
+      "100": "En direction du nord-est au-dessus de l’Arabie",
+      "130": "Au-dessus de l’Arabie, en déplacement vers l’Iran",
+      "165": "Au-dessus de l’Arabie à l’approche de l’Iran",
+      "190": "À l’approche de la côte iranienne avec les monts Zagros au loin",
+      "210": "Au-dessus des monts Zagros, en Iran",
+      "240": "Au-dessus du désert de Lout en Iran",
+      "265": "Déplacement en direction du Turkmenistan et du désert du Karakoum",
+      "305": "L’Amou‑Daria et le Pamir Alaï en Asie centrale",
+      "322": "Le Pamir Alaï et la vallée de Ferghana en Asie centrale",
+      "360": "En direction du Kazakhstan du Sud-ouest depuis le Kirghizistan",
+      "400": "En voyage vers le nord, au-dessus du Kazakhstan",
+      "450": "Au-dessus de l’Altaï, en déplacement vers le centre de la Mongolie"
+    }
+  },
+  "7719B48A-2005-4011-9280-2F64EEC6FD91": {
+    "name": "Californie du Sud",
+    "group": "Terre",
+    "pointsOfInterest": {
+      "0": "Au-dessus de l’océan Pacifique en direction des États‑Unis",
+      "20": "En voyage vers le sud le long de la côte californienne",
+      "50": "Au-dessus de la Californie du Sud, en déplacement vers le Mexique",
+      "65": "À l’approche du désert des Mojaves en Californie du Sud avec le Mexique au loin",
+      "95": "Le golfe de Californie, flanqué par le désert de Sonora et la péninsule de Basse‑Californie",
+      "130": "La sierra Madre occidentale sur la côte ouest du Mexique",
+      "185": "Au-dessus de la sierra Madre occidentale, en déplacement vers la côte ouest du Mexique",
+      "225": "Vue vers le sud sur l’océan Pacifique, au-dessus de la Sierra Madre del Sur au Mexique",
+      "280": "L’océan Pacifique au large du Mexique",
+      "290": "L’océan Pacifique au large du Mexique et du Guatemala"
+    }
+  },
+  "63C042F0-90EF-4A95-B7CC-CC9A64BF8421": {
+    "name": "Afrique occidentale",
+    "group": "Terre",
+    "pointsOfInterest": {
+      "0": "Les îles Canaries, l’océan Atlantique et la côte africaine",
+      "45": "Déplacement vers le nord-est le long de la côte marocaine",
+      "75": "Passage au-dessus de l’Atlas au Maroc",
+      "105": "Au-dessus du Maroc à l’approche de la mer Méditerranée",
+      "125": "La mer Méditerranée et le sud de l’Espagne",
+      "145": "En voyage vers le nord-est au-dessus de la Costa Blanca, en Espagne",
+      "165": "En voyage vers le nord-est au-dessus des îles Baléares espagnoles",
+      "185": "Au-dessus de la mer Méditerranée occidentale avec les Alpes au loin",
+      "220": "Déplacement vers le nord-est au-dessus des Alpes"
+    }
+  },
+  "001C94AE-2BA4-4E77-A202-F7DE60E8B1C8": {
+    "name": "Champ de dunes de l’oasis de Liwa",
+    "group": "Liwa",
+    "pointsOfInterest": {
+      "0": "Survol de l’oasis de Liwa aux Émirats arabes unis"
+    }
+  },
+  "AFA22C08-A486-4CE8-9A13-E355B6C38559": {
+    "name": "Ligne d’horizon de l’oasis de Liwa",
+    "group": "Liwa",
+    "pointsOfInterest": {
+      "0": "Survol de l’oasis de Liwa aux Émirats arabes unis"
+    }
+  },
+  "F604AF56-EA77-4960-AEF7-82533CC1A8B3": {
+    "name": "Londres (soir)",
+    "group": "Londres",
+    "pointsOfInterest": {
+      "0": "À l’approche du Tower Bridge sur la Tamise, Londres",
+      "20": "Traversée de la Tamise à Londres",
+      "60": "Passage devant The Shard, South London",
+      "92": "Rive sud de la Tamise en direction du London Eye",
+      "200": "Traversée de la Tamise en direction de Westminster, Londres",
+      "270": "Au-dessus de Westminster, Londres"
+    }
+  },
+  "7F4C26C2-67C2-4C3A-8F07-8A7BF6148C97": {
+    "name": "Tamise de Londres",
+    "group": "Londres",
+    "pointsOfInterest": {
+      "0": "À l’approche du Tower Bridge sur la Tamise, Londres",
+      "20": "Sur la Tamise à Londres",
+      "130": "Sur la Tamise en direction du London Eye",
+      "210": "À l’approche du London Eye sur la Tamise",
+      "310": "Sur la Tamise au-delà du London Eye",
+      "325": "Passage devant les Chambres du Parlement sur la Tamise, Londres"
+    }
+  },
+  "A5AAFF5D-8887-42BB-8AFD-867EF557ED85": {
+    "name": "Survol de Londres",
+    "group": "Londres",
+    "pointsOfInterest": {
+      "0": "Passage au-dessus des jardins de Buckingham Palace, Londres",
+      "24": "Au-dessus de Buckingham Palace à Londres",
+      "49": "Au-dessus du parc Saint James en direction de la Tamise, Londres",
+      "104": "Traversée de la Tamise avec passage devant le London Eye",
+      "149": "Passage au-dessus de South London",
+      "279": "Passage à côté de The Shard, South London",
+      "299": "Traversée de la Tamise à Londres",
+      "324": "Traversée de la Tamise au niveau du Tower Bridge à Londres"
+    }
+  },
+  "58754319-8709-4AB0-8674-B34F04E7FFE2": {
+    "name": "Skyline de Londres",
+    "group": "Londres",
+    "pointsOfInterest": {
+      "0": "À l’approche du Tower Bridge sur la Tamise, Londres",
+      "78": "Sur la Tamise à Londres",
+      "178": "Rive sud de la Tamise à Londres",
+      "258": "Traversée de la Tamise à Londres"
+    }
+  },
+  "CE279831-1CA7-4A83-A97B-FF1E20234396": {
+    "name": "Aéroport de Los Angeles",
+    "group": "Los Angeles",
+    "pointsOfInterest": {
+      "0": "Survol de l’aéroport international de Los Angeles"
+    }
+  },
+  "89B1643B-06DD-4DEC-B1B0-774493B0F7B7": {
+    "name": "Los Angeles (coucher de soleil)",
+    "group": "Los Angeles",
+    "pointsOfInterest": {
+      "0": "Observatoire Griffith et Hollywood Hills à Los Angeles"
+    }
+  },
+  "92E48DE9-13A1-4172-B560-29B4668A87EE": {
+    "name": "Plage de Los Angeles",
+    "group": "Los Angeles",
+    "pointsOfInterest": {
+      "0": "Au-dessus de Santa Monica State Beach près de Los Angeles",
+      "365": "Passage au-dessus de la jetée de Santa Monica près de Los Angeles",
+      "430": "Au-dessus de Santa Monica State Beach près de Los Angeles"
+    }
+  },
+  "EC67726A-8212-4C5E-83CF-8412932740D2": {
+    "name": "Collines de Los Angeles",
+    "group": "Los Angeles",
+    "pointsOfInterest": {
+      "0": "Le panneau Hollywood à Los Angeles",
+      "250": "Au-dessus de Hollywood Hills à l’approche de Burbank, Californie"
+    }
+  },
+  "35693AEA-F8C4-4A80-B77D-C94B20A68956": {
+    "name": "Pont routier de Los Angeles",
+    "group": "Los Angeles",
+    "pointsOfInterest": {
+      "0": "Traversée de Los Angeles sur l’Interstate 110 north"
+    }
+  },
+  "F5804DD6-5963-40DA-9FA0-39C0C6E6DEF9": {
+    "name": "Los Angeles (nuit)",
+    "group": "Los Angeles",
+    "pointsOfInterest": {
+      "0": "Passage dans Downtown Los Angeles"
+    }
+  },
+  "cb5b5035-6701-619f-9065-3d7d0e5fbef4-114": {
+    "name": "Coal Mine Canyon en Arizona",
+    "group": "Monument Valley",
+    "pointsOfInterest": {
+      "0": "Traversée de la Nation navajo en Arizona"
+    }
+  },
+  "cb5b5035-6701-619f-9065-3d7d0e5fbef4-115": {
+    "name": "Utah (soir)",
+    "group": "Monument Valley",
+    "pointsOfInterest": {
+      "0": "Du côté de Brighams Tomb\nà Monument Valley en Utah",
+      "150": "Passage à proximité de la butte King-on-his-Throne en Utah",
+      "180": "En direction du sud-est\nà travers Monument Valley en Utah"
+    }
+  },
+  "cb5b5035-6701-619f-9065-3d7d0e5fbef4-116": {
+    "name": "Cathedral Canyon en Utah",
+    "group": "Monument Valley",
+    "pointsOfInterest": {
+      "0": "Au-dessus de Cathedral Canyon en Utah",
+      "100": "Traversée du fleuve Colorado\net du Lac Powell en Utah"
+    }
+  },
+  "cb5b5035-6701-619f-9065-3d7d0e5fbef4-117": {
+    "name": "Factory Butte en Utah",
+    "group": "Monument Valley",
+    "pointsOfInterest": {
+      "0": "Passage à Factory Butte en Utah"
+    }
+  },
+  "cb5b5035-6701-619f-9065-3d7d0e5fbef4-118": {
+    "name": "Lac Powell en Utah",
+    "group": "Monument Valley",
+    "pointsOfInterest": {
+      "0": "Sur le fleuve Colorado à travers l’Utah",
+      "134": "Passage au-dessus de Cascade Canyon en Utah",
+      "265": "À l’approche de Cathedral Canyon en Utah"
+    }
+  },
+  "cb5b5035-6701-619f-9065-3d7d0e5fbef4-119": {
+    "name": "Monument Valley en Utah",
+    "group": "Monument Valley",
+    "pointsOfInterest": {
+      "0": "Passage au-dessus de Monument Valley en Arizona"
+    }
+  },
+  "cb5b5035-6701-619f-9065-3d7d0e5fbef4-120": {
+    "name": "Olympia Bar en Utah",
+    "group": "Monument Valley",
+    "pointsOfInterest": {
+      "0": "Sur le fleuve Colorado en Utah",
+      "205": "À l’approche de Tapestry Wall\nsur le Lac Powell en Utah"
+    }
+  },
+  "44166C39-8566-4ECA-BD16-43159429B52F": {
+    "name": "Nuit new-yorkaise",
+    "group": "New York",
+    "pointsOfInterest": {
+      "0": "Descente de la 7e avenue en direction de Times Square, New York",
+      "40": "Au-dessus de Times Square à New York",
+      "120": "Descente de la 7e avenue à Midtown Manhattan, New York"
+    }
+  },
+  "840FE8E4-D952-4680-B1A7-AC5BACA2C1F8": {
+    "name": "Midtown, New York",
+    "group": "New York",
+    "pointsOfInterest": {
+      "0": "Au-dessus de l’Upper East Side et de Central Park à New York",
+      "50": "Au-dessus de Midtown Manhattan en direction du centre vers l’Empire State Building",
+      "160": "À l’approche de l’Empire State Building à New York",
+      "205": "Passage devant l’Empire State Building en direction de Lower Manhattan"
+    }
+  },
+  "640DFB00-FBB9-45DA-9444-9F663859F4BC": {
+    "name": "Skyline de New York",
+    "group": "New York",
+    "pointsOfInterest": {
+      "0": "À l’approche de Lower Manhattan depuis le port de New York",
+      "110": "Près de Lower Manhattan à l’approche du One World Trade Center",
+      "180": "Passage devant le One World Trade Center en direction de Midtown Manhattan",
+      "210": "Au-dessus de Lower Manhattan à New York, en déplacement vers Midtown"
+    }
+  },
+  "3BA0CFC7-E460-4B59-A817-B97F9EBB9B89": {
+    "name": "Survol de New York",
+    "group": "New York",
+    "pointsOfInterest": {
+      "0": "Au-dessus de Central Park en direction de Midtown Manhattan à New York",
+      "246": "Au-dessus de Midtown Manhattan à New York"
+    }
+  },
+  "5C987900-AD53-469C-8210-CABBCCDDFCAE": {
+    "name": "Montagne de Patagonie",
+    "group": "Patagonie",
+    "pointsOfInterest": {
+      "0": "Le long du massif del Paine dans le\nparc national Torres del Paine, au Chili"
+    }
+  },
+  "B004358B-5A27-42E5-B49E-93FC100B2371": {
+    "name": "Lac de Patagonie",
+    "group": "Patagonie",
+    "pointsOfInterest": {
+      "0": "Le long du lac Nordenskjöld dans le\nparc national Torres del Paine, au Chili"
+    }
+  },
+  "25A6CFB2-3570-4448-B114-244A4E454B7A": {
+    "name": "Fleuve de Patagonie",
+    "group": "Patagonie",
+    "pointsOfInterest": {
+      "0": "Au-dessus du lac Nordenskjöld dans le\nparc national Torres del Paine, au Chili"
+    }
+  },
+  "E5D58CC2-3C52-4206-9DA2-427DC88B5896": {
+    "name": "Chaîne de montagnes de Patagonie",
+    "group": "Patagonie",
+    "pointsOfInterest": {
+      "0": "En voyage au-dessus du parc national\nTorres del Paine au Chili"
+    }
+  },
+  "cb5b5035-6701-619f-9065-3d7d0e5fbef4-121": {
+    "name": "Côte de l’Oregon",
+    "group": "Séquoias",
+    "pointsOfInterest": {
+      "0": "Au-dessus de Secret Beach en direction de Brookings, Oregon",
+      "240": "Passage à Natural Bridges en Oregon"
+    }
+  },
+  "cb5b5035-6701-619f-9065-3d7d0e5fbef4-122": {
+    "name": "Oregon (coucher de soleil)",
+    "group": "Séquoias",
+    "pointsOfInterest": {
+      "0": "En direction de l’ouest au-dessus de China Beach près de Brookings, Oregon"
+    }
+  },
+  "cb5b5035-6701-619f-9065-3d7d0e5fbef4-123": {
+    "name": "Rivière du parc de Redwood",
+    "group": "Séquoias",
+    "pointsOfInterest": {
+      "0": "Le long de la rivière Trinity\nà travers la Californie du Nord"
+    }
+  },
+  "cb5b5035-6701-619f-9065-3d7d0e5fbef4-124": {
+    "name": "Survol des séquoias",
+    "group": "Séquoias",
+    "pointsOfInterest": {
+      "0": "Au-dessus des séquoias en Californie du Nord"
+    }
+  },
+  "3E94AE98-EAF2-4B09-96E3-452F46BC114E": {
+    "name": "San Francisco (nuit)",
+    "group": "San Francisco",
+    "pointsOfInterest": {
+      "0": "À l’approche du Bay Bridge et du centre de San Francisco",
+      "80": "Traversée du Bay Bridge en direction du centre de San Francisco",
+      "116": "Au-dessus de la baie de San Francisco en direction du centre"
+    }
+  },
+  "85CE77BF-3413-4A7B-9B0F-732E96229A73": {
+    "name": "Skyline de San Francisco",
+    "group": "San Francisco",
+    "pointsOfInterest": {
+      "0": "Au-dessus de la baie de San Francisco, en déplacement vers l’Embarcadero",
+      "208": "Traversée de San Francisco sur Market Street"
+    }
+  },
+  "29BDF297-EB43-403A-8719-A78DA11A2948": {
+    "name": "San Francisco (soir)",
+    "group": "San Francisco",
+    "pointsOfInterest": {
+      "0": "Au-dessus de Fisherman’s Wharf en direction du centre de San Francisco",
+      "80": "À l’approche de la tour Coit avec le centre de San Francisco et le Bay Bridge\nen toile de fond",
+      "150": "Passage devant la tour Coit en direction du centre de San Francisco et du Bay Bridge",
+      "196": "Centre de San Francisco"
+    }
+  },
+  "DE851E6D-C2BE-4D9F-AB54-0F9CE994DC51": {
+    "name": "Baie de San Francisco",
+    "group": "San Francisco",
+    "pointsOfInterest": {
+      "0": "Baie de San Francisco et Golden Gate",
+      "140": "En direction de la tour nord du Golden Gate vers San Francisco",
+      "191": "Au-dessus de la baie de San Francisco"
+    }
+  },
+  "EE533FBD-90AE-419A-AD13-D7A60E2015D6": {
+    "name": "Brouillard de San Francisco",
+    "group": "San Francisco",
+    "pointsOfInterest": {
+      "0": "Au-dessus des Marin Headlands en direction du Golden Gate",
+      "150": "Traversée du Golden Gate en direction du Presidio de San Francisco"
+    }
+  },
+  "72B4390D-DF1D-4D51-B179-229BBAEFFF2C": {
+    "name": "Golden Gate Bridge de San Francisco",
+    "group": "San Francisco",
+    "pointsOfInterest": {
+      "0": "À l’approche du Golden Gate en provenance de San Francisco",
+      "60": "Près du Golden Gate en direction des Marin Headlands",
+      "140": "Traversée du Golden Gate",
+      "230": "Passage à côté de la tour nord du Golden Gate",
+      "260": "Au-dessus de la baie de San Francisco le long du Golden Gate"
+    }
+  },
+  "4AD99907-9E76-408D-A7FC-8429FF014201": {
+    "name": "Ferry Building de San Francisco",
+    "group": "San Francisco",
+    "pointsOfInterest": {
+      "0": "Au-dessus de la baie de San Francisco, en déplacement vers l’Embarcadero",
+      "90": "Au-dessus de l’Embarcadero en direction de Market Street à San Francisco",
+      "150": "Traversée du centre de San Francisco sur Market Street",
+      "360": "Traversée de San Francisco sur Market Street"
+    }
+  },
+  "0C747C29-4BF8-43F6-A5CC-2E012E555341": {
+    "name": "Côte de l’Écosse",
+    "group": "Écosse",
+    "pointsOfInterest": {
+      "0": "Le long de la côte de\nl’île de Skye, Écosse",
+      "338": "Phare de Neist Point, Île de Skye, Écosse",
+      "372": "Île de Skye, Écosse"
+    }
+  },
+  "3954A7C4-51EC-4ABC-ABA3-6757AC91C7CF": {
+    "name": "Lac écossais",
+    "group": "Écosse",
+    "pointsOfInterest": {
+      "0": "Survol du Loch Moidart sur\nla côte ouest de l’Écosse",
+      "252": "À l’approche de la mer des Hébrides, Écosse"
+    }
+  },
+  "E161929C-0819-4BC2-8359-550C081C7D54": {
+    "name": "Château écossais",
+    "group": "Écosse",
+    "pointsOfInterest": {
+      "0": "Loch Moidart sur la côte ouest de l’Écosse",
+      "139": "À l’approche du château de Tioram sur\nla côte ouest de l’Écosse",
+      "181": "Château de Tioram sur la côte ouest de l’Écosse",
+      "214": "Survol de la côte ouest de l’Écosse"
+    }
+  },
+  "cb5b5035-6701-619f-9065-3d7d0e5fbef4-144": {
+    "name": "Sequoia (lever de soleil)",
+    "group": "Sequoia",
+    "pointsOfInterest": {}
+  },
+  "cb5b5035-6701-619f-9065-3d7d0e5fbef4-145": {
+    "name": "Sequoia (matin)",
+    "group": "Sequoia",
+    "pointsOfInterest": {}
+  },
+  "cb5b5035-6701-619f-9065-3d7d0e5fbef4-146": {
+    "name": "Sequoia (nuit)",
+    "group": "Sequoia",
+    "pointsOfInterest": {}
+  },
+  "ecebc8d2-5486-c2b2-52ae-6f0ab2d6b65f-125": {
+    "name": "Nuages à Sonoma",
+    "group": "Sonoma",
+    "pointsOfInterest": {
+      "0": "Au-dessus de Sonoma en traversant la Californie vers le nord"
+    }
+  },
+  "ecebc8d2-5486-c2b2-52ae-6f0ab2d6b65f-126": {
+    "name": "Sonoma (soir)",
+    "group": "Sonoma",
+    "pointsOfInterest": {}
+  },
+  "ecebc8d2-5486-c2b2-52ae-6f0ab2d6b65f-127": {
+    "name": "Ligne d’horizon de Sonoma",
+    "group": "Sonoma",
+    "pointsOfInterest": {
+      "0": "En voyage vers le nord à travers Sonoma, Californie"
+    }
+  },
+  "ecebc8d2-5486-c2b2-52ae-6f0ab2d6b65f-128": {
+    "name": "Rivière de Sonoma",
+    "group": "Sonoma",
+    "pointsOfInterest": {
+      "0": "En voyage vers le nord au-dessus de Sonoma, Californie"
+    }
+  },
+  "ecebc8d2-5486-c2b2-52ae-6f0ab2d6b65f-129": {
+    "name": "Survol de Sonoma",
+    "group": "Sonoma",
+    "pointsOfInterest": {
+      "0": "Au-dessus des séquoias de Californie à Sonoma"
+    }
+  },
+  "cb5b5035-6701-619f-9065-3d7d0e5fbef4-130": {
+    "name": "Fleurs sauvages de Californie",
+    "group": "Superbloom",
+    "pointsOfInterest": {
+      "0": "Au-dessus des fleurs sauvages de Californie"
+    }
+  },
+  "cb5b5035-6701-619f-9065-3d7d0e5fbef4-131": {
+    "name": "Plaine de Carrizo en Californie",
+    "group": "Superbloom",
+    "pointsOfInterest": {
+      "0": "En voyage vers le nord au-dessus des fleurs sauvages de Californie"
+    }
+  },
+  "cb5b5035-6701-619f-9065-3d7d0e5fbef4-132": {
+    "name": "Chaîne de Temblor en Californie",
+    "group": "Superbloom",
+    "pointsOfInterest": {
+      "0": "Le long de la chaîne de Temblor\nen Californie du Sud"
+    }
+  },
+  "cb5b5035-6701-619f-9065-3d7d0e5fbef4-147": {
+    "name": "Tahoe (matin)",
+    "group": "Tahoe",
+    "pointsOfInterest": {}
+  },
+  "cb5b5035-6701-619f-9065-3d7d0e5fbef4-148": {
+    "name": "Tahoe (journée)",
+    "group": "Tahoe",
+    "pointsOfInterest": {}
+  },
+  "cb5b5035-6701-619f-9065-3d7d0e5fbef4-149": {
+    "name": "Tahoe (soir)",
+    "group": "Tahoe",
+    "pointsOfInterest": {}
+  },
+  "cb5b5035-6701-619f-9065-3d7d0e5fbef4-150": {
+    "name": "Tahoe (nuit)",
+    "group": "Tahoe",
+    "pointsOfInterest": {}
+  },
+  "C6DC4E54-1130-44F8-AF6F-A551D8E8A181": {
+    "name": "Méduses d’Alaska (sombre)",
+    "group": "Sous l’eau",
+    "pointsOfInterest": {
+      "0": "Méduse lune près de la côte de l’Alaska, aux États-Unis"
+    }
+  },
+  "C7AD3D0A-7EDF-412C-A237-B3C9D27381A1": {
+    "name": "Méduses d’Alaska (clair)",
+    "group": "Sous l’eau",
+    "pointsOfInterest": {
+      "0": "Passage au-dessus d’une méduse lune près de la côte de l’Alaska, aux États-Unis"
+    }
+  },
+  "2B30E324-E4FF-4CC1-BA45-A958C2D2B2EC": {
+    "name": "Banc de barracudas",
+    "group": "Sous l’eau",
+    "pointsOfInterest": {
+      "0": "Un banc de barracudas à\nnageoires noires près de Bornéo"
+    }
+  },
+  "687D03A2-18A5-4181-8E85-38F3A13409B9": {
+    "name": "Poissons-perroquets à bosse",
+    "group": "Sous l’eau",
+    "pointsOfInterest": {
+      "0": "Poissons-perroquets à bosse au-dessus\ndes récifs coralliens au large de Bornéo"
+    }
+  },
+  "27A37B0F-738D-4644-A7A4-E33E7A6C1175": {
+    "name": "Banc de dauphins de Californie",
+    "group": "Sous l’eau",
+    "pointsOfInterest": {
+      "0": "Dauphins communs à bec court au large de la côte californienne, aux États-Unis"
+    }
+  },
+  "EB3F48E7-D30F-4079-858F-1A61331D5026": {
+    "name": "Forêt de varech en Californie",
+    "group": "Sous l’eau",
+    "pointsOfInterest": {
+      "0": "Traversée d’une forêt de macroalgues au large de la côte californienne, aux États-Unis"
+    }
+  },
+  "CE9B5D5B-B6E7-47C5-8C04-59BF182E98FB": {
+    "name": "Banc de dauphins du Costa Rica",
+    "group": "Sous l’eau",
+    "pointsOfInterest": {
+      "0": "Dauphins à long bec dans les eaux\nsituées au large du Costa Rica"
+    }
+  },
+  "58C75C62-3290-47B8-849C-56A583173570": {
+    "name": "Mourines américaines",
+    "group": "Sous l’eau",
+    "pointsOfInterest": {
+      "0": "Mourines du Pacifique\nau large du Mexique"
+    }
+  },
+  "3716DD4B-01C0-4F5B-8DD6-DB771EC472FB": {
+    "name": "Requins gris de récif",
+    "group": "Sous l’eau",
+    "pointsOfInterest": {
+      "0": "Requins gris de récif nageant à proximité de la Polynésie française"
+    }
+  },
+  "DD47D8E1-CB66-4C12-BFEA-2ADB0D8D1E2E": {
+    "name": "Baleine à bosse",
+    "group": "Sous l’eau",
+    "pointsOfInterest": {
+      "0": "Une baleine à bosse au large de la Polynésie française"
+    }
+  },
+  "537A4DAB-83B0-4B66-BCD1-05E5DBB4A268": {
+    "name": "Banc de madeleineaux",
+    "group": "Sous l’eau",
+    "pointsOfInterest": {
+      "0": "Un banc de carangues à\ngros yeux au large de Bornéo"
+    }
+  },
+  "6143116D-03BB-485E-864E-A8CF58ACF6F1": {
+    "name": "Varech (sombre)",
+    "group": "Sous l’eau",
+    "pointsOfInterest": {
+      "0": "Traversée d’une forêt de macroalgues près de la péninsule du Cap, en Afrique du Sud"
+    }
+  },
+  "F07CC61B-30FC-4614-BDAD-3240B61F6793": {
+    "name": "Corail des Palaos (couleurs)",
+    "group": "Sous l’eau",
+    "pointsOfInterest": {
+      "0": "Récif de corail près de Palaos"
+    }
+  },
+  "BA4ECA11-592F-4727-9221-D2A32A16EB28": {
+    "name": "Méduses des Palaos (sombre)",
+    "group": "Sous l’eau",
+    "pointsOfInterest": {
+      "0": "Méduses dorées dans les eaux de Palaos",
+      "282": "Méduse lune au milieu de méduses\ndorées",
+      "348": "Méduses dorées dans les eaux de Palaos"
+    }
+  },
+  "E580E5A5-0888-4BE8-A4CA-F74A18A643C3": {
+    "name": "Méduses des Palaos (bleu)",
+    "group": "Sous l’eau",
+    "pointsOfInterest": {
+      "0": "Méduses dorées dans les eaux de Palaos"
+    }
+  },
+  "EC3DC957-D4C2-4732-AACE-7D0C0F390EC8": {
+    "name": "Méduses des Palaos (clair)",
+    "group": "Sous l’eau",
+    "pointsOfInterest": {
+      "0": "Méduses dorées dans les eaux de Palaos"
+    }
+  },
+  "82175C1F-153C-4EC8-AE37-2860EA828004": {
+    "name": "Survol du Corail de la mer Rouge",
+    "group": "Sous l’eau",
+    "pointsOfInterest": {
+      "0": "Récif de corail dans la mer Rouge près de l’Égypte"
+    }
+  },
+  "581A4F1A-2B6D-468C-A1BE-6F473F06D10B": {
+    "name": "Étoiles de mer",
+    "group": "Sous l’eau",
+    "pointsOfInterest": {
+      "0": "Étoiles de mer à cornes\nsur le fond océanique près de Bornéo"
+    }
+  },
+  "83C65C90-270C-4490-9C69-F51FE03D7F06": {
+    "name": "Échouerie de phoques",
+    "group": "Sous l’eau",
+    "pointsOfInterest": {
+      "0": "Otaries à fourrure d’Afrique du Sud au large de la péninsule du Cap"
+    }
+  },
+  "8C31B06F-91A4-4F7C-93ED-56146D7F48B9": {
+    "name": "Côte de Tahiti",
+    "group": "Sous l’eau",
+    "pointsOfInterest": {
+      "0": "Vagues déferlant sur le rivage de Tahiti"
+    }
+  },
+  "149E7795-DBDA-4F5D-B39A-14712F841118": {
+    "name": "Embruns des vagues tahitiennes",
+    "group": "Sous l’eau",
+    "pointsOfInterest": {
+      "0": "Vagues déferlant sur le rivage de Tahiti"
+    }
+  },
+  "E540DEE6-4C40-42C8-9CCC-D4CB0FAD7D7B": {
+    "name": "Ligne d’horizon de Yosemite",
+    "group": "Yosemite",
+    "pointsOfInterest": {
+      "0": "Au-dessus du parc national de Yosemite\naux États-Unis",
+      "70": "À l’approche du Half Dome, dans le parc national de Yosemite, aux États-Unis",
+      "87": "Half Dome dans le parc national de Yosemite, aux États-Unis",
+      "210": "Au-dessus du parc national de Yosemite\naux États-Unis"
+    }
+  },
+  "81CA5ACD-E682-4D8B-A948-0F147EB6ED4F": {
+    "name": "Montagnes de Yosemite",
+    "group": "Yosemite",
+    "pointsOfInterest": {
+      "0": "Au-dessus du parc national de Yosemite, aux États-Unis",
+      "93": "En voyage vers le pic Merced dans le\nparc national de Yosemite, aux États-Unis",
+      "130": "Pic Merced dans le parc national de Yosemite, aux États-Unis",
+      "221": "Passage à côté du pic Merced dans le parc national de Yosemite, aux États-Unis",
+      "244": "En voyage au-dessus du parc national de Yosemite, aux États-Unis"
+    }
+  },
+  "E5799A24-1949-4E66-A17B-B5EB05F28C5D": {
+    "name": "Contours de Yosemite",
+    "group": "Yosemite",
+    "pointsOfInterest": {
+      "0": "Half Dome dans le parc national de Yosemite, aux États-Unis",
+      "124": "Passage par le Half Dome à l’approche de la chute Nevada, dans le parc national de Yosemite",
+      "146": "Half Dome et chute Nevada dans le parc national de Yosemite, aux États-Unis"
+    }
+  },
+  "E487C6EF-B3FB-427B-A2BE-8CBA60F902F0": {
+    "name": "Nuages à Yosemite",
+    "group": "Yosemite",
+    "pointsOfInterest": {
+      "0": "Au-dessus du parc national de Yosemite\naux États-Unis",
+      "40": "En voyage vers le Half Dome dans le\nYosemite National Park, aux États-Unis",
+      "60": "Half Dome dans le parc national de Yosemite, aux États-Unis",
+      "155": "Au-dessus du parc national de Yosemite\navec la chute Nevada au loin",
+      "255": "Chutes Nevada et Illilouette dans le\nparc national de Yosemite, aux États-Unis",
+      "285": "Chutes Nevada, Vernal et Illilouette dans le parc national de Yosemite, aux États-Unis"
+    }
+  },
+  "DAD82DCE-F3AE-4AEC-8A79-1694D412FC0A": {
+    "name": "Survol de Yosemite",
+    "group": "Yosemite",
+    "pointsOfInterest": {
+      "0": "Passage au-dessus des Tuolumne Meadows\ndans le parc national de Yosemite, aux États-Unis"
+    }
+  },
+  "4109D42A-D717-46A7-A9A2-FE53A82B25C0": {
+    "name": "Vallée de Yosemite",
+    "group": "Yosemite",
+    "pointsOfInterest": {
+      "0": "En voyage vers la chute du Voile de la Mariée et\nEl Capitan dans le parc national de Yosemite",
+      "44": "En voyage vers lʼest vers El Capitan dans le\nparc national de Yosemite, aux États-Unis",
+      "87": "Traversée dʼEl Capitan, parc national de Yosemite, aux États-Unis",
+      "120": "En voyage vers lʼest vers le Half Dome dans le\nparc national de Yosemite, aux États-Unis",
+      "390": "Half Dome dans le parc national de Yosemite, aux États-Unis",
+      "470": "En voyage après le Half Dome dans la vallée de Yosemite, aux États-Unis",
+      "585": "En voyage vers l’est au-dessus de la vallée de Yosemite, aux États-Unis"
+    }
+  },
+  "8D04D70F-738B-441D-8D43-AF46B2BF8062": {
+    "name": "Sommets enneigés de Yosemite",
+    "group": "Yosemite",
+    "pointsOfInterest": {
+      "0": "En voyage vers Matthes Crest dans le\nparc national de Yosemite, aux États-Unis",
+      "75": "Vol au-dessus de Matthes Crest dans le \nparc national de Yosemite, aux États-Unis",
+      "124": "Vol par Matthes Crest dans le\nparc national de Yosemite, aux États-Unis",
+      "215": "Vol au-dessus de Matthes Crest dans le \nparc national de Yosemite, aux États-Unis",
+      "396": "Déplacement en direction des Tuolumne Meadows dans le\nparc national de Yosemite, aux États-Unis"
+    }
+  }
+}

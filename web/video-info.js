@@ -1,4 +1,6 @@
-const videos = structuredClone(electron.videos);
+const videos = structuredClone(electron.videos).map(video => ({
+    ...video, pointsOfInterest: electron.videoText(video, 'en').pointsOfInterest
+}));
 let types = ["cityscape", "landscape", "underwater", "space"];
 let timeOfDays = [undefined, "day", "night", "twilight"];
 

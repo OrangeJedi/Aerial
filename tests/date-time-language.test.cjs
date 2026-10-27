@@ -28,3 +28,9 @@ test('unsupported languages fall back safely and system preferences are ordered'
     assert.equal(vm.runInContext('dateTimeLocale()', fixture('unknown', ['fr'])), 'en');
     assert.equal(vm.runInContext('dateTimeLocale()', fixture('system', ['zz-ZZ', 'pt-BR'])), 'pt-br');
 });
+
+test('Apple Norwegian and Chinese script locales also format dates in the selected language', () => {
+    assert.equal(vm.runInContext('dateTimeLocale()', fixture('no-NO', [])), 'nb');
+    assert.equal(vm.runInContext('dateTimeLocale()', fixture('zh-Hant', [])), 'zh-tw');
+    assert.equal(vm.runInContext('dateTimeLocale()', fixture('zh-Hans', [])), 'zh-cn');
+});

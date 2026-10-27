@@ -531,18 +531,20 @@ const healthInterval = setInterval(() => {
 
 function drawDynamicText() {
     poiTimeout = clearTimeouts(poiTimeout);
-    const videoInfo = videosById.get(currentlyPlaying);
+    const video = videosById.get(currentlyPlaying);
 
     //exit the function if no video info is found
-    if (!videoInfo) {
+    if (!video) {
         return;
     }
+    const videoInfo = {...video, ...electron.videoText(video)};
 
     for (let position of displayText.positionList) {
         for (let i = 0; i < displayText[position].length; i++) {
             let line = displayText[position][i];
             const textArea = $(`#${position}-${i}`);
             if (line.type === "information") {
+                textArea.attr('dir', 'auto');
                 if (line.infoType === "poi" && position !== "random") {
                     if (videoInfo["pointsOfInterest"] !== undefined) {
                         changePOI(position, i, -1, videoInfo["pointsOfInterest"]);
@@ -562,7 +564,7 @@ function changePOI(position, line, currentPOI, poiList) {
     let poiS = Object.keys(poiList);
     for (let i = 0; i < poiS.length; i++) {
         if (Number(poiS[i]) > currentPOI) {
-            $(`#${position}-${line}`).text(poiList[poiS[i]]);
+            $(`#${position}-${line}`).attr('dir', 'auto').text(poiList[poiS[i]]);
             if (i < poiS.length - 1) {
                 poiTimeout.push(setTimeout(changePOI, (Number(poiS[i + 1]) - Number(poiS[i])) * 1000 / playbackRate || 0, position, line, poiS[i], poiList));
             }

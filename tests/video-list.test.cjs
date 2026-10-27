@@ -15,7 +15,7 @@ test('video list hides unavailable entries without changing indices or selection
         const allowedVideos = videos.map(video => video.id);
         const context = vm.createContext({
             videos, allowedVideos,
-            electron: {videoSources: video => getVideoSources(video, {get: key => settings[key]})},
+            electron: {videoText: video => video, videoSources: video => getVideoSources(video, {get: key => settings[key]})},
             $: () => ({html: value => { html = value; }})
         });
         vm.runInContext(script.slice(start, end) + '\nmakeList();', context);

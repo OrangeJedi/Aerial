@@ -76,10 +76,16 @@ module.exports = function initializePreload() {
     const path = require('path');
     const fs = require('fs');
 
+    const videoLocales = require('./localized/locales.json');
+    const {createVideoLocalizer} = require('./video-localization');
+    const localizeVideo = createVideoLocalizer({videos: require('./videos.json'), locales: videoLocales});
+    let cachedSystemLanguages;
+    const systemLanguages = () => cachedSystemLanguages ||= ipcRenderer.sendSync('system-language');
+
     // Expose protected methods from node modules
     contextBridge.exposeInMainWorld("electron", {
             get systemLanguages() {
-                return ipcRenderer.sendSync('system-language');
+                return systemLanguages();
             },
             convertedVideo: video => {
                 if (!settings.get('prepareCompatibleVideos')) {
@@ -126,6 +132,12 @@ module.exports = function initializePreload() {
                 }
             },
             videos: require("./videos.json"),
+            videoLocales,
+            videoText: (video, language) => {
+                const selected = language || settings.get('dateTimeLanguage');
+                const languages = selected && selected !== 'system' ? [selected] : systemLanguages();
+                return localizeVideo(video, languages);
+            },
             fontListUniversal: fontList,
         }
     )

@@ -1,0 +1,1283 @@
+{
+  "B876B645-3955-420E-99DF-60139E451CF3": {
+    "name": "Kitajsko gorovje",
+    "group": "Kitajska",
+    "pointsOfInterest": {
+      "0": "Potovanje čez narodni park Vulingjuan na Kitajskem"
+    }
+  },
+  "9CCB8297-E9F5-4699-AE1F-890CFBD5E29C": {
+    "name": "Kitajsko riževo polje",
+    "group": "Kitajska",
+    "pointsOfInterest": {
+      "0": "Prečkanje riževih polj Longdži v provinci Guangši, Kitajska"
+    }
+  },
+  "D5E76230-81A3-4F65-A1BA-51B8CADED625": {
+    "name": "Kitajske pečine",
+    "group": "Kitajska",
+    "pointsOfInterest": {
+      "0": "Raziskovanje narodnega parka Vulingjuan na Kitajskem"
+    }
+  },
+  "22162A9B-DB90-4517-867C-C676BC3E8E95": {
+    "name": "Veliki kitajski zid",
+    "group": "Kitajska",
+    "pointsOfInterest": {
+      "0": "Predel Velikega kitajskega zidu v kraju Mutianju v okraju Huairou, Kitajska"
+    }
+  },
+  "044AD56C-A107-41B2-90CC-E60CCACFBCF5": {
+    "name": "Obris Kitajske",
+    "group": "Kitajska",
+    "pointsOfInterest": {
+      "0": "Predel Velikega kitajskega zidu v kraju Mutianju v okraju Huairou, Kitajska"
+    }
+  },
+  "F0236EC5-EE72-4058-A6CE-1F7D2E8253BF": {
+    "name": "Veliki kitajski zid pri dnevni svetlobi",
+    "group": "Kitajska",
+    "pointsOfInterest": {
+      "0": "Predel Velikega kitajskega zidu v kraju Mutianju v okraju Huairou, Kitajska"
+    }
+  },
+  "876D51F4-3D78-4221-8AD2-F9E78C0FD9B9": {
+    "name": "Dubaj iz zraka",
+    "group": "Dubaj",
+    "pointsOfInterest": {
+      "0": "Potovanje vzdolž ulice Šejka Zajda v Dubaju, Združeni arabski emirati"
+    }
+  },
+  "E991AC0C-F272-44D8-88F3-05F44EDFE3AE": {
+    "name": "Pristanišče v Dubajskem rokavu",
+    "group": "Dubaj",
+    "pointsOfInterest": {
+      "0": "Let nad sosesko Marina v Dubaju v Združenih Arabskih Emiratih"
+    }
+  },
+  "9680B8EB-CE2A-4395-AF41-402801F4D6A6": {
+    "name": "Dubaj ponoči",
+    "group": "Dubaj",
+    "pointsOfInterest": {
+      "0": "Približevanje stolpnici Burj Khalifa v središču Dubaja, Združeni arabski emirati",
+      "280": "Mimo stolpnice Burj Khalifa v središču Dubaja, Združeni arabski emirati",
+      "330": "Čez središče Dubaja proti obali"
+    }
+  },
+  "00BA71CD-2C54-415A-A68A-8358E677D750": {
+    "name": "Dubajsko obzorje",
+    "group": "Dubaj",
+    "pointsOfInterest": {
+      "0": "Približevanje središču Dubaja v Združenih arabskih emiratih",
+      "210": "Približevanje središču Dubaja v Združenih arabskih emiratih"
+    }
+  },
+  "3FFA2A97-7D28-49EA-AA39-5BC9051B2745": {
+    "name": "Dubajski morski rokav",
+    "group": "Dubaj",
+    "pointsOfInterest": {
+      "0": "Let vzdolž soseske Marina v Dubaju v Združenih Arabskih Emiratih"
+    }
+  },
+  "E334A6D2-7145-47C8-9B00-C20DED08B2D5": {
+    "name": "Veliki kanjon zvečer",
+    "group": "Veliki kanjon",
+    "pointsOfInterest": {
+      "0": "Po strugi reke Kolorado čez Veliki kanjon v Združenih državah"
+    }
+  },
+  "DD266E1F-5DF2-4CDB-A2EB-26CE35664657": {
+    "name": "Veliki kanjon iz zraka",
+    "group": "Veliki kanjon",
+    "pointsOfInterest": {
+      "0": "Let nad območjem Burnt Canyon Velikega kanjona, Združene države"
+    }
+  },
+  "F9F918CD-E15F-4F01-A326-84A44650C5C9": {
+    "name": "Sončni zahod v Velikem kanjonu",
+    "group": "Veliki kanjon",
+    "pointsOfInterest": {
+      "0": "Potovanje čez Veliki kanjon\nv Združenih državah"
+    }
+  },
+  "AE0115AE-C53B-4DB9-B12F-CA4B7B630CC9": {
+    "name": "Sediment v Velikem kanjonu",
+    "group": "Veliki kanjon",
+    "pointsOfInterest": {
+      "0": "Potovanje čez Veliki kanjon\nv Združenih državah"
+    }
+  },
+  "8002C4C8-C611-4894-A068-3D3A3C03472A": {
+    "name": "Rečna dolina v Velikem kanjonu",
+    "group": "Veliki kanjon",
+    "pointsOfInterest": {
+      "0": "Potovanje vzdolž reke Kolorado\nv Velikem kanjonu, Združene države"
+    }
+  },
+  "B8F204CE-6024-49AB-85F9-7CA2F6DCD226": {
+    "name": "Grenlandski ledenik",
+    "group": "Grenlandija",
+    "pointsOfInterest": {
+      "0": "Potovanje vzdolž polotoka Nuussuaq na Grenlandiji"
+    }
+  },
+  "2F52E34C-39D4-4AB1-9025-8F7141FAA720": {
+    "name": "Grenlandska obala",
+    "group": "Grenlandija",
+    "pointsOfInterest": {
+      "0": "Ledeni fjord Ilulissat ob obali Grenlandije"
+    }
+  },
+  "EE01F02D-1413-436C-AB05-410F224A5B7B": {
+    "name": "Grenlandija zvečer",
+    "group": "Grenlandija",
+    "pointsOfInterest": {
+      "0": "Ledeni fjord Ilulissat ob obali Grenlandije"
+    }
+  },
+  "12E0343D-2CD9-48EA-AB57-4D680FB6D0C7": {
+    "name": "Havajska obala",
+    "group": "Havaji",
+    "pointsOfInterest": {
+      "0": "Let nad slapom Laupāhoehoe Nui v gozdnem rezervatu Kohala na otoku Hawai‘i"
+    }
+  },
+  "258A6797-CC13-4C3A-AB35-4F25CA3BF474": {
+    "name": "Havajski oblaki – svetlo",
+    "group": "Havaji",
+    "pointsOfInterest": {
+      "0": "Nad naravnim rezervatom Pu‘u O ‘Umi na otoku Hawai‘i"
+    }
+  },
+  "3D729CFC-9000-48D3-A052-C5BD5B7A6842": {
+    "name": "Ocean okrog Havajev",
+    "group": "Havaji",
+    "pointsOfInterest": {
+      "0": "Vzdolž obale polotoka Kohala na otoku Hawai‘i"
+    }
+  },
+  "499995FA-E51A-4ACE-8DFD-BDF8AFF6C943": {
+    "name": "Havajska dolina",
+    "group": "Havaji",
+    "pointsOfInterest": {
+      "0": "Dolina Waimanu v gozdnem rezervatu Kohala na otoku Hawai‘i"
+    }
+  },
+  "82BD33C9-B6D2-47E7-9C42-AA3B7758921A": {
+    "name": "Havajski oblaki – temno",
+    "group": "Havaji",
+    "pointsOfInterest": {
+      "0": "Nad naravnim rezervatom Pu‘u O ‘Umi na otoku Hawai‘i"
+    }
+  },
+  "E99FA658-A59A-4A2D-9F3B-58E7BDC71A9A": {
+    "name": "Hongkong ponoči",
+    "group": "Hongkong",
+    "pointsOfInterest": {
+      "0": "Čez pristanišče Victoria proti osrednjemu delu Hongkonga"
+    }
+  },
+  "C8559883-6F3E-4AF2-8960-903710CD47B7": {
+    "name": "Hongkonško obzorje",
+    "group": "Hongkong",
+    "pointsOfInterest": {
+      "0": "Let nad Viktorijinim vrhom v Hongkongu",
+      "150": "Let nad Hongkongom proti pristanišču Victoria",
+      "330": "Čez pristanišče Victoria proti polotoku Kovlun"
+    }
+  },
+  "024891DE-B7F6-4187-BFE0-E6D237702EF0": {
+    "name": "Hongkonško obzorje",
+    "group": "Hongkong",
+    "pointsOfInterest": {
+      "0": "Čez četrt Van Čaj proti osrednjemu delu Hongkonga",
+      "150": "Čez osrednji del Hongkonga",
+      "270": "Čez otok Hongkong"
+    }
+  },
+  "FE8E1F9D-59BA-4207-B626-28E34D810D0A": {
+    "name": "Hongkonško pristanišče",
+    "group": "Hongkong",
+    "pointsOfInterest": {
+      "0": "Čez pristanišče Victoria proti otoku Hongkong"
+    }
+  },
+  "8590D0C5-E344-4FAC-A39A-FD7BC652AEDA": {
+    "name": "Islandska obala",
+    "group": "Islandija",
+    "pointsOfInterest": {
+      "0": "Let nad jezerom Langisjór na Islandiji"
+    }
+  },
+  "DDE50C77-B7CB-4488-9EB1-D1B13BF21FFE": {
+    "name": "Islandski ledenik",
+    "group": "Islandija",
+    "pointsOfInterest": {
+      "0": "Potovanje čez reko Tungnaá v islandskem višavju"
+    }
+  },
+  "E54D5AFE-F362-4D48-A20D-F2C21D2B5330": {
+    "name": "Islandski fjord",
+    "group": "Islandija",
+    "pointsOfInterest": {
+      "0": "Po strugi reke Jökulgilskvísl v Landmannalaugarju, Islandija",
+      "308": "Potovanje čez islandsko višavje"
+    }
+  },
+  "F9518D54-04A7-4793-8666-CFC114D73CE5": {
+    "name": "Islandska rečna struga",
+    "group": "Islandija",
+    "pointsOfInterest": {
+      "0": "Potovanje čez dolino Jökulgilskvísl v Landmannalaugarju, Islandija"
+    }
+  },
+  "8ACF5D77-B22C-416F-B12A-72FB35E2834F": {
+    "name": "Islandski fjord iz zraka",
+    "group": "Islandija",
+    "pointsOfInterest": {
+      "0": "Potovanje čez Landmannalaugar na Islandiji"
+    }
+  },
+  "2F17FCCE-6CCA-4AFA-A08A-C50BF9812DA5": {
+    "name": "Zasneženi vrhovi na Islandiji",
+    "group": "Islandija",
+    "pointsOfInterest": {
+      "0": "Premikanje proti ledeniku Mýrdalsjökull na Islandiji",
+      "150": "Približevanje ledeniku Mýrdalsjökull na Islandiji",
+      "225": "Ledenik Mýrdalsjökull na Islandiji",
+      "324": "Potovanje čez ledenik Mýrdalsjökull na Islandiji"
+    }
+  },
+  "cb5b5035-6701-619f-9065-3d7d0e5fbef4-113": {
+    "name": "Islandsko jezero",
+    "group": "Islandija",
+    "pointsOfInterest": {}
+  },
+  "cb5b5035-6701-619f-9065-3d7d0e5fbef4-133": {
+    "name": "Plaže v zvezni državi Goa",
+    "pointsOfInterest": {
+      "0": "Nad plažama Cola in Small Cola v zvezni državi Goa, Indija"
+    }
+  },
+  "cb5b5035-6701-619f-9065-3d7d0e5fbef4-134": {
+    "name": "Obala v zvezni državi Goa",
+    "pointsOfInterest": {
+      "0": "Mimo plaže Small Cola v zvezni državi Goa, Indija",
+      "150": "Približevanje plaži Cola v zvezni državi Goa, Indija"
+    }
+  },
+  "cb5b5035-6701-619f-9065-3d7d0e5fbef4-135": {
+    "name": "Ganges",
+    "pointsOfInterest": {
+      "0": "Po Gangesu od Rišikeša v provinci Utarakhand, Indija"
+    }
+  },
+  "cb5b5035-6701-619f-9065-3d7d0e5fbef4-136": {
+    "name": "Ghansali iz zraka",
+    "pointsOfInterest": {
+      "0": "Nad terasastimi polji blizu Akhorija v provinci Uttarakhand, Indija"
+    }
+  },
+  "cb5b5035-6701-619f-9065-3d7d0e5fbef4-137": {
+    "name": "Prek Himalaje",
+    "pointsOfInterest": {
+      "0": "Proti gori Nanda Devi prek Garvalske Himalaje v provinci Uttarakhand, Indija"
+    }
+  },
+  "cb5b5035-6701-619f-9065-3d7d0e5fbef4-138": {
+    "name": "Himalajski vrhovi",
+    "pointsOfInterest": {
+      "0": "Prečkanje Garvalske Himalaje v provinci Uttarakhand, Indija"
+    }
+  },
+  "cb5b5035-6701-619f-9065-3d7d0e5fbef4-139": {
+    "name": "Dan v Himalaji",
+    "pointsOfInterest": {
+      "0": "Prečkanje Garvalske Himalaje v provinci Uttarakhand, Indija"
+    }
+  },
+  "cb5b5035-6701-619f-9065-3d7d0e5fbef4-140": {
+    "name": "Dan v čajnih vrtovih",
+    "pointsOfInterest": {
+      "0": "Prečkanje čajnih vrtov Munnar v zvezni državi Kerala, Indija"
+    }
+  },
+  "cb5b5035-6701-619f-9065-3d7d0e5fbef4-141": {
+    "name": "Meglica v čajnih vrtovih",
+    "pointsOfInterest": {
+      "0": "V smeri proti vzhodu čez čajne vrtove Munnar v zvezni državi Kerala, Indija"
+    }
+  },
+  "cb5b5035-6701-619f-9065-3d7d0e5fbef4-142": {
+    "name": "Čajni vrtovi iz zraka",
+    "pointsOfInterest": {
+      "0": "Nad čajnimi vrtovi Munnar v zvezni državi Kerala, Indija"
+    }
+  },
+  "cb5b5035-6701-619f-9065-3d7d0e5fbef4-143": {
+    "name": "Dan nad akumulacijskimi jezeri",
+    "pointsOfInterest": {
+      "0": "Po akumulacijskem jezeru Upper Sholayar v zvezni državi Tamil Nadu, Indija"
+    }
+  },
+  "A837FA8C-C643-4705-AE92-074EFDD067F7": {
+    "name": "Afrika",
+    "group": "Zemlja",
+    "pointsOfInterest": {
+      "0": "Potovanje proti severovzhodu čez Saharo ponoči",
+      "70": "Čez Veliki vzhodni erg proti Sredozemskemu morju",
+      "100": "Sredozemska obala Tunizije in Libije",
+      "120": "Prečkanje Sredozemskega morja proti Italiji",
+      "140": "Čez južno Italijo proti Balkanskemu polotoku s Turčijo v ozadju",
+      "165": "Čez Balkanski polotok proti Črnemu morju",
+      "180": "Čez Balkanski polotok proti Črnemu morju",
+      "210": "Potovanje čez Črno morje proti Ukrajini",
+      "230": "Potovanje čez Ukrajino proti Rusiji"
+    }
+  },
+  "2F72BC1E-3D76-456C-81EB-842EBA488C27": {
+    "name": "Severna Afrika",
+    "group": "Zemlja",
+    "pointsOfInterest": {
+      "0": "Čez Afriški rog proti Adenskemu zalivu",
+      "45": "Jugovzhodni del Arabskega polotoka",
+      "115": "Približevanje obali Makran iz smeri Omanskega zaliva",
+      "145": "Obala Makran v Iranu in Pakistanu",
+      "160": "Čez Iran proti Afganistanu in Pakistanu",
+      "180": "Čez Afganistan in Pakistan proti gorstvu Karakoram",
+      "235": "Čez gorstvo Karakoram proti Kitajski",
+      "280": "Puščava Takla Makan na zahodu Kitajske",
+      "315": "Pogorje Tjanšan v srednji Aziji"
+    }
+  },
+  "03EC0F5E-CCA8-4E0A-9FEC-5BD1CE151182": {
+    "name": "Južni sij na Antarktiki",
+    "group": "Zemlja",
+    "pointsOfInterest": {
+      "0": "Južni sij nad Antarktiko"
+    }
+  },
+  "64D11DAB-3B57-4F14-AD2F-E59A9282FA44": {
+    "name": "Severni Atlantik",
+    "group": "Zemlja",
+    "pointsOfInterest": {
+      "0": "Čez severni Atlantski ocean proti Portugalski",
+      "115": "Čez Portugalsko in Španijo",
+      "150": "Oddaljevanje od Iberskega polotoka in prečkanje Biskajskega zaliva in Francije",
+      "180": "Čez zahodno Evropo s severnim Atlantskim oceanom v ozadju"
+    }
+  },
+  "81337355-E156-4242-AAF4-711768D30A54": {
+    "name": "Avstralija",
+    "group": "Zemlja",
+    "pointsOfInterest": {
+      "0": "Čez Indijski ocean proti Perthu, Avstralija",
+      "50": "Potovanje proti severovzhodu čez Zahodno Avstralijo",
+      "170": "Čez Zahodno Avstralijo proti Severnemu teritoriju",
+      "220": "Čez Severni teritorij Avstralije proti Novi Gvineji",
+      "335": "Čez Arafursko morje proti Novi Gvineji"
+    }
+  },
+  "12318CCB-3F78-43B7-A854-EFDCCE5312CD": {
+    "name": "Kalifornija",
+    "group": "Zemlja",
+    "pointsOfInterest": {
+      "0": "Čez Tihi ocean proti kalifornijski obali",
+      "70": "Čez kalifornijsko obalo proti celini",
+      "85": "Prečkanje Los Angelesa na zahodni obali Združenih držav",
+      "95": "Čez Los Angeles proti Las Vegasu v Združenih državah",
+      "110": "Čez Las Vegas proti Salt Lake Cityju v Združenih državah",
+      "120": "Čez zahodne Združene države proti Salt Lake Cityju",
+      "155": "Pot med Salt Lake Cityjem in Denverjem v Združenih državah",
+      "170": "Čez Skalno gorovje v Združenih državah"
+    }
+  },
+  "D5CFB2FF-5F8C-4637-816B-3E42FC1229B8": {
+    "name": "Karibski otoki",
+    "group": "Zemlja",
+    "pointsOfInterest": {
+      "0": "Potovanje čez Tihi ocean proti srednji Ameriki",
+      "35": "Tihooceanske obale Nikaragve, Kostarike in Paname",
+      "50": "Prečkanje Srednje Amerike z Južno Ameriko v ozadju",
+      "65": "Moskitska obala v Nikaragvi",
+      "85": "Čez Karibsko morje proti Kubi",
+      "110": "Mimo z oblaki prekrite Jamajke v Karibskem morju",
+      "125": "Prečkanje Kube proti Haitiju in Dominikanski republiki",
+      "170": "Potovanje prek Bahamov proti Haitiju in Dominikanski republiki",
+      "190": "Otoki Turks in Caicos v Atlantskem oceanu"
+    }
+  },
+  "1088217C-1410-4CF7-BDE9-8F573A4DBCD9": {
+    "name": "Karibsko morje",
+    "group": "Zemlja",
+    "pointsOfInterest": {
+      "0": "Čez Tihi ocean proti srednji Ameriki",
+      "70": "Jugozahodna obala srednje Amerike proti Karibskemu morju",
+      "100": "Prečkanje srednje Amerike v smeri Karibskega morja",
+      "150": "Čez Karibsko morje proti Kubi",
+      "240": "Čez Kubo s Florido in Bahami v ozadju",
+      "300": "Čez Florido in Bahame proti Sargaškemu morju",
+      "350": "Čez Sargaško morje proti Atlantskemu oceanu"
+    }
+  },
+  "4F881F8B-A7D9-4FDB-A917-17BF6AC5A589": {
+    "name": "Karibi",
+    "group": "Zemlja",
+    "pointsOfInterest": {
+      "0": "Pot proti jugovzhodu čez Velike planjave Združenih držav",
+      "90": "Pot proti jugovzhodu čez srednjezahodne Združene države",
+      "120": "Čez jugovzhodne Združene države proti Floridi",
+      "220": "Čez Florido proti Bahamom",
+      "240": "Prečkanje Bahamov proti jugovzhodu",
+      "285": "Čez Bahame proti Dominikanski republiki in Haitiju",
+      "300": "Čez Dominikansko republiko in Haiti proti Karibskemu morju",
+      "315": "Čez Karibsko morje proti jugu v smeri Venezuele"
+    }
+  },
+  "6324F6EB-E0F1-468F-AC2E-A983EBDDD53B": {
+    "name": "Kitajska ponoči",
+    "group": "Zemlja",
+    "pointsOfInterest": {
+      "0": "Čez srednjo Azijo proti obali Kitajske",
+      "10": "Čez srednjo Kitajsko proti Šanghaju",
+      "30": "Približevanje Šanghaju iz smeri vzhodne Kitajske",
+      "45": "Približevanje Šanghaju proti Vzhodnokitajskemu morju",
+      "50": "Čez Šanghaj proti Vzhodnokitajskemu morju"
+    }
+  },
+  "F439B0A7-D18C-4B14-9681-6520E6A74FE9": {
+    "name": "Bližnji vzhod",
+    "group": "Zemlja",
+    "pointsOfInterest": {
+      "0": "Odsev sonca vzdolž iranske obale",
+      "15": "Prehod iz dneva v noč nad Iranom",
+      "60": "Prehod iz dneva v noč nad srednjo Azijo"
+    }
+  },
+  "7C643A39-C0B2-4BA0-8BC2-2EAA47CC580E": {
+    "name": "Evropa ponoči",
+    "group": "Zemlja",
+    "pointsOfInterest": {
+      "0": "Čez severni Atlantik proti Irski in Veliki Britaniji",
+      "15": "Irska in Velika Britanija",
+      "45": "Čez Veliko Britanijo proti celinski Evropi",
+      "65": "Čez severozahodno Evropo proti Rusiji",
+      "105": "Čez srednjo Evropo proti Rusiji",
+      "150": "Čez vzhodno Evropo z Moskvo v ozadju",
+      "165": "Čez vzhodno Evropo proti Moskvi",
+      "185": "Čez zahodno Rusijo mimo Moskve",
+      "195": "Čez Rusijo proti srednji Aziji"
+    }
+  },
+  "E5DB138A-F04E-4619-B896-DE5CB538C534": {
+    "name": "Južna Evropa ponoči",
+    "group": "Zemlja",
+    "pointsOfInterest": {
+      "0": "Čez Tunizijo proti Italiji",
+      "5": "Čez Sredozemsko morje proti Siciliji in Apeninskemu polotoku",
+      "15": "Čez južno Italijo z Balkanskim polotokom v ozadju",
+      "25": "Čez Balkanski polotok proti srednji Aziji",
+      "40": "Čez Balkanski polotok in mimo Črnega morja",
+      "55": "Čez Ukrajino z Rusijo v ozadju",
+      "75": "Čez jugozahodno Rusijo mimo Kazahstana"
+    }
+  },
+  "009BA758-7060-4479-8EE8-FB9B40C8FB97": {
+    "name": "Vzhodna Azija",
+    "group": "Zemlja",
+    "pointsOfInterest": {
+      "0": "Prečkanje Sibirije in Mongolije proti jugovzhodu",
+      "22": "Proti Notranji Mongoliji",
+      "32": "Čez Mongolijo proti Kitajski",
+      "60": "Čez severno Kitajsko proti Korejskemu polotoku",
+      "110": "Čez Kitajsko proti Korejskemu polotoku",
+      "150": "Korejski polotok z Japonsko v ozadju",
+      "180": "Čez Južno Korejo proti Japonski",
+      "195": "Čez Japonsko proti Tihemu oceanu",
+      "260": "Čez Tihi ocean jugovzhodno od Japonske"
+    }
+  },
+  "B1B5DDC5-73C8-4920-8133-BACCE38A08DE": {
+    "name": "New York",
+    "group": "Zemlja",
+    "pointsOfInterest": {
+      "0": "Čez Tihi ocean proti Mehiki",
+      "105": "Prečkanje Mexico Cityja proti Mehiškemu zalivu",
+      "122": "Let nad Mehiškim zalivom proti Združenim državam",
+      "180": "Mimo Houstona proti New Orleansu v Združenih državah",
+      "190": "Pot proti New Orleansu in južni obali Združenih držav",
+      "215": "Prečkanje jugovzhodnih Združenih držav",
+      "280": "Čez vzhodne Združene države proti New Yorku",
+      "320": "Čez vzhodne Združene države proti New York Cityju"
+    }
+  },
+  "78911B7E-3C69-47AD-B635-9C2486F6301D": {
+    "name": "Nova Zelandija",
+    "group": "Zemlja",
+    "pointsOfInterest": {
+      "0": "Prehod iz noči v dan nad južnim Tihim oceanom",
+      "70": "Prehod iz noči v dan nad Novo Zelandijo",
+      "110": "Približevanje sončnemu vzhodu nad Novo Zelandijo",
+      "170": "Zapuščanje Nove Zelandije proti severovzhodu čez Tihi ocean"
+    }
+  },
+  "3C4678E4-4D3D-4A40-8817-77752AEA62EB": {
+    "name": "Delta Nila",
+    "group": "Zemlja",
+    "pointsOfInterest": {
+      "0": "Potovanje čez zahodno Evropo z Veliko Britanijo in Irsko v ozadju",
+      "20": "Pot proti jugovzhodu čez Alpe in Padsko nižino",
+      "50": "Po Apeninskem polotoku in Jadranskem morju",
+      "100": "Grčija, ki jo obdajata Jonsko in Egejsko morje",
+      "160": "Potovanje proti jugovzhodu čez Sredozemsko morje",
+      "185": "Sredozemsko morje in delta reke Nil",
+      "205": "Tok reke Nil čez Saharo v Egiptu",
+      "220": "Vzhodna puščava, ki jo obdajata reka Nil in Sueški zaliv",
+      "240": "Prečkanje Rdečega morja proti jugovzhodu"
+    }
+  },
+  "737E9E24-49BE-4104-9B72-F352DE1AD2BF": {
+    "name": "Severni sij nad Severno Ameriko",
+    "group": "Zemlja",
+    "pointsOfInterest": {
+      "0": "Čez Tihi ocean proti Kalifornijskemu polotoku",
+      "45": "Čez Kalifornijski polotok proti severu v smeri Združenih držav",
+      "55": "Čez Mehiko proti jugozahodnim Združenim državam",
+      "75": "Čez jugozahodne Združene države",
+      "110": "Čez Skalno gorovje proti Denverju",
+      "125": "Potovanje čez Velike planjave Združenih držav",
+      "185": "Približevanje Velikim jezerom z Ontariem v Kanadi v ozadju",
+      "200": "Čez Velika jezera proti Ontariu v Kanadi",
+      "210": "Severni sij nad zahodnim Ontariem, Kanada",
+      "235": "Severni sij nad severnim Ontariem, Kanada",
+      "250": "Severni sij nad severnim Quebecom, Kanada",
+      "300": "Pot v smeri severnega Atlantika s severnim sijem nad Labradorjem, Kanada"
+    }
+  },
+  "E556BBC5-D0A0-4DB1-AC77-BC76E4A526F4": {
+    "name": "Sahara",
+    "group": "Zemlja",
+    "pointsOfInterest": {
+      "0": "Čez zahodno Afriko proti Sahari",
+      "30": "Prečkanje Sahare v Severni Afriki",
+      "110": "Prečkanje gorovja Ahagar v Sahari, severna Afrika",
+      "155": "Čez severnoafriški Veliki vzhodni erg proti Sredozemskemu morju",
+      "195": "Tunizijska obala in Sredozemsko morje",
+      "210": "Čez tunizijsko obalo proti Italiji",
+      "230": "Približevanje Italiji v Sredozemskem morju",
+      "245": "Čez Italijo proti Balkanskemu polotoku",
+      "285": "Čez Balkanski polotok proti Karpatom",
+      "310": "Karpati in Črno morje"
+    }
+  },
+  "87060EC2-D006-4102-98CC-3005C68BB343": {
+    "name": "Južna Afrika",
+    "group": "Zemlja",
+    "pointsOfInterest": {
+      "0": "Potovanje proti severovzhodu čez Etiopsko višavje",
+      "45": "Potovanje čez Rdeče morje proti Arabskemu polotoku",
+      "100": "Prečkanje Arabskega polotoka proti severovzhodu",
+      "130": "Čez Arabski polotok proti Iranu",
+      "165": "Čez Arabski polotok proti Iranu",
+      "190": "Približevanje iranski obali z gorovjem Zagros v ozadju",
+      "210": "Čez gorovje Zagros v Iranu",
+      "240": "Čez puščavo Dasht-e Lut v Iranu",
+      "265": "Premikanje proti Turkmenistanu in puščavi Karakum",
+      "305": "Reka Amu Darya in gorovje Pamir-Alay v srednji Aziji",
+      "322": "Gorovje Pamir-Alay in dolina Fergana v srednji Aziji",
+      "360": "Pot proti jugovzhodnemu Kazahstanu iz smeri Kirgizistana",
+      "400": "Potovanje proti severu čez Kazahstan",
+      "450": "Čez gorovje Altaj proti Mongoliji"
+    }
+  },
+  "7719B48A-2005-4011-9280-2F64EEC6FD91": {
+    "name": "Južna Kalifornija",
+    "group": "Zemlja",
+    "pointsOfInterest": {
+      "0": "Čez Tihi ocean proti Združenim državam",
+      "20": "Potovanje proti jugu po obali Kalifornije",
+      "50": "Čez južno Kalifornijo proti Mehiki",
+      "65": "Približevanje puščavi Mojave v južni Kaliforniji z Mehiko v ozadju",
+      "95": "Kalifornijski zaliv, ki ga obdajata puščava Sonoran in Kalifornijski polotok",
+      "130": "Gorovje Zahodna Sierra Madre na zahodni obali Mehike",
+      "185": "Čez gorovje Zahodna Sierra Madre proti zahodni obali Mehike",
+      "225": "V smeri juga proti Tihemu oceanu čez gorsko verigo Sierra Madre del Sur v Mehiki",
+      "280": "Tihi ocean ob obali Mehike",
+      "290": "Tihi ocean ob obali Mehike in Gvatemale"
+    }
+  },
+  "63C042F0-90EF-4A95-B7CC-CC9A64BF8421": {
+    "name": "Zahodna Afrika",
+    "group": "Zemlja",
+    "pointsOfInterest": {
+      "0": "Kanarski otoki, Atlantski ocean in afriška obala",
+      "45": "Premikanje v smeri severovzhoda vzdolž obale Maroka",
+      "75": "Prečkanje gorovja Atlas v Maroku",
+      "105": "Čez Maroko proti Sredozemskemu morju",
+      "125": "Sredozemsko morje in južna Španija",
+      "145": "Potovanje proti severovzhodu čez špansko obalo Costa Blanca",
+      "165": "Potovanje proti severovzhodu čez Balearske otoke Španije",
+      "185": "Čez zahodno Sredozemsko morje z Alpami v ozadju",
+      "220": "Prečkanje Alp proti severovzhodu"
+    }
+  },
+  "001C94AE-2BA4-4E77-A202-F7DE60E8B1C8": {
+    "name": "Sipine v oazi Liwa",
+    "group": "Liwa",
+    "pointsOfInterest": {
+      "0": "Let nad oazo Liwa v Združenih arabskih emiratih"
+    }
+  },
+  "AFA22C08-A486-4CE8-9A13-E355B6C38559": {
+    "name": "Obzorje oaze Liwa",
+    "group": "Liwa",
+    "pointsOfInterest": {
+      "0": "Let nad oazo Liwa v Združenih arabskih emiratih"
+    }
+  },
+  "F604AF56-EA77-4960-AEF7-82533CC1A8B3": {
+    "name": "London zvečer",
+    "group": "London",
+    "pointsOfInterest": {
+      "0": "Približevanje mostu Tower Bridge na reki Temzi, London",
+      "20": "Prečkanje reke Temze v Londonu",
+      "60": "Mimo Črepinje v južnem Londonu",
+      "92": "Južno od reke Temze proti Londonskemu očesu",
+      "200": "Prečkanje reke Temze proti Westminstru, London",
+      "270": "Čez Westminster, London"
+    }
+  },
+  "7F4C26C2-67C2-4C3A-8F07-8A7BF6148C97": {
+    "name": "Reka Temza v Londonu",
+    "group": "London",
+    "pointsOfInterest": {
+      "0": "Približevanje mostu Tower Bridge na reki Temzi, London",
+      "20": "Po strugi reke Temze v Londonu",
+      "130": "Po strugi reke Temze proti Londonskemu očesu",
+      "210": "Približevanje Londonskemu očesu na reki Temzi",
+      "310": "Po strugi reke Temze mimo Londonskega očesa",
+      "325": "Mimo Westminstrske palače na reki Temzi v Londonu"
+    }
+  },
+  "A5AAFF5D-8887-42BB-8AFD-867EF557ED85": {
+    "name": "London iz zraka",
+    "group": "London",
+    "pointsOfInterest": {
+      "0": "Prečkanje območja Buckinghamske palače, London",
+      "24": "Čez Buckinghamsko palačo v Londonu",
+      "49": "Čez stadion St James’s Park proti reki Temzi, London",
+      "104": "Prečkanje reke Temze mimo Londonskega očesa",
+      "149": "Prečkanje južnega Londona",
+      "279": "Mimo Črepinje v južnem Londonu",
+      "299": "Prečkanje reke Temze v Londonu",
+      "324": "Prečkanje reke Temze pri mostu Tower Bridge v Londonu"
+    }
+  },
+  "58754319-8709-4AB0-8674-B34F04E7FFE2": {
+    "name": "Londonsko obzorje",
+    "group": "London",
+    "pointsOfInterest": {
+      "0": "Približevanje mostu Tower Bridge na reki Temzi, London",
+      "78": "Po strugi reke Temze v Londonu",
+      "178": "Južno od reke Temze v Londonu",
+      "258": "Prečkanje reke Temze v Londonu"
+    }
+  },
+  "CE279831-1CA7-4A83-A97B-FF1E20234396": {
+    "name": "Letališče v Los Angelesu",
+    "group": "Los Angeles",
+    "pointsOfInterest": {
+      "0": "Let nad mednarodnim letališčem Los Angeles"
+    }
+  },
+  "89B1643B-06DD-4DEC-B1B0-774493B0F7B7": {
+    "name": "Losangeleški sončni zahod",
+    "group": "Los Angeles",
+    "pointsOfInterest": {
+      "0": "Observatorij Griffith in soseska Hollywood Hills v Los Angelesu"
+    }
+  },
+  "92E48DE9-13A1-4172-B560-29B4668A87EE": {
+    "name": "Losangeleška obala",
+    "group": "Los Angeles",
+    "pointsOfInterest": {
+      "0": "Čez državno plažo Santa Monica blizu Los Angelesa",
+      "365": "Prečkanje pomola Santa Monica Pier v bližini Los Angelesa",
+      "430": "Čez državno plažo Santa Monica blizu Los Angelesa"
+    }
+  },
+  "EC67726A-8212-4C5E-83CF-8412932740D2": {
+    "name": "Griči v Los Angelesu",
+    "group": "Los Angeles",
+    "pointsOfInterest": {
+      "0": "Napis Hollywood v Los Angelesu",
+      "250": "Čez sosesko Hollywood Hills proti Burbanku v Kaliforniji"
+    }
+  },
+  "35693AEA-F8C4-4A80-B77D-C94B20A68956": {
+    "name": "Nadvoz v Los Angelesu",
+    "group": "Los Angeles",
+    "pointsOfInterest": {
+      "0": "Pot po meddržavni avtocesti 110 proti severu skozi Los Angeles"
+    }
+  },
+  "F5804DD6-5963-40DA-9FA0-39C0C6E6DEF9": {
+    "name": "Los Angeles ponoči",
+    "group": "Los Angeles",
+    "pointsOfInterest": {
+      "0": "Mimo središča Los Angelesa"
+    }
+  },
+  "cb5b5035-6701-619f-9065-3d7d0e5fbef4-114": {
+    "name": "Kanjon Coal Mine v Arizoni",
+    "group": "Monument Valley",
+    "pointsOfInterest": {
+      "0": "Prečkanje rezervata Navajo Nation v Arizoni"
+    }
+  },
+  "cb5b5035-6701-619f-9065-3d7d0e5fbef4-115": {
+    "name": "Utah zvečer",
+    "group": "Monument Valley",
+    "pointsOfInterest": {
+      "0": "Vzdolž gore Brighams Tomb\nv dolini Monument Valley, Utah",
+      "150": "Mimo pečine King-on-his-Throne, Utah",
+      "180": "Pot v smeri jugovzhoda\nčez dolino Monument Valley, Utah"
+    }
+  },
+  "cb5b5035-6701-619f-9065-3d7d0e5fbef4-116": {
+    "name": "Kanjon Cathedral Canyon v Utahu",
+    "group": "Monument Valley",
+    "pointsOfInterest": {
+      "0": "Čez kanjon Cathedral Canyon v Utahu",
+      "100": "Prečkanje reke Kolorado\nin jezera Powell, Utah"
+    }
+  },
+  "cb5b5035-6701-619f-9065-3d7d0e5fbef4-117": {
+    "name": "Vrh Factory Butte v Utahu",
+    "group": "Monument Valley",
+    "pointsOfInterest": {
+      "0": "Mimo vrha Factory Butte v Utahu"
+    }
+  },
+  "cb5b5035-6701-619f-9065-3d7d0e5fbef4-118": {
+    "name": "Jezero Powell v Utahu",
+    "group": "Monument Valley",
+    "pointsOfInterest": {
+      "0": "Po strugi reke Kolorado čez Utah",
+      "134": "Prečkanje kanjona Cascade Canyon v Utahu",
+      "265": "Približevanje kanjonu Cathedral Canyon, Utah"
+    }
+  },
+  "cb5b5035-6701-619f-9065-3d7d0e5fbef4-119": {
+    "name": "Monument Valley v Utahu",
+    "group": "Monument Valley",
+    "pointsOfInterest": {
+      "0": "Prečkanje doline Monument Valley v Arizoni"
+    }
+  },
+  "cb5b5035-6701-619f-9065-3d7d0e5fbef4-120": {
+    "name": "Pečina Olympia v Utahu",
+    "group": "Monument Valley",
+    "pointsOfInterest": {
+      "0": "Po strugi reke Kolorado v Utahu",
+      "205": "Približevanje klifom Tapestry Wall\nna jezeru Powell, Utah"
+    }
+  },
+  "44166C39-8566-4ECA-BD16-43159429B52F": {
+    "name": "New York ponoči",
+    "group": "New York",
+    "pointsOfInterest": {
+      "0": "Po 7. aveniji proti Times Squaru, New York",
+      "40": "Čez Times Square v New Yorku",
+      "120": "Po 7. aveniji v središču Manhattna, New York"
+    }
+  },
+  "840FE8E4-D952-4680-B1A7-AC5BACA2C1F8": {
+    "name": "Središče New Yorka",
+    "group": "New York",
+    "pointsOfInterest": {
+      "0": "Čez sosesko Upper East Side in Centralni park v New Yorku",
+      "50": "Čez središče Manhattna proti stolpnici Empire State Building",
+      "160": "Približevanje nebotičniku Empire State Building v New Yorku",
+      "205": "Mimo nebotičnika Empire State Building proti spodnjemu Manhattnu"
+    }
+  },
+  "640DFB00-FBB9-45DA-9444-9F663859F4BC": {
+    "name": "Newyorško obzorje",
+    "group": "New York",
+    "pointsOfInterest": {
+      "0": "Približevanje spodnjemu Manhattnu iz smeri newyorškega pristanišča",
+      "110": "Približevanje nebotičniku One World Trade Center vzdolž spodnjega Manhattna",
+      "180": "Mimo nebotičnika One World Trade Center proti središču Manhattna",
+      "210": "Čez spodnji Manhattan v New Yorku proti mestnemu središču"
+    }
+  },
+  "3BA0CFC7-E460-4B59-A817-B97F9EBB9B89": {
+    "name": "New York iz zraka",
+    "group": "New York",
+    "pointsOfInterest": {
+      "0": "Čez Centralni park proti središču Manhattna v New Yorku",
+      "246": "Čez središče Manhattna v New Yorku"
+    }
+  },
+  "5C987900-AD53-469C-8210-CABBCCDDFCAE": {
+    "name": "Gora v Patagoniji",
+    "group": "Patagonija",
+    "pointsOfInterest": {
+      "0": "Premikanje vzdolž gorske skupine Cuernos del Paine v\nnarodnem parku Torres del Paine, Čile"
+    }
+  },
+  "B004358B-5A27-42E5-B49E-93FC100B2371": {
+    "name": "Jezero v Patagoniji",
+    "group": "Patagonija",
+    "pointsOfInterest": {
+      "0": "Potovanje vzdolž jezera Lago Nordenskjöld v\nnarodnem parku Torres del Paine, Čile"
+    }
+  },
+  "25A6CFB2-3570-4448-B114-244A4E454B7A": {
+    "name": "Reka v Patagoniji",
+    "group": "Patagonija",
+    "pointsOfInterest": {
+      "0": "Čez jezero Lago Nordenskjöld v\nnarodnem parku Torres del Paine, Čile"
+    }
+  },
+  "E5D58CC2-3C52-4206-9DA2-427DC88B5896": {
+    "name": "Gorska veriga v Patagoniji",
+    "group": "Patagonija",
+    "pointsOfInterest": {
+      "0": "Potovanje čez narodni park\nTorres del Paine v Čilu"
+    }
+  },
+  "cb5b5035-6701-619f-9065-3d7d0e5fbef4-121": {
+    "name": "Oregonska obala",
+    "group": "Sekvoje",
+    "pointsOfInterest": {
+      "0": "Potovanje čez obalo Secret Beach proti mestu Brookings, Oregon",
+      "240": "Mimo razgledne točke Natural Bridges v Oregonu"
+    }
+  },
+  "cb5b5035-6701-619f-9065-3d7d0e5fbef4-122": {
+    "name": "Sončni zahod v Oregonu",
+    "group": "Sekvoje",
+    "pointsOfInterest": {
+      "0": "Pot proti zahodu čez plažo China Beach blizu mesta Brookings, Oregon  "
+    }
+  },
+  "cb5b5035-6701-619f-9065-3d7d0e5fbef4-123": {
+    "name": "Reka med sekvojami",
+    "group": "Sekvoje",
+    "pointsOfInterest": {
+      "0": "Po strugi reke Trinity\nčez severno Kalifornijo"
+    }
+  },
+  "cb5b5035-6701-619f-9065-3d7d0e5fbef4-124": {
+    "name": "Gozdovi sekvoj iz zraka",
+    "group": "Sekvoje",
+    "pointsOfInterest": {
+      "0": "Čez gozdove sekvoj v severni Kaliforniji"
+    }
+  },
+  "3E94AE98-EAF2-4B09-96E3-452F46BC114E": {
+    "name": "San Francisco ponoči",
+    "group": "San Francisco",
+    "pointsOfInterest": {
+      "0": "Približevanje mostu Bay Bridge in središču San Francisca",
+      "80": "Prečkanje mostu Bay Bridge proti središču San Francisca",
+      "116": "Čez zaliv San Francisco proti središču mesta"
+    }
+  },
+  "85CE77BF-3413-4A7B-9B0F-732E96229A73": {
+    "name": "Obzorje San Francisca",
+    "group": "San Francisco",
+    "pointsOfInterest": {
+      "0": "Čez zaliv San Francisco proti cestišču Embarcadero",
+      "208": "Po ulici Market Street skozi San Francisco"
+    }
+  },
+  "29BDF297-EB43-403A-8719-A78DA11A2948": {
+    "name": "San Francisco zvečer",
+    "group": "San Francisco",
+    "pointsOfInterest": {
+      "0": "Čez ribiški predel Fisherman’s Wharf proti središču San Francisca",
+      "80": "Približevanje stolpu Coit Tower s središčem San Francisca in mostom Bay Bridge\nv ozadju",
+      "150": "Mimo stolpa Coit Tower proti središču San Francisca in mostu Bay Bridge",
+      "196": "Središče San Francisca"
+    }
+  },
+  "DE851E6D-C2BE-4D9F-AB54-0F9CE994DC51": {
+    "name": "Zaliv San Francisco",
+    "group": "San Francisco",
+    "pointsOfInterest": {
+      "0": "Zaliv San Francisco in most Golden Gate",
+      "140": "Približevanje severnemu stolpu mostu Golden Gate proti San Franciscu",
+      "191": "Čez zaliv San Francisco"
+    }
+  },
+  "EE533FBD-90AE-419A-AD13-D7A60E2015D6": {
+    "name": "Megla v San Franciscu",
+    "group": "San Francisco",
+    "pointsOfInterest": {
+      "0": "Čez polotok Marin Headlands proti mostu Golden Gate",
+      "150": "Preko mosta Golden Gate v smeri parka Presidio v San Franciscu"
+    }
+  },
+  "72B4390D-DF1D-4D51-B179-229BBAEFFF2C": {
+    "name": "Most Golden Gate v San Franciscu",
+    "group": "San Francisco",
+    "pointsOfInterest": {
+      "0": "Približevanje mostu Golden Gate iz smeri San Francisca",
+      "60": "Vzdolž mostu Golden Gate v smeri polotoka Marin Headlands",
+      "140": "Prečkanje mostu Golden Gate",
+      "230": "Mimo severnega stolpa mostu Golden Gate",
+      "260": "Čez zaliv San Francisco vzdolž mostu Golden Gate"
+    }
+  },
+  "4AD99907-9E76-408D-A7FC-8429FF014201": {
+    "name": "Pristanišče za trajekte v San Franciscu",
+    "group": "San Francisco",
+    "pointsOfInterest": {
+      "0": "Čez zaliv San Francisco proti cestišču Embarcadero",
+      "90": "Čez cestišče Embarcadero s pogledom na ulico Market Street v San Franciscu",
+      "150": "Po ulici Market Street skozi središče San Francisca",
+      "360": "Po ulici Market Street skozi San Francisco"
+    }
+  },
+  "0C747C29-4BF8-43F6-A5CC-2E012E555341": {
+    "name": "Škotska obala",
+    "group": "Škotska",
+    "pointsOfInterest": {
+      "0": "Potovanje vzdolž obale\notoka Skye, Škotska",
+      "338": "Svetilnik Neist Point, otok Skye, Škotska",
+      "372": "Otok Skye, Škotska"
+    }
+  },
+  "3954A7C4-51EC-4ABC-ABA3-6757AC91C7CF": {
+    "name": "Škotsko jezero",
+    "group": "Škotska",
+    "pointsOfInterest": {
+      "0": "Čez Loch Moidart na\nzahodni obali Škotske",
+      "252": "Približevanje Hebridskemu morju, Škotska"
+    }
+  },
+  "E161929C-0819-4BC2-8359-550C081C7D54": {
+    "name": "Škotski grad",
+    "group": "Škotska",
+    "pointsOfInterest": {
+      "0": "Loch Moidart na zahodni obali Škotske",
+      "139": "Približevanje gradu Tioram na\nzahodni obali Škotske",
+      "181": "Grad Tioram na zahodni obali Škotske",
+      "214": "Potovanje čez zahodno obalo Škotske"
+    }
+  },
+  "cb5b5035-6701-619f-9065-3d7d0e5fbef4-144": {
+    "name": "Zora v narodnem parku Sequoia",
+    "group": "Sequoia",
+    "pointsOfInterest": {}
+  },
+  "cb5b5035-6701-619f-9065-3d7d0e5fbef4-145": {
+    "name": "Jutro v narodnem parku Sequoia",
+    "group": "Sequoia",
+    "pointsOfInterest": {}
+  },
+  "cb5b5035-6701-619f-9065-3d7d0e5fbef4-146": {
+    "name": "Noč v narodnem parku Sequoia",
+    "group": "Sequoia",
+    "pointsOfInterest": {}
+  },
+  "ecebc8d2-5486-c2b2-52ae-6f0ab2d6b65f-125": {
+    "name": "Oblaki v Sonomi",
+    "group": "Sonoma",
+    "pointsOfInterest": {
+      "0": "Čez Sonomo proti severu prek Kalifornije"
+    }
+  },
+  "ecebc8d2-5486-c2b2-52ae-6f0ab2d6b65f-126": {
+    "name": "Sonoma zvečer",
+    "group": "Sonoma",
+    "pointsOfInterest": {}
+  },
+  "ecebc8d2-5486-c2b2-52ae-6f0ab2d6b65f-127": {
+    "name": "Sonomsko obzorje",
+    "group": "Sonoma",
+    "pointsOfInterest": {
+      "0": "Pot proti severu čez Sonomo, Kalifornija"
+    }
+  },
+  "ecebc8d2-5486-c2b2-52ae-6f0ab2d6b65f-128": {
+    "name": "Reka Sonoma",
+    "group": "Sonoma",
+    "pointsOfInterest": {
+      "0": "Potovanje proti severu čez Sonomo, Kalifornija"
+    }
+  },
+  "ecebc8d2-5486-c2b2-52ae-6f0ab2d6b65f-129": {
+    "name": "Sonoma iz zraka",
+    "group": "Sonoma",
+    "pointsOfInterest": {
+      "0": "Čez gozdove kalifornijskih sekvoj v Sonomi"
+    }
+  },
+  "cb5b5035-6701-619f-9065-3d7d0e5fbef4-130": {
+    "name": "Kalifornijske divje cvetlice",
+    "group": "Superbloom",
+    "pointsOfInterest": {
+      "0": "Čez planjave kalifornijskih divjih cvetlic"
+    }
+  },
+  "cb5b5035-6701-619f-9065-3d7d0e5fbef4-131": {
+    "name": "Nižina Carrizo v Kaliforniji",
+    "group": "Superbloom",
+    "pointsOfInterest": {
+      "0": "Potovanje proti severu čez planjave kalifornijskih divjih cvetlic"
+    }
+  },
+  "cb5b5035-6701-619f-9065-3d7d0e5fbef4-132": {
+    "name": "Gorska veriga Temblor v Kaliforniji",
+    "group": "Superbloom",
+    "pointsOfInterest": {
+      "0": "Vzdolž gorske verige Temblor\nv južni Kaliforniji"
+    }
+  },
+  "cb5b5035-6701-619f-9065-3d7d0e5fbef4-147": {
+    "name": "Tahoe zjutraj",
+    "group": "Tahoe",
+    "pointsOfInterest": {}
+  },
+  "cb5b5035-6701-619f-9065-3d7d0e5fbef4-148": {
+    "name": "Tahoe podnevi",
+    "group": "Tahoe",
+    "pointsOfInterest": {}
+  },
+  "cb5b5035-6701-619f-9065-3d7d0e5fbef4-149": {
+    "name": "Tahoe zvečer",
+    "group": "Tahoe",
+    "pointsOfInterest": {}
+  },
+  "cb5b5035-6701-619f-9065-3d7d0e5fbef4-150": {
+    "name": "Tahoe ponoči",
+    "group": "Tahoe",
+    "pointsOfInterest": {}
+  },
+  "C6DC4E54-1130-44F8-AF6F-A551D8E8A181": {
+    "name": "Aljaške meduze – temno",
+    "group": "Pod vodo",
+    "pointsOfInterest": {
+      "0": "Uhati klobučnjak blizu obale Aljaske, Združene države"
+    }
+  },
+  "C7AD3D0A-7EDF-412C-A237-B3C9D27381A1": {
+    "name": "Aljaške meduze – svetlo",
+    "group": "Pod vodo",
+    "pointsOfInterest": {
+      "0": "Nad uhatimi klobučnjaki blizu obale Aljaske, Združene države"
+    }
+  },
+  "2B30E324-E4FF-4CC1-BA45-A958C2D2B2EC": {
+    "name": "Jata barakud",
+    "group": "Pod vodo",
+    "pointsOfInterest": {
+      "0": "Jata črnih barakud\nv vodah blizu Bornea"
+    }
+  },
+  "687D03A2-18A5-4181-8E85-38F3A13409B9": {
+    "name": "Papagajevke",
+    "group": "Pod vodo",
+    "pointsOfInterest": {
+      "0": "Papagajevke nad koralnimi grebeni\nob obali Bornea"
+    }
+  },
+  "27A37B0F-738D-4644-A7A4-E33E7A6C1175": {
+    "name": "Jata delfinov v Kaliforniji",
+    "group": "Pod vodo",
+    "pointsOfInterest": {
+      "0": "Kratkokljuni navadni delfini ob kalifornijski obali, Združene države"
+    }
+  },
+  "EB3F48E7-D30F-4079-858F-1A61331D5026": {
+    "name": "Kelpov gozd v Kaliforniji",
+    "group": "Pod vodo",
+    "pointsOfInterest": {
+      "0": "Premikanje skozi kelpov gozd ob kalifornijski obali, Združene države"
+    }
+  },
+  "CE9B5D5B-B6E7-47C5-8C04-59BF182E98FB": {
+    "name": "Jata delfinov v Kostariki",
+    "group": "Pod vodo",
+    "pointsOfInterest": {
+      "0": "Dolgokljuni progasti delfini v vodah ob\nKostariki"
+    }
+  },
+  "58C75C62-3290-47B8-849C-56A583173570": {
+    "name": "Skati",
+    "group": "Pod vodo",
+    "pointsOfInterest": {
+      "0": "Zlati skati ob\nobali Mehike"
+    }
+  },
+  "3716DD4B-01C0-4F5B-8DD6-DB771EC472FB": {
+    "name": "Sivi grebenski morski psi",
+    "group": "Pod vodo",
+    "pointsOfInterest": {
+      "0": "Sivi grebenski morski psi, ki plavajo v vodah blizu Francoske Polinezije"
+    }
+  },
+  "DD47D8E1-CB66-4C12-BFEA-2ADB0D8D1E2E": {
+    "name": "Kit grbavec",
+    "group": "Pod vodo",
+    "pointsOfInterest": {
+      "0": "Kit grbavec ob obali Francoske Polinezije"
+    }
+  },
+  "537A4DAB-83B0-4B66-BCD1-05E5DBB4A268": {
+    "name": "Jata trnobokov",
+    "group": "Pod vodo",
+    "pointsOfInterest": {
+      "0": "Jata trnobokov\nob obali Bornea"
+    }
+  },
+  "6143116D-03BB-485E-864E-A8CF58ACF6F1": {
+    "name": "Kelpov gozd – temno",
+    "group": "Pod vodo",
+    "pointsOfInterest": {
+      "0": "Pomikanje skozi kelpov gozd blizu polotoka Cape, Južna Afrika"
+    }
+  },
+  "F07CC61B-30FC-4614-BDAD-3240B61F6793": {
+    "name": "Barve palavske korale",
+    "group": "Pod vodo",
+    "pointsOfInterest": {
+      "0": "Koralni greben v bližini Palava"
+    }
+  },
+  "BA4ECA11-592F-4727-9221-D2A32A16EB28": {
+    "name": "Palavske meduze – temno",
+    "group": "Pod vodo",
+    "pointsOfInterest": {
+      "0": "Korenousti klobučnjaki v vodah Palava",
+      "282": "Korenousti klobučnjaki v družbi\nuhatega klobučnjaka",
+      "348": "Korenousti klobučnjaki v vodah Palava"
+    }
+  },
+  "E580E5A5-0888-4BE8-A4CA-F74A18A643C3": {
+    "name": "Modre palavske meduze",
+    "group": "Pod vodo",
+    "pointsOfInterest": {
+      "0": "Korenousti klobučnjaki v vodah Palava"
+    }
+  },
+  "EC3DC957-D4C2-4732-AACE-7D0C0F390EC8": {
+    "name": "Palavske meduze – svetlo",
+    "group": "Pod vodo",
+    "pointsOfInterest": {
+      "0": "Korenousti klobučnjaki v vodah Palava"
+    }
+  },
+  "82175C1F-153C-4EC8-AE37-2860EA828004": {
+    "name": "Rdečemorska korala iz zraka",
+    "group": "Pod vodo",
+    "pointsOfInterest": {
+      "0": "Koralni greben v Rdečem morju v bližini Egipta"
+    }
+  },
+  "581A4F1A-2B6D-468C-A1BE-6F473F06D10B": {
+    "name": "Morske zvezde",
+    "group": "Pod vodo",
+    "pointsOfInterest": {
+      "0": "Morske zvezde na\ndnu oceana blizu Bornea"
+    }
+  },
+  "83C65C90-270C-4490-9C69-F51FE03D7F06": {
+    "name": "Jata tjulnjev",
+    "group": "Pod vodo",
+    "pointsOfInterest": {
+      "0": "Kapski morski medvedi ob obali polotoka Cape, Južna Afrika"
+    }
+  },
+  "8C31B06F-91A4-4F7C-93ED-56146D7F48B9": {
+    "name": "Tahitijska obala",
+    "group": "Pod vodo",
+    "pointsOfInterest": {
+      "0": "Valovi, ki udarjajo ob obalo Tahitija"
+    }
+  },
+  "149E7795-DBDA-4F5D-B39A-14712F841118": {
+    "name": "Tahitijski valovi v meglici",
+    "group": "Pod vodo",
+    "pointsOfInterest": {
+      "0": "Valovi, ki udarjajo ob obalo Tahitija"
+    }
+  },
+  "E540DEE6-4C40-42C8-9CCC-D4CB0FAD7D7B": {
+    "name": "Yosemitsko obzorje",
+    "group": "Yosemite",
+    "pointsOfInterest": {
+      "0": "Čez narodni park Yosemite\nv Združenih državah",
+      "70": "Približevanje vrhu Half Dome v narodnem parku Yosemite, Združene države",
+      "87": "Vrh Half Dome v narodnem parku Yosemite, Združene države",
+      "210": "Čez narodni park Yosemite\nv Združenih državah"
+    }
+  },
+  "81CA5ACD-E682-4D8B-A948-0F147EB6ED4F": {
+    "name": "Gorovje v Yosemitu",
+    "group": "Yosemite",
+    "pointsOfInterest": {
+      "0": "Čez narodni park Yosemite, Združene države",
+      "93": "Potovanje proti vrhu Merced Peak\nv narodnem parku Yosemite, Združene države",
+      "130": "Vrh Merced Peak v narodnem parku Yosemite, Združene države",
+      "221": "Mimo vrha Merced Peak v narodnem parku Yosemite, Združene države",
+      "244": "Potovanje čez narodni park Yosemite, Združene države"
+    }
+  },
+  "E5799A24-1949-4E66-A17B-B5EB05F28C5D": {
+    "name": "Obris Yosemita",
+    "group": "Yosemite",
+    "pointsOfInterest": {
+      "0": "Vrh Half Dome v narodnem parku Yosemite, Združene države",
+      "124": "Mimo vrha Half Dome proti slapu Nevada v narodnem parku Yosemite",
+      "146": "Vrh Half Dome in slap Nevada v narodnem parku Yosemite, Združene države"
+    }
+  },
+  "E487C6EF-B3FB-427B-A2BE-8CBA60F902F0": {
+    "name": "Oblaki v Yosemitu",
+    "group": "Yosemite",
+    "pointsOfInterest": {
+      "0": "Čez narodni park Yosemite\nv Združenih državah",
+      "40": "Potovanje proti vrhu Half Dome v\nnarodnem parku Yosemite, Združene države",
+      "60": "Vrh Half Dome v narodnem parku Yosemite, Združene države",
+      "155": "Čez narodni park Yosemite s\nslapom Nevada v ozadju",
+      "255": "Slapova Nevada in Illilouette v\nnarodnem parku Yosemite, Združene države",
+      "285": "Slapovi Nevada, Vernal in Illilouette v\nnarodnem parku Yosemite, Združene države"
+    }
+  },
+  "DAD82DCE-F3AE-4AEC-8A79-1694D412FC0A": {
+    "name": "Yosemite iz zraka",
+    "group": "Yosemite",
+    "pointsOfInterest": {
+      "0": "Prečkanje travnikov Tuolumne v\nnarodnem parku Yosemite, Združene države"
+    }
+  },
+  "4109D42A-D717-46A7-A9A2-FE53A82B25C0": {
+    "name": "Dolina Yosemite",
+    "group": "Yosemite",
+    "pointsOfInterest": {
+      "0": "Potovanje v smeri vzhoda proti slapu Bridalveil in\nvrhu El Capitan v narodnem parku Yosemite, Združene države",
+      "44": "Potovanje v smeri vzhoda proti vrhu El Capitan\nv narodnem parku Yosemite, Združene države",
+      "87": "Mimo pečine El Capitan, Narodni park Yosemite, Združene države",
+      "120": "Potovanje v smeri vzhoda proti vrhu Half Dome v\nnarodnem parku Yosemite, Združene države",
+      "390": "Vrh Half Dome v narodnem parku Yosemite, Združene države",
+      "470": "Potovanje mimo vrha Half Dome v\ndolini Yosemite, Združene države",
+      "585": "Potovanje proti vzhodu čez dolino Yosemite, Združene države"
+    }
+  },
+  "8D04D70F-738B-441D-8D43-AF46B2BF8062": {
+    "name": "Zasneženi vrhovi v narodnem parku Yosemite",
+    "group": "Yosemite",
+    "pointsOfInterest": {
+      "0": "Potovanje proti vrhu Matthes Crest\nv narodnem parku Yosemite, Združene države",
+      "75": "Let nad grebenom Matthes v\nnarodnem parku Yosemite, Združene države",
+      "124": "Let čez greben Matthes v\nnarodnem parku Yosemite, Združene države",
+      "215": "Let nad grebenom Matthes v\nnarodnem parku Yosemite, Združene države",
+      "396": "Premikanje proti travnikom Tuolumne v\nnarodnem parku Yosemite, Združene države"
+    }
+  }
+}
