@@ -230,6 +230,7 @@ function createSSWindow(argv) {
             resizable: nq,
             thickFrame: nq,
             skipTaskbar: !nq,
+            // Reveal the desktop during startup; the renderer turns black after the first transition.
             transparent: showVideo,
             backgroundColor: showVideo ? '#00000000' : '#000000',
             frame: nq,
@@ -573,10 +574,10 @@ function setUpConfigFile() {
     settings.set('useTray', settings.get('useTray') ?? true);
     settings.set('startAfter', settings.get('startAfter') ?? 10);
     settings.set('blankAfter', settings.get('blankScreen') === false ? 0 : settings.get('blankAfter') ?? 30);
-    settings.set('sleepAfterBlankDelay', settings.get('sleepAfterBlank') === false ? 0 : settings.get('sleepAfterBlankDelay') ?? 0);
-    // Retire the old toggles after converting disabled choices to zero delays.
+    settings.set('sleepAfterBlankDelay', settings.get('sleepAfterBlankDelay') ?? 0);
+    settings.set('sleepAfterBlank', settings.get('sleepAfterBlank') ?? true);
+    // Retire the old blanking toggle after converting disabled choices to zero delays.
     settings.set('blankScreen', true);
-    settings.set('sleepAfterBlank', true);
     settings.set('lockAfterRun', settings.get('lockAfterRun') ?? false);
     settings.set('lockAfterRunAfter', settings.get('lockAfterRunAfter') ?? 15);
     settings.set('runOnBattery', settings.get('runOnBattery') ?? true);
@@ -1431,14 +1432,14 @@ function onFirstVideoPlayed() {
 
 function scheduleSleepAfterBlank() {
     const minutes = Number(store.get('sleepAfterBlankDelay') ?? 0);
-    if (!Number.isFinite(minutes) || minutes <= 0) {
+    if (!store.get('sleepAfterBlank') || !Number.isFinite(minutes) || minutes < 0) {
         return;
     }
     const delay = minutes * 60 * 1000;
     const transition = Math.max(0, Number(store.get('videoTransitionLength')) || 0) * 3;
     sleepTimeout = setTimeout(() => {
         sleepTimeout = undefined;
-        if (screensBlanked && screens.length > 0 && !preview && Number(store.get('sleepAfterBlankDelay')) > 0) {
+        if (screensBlanked && screens.length > 0 && !preview && store.get('sleepAfterBlank')) {
             sleepComputer();
         }
     }, transition + delay);

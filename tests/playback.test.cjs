@@ -152,7 +152,10 @@ test('FFmpeg converts 10-bit HEVC 240fps and reuses one concurrent conversion', 
         assert.deepEqual(fs.readdirSync(convertedDirectory), [path.basename(output)]);
         assert.equal(await convert({path: input}), first);
         assert.ok(fs.statSync(fileURLToPath(first)).size > 0);
-        execFileSync(require('ffmpeg-static'), ['-v', 'error', '-i', fileURLToPath(first), '-f', 'null', '-'], {windowsHide: true});
+        const decoded = execFileSync(require('ffmpeg-static'), ['-v', 'error', '-i', fileURLToPath(first),
+            '-f', 'framemd5', '-'], {windowsHide: true, encoding: 'utf8'});
+        assert.equal(decoded.split(/\r?\n/).filter(line => line && !line.startsWith('#')).length, 60,
+            'conversion preserves all 240fps source frames');
     } finally {
         assert.ok(path.resolve(directory).startsWith(path.resolve(os.tmpdir()) + path.sep));
         fs.rmSync(directory, {recursive: true, force: true});

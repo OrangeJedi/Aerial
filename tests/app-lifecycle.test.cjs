@@ -400,6 +400,7 @@ test('settings migration preserves explicit choices, fills defaults and upgrades
     assert.equal(saved.wakeOnMouseMovement, true);
     assert.equal(saved.preventActivationDuringFullscreen, true);
     assert.equal(saved.sleepAfterBlankDelay, 0);
+    assert.equal(saved.sleepAfterBlank, true);
     assert.equal(saved.configured, true);
     assert.equal(saved.preventSameVideoOnScreens, true);
     assert.equal(saved.version, 'new');
