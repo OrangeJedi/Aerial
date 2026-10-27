@@ -1,6 +1,6 @@
 const assert = require('node:assert/strict');
 const {test} = require('node:test');
-const {isDisplayRequired} = require('../display-power');
+const {isDisplayRequired} = require('../src/display-power');
 
 for (const state of [0, 1, 2, 3, 7, 0x80000002]) {
     test(`execution state ${state} only blocks for a display request`, async () => {

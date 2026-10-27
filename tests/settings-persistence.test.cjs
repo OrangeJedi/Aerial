@@ -3,7 +3,7 @@ const {test} = require('node:test');
 const fs = require('node:fs');
 const os = require('node:os');
 const path = require('node:path');
-const {createPersistentSettings} = require('../settings-persistence');
+const {createPersistentSettings} = require('../src/settings-persistence');
 
 function fixture(t, initial, overrides = {}) {
     const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'aerial-settings-'));

@@ -5,7 +5,7 @@ const path = require('node:path');
 const vm = require('node:vm');
 
 function cache(options = {}) {
-    const source = fs.readFileSync(require.resolve('../app.js'), 'utf8');
+    const source = fs.readFileSync(require.resolve('../src/app.js'), 'utf8');
     const calls = [];
     const data = {downloadedVideos: ['a', 'b'], neverDownloadVideos: ['b'], ...options.settings};
     const entry = (name, directory = false) => ({name, isDirectory: () => directory});

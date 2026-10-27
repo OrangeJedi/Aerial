@@ -38,7 +38,7 @@ function resolveVideoLocale(languages, locales) {
     return 'en';
 }
 
-function createVideoLocalizer({videos, locales, load = locale => require(path.join(__dirname, 'localized', `${locale}.json`))}) {
+function createVideoLocalizer({videos, locales, load = locale => require(path.join(__dirname, '..', 'localized', `${locale}.json`))}) {
     const builtIn = new Map(videos.map(video => [video.id, video]));
     const cache = new Map();
     function pack(locale) {

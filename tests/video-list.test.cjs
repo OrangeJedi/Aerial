@@ -1,6 +1,6 @@
 const assert = require('node:assert/strict');
 const {test} = require('node:test');
-const {getVideoSources} = require('../video-sources');
+const {getVideoSources} = require('../src/video-sources');
 const videos = require('../videos.json');
 
 test('video list hides unavailable entries without changing indices or selections', async () => {

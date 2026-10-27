@@ -2,10 +2,10 @@ const assert = require('node:assert/strict');
 const {test} = require('node:test');
 const fs = require('node:fs');
 const vm = require('node:vm');
-const {getVideoSources} = require('../video-sources');
+const {getVideoSources} = require('../src/video-sources');
 
 function fixture(options = {}) {
-    const source = fs.readFileSync(require.resolve('../app.js'), 'utf8');
+    const source = fs.readFileSync(require.resolve('../src/app.js'), 'utf8');
     const start = source.indexOf('async function downloadVideos()');
     const end = source.indexOf('// Cache maintenance runs', start);
     const videos = ['a', 'b'].map(id => ({id, src: {H2641080p: id}}));

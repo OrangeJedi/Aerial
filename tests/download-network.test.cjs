@@ -4,7 +4,7 @@ const http = require('node:http');
 const fs = require('node:fs/promises');
 const os = require('node:os');
 const path = require('node:path');
-const {downloadFile} = require('../download');
+const {downloadFile} = require('../src/download');
 
 test('downloads follow redirects, reject HTTP errors and detect interrupted bodies', async t => {
     const directory = await fs.mkdtemp(path.join(os.tmpdir(), 'aerial-download-'));

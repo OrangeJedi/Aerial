@@ -4,7 +4,7 @@ const fs = require('node:fs');
 const vm = require('node:vm');
 
 test('restart and retry IPC only accept requests from the config window', () => {
-    const source = fs.readFileSync(require.resolve('../app.js'), 'utf8');
+    const source = fs.readFileSync(require.resolve('../src/app.js'), 'utf8');
     const start = source.indexOf("ipcMain.on('checkForUpdates'");
     const end = source.indexOf('//events from browser windows', start);
     const handlers = {};
@@ -30,7 +30,7 @@ test('restart and retry IPC only accept requests from the config window', () => 
 });
 
 test('installer quit bypass is enabled only after settings flush and is reset on failure', async () => {
-    const source = fs.readFileSync(require.resolve('../app.js'), 'utf8');
+    const source = fs.readFileSync(require.resolve('../src/app.js'), 'utf8');
     let options;
     let saved = false;
     const context = vm.createContext({

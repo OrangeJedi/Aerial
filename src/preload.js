@@ -76,9 +76,9 @@ module.exports = function initializePreload() {
     const path = require('path');
     const fs = require('fs');
 
-    const videoLocales = require('./localized/locales.json');
+    const videoLocales = require('../localized/locales.json');
     const {createVideoLocalizer} = require('./video-localization');
-    const localizeVideo = createVideoLocalizer({videos: require('./videos.json'), locales: videoLocales});
+    const localizeVideo = createVideoLocalizer({videos: require('../videos.json'), locales: videoLocales});
     let cachedSystemLanguages;
     const systemLanguages = () => cachedSystemLanguages ||= ipcRenderer.sendSync('system-language');
 
@@ -99,7 +99,7 @@ module.exports = function initializePreload() {
                 const sources = getVideoSources(video, settings);
                 return video.path ? sources.map(source => require('url').pathToFileURL(source).href) : sources;
             },
-            settingsDefinition: require('./web/config/settings.json'),
+            settingsDefinition: require('../web/config/settings.json'),
             configBackdrop: process.platform === 'win32' && Number(os.release().split('.')[2]) >= 22621,
             ipcRenderer: {
                 send: (channel, data) => {
@@ -135,7 +135,7 @@ module.exports = function initializePreload() {
                     return settings.set(key, value);
                 }
             },
-            videos: require("./videos.json"),
+            videos: require("../videos.json"),
             videoLocales,
             videoText: (video, language) => {
                 const selected = language || settings.get('dateTimeLanguage');

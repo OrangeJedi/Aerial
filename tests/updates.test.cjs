@@ -1,7 +1,7 @@
 const assert = require('node:assert/strict');
 const {test} = require('node:test');
 const {EventEmitter} = require('node:events');
-const {createAppUpdater} = require('../updates');
+const {createAppUpdater} = require('../src/updates');
 
 function fixture(options = {}) {
     const updater = new EventEmitter();

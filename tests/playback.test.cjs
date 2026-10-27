@@ -6,8 +6,8 @@ const path = require('node:path');
 const vm = require('node:vm');
 const {execFileSync} = require('node:child_process');
 const {fileURLToPath} = require('node:url');
-const {createCompatibilityPlayer} = require('../playback');
-const {getVideoSources} = require('../video-sources');
+const {createCompatibilityPlayer} = require('../src/playback');
+const {getVideoSources} = require('../src/video-sources');
 
 function renderer(successfulSources, downloaded = [], convert = async () => 'converted', settings = {}, clock = Date) {
     const attempts = [];
@@ -139,7 +139,7 @@ test('FFmpeg converts 10-bit HEVC 240fps and reuses one concurrent conversion', 
         {windowsHide: true, stdio: 'pipe'});
         const convertedDirectory = path.join(directory, 'converted');
         fs.mkdirSync(convertedDirectory);
-        const output = require('../playback').convertedPath(convertedDirectory, {path: input});
+        const output = require('../src/playback').convertedPath(convertedDirectory, {path: input});
         const interrupted = `${output}.partial.mp4`;
         const interruptedAttempt = `${output}.old-attempt.partial.mp4`;
         fs.writeFileSync(interrupted, 'incomplete video');
@@ -301,7 +301,7 @@ test('disabled compatibility preparation never invokes conversion', async () => 
     await assert.rejects(result.playback.load(result.player, video), /preparation is disabled/);
     assert.equal(called, false);
 });
-const {deleteConvertedOriginal, convertedPath} = require('../playback');
+const {deleteConvertedOriginal, convertedPath} = require('../src/playback');
 
 test('finished conversions delete originals, while incomplete conversions preserve them', async () => {
     const directory = fs.mkdtempSync(path.join(os.tmpdir(), 'aerial-delete-'));

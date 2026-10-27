@@ -25,11 +25,11 @@ function bridge(realSettings = false, fontOptions = {}, argv = []) {
                 },
                 invoke: (...args) => { calls.push(['invoke', ...args]); return Promise.resolve('reply'); },
                 on: (channel, callback) => listeners.set(channel, callback)}},
-        'electron-store': class {}, './settings-store': realSettings ? require('../settings-store') : {createSettingsStore: () => settings},
-        './video-sources': require('../video-sources'), './playback': {convertedPath: () => 'C:/cache/converted/a.mp4'},
+        'electron-store': class {}, './settings-store': realSettings ? require('../src/settings-store') : {createSettingsStore: () => settings},
+        './video-sources': require('../src/video-sources'), './playback': {convertedPath: () => 'C:/cache/converted/a.mp4'},
         path: require('node:path'), fs: {existsSync: () => exists}, url: require('node:url'),
-        './web/config/settings.json': require('../web/config/settings.json'), './videos.json': [], './localized/locales.json': require('../localized/locales.json'),
-        './video-localization': require('../video-localization'),
+        '../web/config/settings.json': require('../web/config/settings.json'), '../videos.json': [], '../localized/locales.json': require('../localized/locales.json'),
+        './video-localization': require('../src/video-localization'),
         'font-list-universal': {getFonts: async () => ['Fallback Font']},
         child_process: {execFile: (command, args, callback) => {
             assert.equal(command, 'cscript');
@@ -38,7 +38,7 @@ function bridge(realSettings = false, fontOptions = {}, argv = []) {
         }}, os: require('node:os')
     };
     const module = {exports: {}};
-    vm.runInNewContext(fs.readFileSync(require.resolve('../preload.js'), 'utf8'), {
+    vm.runInNewContext(fs.readFileSync(require.resolve('../src/preload.js'), 'utf8'), {
         module,
         process: {platform: 'win32', argv},
         console: {log() {}},

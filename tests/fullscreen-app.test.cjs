@@ -1,6 +1,6 @@
 const assert = require('node:assert/strict');
 const {test} = require('node:test');
-const {isFullscreenAppActive} = require('../fullscreen-app');
+const {isFullscreenAppActive} = require('../src/fullscreen-app');
 
 for (const state of [1, 2, 3, 4, 5, 6, 7]) {
     test(`notification state ${state} blocks only fullscreen and presentation states`, async () => {
