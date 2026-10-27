@@ -25,7 +25,6 @@ const preparationLead = 10000;
 const easierTransitions = electron.store.get('easierTransitions') === true;
 const duration = electron.store.get('transitionType') === 'none'
     ? 0 : Math.max(0, Number(electron.store.get('videoTransitionLength')) || 0);
-const playbackRate = Math.max(0.1, Number(electron.store.get('playbackSpeed')) || 1);
 const filters = (electron.store.get('videoFilters') || [])
     .filter(filter => Number.isFinite(Number(filter.value)) && Number(filter.value) !== Number(filter.defaultValue))
     .map(filter => filter.name + '(' + filter.value + filter.suffix + ')').join(' ');
@@ -93,13 +92,11 @@ function prepareNext(id = null, skipSources = []) {
         if (job.cancelled || blackScreen) {
             throw new Error('Playback cancelled');
         }
-        player.playbackRate = playbackRate;
         player.playbackStats = {};
         await videoPlayback.load(player, videosById.get(job.id), () => {}, {skipSources});
         if (job.cancelled || blackScreen) {
             throw new Error('Playback cancelled');
         }
-        player.playbackRate = playbackRate;
         return job.id;
     })();
     // A preload may fail before the transition timer consumes its promise.
@@ -573,7 +570,8 @@ function changePOI(position, line, currentPOI, poiList) {
         if (Number(poiS[i]) > currentPOI) {
             $(`#${position}-${line}`).attr('dir', 'auto').text(poiList[poiS[i]]);
             if (i < poiS.length - 1) {
-                poiTimeout.push(setTimeout(changePOI, (Number(poiS[i + 1]) - Number(poiS[i])) * 1000 / playbackRate || 0, position, line, poiS[i], poiList));
+                const rate = videoPlayback.speed(currentlyPlaying);
+                poiTimeout.push(setTimeout(changePOI, (Number(poiS[i + 1]) - Number(poiS[i])) * 1000 / rate || 0, position, line, poiS[i], poiList));
             }
             break;
         }

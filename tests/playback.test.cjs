@@ -49,6 +49,25 @@ function renderer(successfulSources, downloaded = [], convert = async () => 'con
 
 const video = {id: 'sample', src: {H2641080p: '1080', H2651080p: 'hevc1080', H2654k: '4k', H2654k240: '240'}};
 
+test('per-video speeds override the global speed and reset when another video loads', async () => {
+    for (const speed of [0.1, 1, 10]) {
+        const result = renderer(['1080'], [], undefined, {playbackSpeed: 2, videoPlaybackSpeeds: {sample: speed}});
+        await result.playback.load(result.player, video);
+        assert.equal(result.player.playbackRate, speed);
+        assert.equal(result.player.defaultPlaybackRate, speed);
+        await result.playback.load(result.player, {...video, id: 'another'});
+        assert.equal(result.player.playbackRate, 2);
+    }
+});
+
+test('invalid per-video speeds fall back to the global speed', async () => {
+    for (const speed of [0, -1, 11, 'invalid', null]) {
+        const result = renderer(['1080'], [], undefined, {playbackSpeed: 0.5, videoPlaybackSpeeds: {sample: speed}});
+        await result.playback.load(result.player, video);
+        assert.equal(result.player.playbackRate, 0.5);
+    }
+});
+
 test('custom playback uses the file URL supplied by the preload bridge', async () => {
     const source = 'file:///D:/Videos/Demo%20%231.mp4';
     const result = renderer([source], [], undefined, {prepareCompatibleVideos: false});

@@ -127,6 +127,59 @@ export function initVideoDisplay(root) {
         const media = player;
         const status = element('p', {className: 'help preview-status', role: 'status'}, 'Loading video…');
         root.append(media, status);
+        const speedValue = element('output', {htmlFor: 'video-speed'});
+        const speedSteps = [
+            ...Array.from({length: 19}, (_, index) => (10 + index * 5) / 100),
+            ...Array.from({length: 15}, (_, index) => (11 + index) / 10),
+            ...Array.from({length: 15}, (_, index) => (6 + index) / 2)
+        ];
+        const speedSlider = element('input', {id: 'video-speed', type: 'range', min: '-100', max: '100', step: 'any', 'aria-label': 'Playback speed for this video'});
+        function refreshSpeed(rate = videoPlayback.speed(video.id)) {
+            speedSlider.value = String(Math.log10(Math.max(0.1, Math.min(10, rate))) * 100);
+            speedValue.textContent = `${Number(rate.toFixed(2))}×`;
+            speedSlider.setAttribute('aria-valuetext', `${Number(rate.toFixed(2))}×`);
+            media.defaultPlaybackRate = rate;
+            media.playbackRate = rate;
+        }
+        function saveSpeed(rate) {
+            api.store.set('videoPlaybackSpeeds', {...api.store.get('videoPlaybackSpeeds'), [video.id]: rate});
+            refreshSpeed(rate);
+            changed(['videoPlaybackSpeeds']);
+        }
+        speedSlider.addEventListener('input', () => {
+            const requested = 10 ** (Number(speedSlider.value) / 100);
+            const rate = speedSteps.reduce((closest, value) => Math.abs(value - requested) < Math.abs(closest - requested) ? value : closest);
+            saveSpeed(rate);
+        });
+        speedSlider.addEventListener('keydown', event => {
+            const direction = {ArrowRight: 1, ArrowUp: 1, ArrowLeft: -1, ArrowDown: -1, PageUp: 5, PageDown: -5}[event.key];
+            if (!direction && event.key !== 'Home' && event.key !== 'End') {
+                return;
+            }
+            event.preventDefault();
+            const current = media.playbackRate;
+            const index = direction > 0 ? speedSteps.findIndex(value => value > current + 0.001)
+                : speedSteps.findLastIndex(value => value < current - 0.001);
+            const next = direction > 0 ? (index < 0 ? speedSteps.length - 1 : index) + direction - 1
+                : (index < 0 ? 0 : index) + direction + 1;
+            saveSpeed(event.key === 'Home' ? 0.1 : event.key === 'End' ? 10
+                : speedSteps[Math.max(0, Math.min(speedSteps.length - 1, next))]);
+        });
+        const resetSpeed = button('', () => {
+            const speeds = {...api.store.get('videoPlaybackSpeeds')};
+            delete speeds[video.id];
+            api.store.set('videoPlaybackSpeeds', speeds);
+            refreshSpeed();
+            changed(['videoPlaybackSpeeds']);
+        });
+        resetSpeed.className = 'video-speed-reset';
+        resetSpeed.setAttribute('aria-label', 'Reset to global playback speed');
+        resetSpeed.title = 'Reset to global playback speed';
+        resetSpeed.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 11a9 9 0 1 1 9 9 9.75 9.75 0 0 1-6.74-2.74"/><path d="M3 3v8h8"/></svg>';
+        refreshSpeed();
+        root.append(element('section', {className: 'section video-speed-section'},
+            element('div', {className: 'video-speed-heading'}, element('h2', {}, 'Playback Speed'), speedValue),
+            element('div', {className: 'video-speed-control'}, speedSlider, resetSpeed)));
         const cached = (api.store.get('downloadedVideos') || []).includes(video.id);
         const downloadCard = element('div', {className: 'card padded'}, element('p', {}, cached ? 'Downloaded to cache' : 'Not downloaded to cache'));
         let mode = (api.store.get('alwaysDownloadVideos') || []).includes(video.id) ? 'always' : (api.store.get('neverDownloadVideos') || []).includes(video.id) ? 'never' : 'whenChecked';
