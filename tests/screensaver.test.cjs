@@ -179,6 +179,26 @@ test('text fades in only after the first transition finishes', async () => {
     assert.equal(overlay.style.opacity, '1');
 });
 
+for (const type of ['dissolve', 'dipToBlack', 'wipe', 'circle']) {
+    test(`window preview skips startup ${type} but keeps later transitions`, async () => {
+        const result = renderer(type);
+        result.context.electron.windowPreview = true;
+        await flush();
+        const overlay = result.context.document.getElementById('textDisplayArea');
+        assert.equal(result.context.document.body.style.backgroundColor, 'black');
+        assert.equal(overlay.style.opacity, '1');
+        assert.equal(overlay.style.transition, 'none');
+        assert.equal(result.players[1].style.opacity, '1');
+        assert.equal(result.frames.size, 0);
+        result.events.newVideo();
+        await flush();
+        assert.equal(result.players[1].style.visibility, 'visible');
+        await result.tick(2000);
+        assert.equal(result.players[1].style.visibility, 'hidden');
+        assert.equal(result.players[0].style.opacity, '1');
+    });
+}
+
 test('blanking during startup makes the transparent window black', () => {
     const result = renderer('dissolve');
     result.events.blankTheScreen();

@@ -3,7 +3,7 @@ const {test} = require('node:test');
 const fs = require('node:fs');
 const vm = require('node:vm');
 
-function bridge(realSettings = false, fontOptions = {}) {
+function bridge(realSettings = false, fontOptions = {}, argv = []) {
     const calls = [];
     const listeners = new Map();
     const values = {prepareCompatibleVideos: true, cachePath: 'cache'};
@@ -40,7 +40,7 @@ function bridge(realSettings = false, fontOptions = {}) {
     const module = {exports: {}};
     vm.runInNewContext(fs.readFileSync(require.resolve('../preload.js'), 'utf8'), {
         module,
-        process: {platform: 'win32'},
+        process: {platform: 'win32', argv},
         console: {log() {}},
         setTimeout,
         require: Object.assign(name => {
@@ -51,6 +51,11 @@ function bridge(realSettings = false, fontOptions = {}) {
     module.exports(modules['electron-store']);
     return {api: exposed, calls, listeners, values, missing: () => { exists = false; }};
 }
+
+test('preload identifies window previews from launch arguments', () => {
+    assert.equal(bridge().api.windowPreview, false);
+    assert.equal(bridge(false, {}, ['--aerial-window-preview']).api.windowPreview, true);
+});
 
 test('preload blocks unapproved send, receive and invoke channels', () => {
     const f = bridge();

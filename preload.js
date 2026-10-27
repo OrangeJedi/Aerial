@@ -84,6 +84,7 @@ module.exports = function initializePreload() {
 
     // Expose protected methods from node modules
     contextBridge.exposeInMainWorld("electron", {
+            windowPreview: process.argv.includes('--aerial-window-preview'),
             get systemLanguages() {
                 return systemLanguages();
             },

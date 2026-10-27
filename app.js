@@ -283,6 +283,7 @@ function createSSPWindow(argv, monitor = 0) {
             enableRemoteModule: false,
             sandbox: false,
             preload: path.join(__dirname, "preload.mjs"),
+            additionalArguments: ['--aerial-window-preview'],
         },
         frame: true,
         backgroundColor: '#000000',

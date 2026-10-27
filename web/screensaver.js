@@ -121,10 +121,11 @@ function scheduleNext() {
 
 // Opacity transitions use browser animations; masks update only during a transition.
 function transitionTo(target, token) {
+    const skipStartupTransition = electron.windowPreview && !textRevealed;
     const outgoing = containers[currentPlayer];
     const incoming = containers[target];
     const types = ['dissolve', 'dipToBlack', 'fade', 'wipe', 'circle', 'fadeCircle'];
-    let type = electron.store.get('transitionType');
+    let type = skipStartupTransition ? 'none' : electron.store.get('transitionType');
     if (type === 'random') {
         type = types[randomInt(0, types.length)];
     }
@@ -250,6 +251,9 @@ function transitionTo(target, token) {
                 document.body.style.backgroundColor = 'black';
                 if (!textRevealed) {
                     textRevealed = true;
+                    if (skipStartupTransition) {
+                        textOverlay.style.transition = 'none';
+                    }
                     textOverlay.style.opacity = '1';
                 }
                 currentPlayer = target;
