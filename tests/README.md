@@ -22,8 +22,9 @@ The suite covers these critical paths:
 | Transition modes, midpoint behavior, preloading, manual skips, stalls, buffering recovery, frame diagnostics, overlay timers and blanking | `screensaver.test.cjs` |
 | Settings snapshots, grouped writes, unchanged values, external changes and mutation isolation | `settings-store.test.cjs` |
 | Repeat avoidance, custom videos, time-of-day selection, synchronization, empty playlists | `video-selection.test.cjs` |
-| Preview cleanup, font search limits, unnecessary cache I/O | `config-performance.test.cjs` |
-| Catalog availability and selection/index preservation | `video-list.test.cjs` |
+| JSON references, setting conditions, exclusive options, filter bindings, updater controls | `config-settings.test.cjs` |
+| Unnecessary cache I/O | `config-performance.test.cjs` |
+| Catalog availability, selection/index preservation, profile loading, download policies | `video-list.test.cjs` |
 
 Screensaver placement tests cover taskbars on all four edges, monitors with negative
 coordinates, video and black-screen monitors, and windowed no-quit mode. They simulate

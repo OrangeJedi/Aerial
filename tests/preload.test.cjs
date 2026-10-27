@@ -28,7 +28,7 @@ function bridge(realSettings = false, fontOptions = {}) {
         'electron-store': class {}, './settings-store': realSettings ? require('../settings-store') : {createSettingsStore: () => settings},
         './video-sources': require('../video-sources'), './playback': {convertedPath: () => 'C:/cache/converted/a.mp4'},
         path: require('node:path'), fs: {existsSync: () => exists}, url: require('node:url'),
-        './videos.json': [], './localized/locales.json': require('../localized/locales.json'),
+        './web/config/settings.json': require('../web/config/settings.json'), './videos.json': [], './localized/locales.json': require('../localized/locales.json'),
         './video-localization': require('../video-localization'),
         'font-list-universal': {getFonts: async () => ['Fallback Font']},
         child_process: {execFile: (command, args, callback) => {
@@ -118,6 +118,16 @@ test('converted playback requires enabled preparation and an existing output', (
     f.values.prepareCompatibleVideos = true;
     f.missing();
     assert.equal(f.api.convertedVideo({id: 'a'}), null);
+});
+
+test('config metadata and accent IPC use the restricted preload bridge', async () => {
+    const f = bridge();
+    assert.equal(f.api.settingsDefinition.at(-1).id, 'about');
+    assert.equal(await f.api.ipcRenderer.invoke('getConfigAccent'), 'reply');
+    let accent;
+    f.api.ipcRenderer.on('configAccentChanged', color => { accent = color; });
+    f.listeners.get('configAccentChanged')({sender: 'privileged'}, '0078d4ff');
+    assert.equal(accent, '0078d4ff');
 });
 
 test('preload settings and source helpers honor current permissions', () => {

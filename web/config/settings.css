@@ -1,0 +1,17 @@
+.setting-row { display: flex; align-items: center; justify-content: space-between; gap: 1.78571429rem; padding: 1.07142857rem 1.42857143rem; min-height: 68px; }
+.setting-row + .setting-row { border-top: 1px solid var(--border); }
+.setting-info { flex: 1; min-width: 0; }
+.setting-info label, .setting-name { font-weight: 500; }
+.setting-info .help { display: block; margin: 0.28571429rem 0 0; max-width: 580px; }
+.setting-control { display: flex; align-items: center; justify-content: flex-end; flex-wrap: wrap; gap: 0.71428571rem; max-width: 48%; }
+.setting-control input[type="number"] { width: 105px; }
+.setting-control input[type="text"] { width: 170px; }
+.setting-control select { max-width: 250px; }
+.setting-control output { font-variant-numeric: tabular-nums; font-size: 12px; color: var(--muted); min-width: 35px; }
+.setting-row.disabled { opacity: .5; }
+.reset-control { border: 0; padding: 0.28571429rem 0.57142857rem; color: var(--muted); background: transparent; }
+.about-links { display: flex; gap: 1.28571429rem; margin: 1.07142857rem 0 0; }
+@media (max-width: 1000px) {
+    .setting-control { max-width: 52%; }
+    .setting-control input[type="range"] { width: 135px; }
+}

@@ -97,6 +97,8 @@ module.exports = function initializePreload() {
             videoSources: video => {
                 return getVideoSources(video, settings);
             },
+            settingsDefinition: require('./web/config/settings.json'),
+            configBackdrop: process.platform === 'win32' && Number(os.release().split('.')[2]) >= 22621,
             ipcRenderer: {
                 send: (channel, data) => {
                     // whitelist channels
@@ -106,7 +108,7 @@ module.exports = function initializePreload() {
                     }
                 },
                 on: (channel, func) => {
-                    let validChannels = ["updateStatus", "displaySettings", "newCustomVideos", "newVideo", "previousVideo", "blankTheScreen", "showWelcome", "updateAttribute", "screenNumber"];
+                    let validChannels = ["configAccentChanged", "updateStatus", "displaySettings", "newCustomVideos", "newVideo", "previousVideo", "blankTheScreen", "showWelcome", "updateAttribute", "screenNumber"];
                     if (validChannels.includes(channel)) {
                         // Deliberately strip event as it includes `sender`
                         ipcRenderer.on(channel, (event, ...args) => {
@@ -117,7 +119,7 @@ module.exports = function initializePreload() {
                 },
                 // From render to main and back again.
                 invoke: (channel, args) => {
-                    let validChannels = ["getUpdateStatus", "newVideoId", "compatibleVideo"];
+                    let validChannels = ["getConfigAccent", "getUpdateStatus", "newVideoId", "compatibleVideo"];
                     if (validChannels.includes(channel)) {
                         return ipcRenderer.invoke(channel, args);
                     }

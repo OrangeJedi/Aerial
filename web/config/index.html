@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="color-scheme" content="light dark">
+    <title>Aerial</title>
+    <link rel="stylesheet" href="app.css">
+    <link rel="stylesheet" href="settings.css">
+    <link rel="stylesheet" href="video-sidebar.css">
+    <link rel="stylesheet" href="video-display.css">
+    <link rel="stylesheet" href="text-settings.css">
+    <script src="../libraries/js/moment.min.js"></script>
+    <script src="../libraries/js/moment-locales.min.js"></script>
+    <script src="../playback.js"></script>
+    <script type="module" src="app.js"></script>
+</head>
+<body>
+    <div class="app-shell">
+        <aside class="sidebar" aria-label="Configuration navigation">
+            <button id="videos-header" class="videos-header" type="button"><span class="nav-icon" aria-hidden="true">▤</span> Videos <span id="video-count" class="count"></span></button>
+            <div id="video-list" class="video-list" aria-label="Videos"></div>
+            <nav class="sidebar-footer" aria-label="Pages">
+                <button type="button" data-page="overlay"><span class="nav-icon" aria-hidden="true">T</span>Overlay</button>
+                <button type="button" data-page="custom"><span class="nav-icon" aria-hidden="true">＋</span>Custom Videos</button>
+                <button type="button" data-page="settings" aria-current="page"><span class="nav-icon" aria-hidden="true">⚙</span>Settings</button>
+            </nav>
+        </aside>
+        <div class="main-shell">
+            <header class="page-header">
+                <h1 id="page-title">Settings</h1>
+                <button id="preview" class="primary" type="button"><span aria-hidden="true">▷</span> Preview</button>
+            </header>
+            <main id="main-content" tabindex="-1">
+                <div id="settings-page" class="page"></div>
+                <div id="overlay-page" class="page" hidden></div>
+                <div id="custom-page" class="page" hidden></div>
+                <div id="video-page" class="page" hidden></div>
+            </main>
+        </div>
+    </div>
+    <div id="notice" role="status" aria-live="polite"></div>
+    <dialog id="app-dialog"><form method="dialog"><h2 id="dialog-title"></h2><div id="dialog-body"></div><div id="dialog-actions" class="actions"></div></form></dialog>
+</body>
+</html>

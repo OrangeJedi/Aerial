@@ -1,13 +1,16 @@
 # Settings definition
 
-`web/settings.json` describes the existing **Settings** tab. It is not the saved
-user configuration and is not loaded by the current UI. Videos and Text tabs are
-outside its scope. Defaults are a snapshot of `setUpConfigFile()` in `app.js`;
-that function remains authoritative until the renderer migration.
+`web/config/settings.json` drives the Settings page in `web/config/index.html`.
+It describes controls rather than saved user values. The preload bridge supplies
+the definition to the renderer. Video controls and Overlay are separate modules.
+Defaults are a snapshot of `setUpConfigFile()` in `app.js`; that function remains
+authoritative for initializing saved configuration.
 
 The root is an ordered array of sections. Each section has `id`, `name`, and an
 ordered `entries` array. Array order defines display order. Each top-level entry
-also names its `section`. General Settings is the initial section.
+also names its `section`. General Settings is the initial section. Custom Videos
+has its own sidebar page, so the settings renderer skips that section. About is
+the last section of Settings.
 
 ## Entries and storage
 
@@ -18,16 +21,16 @@ also names its `section`. General Settings is the initial section.
   `directory`, `list`, `display`, `status`, `action`, or `link`.
 - `valueType`: persisted value type. Existing number and ordinary slider inputs
   save strings after editing, even when their initial default is numeric. Filter
-  sliders save numbers. A future renderer must handle both numeric defaults and
-  existing numeric strings; changing storage normalization is separate work.
+  sliders save numbers. The renderer handles both numeric defaults and existing
+  numeric strings without changing storage normalization.
 - `default` / `defaultSource`: literal initial value or application-provided
   value. Never overwrite an existing user value just by rendering a control.
 - `min`, `max`, `step`, `unit`, `resetValue`, `description`: control metadata.
   Numeric bounds are copied only where the existing UI defines them.
 - `options`: ordered `{name, value}` choices for a select.
-- `handler`: existing operation name, a symbolic reference for a future renderer.
-  It is not executable code or a promise of a shared calling convention. Existing
-  operations span renderer functions and IPC messages and will need adapters.
+- `handler`: existing operation name, interpreted by the renderer.
+  It is not executable code. `settings-controls.js` adapts these names to existing
+  IPC operations and confirmation dialogs.
 
 Filter controls bind to the `value` property of the `videoFilters` array item
 whose `name` matches `binding.match.name`. Their `group` identifies Filter
@@ -72,8 +75,8 @@ tab. Primary-monitor-only and duplicate avoidance can coexist with either option
 no additional exclusion is inferred.
 
 Transition directions use the first matching `optionSets` condition. The control
-is hidden for transitions without direction. An empty saved direction selects
-the first available option, matching the current renderer. Runtime language
+is hidden for transitions without direction. An empty or unavailable saved
+direction selects the first available option. Runtime language
 options combine installed Moment locales and available video locales, deduplicate
 them, and sort localized labels, after the static System default option.
 
@@ -86,7 +89,7 @@ enable checkbox. Only the sleep delay, 4k240 preference, original deletion, and
 manual sunrise/sunset fields have dependency-based disabling. Transition direction
 and updater controls have conditional visibility.
 
-The file is data only. A future renderer must implement the listed control types,
-bindings, option providers, conditions, operation adapters, and existing side
-effects (such as updating shortcut registration or recalculating location data).
-No UI or configuration persistence behavior changes with this addition.
+`settings-controls.js` implements the listed control types, bindings, option
+providers, conditions, action adapters, shortcut registration, and location updates.
+`settings-model.js` contains pure condition and value-binding functions. Config
+values still use the existing central settings store and persistence writer.

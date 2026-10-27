@@ -1,33 +1,32 @@
 const assert = require('node:assert/strict');
 const {test} = require('node:test');
-const fs = require('node:fs');
-const path = require('node:path');
-const vm = require('node:vm');
 const {getVideoSources} = require('../video-sources');
 const videos = require('../videos.json');
 
-test('video list hides unavailable entries without changing indices or selections', () => {
-    const script = fs.readFileSync(path.join(__dirname, '../web/config.js'), 'utf8');
-    const start = script.indexOf('function makeList()');
-    const end = script.indexOf('$(document).ready', start);
+test('video list hides unavailable entries without changing indices or selections', async () => {
+    const {visibleVideos} = await import('../web/config/video-model.js');
     for (const settings of [{}, {allowH265: false}, {allow4K: false}]) {
-        let html;
-        const allowedVideos = videos.map(video => video.id);
-        const context = vm.createContext({
-            videos, allowedVideos,
-            electron: {videoText: video => video, videoSources: video => getVideoSources(video, {get: key => settings[key]})},
-            $: () => ({html: value => { html = value; }})
-        });
-        vm.runInContext(script.slice(start, end) + '\nmakeList();', context);
-        let expected = 0;
-        videos.forEach((video, index) => {
-            const visible = getVideoSources(video, {get: key => settings[key]}).length > 0;
-            assert.equal(html.includes(`id="videoList-${index}"`), visible);
-            if (visible) {
-                expected++;
-            }
-        });
-        assert.equal((html.match(/id="videoList-\d+"/g) || []).length, expected);
-        assert.equal(allowedVideos.length, videos.length);
+        const before = structuredClone(videos);
+        const available = video => getVideoSources(video, {get: key => settings[key]});
+        const result = visibleVideos(videos, available, video => video);
+        const expected = videos.map((video, index) => available(video).length ? index : -1).filter(index => index >= 0);
+        assert.deepEqual(result.map(item => item.index), expected);
+        assert.deepEqual(videos, before);
     }
+});
+
+test('loading a profile preserves custom selection without mutating the profile', async () => {
+    const {loadProfileVideos} = await import('../web/config/video-model.js');
+    const profile = {videos: ['a', 'b', '_old-custom']};
+    const result = loadProfileVideos(profile, ['c', '_custom'], new Set(['a', 'b', 'c']));
+    assert.deepEqual(result, ['a', 'b', '_custom']);
+    assert.deepEqual(profile.videos, ['a', 'b', '_old-custom']);
+});
+
+test('download policy removes opposing policies and preserves other videos', async () => {
+    const {downloadChanges} = await import('../web/config/video-model.js');
+    const values = {alwaysDownloadVideos: ['a', 'b'], neverDownloadVideos: ['a', 'c']};
+    assert.deepEqual(downloadChanges('a', 'never', key => values[key]), {alwaysDownloadVideos: ['b'], neverDownloadVideos: ['c', 'a']});
+    assert.deepEqual(downloadChanges('a', 'whenChecked', key => values[key]), {alwaysDownloadVideos: ['b'], neverDownloadVideos: ['c']});
+    assert.deepEqual(values, {alwaysDownloadVideos: ['a', 'b'], neverDownloadVideos: ['a', 'c']});
 });

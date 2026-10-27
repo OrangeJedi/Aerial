@@ -10,7 +10,8 @@ const {
     Menu,
     powerMonitor,
     Notification,
-    globalShortcut
+    globalShortcut,
+    systemPreferences
 } = require('electron');
 
 if (!app.requestSingleInstanceLock()) {
@@ -136,6 +137,7 @@ function createConfigWindow(argv) {
     let win = new BrowserWindow({
         width: 1280,
         height: 800,
+        backgroundMaterial: 'acrylic',
         webPreferences: {
             // Let video fullscreen fill this window without moving or resizing it.
             disableHtmlFullscreenWindowResize: true,
@@ -145,12 +147,21 @@ function createConfigWindow(argv) {
             sandbox: false,
             preload: path.join(__dirname, "preload.mjs")
         },
-        resizable: false,
+        minWidth: 800,
+        minHeight: 600,
+        resizable: true,
         icon: path.join(__dirname, 'icon.ico')
     });
     configWindow = win;
-    win.loadFile('web/config.html');
+    win.loadFile('web/config/index.html');
+    const updateAccent = (event, color) => {
+        if (win && !win.isDestroyed()) {
+            win.webContents.send('configAccentChanged', color);
+        }
+    };
+    systemPreferences.on('accent-color-changed', updateAccent);
     win.on('closed', function () {
+        systemPreferences.removeListener('accent-color-changed', updateAccent);
         configWindow = null;
         screens = screens.filter(screenWindow => screenWindow !== win);
         win = null;
@@ -636,6 +647,13 @@ function setUpConfigFile() {
 }
 
 //setUpConfigFile();
+
+ipcMain.handle('getConfigAccent', event => {
+    if (event.sender !== configWindow?.webContents) {
+        return null;
+    }
+    return systemPreferences.getAccentColor();
+});
 
 let applicationUpdater;
 function checkForUpdate() {

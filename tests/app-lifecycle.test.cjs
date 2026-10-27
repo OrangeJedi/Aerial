@@ -252,6 +252,7 @@ test('repeat launch waits for startup before opening config', async () => {
 });
 
 test('closing config before the welcome timer fires does not access a destroyed window', () => {
+    const systemPreferences = new (require('node:events').EventEmitter)();
     let welcome;
     let closed;
     class Window {
@@ -269,12 +270,15 @@ test('closing config before the welcome timer fires does not access a destroyed 
         }
     }
     const context = section('function createConfigWindow(', 'function createSSWindow(', {
+        systemPreferences,
         configWindow: null, BrowserWindow: Window, screens: [],
         path: require('node:path'), __dirname,
         setTimeout: callback => { welcome = callback; }
     });
     context.createConfigWindow(['/w']);
+    assert.equal(systemPreferences.listenerCount('accent-color-changed'), 1);
     closed();
+    assert.equal(systemPreferences.listenerCount('accent-color-changed'), 0);
     assert.doesNotThrow(() => welcome());
 });
 
