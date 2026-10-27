@@ -110,7 +110,7 @@ module.exports = function initializePreload() {
                     }
                 },
                 on: (channel, func) => {
-                    let validChannels = ["configAccentChanged", "updateStatus", "displaySettings", "newCustomVideos", "newVideo", "previousVideo", "blankTheScreen", "showWelcome", "updateAttribute", "screenNumber"];
+                    let validChannels = ["configAccentChanged", "updateStatus", "displaySettings", "newCustomVideos", "newVideo", "previousVideo", "blankTheScreen", "showWelcome", "showUpdated", "updateAttribute", "screenNumber"];
                     if (validChannels.includes(channel)) {
                         // Deliberately strip event as it includes `sender`
                         ipcRenderer.on(channel, (event, ...args) => {

@@ -172,10 +172,14 @@ function createConfigWindow(argv) {
         }
     }
     if (argv) {
-        if (argv.includes("/w")) {
+        if (argv.includes("/w") || argv.includes("/u")) {
             setTimeout(() => {
                 if (win && !win.isDestroyed()) {
-                    win.webContents.send('showWelcome');
+                    if (argv.includes("/w")) {
+                        win.webContents.send('showWelcome');
+                    } else {
+                        win.webContents.send('showUpdated', app.getVersion());
+                    }
                 }
             }, 1500);
         }
@@ -289,6 +293,39 @@ function createSSPWindow(argv, monitor = 0) {
         backgroundColor: '#000000',
         icon: path.join(__dirname, 'icon.ico'),
         show: false
+    });
+    let screenshotPending = false;
+    win.webContents.on('before-input-event', async (event, input) => {
+        if (input.type !== 'keyDown' || input.key.toLowerCase() !== 's' ||
+            !input.control || !input.shift || input.alt || input.meta) {
+            return;
+        }
+        event.preventDefault();
+        if (input.isAutoRepeat || screenshotPending) {
+            return;
+        }
+        screenshotPending = true;
+        const previewWindow = win;
+        try {
+            const image = await previewWindow.webContents.capturePage();
+            if (previewWindow.isDestroyed()) {
+                return;
+            }
+            const timestamp = new Date().toISOString().replace(/[:.]/g, '-');
+            const {canceled, filePath} = await dialog.showSaveDialog(previewWindow, {
+                title: 'Save preview screenshot',
+                defaultPath: path.join(app.getPath('pictures'), `Aerial-${timestamp}.png`),
+                filters: [{name: 'PNG image', extensions: ['png']}]
+            });
+            if (!canceled && filePath) {
+                await fs.promises.writeFile(filePath, image.toPNG());
+            }
+        } catch (error) {
+            console.error('Unable to save preview screenshot', error);
+            dialog.showErrorBox('Unable to save screenshot', `Aerial could not save the preview screenshot.\n\n${error.message || error}`);
+        } finally {
+            screenshotPending = false;
+        }
     });
     let startupFinished = false;
     let startupTimer;
@@ -463,9 +500,9 @@ const startupReady = app.whenReady().then(startUp);
 async function startUp() {
     //Uncomment the line below when compiling the .scr file
     //store.set('useTray', false);
-    let firstTime = false;
-    if (!store.get("configured") || store.get("version") !== app.getVersion()) {
-        firstTime = true;
+    const firstTime = !store.get("configured");
+    const updated = !firstTime && store.get("version") !== app.getVersion();
+    if (firstTime || updated) {
         await fs.promises.mkdir(path.join(app.getPath('userData'), 'videos', 'temp'), {recursive: true});
         setUpConfigFile();
     }
@@ -485,7 +522,7 @@ async function startUp() {
     }
     await clearCacheTemp();
     pruneVideoCache();
-    if (process.argv.includes("/c")) {
+    if (process.argv.includes("/c") || process.argv.includes("/w") || process.argv.includes("/u")) {
         createConfigWindow(process.argv);
     } else if (process.argv.includes("/p")) {
         //createSSPWindow();
@@ -501,9 +538,11 @@ async function startUp() {
             createTrayWindow();
             if (firstTime) {
                 createConfigWindow(["/w"]);
+            } else if (updated) {
+                createConfigWindow(["/u"]);
             }
         } else {
-            createConfigWindow();
+            createConfigWindow(firstTime ? ["/w"] : updated ? ["/u"] : undefined);
         }
     }
     setTimeout(downloadVideos, 1500);

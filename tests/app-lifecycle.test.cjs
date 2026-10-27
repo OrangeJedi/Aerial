@@ -68,6 +68,67 @@ for (const [outcome, monitor] of ['load failure', 'renderer crash', 'timeout', '
     });
 }
 
+for (const outcome of ['save', 'cancel', 'capture failure', 'write failure']) {
+    test(`preview screenshot shortcut handles ${outcome}`, async () => {
+        let handler;
+        let captures = 0;
+        let dialogs = 0;
+        let errors = 0;
+        let prevented = 0;
+        const writes = [];
+        const win = {
+            isDestroyed: () => false,
+            webContents: {
+                on: (name, callback) => { handler = callback; },
+                capturePage: async () => {
+                    captures++;
+                    if (outcome === 'capture failure') {
+                        throw new Error('capture failed');
+                    }
+                    return {toPNG: () => Buffer.from('png')};
+                }
+            }
+        };
+        section('    let screenshotPending = false;', '    let startupFinished = false;', {
+            win, app: {getPath: () => 'Pictures'}, path: require('node:path'),
+            console: {error() {}},
+            dialog: {
+                showSaveDialog: async parent => {
+                    assert.equal(parent, win);
+                    dialogs++;
+                    return {canceled: outcome === 'cancel', filePath: 'capture.png'};
+                },
+                showErrorBox: () => { errors++; }
+            },
+            fs: {promises: {writeFile: async (...args) => {
+                if (outcome === 'write failure') {
+                    throw new Error('write failed');
+                }
+                writes.push(args);
+            }}}
+        });
+        const event = {preventDefault: () => { prevented++; }};
+        const input = {type: 'keyDown', key: 'S', control: true, shift: true};
+        for (const change of [{control: false}, {shift: false}, {alt: true}, {meta: true}, {type: 'keyUp'}, {key: 'a'}]) {
+            await handler(event, {...input, ...change});
+        }
+        assert.equal(captures, 0);
+        const capture = handler(event, input);
+        await handler(event, input);
+        await capture;
+        await handler(event, {...input, isAutoRepeat: true});
+        assert.equal(prevented, 3);
+        assert.equal(captures, 1);
+        assert.equal(dialogs, outcome === 'capture failure' ? 0 : 1);
+        assert.equal(errors, outcome.includes('failure') ? 1 : 0);
+        assert.equal(writes.length, outcome === 'save' ? 1 : 0);
+        if (writes.length) {
+            assert.equal(writes[0][0], 'capture.png');
+            assert.equal(writes[0][1].toString(), 'png');
+        }
+    });
+}
+
 function section(start, end, globals) {
     const first = source.indexOf(start);
     assert.ok(first >= 0 && source.indexOf(end, first) > first);
