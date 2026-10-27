@@ -3,25 +3,6 @@ const assert = require('node:assert/strict');
 const fs = require('node:fs');
 const vm = require('node:vm');
 
-test('config shows download progress, restart readiness, and manual fallback without stale controls', () => {
-    const renderer = fs.readFileSync(require.resolve('../web/config.js'), 'utf8');
-    const start = renderer.indexOf('function displayAvailableUpdate(');
-    const end = renderer.indexOf("electron.ipcRenderer.on('updateStatus'", start);
-    const elements = Object.fromEntries(['updateStatusText', 'updateBadge', 'restartForUpdate', 'manualUpdate', 'checkForUpdates']
-        .map(id => [id, {style: {}}]));
-    const context = vm.createContext({document: {getElementById: id => elements[id]}});
-    vm.runInContext(renderer.slice(start, end), context);
-    for (const status of ['downloading', 'ready', 'installing', 'error', 'current', 'unsupported']) {
-        context.displayAvailableUpdate({status, version: '1.4.0', percent: 42});
-        assert.equal(elements.restartForUpdate.style.display, status === 'ready' ? '' : 'none');
-        assert.equal(elements.manualUpdate.style.display, status === 'error' ? '' : 'none');
-        assert.equal(elements.updateBadge.style.display, ['downloading', 'ready', 'error'].includes(status) ? '' : 'none');
-        if (status === 'downloading') {
-            assert.match(elements.updateStatusText.textContent, /42%/);
-        }
-    }
-});
-
 test('restart and retry IPC only accept requests from the config window', () => {
     const source = fs.readFileSync(require.resolve('../app.js'), 'utf8');
     const start = source.indexOf("ipcMain.on('checkForUpdates'");

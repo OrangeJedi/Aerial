@@ -46,7 +46,7 @@ function renderer(type = 'dissolve', direction = 'left', easierTransitions, over
     const settings = {easierTransitions, videoTransitionLength: 2000, playbackSpeed: 1, transitionType: type,
         transitionDirection: direction, displayText: {positionList: [], random: []}, ...overrides};
     const context = vm.createContext({
-        console, performance: {now: () => now}, innerWidth: 1920, innerHeight: 1080,
+        aerialTextStyle: require('../web/text-style'), console, performance: {now: () => now}, innerWidth: 1920, innerHeight: 1080,
         setTimeout: schedule,
         clearTimeout(id) { timers.delete(id); },
         setInterval(callback) { intervals.push(callback); return intervals.length; },
@@ -178,6 +178,26 @@ test('text fades in only after the first transition finishes', async () => {
     await result.tick(3000);
     assert.equal(overlay.style.opacity, '1');
 });
+
+for (const type of ['dissolve', 'dipToBlack', 'wipe', 'circle']) {
+    test(`window preview skips startup ${type} but keeps later transitions`, async () => {
+        const result = renderer(type);
+        result.context.electron.windowPreview = true;
+        await flush();
+        const overlay = result.context.document.getElementById('textDisplayArea');
+        assert.equal(result.context.document.body.style.backgroundColor, 'black');
+        assert.equal(overlay.style.opacity, '1');
+        assert.equal(overlay.style.transition, 'none');
+        assert.equal(result.players[1].style.opacity, '1');
+        assert.equal(result.frames.size, 0);
+        result.events.newVideo();
+        await flush();
+        assert.equal(result.players[1].style.visibility, 'visible');
+        await result.tick(2000);
+        assert.equal(result.players[1].style.visibility, 'hidden');
+        assert.equal(result.players[0].style.opacity, '1');
+    });
+}
 
 test('blanking during startup makes the transparent window black', () => {
     const result = renderer('dissolve');
@@ -768,3 +788,83 @@ for (const easierTransitions of [true, false]) {
         assert.ok([...result.timers.values()].some(timer => timer.delay === 59500));
     });
 }
+
+test('overlay screen selection supports legacy scalars and multiple monitor selections', async () => {
+    for (const [target, visible] of [['1', false], [0, true], [['0', '2'], true], [['1', '2'], false], [undefined, true]]) {
+        const displayText = {positionList: ['left', 'random'], left: [{type: 'text', text: 'Monitor selection', defaultFont: true, onlyShowOnScreen: target}], random: []};
+        const result = renderer('dissolve', 'left', false, {displayText});
+        await flush();
+        result.events.screenNumber(0);
+        const content = result.control.htmlWrites.filter(write => write.selector === '#textDisplay-left').at(-1);
+        assert.equal(content.value.includes('Monitor selection'), visible);
+    }
+});
+
+test('disabled overlays hide all their lines and clocks while other overlays remain visible', async () => {
+    const displayText = {positionList: ['left', 'random'], random: [], left: [
+        {overlayId: 'hidden', type: 'text', text: 'Hidden text', enabled: false, defaultFont: true},
+        {overlayId: 'hidden', type: 'time', timeString: 'HH:mm', defaultFont: true},
+        {overlayId: 'visible', type: 'text', text: 'Visible text', defaultFont: true},
+        {type: 'text', text: 'Hidden legacy', enabled: false, defaultFont: true}
+    ]};
+    const result = renderer('dissolve', 'left', false, {displayText});
+    await flush();
+    result.events.screenNumber(0);
+    const html = result.control.htmlWrites.filter(write => write.selector === '#textDisplay-left').at(-1).value;
+    assert(!html.includes('Hidden'));
+    assert(!html.includes('id="left-1"'));
+    assert(html.includes('Visible text'));
+    assert.equal(displayText.left[1].clockTimeout, undefined);
+});
+
+test('random positions ignore text assigned only to other monitors', async () => {
+    const displayText = {positionList: ['left', 'right', 'random'],
+        left: [{type: 'text', text: 'Other monitor', onlyShowOnScreen: '1'}],
+        right: [{type: 'text', text: 'This monitor', onlyShowOnScreen: ['0', '2']}],
+        random: [{type: 'text', text: 'Random overlay', defaultFont: true}]};
+    const result = renderer('dissolve', 'left', false, {displayText});
+    await flush();
+    result.events.screenNumber(0);
+    vm.runInContext('switchRandomText();', result.context);
+    assert.equal(displayText.random.currentLocation, 'left');
+    const content = result.control.htmlWrites.filter(write => write.selector === '#textDisplay-left').at(-1);
+    assert(content.value.includes('Random overlay'));
+});
+
+test('rendered lines use default or custom styles while retaining custom CSS overrides', async () => {
+    const displayText = {positionList: ['left', 'random'], random: [], left: [
+        {type: 'text', text: 'Default', defaultFont: true},
+        {type: 'text', text: 'Custom', defaultFont: false, font: '', fontSize: '2', fontColor: '#ffffff', fontStyle: {italic: true, shadowEnabled: false, transparency: 75}, customCSS: 'opacity:.9;'}
+    ]};
+    const result = renderer('dissolve', 'left', false, {displayText, textStyle: {bold: true, transparency: 20}});
+    await flush();
+    result.events.screenNumber(0);
+    const html = result.control.htmlWrites.filter(write => write.selector === '#textDisplay-left').at(-1).value;
+    assert.match(html, /font-weight:700;font-style:normal;text-decoration:none;opacity:0.8;/);
+    assert.match(html, /font-weight:400;font-style:italic;text-decoration:none;opacity:0.25;text-shadow:none;line-height:1;opacity:.9;/);
+});
+
+test('all overlay lines and clocks follow the overlay monitor selection independently of other overlays', async () => {
+    for (const screen of [0, 1]) {
+        const displayText = {positionList: ['left', 'random'], random: [], left: [
+            {overlayId: 'first', type: 'text', text: 'First overlay', defaultFont: true, onlyShowOnScreen: '1'},
+            {overlayId: 'second', type: 'text', text: 'Second overlay', defaultFont: true, onlyShowOnScreen: '0'},
+            {overlayId: 'first', type: 'text', text: 'Second line', defaultFont: true},
+            {overlayId: 'first', type: 'time', timeString: 'HH:mm', defaultFont: true, onlyShowOnScreen: '0'},
+            {overlayId: 'first', type: 'information', infoType: 'name', defaultFont: true}
+        ]};
+        const original = structuredClone(displayText);
+        const result = renderer('dissolve', 'left', false, {displayText});
+        await flush();
+        result.events.screenNumber(screen);
+        const html = result.control.htmlWrites.filter(write => write.selector === '#textDisplay-left').at(-1).value;
+        assert.equal(html.includes('First overlay'), screen === 1);
+        assert.equal(html.includes('Second line'), screen === 1);
+        assert.equal(html.includes('id="left-3"'), screen === 1);
+        assert.equal(html.includes('id="left-4"'), screen === 1);
+        assert.equal(html.includes('Second overlay'), screen === 0);
+        assert.equal(displayText.left[3].clockTimeout !== undefined, screen === 1);
+        assert.equal(displayText.left[2].onlyShowOnScreen, original.left[2].onlyShowOnScreen);
+        assert.equal(displayText.left[3].onlyShowOnScreen, original.left[3].onlyShowOnScreen);
+    }
+});

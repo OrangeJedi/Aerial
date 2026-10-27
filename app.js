@@ -10,7 +10,8 @@ const {
     Menu,
     powerMonitor,
     Notification,
-    globalShortcut
+    globalShortcut,
+    systemPreferences
 } = require('electron');
 
 if (!app.requestSingleInstanceLock()) {
@@ -134,8 +135,9 @@ function createConfigWindow(argv) {
         return;
     }
     let win = new BrowserWindow({
-        width: 1000,
-        height: 750,
+        width: 1280,
+        height: 800,
+        backgroundMaterial: 'acrylic',
         webPreferences: {
             // Let video fullscreen fill this window without moving or resizing it.
             disableHtmlFullscreenWindowResize: true,
@@ -145,12 +147,21 @@ function createConfigWindow(argv) {
             sandbox: false,
             preload: path.join(__dirname, "preload.mjs")
         },
-        resizable: false,
+        minWidth: 800,
+        minHeight: 600,
+        resizable: true,
         icon: path.join(__dirname, 'icon.ico')
     });
     configWindow = win;
-    win.loadFile('web/config.html');
+    win.loadFile('web/config/index.html');
+    const updateAccent = (event, color) => {
+        if (win && !win.isDestroyed()) {
+            win.webContents.send('configAccentChanged', color);
+        }
+    };
+    systemPreferences.on('accent-color-changed', updateAccent);
     win.on('closed', function () {
+        systemPreferences.removeListener('accent-color-changed', updateAccent);
         configWindow = null;
         screens = screens.filter(screenWindow => screenWindow !== win);
         win = null;
@@ -257,11 +268,12 @@ function createSSWindow(argv) {
     startTime = new Date();
 }
 
-function createSSPWindow(argv) {
+function createSSPWindow(argv, monitor = 0) {
     nq = true;
     allowedVideos = store.get("allowedVideos");
     previouslyPlayed = [];
     let displays = screen.getAllDisplays();
+    const monitorIndex = Number.isInteger(monitor) && monitor >= 0 && monitor < displays.length ? monitor : 0;
     let win = new BrowserWindow({
         width: 1280,
         height: 720,
@@ -271,6 +283,7 @@ function createSSPWindow(argv) {
             enableRemoteModule: false,
             sandbox: false,
             preload: path.join(__dirname, "preload.mjs"),
+            additionalArguments: ['--aerial-window-preview'],
         },
         frame: true,
         backgroundColor: '#000000',
@@ -303,7 +316,7 @@ function createSSPWindow(argv) {
         }
         startupFinished = true;
         clearTimeout(startupTimer);
-        win.webContents.send('screenNumber', 0);
+        win.webContents.send('screenNumber', monitorIndex);
         win.show();
     })
     win.webContents.on('render-process-gone', (event, details) => {
@@ -520,10 +533,11 @@ function setUpConfigFile() {
     //start up settings
     settings.set('useTray', settings.get('useTray') ?? true);
     settings.set('startAfter', settings.get('startAfter') ?? 10);
-    settings.set('blankScreen', settings.get('blankScreen') ?? true);
-    settings.set('blankAfter', settings.get('blankAfter') ?? 30);
-    settings.set('sleepAfterBlank', settings.get('sleepAfterBlank') ?? true);
-    settings.set('sleepAfterBlankDelay', settings.get('sleepAfterBlankDelay') ?? 0);
+    settings.set('blankAfter', settings.get('blankScreen') === false ? 0 : settings.get('blankAfter') ?? 30);
+    settings.set('sleepAfterBlankDelay', settings.get('sleepAfterBlank') === false ? 0 : settings.get('sleepAfterBlankDelay') ?? 0);
+    // Retire the old toggles after converting disabled choices to zero delays.
+    settings.set('blankScreen', true);
+    settings.set('sleepAfterBlank', true);
     settings.set('lockAfterRun', settings.get('lockAfterRun') ?? false);
     settings.set('lockAfterRunAfter', settings.get('lockAfterRunAfter') ?? 15);
     settings.set('runOnBattery', settings.get('runOnBattery') ?? true);
@@ -575,7 +589,7 @@ function setUpConfigFile() {
     settings.set('easierTransitions', settings.get('easierTransitions') ?? false);
     settings.set('fillMode', settings.get('fillMode') ?? "stretch");
     settings.set('allowH265', settings.get('allowH265') ?? true);
-    settings.set('allow4K', settings.get('allow4K') ?? true);
+    settings.set('allow4K', settings.get('allowH265') ? settings.get('allow4K') ?? true : false);
     settings.set('prefer4K240', settings.get('prefer4K240') ?? false);
     //1.2.0 changes the default transition length because of internal changes
     if (settings.get('videoTransitionLength') === 1000) {
@@ -606,9 +620,11 @@ function setUpConfigFile() {
     //check for downloaded videos
     updateVideoCache();
     //text settings
+    settings.set('textSizeUnit', settings.get('textSizeUnit') ?? (settings.get('textSize') == null ? 'vh' : 'vw'));
+    settings.set('textStyle', require('./web/text-style').normalize(settings.get('textStyle')));
     settings.set('textFont', settings.get('textFont') ?? "Segoe UI");
-    settings.set('textSize', settings.get('textSize') ?? "2");
-    settings.set('textColor', settings.get('textColor') ?? "#FFFFFF");
+    settings.set('textSize', settings.get('textSize') ?? "1.5");
+    settings.set('textColor', settings.get('textColor') ?? "#ffffff");
     let displayText = settings.get('displayText');
     if (displayText) {
         if (!displayText.topleft[0]) {
@@ -636,6 +652,13 @@ function setUpConfigFile() {
 }
 
 //setUpConfigFile();
+
+ipcMain.handle('getConfigAccent', event => {
+    if (event.sender !== configWindow?.webContents) {
+        return null;
+    }
+    return systemPreferences.getAccentColor();
+});
 
 let applicationUpdater;
 function checkForUpdate() {
@@ -792,8 +815,20 @@ ipcMain.on('selectFile', async (event, args) => {
     }
 });
 
-ipcMain.on('openPreview', (event) => {
-    createSSPWindow(process.argv);
+ipcMain.on('openPreview', (event, monitor) => {
+    if (event.sender !== configWindow?.webContents || preview) {
+        return;
+    }
+    createSSPWindow(process.argv, monitor);
+});
+
+ipcMain.on('openFullscreenPreview', event => {
+    if (event.sender !== configWindow?.webContents || preview) {
+        return;
+    }
+    preview = true;
+    nq = false;
+    createSSWindow();
 });
 
 ipcMain.on('openInfoEditor', (event) => {
@@ -1244,21 +1279,24 @@ function quitApp() {
             // powerMonitor confirms the session lock and closes the windows.
             return;
         }
-        closeAllWindows();
+        closeAllWindows(preview);
         currentlyPlaying = '';
     }
 }
 
-function closeAllWindows() {
+function closeAllWindows(preserveConfig = false) {
     monitorPlayback.clear();
     clearScreensaverTimers();
     lockRequested = false;
     for (let i = 0; i < screens.length; i++) {
-        if (!screens[i].isDestroyed()) {
+        if ((!preserveConfig || screens[i] !== configWindow) && !screens[i].isDestroyed()) {
             screens[i].close();
         }
     }
-    screens = [];
+    screens = preserveConfig ? screens.filter(win => win === configWindow && !win.isDestroyed()) : [];
+    if (preserveConfig) {
+        preview = false;
+    }
     currentlyPlaying = '';
 }
 
@@ -1338,29 +1376,30 @@ function clearScreensaverTimers() {
 
 function onFirstVideoPlayed() {
     setTimeOfDayList();
-    if (preview || blankInterval !== undefined || screensBlanked || !store.get('blankScreen')) {
+    const minutes = Number(store.get('blankAfter'));
+    if (preview || blankInterval !== undefined || screensBlanked || !Number.isFinite(minutes) || minutes <= 0) {
         return;
     }
     const started = Date.now();
     blankInterval = setInterval(() => {
         if (screens.length === 0) {
             clearScreensaverTimers();
-        } else if (Date.now() - started >= store.get('blankAfter') * 60 * 1000) {
+        } else if (Number(store.get('blankAfter')) > 0 && Date.now() - started >= Number(store.get('blankAfter')) * 60 * 1000) {
             blankScreensaver();
         }
     }, 30000);
 }
 
 function scheduleSleepAfterBlank() {
-    if (!store.get('sleepAfterBlank')) {
+    const minutes = Number(store.get('sleepAfterBlankDelay') ?? 0);
+    if (!Number.isFinite(minutes) || minutes <= 0) {
         return;
     }
-    const minutes = Number(store.get('sleepAfterBlankDelay') ?? 0);
-    const delay = Number.isFinite(minutes) ? Math.max(0, minutes) * 60 * 1000 : 0;
+    const delay = minutes * 60 * 1000;
     const transition = Math.max(0, Number(store.get('videoTransitionLength')) || 0) * 3;
     sleepTimeout = setTimeout(() => {
         sleepTimeout = undefined;
-        if (screensBlanked && screens.length > 0 && !preview && store.get('sleepAfterBlank')) {
+        if (screensBlanked && screens.length > 0 && !preview && Number(store.get('sleepAfterBlankDelay')) > 0) {
             sleepComputer();
         }
     }, transition + delay);

@@ -3,7 +3,7 @@ const {test} = require('node:test');
 const fs = require('node:fs');
 const vm = require('node:vm');
 
-function bridge(realSettings = false, fontOptions = {}) {
+function bridge(realSettings = false, fontOptions = {}, argv = []) {
     const calls = [];
     const listeners = new Map();
     const values = {prepareCompatibleVideos: true, cachePath: 'cache'};
@@ -28,7 +28,7 @@ function bridge(realSettings = false, fontOptions = {}) {
         'electron-store': class {}, './settings-store': realSettings ? require('../settings-store') : {createSettingsStore: () => settings},
         './video-sources': require('../video-sources'), './playback': {convertedPath: () => 'C:/cache/converted/a.mp4'},
         path: require('node:path'), fs: {existsSync: () => exists}, url: require('node:url'),
-        './videos.json': [], './localized/locales.json': require('../localized/locales.json'),
+        './web/config/settings.json': require('../web/config/settings.json'), './videos.json': [], './localized/locales.json': require('../localized/locales.json'),
         './video-localization': require('../video-localization'),
         'font-list-universal': {getFonts: async () => ['Fallback Font']},
         child_process: {execFile: (command, args, callback) => {
@@ -40,7 +40,7 @@ function bridge(realSettings = false, fontOptions = {}) {
     const module = {exports: {}};
     vm.runInNewContext(fs.readFileSync(require.resolve('../preload.js'), 'utf8'), {
         module,
-        process: {platform: 'win32'},
+        process: {platform: 'win32', argv},
         console: {log() {}},
         setTimeout,
         require: Object.assign(name => {
@@ -51,6 +51,18 @@ function bridge(realSettings = false, fontOptions = {}) {
     module.exports(modules['electron-store']);
     return {api: exposed, calls, listeners, values, missing: () => { exists = false; }};
 }
+
+test('preload identifies window previews from launch arguments', () => {
+    assert.equal(bridge().api.windowPreview, false);
+    assert.equal(bridge(false, {}, ['--aerial-window-preview']).api.windowPreview, true);
+});
+
+test('preload supplies file URLs for custom videos, escaping URL punctuation', () => {
+    const f = bridge();
+    const file = require('node:path').resolve('custom videos', 'Demo #1 100%.mp4');
+    assert.deepEqual(f.api.videoSources({path: file}), [require('node:url').pathToFileURL(file).href]);
+    assert.match(f.api.videoSources({path: file})[0], /Demo%20%231%20100%25\.mp4$/);
+});
 
 test('preload blocks unapproved send, receive and invoke channels', () => {
     const f = bridge();
@@ -118,6 +130,16 @@ test('converted playback requires enabled preparation and an existing output', (
     f.values.prepareCompatibleVideos = true;
     f.missing();
     assert.equal(f.api.convertedVideo({id: 'a'}), null);
+});
+
+test('config metadata and accent IPC use the restricted preload bridge', async () => {
+    const f = bridge();
+    assert.equal(f.api.settingsDefinition.at(-1).id, 'about');
+    assert.equal(await f.api.ipcRenderer.invoke('getConfigAccent'), 'reply');
+    let accent;
+    f.api.ipcRenderer.on('configAccentChanged', color => { accent = color; });
+    f.listeners.get('configAccentChanged')({sender: 'privileged'}, '0078d4ff');
+    assert.equal(accent, '0078d4ff');
 });
 
 test('preload settings and source helpers honor current permissions', () => {

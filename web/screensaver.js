@@ -121,10 +121,11 @@ function scheduleNext() {
 
 // Opacity transitions use browser animations; masks update only during a transition.
 function transitionTo(target, token) {
+    const skipStartupTransition = electron.windowPreview && !textRevealed;
     const outgoing = containers[currentPlayer];
     const incoming = containers[target];
     const types = ['dissolve', 'dipToBlack', 'fade', 'wipe', 'circle', 'fadeCircle'];
-    let type = electron.store.get('transitionType');
+    let type = skipStartupTransition ? 'none' : electron.store.get('transitionType');
     if (type === 'random') {
         type = types[randomInt(0, types.length)];
     }
@@ -250,6 +251,9 @@ function transitionTo(target, token) {
                 document.body.style.backgroundColor = 'black';
                 if (!textRevealed) {
                     textRevealed = true;
+                    if (skipStartupTransition) {
+                        textOverlay.style.transition = 'none';
+                    }
                     textOverlay.style.opacity = '1';
                 }
                 currentPlayer = target;
@@ -542,6 +546,9 @@ function drawDynamicText() {
     for (let position of displayText.positionList) {
         for (let i = 0; i < displayText[position].length; i++) {
             let line = displayText[position][i];
+            if (!overlayVisibleOnScreen(position, line)) {
+                continue;
+            }
             const textArea = $(`#${position}-${i}`);
             if (line.type === "information") {
                 textArea.attr('dir', 'auto');
@@ -646,7 +653,7 @@ function cssFontFamily(font) {
     return `${cssString(alias)}, ${cssString(fontName)}, "Segoe UI", sans-serif`;
 }
 
-$('.displayText').css('font-family', cssFontFamily(electron.store.get('textFont'))).css('font-size', `${electron.store.get('textSize')}vw`).css('color', `${electron.store.get('textColor')}`);
+$('.displayText').css('font-family', cssFontFamily(electron.store.get('textFont'))).css('font-size', `${electron.store.get('textSize')}${electron.store.get('textSizeUnit') === 'vh' ? 'vh' : 'vw'}`).css('color', `${electron.store.get('textColor')}`);
 
 //draw text
 let displayText = electron.store.get('displayText') ?? [];
@@ -672,7 +679,7 @@ function renderText() {
         } else if (position.includes("right")) {
             align = "w3-right-align"
         }
-        html += `<div class="w3-display-${position} ${align} w3-container textDisplayArea" id="textDisplay-${position}" style="text-shadow:.05vw .05vw 0 #444"></div>`;
+        html += `<div class="w3-display-${position} ${align} w3-container textDisplayArea" id="textDisplay-${position}"></div>`;
     }
     $('#textDisplayArea').html(html);
 //add text to the content
@@ -684,23 +691,35 @@ function renderText() {
     drawDynamicText();
 }
 
+function overlayVisibleOnScreen(position, line) {
+    // Named overlays share the first active line's monitor selection.
+    // Untagged legacy lines retain their original individual settings.
+    const source = line.overlayId
+        ? displayText[position].find(entry => entry.overlayId === line.overlayId && entry.type !== 'none') || line
+        : line;
+    return source.enabled !== false && (source.onlyShowOnScreen === undefined
+        || [].concat(source.onlyShowOnScreen).some(screen => Number(screen) === Number(screenNumber)));
+}
+
 function displayTextPosition(position, displayLocation) {
     clearClocks(position);
     let selector = displayLocation ? `#textDisplay-${displayLocation}` : `#textDisplay-${position}`;
     let html = "";
     for (let i = 0; i < displayText[position].length; i++) {
-        if (displayText[position][i].onlyShowOnScreen === undefined || Number(displayText[position][i].onlyShowOnScreen) === Number(screenNumber)) {
-            html += `<div id="${position}-${i}" style="${displayText[position][i].customCSS}">${createContentLine(displayText[position][i], position, i)}</div>`;
+        if (overlayVisibleOnScreen(position, displayText[position][i])) {
+            const line = displayText[position][i];
+            const style = line.defaultFont !== false ? electron.store.get('textStyle') : line.fontStyle || electron.store.get('textStyle');
+            html += `<div id="${position}-${i}" style="${aerialTextStyle.declarations(style)}${line.customCSS || ''}">${createContentLine(line, position, i)}</div>`;
         }
     }
     $(selector).html(html);
     for (let i = 0; i < displayText[position].length; i++) {
         const line = displayText[position][i];
-        if (line.type === 'time' && (line.onlyShowOnScreen === undefined || Number(line.onlyShowOnScreen) === Number(screenNumber))) {
+        if (line.type === 'time' && overlayVisibleOnScreen(position, line)) {
             runClock(position, i, line.timeString);
         }
         if (!displayText[position][i].defaultFont) {
-            $(`#${position}-${i}`).css('font-family', cssFontFamily(displayText[position][i].font)).css('font-size', `${displayText[position][i].fontSize}vw`).css('color', `${displayText[position][i].fontColor}`);
+            $(`#${position}-${i}`).css('font-family', cssFontFamily(displayText[position][i].font)).css('font-size', `${displayText[position][i].fontSize}${electron.store.get('textSizeUnit') === 'vh' ? 'vh' : 'vw'}`).css('color', `${displayText[position][i].fontColor}`);
         }
     }
 }
@@ -778,7 +797,8 @@ function switchRandomText() {
     }
     const locations = displayText.positionList.filter(position => position !== 'random'
         && position !== displayText.random.currentLocation
-        && displayText[position].every(line => line.type === 'none'));
+        && displayText[position].every(line => line.type === 'none'
+            || !overlayVisibleOnScreen(position, line)));
     if (!locations.length) {
         return;
     }

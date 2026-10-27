@@ -3,7 +3,7 @@ const {test} = require('node:test');
 const fs = require('node:fs');
 const vm = require('node:vm');
 
-for (const file of ['config.js', 'screensaver.js']) {
+for (const file of ['config/fonts.js', 'screensaver.js']) {
     test(`${file} registers local font aliases once and includes the family fallback`, () => {
         const source = fs.readFileSync(require.resolve(`../web/${file}`), 'utf8');
         const styles = new Map();
@@ -15,7 +15,7 @@ for (const file of ['config.js', 'screensaver.js']) {
         }});
         const start = source.indexOf('let localFontFaces');
         const end = source.indexOf('\n}', source.indexOf('function cssFontFamily', start)) + 2;
-        vm.runInContext(source.slice(start, end), context);
+        vm.runInContext(source.slice(start, end).replace('export function', 'function'), context);
         const family = context.cssFontFamily('Helvetica Neue LT Std Regular');
         assert.match(family, /^"AerialLocalFont-\d+", "Helvetica Neue LT Std Regular"/);
         const style = styles.get('aerial-local-font-faces');

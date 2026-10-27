@@ -2,22 +2,25 @@ const assert = require('node:assert/strict');
 const {test} = require('node:test');
 const fs = require('node:fs');
 const vm = require('node:vm');
+const appRequire = require('node:module').createRequire(require.resolve('../app.js'));
 const source = fs.readFileSync(require.resolve('../app.js'), 'utf8');
 
-for (const outcome of ['load failure', 'renderer crash', 'timeout', 'ready', 'closed']) {
-    test(`preview startup handles ${outcome}`, async () => {
+for (const [outcome, monitor] of ['load failure', 'renderer crash', 'timeout', 'ready', 'closed'].flatMap(outcome =>
+    (outcome === 'ready' ? [0, 1, 99, -1, '1'] : [0]).map(monitor => [outcome, monitor]))) {
+    test(`preview startup handles ${outcome}, monitor ${JSON.stringify(monitor)}`, async () => {
         const {EventEmitter} = require('node:events');
         const config = {};
         const errors = [];
         let window;
         let timeout;
         let cleared = 0;
+        const messages = [];
         class PreviewWindow extends EventEmitter {
             constructor() {
                 super();
                 window = this;
                 this.webContents = new EventEmitter();
-                this.webContents.send = () => {};
+                this.webContents.send = (...args) => messages.push(args);
             }
             isDestroyed() {
                 return !!this.destroyed;
@@ -34,14 +37,14 @@ for (const outcome of ['load failure', 'renderer crash', 'timeout', 'ready', 'cl
             }
         }
         const context = section('function createSSPWindow(', 'function createEditWindow(', {
-            BrowserWindow: PreviewWindow, screen: {getAllDisplays: () => []},
+            BrowserWindow: PreviewWindow, screen: {getAllDisplays: () => [{id: 10}, {id: 20}]},
             store: {get: () => []}, path: require('node:path'), __dirname: 'test',
             screens: [config], nq: false, preview: false,
             setTimeout: callback => { timeout = callback; return 1; },
             clearTimeout: () => { cleared++; },
             console: {error() {}}, dialog: {showErrorBox: (title, message) => errors.push(message)}
         });
-        context.createSSPWindow();
+        context.createSSPWindow(undefined, monitor);
         if (outcome === 'renderer crash') {
             window.webContents.emit('render-process-gone', {}, {reason: 'crashed'});
         } else if (outcome === 'timeout') {
@@ -58,6 +61,7 @@ for (const outcome of ['load failure', 'renderer crash', 'timeout', 'ready', 'cl
         assert.equal(errors.length, failed ? 1 : 0);
         assert.ok(cleared > 0);
         assert.equal(!!window.shown, outcome === 'ready');
+        assert.deepEqual(messages, outcome === 'ready' ? [['screenNumber', monitor === 1 ? 1 : 0]] : []);
         assert.equal(context.preview, outcome === 'ready');
         assert.equal(context.screens[0], config);
         assert.equal(context.screens.length, outcome === 'ready' ? 2 : 1);
@@ -67,7 +71,7 @@ for (const outcome of ['load failure', 'renderer crash', 'timeout', 'ready', 'cl
 function section(start, end, globals) {
     const first = source.indexOf(start);
     assert.ok(first >= 0 && source.indexOf(end, first) > first);
-    const context = vm.createContext({monitorPlayback: new Map(), ...globals});
+    const context = vm.createContext({require: appRequire, monitorPlayback: new Map(), ...globals});
     vm.runInContext(source.slice(first, source.indexOf(end, first)), context);
     return context;
 }
@@ -252,6 +256,7 @@ test('repeat launch waits for startup before opening config', async () => {
 });
 
 test('closing config before the welcome timer fires does not access a destroyed window', () => {
+    const systemPreferences = new (require('node:events').EventEmitter)();
     let welcome;
     let closed;
     class Window {
@@ -269,12 +274,15 @@ test('closing config before the welcome timer fires does not access a destroyed 
         }
     }
     const context = section('function createConfigWindow(', 'function createSSWindow(', {
+        systemPreferences,
         configWindow: null, BrowserWindow: Window, screens: [],
         path: require('node:path'), __dirname,
         setTimeout: callback => { welcome = callback; }
     });
     context.createConfigWindow(['/w']);
+    assert.equal(systemPreferences.listenerCount('accent-color-changed'), 1);
     closed();
+    assert.equal(systemPreferences.listenerCount('accent-color-changed'), 0);
     assert.doesNotThrow(() => welcome());
 });
 
@@ -470,7 +478,7 @@ function dismissalContext(overrides = {}) {
     const closed = [];
     const commands = [];
     const context = section('function quitApp()', '//idle startup timer', {
-        nq: false, preview: false, lockRequested: false, clearScreensaverTimers() {},
+        nq: false, preview: false, configWindow: null, lockRequested: false, clearScreensaverTimers() {},
         startTime: new Date(Date.now() - 60000), currentlyPlaying: 'video',
         store: {get: key => ({lockAfterRun: true, lockAfterRunAfter: 5})[key]},
         screens: [0, 1].map(id => ({isDestroyed: () => false, close: () => closed.push(id)})),
@@ -539,6 +547,44 @@ test('no-quit mode ignores dismissal', () => {
     assert.deepEqual(closed, []);
     assert.equal(commands.length, 0);
 });
+
+test('fullscreen preview dismissal preserves config and clears preview mode without locking', () => {
+    const config = {isDestroyed: () => false, close: () => assert.fail('Config should stay open')};
+    const {context, closed, commands} = dismissalContext({preview: true, configWindow: config});
+    context.screens.unshift(config);
+    context.quitApp();
+    assert.deepEqual(closed, [0, 1]);
+    assert.equal(context.screens.length, 1);
+    assert.equal(context.screens[0], config);
+    assert.equal(context.preview, false);
+    assert.equal(commands.length, 0);
+});
+
+for (const channel of ['openPreview', 'openFullscreenPreview']) {
+    test(`${channel} validates the sender and selects the correct preview mode`, () => {
+        const handlers = {};
+        const calls = [];
+        const contents = {};
+        const context = section("ipcMain.on('openPreview'", "ipcMain.on('openInfoEditor'", {
+            ipcMain: {on: (name, callback) => { handlers[name] = callback; }},
+            configWindow: {webContents: contents}, preview: false, nq: true,
+            process: {argv: []},
+            createSSPWindow: () => calls.push('window'),
+            createSSWindow: () => calls.push('fullscreen')
+        });
+        handlers[channel]({sender: {}});
+        assert.deepEqual(calls, []);
+        handlers[channel]({sender: contents});
+        assert.deepEqual(calls, [channel === 'openPreview' ? 'window' : 'fullscreen']);
+        if (channel === 'openFullscreenPreview') {
+            assert.equal(context.preview, true);
+            assert.equal(context.nq, false);
+        }
+        context.preview = true;
+        handlers[channel]({sender: contents});
+        assert.equal(calls.length, 1);
+    });
+}
 
 for (const [hour, minute, expected] of [[5, 29, 'night'], [5, 30, 'twilight'], [5, 59, 'twilight'],
     [6, 0, 'twilight'], [6, 30, 'twilight'], [6, 31, 'day'], [12, 0, 'day'],

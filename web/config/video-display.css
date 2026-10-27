@@ -1,0 +1,12 @@
+.video-preview { width: 100%; aspect-ratio: 16 / 9; background: #080a0e; border-radius: 10px; object-fit: cover; display: block; }
+.preview-status { margin: 0.71428571rem 0 1.57142857rem; min-height: 21px; }
+.download-choice { display: flex; align-items: center; gap: 0.71428571rem; margin: 1rem 0; }
+.video-tools { display: grid; gap: 2rem; }
+.video-tools h2 { margin-bottom: 0.71428571rem; }
+.video-tools select { min-width: 160px; }
+.profile-name { width: min(100%, 360px); }
+.custom-video-row { display: flex; align-items: center; gap: 0.92857143rem; padding: 1.07142857rem 1.28571429rem; border-top: 1px solid var(--border); }
+.custom-video-row:first-child { border-top: 0; }
+.custom-video-row .custom-name { flex: 1; min-width: 0; }
+.custom-video-row .custom-name input { width: 100%; }
+.custom-path { display: block; overflow-wrap: anywhere; margin-top: 0.28571429rem; }

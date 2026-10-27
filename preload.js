@@ -84,6 +84,7 @@ module.exports = function initializePreload() {
 
     // Expose protected methods from node modules
     contextBridge.exposeInMainWorld("electron", {
+            windowPreview: process.argv.includes('--aerial-window-preview'),
             get systemLanguages() {
                 return systemLanguages();
             },
@@ -95,18 +96,21 @@ module.exports = function initializePreload() {
                 return fs.existsSync(file) ? require('url').pathToFileURL(file).href : null;
             },
             videoSources: video => {
-                return getVideoSources(video, settings);
+                const sources = getVideoSources(video, settings);
+                return video.path ? sources.map(source => require('url').pathToFileURL(source).href) : sources;
             },
+            settingsDefinition: require('./web/config/settings.json'),
+            configBackdrop: process.platform === 'win32' && Number(os.release().split('.')[2]) >= 22621,
             ipcRenderer: {
                 send: (channel, data) => {
                     // whitelist channels
-                    let validChannels = ["restartForUpdate", "checkForUpdates", "quitApp", "keyPress", "updateCache", "deleteCache", "openCache", "selectCustomLocation", "selectCacheLocation", "refreshCache", "openPreview", "refreshConfig", "resetConfig", "updateLocation", "openConfigFolder", "selectFile", "openInfoEditor", "newGlobalShortcut", "consoleLog"];
+                    let validChannels = ["openFullscreenPreview", "restartForUpdate", "checkForUpdates", "quitApp", "keyPress", "updateCache", "deleteCache", "openCache", "selectCustomLocation", "selectCacheLocation", "refreshCache", "openPreview", "refreshConfig", "resetConfig", "updateLocation", "openConfigFolder", "selectFile", "openInfoEditor", "newGlobalShortcut", "consoleLog"];
                     if (channel === 'videoPlaybackState' || validChannels.includes(channel)) {
                         ipcRenderer.send(channel, data);
                     }
                 },
                 on: (channel, func) => {
-                    let validChannels = ["updateStatus", "displaySettings", "newCustomVideos", "newVideo", "previousVideo", "blankTheScreen", "showWelcome", "updateAttribute", "screenNumber"];
+                    let validChannels = ["configAccentChanged", "updateStatus", "displaySettings", "newCustomVideos", "newVideo", "previousVideo", "blankTheScreen", "showWelcome", "updateAttribute", "screenNumber"];
                     if (validChannels.includes(channel)) {
                         // Deliberately strip event as it includes `sender`
                         ipcRenderer.on(channel, (event, ...args) => {
@@ -117,7 +121,7 @@ module.exports = function initializePreload() {
                 },
                 // From render to main and back again.
                 invoke: (channel, args) => {
-                    let validChannels = ["getUpdateStatus", "newVideoId", "compatibleVideo"];
+                    let validChannels = ["getConfigAccent", "getUpdateStatus", "newVideoId", "compatibleVideo"];
                     if (validChannels.includes(channel)) {
                         return ipcRenderer.invoke(channel, args);
                     }

@@ -87,17 +87,10 @@ test('partial manual translations merge captions by timestamp without blanking n
     });
 });
 
-test('video list uses translated labels and escapes translated titles', () => {
-    const vm = require('node:vm');
-    const script = fs.readFileSync(path.join(__dirname, '../web/config.js'), 'utf8');
-    const start = script.indexOf('function makeList()');
-    const end = script.indexOf('$(document).ready', start);
-    let html;
-    const context = vm.createContext({videos: [videos[0]], allowedVideos: [videos[0].id],
-        electron: {videoSources: () => ['source'], videoText: () => ({name: 'Texte <test> & "titre"', accessibilityLabel: 'Chine'})},
-        $: () => ({html: value => { html = value; }})});
-    vm.runInContext(script.slice(start, end) + '\nmakeList();', context);
-    assert.match(html, /Chine/);
-    assert.match(html, /Texte &lt;test&gt; &amp; &quot;titre&quot;/);
-    assert.ok(html.includes(`id="videoList-0"`));
+test('video list retains translated labels and raw text for safe DOM rendering', async () => {
+    const {visibleVideos} = await import('../web/config/video-model.js');
+    const result = visibleVideos([videos[0]], () => ['source'], () => ({name: 'Texte <test> & "titre"', accessibilityLabel: 'Chine'}));
+    assert.equal(result[0].text.name, 'Texte <test> & "titre"');
+    assert.equal(result[0].text.accessibilityLabel, 'Chine');
+    assert.equal(result[0].index, 0);
 });
