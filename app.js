@@ -811,7 +811,19 @@ ipcMain.on('selectFile', async (event, args) => {
 });
 
 ipcMain.on('openPreview', (event) => {
+    if (event.sender !== configWindow?.webContents || preview) {
+        return;
+    }
     createSSPWindow(process.argv);
+});
+
+ipcMain.on('openFullscreenPreview', event => {
+    if (event.sender !== configWindow?.webContents || preview) {
+        return;
+    }
+    preview = true;
+    nq = false;
+    createSSWindow();
 });
 
 ipcMain.on('openInfoEditor', (event) => {
@@ -1262,21 +1274,24 @@ function quitApp() {
             // powerMonitor confirms the session lock and closes the windows.
             return;
         }
-        closeAllWindows();
+        closeAllWindows(preview);
         currentlyPlaying = '';
     }
 }
 
-function closeAllWindows() {
+function closeAllWindows(preserveConfig = false) {
     monitorPlayback.clear();
     clearScreensaverTimers();
     lockRequested = false;
     for (let i = 0; i < screens.length; i++) {
-        if (!screens[i].isDestroyed()) {
+        if ((!preserveConfig || screens[i] !== configWindow) && !screens[i].isDestroyed()) {
             screens[i].close();
         }
     }
-    screens = [];
+    screens = preserveConfig ? screens.filter(win => win === configWindow && !win.isDestroyed()) : [];
+    if (preserveConfig) {
+        preview = false;
+    }
     currentlyPlaying = '';
 }
 

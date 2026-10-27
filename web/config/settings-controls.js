@@ -222,4 +222,5 @@ export function createControl(entry) {
 
 export function refreshControls() {
     controls.forEach(refresh => refresh());
+    document.dispatchEvent(new Event('settings-controls-refreshed'));
 }

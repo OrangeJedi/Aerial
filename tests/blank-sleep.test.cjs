@@ -24,7 +24,7 @@ function fixture(settings = {}, preview = false) {
         clearTimeout: timer => timeouts.delete(timer), sleepComputer: () => { slept++; }
     });
     vm.runInContext(source.slice(source.indexOf('let blankInterval;'), source.indexOf('//Time of day code')), context);
-    vm.runInContext(source.slice(source.indexOf('function closeAllWindows()'),
+    vm.runInContext(source.slice(source.indexOf('function closeAllWindows('),
         source.indexOf('function sleepComputer()')), context);
     return {context, data, intervals, timeouts, messages, slept: () => slept,
         advance: milliseconds => { now += milliseconds; for (const timer of [...intervals.values()]) timer.callback(); }};

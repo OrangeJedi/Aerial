@@ -2,6 +2,8 @@ import {api, element, section} from './shared.js';
 import {definition, createControl, refreshControls, sources} from './settings-controls.js';
 
 export function initSettings(root) {
+    const search = document.getElementById('settings-search');
+    const groups = [];
     for (const group of definition.filter(group => group.id !== 'customVideo')) {
         const card = element('div', {className: 'card'});
         for (const entry of group.entries) {
@@ -20,7 +22,31 @@ export function initSettings(root) {
         const block = section(group.name, card);
         block.id = `section-${group.id}`;
         root.append(block);
+        groups.push({block, items: [...card.children].map(node => ({node, text: `${group.name} ${node.textContent}`.toLocaleLowerCase()}))});
     }
+    const empty = element('p', {className: 'empty-state', role: 'status', hidden: true}, 'No settings match your search.');
+    root.append(empty);
+    function filter() {
+        const terms = search.value.trim().toLocaleLowerCase().split(/\s+/).filter(Boolean);
+        for (const {block, items} of groups) {
+            for (const {node, text} of items) {
+                node.classList.toggle('search-hidden', !terms.every(term => text.includes(term)));
+            }
+            block.hidden = !items.some(({node}) => !node.hidden && !node.classList.contains('search-hidden'));
+        }
+        empty.hidden = groups.some(({block}) => !block.hidden);
+    }
+    search.addEventListener('input', () => {
+        filter();
+        document.getElementById('main-content').scrollTop = 0;
+    });
+    search.addEventListener('keydown', event => {
+        if (event.key === 'Escape') {
+            search.value = '';
+            search.dispatchEvent(new Event('input'));
+        }
+    });
+    document.addEventListener('settings-controls-refreshed', filter);
     api.ipcRenderer.on('updateStatus', state => {
         sources.updateStatus = state;
         refreshControls();

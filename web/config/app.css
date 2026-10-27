@@ -81,6 +81,14 @@ p { color: var(--muted); }
 .main-shell { min-width: 0; min-height: 0; display: flex; flex-direction: column; background: var(--window-tint, transparent); }
 .page-header { display: flex; align-items: center; justify-content: space-between; gap: 1.42857143rem; padding: 1.92857143rem 2.57142857rem 1.57142857rem; flex: none; }
 .page-header h1 { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.settings-search { flex: 1; min-width: 0; max-width: 28rem; margin-left: auto; }
+#preview { flex-shrink: 0; }
+.preview-split { position: relative; display: flex; flex-shrink: 0; }
+.preview-split #preview { border-top-right-radius: 0; border-bottom-right-radius: 0; }
+#preview-menu-toggle { border-top-left-radius: 0; border-bottom-left-radius: 0; border-left: 1px solid color-mix(in srgb, var(--on-accent) 35%, transparent); padding-inline: .65rem; }
+.preview-menu { position: absolute; top: calc(100% + .4rem); right: 0; z-index: 20; min-width: 13rem; padding: .35rem; border: 1px solid var(--border); border-radius: 7px; background: var(--surface); box-shadow: 0 4px 16px #0003; }
+.preview-menu button { width: 100%; text-align: left; border: 0; white-space: nowrap; }
+.search-hidden { display: none !important; }
 main { overflow-y: auto; min-height: 0; flex: 1; scrollbar-gutter: stable; }
 main::-webkit-scrollbar, .video-list::-webkit-scrollbar { width: 12px; }
 main::-webkit-scrollbar-track, .video-list::-webkit-scrollbar-track {

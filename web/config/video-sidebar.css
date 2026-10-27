@@ -1,13 +1,15 @@
 .sidebar { background: var(--sidebar-tint, var(--sidebar)); border-right: 1px solid var(--sidebar-divider); display: flex; flex-direction: column; min-height: 0; padding: 1rem 0.71428571rem 0.71428571rem; }
-.videos-header { display: flex; align-items: center; gap: 0.71428571rem; flex: none; background: transparent; border: 0; padding: 0.34285714rem 0.85714286rem; font-size: 18px; font-weight: 600; text-align: left; }
-.nav-icon { display: inline-flex; justify-content: center; width: 22px; font-size: 19px; font-weight: 500; }
-.count { margin-left: auto; color: var(--muted); font-size: 12px; font-weight: 400; }
+.nav-icon { display: inline-block; width: 22px; height: 22px; flex: 0 0 auto; background-color: currentColor; mask: var(--icon) center / contain no-repeat; }
+.icon-film { --icon: url('icons/film.svg'); }
+.icon-monitor-cog { --icon: url('icons/monitor-cog.svg'); }
+.icon-clapperboard { --icon: url('icons/clapperboard.svg'); }
+.icon-cog { --icon: url('icons/cog.svg'); }
 .video-list { overflow-y: auto; min-height: 0; flex: 1; margin: 0.85714286rem 0; scrollbar-gutter: stable; }
 .video-group { padding: 1rem 0.85714286rem 0.35714286rem; font-size: 14px; font-weight: 600; color: var(--muted); margin: 0; }
 .video-row { display: flex; align-items: center; border-radius: 7px; gap: 0.14285714rem; margin: 0.05357143rem 0; padding-left: 0.64285714rem; }
 .video-row:hover { background: var(--hover); }
 .video-row button { flex: 1; min-width: 0; text-align: left; border: 0; background: transparent; padding: 0.24107143rem 0.57142857rem; font-size: 15px; }
 .video-row button bdi { display: block; overflow-wrap: anywhere; }
-.video-row[aria-current="true"], .sidebar button[aria-current="page"] { background: color-mix(in srgb, var(--accent) 13%, var(--sidebar)); box-shadow: inset 3px 0 var(--accent); }
+.video-row[aria-current="true"], .sidebar button[aria-current="page"] { background: color-mix(in srgb, var(--accent) 13%, var(--sidebar)); }
 .sidebar-footer { flex: none; display: grid; gap: 0.11428571rem; padding-top: 0.28571429rem; border-top: 1px solid var(--border); }
 .sidebar-footer button { display: flex; gap: 0.85714286rem; align-items: center; text-align: left; padding: 0.34285714rem 0.85714286rem; background: transparent; border: 0; }

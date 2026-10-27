@@ -39,7 +39,6 @@ export function initVideoSidebar(root, onSelect) {
         if (focused?.startsWith('video-')) {
             document.getElementById(focused)?.focus({preventScroll: true});
         }
-        document.getElementById('video-count').textContent = visible.length;
     }
     function select(index) {
         selected = index;

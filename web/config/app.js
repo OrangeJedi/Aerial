@@ -23,6 +23,7 @@ function navigate(next, index = -1) {
     scrollPositions.set(page, main.scrollTop);
     display.stop();
     page = next;
+    document.getElementById('settings-search').hidden = next !== 'settings';
     selectedVideo = next === 'video' ? index : -1;
     for (const name of ['settings', 'overlay', 'custom', 'video']) {
         document.getElementById(`${name}-page`).hidden = name !== next;
@@ -46,7 +47,51 @@ function navigate(next, index = -1) {
 
 document.getElementById('videos-header').addEventListener('click', () => navigate('video'));
 document.querySelectorAll('[data-page]').forEach(control => control.addEventListener('click', () => navigate(control.dataset.page)));
-document.getElementById('preview').addEventListener('click', () => send('openPreview'));
+const previewMenu = document.getElementById('preview-menu');
+const previewToggle = document.getElementById('preview-menu-toggle');
+function closePreviewMenu(restoreFocus = false) {
+    previewMenu.hidden = true;
+    previewToggle.setAttribute('aria-expanded', 'false');
+    if (restoreFocus) {
+        previewToggle.focus();
+    }
+}
+document.getElementById('preview').addEventListener('click', () => {
+    closePreviewMenu();
+    send('openFullscreenPreview');
+});
+previewToggle.addEventListener('click', () => {
+    previewMenu.hidden = !previewMenu.hidden;
+    previewToggle.setAttribute('aria-expanded', String(!previewMenu.hidden));
+});
+previewToggle.addEventListener('keydown', event => {
+    if (event.key === 'ArrowDown') {
+        event.preventDefault();
+        previewMenu.hidden = false;
+        previewToggle.setAttribute('aria-expanded', 'true');
+        document.getElementById('preview-window').focus();
+    }
+});
+document.getElementById('preview-window').addEventListener('click', () => {
+    closePreviewMenu(true);
+    send('openPreview');
+});
+document.addEventListener('click', event => {
+    if (!event.target.closest('.preview-split')) {
+        closePreviewMenu();
+    }
+});
+document.addEventListener('keydown', event => {
+    if (event.key === 'Escape' && !previewMenu.hidden) {
+        event.preventDefault();
+        closePreviewMenu(true);
+    }
+});
+document.addEventListener('focusin', event => {
+    if (!event.target.closest('.preview-split')) {
+        closePreviewMenu();
+    }
+});
 
 document.addEventListener('settings-changed', event => {
     const keys = event.detail;

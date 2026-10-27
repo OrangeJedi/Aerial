@@ -102,7 +102,7 @@ module.exports = function initializePreload() {
             ipcRenderer: {
                 send: (channel, data) => {
                     // whitelist channels
-                    let validChannels = ["restartForUpdate", "checkForUpdates", "quitApp", "keyPress", "updateCache", "deleteCache", "openCache", "selectCustomLocation", "selectCacheLocation", "refreshCache", "openPreview", "refreshConfig", "resetConfig", "updateLocation", "openConfigFolder", "selectFile", "openInfoEditor", "newGlobalShortcut", "consoleLog"];
+                    let validChannels = ["openFullscreenPreview", "restartForUpdate", "checkForUpdates", "quitApp", "keyPress", "updateCache", "deleteCache", "openCache", "selectCustomLocation", "selectCacheLocation", "refreshCache", "openPreview", "refreshConfig", "resetConfig", "updateLocation", "openConfigFolder", "selectFile", "openInfoEditor", "newGlobalShortcut", "consoleLog"];
                     if (channel === 'videoPlaybackState' || validChannels.includes(channel)) {
                         ipcRenderer.send(channel, data);
                     }

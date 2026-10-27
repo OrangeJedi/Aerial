@@ -474,7 +474,7 @@ function dismissalContext(overrides = {}) {
     const closed = [];
     const commands = [];
     const context = section('function quitApp()', '//idle startup timer', {
-        nq: false, preview: false, lockRequested: false, clearScreensaverTimers() {},
+        nq: false, preview: false, configWindow: null, lockRequested: false, clearScreensaverTimers() {},
         startTime: new Date(Date.now() - 60000), currentlyPlaying: 'video',
         store: {get: key => ({lockAfterRun: true, lockAfterRunAfter: 5})[key]},
         screens: [0, 1].map(id => ({isDestroyed: () => false, close: () => closed.push(id)})),
@@ -543,6 +543,44 @@ test('no-quit mode ignores dismissal', () => {
     assert.deepEqual(closed, []);
     assert.equal(commands.length, 0);
 });
+
+test('fullscreen preview dismissal preserves config and clears preview mode without locking', () => {
+    const config = {isDestroyed: () => false, close: () => assert.fail('Config should stay open')};
+    const {context, closed, commands} = dismissalContext({preview: true, configWindow: config});
+    context.screens.unshift(config);
+    context.quitApp();
+    assert.deepEqual(closed, [0, 1]);
+    assert.equal(context.screens.length, 1);
+    assert.equal(context.screens[0], config);
+    assert.equal(context.preview, false);
+    assert.equal(commands.length, 0);
+});
+
+for (const channel of ['openPreview', 'openFullscreenPreview']) {
+    test(`${channel} validates the sender and selects the correct preview mode`, () => {
+        const handlers = {};
+        const calls = [];
+        const contents = {};
+        const context = section("ipcMain.on('openPreview'", "ipcMain.on('openInfoEditor'", {
+            ipcMain: {on: (name, callback) => { handlers[name] = callback; }},
+            configWindow: {webContents: contents}, preview: false, nq: true,
+            process: {argv: []},
+            createSSPWindow: () => calls.push('window'),
+            createSSWindow: () => calls.push('fullscreen')
+        });
+        handlers[channel]({sender: {}});
+        assert.deepEqual(calls, []);
+        handlers[channel]({sender: contents});
+        assert.deepEqual(calls, [channel === 'openPreview' ? 'window' : 'fullscreen']);
+        if (channel === 'openFullscreenPreview') {
+            assert.equal(context.preview, true);
+            assert.equal(context.nq, false);
+        }
+        context.preview = true;
+        handlers[channel]({sender: contents});
+        assert.equal(calls.length, 1);
+    });
+}
 
 for (const [hour, minute, expected] of [[5, 29, 'night'], [5, 30, 'twilight'], [5, 59, 'twilight'],
     [6, 0, 'twilight'], [6, 30, 'twilight'], [6, 31, 'day'], [12, 0, 'day'],
