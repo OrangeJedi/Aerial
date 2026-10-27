@@ -1,5 +1,5 @@
 <p align="center">  
-    <img alt="" src="/images/surface_preview.gif" />
+    <img alt="Aerial-2026-10-27T20-55-00-120Z" src="https://github.com/user-attachments/assets/41a47f02-3e47-4986-b303-838884f614ae" />
 </p>
 <p align="center">
     <img alt="" src="https://img.shields.io/badge/platform-Windows-blue?style=flat-square" />
