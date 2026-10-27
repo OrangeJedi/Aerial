@@ -5,7 +5,7 @@ const path = require('node:path');
 const vm = require('node:vm');
 
 function selector(settings = {}, state = {}) {
-    const script = fs.readFileSync(path.join(__dirname, '../app.js'), 'utf8');
+    const script = fs.readFileSync(path.join(__dirname, '../src/app.js'), 'utf8');
     const start = script.indexOf("ipcMain.handle('newVideoId'");
     const end = script.indexOf("ipcMain.on('newGlobalShortcut'", start);
     let select;

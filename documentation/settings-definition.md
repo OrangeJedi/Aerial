@@ -3,7 +3,7 @@
 `web/config/settings.json` drives the Settings page in `web/config/index.html`.
 It describes controls rather than saved user values. The preload bridge supplies
 the definition to the renderer. Video controls and Overlay are separate modules.
-Defaults are a snapshot of `setUpConfigFile()` in `app.js`; that function remains
+Defaults are a snapshot of `setUpConfigFile()` in `src/app.js`; that function remains
 authoritative for initializing saved configuration.
 
 The root is an ordered array of sections. Each section has `id`, `name`, and an

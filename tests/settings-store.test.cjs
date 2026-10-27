@@ -1,7 +1,7 @@
 const assert = require('node:assert/strict');
 const {test} = require('node:test');
-const {createSettingsStore} = require('../settings-store');
-const {getVideoSources} = require('../video-sources');
+const {createSettingsStore} = require('../src/settings-store');
+const {getVideoSources} = require('../src/video-sources');
 const videos = require('../videos.json');
 
 function fixture(initial = {}) {

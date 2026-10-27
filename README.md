@@ -1,5 +1,5 @@
 <p align="center">  
-    <img alt="" src="/images/surface_preview.gif" />
+    <img style="width: 50%" alt="Aerial running on a Windows laptop" src="images/aerial-windows-laptop.png" />
 </p>
 <p align="center">
     <img alt="" src="https://img.shields.io/badge/platform-Windows-blue?style=flat-square" />

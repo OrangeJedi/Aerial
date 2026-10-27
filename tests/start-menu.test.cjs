@@ -1,6 +1,6 @@
 const assert = require('node:assert/strict');
 const {test} = require('node:test');
-const {dismissStartMenu} = require('../start-menu');
+const {dismissStartMenu} = require('../src/start-menu');
 
 test('Start menu helper runs hidden with a bounded execution time', async () => {
     let complete;

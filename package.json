@@ -2,7 +2,7 @@
   "name": "aerial",
   "version": "2.0.0",
   "description": "Apple TV screen saver for Windows",
-  "main": "app.js",
+  "main": "src/app.js",
   "engines": {
     "node": ">=22.12.0"
   },
@@ -40,6 +40,9 @@
   },
   "build": {
     "appId": "com.electron.aerial",
+    "directories": {
+      "buildResources": "tools/build"
+    },
     "asarUnpack": [
       "node_modules/ffmpeg-static/**"
     ],
@@ -54,9 +57,9 @@
     "nsis": {
       "artifactName": "Aerial-Setup.${ext}",
       "buildUniversalInstaller": true,
-      "installerIcon": "icon.ico",
+      "installerIcon": "images/icon/icon.ico",
       "perMachine": false,
-      "include": "build/installer.nsh"
+      "include": "tools/build/installer.nsh"
     },
     "portable": {
       "artifactName": "aerial.exe",
@@ -66,9 +69,12 @@
       "!.test-tmp/**",
       "!dist/**",
       "!documentation/*",
-      "!images/*"
+      "!images/icon/!(icon.ico)",
+      "!images/icons/**",
+      "!images/task_scheduler/**",
+      "!images/*.gif"
     ],
-    "icon": "icon.ico",
+    "icon": "images/icon/icon.ico",
     "productName": "Aerial",
     "publish": [
       {

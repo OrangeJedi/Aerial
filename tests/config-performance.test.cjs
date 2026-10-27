@@ -4,7 +4,7 @@ const fs = require('node:fs');
 const vm = require('node:vm');
 
 test('cache pruning avoids scans and writes when nothing needs removing', async () => {
-    const script = fs.readFileSync(require.resolve('../app.js'), 'utf8');
+    const script = fs.readFileSync(require.resolve('../src/app.js'), 'utf8');
     const start = script.indexOf('// Cache maintenance runs');
     const end = script.indexOf('//open & close functions', start);
     let operations = 0;

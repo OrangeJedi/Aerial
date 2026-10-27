@@ -30,7 +30,7 @@ app.on('second-instance', (event, argv) => {
 
 const {exec} = require('child_process');
 const {dismissStartMenu} = require('./start-menu');
-const videos = require("./videos.json");
+const videos = require("../videos.json");
 const videosById = new Map(videos.map(video => [video.id, video]));
 const {createPersistentSettings} = require('./settings-persistence');
 const store = createPersistentSettings(require('path').join(app.getPath('userData'), 'config.json'), {
@@ -150,7 +150,7 @@ function createConfigWindow(argv) {
         minWidth: 800,
         minHeight: 600,
         resizable: true,
-        icon: path.join(__dirname, 'icon.ico')
+        icon: path.join(__dirname, '..', 'images', 'icon', 'icon.ico')
     });
     configWindow = win;
     win.loadFile('web/config/index.html');
@@ -234,7 +234,7 @@ function createSSWindow(argv) {
             transparent: showVideo,
             backgroundColor: showVideo ? '#00000000' : '#000000',
             frame: nq,
-            icon: path.join(__dirname, 'icon.ico'),
+            icon: path.join(__dirname, '..', 'images', 'icon', 'icon.ico'),
             show: false
         })
         if (!showVideo) {
@@ -292,7 +292,7 @@ function createSSPWindow(argv, monitor = 0) {
         },
         frame: true,
         backgroundColor: '#000000',
-        icon: path.join(__dirname, 'icon.ico'),
+        icon: path.join(__dirname, '..', 'images', 'icon', 'icon.ico'),
         show: false
     });
     let screenshotPending = false;
@@ -385,7 +385,7 @@ function createEditWindow(argv) {
             sandbox: false,
             preload: path.join(__dirname, "preload.mjs")
         },
-        icon: path.join(__dirname, 'icon.ico')
+        icon: path.join(__dirname, '..', 'images', 'icon', 'icon.ico')
     });
     win.loadFile('web/video-info.html');
     win.on('closed', function () {
@@ -411,7 +411,7 @@ function createTrayWindow() {
             webSecurity: true,
             sandbox: true,
         },
-        icon: path.join(__dirname, 'icon.ico')
+        icon: path.join(__dirname, '..', 'images', 'icon', 'icon.ico')
     });
 
     function newMenu(isSuspendChecked) {
@@ -469,7 +469,7 @@ function createTrayWindow() {
         ]);
     }
 
-    trayWin.tray = new Tray(path.join(__dirname, 'icon.ico'));
+    trayWin.tray = new Tray(path.join(__dirname, '..', 'images', 'icon', 'icon.ico'));
     trayWin.tray.setContextMenu(newMenu(false));
     trayWin.tray.setToolTip("Aerial");
 }
@@ -483,11 +483,11 @@ function createJSONConfigWindow() {
             contextIsolation: true,
             enableRemoteModule: false,
             sandbox: false,
-            preload: path.join(__dirname, "json-editor", "preload.mjs")
+            preload: path.join(__dirname, "..", "tools", "json-editor", "preload.mjs")
         },
-        icon: path.join(__dirname, 'icon.ico')
+        icon: path.join(__dirname, '..', 'images', 'icon', 'icon.ico')
     });
-    win.loadFile('json-editor/index.html');
+    win.loadFile('tools/json-editor/index.html');
     win.on('closed', function () {
         win = null;
     });
@@ -661,7 +661,7 @@ function setUpConfigFile() {
     updateVideoCache();
     //text settings
     settings.set('textSizeUnit', settings.get('textSizeUnit') ?? (settings.get('textSize') == null ? 'vh' : 'vw'));
-    settings.set('textStyle', require('./web/text-style').normalize(settings.get('textStyle')));
+    settings.set('textStyle', require('../web/text-style').normalize(settings.get('textStyle')));
     settings.set('textFont', settings.get('textFont') ?? "Segoe UI");
     settings.set('textSize', settings.get('textSize') ?? "1.5");
     settings.set('textColor', settings.get('textColor') ?? "#ffffff");

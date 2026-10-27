@@ -2,8 +2,8 @@ const assert = require('node:assert/strict');
 const {test} = require('node:test');
 const fs = require('node:fs');
 const vm = require('node:vm');
-const appRequire = require('node:module').createRequire(require.resolve('../app.js'));
-const source = fs.readFileSync(require.resolve('../app.js'), 'utf8');
+const appRequire = require('node:module').createRequire(require.resolve('../src/app.js'));
+const source = fs.readFileSync(require.resolve('../src/app.js'), 'utf8');
 
 for (const [outcome, monitor] of ['load failure', 'renderer crash', 'timeout', 'ready', 'closed'].flatMap(outcome =>
     (outcome === 'ready' ? [0, 1, 99, -1, '1'] : [0]).map(monitor => [outcome, monitor]))) {

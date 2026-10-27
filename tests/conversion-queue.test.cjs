@@ -23,7 +23,7 @@ test('different previews serialize encoders and a failed conversion releases the
             return require(name);
         }
     });
-    vm.runInContext(fs.readFileSync(require.resolve('../playback.js'), 'utf8'), context);
+    vm.runInContext(fs.readFileSync(require.resolve('../src/playback.js'), 'utf8'), context);
     const convert = context.module.exports.createCompatibilityPlayer(require('node:path').resolve('cache'));
     const first = convert({id: 'a', path: 'a.mov'});
     const failed = assert.rejects(first, /Encoder failed/);

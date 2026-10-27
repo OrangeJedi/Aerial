@@ -5,6 +5,6 @@ import {createRequire} from 'node:module';
 const require = createRequire(import.meta.url);
 
 contextBridge.exposeInMainWorld('electron', {
-    videos: require('../videos.json'),
+    videos: require('../../videos.json'),
     jsonBeautify: beautify
 });

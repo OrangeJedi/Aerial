@@ -95,7 +95,7 @@ test('updater controls follow runtime status without stale actions', async () =>
 test('system accent is available only to the config window', () => {
     const fs = require('node:fs');
     const vm = require('node:vm');
-    const source = fs.readFileSync(require.resolve('../app.js'), 'utf8');
+    const source = fs.readFileSync(require.resolve('../src/app.js'), 'utf8');
     const start = source.indexOf("ipcMain.handle('getConfigAccent'");
     let handler;
     let reads = 0;
