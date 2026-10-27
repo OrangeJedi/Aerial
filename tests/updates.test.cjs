@@ -31,7 +31,9 @@ function fixture(options = {}) {
         }
     }
     const controller = createAppUpdater({
-        updater, app: {isPackaged: options.packaged !== false}, Notification,
+        updater, app: {isPackaged: options.packaged !== false, getVersion: () => options.version || '1.3.0'}, Notification,
+        fetchRelease: options.fetchRelease || (async () => ({ok: true, json: async () => ({tag_name: 'v1.4.0'})})),
+        settings: options.settings,
         onState: state => states.push(state),
         beforeInstall: async () => { flushes++; await options.flush?.(); },
         cancelInstall: () => { cancelled++; },
@@ -53,7 +55,7 @@ test('updates download automatically, report progress, and notify only when read
     assert.equal(f.updater.allowPrerelease, false);
     assert.equal(f.updater.allowDowngrade, false);
     assert.deepEqual(f.controller.getState(), {status: 'downloading', version: '1.4.0', percent: 24});
-    assert.equal(f.states.length, 3);
+    assert.equal(f.states.length, 4);
     assert.equal(f.notifications.length, 0);
     f.updater.emit('update-downloaded', {version: '1.4.0'});
     f.updater.emit('update-downloaded', {version: '1.4.0'});
@@ -127,11 +129,13 @@ test('checks are serialized, development builds are skipped, and errors can be r
     const f = fixture({check: () => new Promise(resolve => { done = resolve; })});
     const pending = f.controller.check();
     await f.controller.check();
+    await new Promise(resolve => setImmediate(resolve));
     assert.equal(f.checks(), 1);
     done();
     await pending;
     f.updater.emit('error', new Error('offline'));
     const retry = f.controller.check();
+    await new Promise(resolve => setImmediate(resolve));
     f.updater.emit('update-not-available');
     done();
     await retry;
@@ -140,4 +144,59 @@ test('checks are serialized, development builds are skipped, and errors can be r
     await dev.controller.check();
     assert.equal(dev.checks(), 0);
     assert.deepEqual(dev.controller.getState(), {status: 'unsupported'});
+});
+
+test('current and older release tags skip update assets across restarts', async () => {
+    for (const tag of ['v1.4.3', 'v1.4.2']) {
+        const saved = [];
+        const options = {
+            version: '1.4.3',
+            settings: {set: (...args) => saved.push(args)},
+            fetchRelease: async () => ({ok: true, json: async () => ({tag_name: tag})})
+        };
+        for (let restart = 0; restart < 2; restart++) {
+            const f = fixture(options);
+            await f.controller.check();
+            assert.equal(f.checks(), 0);
+            assert.deepEqual(f.controller.getState(), {status: 'current'});
+            assert.equal(f.notifications.length, 0);
+        }
+        assert.deepEqual(saved.at(-1), ['lastUpdateCheck', {tag, installed: '1.4.3'}]);
+    }
+});
+
+test('release discovery errors retry without suppressing a newer release', async () => {
+    let attempts = 0;
+    const f = fixture({fetchRelease: async () => {
+        attempts++;
+        if (attempts === 1) {
+            return {ok: false, status: 503};
+        }
+        return {ok: true, json: async () => ({tag_name: 'v1.4.0'})};
+    }});
+    await f.controller.check();
+    assert.equal(f.checks(), 0);
+    assert.equal(f.controller.getState().status, 'error');
+    await f.controller.check();
+    assert.equal(f.checks(), 1);
+});
+
+test('invalid or prerelease discovery never downloads update assets', async () => {
+    for (const release of [{tag_name: 'garbage'}, {tag_name: 'v2.0.0-beta.1'},
+        {tag_name: 'v2.0.0', prerelease: true}, {tag_name: 'v2.0.0', draft: true}]) {
+        const f = fixture({fetchRelease: async () => ({ok: true, json: async () => release})});
+        await f.controller.check();
+        assert.equal(f.checks(), 0);
+        assert.equal(f.controller.getState().status, 'error');
+    }
+});
+
+test('newer releases remain retryable after a download failure and app restart', async () => {
+    const f = fixture({check: () => ({downloadPromise: Promise.reject(new Error('offline'))})});
+    await f.controller.check();
+    await f.controller.check();
+    assert.equal(f.checks(), 2);
+    const restarted = fixture();
+    await restarted.controller.check();
+    assert.equal(restarted.checks(), 1);
 });

@@ -646,6 +646,7 @@ function checkForUpdate() {
         applicationUpdater = require('./updates').createAppUpdater({
             updater: require('electron-updater').autoUpdater,
             app,
+            settings: store,
             Notification,
             cancelInstall: () => { settingsQuitReady = false; },
             openExternal: url => shell.openExternal(url),
