@@ -226,6 +226,7 @@ function createSSWindow(argv) {
             resizable: nq,
             thickFrame: nq,
             skipTaskbar: !nq,
+            // Reveal the desktop during startup; the renderer turns black after the first transition.
             transparent: showVideo,
             backgroundColor: showVideo ? '#00000000' : '#000000',
             frame: nq,
