@@ -172,10 +172,14 @@ function createConfigWindow(argv) {
         }
     }
     if (argv) {
-        if (argv.includes("/w")) {
+        if (argv.includes("/w") || argv.includes("/u")) {
             setTimeout(() => {
                 if (win && !win.isDestroyed()) {
-                    win.webContents.send('showWelcome');
+                    if (argv.includes("/w")) {
+                        win.webContents.send('showWelcome');
+                    } else {
+                        win.webContents.send('showUpdated', app.getVersion());
+                    }
                 }
             }, 1500);
         }
@@ -496,9 +500,9 @@ const startupReady = app.whenReady().then(startUp);
 async function startUp() {
     //Uncomment the line below when compiling the .scr file
     //store.set('useTray', false);
-    let firstTime = false;
-    if (!store.get("configured") || store.get("version") !== app.getVersion()) {
-        firstTime = true;
+    const firstTime = !store.get("configured");
+    const updated = !firstTime && store.get("version") !== app.getVersion();
+    if (firstTime || updated) {
         await fs.promises.mkdir(path.join(app.getPath('userData'), 'videos', 'temp'), {recursive: true});
         setUpConfigFile();
     }
@@ -518,7 +522,7 @@ async function startUp() {
     }
     await clearCacheTemp();
     pruneVideoCache();
-    if (process.argv.includes("/c")) {
+    if (process.argv.includes("/c") || process.argv.includes("/w") || process.argv.includes("/u")) {
         createConfigWindow(process.argv);
     } else if (process.argv.includes("/p")) {
         //createSSPWindow();
@@ -534,9 +538,11 @@ async function startUp() {
             createTrayWindow();
             if (firstTime) {
                 createConfigWindow(["/w"]);
+            } else if (updated) {
+                createConfigWindow(["/u"]);
             }
         } else {
-            createConfigWindow();
+            createConfigWindow(firstTime ? ["/w"] : updated ? ["/u"] : undefined);
         }
     }
     setTimeout(downloadVideos, 1500);

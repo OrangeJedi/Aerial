@@ -135,7 +135,11 @@ api.ipcRenderer.on('updateAttribute', ([id, value]) => {
         }
     }
 });
-api.ipcRenderer.on('showWelcome', () => ask('Welcome to Aerial', 'Aerial is ready. Choose videos in the sidebar, add an overlay, and fine-tune your screen saver in Settings. Changes save automatically.', {confirm: 'Get started', cancel: false}));
+api.ipcRenderer.on('showWelcome', () => ask('Welcome to Aerial', 'Aerial is now installed. Don\'t forget to set your timeout settings, select videos in the sidebar, and configure an overlay.', {confirm: 'Get started', cancel: false}));
+api.ipcRenderer.on('showUpdated', version => ask('Aerial updated', element('div', {},
+    element('p', {}, `Aerial has been updated to version ${version}.`),
+    element('a', {href: `https://github.com/AerialWindows/Aerial/releases/tag/v${encodeURIComponent(version)}`, target: '_blank', rel: 'noopener noreferrer'}, 'View release notes on GitHub')
+), {confirm: 'Continue', cancel: false}));
 
 export function applyAccent(color) {
     const hex = String(color || '').replace(/^#/, '').slice(0, 6);
