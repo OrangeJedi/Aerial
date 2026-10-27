@@ -83,17 +83,3 @@ is hidden for transitions without direction. An empty or unavailable saved
 direction selects the first available option. Runtime language
 options combine installed Moment locales and available video locales, deduplicate
 them, and sort localized labels, after the static System default option.
-
-## Scope of this snapshot
-
-This definition preserves current behavior rather than proposing new dependencies.
-For example, blanking delay, lock delay, skip key, shortcut fields, and cache
-checkboxes currently remain visible and editable regardless of their related
-enable checkbox. Only the sleep delay, 4k240 preference, original deletion, and
-manual sunrise/sunset fields have dependency-based disabling. Transition direction
-and updater controls have conditional visibility.
-
-`settings-controls.js` implements the listed control types, bindings, option
-providers, conditions, action adapters, shortcut registration, and location updates.
-`settings-model.js` contains pure condition and value-binding functions. Config
-values still use the existing central settings store and persistence writer.
