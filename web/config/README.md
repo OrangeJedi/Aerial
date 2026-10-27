@@ -16,7 +16,7 @@ transparency and high-contrast preferences also use opaque surfaces.
 | `video-sidebar.js` | Independently scrolling catalog and selection checkboxes |
 | `video-display.js` | Preview, per-video policies, bulk selection, profiles |
 | `video-model.js` | Catalog filtering, profile loading, download-policy changes |
-| `text-settings.js` | Position picker, four expanded overlay lines, text defaults |
+| `text-settings.js` | Named overlay list, inline accordion editor with up to four progressive lines, collapsible default font |
 | `custom-videos.js` | Folder import, names, selection, removal |
 | `fonts.js` | Local font family aliases and fallback handling |
 | `shared.js` | DOM helpers, dialogs, locale selection, change notifications |
