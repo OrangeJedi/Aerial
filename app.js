@@ -290,6 +290,39 @@ function createSSPWindow(argv, monitor = 0) {
         icon: path.join(__dirname, 'icon.ico'),
         show: false
     });
+    let screenshotPending = false;
+    win.webContents.on('before-input-event', async (event, input) => {
+        if (input.type !== 'keyDown' || input.key.toLowerCase() !== 's' ||
+            !input.control || !input.shift || input.alt || input.meta) {
+            return;
+        }
+        event.preventDefault();
+        if (input.isAutoRepeat || screenshotPending) {
+            return;
+        }
+        screenshotPending = true;
+        const previewWindow = win;
+        try {
+            const image = await previewWindow.webContents.capturePage();
+            if (previewWindow.isDestroyed()) {
+                return;
+            }
+            const timestamp = new Date().toISOString().replace(/[:.]/g, '-');
+            const {canceled, filePath} = await dialog.showSaveDialog(previewWindow, {
+                title: 'Save preview screenshot',
+                defaultPath: path.join(app.getPath('pictures'), `Aerial-${timestamp}.png`),
+                filters: [{name: 'PNG image', extensions: ['png']}]
+            });
+            if (!canceled && filePath) {
+                await fs.promises.writeFile(filePath, image.toPNG());
+            }
+        } catch (error) {
+            console.error('Unable to save preview screenshot', error);
+            dialog.showErrorBox('Unable to save screenshot', `Aerial could not save the preview screenshot.\n\n${error.message || error}`);
+        } finally {
+            screenshotPending = false;
+        }
+    });
     let startupFinished = false;
     let startupTimer;
     const failStartup = error => {
