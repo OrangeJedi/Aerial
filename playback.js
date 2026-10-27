@@ -55,7 +55,8 @@ function createCompatibilityPlayer(location) {
                 }
                 await new Promise((resolve, reject) => {
                     execFile(executable, ['-nostdin', '-y', '-v', 'error', '-threads', '2', '-i', input,
-                        '-map', '0:v:0', '-an', '-vf', 'fps=30,scale=1920:1080:force_original_aspect_ratio=decrease:force_divisible_by=2',
+                        '-map', '0:v:0', '-an', '-vf', 'scale=1920:1080:force_original_aspect_ratio=decrease:force_divisible_by=2',
+                        '-fps_mode', 'passthrough',
                         '-c:v', 'libx264', '-threads', '2', '-preset', 'veryfast', '-crf', '20', '-pix_fmt', 'yuv420p',
                         '-movflags', '+faststart', temporary],
                     {windowsHide: true, timeout: 15 * 60 * 1000}, (error) => error ? reject(error) : resolve());
