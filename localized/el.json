@@ -251,7 +251,9 @@
   "cb5b5035-6701-619f-9065-3d7d0e5fbef4-113": {
     "name": "Λίμνη της Ισλανδίας",
     "group": "Ισλανδία",
-    "pointsOfInterest": {}
+    "pointsOfInterest": {
+      "0": "Πτήση πάνω από την Ισλανδία"
+    }
   },
   "cb5b5035-6701-619f-9065-3d7d0e5fbef4-133": {
     "name": "Παραλίες της Γκόα",
@@ -972,17 +974,23 @@
   "cb5b5035-6701-619f-9065-3d7d0e5fbef4-144": {
     "name": "Σεκόγια στην ανατολή του ήλιου",
     "group": "Σεκόγια",
-    "pointsOfInterest": {}
+    "pointsOfInterest": {
+      "0": "Στο Εθνικό Πάρκο Σεκόγια την ανατολή του ήλιου"
+    }
   },
   "cb5b5035-6701-619f-9065-3d7d0e5fbef4-145": {
     "name": "Σεκόγια το πρωί",
     "group": "Σεκόγια",
-    "pointsOfInterest": {}
+    "pointsOfInterest": {
+      "0": "Στο Εθνικό Πάρκο Σεκόγια το πρωί"
+    }
   },
   "cb5b5035-6701-619f-9065-3d7d0e5fbef4-146": {
     "name": "Σεκόγια τη νύχτα",
     "group": "Σεκόγια",
-    "pointsOfInterest": {}
+    "pointsOfInterest": {
+      "0": "Στο Εθνικό Πάρκο Σεκόγια τη νύχτα"
+    }
   },
   "ecebc8d2-5486-c2b2-52ae-6f0ab2d6b65f-125": {
     "name": "Συννεφιά στη Σονόμα",
@@ -994,7 +1002,9 @@
   "ecebc8d2-5486-c2b2-52ae-6f0ab2d6b65f-126": {
     "name": "Απόγευμα στη Σονόμα",
     "group": "Σονόμα",
-    "pointsOfInterest": {}
+    "pointsOfInterest": {
+      "0": "Πτήση πάνω από τη Σονόμα της Καλιφόρνιας"
+    }
   },
   "ecebc8d2-5486-c2b2-52ae-6f0ab2d6b65f-127": {
     "name": "Ορίζοντας της Σονόμα",
@@ -1041,22 +1051,30 @@
   "cb5b5035-6701-619f-9065-3d7d0e5fbef4-147": {
     "name": "Τάχο – Πρωί",
     "group": "Tahoe",
-    "pointsOfInterest": {}
+    "pointsOfInterest": {
+      "0": "Η λίμνη Τάχο το πρωί"
+    }
   },
   "cb5b5035-6701-619f-9065-3d7d0e5fbef4-148": {
     "name": "Τάχο – Ημέρα",
     "group": "Tahoe",
-    "pointsOfInterest": {}
+    "pointsOfInterest": {
+      "0": "Η λίμνη Τάχο κατά τη διάρκεια της ημέρας"
+    }
   },
   "cb5b5035-6701-619f-9065-3d7d0e5fbef4-149": {
     "name": "Τάχο – Απόγευμα",
     "group": "Tahoe",
-    "pointsOfInterest": {}
+    "pointsOfInterest": {
+      "0": "Η λίμνη Τάχο το βράδυ"
+    }
   },
   "cb5b5035-6701-619f-9065-3d7d0e5fbef4-150": {
     "name": "Τάχο – Νύχτα",
     "group": "Tahoe",
-    "pointsOfInterest": {}
+    "pointsOfInterest": {
+      "0": "Η λίμνη Τάχο τη νύχτα"
+    }
   },
   "C6DC4E54-1130-44F8-AF6F-A551D8E8A181": {
     "name": "Μέδουσες Αλάσκας (σκούρο)",

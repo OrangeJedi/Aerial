@@ -251,7 +251,9 @@
   "cb5b5035-6701-619f-9065-3d7d0e5fbef4-113": {
     "name": "Järvi Islannissa",
     "group": "Islanti",
-    "pointsOfInterest": {}
+    "pointsOfInterest": {
+      "0": "Lento Islannin yllä"
+    }
   },
   "cb5b5035-6701-619f-9065-3d7d0e5fbef4-133": {
     "name": "Goan hiekkarannat",
@@ -972,17 +974,23 @@
   "cb5b5035-6701-619f-9065-3d7d0e5fbef4-144": {
     "name": "Punapuu ja auringonnousu",
     "group": "Punapuu",
-    "pointsOfInterest": {}
+    "pointsOfInterest": {
+      "0": "Sequoian kansallispuistossa auringonnousun aikaan"
+    }
   },
   "cb5b5035-6701-619f-9065-3d7d0e5fbef4-145": {
     "name": "Punapuu aamulla",
     "group": "Punapuu",
-    "pointsOfInterest": {}
+    "pointsOfInterest": {
+      "0": "Sequoian kansallispuistossa aamulla"
+    }
   },
   "cb5b5035-6701-619f-9065-3d7d0e5fbef4-146": {
     "name": "Punapuu yöllä",
     "group": "Punapuu",
-    "pointsOfInterest": {}
+    "pointsOfInterest": {
+      "0": "Sequoian kansallispuistossa yöllä"
+    }
   },
   "ecebc8d2-5486-c2b2-52ae-6f0ab2d6b65f-125": {
     "name": "Pilviä Sonoman yllä",
@@ -994,7 +1002,9 @@
   "ecebc8d2-5486-c2b2-52ae-6f0ab2d6b65f-126": {
     "name": "Sonoma iltapäivällä",
     "group": "Sonoma",
-    "pointsOfInterest": {}
+    "pointsOfInterest": {
+      "0": "Lento Kalifornian Sonoman yllä"
+    }
   },
   "ecebc8d2-5486-c2b2-52ae-6f0ab2d6b65f-127": {
     "name": "Sonoman horisontti",
@@ -1041,22 +1051,30 @@
   "cb5b5035-6701-619f-9065-3d7d0e5fbef4-147": {
     "name": "Tahoe aamulla",
     "group": "Tahoe",
-    "pointsOfInterest": {}
+    "pointsOfInterest": {
+      "0": "Tahoejärvi aamulla"
+    }
   },
   "cb5b5035-6701-619f-9065-3d7d0e5fbef4-148": {
     "name": "Tahoe päivällä",
     "group": "Tahoe",
-    "pointsOfInterest": {}
+    "pointsOfInterest": {
+      "0": "Tahoejärvi päivällä"
+    }
   },
   "cb5b5035-6701-619f-9065-3d7d0e5fbef4-149": {
     "name": "Tahoe illalla",
     "group": "Tahoe",
-    "pointsOfInterest": {}
+    "pointsOfInterest": {
+      "0": "Tahoejärvi illalla"
+    }
   },
   "cb5b5035-6701-619f-9065-3d7d0e5fbef4-150": {
     "name": "Tahoe yöllä",
     "group": "Tahoe",
-    "pointsOfInterest": {}
+    "pointsOfInterest": {
+      "0": "Tahoejärvi yöllä"
+    }
   },
   "C6DC4E54-1130-44F8-AF6F-A551D8E8A181": {
     "name": "Alaskan meduusat, tumma",

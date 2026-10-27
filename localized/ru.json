@@ -251,7 +251,9 @@
   "cb5b5035-6701-619f-9065-3d7d0e5fbef4-113": {
     "name": "Озеро в Исландии",
     "group": "Исландия",
-    "pointsOfInterest": {}
+    "pointsOfInterest": {
+      "0": "Полёт над Исландией"
+    }
   },
   "cb5b5035-6701-619f-9065-3d7d0e5fbef4-133": {
     "name": "Пляжи Гоа",
@@ -972,17 +974,23 @@
   "cb5b5035-6701-619f-9065-3d7d0e5fbef4-144": {
     "name": "Секвойя на рассвете",
     "group": "Секвойя",
-    "pointsOfInterest": {}
+    "pointsOfInterest": {
+      "0": "В национальном парке «Секвойя» на рассвете"
+    }
   },
   "cb5b5035-6701-619f-9065-3d7d0e5fbef4-145": {
     "name": "Секвойя утром",
     "group": "Секвойя",
-    "pointsOfInterest": {}
+    "pointsOfInterest": {
+      "0": "В национальном парке «Секвойя» утром"
+    }
   },
   "cb5b5035-6701-619f-9065-3d7d0e5fbef4-146": {
     "name": "Секвойя ночью",
     "group": "Секвойя",
-    "pointsOfInterest": {}
+    "pointsOfInterest": {
+      "0": "В национальном парке «Секвойя» ночью"
+    }
   },
   "ecebc8d2-5486-c2b2-52ae-6f0ab2d6b65f-125": {
     "name": "Облака над Сономой",
@@ -994,7 +1002,9 @@
   "ecebc8d2-5486-c2b2-52ae-6f0ab2d6b65f-126": {
     "name": "Вечер над Сономой",
     "group": "Sonoma",
-    "pointsOfInterest": {}
+    "pointsOfInterest": {
+      "0": "Полёт над Сономой в Калифорнии"
+    }
   },
   "ecebc8d2-5486-c2b2-52ae-6f0ab2d6b65f-127": {
     "name": "Горизонт в Сономе",
@@ -1041,22 +1051,30 @@
   "cb5b5035-6701-619f-9065-3d7d0e5fbef4-147": {
     "name": "Тахо утром",
     "group": "Tahoe",
-    "pointsOfInterest": {}
+    "pointsOfInterest": {
+      "0": "Озеро Тахо утром"
+    }
   },
   "cb5b5035-6701-619f-9065-3d7d0e5fbef4-148": {
     "name": "Тахо днем",
     "group": "Tahoe",
-    "pointsOfInterest": {}
+    "pointsOfInterest": {
+      "0": "Озеро Тахо днём"
+    }
   },
   "cb5b5035-6701-619f-9065-3d7d0e5fbef4-149": {
     "name": "Тахо вечером",
     "group": "Tahoe",
-    "pointsOfInterest": {}
+    "pointsOfInterest": {
+      "0": "Озеро Тахо вечером"
+    }
   },
   "cb5b5035-6701-619f-9065-3d7d0e5fbef4-150": {
     "name": "Тахо ночью",
     "group": "Tahoe",
-    "pointsOfInterest": {}
+    "pointsOfInterest": {
+      "0": "Озеро Тахо ночью"
+    }
   },
   "C6DC4E54-1130-44F8-AF6F-A551D8E8A181": {
     "name": "Медузы Аляски — темная",

@@ -251,7 +251,9 @@
   "cb5b5035-6701-619f-9065-3d7d0e5fbef4-113": {
     "name": "Lago na Islândia",
     "group": "Islândia",
-    "pointsOfInterest": {}
+    "pointsOfInterest": {
+      "0": "Sobrevoando a Islândia"
+    }
   },
   "cb5b5035-6701-619f-9065-3d7d0e5fbef4-133": {
     "name": "Praias de Goa",
@@ -972,17 +974,23 @@
   "cb5b5035-6701-619f-9065-3d7d0e5fbef4-144": {
     "name": "Sequoia ao Amanhecer",
     "group": "Sequoia",
-    "pointsOfInterest": {}
+    "pointsOfInterest": {
+      "0": "No Parque Nacional de Sequoia ao nascer do sol"
+    }
   },
   "cb5b5035-6701-619f-9065-3d7d0e5fbef4-145": {
     "name": "Sequoia de Manhã",
     "group": "Sequoia",
-    "pointsOfInterest": {}
+    "pointsOfInterest": {
+      "0": "No Parque Nacional de Sequoia pela manhã"
+    }
   },
   "cb5b5035-6701-619f-9065-3d7d0e5fbef4-146": {
     "name": "Sequoia à Noite",
     "group": "Sequoia",
-    "pointsOfInterest": {}
+    "pointsOfInterest": {
+      "0": "No Parque Nacional de Sequoia à noite"
+    }
   },
   "ecebc8d2-5486-c2b2-52ae-6f0ab2d6b65f-125": {
     "name": "Nuvens de Sonoma",
@@ -994,7 +1002,9 @@
   "ecebc8d2-5486-c2b2-52ae-6f0ab2d6b65f-126": {
     "name": "Sonoma à Noite",
     "group": "Sonoma",
-    "pointsOfInterest": {}
+    "pointsOfInterest": {
+      "0": "Sobrevoando Sonoma, na Califórnia"
+    }
   },
   "ecebc8d2-5486-c2b2-52ae-6f0ab2d6b65f-127": {
     "name": "Horizonte de Sonoma",
@@ -1041,22 +1051,30 @@
   "cb5b5035-6701-619f-9065-3d7d0e5fbef4-147": {
     "name": "Tahoe de Manhã",
     "group": "Tahoe",
-    "pointsOfInterest": {}
+    "pointsOfInterest": {
+      "0": "O Lago Tahoe pela manhã"
+    }
   },
   "cb5b5035-6701-619f-9065-3d7d0e5fbef4-148": {
     "name": "Tahoe Durante o Dia",
     "group": "Tahoe",
-    "pointsOfInterest": {}
+    "pointsOfInterest": {
+      "0": "O Lago Tahoe durante o dia"
+    }
   },
   "cb5b5035-6701-619f-9065-3d7d0e5fbef4-149": {
     "name": "Tahoe ao Anoitecer",
     "group": "Tahoe",
-    "pointsOfInterest": {}
+    "pointsOfInterest": {
+      "0": "O Lago Tahoe ao entardecer"
+    }
   },
   "cb5b5035-6701-619f-9065-3d7d0e5fbef4-150": {
     "name": "Tahoe à Noite",
     "group": "Tahoe",
-    "pointsOfInterest": {}
+    "pointsOfInterest": {
+      "0": "O Lago Tahoe à noite"
+    }
   },
   "C6DC4E54-1130-44F8-AF6F-A551D8E8A181": {
     "name": "Medusas do Alasca (Escuro)",

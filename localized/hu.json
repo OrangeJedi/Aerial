@@ -251,7 +251,9 @@
   "cb5b5035-6701-619f-9065-3d7d0e5fbef4-113": {
     "name": "Izland – Tó",
     "group": "Izland",
-    "pointsOfInterest": {}
+    "pointsOfInterest": {
+      "0": "Repülés Izland felett"
+    }
   },
   "cb5b5035-6701-619f-9065-3d7d0e5fbef4-133": {
     "name": "Goa tengerpartjai",
@@ -972,17 +974,23 @@
   "cb5b5035-6701-619f-9065-3d7d0e5fbef4-144": {
     "name": "Mamutfenyő napfelkeltekor",
     "group": "Mamutfenyő",
-    "pointsOfInterest": {}
+    "pointsOfInterest": {
+      "0": "A Sequoia Nemzeti Parkban napkeltekor"
+    }
   },
   "cb5b5035-6701-619f-9065-3d7d0e5fbef4-145": {
     "name": "Mamutfenyő reggel",
     "group": "Mamutfenyő",
-    "pointsOfInterest": {}
+    "pointsOfInterest": {
+      "0": "A Sequoia Nemzeti Parkban reggel"
+    }
   },
   "cb5b5035-6701-619f-9065-3d7d0e5fbef4-146": {
     "name": "Mamutfenyő éjszaka",
     "group": "Mamutfenyő",
-    "pointsOfInterest": {}
+    "pointsOfInterest": {
+      "0": "A Sequoia Nemzeti Parkban éjszaka"
+    }
   },
   "ecebc8d2-5486-c2b2-52ae-6f0ab2d6b65f-125": {
     "name": "Sonoma – Felhők",
@@ -994,7 +1002,9 @@
   "ecebc8d2-5486-c2b2-52ae-6f0ab2d6b65f-126": {
     "name": "Sonoma – Este",
     "group": "Sonoma",
-    "pointsOfInterest": {}
+    "pointsOfInterest": {
+      "0": "Repülés a kaliforniai Sonoma felett"
+    }
   },
   "ecebc8d2-5486-c2b2-52ae-6f0ab2d6b65f-127": {
     "name": "Sonoma – Horizont",
@@ -1041,22 +1051,30 @@
   "cb5b5035-6701-619f-9065-3d7d0e5fbef4-147": {
     "name": "Tahoe – Reggel",
     "group": "Tahoe",
-    "pointsOfInterest": {}
+    "pointsOfInterest": {
+      "0": "A Tahoe-tó reggel"
+    }
   },
   "cb5b5035-6701-619f-9065-3d7d0e5fbef4-148": {
     "name": "Tahoe – Nappal",
     "group": "Tahoe",
-    "pointsOfInterest": {}
+    "pointsOfInterest": {
+      "0": "A Tahoe-tó nappal"
+    }
   },
   "cb5b5035-6701-619f-9065-3d7d0e5fbef4-149": {
     "name": "Tahoe – Este",
     "group": "Tahoe",
-    "pointsOfInterest": {}
+    "pointsOfInterest": {
+      "0": "A Tahoe-tó este"
+    }
   },
   "cb5b5035-6701-619f-9065-3d7d0e5fbef4-150": {
     "name": "Tahoe – Éjszaka",
     "group": "Tahoe",
-    "pointsOfInterest": {}
+    "pointsOfInterest": {
+      "0": "A Tahoe-tó éjszaka"
+    }
   },
   "C6DC4E54-1130-44F8-AF6F-A551D8E8A181": {
     "name": "Alaszkai medúzák – Sötét",

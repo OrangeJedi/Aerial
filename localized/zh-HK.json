@@ -251,7 +251,9 @@
   "cb5b5035-6701-619f-9065-3d7d0e5fbef4-113": {
     "name": "冰島湖泊",
     "group": "冰島",
-    "pointsOfInterest": {}
+    "pointsOfInterest": {
+      "0": "飛越冰島"
+    }
   },
   "cb5b5035-6701-619f-9065-3d7d0e5fbef4-133": {
     "name": "果阿海灘",
@@ -972,17 +974,23 @@
   "cb5b5035-6701-619f-9065-3d7d0e5fbef4-144": {
     "name": "日出紅杉",
     "group": "紅杉",
-    "pointsOfInterest": {}
+    "pointsOfInterest": {
+      "0": "日出時分的紅杉國家公園"
+    }
   },
   "cb5b5035-6701-619f-9065-3d7d0e5fbef4-145": {
     "name": "清晨紅杉",
     "group": "紅杉",
-    "pointsOfInterest": {}
+    "pointsOfInterest": {
+      "0": "清晨的紅杉國家公園"
+    }
   },
   "cb5b5035-6701-619f-9065-3d7d0e5fbef4-146": {
     "name": "夜間紅杉",
     "group": "紅杉",
-    "pointsOfInterest": {}
+    "pointsOfInterest": {
+      "0": "夜晚的紅杉國家公園"
+    }
   },
   "ecebc8d2-5486-c2b2-52ae-6f0ab2d6b65f-125": {
     "name": "索諾馬雲層",
@@ -994,7 +1002,9 @@
   "ecebc8d2-5486-c2b2-52ae-6f0ab2d6b65f-126": {
     "name": "索諾馬傍晚",
     "group": "索諾馬",
-    "pointsOfInterest": {}
+    "pointsOfInterest": {
+      "0": "飛越加利福尼亞州索諾馬"
+    }
   },
   "ecebc8d2-5486-c2b2-52ae-6f0ab2d6b65f-127": {
     "name": "索諾馬地平線",
@@ -1041,22 +1051,30 @@
   "cb5b5035-6701-619f-9065-3d7d0e5fbef4-147": {
     "name": "太浩湖清晨",
     "group": "太浩湖",
-    "pointsOfInterest": {}
+    "pointsOfInterest": {
+      "0": "清晨的太浩湖"
+    }
   },
   "cb5b5035-6701-619f-9065-3d7d0e5fbef4-148": {
     "name": "太浩湖白晝",
     "group": "太浩湖",
-    "pointsOfInterest": {}
+    "pointsOfInterest": {
+      "0": "白天的太浩湖"
+    }
   },
   "cb5b5035-6701-619f-9065-3d7d0e5fbef4-149": {
     "name": "太浩湖傍晚",
     "group": "太浩湖",
-    "pointsOfInterest": {}
+    "pointsOfInterest": {
+      "0": "傍晚的太浩湖"
+    }
   },
   "cb5b5035-6701-619f-9065-3d7d0e5fbef4-150": {
     "name": "太浩湖夜色",
     "group": "太浩湖",
-    "pointsOfInterest": {}
+    "pointsOfInterest": {
+      "0": "夜晚的太浩湖"
+    }
   },
   "C6DC4E54-1130-44F8-AF6F-A551D8E8A181": {
     "name": "阿拉斯加水母深色",

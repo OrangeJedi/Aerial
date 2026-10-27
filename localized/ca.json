@@ -251,7 +251,9 @@
   "cb5b5035-6701-619f-9065-3d7d0e5fbef4-113": {
     "name": "Llac d’Islàndia",
     "group": "Islàndia",
-    "pointsOfInterest": {}
+    "pointsOfInterest": {
+      "0": "Sobrevolant Islàndia"
+    }
   },
   "cb5b5035-6701-619f-9065-3d7d0e5fbef4-133": {
     "name": "Platges de Goa",
@@ -972,17 +974,23 @@
   "cb5b5035-6701-619f-9065-3d7d0e5fbef4-144": {
     "name": "Sequoia a l’alba",
     "group": "Sequoia",
-    "pointsOfInterest": {}
+    "pointsOfInterest": {
+      "0": "Al parc nacional de Sequoia a la sortida del sol"
+    }
   },
   "cb5b5035-6701-619f-9065-3d7d0e5fbef4-145": {
     "name": "Sequoia al matí",
     "group": "Sequoia",
-    "pointsOfInterest": {}
+    "pointsOfInterest": {
+      "0": "Al parc nacional de Sequoia al matí"
+    }
   },
   "cb5b5035-6701-619f-9065-3d7d0e5fbef4-146": {
     "name": "Sequoia a la nit",
     "group": "Sequoia",
-    "pointsOfInterest": {}
+    "pointsOfInterest": {
+      "0": "Al parc nacional de Sequoia de nit"
+    }
   },
   "ecebc8d2-5486-c2b2-52ae-6f0ab2d6b65f-125": {
     "name": "Núvols a Sonoma",
@@ -994,7 +1002,9 @@
   "ecebc8d2-5486-c2b2-52ae-6f0ab2d6b65f-126": {
     "name": "Sonoma al vespre",
     "group": "Sonoma",
-    "pointsOfInterest": {}
+    "pointsOfInterest": {
+      "0": "Sobrevolant Sonoma, Califòrnia"
+    }
   },
   "ecebc8d2-5486-c2b2-52ae-6f0ab2d6b65f-127": {
     "name": "Horitzó de Sonoma",
@@ -1041,22 +1051,30 @@
   "cb5b5035-6701-619f-9065-3d7d0e5fbef4-147": {
     "name": "Tahoe al matí",
     "group": "Tahoe",
-    "pointsOfInterest": {}
+    "pointsOfInterest": {
+      "0": "El llac Tahoe al matí"
+    }
   },
   "cb5b5035-6701-619f-9065-3d7d0e5fbef4-148": {
     "name": "Tahoe de dia",
     "group": "Tahoe",
-    "pointsOfInterest": {}
+    "pointsOfInterest": {
+      "0": "El llac Tahoe de dia"
+    }
   },
   "cb5b5035-6701-619f-9065-3d7d0e5fbef4-149": {
     "name": "Tahoe al vespre",
     "group": "Tahoe",
-    "pointsOfInterest": {}
+    "pointsOfInterest": {
+      "0": "El llac Tahoe al vespre"
+    }
   },
   "cb5b5035-6701-619f-9065-3d7d0e5fbef4-150": {
     "name": "Tahoe de nit",
     "group": "Tahoe",
-    "pointsOfInterest": {}
+    "pointsOfInterest": {
+      "0": "El llac Tahoe de nit"
+    }
   },
   "C6DC4E54-1130-44F8-AF6F-A551D8E8A181": {
     "name": "Meduses d’Alaska (fosc)",

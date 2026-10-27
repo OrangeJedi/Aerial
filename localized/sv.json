@@ -251,7 +251,9 @@
   "cb5b5035-6701-619f-9065-3d7d0e5fbef4-113": {
     "name": "Isländsk sjö",
     "group": "Island",
-    "pointsOfInterest": {}
+    "pointsOfInterest": {
+      "0": "Flyger över Island"
+    }
   },
   "cb5b5035-6701-619f-9065-3d7d0e5fbef4-133": {
     "name": "Stränder i Goa",
@@ -972,17 +974,23 @@
   "cb5b5035-6701-619f-9065-3d7d0e5fbef4-144": {
     "name": "Soluppgång över sekvojaskog",
     "group": "Amerikansk sekvoja",
-    "pointsOfInterest": {}
+    "pointsOfInterest": {
+      "0": "I Sequoia nationalpark vid soluppgången"
+    }
   },
   "cb5b5035-6701-619f-9065-3d7d0e5fbef4-145": {
     "name": "Sekvojaträd på morgonen",
     "group": "Amerikansk sekvoja",
-    "pointsOfInterest": {}
+    "pointsOfInterest": {
+      "0": "I Sequoia nationalpark på morgonen"
+    }
   },
   "cb5b5035-6701-619f-9065-3d7d0e5fbef4-146": {
     "name": "Sekvojaträd på natten",
     "group": "Amerikansk sekvoja",
-    "pointsOfInterest": {}
+    "pointsOfInterest": {
+      "0": "I Sequoia nationalpark på natten"
+    }
   },
   "ecebc8d2-5486-c2b2-52ae-6f0ab2d6b65f-125": {
     "name": "Moln i Sonoma",
@@ -994,7 +1002,9 @@
   "ecebc8d2-5486-c2b2-52ae-6f0ab2d6b65f-126": {
     "name": "Sonoma på kvällen",
     "group": "Sonoma",
-    "pointsOfInterest": {}
+    "pointsOfInterest": {
+      "0": "Flyger över Sonoma i Kalifornien"
+    }
   },
   "ecebc8d2-5486-c2b2-52ae-6f0ab2d6b65f-127": {
     "name": "Horisont i Sonoma",
@@ -1041,22 +1051,30 @@
   "cb5b5035-6701-619f-9065-3d7d0e5fbef4-147": {
     "name": "Tahoe på morgonen",
     "group": "Tahoe",
-    "pointsOfInterest": {}
+    "pointsOfInterest": {
+      "0": "Tahoesjön på morgonen"
+    }
   },
   "cb5b5035-6701-619f-9065-3d7d0e5fbef4-148": {
     "name": "Tahoe på dagen",
     "group": "Tahoe",
-    "pointsOfInterest": {}
+    "pointsOfInterest": {
+      "0": "Tahoesjön på dagen"
+    }
   },
   "cb5b5035-6701-619f-9065-3d7d0e5fbef4-149": {
     "name": "Tahoe på kvällen",
     "group": "Tahoe",
-    "pointsOfInterest": {}
+    "pointsOfInterest": {
+      "0": "Tahoesjön på kvällen"
+    }
   },
   "cb5b5035-6701-619f-9065-3d7d0e5fbef4-150": {
     "name": "Tahoe på natten",
     "group": "Tahoe",
-    "pointsOfInterest": {}
+    "pointsOfInterest": {
+      "0": "Tahoesjön på natten"
+    }
   },
   "C6DC4E54-1130-44F8-AF6F-A551D8E8A181": {
     "name": "Röda brännmaneter, mörk",

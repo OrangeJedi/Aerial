@@ -251,7 +251,9 @@
   "cb5b5035-6701-619f-9065-3d7d0e5fbef4-113": {
     "name": "アイスランドの湖",
     "group": "アイスランド",
-    "pointsOfInterest": {}
+    "pointsOfInterest": {
+      "0": "アイスランド上空を飛行"
+    }
   },
   "cb5b5035-6701-619f-9065-3d7d0e5fbef4-133": {
     "name": "ゴア州のビーチ",
@@ -972,17 +974,23 @@
   "cb5b5035-6701-619f-9065-3d7d0e5fbef4-144": {
     "name": "セコイアの日の出",
     "group": "セコイア",
-    "pointsOfInterest": {}
+    "pointsOfInterest": {
+      "0": "日の出のセコイア国立公園"
+    }
   },
   "cb5b5035-6701-619f-9065-3d7d0e5fbef4-145": {
     "name": "朝のセコイア",
     "group": "セコイア",
-    "pointsOfInterest": {}
+    "pointsOfInterest": {
+      "0": "朝のセコイア国立公園"
+    }
   },
   "cb5b5035-6701-619f-9065-3d7d0e5fbef4-146": {
     "name": "夜のセコイア",
     "group": "セコイア",
-    "pointsOfInterest": {}
+    "pointsOfInterest": {
+      "0": "夜のセコイア国立公園"
+    }
   },
   "ecebc8d2-5486-c2b2-52ae-6f0ab2d6b65f-125": {
     "name": "ソノマの雲",
@@ -994,7 +1002,9 @@
   "ecebc8d2-5486-c2b2-52ae-6f0ab2d6b65f-126": {
     "name": "夕方のソノマ",
     "group": "ソノマ",
-    "pointsOfInterest": {}
+    "pointsOfInterest": {
+      "0": "カリフォルニア州ソノマ上空を飛行"
+    }
   },
   "ecebc8d2-5486-c2b2-52ae-6f0ab2d6b65f-127": {
     "name": "ソノマの地平線",
@@ -1041,22 +1051,30 @@
   "cb5b5035-6701-619f-9065-3d7d0e5fbef4-147": {
     "name": "朝のタホ",
     "group": "Tahoe",
-    "pointsOfInterest": {}
+    "pointsOfInterest": {
+      "0": "朝のタホ湖"
+    }
   },
   "cb5b5035-6701-619f-9065-3d7d0e5fbef4-148": {
     "name": "昼のタホ",
     "group": "Tahoe",
-    "pointsOfInterest": {}
+    "pointsOfInterest": {
+      "0": "昼間のタホ湖"
+    }
   },
   "cb5b5035-6701-619f-9065-3d7d0e5fbef4-149": {
     "name": "夕方のタホ",
     "group": "Tahoe",
-    "pointsOfInterest": {}
+    "pointsOfInterest": {
+      "0": "夕方のタホ湖"
+    }
   },
   "cb5b5035-6701-619f-9065-3d7d0e5fbef4-150": {
     "name": "夜のタホ",
     "group": "Tahoe",
-    "pointsOfInterest": {}
+    "pointsOfInterest": {
+      "0": "夜のタホ湖"
+    }
   },
   "C6DC4E54-1130-44F8-AF6F-A551D8E8A181": {
     "name": "アラスカのクラゲ（ダーク）",

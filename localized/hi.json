@@ -251,7 +251,9 @@
   "cb5b5035-6701-619f-9065-3d7d0e5fbef4-113": {
     "name": "आइसलैंड झील",
     "group": "आइसलैंड",
-    "pointsOfInterest": {}
+    "pointsOfInterest": {
+      "0": "आइसलैंड के ऊपर उड़ान"
+    }
   },
   "cb5b5035-6701-619f-9065-3d7d0e5fbef4-133": {
     "name": "गोवा के बीच",
@@ -972,17 +974,23 @@
   "cb5b5035-6701-619f-9065-3d7d0e5fbef4-144": {
     "name": "सिकोइया सूर्योदय",
     "group": "सिकोइया",
-    "pointsOfInterest": {}
+    "pointsOfInterest": {
+      "0": "सूर्योदय के समय सिकोइया राष्ट्रीय उद्यान में"
+    }
   },
   "cb5b5035-6701-619f-9065-3d7d0e5fbef4-145": {
     "name": "सिकोइया सुबह",
     "group": "सिकोइया",
-    "pointsOfInterest": {}
+    "pointsOfInterest": {
+      "0": "सुबह सिकोइया राष्ट्रीय उद्यान में"
+    }
   },
   "cb5b5035-6701-619f-9065-3d7d0e5fbef4-146": {
     "name": "सिकोइया रात",
     "group": "सिकोइया",
-    "pointsOfInterest": {}
+    "pointsOfInterest": {
+      "0": "रात में सिकोइया राष्ट्रीय उद्यान में"
+    }
   },
   "ecebc8d2-5486-c2b2-52ae-6f0ab2d6b65f-125": {
     "name": "बादलों के साथ सोनोमा",
@@ -994,7 +1002,9 @@
   "ecebc8d2-5486-c2b2-52ae-6f0ab2d6b65f-126": {
     "name": "शाम के समय सोनोमा का नज़ारा",
     "group": "सोनोमा",
-    "pointsOfInterest": {}
+    "pointsOfInterest": {
+      "0": "कैलिफ़ोर्निया के सोनोमा के ऊपर उड़ान"
+    }
   },
   "ecebc8d2-5486-c2b2-52ae-6f0ab2d6b65f-127": {
     "name": "सोनोमा क्षितिज",
@@ -1041,22 +1051,30 @@
   "cb5b5035-6701-619f-9065-3d7d0e5fbef4-147": {
     "name": "टाहो में सुबह",
     "group": "टाहो",
-    "pointsOfInterest": {}
+    "pointsOfInterest": {
+      "0": "सुबह टाहो झील"
+    }
   },
   "cb5b5035-6701-619f-9065-3d7d0e5fbef4-148": {
     "name": "टाहो में दिन",
     "group": "टाहो",
-    "pointsOfInterest": {}
+    "pointsOfInterest": {
+      "0": "दिन के समय टाहो झील"
+    }
   },
   "cb5b5035-6701-619f-9065-3d7d0e5fbef4-149": {
     "name": "टाहो में शाम",
     "group": "टाहो",
-    "pointsOfInterest": {}
+    "pointsOfInterest": {
+      "0": "शाम को टाहो झील"
+    }
   },
   "cb5b5035-6701-619f-9065-3d7d0e5fbef4-150": {
     "name": "टाहो में रात",
     "group": "टाहो",
-    "pointsOfInterest": {}
+    "pointsOfInterest": {
+      "0": "रात में टाहो झील"
+    }
   },
   "C6DC4E54-1130-44F8-AF6F-A551D8E8A181": {
     "name": "अलास्कन जेली डार्क",

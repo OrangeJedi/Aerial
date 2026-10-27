@@ -251,7 +251,9 @@
   "cb5b5035-6701-619f-9065-3d7d0e5fbef4-113": {
     "name": "Hồ Iceland",
     "group": "Iceland",
-    "pointsOfInterest": {}
+    "pointsOfInterest": {
+      "0": "Bay trên Iceland"
+    }
   },
   "cb5b5035-6701-619f-9065-3d7d0e5fbef4-133": {
     "name": "Bãi biển Goa",
@@ -972,17 +974,23 @@
   "cb5b5035-6701-619f-9065-3d7d0e5fbef4-144": {
     "name": "Sequoia lúc bình minh",
     "group": "Sequoia",
-    "pointsOfInterest": {}
+    "pointsOfInterest": {
+      "0": "Trong Vườn quốc gia Sequoia lúc bình minh"
+    }
   },
   "cb5b5035-6701-619f-9065-3d7d0e5fbef4-145": {
     "name": "Sequoia vào buổi sáng",
     "group": "Sequoia",
-    "pointsOfInterest": {}
+    "pointsOfInterest": {
+      "0": "Trong Vườn quốc gia Sequoia vào buổi sáng"
+    }
   },
   "cb5b5035-6701-619f-9065-3d7d0e5fbef4-146": {
     "name": "Sequoia về đêm",
     "group": "Sequoia",
-    "pointsOfInterest": {}
+    "pointsOfInterest": {
+      "0": "Trong Vườn quốc gia Sequoia vào ban đêm"
+    }
   },
   "ecebc8d2-5486-c2b2-52ae-6f0ab2d6b65f-125": {
     "name": "Mây ở Sonoma",
@@ -994,7 +1002,9 @@
   "ecebc8d2-5486-c2b2-52ae-6f0ab2d6b65f-126": {
     "name": "Sonoma buổi tối",
     "group": "Sonoma",
-    "pointsOfInterest": {}
+    "pointsOfInterest": {
+      "0": "Bay trên Sonoma, California"
+    }
   },
   "ecebc8d2-5486-c2b2-52ae-6f0ab2d6b65f-127": {
     "name": "Chân trời Sonoma",
@@ -1041,22 +1051,30 @@
   "cb5b5035-6701-619f-9065-3d7d0e5fbef4-147": {
     "name": "Tahoe buổi sáng",
     "group": "Tahoe",
-    "pointsOfInterest": {}
+    "pointsOfInterest": {
+      "0": "Hồ Tahoe vào buổi sáng"
+    }
   },
   "cb5b5035-6701-619f-9065-3d7d0e5fbef4-148": {
     "name": "Tahoe ban ngày",
     "group": "Tahoe",
-    "pointsOfInterest": {}
+    "pointsOfInterest": {
+      "0": "Hồ Tahoe vào ban ngày"
+    }
   },
   "cb5b5035-6701-619f-9065-3d7d0e5fbef4-149": {
     "name": "Tahoe buổi tối",
     "group": "Tahoe",
-    "pointsOfInterest": {}
+    "pointsOfInterest": {
+      "0": "Hồ Tahoe vào buổi tối"
+    }
   },
   "cb5b5035-6701-619f-9065-3d7d0e5fbef4-150": {
     "name": "Tahoe về đêm",
     "group": "Tahoe",
-    "pointsOfInterest": {}
+    "pointsOfInterest": {
+      "0": "Hồ Tahoe vào ban đêm"
+    }
   },
   "C6DC4E54-1130-44F8-AF6F-A551D8E8A181": {
     "name": "Sứa Alaska tối",

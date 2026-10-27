@@ -251,7 +251,9 @@
   "cb5b5035-6701-619f-9065-3d7d0e5fbef4-113": {
     "name": "Islandsko jezero",
     "group": "Islandija",
-    "pointsOfInterest": {}
+    "pointsOfInterest": {
+      "0": "Let nad Islandijo"
+    }
   },
   "cb5b5035-6701-619f-9065-3d7d0e5fbef4-133": {
     "name": "Plaže v zvezni državi Goa",
@@ -972,17 +974,23 @@
   "cb5b5035-6701-619f-9065-3d7d0e5fbef4-144": {
     "name": "Zora v narodnem parku Sequoia",
     "group": "Sequoia",
-    "pointsOfInterest": {}
+    "pointsOfInterest": {
+      "0": "V narodnem parku Sequoia ob sončnem vzhodu"
+    }
   },
   "cb5b5035-6701-619f-9065-3d7d0e5fbef4-145": {
     "name": "Jutro v narodnem parku Sequoia",
     "group": "Sequoia",
-    "pointsOfInterest": {}
+    "pointsOfInterest": {
+      "0": "V narodnem parku Sequoia zjutraj"
+    }
   },
   "cb5b5035-6701-619f-9065-3d7d0e5fbef4-146": {
     "name": "Noč v narodnem parku Sequoia",
     "group": "Sequoia",
-    "pointsOfInterest": {}
+    "pointsOfInterest": {
+      "0": "V narodnem parku Sequoia ponoči"
+    }
   },
   "ecebc8d2-5486-c2b2-52ae-6f0ab2d6b65f-125": {
     "name": "Oblaki v Sonomi",
@@ -994,7 +1002,9 @@
   "ecebc8d2-5486-c2b2-52ae-6f0ab2d6b65f-126": {
     "name": "Sonoma zvečer",
     "group": "Sonoma",
-    "pointsOfInterest": {}
+    "pointsOfInterest": {
+      "0": "Let nad Sonomo v Kaliforniji"
+    }
   },
   "ecebc8d2-5486-c2b2-52ae-6f0ab2d6b65f-127": {
     "name": "Sonomsko obzorje",
@@ -1041,22 +1051,30 @@
   "cb5b5035-6701-619f-9065-3d7d0e5fbef4-147": {
     "name": "Tahoe zjutraj",
     "group": "Tahoe",
-    "pointsOfInterest": {}
+    "pointsOfInterest": {
+      "0": "Jezero Tahoe zjutraj"
+    }
   },
   "cb5b5035-6701-619f-9065-3d7d0e5fbef4-148": {
     "name": "Tahoe podnevi",
     "group": "Tahoe",
-    "pointsOfInterest": {}
+    "pointsOfInterest": {
+      "0": "Jezero Tahoe podnevi"
+    }
   },
   "cb5b5035-6701-619f-9065-3d7d0e5fbef4-149": {
     "name": "Tahoe zvečer",
     "group": "Tahoe",
-    "pointsOfInterest": {}
+    "pointsOfInterest": {
+      "0": "Jezero Tahoe zvečer"
+    }
   },
   "cb5b5035-6701-619f-9065-3d7d0e5fbef4-150": {
     "name": "Tahoe ponoči",
     "group": "Tahoe",
-    "pointsOfInterest": {}
+    "pointsOfInterest": {
+      "0": "Jezero Tahoe ponoči"
+    }
   },
   "C6DC4E54-1130-44F8-AF6F-A551D8E8A181": {
     "name": "Aljaške meduze – temno",

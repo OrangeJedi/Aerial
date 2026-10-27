@@ -33,7 +33,7 @@ test('all English selections keep every preferred name, group, caption and times
     assert.equal(Object.values(english).reduce((count, value) => count + Object.keys(value.pointsOfInterest).length, 0), 398);
 });
 
-test('all packs contain 152 names, and caption gaps use the original English text', () => {
+test('all packs contain 152 names and complete caption timelines', () => {
     const localize = createVideoLocalizer({videos, locales});
     assert.equal(locales.length, 43);
     let gaps = 0;
@@ -52,7 +52,10 @@ test('all packs contain 152 names, and caption gaps use the original English tex
             }
         }
     }
-    assert.equal(gaps, 333);
+    assert.equal(gaps, 0);
+    const report = require('../localized/import-report.json');
+    assert.equal(report.remainingGaps.length, 0);
+    assert.equal(report.sourceGaps.length, 333);
 });
 
 test('localized metadata leaves sources, IDs and custom videos untouched and caches packs', () => {

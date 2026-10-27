@@ -251,7 +251,9 @@
   "cb5b5035-6701-619f-9065-3d7d0e5fbef4-113": {
     "name": "Lac din Islanda",
     "group": "Islanda",
-    "pointsOfInterest": {}
+    "pointsOfInterest": {
+      "0": "Zbor deasupra Islandei"
+    }
   },
   "cb5b5035-6701-619f-9065-3d7d0e5fbef4-133": {
     "name": "Plaje din Goa",
@@ -972,17 +974,23 @@
   "cb5b5035-6701-619f-9065-3d7d0e5fbef4-144": {
     "name": "Sequoia la răsărit",
     "group": "Sequoia",
-    "pointsOfInterest": {}
+    "pointsOfInterest": {
+      "0": "În Parcul Național Sequoia la răsărit"
+    }
   },
   "cb5b5035-6701-619f-9065-3d7d0e5fbef4-145": {
     "name": "Sequoia de dimineață",
     "group": "Sequoia",
-    "pointsOfInterest": {}
+    "pointsOfInterest": {
+      "0": "În Parcul Național Sequoia dimineața"
+    }
   },
   "cb5b5035-6701-619f-9065-3d7d0e5fbef4-146": {
     "name": "Sequoia în timpul nopții",
     "group": "Sequoia",
-    "pointsOfInterest": {}
+    "pointsOfInterest": {
+      "0": "În Parcul Național Sequoia noaptea"
+    }
   },
   "ecebc8d2-5486-c2b2-52ae-6f0ab2d6b65f-125": {
     "name": "Nori în Sonoma",
@@ -994,7 +1002,9 @@
   "ecebc8d2-5486-c2b2-52ae-6f0ab2d6b65f-126": {
     "name": "Sonoma seara",
     "group": "Sonoma",
-    "pointsOfInterest": {}
+    "pointsOfInterest": {
+      "0": "Zbor deasupra regiunii Sonoma din California"
+    }
   },
   "ecebc8d2-5486-c2b2-52ae-6f0ab2d6b65f-127": {
     "name": "Orizontul în Sonoma",
@@ -1041,22 +1051,30 @@
   "cb5b5035-6701-619f-9065-3d7d0e5fbef4-147": {
     "name": "Tahoe dimineața",
     "group": "Tahoe",
-    "pointsOfInterest": {}
+    "pointsOfInterest": {
+      "0": "Lacul Tahoe dimineața"
+    }
   },
   "cb5b5035-6701-619f-9065-3d7d0e5fbef4-148": {
     "name": "Tahoe ziua",
     "group": "Tahoe",
-    "pointsOfInterest": {}
+    "pointsOfInterest": {
+      "0": "Lacul Tahoe în timpul zilei"
+    }
   },
   "cb5b5035-6701-619f-9065-3d7d0e5fbef4-149": {
     "name": "Tahoe seara",
     "group": "Tahoe",
-    "pointsOfInterest": {}
+    "pointsOfInterest": {
+      "0": "Lacul Tahoe seara"
+    }
   },
   "cb5b5035-6701-619f-9065-3d7d0e5fbef4-150": {
     "name": "Tahoe noaptea",
     "group": "Tahoe",
-    "pointsOfInterest": {}
+    "pointsOfInterest": {
+      "0": "Lacul Tahoe noaptea"
+    }
   },
   "C6DC4E54-1130-44F8-AF6F-A551D8E8A181": {
     "name": "Meduze în Alaska (întunecat)",

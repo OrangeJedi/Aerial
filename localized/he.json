@@ -251,7 +251,9 @@
   "cb5b5035-6701-619f-9065-3d7d0e5fbef4-113": {
     "name": "אגם באיסלנד",
     "group": "איסלנד",
-    "pointsOfInterest": {}
+    "pointsOfInterest": {
+      "0": "טיסה מעל איסלנד"
+    }
   },
   "cb5b5035-6701-619f-9065-3d7d0e5fbef4-133": {
     "name": "חופי גואה",
@@ -972,17 +974,23 @@
   "cb5b5035-6701-619f-9065-3d7d0e5fbef4-144": {
     "name": "זריחה בסקוויה",
     "group": "סקוויה",
-    "pointsOfInterest": {}
+    "pointsOfInterest": {
+      "0": "בפארק הלאומי סקוויה עם הזריחה"
+    }
   },
   "cb5b5035-6701-619f-9065-3d7d0e5fbef4-145": {
     "name": "סקוויה בבוקר",
     "group": "סקוויה",
-    "pointsOfInterest": {}
+    "pointsOfInterest": {
+      "0": "בפארק הלאומי סקוויה בבוקר"
+    }
   },
   "cb5b5035-6701-619f-9065-3d7d0e5fbef4-146": {
     "name": "סקוויה בלילה",
     "group": "סקוויה",
-    "pointsOfInterest": {}
+    "pointsOfInterest": {
+      "0": "בפארק הלאומי סקוויה בלילה"
+    }
   },
   "ecebc8d2-5486-c2b2-52ae-6f0ab2d6b65f-125": {
     "name": "עננים בסונומה",
@@ -994,7 +1002,9 @@
   "ecebc8d2-5486-c2b2-52ae-6f0ab2d6b65f-126": {
     "name": "ערב בסונומה",
     "group": "סונומה",
-    "pointsOfInterest": {}
+    "pointsOfInterest": {
+      "0": "טיסה מעל סונומה, קליפורניה"
+    }
   },
   "ecebc8d2-5486-c2b2-52ae-6f0ab2d6b65f-127": {
     "name": "קו האופק של סונומה",
@@ -1041,22 +1051,30 @@
   "cb5b5035-6701-619f-9065-3d7d0e5fbef4-147": {
     "name": "טאהו בבוקר",
     "group": "טאהו",
-    "pointsOfInterest": {}
+    "pointsOfInterest": {
+      "0": "אגם טאהו בבוקר"
+    }
   },
   "cb5b5035-6701-619f-9065-3d7d0e5fbef4-148": {
     "name": "טאהו ביום",
     "group": "טאהו",
-    "pointsOfInterest": {}
+    "pointsOfInterest": {
+      "0": "אגם טאהו בשעות היום"
+    }
   },
   "cb5b5035-6701-619f-9065-3d7d0e5fbef4-149": {
     "name": "טאהו בערב",
     "group": "טאהו",
-    "pointsOfInterest": {}
+    "pointsOfInterest": {
+      "0": "אגם טאהו בערב"
+    }
   },
   "cb5b5035-6701-619f-9065-3d7d0e5fbef4-150": {
     "name": "טאהו בלילה",
     "group": "טאהו",
-    "pointsOfInterest": {}
+    "pointsOfInterest": {
+      "0": "אגם טאהו בלילה"
+    }
   },
   "C6DC4E54-1130-44F8-AF6F-A551D8E8A181": {
     "name": "מדוזות מאלסקה כהה",

@@ -251,7 +251,9 @@
   "cb5b5035-6701-619f-9065-3d7d0e5fbef4-113": {
     "name": "아이슬란드의 호수",
     "group": "아이슬란드",
-    "pointsOfInterest": {}
+    "pointsOfInterest": {
+      "0": "아이슬란드 상공을 비행"
+    }
   },
   "cb5b5035-6701-619f-9065-3d7d0e5fbef4-133": {
     "name": "고아주의 해변",
@@ -972,17 +974,23 @@
   "cb5b5035-6701-619f-9065-3d7d0e5fbef4-144": {
     "name": "세쿼이아의 일출",
     "group": "세쿼이아",
-    "pointsOfInterest": {}
+    "pointsOfInterest": {
+      "0": "해돋이 무렵의 세쿼이아 국립공원"
+    }
   },
   "cb5b5035-6701-619f-9065-3d7d0e5fbef4-145": {
     "name": "세쿼이아의 아침",
     "group": "세쿼이아",
-    "pointsOfInterest": {}
+    "pointsOfInterest": {
+      "0": "아침의 세쿼이아 국립공원"
+    }
   },
   "cb5b5035-6701-619f-9065-3d7d0e5fbef4-146": {
     "name": "세쿼이아의 밤",
     "group": "세쿼이아",
-    "pointsOfInterest": {}
+    "pointsOfInterest": {
+      "0": "밤의 세쿼이아 국립공원"
+    }
   },
   "ecebc8d2-5486-c2b2-52ae-6f0ab2d6b65f-125": {
     "name": "소노마의 구름",
@@ -994,7 +1002,9 @@
   "ecebc8d2-5486-c2b2-52ae-6f0ab2d6b65f-126": {
     "name": "소노마의 저녁",
     "group": "소노마",
-    "pointsOfInterest": {}
+    "pointsOfInterest": {
+      "0": "캘리포니아주 소노마 상공을 비행"
+    }
   },
   "ecebc8d2-5486-c2b2-52ae-6f0ab2d6b65f-127": {
     "name": "소노마의 지평선",
@@ -1041,22 +1051,30 @@
   "cb5b5035-6701-619f-9065-3d7d0e5fbef4-147": {
     "name": "타호의 아침",
     "group": "Tahoe",
-    "pointsOfInterest": {}
+    "pointsOfInterest": {
+      "0": "아침의 타호 호수"
+    }
   },
   "cb5b5035-6701-619f-9065-3d7d0e5fbef4-148": {
     "name": "타호의 낮",
     "group": "Tahoe",
-    "pointsOfInterest": {}
+    "pointsOfInterest": {
+      "0": "낮의 타호 호수"
+    }
   },
   "cb5b5035-6701-619f-9065-3d7d0e5fbef4-149": {
     "name": "타호의 저녁",
     "group": "Tahoe",
-    "pointsOfInterest": {}
+    "pointsOfInterest": {
+      "0": "저녁의 타호 호수"
+    }
   },
   "cb5b5035-6701-619f-9065-3d7d0e5fbef4-150": {
     "name": "타호의 밤",
     "group": "Tahoe",
-    "pointsOfInterest": {}
+    "pointsOfInterest": {
+      "0": "밤의 타호 호수"
+    }
   },
   "C6DC4E54-1130-44F8-AF6F-A551D8E8A181": {
     "name": "알래스카 해파리(다크)",

@@ -251,7 +251,9 @@
   "cb5b5035-6701-619f-9065-3d7d0e5fbef4-113": {
     "name": "See in Island",
     "group": "Island",
-    "pointsOfInterest": {}
+    "pointsOfInterest": {
+      "0": "Flug über Island"
+    }
   },
   "cb5b5035-6701-619f-9065-3d7d0e5fbef4-133": {
     "name": "Strände in Goa",
@@ -972,17 +974,23 @@
   "cb5b5035-6701-619f-9065-3d7d0e5fbef4-144": {
     "name": "Mammutbaum bei Sonnenaufgang",
     "group": "Mammutbaum",
-    "pointsOfInterest": {}
+    "pointsOfInterest": {
+      "0": "Im Sequoia-Nationalpark bei Sonnenaufgang"
+    }
   },
   "cb5b5035-6701-619f-9065-3d7d0e5fbef4-145": {
     "name": "Mammutbaum am Morgen",
     "group": "Mammutbaum",
-    "pointsOfInterest": {}
+    "pointsOfInterest": {
+      "0": "Im Sequoia-Nationalpark am Morgen"
+    }
   },
   "cb5b5035-6701-619f-9065-3d7d0e5fbef4-146": {
     "name": "Mammutbaum bei Nacht",
     "group": "Mammutbaum",
-    "pointsOfInterest": {}
+    "pointsOfInterest": {
+      "0": "Im Sequoia-Nationalpark bei Nacht"
+    }
   },
   "ecebc8d2-5486-c2b2-52ae-6f0ab2d6b65f-125": {
     "name": "Wolken über Sonoma",
@@ -994,7 +1002,9 @@
   "ecebc8d2-5486-c2b2-52ae-6f0ab2d6b65f-126": {
     "name": "Abend in Sonoma",
     "group": "Sonoma",
-    "pointsOfInterest": {}
+    "pointsOfInterest": {
+      "0": "Flug über Sonoma in Kalifornien"
+    }
   },
   "ecebc8d2-5486-c2b2-52ae-6f0ab2d6b65f-127": {
     "name": "Horizont in Sonoma",
@@ -1041,22 +1051,30 @@
   "cb5b5035-6701-619f-9065-3d7d0e5fbef4-147": {
     "name": "Tahoe am Morgen",
     "group": "Tahoe",
-    "pointsOfInterest": {}
+    "pointsOfInterest": {
+      "0": "Der Lake Tahoe am Morgen"
+    }
   },
   "cb5b5035-6701-619f-9065-3d7d0e5fbef4-148": {
     "name": "Tahoe bei Tag",
     "group": "Tahoe",
-    "pointsOfInterest": {}
+    "pointsOfInterest": {
+      "0": "Der Lake Tahoe am Tag"
+    }
   },
   "cb5b5035-6701-619f-9065-3d7d0e5fbef4-149": {
     "name": "Tahoe am Abend",
     "group": "Tahoe",
-    "pointsOfInterest": {}
+    "pointsOfInterest": {
+      "0": "Der Lake Tahoe am Abend"
+    }
   },
   "cb5b5035-6701-619f-9065-3d7d0e5fbef4-150": {
     "name": "Tahoe bei Nacht",
     "group": "Tahoe",
-    "pointsOfInterest": {}
+    "pointsOfInterest": {
+      "0": "Der Lake Tahoe bei Nacht"
+    }
   },
   "C6DC4E54-1130-44F8-AF6F-A551D8E8A181": {
     "name": "Quallen in Alaska – Dunkel",

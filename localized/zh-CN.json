@@ -251,7 +251,9 @@
   "cb5b5035-6701-619f-9065-3d7d0e5fbef4-113": {
     "name": "冰岛湖",
     "group": "冰岛",
-    "pointsOfInterest": {}
+    "pointsOfInterest": {
+      "0": "飞越冰岛"
+    }
   },
   "cb5b5035-6701-619f-9065-3d7d0e5fbef4-133": {
     "name": "果阿邦海滩",
@@ -972,17 +974,23 @@
   "cb5b5035-6701-619f-9065-3d7d0e5fbef4-144": {
     "name": "红杉国家公园日出",
     "group": "红杉国家公园",
-    "pointsOfInterest": {}
+    "pointsOfInterest": {
+      "0": "日出时分的红杉国家公园"
+    }
   },
   "cb5b5035-6701-619f-9065-3d7d0e5fbef4-145": {
     "name": "红杉国家公园清晨",
     "group": "红杉国家公园",
-    "pointsOfInterest": {}
+    "pointsOfInterest": {
+      "0": "清晨的红杉国家公园"
+    }
   },
   "cb5b5035-6701-619f-9065-3d7d0e5fbef4-146": {
     "name": "红杉国家公园夜晚",
     "group": "红杉国家公园",
-    "pointsOfInterest": {}
+    "pointsOfInterest": {
+      "0": "夜晚的红杉国家公园"
+    }
   },
   "ecebc8d2-5486-c2b2-52ae-6f0ab2d6b65f-125": {
     "name": "索诺马的云层",
@@ -994,7 +1002,9 @@
   "ecebc8d2-5486-c2b2-52ae-6f0ab2d6b65f-126": {
     "name": "索诺马黄昏",
     "group": "索诺马",
-    "pointsOfInterest": {}
+    "pointsOfInterest": {
+      "0": "飞越加利福尼亚州索诺玛"
+    }
   },
   "ecebc8d2-5486-c2b2-52ae-6f0ab2d6b65f-127": {
     "name": "索诺马地平线",
@@ -1041,22 +1051,30 @@
   "cb5b5035-6701-619f-9065-3d7d0e5fbef4-147": {
     "name": "太浩湖清晨",
     "group": "Tahoe",
-    "pointsOfInterest": {}
+    "pointsOfInterest": {
+      "0": "清晨的太浩湖"
+    }
   },
   "cb5b5035-6701-619f-9065-3d7d0e5fbef4-148": {
     "name": "太浩湖白天",
     "group": "Tahoe",
-    "pointsOfInterest": {}
+    "pointsOfInterest": {
+      "0": "白天的太浩湖"
+    }
   },
   "cb5b5035-6701-619f-9065-3d7d0e5fbef4-149": {
     "name": "太浩湖黄昏",
     "group": "Tahoe",
-    "pointsOfInterest": {}
+    "pointsOfInterest": {
+      "0": "傍晚的太浩湖"
+    }
   },
   "cb5b5035-6701-619f-9065-3d7d0e5fbef4-150": {
     "name": "太浩湖夜晚",
     "group": "Tahoe",
-    "pointsOfInterest": {}
+    "pointsOfInterest": {
+      "0": "夜晚的太浩湖"
+    }
   },
   "C6DC4E54-1130-44F8-AF6F-A551D8E8A181": {
     "name": "阿拉斯加水母（深色）",

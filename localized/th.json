@@ -251,7 +251,9 @@
   "cb5b5035-6701-619f-9065-3d7d0e5fbef4-113": {
     "name": "ทะเลสาบไอซ์แลนด์",
     "group": "ไอซ์แลนด์",
-    "pointsOfInterest": {}
+    "pointsOfInterest": {
+      "0": "บินเหนือไอซ์แลนด์"
+    }
   },
   "cb5b5035-6701-619f-9065-3d7d0e5fbef4-133": {
     "name": "ชายหาดกัว",
@@ -972,17 +974,23 @@
   "cb5b5035-6701-619f-9065-3d7d0e5fbef4-144": {
     "name": "เซควาย่าตอนพระอาทิตย์ขึ้น",
     "group": "เซควาย่า",
-    "pointsOfInterest": {}
+    "pointsOfInterest": {
+      "0": "ในอุทยานแห่งชาติเซควาย่าขณะพระอาทิตย์ขึ้น"
+    }
   },
   "cb5b5035-6701-619f-9065-3d7d0e5fbef4-145": {
     "name": "เซควาย่าตอนเช้า",
     "group": "เซควาย่า",
-    "pointsOfInterest": {}
+    "pointsOfInterest": {
+      "0": "ในอุทยานแห่งชาติเซควาย่าในยามเช้า"
+    }
   },
   "cb5b5035-6701-619f-9065-3d7d0e5fbef4-146": {
     "name": "เซควาย่าตอนกลางคืน",
     "group": "เซควาย่า",
-    "pointsOfInterest": {}
+    "pointsOfInterest": {
+      "0": "ในอุทยานแห่งชาติเซควาย่าในยามค่ำคืน"
+    }
   },
   "ecebc8d2-5486-c2b2-52ae-6f0ab2d6b65f-125": {
     "name": "เมฆโซโนมา",
@@ -994,7 +1002,9 @@
   "ecebc8d2-5486-c2b2-52ae-6f0ab2d6b65f-126": {
     "name": "โซโนมายามเย็น",
     "group": "โซโนมา",
-    "pointsOfInterest": {}
+    "pointsOfInterest": {
+      "0": "บินเหนือโซโนมา รัฐแคลิฟอร์เนีย"
+    }
   },
   "ecebc8d2-5486-c2b2-52ae-6f0ab2d6b65f-127": {
     "name": "ขอบฟ้าโซโนมา",
@@ -1041,22 +1051,30 @@
   "cb5b5035-6701-619f-9065-3d7d0e5fbef4-147": {
     "name": "ทาโฮตอนเช้า",
     "group": "Tahoe",
-    "pointsOfInterest": {}
+    "pointsOfInterest": {
+      "0": "ทะเลสาบทาโฮในยามเช้า"
+    }
   },
   "cb5b5035-6701-619f-9065-3d7d0e5fbef4-148": {
     "name": "ทาโฮตอนกลางวัน",
     "group": "Tahoe",
-    "pointsOfInterest": {}
+    "pointsOfInterest": {
+      "0": "ทะเลสาบทาโฮในเวลากลางวัน"
+    }
   },
   "cb5b5035-6701-619f-9065-3d7d0e5fbef4-149": {
     "name": "ทาโฮยามเย็น",
     "group": "Tahoe",
-    "pointsOfInterest": {}
+    "pointsOfInterest": {
+      "0": "ทะเลสาบทาโฮในยามเย็น"
+    }
   },
   "cb5b5035-6701-619f-9065-3d7d0e5fbef4-150": {
     "name": "ทาโฮตอนกลางคืน",
     "group": "Tahoe",
-    "pointsOfInterest": {}
+    "pointsOfInterest": {
+      "0": "ทะเลสาบทาโฮในยามค่ำคืน"
+    }
   },
   "C6DC4E54-1130-44F8-AF6F-A551D8E8A181": {
     "name": "แมงกะพรุนอลาสก้าแบบมืด",

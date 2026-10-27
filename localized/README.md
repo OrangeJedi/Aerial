@@ -40,11 +40,11 @@ The importer lists its ten source archives in `tools/import-localizations.py`, w
 
 The report and locale data can be regenerated with the commands above. Committed English data supplies preferred fallback captions when importing into another output directory via `--output`. Future videos with no Apple or manually supplied caption are reported as missing `pointsOfInterest`, even when no timestamp is known.
 
-## Remaining translation work
+## Supplemental caption translations
 
-All 152 video names have translations in every imported non-English locale. The following nine videos each still need their single caption at timestamp `0` translated into all 37 non-English locales (32 languages). Until filled, the app displays the existing English caption.
+All 152 video names and all caption timestamps now have text in every locale. Apple supplies the video names. For the following nine videos, Apple supplies no timed captions; Aerial supplies translations of the existing English descriptions at timestamp `0` in all 37 non-English locales (32 languages). These supplemental captions were translated for Aerial and are not Apple-provided text. English remains unchanged.
 
-| Group | Video | English caption to translate | Video ID |
+| Group | Video | Original English caption | Video ID |
 |---|---|---|---|
 | Iceland | Lake | Flying over Iceland | `cb5b5035-6701-619f-9065-3d7d0e5fbef4-113` |
 | Sequoia | Sunrise | In Sequoia National Park at sunrise | `cb5b5035-6701-619f-9065-3d7d0e5fbef4-144` |
@@ -56,9 +56,17 @@ All 152 video names have translations in every imported non-English locale. The 
 | Tahoe | Evening | Lake Tahoe in the evening | `cb5b5035-6701-619f-9065-3d7d0e5fbef4-149` |
 | Tahoe | Night | Lake Tahoe at night | `cb5b5035-6701-619f-9065-3d7d0e5fbef4-150` |
 
-The affected locales are `ar`, `ca`, `cs`, `da`, `de`, `el`, `es`, `es-419`, `fi`, `fr`, `fr-CA`, `he`, `hi`, `hr`, `hu`, `id`, `it`, `ja`, `ko`, `ms`, `nl`, `no`, `pl`, `pt-BR`, `pt-PT`, `ro`, `ru`, `sk`, `sl`, `sv`, `th`, `tr`, `uk`, `vi`, `zh-CN`, `zh-HK`, and `zh-TW`.
+The supplemented locales are `ar`, `ca`, `cs`, `da`, `de`, `el`, `es`, `es-419`, `fi`, `fr`, `fr-CA`, `he`, `hi`, `hr`, `hu`, `id`, `it`, `ja`, `ko`, `ms`, `nl`, `no`, `pl`, `pt-BR`, `pt-PT`, `ro`, `ru`, `sk`, `sl`, `sv`, `th`, `tr`, `uk`, `vi`, `zh-CN`, `zh-HK`, and `zh-TW`.
 
-To fill a gap, add `"0": "Your translated caption"` to that video's `pointsOfInterest` object in the appropriate locale file. The next import preserves it and removes that item from `remainingGaps` while retaining the Apple source-gap record.
+The importer preserves these supplemental captions and continues to report the 333 Apple source gaps, while `remainingGaps` is empty. To revise a translation, edit its video's `pointsOfInterest` object in the appropriate locale file; imports preserve the edit.
+
+The 33 languages, including the original English, are Arabic, Catalan, Chinese, Croatian, Czech, Danish, Dutch, English, Finnish, French, German, Greek, Hebrew, Hindi, Hungarian, Indonesian, Italian, Japanese, Korean, Malay, Norwegian, Polish, Portuguese, Romanian, Russian, Slovak, Slovenian, Spanish, Swedish, Thai, Turkish, Ukrainian, and Vietnamese. Regional variants account for the 43 locale files.
+
+## Installer size estimate
+
+For version 1.4.2, the existing combined x64/ARM64 installer without localization files is 319,920,884 bytes (319.9 MB). All 43 runtime locale sets total 2,339,356 bytes before compression, compared with 48,717 bytes for English only. LZMA compression against the existing application archive estimates an additional 233,446 bytes per architecture, or about 466,892 bytes for the combined installer. That puts an equivalent installer with all languages at approximately 320.4 MB, versus 319.9 MB without the additional language sets.
+
+These are estimates using decimal MB, not two rebuilt installers. The calculation measures the language data's compression impact; other code changes, build metadata, and NSIS archive layout may shift the final size. The English caption file remains necessary in an English-only build. Installed language data adds approximately 2.3 MB relative to English only; it does not add video downloads.
 
 ## Validation
 
