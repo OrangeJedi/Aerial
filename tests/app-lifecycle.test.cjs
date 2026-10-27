@@ -2,6 +2,7 @@ const assert = require('node:assert/strict');
 const {test} = require('node:test');
 const fs = require('node:fs');
 const vm = require('node:vm');
+const appRequire = require('node:module').createRequire(require.resolve('../app.js'));
 const source = fs.readFileSync(require.resolve('../app.js'), 'utf8');
 
 for (const [outcome, monitor] of ['load failure', 'renderer crash', 'timeout', 'ready', 'closed'].flatMap(outcome =>
@@ -70,7 +71,7 @@ for (const [outcome, monitor] of ['load failure', 'renderer crash', 'timeout', '
 function section(start, end, globals) {
     const first = source.indexOf(start);
     assert.ok(first >= 0 && source.indexOf(end, first) > first);
-    const context = vm.createContext({monitorPlayback: new Map(), ...globals});
+    const context = vm.createContext({require: appRequire, monitorPlayback: new Map(), ...globals});
     vm.runInContext(source.slice(first, source.indexOf(end, first)), context);
     return context;
 }
