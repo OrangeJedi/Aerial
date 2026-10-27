@@ -47,7 +47,7 @@ test('dependent controls and sunrise prerequisites follow checkbox states', asyn
     const {matches} = await import('../web/config/settings-model.js');
     const values = {blankScreen: true, sleepAfterBlank: false, allow4K: true, allowH265: false, useLocationForSunrise: true, latitude: '', longitude: '0'};
     const read = key => values[key];
-    assert.equal(matches(entry('sleepAfterBlankDelay').enabledWhen, read), true);
+    assert.equal(matches(entry('sleepAfterBlankDelay').enabledWhen, read), false);
     values.sleepAfterBlank = true;
     assert.equal(matches(entry('sleepAfterBlankDelay').enabledWhen, read), true);
     assert.equal(matches(entry('prefer4K240').enabledWhen, read), false);

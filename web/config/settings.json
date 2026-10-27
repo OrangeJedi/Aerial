@@ -27,6 +27,15 @@
                 "description": "Set to 0 to never blank the screen, playing videos until interrupted."
             },
             {
+                "id": "sleepAfterBlank",
+                "key": "sleepAfterBlank",
+                "name": "Sleep the computer after blanking",
+                "type": "checkbox",
+                "section": "general",
+                "valueType": "boolean",
+                "default": true
+            },
+            {
                 "id": "sleepAfterBlankDelay",
                 "key": "sleepAfterBlankDelay",
                 "name": "After blanking, send the computer to sleep after",
@@ -37,7 +46,11 @@
                 "min": 0,
                 "step": 1,
                 "unit": "minutes",
-                "description": "Set to 0 to never sleep the computer"
+                "description": "Set to 0 to sleep immediately after the screen blanks",
+                "enabledWhen": {
+                    "key": "sleepAfterBlank",
+                    "equals": true
+                }
             },
             {
                 "id": "lockAfterRun",

@@ -51,8 +51,21 @@ test('multiple monitors blank once and share one sleep delay after the blank tra
     assert.equal(f.slept(), 1);
 });
 
-for (const delay of [undefined, 0, -2, 'invalid', Infinity, '0']) {
-    test(`zero or invalid sleep delay disables sleep: ${delay}`, () => {
+for (const delay of [undefined, 0, '0']) {
+    test(`zero or default delay sleeps immediately after the blank transition: ${delay}`, () => {
+        const f = fixture({sleepAfterBlankDelay: delay});
+        f.context.blankScreensaver();
+        assert.equal(f.timeouts.size, 1);
+        const timer = [...f.timeouts.values()][0];
+        assert.equal(timer.delay, 6000);
+        assert.equal(f.slept(), 0);
+        timer.callback();
+        assert.equal(f.slept(), 1);
+    });
+}
+
+for (const delay of [-2, 'invalid', Infinity]) {
+    test(`invalid sleep delay disables sleep: ${delay}`, () => {
         const f = fixture({sleepAfterBlankDelay: delay});
         f.context.blankScreensaver();
         assert.equal(f.timeouts.size, 0);
@@ -88,12 +101,12 @@ test('preview never blanks or sleeps and disabling sleep cancels its effect', ()
     preview.context.blankScreensaver();
     assert.equal(preview.intervals.size, 0);
     assert.equal(preview.timeouts.size, 0);
-    const disabled = fixture({sleepAfterBlankDelay: 0});
+    const disabled = fixture({sleepAfterBlank: false});
     disabled.context.blankScreensaver();
     assert.equal(disabled.timeouts.size, 0);
     const f = fixture();
     f.context.blankScreensaver();
-    f.data.sleepAfterBlankDelay = 0;
+    f.data.sleepAfterBlank = false;
     [...f.timeouts.values()][0].callback();
     assert.equal(f.slept(), 0);
 });
