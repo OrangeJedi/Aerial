@@ -164,7 +164,7 @@ test('default and custom font style controls persist independently and shadow co
     ui.find('Bold').events.click();
     assert.equal(ui.values.textStyle.bold, true);
     assert.equal(ui.find('Bold')['aria-pressed'], 'true');
-    assert.equal(ui.find('Opacity').value, 100);
+    assert.equal(ui.find('Opacity').value, 20);
     ui.find('Opacity').change('65');
     assert.equal(ui.values.textStyle.opacity, 65);
     const shadow = ui.find('Enable drop shadow');
@@ -240,3 +240,4 @@ test('line spacing saves independently for the default font and individual custo
     assert.equal(ui.values.displayText.topleft.find(line => line.type === 'time').fontStyle.lineSpacing, 75);
     assert.equal(ui.values.textStyle.lineSpacing, 125);
 });
+

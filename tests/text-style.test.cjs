@@ -2,9 +2,9 @@ const assert = require('node:assert/strict');
 const {test} = require('node:test');
 const {normalize, properties} = require('../web/text-style');
 
-test('legacy text keeps a subtle shadow and normal opaque styling without mutating saved data', () => {
+test('missing text styles use install defaults without mutating saved data', () => {
     const saved = {};
-    assert.deepEqual(properties(saved), {'font-weight': '400', 'font-style': 'normal', 'text-decoration': 'none', opacity: '1', 'text-shadow': '0.025em 0.025em 0em #444444', 'line-height': '1'});
+    assert.deepEqual(properties(saved), {'font-weight': '400', 'font-style': 'normal', 'text-decoration': 'none', opacity: '0.2', 'text-shadow': '0.015em 0.015em 0.33em #888888', 'line-height': '1'});
     assert.deepEqual(saved, {});
 });
 
@@ -19,12 +19,12 @@ test('invalid and out of range style settings fall back or clamp safely', () => 
     const style = normalize({transparency: -2, shadowSpread: 500, shadowBlur: 'invalid', shadowColor: 'red;display:none'});
     assert.equal(style.opacity, 100);
     assert.equal(style.shadowSpread, 10);
-    assert.equal(style.shadowBlur, 0);
-    assert.equal(style.shadowColor, '#444444');
+    assert.equal(style.shadowBlur, 33);
+    assert.equal(style.shadowColor, '#888888');
 });
 
-test('opacity defaults to 100 and reads saved transparency without rewriting it', () => {
-    assert.equal(normalize().opacity, 100);
+test('opacity defaults to 20 and reads saved transparency without rewriting it', () => {
+    assert.equal(normalize().opacity, 20);
     const legacy = {transparency: 35};
     assert.equal(normalize(legacy).opacity, 65);
     assert.equal(properties(legacy).opacity, '0.65');

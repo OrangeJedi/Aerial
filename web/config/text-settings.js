@@ -370,7 +370,7 @@ export function initTextSettings(root) {
                 saveStyle();
             }, {className: 'font-color', 'aria-label': 'Shadow color'})),
             slider('Spread (% of font size)', 'shadowSpread', 10, .25),
-            slider('Blur (% of font size)', 'shadowBlur', 10, .25));
+            slider('Blur (% of font size)', 'shadowBlur', 50, .25));
         shadow.addEventListener('change', () => {
             style.shadowEnabled = shadow.checked;
             shadowFields.hidden = !shadow.checked;
@@ -379,7 +379,7 @@ export function initTextSettings(root) {
         return element('div', {className: 'overlay-fields font-settings'},
             element('div', {className: 'font-settings-row'},
                 fontField(font, value => onChange('font', value)),
-                field('Font size (viewport width)', input('number', size, value => onChange('fontSize', value), {min: .25, step: .25}))),
+                field(api.store.get('textSizeUnit') === 'vh' ? 'Font size (viewport height)' : 'Font size (viewport width)', input('number', size, value => onChange('fontSize', value), {min: .25, step: .25}))),
             element('div', {className: 'font-appearance-row'},
                 field('Text color', input('color', color, value => onChange('fontColor', value), {className: 'font-color', 'aria-label': 'Text color'})),
                 slider('Opacity', 'opacity', 100), emphasis),

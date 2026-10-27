@@ -57,6 +57,13 @@ test('preload identifies window previews from launch arguments', () => {
     assert.equal(bridge(false, {}, ['--aerial-window-preview']).api.windowPreview, true);
 });
 
+test('preload supplies file URLs for custom videos, escaping URL punctuation', () => {
+    const f = bridge();
+    const file = require('node:path').resolve('custom videos', 'Demo #1 100%.mp4');
+    assert.deepEqual(f.api.videoSources({path: file}), [require('node:url').pathToFileURL(file).href]);
+    assert.match(f.api.videoSources({path: file})[0], /Demo%20%231%20100%25\.mp4$/);
+});
+
 test('preload blocks unapproved send, receive and invoke channels', () => {
     const f = bridge();
     for (const channel of ['arbitrary', '__proto__', 'constructor', 'compatibleVideo']) {

@@ -3,12 +3,12 @@
         bold: false,
         italic: false,
         underline: false,
-        opacity: 100,
+        opacity: 20,
         lineSpacing: 100,
         shadowEnabled: true,
-        shadowColor: '#444444',
-        shadowSpread: 2.5,
-        shadowBlur: 0
+        shadowColor: '#888888',
+        shadowSpread: 1.5,
+        shadowBlur: 33
     });
 
     function percent(value, maximum, fallback) {
@@ -27,7 +27,7 @@
             shadowEnabled: value.shadowEnabled !== false,
             shadowColor: /^#[\da-f]{6}$/i.test(value.shadowColor) ? value.shadowColor : defaults.shadowColor,
             shadowSpread: percent(value.shadowSpread, 10, defaults.shadowSpread),
-            shadowBlur: percent(value.shadowBlur, 10, defaults.shadowBlur)
+            shadowBlur: percent(value.shadowBlur, 50, defaults.shadowBlur)
         };
     }
 

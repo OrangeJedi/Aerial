@@ -96,7 +96,8 @@ module.exports = function initializePreload() {
                 return fs.existsSync(file) ? require('url').pathToFileURL(file).href : null;
             },
             videoSources: video => {
-                return getVideoSources(video, settings);
+                const sources = getVideoSources(video, settings);
+                return video.path ? sources.map(source => require('url').pathToFileURL(source).href) : sources;
             },
             settingsDefinition: require('./web/config/settings.json'),
             configBackdrop: process.platform === 'win32' && Number(os.release().split('.')[2]) >= 22621,

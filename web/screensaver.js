@@ -653,7 +653,7 @@ function cssFontFamily(font) {
     return `${cssString(alias)}, ${cssString(fontName)}, "Segoe UI", sans-serif`;
 }
 
-$('.displayText').css('font-family', cssFontFamily(electron.store.get('textFont'))).css('font-size', `${electron.store.get('textSize')}vw`).css('color', `${electron.store.get('textColor')}`);
+$('.displayText').css('font-family', cssFontFamily(electron.store.get('textFont'))).css('font-size', `${electron.store.get('textSize')}${electron.store.get('textSizeUnit') === 'vh' ? 'vh' : 'vw'}`).css('color', `${electron.store.get('textColor')}`);
 
 //draw text
 let displayText = electron.store.get('displayText') ?? [];
@@ -719,7 +719,7 @@ function displayTextPosition(position, displayLocation) {
             runClock(position, i, line.timeString);
         }
         if (!displayText[position][i].defaultFont) {
-            $(`#${position}-${i}`).css('font-family', cssFontFamily(displayText[position][i].font)).css('font-size', `${displayText[position][i].fontSize}vw`).css('color', `${displayText[position][i].fontColor}`);
+            $(`#${position}-${i}`).css('font-family', cssFontFamily(displayText[position][i].font)).css('font-size', `${displayText[position][i].fontSize}${electron.store.get('textSizeUnit') === 'vh' ? 'vh' : 'vw'}`).css('color', `${displayText[position][i].fontColor}`);
         }
     }
 }

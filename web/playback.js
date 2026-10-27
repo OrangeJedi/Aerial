@@ -148,7 +148,7 @@ const videoPlayback = (() => {
             }
             const converted = electron.convertedVideo?.(video)
                 ? await electron.ipcRenderer.invoke('compatibleVideo', video.id) : null;
-            const sources = converted ? [converted] : video.path ? [video.path] : [
+            const sources = converted ? [converted] : video.path ? available : [
                 ...((electron.store.get('downloadedVideos') || []).includes(video.id)
                     ? [`${electron.store.get('cachePath')}/${video.id}.mov`] : []),
                 ...available

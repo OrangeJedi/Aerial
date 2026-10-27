@@ -49,6 +49,14 @@ function renderer(successfulSources, downloaded = [], convert = async () => 'con
 
 const video = {id: 'sample', src: {H2641080p: '1080', H2651080p: 'hevc1080', H2654k: '4k', H2654k240: '240'}};
 
+test('custom playback uses the file URL supplied by the preload bridge', async () => {
+    const source = 'file:///D:/Videos/Demo%20%231.mp4';
+    const result = renderer([source], [], undefined, {prepareCompatibleVideos: false});
+    result.electron.videoSources = () => [source];
+    await result.playback.load(result.player, {id: '_custom', path: 'D:\\Videos\\Demo #1.mp4'});
+    assert.deepEqual(result.attempts, [source]);
+});
+
 test('missing video metadata rejects cleanly and leaves playback usable', async () => {
     const result = renderer(['1080']);
     for (const missing of [undefined, null, {}, {id: ''}]) {

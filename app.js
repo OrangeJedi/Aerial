@@ -620,9 +620,11 @@ function setUpConfigFile() {
     //check for downloaded videos
     updateVideoCache();
     //text settings
+    settings.set('textSizeUnit', settings.get('textSizeUnit') ?? (settings.get('textSize') == null ? 'vh' : 'vw'));
+    settings.set('textStyle', require('./web/text-style').normalize(settings.get('textStyle')));
     settings.set('textFont', settings.get('textFont') ?? "Segoe UI");
-    settings.set('textSize', settings.get('textSize') ?? "2");
-    settings.set('textColor', settings.get('textColor') ?? "#FFFFFF");
+    settings.set('textSize', settings.get('textSize') ?? "1.5");
+    settings.set('textColor', settings.get('textColor') ?? "#ffffff");
     let displayText = settings.get('displayText');
     if (displayText) {
         if (!displayText.topleft[0]) {
