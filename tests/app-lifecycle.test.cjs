@@ -4,20 +4,22 @@ const fs = require('node:fs');
 const vm = require('node:vm');
 const source = fs.readFileSync(require.resolve('../app.js'), 'utf8');
 
-for (const outcome of ['load failure', 'renderer crash', 'timeout', 'ready', 'closed']) {
-    test(`preview startup handles ${outcome}`, async () => {
+for (const [outcome, monitor] of ['load failure', 'renderer crash', 'timeout', 'ready', 'closed'].flatMap(outcome =>
+    (outcome === 'ready' ? [0, 1, 99, -1, '1'] : [0]).map(monitor => [outcome, monitor]))) {
+    test(`preview startup handles ${outcome}, monitor ${JSON.stringify(monitor)}`, async () => {
         const {EventEmitter} = require('node:events');
         const config = {};
         const errors = [];
         let window;
         let timeout;
         let cleared = 0;
+        const messages = [];
         class PreviewWindow extends EventEmitter {
             constructor() {
                 super();
                 window = this;
                 this.webContents = new EventEmitter();
-                this.webContents.send = () => {};
+                this.webContents.send = (...args) => messages.push(args);
             }
             isDestroyed() {
                 return !!this.destroyed;
@@ -34,14 +36,14 @@ for (const outcome of ['load failure', 'renderer crash', 'timeout', 'ready', 'cl
             }
         }
         const context = section('function createSSPWindow(', 'function createEditWindow(', {
-            BrowserWindow: PreviewWindow, screen: {getAllDisplays: () => []},
+            BrowserWindow: PreviewWindow, screen: {getAllDisplays: () => [{id: 10}, {id: 20}]},
             store: {get: () => []}, path: require('node:path'), __dirname: 'test',
             screens: [config], nq: false, preview: false,
             setTimeout: callback => { timeout = callback; return 1; },
             clearTimeout: () => { cleared++; },
             console: {error() {}}, dialog: {showErrorBox: (title, message) => errors.push(message)}
         });
-        context.createSSPWindow();
+        context.createSSPWindow(undefined, monitor);
         if (outcome === 'renderer crash') {
             window.webContents.emit('render-process-gone', {}, {reason: 'crashed'});
         } else if (outcome === 'timeout') {
@@ -58,6 +60,7 @@ for (const outcome of ['load failure', 'renderer crash', 'timeout', 'ready', 'cl
         assert.equal(errors.length, failed ? 1 : 0);
         assert.ok(cleared > 0);
         assert.equal(!!window.shown, outcome === 'ready');
+        assert.deepEqual(messages, outcome === 'ready' ? [['screenNumber', monitor === 1 ? 1 : 0]] : []);
         assert.equal(context.preview, outcome === 'ready');
         assert.equal(context.screens[0], config);
         assert.equal(context.screens.length, outcome === 'ready' ? 2 : 1);

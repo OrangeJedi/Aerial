@@ -1,4 +1,4 @@
-import {api, ask, send, notify} from './shared.js';
+import {api, ask, send, notify, element} from './shared.js';
 import {initSettings} from './settings.js';
 import {refreshControls} from './settings-controls.js';
 import {initVideoSidebar} from './video-sidebar.js';
@@ -49,6 +49,18 @@ document.getElementById('videos-header').addEventListener('click', () => navigat
 document.querySelectorAll('[data-page]').forEach(control => control.addEventListener('click', () => navigate(control.dataset.page)));
 const previewMenu = document.getElementById('preview-menu');
 const previewToggle = document.getElementById('preview-menu-toggle');
+function renderPreviewMenu() {
+    const count = Math.max(1, Number(api.store.get('numDisplays')) || 1);
+    previewMenu.replaceChildren(...Array.from({length: count}, (_, index) => element('button', {
+        type: 'button',
+        id: index === 0 ? 'preview-window' : `preview-window-${index}`,
+        onClick: () => {
+            closePreviewMenu(true);
+            send('openPreview', index);
+        }
+    }, count === 1 ? 'Preview in window' : `Preview for Monitor ${index + 1} in a window`)));
+}
+renderPreviewMenu();
 function closePreviewMenu(restoreFocus = false) {
     previewMenu.hidden = true;
     previewToggle.setAttribute('aria-expanded', 'false');
@@ -61,20 +73,20 @@ document.getElementById('preview').addEventListener('click', () => {
     send('openFullscreenPreview');
 });
 previewToggle.addEventListener('click', () => {
+    if (previewMenu.hidden) {
+        renderPreviewMenu();
+    }
     previewMenu.hidden = !previewMenu.hidden;
     previewToggle.setAttribute('aria-expanded', String(!previewMenu.hidden));
 });
 previewToggle.addEventListener('keydown', event => {
     if (event.key === 'ArrowDown') {
         event.preventDefault();
+        renderPreviewMenu();
         previewMenu.hidden = false;
         previewToggle.setAttribute('aria-expanded', 'true');
         document.getElementById('preview-window').focus();
     }
-});
-document.getElementById('preview-window').addEventListener('click', () => {
-    closePreviewMenu(true);
-    send('openPreview');
 });
 document.addEventListener('click', event => {
     if (!event.target.closest('.preview-split')) {
@@ -130,10 +142,10 @@ export function applyAccent(color) {
     if (!/^[0-9a-f]{6}$/i.test(hex)) {
         return;
     }
-    const rgb = hex.match(/../g).map(value => parseInt(value, 16) / 255).map(value => value <= .04045 ? value / 12.92 : ((value + .055) / 1.055) ** 2.4);
-    const luminance = rgb[0] * .2126 + rgb[1] * .7152 + rgb[2] * .0722;
+    const rgb = hex.match(/../g).map(value => parseInt(value, 16));
+    const brightness = (rgb[0] * 299 + rgb[1] * 587 + rgb[2] * 114) / 1000;
     document.documentElement.style.setProperty('--accent', `#${hex}`);
-    document.documentElement.style.setProperty('--on-accent', luminance > .179 ? '#101114' : '#ffffff');
+    document.documentElement.style.setProperty('--on-accent', brightness >= 128 ? '#101114' : '#ffffff');
 }
 
 api.ipcRenderer.on('configAccentChanged', applyAccent);

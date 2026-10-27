@@ -4,11 +4,12 @@ import {visibleVideos} from './video-model.js';
 export function initVideoSidebar(root, onSelect) {
     let selected = null;
     let cacheTimer;
+    const search = document.getElementById('video-search');
     function render() {
         const scroll = root.scrollTop;
         const focused = document.activeElement?.id;
         const allowed = new Set(api.store.get('allowedVideos') || []);
-        const visible = visibleVideos(api.videos, api.videoSources, api.videoText);
+        const visible = visibleVideos(api.videos, api.videoSources, api.videoText, search.value);
         const nodes = [];
         let lastGroup;
         for (const {video, index, text} of visible) {
@@ -32,7 +33,7 @@ export function initVideoSidebar(root, onSelect) {
             nodes.push(element('div', {className: 'video-row', 'aria-current': String(selected === index)}, check, link));
         }
         if (!nodes.length) {
-            nodes.push(element('p', {className: 'empty-state'}, 'No videos match your video resolution settings.'));
+            nodes.push(element('p', {className: 'empty-state', role: 'status'}, search.value.trim() ? 'No videos match your search.' : 'No videos match your video resolution settings.'));
         }
         root.replaceChildren(...nodes);
         root.scrollTop = scroll;
@@ -46,6 +47,10 @@ export function initVideoSidebar(root, onSelect) {
             row.setAttribute('aria-current', String(row.querySelector('button').id === `video-list-${index}`));
         });
     }
+    search.addEventListener('input', () => {
+        render();
+        root.scrollTop = 0;
+    });
     render();
     return {render, select};
 }

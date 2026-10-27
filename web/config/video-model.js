@@ -1,5 +1,13 @@
-export function visibleVideos(videos, sources, localize) {
-    return videos.flatMap((video, index) => sources(video).length ? [{video, index, text: localize(video)}] : []);
+export function visibleVideos(videos, sources, localize, query = '') {
+    const terms = query.trim().toLocaleLowerCase().split(/\s+/).filter(Boolean);
+    return videos.flatMap((video, index) => {
+        if (!sources(video).length) {
+            return [];
+        }
+        const text = localize(video);
+        const searchable = [text.name, text.accessibilityLabel, video.name, video.accessibilityLabel].filter(Boolean).join(' ').toLocaleLowerCase();
+        return terms.every(term => searchable.includes(term)) ? [{video, index, text}] : [];
+    });
 }
 
 export function downloadChanges(id, mode, read) {

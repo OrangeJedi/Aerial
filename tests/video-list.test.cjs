@@ -15,6 +15,23 @@ test('video list hides unavailable entries without changing indices or selection
     }
 });
 
+test('video search matches localized names and locations while preserving source filters and indices', async () => {
+    const {visibleVideos} = await import('../web/config/video-model.js');
+    const entries = [
+        {name: 'Bridge', accessibilityLabel: 'London'},
+        {name: 'River', accessibilityLabel: 'London'},
+        {name: 'Bridge', accessibilityLabel: 'New York'}
+    ];
+    const sources = video => video === entries[1] ? [] : ['source'];
+    const localize = video => ({...video, name: video.name === 'Bridge' ? 'Pont' : video.name});
+    const search = query => visibleVideos(entries, sources, localize, query).map(item => item.index);
+    assert.deepEqual(search('  LONDON pont  '), [0]);
+    assert.deepEqual(search('bridge'), [0, 2]);
+    assert.deepEqual(search('river'), []);
+    assert.deepEqual(search('missing'), []);
+    assert.deepEqual(search('  '), [0, 2]);
+});
+
 test('loading a profile preserves custom selection without mutating the profile', async () => {
     const {loadProfileVideos} = await import('../web/config/video-model.js');
     const profile = {videos: ['a', 'b', '_old-custom']};

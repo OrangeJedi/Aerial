@@ -268,11 +268,12 @@ function createSSWindow(argv) {
     startTime = new Date();
 }
 
-function createSSPWindow(argv) {
+function createSSPWindow(argv, monitor = 0) {
     nq = true;
     allowedVideos = store.get("allowedVideos");
     previouslyPlayed = [];
     let displays = screen.getAllDisplays();
+    const monitorIndex = Number.isInteger(monitor) && monitor >= 0 && monitor < displays.length ? monitor : 0;
     let win = new BrowserWindow({
         width: 1280,
         height: 720,
@@ -314,7 +315,7 @@ function createSSPWindow(argv) {
         }
         startupFinished = true;
         clearTimeout(startupTimer);
-        win.webContents.send('screenNumber', 0);
+        win.webContents.send('screenNumber', monitorIndex);
         win.show();
     })
     win.webContents.on('render-process-gone', (event, details) => {
@@ -811,11 +812,11 @@ ipcMain.on('selectFile', async (event, args) => {
     }
 });
 
-ipcMain.on('openPreview', (event) => {
+ipcMain.on('openPreview', (event, monitor) => {
     if (event.sender !== configWindow?.webContents || preview) {
         return;
     }
-    createSSPWindow(process.argv);
+    createSSPWindow(process.argv, monitor);
 });
 
 ipcMain.on('openFullscreenPreview', event => {
