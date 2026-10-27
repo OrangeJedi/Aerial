@@ -1,0 +1,1091 @@
+[
+    {
+        "id": "general",
+        "name": "General Settings",
+        "entries": [
+            {
+                "id": "startAfter",
+                "key": "startAfter",
+                "name": "Start Aerial after",
+                "type": "number",
+                "section": "general",
+                "valueType": "string",
+                "default": 10,
+                "min": 0,
+                "unit": "minutes"
+            },
+            {
+                "id": "blankScreen",
+                "key": "blankScreen",
+                "name": "Automatically blank screen after",
+                "type": "checkbox",
+                "section": "general",
+                "valueType": "boolean",
+                "default": true
+            },
+            {
+                "id": "blankAfter",
+                "key": "blankAfter",
+                "name": "Blank screen after",
+                "type": "number",
+                "section": "general",
+                "valueType": "string",
+                "default": 30,
+                "unit": "minutes"
+            },
+            {
+                "id": "sleepAfterBlank",
+                "key": "sleepAfterBlank",
+                "name": "Sleep the computer after screen blank",
+                "type": "checkbox",
+                "section": "general",
+                "valueType": "boolean",
+                "default": true
+            },
+            {
+                "id": "sleepAfterBlankDelay",
+                "key": "sleepAfterBlankDelay",
+                "name": "Wait after blanking before sleeping",
+                "type": "number",
+                "section": "general",
+                "valueType": "string",
+                "default": 0,
+                "min": 0,
+                "step": 1,
+                "unit": "minutes",
+                "enabledWhen": {
+                    "all": [
+                        {
+                            "key": "blankScreen",
+                            "equals": true
+                        },
+                        {
+                            "key": "sleepAfterBlank",
+                            "equals": true
+                        }
+                    ]
+                }
+            },
+            {
+                "id": "lockAfterRun",
+                "key": "lockAfterRun",
+                "name": "Lock the computer after running",
+                "type": "checkbox",
+                "section": "general",
+                "valueType": "boolean",
+                "default": false
+            },
+            {
+                "id": "lockAfterRunAfter",
+                "key": "lockAfterRunAfter",
+                "name": "Wait before locking on wakeup after Aerial starts",
+                "type": "number",
+                "section": "general",
+                "valueType": "string",
+                "default": 15,
+                "unit": "seconds"
+            },
+            {
+                "id": "runOnBattery",
+                "key": "runOnBattery",
+                "name": "Run Aerial on battery power",
+                "type": "checkbox",
+                "section": "general",
+                "valueType": "boolean",
+                "default": true
+            }
+        ]
+    },
+    {
+        "id": "playback",
+        "name": "Playback Settings",
+        "entries": [
+            {
+                "id": "avoidDuplicateVideos",
+                "key": "avoidDuplicateVideos",
+                "name": "Avoid duplicate videos",
+                "type": "checkbox",
+                "section": "playback",
+                "valueType": "boolean",
+                "default": true,
+                "description": "Avoid recently selected videos across all monitors (monitor count × 2), plus videos playing or loading on other monitors. Small playlists reuse older videos as needed. Same video on screens overrides avoidance across monitors."
+            },
+            {
+                "id": "fillMode",
+                "key": "fillMode",
+                "name": "Fill Mode:",
+                "type": "select",
+                "section": "playback",
+                "valueType": "string",
+                "default": "stretch",
+                "options": [
+                    {
+                        "name": "Stretch",
+                        "value": "stretch"
+                    },
+                    {
+                        "name": "Crop",
+                        "value": "crop"
+                    }
+                ]
+            },
+            {
+                "id": "transitionType",
+                "key": "transitionType",
+                "name": "Transition Type:",
+                "type": "select",
+                "section": "playback",
+                "valueType": "string",
+                "default": "dissolve",
+                "options": [
+                    {
+                        "name": "None",
+                        "value": "none"
+                    },
+                    {
+                        "name": "Dissolve",
+                        "value": "dissolve"
+                    },
+                    {
+                        "name": "Dip to Black",
+                        "value": "dipToBlack"
+                    },
+                    {
+                        "name": "Fade",
+                        "value": "fade"
+                    },
+                    {
+                        "name": "Fade Circle",
+                        "value": "fadeCircle"
+                    },
+                    {
+                        "name": "Wipe",
+                        "value": "wipe"
+                    },
+                    {
+                        "name": "Circle",
+                        "value": "circle"
+                    },
+                    {
+                        "name": "Random",
+                        "value": "random"
+                    }
+                ]
+            },
+            {
+                "id": "transitionDirection",
+                "key": "transitionDirection",
+                "name": "Transition direction",
+                "type": "select",
+                "section": "playback",
+                "valueType": "string",
+                "default": "",
+                "options": [],
+                "visibleWhen": {
+                    "key": "transitionType",
+                    "in": [
+                        "fade",
+                        "wipe",
+                        "fadeCircle",
+                        "circle"
+                    ]
+                },
+                "optionSets": [
+                    {
+                        "when": {
+                            "key": "transitionType",
+                            "equals": "fade"
+                        },
+                        "options": [
+                            {
+                                "name": "Left",
+                                "value": "left"
+                            },
+                            {
+                                "name": "Right",
+                                "value": "right"
+                            },
+                            {
+                                "name": "Top",
+                                "value": "top"
+                            },
+                            {
+                                "name": "Bottom",
+                                "value": "bottom"
+                            },
+                            {
+                                "name": "Top Left",
+                                "value": "top-left"
+                            },
+                            {
+                                "name": "Top Right",
+                                "value": "top-right"
+                            },
+                            {
+                                "name": "Bottom Left",
+                                "value": "bottom-left"
+                            },
+                            {
+                                "name": "Bottom Right",
+                                "value": "bottom-right"
+                            },
+                            {
+                                "name": "Random",
+                                "value": "random"
+                            }
+                        ]
+                    },
+                    {
+                        "when": {
+                            "key": "transitionType",
+                            "equals": "wipe"
+                        },
+                        "options": [
+                            {
+                                "name": "Left",
+                                "value": "left"
+                            },
+                            {
+                                "name": "Right",
+                                "value": "right"
+                            },
+                            {
+                                "name": "Top",
+                                "value": "top"
+                            },
+                            {
+                                "name": "Bottom",
+                                "value": "bottom"
+                            },
+                            {
+                                "name": "Random",
+                                "value": "random"
+                            }
+                        ]
+                    },
+                    {
+                        "when": {
+                            "key": "transitionType",
+                            "in": [
+                                "fadeCircle",
+                                "circle"
+                            ]
+                        },
+                        "options": [
+                            {
+                                "name": "Normal",
+                                "value": "normal"
+                            },
+                            {
+                                "name": "Reverse",
+                                "value": "reverse"
+                            },
+                            {
+                                "name": "Random",
+                                "value": "random"
+                            }
+                        ]
+                    }
+                ],
+                "emptyValueSelection": "first available option"
+            },
+            {
+                "id": "videoTransitionLength",
+                "key": "videoTransitionLength",
+                "name": "Transition speed",
+                "type": "slider",
+                "section": "playback",
+                "valueType": "string",
+                "default": 2000,
+                "min": 500,
+                "max": 4000,
+                "step": 100,
+                "unit": "milliseconds",
+                "resetValue": 2000
+            },
+            {
+                "id": "easierTransitions",
+                "key": "easierTransitions",
+                "name": "Easier Transitions",
+                "type": "checkbox",
+                "section": "playback",
+                "valueType": "boolean",
+                "default": false
+            },
+            {
+                "id": "skipVideosWithKey",
+                "key": "skipVideosWithKey",
+                "name": "Use a key to skip videos",
+                "type": "checkbox",
+                "section": "playback",
+                "valueType": "boolean",
+                "default": true
+            },
+            {
+                "id": "skipKey",
+                "key": "skipKey",
+                "name": "Skip key",
+                "type": "key",
+                "section": "playback",
+                "valueType": "string",
+                "default": "ArrowRight",
+                "keyFormat": "KeyboardEvent.code"
+            },
+            {
+                "id": "wakeOnMouseMovement",
+                "key": "wakeOnMouseMovement",
+                "name": "Wake on mouse movement",
+                "type": "checkbox",
+                "section": "playback",
+                "valueType": "boolean",
+                "default": true
+            },
+            {
+                "id": "wakeOnMouseClick",
+                "key": "wakeOnMouseClick",
+                "name": "Wake on mouse click",
+                "type": "checkbox",
+                "section": "playback",
+                "valueType": "boolean",
+                "default": true
+            }
+        ]
+    },
+    {
+        "id": "resolution",
+        "name": "Video Resolution",
+        "entries": [
+            {
+                "id": "allowH265",
+                "key": "allowH265",
+                "name": "Allow H.265 videos",
+                "type": "checkbox",
+                "section": "resolution",
+                "valueType": "boolean",
+                "default": true
+            },
+            {
+                "id": "allow4K",
+                "key": "allow4K",
+                "name": "Allow 4K videos",
+                "type": "checkbox",
+                "section": "resolution",
+                "valueType": "boolean",
+                "default": true
+            },
+            {
+                "id": "prefer4K240",
+                "key": "prefer4K240",
+                "name": "Prefer 4k240",
+                "type": "checkbox",
+                "section": "resolution",
+                "valueType": "boolean",
+                "default": false,
+                "enabledWhen": {
+                    "all": [
+                        {
+                            "key": "allowH265",
+                            "equals": true
+                        },
+                        {
+                            "key": "allow4K",
+                            "equals": true
+                        }
+                    ]
+                }
+            }
+        ]
+    },
+    {
+        "id": "time",
+        "name": "Time & Location Settings",
+        "entries": [
+            {
+                "id": "dateTimeLanguage",
+                "key": "dateTimeLanguage",
+                "name": "Display language",
+                "type": "select",
+                "section": "time",
+                "valueType": "string",
+                "default": "system",
+                "options": [
+                    {
+                        "name": "System default",
+                        "value": "system"
+                    }
+                ],
+                "optionsSource": {
+                    "provider": "dateTimeLanguages",
+                    "sources": [
+                        "moment.locales()",
+                        "electron.videoLocales"
+                    ],
+                    "normalize": "lowercase",
+                    "unique": true,
+                    "sort": "localized name",
+                    "label": "localized name (locale)",
+                    "fallback": "system"
+                }
+            },
+            {
+                "id": "timeOfDay",
+                "key": "timeOfDay",
+                "name": "Prioritize videos for current time of day",
+                "type": "checkbox",
+                "section": "time",
+                "valueType": "boolean",
+                "default": false
+            },
+            {
+                "id": "sunrise",
+                "key": "sunrise",
+                "name": "Sunrise",
+                "type": "time",
+                "section": "time",
+                "valueType": "string",
+                "default": "06:00",
+                "enabledWhen": {
+                    "key": "useLocationForSunrise",
+                    "equals": false
+                }
+            },
+            {
+                "id": "sunset",
+                "key": "sunset",
+                "name": "Sunset",
+                "type": "time",
+                "section": "time",
+                "valueType": "string",
+                "default": "18:00",
+                "enabledWhen": {
+                    "key": "useLocationForSunrise",
+                    "equals": false
+                }
+            },
+            {
+                "id": "useLocationForSunrise",
+                "key": "useLocationForSunrise",
+                "name": "Use location for sunrise & sunset times",
+                "type": "checkbox",
+                "section": "time",
+                "valueType": "boolean",
+                "default": false,
+                "requiresWhenTrue": {
+                    "all": [
+                        {
+                            "key": "latitude",
+                            "notEquals": ""
+                        },
+                        {
+                            "key": "longitude",
+                            "notEquals": ""
+                        }
+                    ]
+                },
+                "onRequirementFailure": {
+                    "setSelf": false,
+                    "message": "You need to set a location first!"
+                }
+            },
+            {
+                "id": "latitude",
+                "key": "latitude",
+                "name": "Latitude",
+                "type": "number",
+                "section": "time",
+                "valueType": "string",
+                "default": "",
+                "unit": "degrees north",
+                "emptyValue": ""
+            },
+            {
+                "id": "longitude",
+                "key": "longitude",
+                "name": "Longitude",
+                "type": "number",
+                "section": "time",
+                "valueType": "string",
+                "default": "",
+                "unit": "degrees east",
+                "emptyValue": ""
+            }
+        ]
+    },
+    {
+        "id": "multiscreen",
+        "name": "Multiscreen Settings",
+        "entries": [
+            {
+                "id": "sameVideoOnScreens",
+                "key": "sameVideoOnScreens",
+                "name": "Play the same video on each screen",
+                "type": "checkbox",
+                "section": "multiscreen",
+                "valueType": "boolean",
+                "default": false,
+                "exclusiveWith": [
+                    "preventSameVideoOnScreens"
+                ],
+                "onExclusiveConflict": "uncheckOther"
+            },
+            {
+                "id": "preventSameVideoOnScreens",
+                "key": "preventSameVideoOnScreens",
+                "name": "Prevent the same video from playing on multiple monitors",
+                "type": "checkbox",
+                "section": "multiscreen",
+                "valueType": "boolean",
+                "exclusiveWith": [
+                    "sameVideoOnScreens"
+                ],
+                "onExclusiveConflict": "uncheckOther",
+                "default": true,
+                "description": "Videos may appear on multiple monitors only when fewer playable videos are selected than monitors."
+            },
+            {
+                "id": "onlyShowVideoOnPrimaryMonitor",
+                "key": "onlyShowVideoOnPrimaryMonitor",
+                "name": "Only play videos on the primary screen",
+                "type": "checkbox",
+                "section": "multiscreen",
+                "valueType": "boolean",
+                "default": false
+            }
+        ]
+    },
+    {
+        "id": "style",
+        "name": "Style",
+        "entries": [
+            {
+                "id": "playbackSpeed",
+                "key": "playbackSpeed",
+                "name": "Playback speed",
+                "type": "slider",
+                "section": "style",
+                "valueType": "string",
+                "default": 1,
+                "min": 0.1,
+                "max": 4,
+                "step": 0.05,
+                "unit": "multiplier",
+                "resetValue": 1
+            },
+            {
+                "id": "resetFilters",
+                "name": "Reset filter settings",
+                "type": "action",
+                "section": "style",
+                "handler": "resetFilterSettings",
+                "group": "filters"
+            },
+            {
+                "id": "videoFilters.blur",
+                "key": "videoFilters",
+                "name": "blur",
+                "type": "slider",
+                "section": "style",
+                "group": "filters",
+                "valueType": "number",
+                "binding": {
+                    "kind": "arrayItem",
+                    "match": {
+                        "name": "blur"
+                    },
+                    "property": "value"
+                },
+                "min": 0,
+                "max": 100,
+                "step": 1,
+                "unit": "px",
+                "default": 0,
+                "resetValue": 0
+            },
+            {
+                "id": "videoFilters.brightness",
+                "key": "videoFilters",
+                "name": "brightness",
+                "type": "slider",
+                "section": "style",
+                "group": "filters",
+                "valueType": "number",
+                "binding": {
+                    "kind": "arrayItem",
+                    "match": {
+                        "name": "brightness"
+                    },
+                    "property": "value"
+                },
+                "min": 0,
+                "max": 100,
+                "step": 1,
+                "unit": "%",
+                "default": 100,
+                "resetValue": 100
+            },
+            {
+                "id": "videoFilters.grayscale",
+                "key": "videoFilters",
+                "name": "grayscale",
+                "type": "slider",
+                "section": "style",
+                "group": "filters",
+                "valueType": "number",
+                "binding": {
+                    "kind": "arrayItem",
+                    "match": {
+                        "name": "grayscale"
+                    },
+                    "property": "value"
+                },
+                "min": 0,
+                "max": 100,
+                "step": 1,
+                "unit": "%",
+                "default": 0,
+                "resetValue": 0
+            },
+            {
+                "id": "videoFilters.hue-rotate",
+                "key": "videoFilters",
+                "name": "hue-rotate",
+                "type": "slider",
+                "section": "style",
+                "group": "filters",
+                "valueType": "number",
+                "binding": {
+                    "kind": "arrayItem",
+                    "match": {
+                        "name": "hue-rotate"
+                    },
+                    "property": "value"
+                },
+                "min": 0,
+                "max": 360,
+                "step": 1,
+                "unit": "deg",
+                "default": 0,
+                "resetValue": 0
+            },
+            {
+                "id": "videoFilters.invert",
+                "key": "videoFilters",
+                "name": "invert",
+                "type": "slider",
+                "section": "style",
+                "group": "filters",
+                "valueType": "number",
+                "binding": {
+                    "kind": "arrayItem",
+                    "match": {
+                        "name": "invert"
+                    },
+                    "property": "value"
+                },
+                "min": 0,
+                "max": 100,
+                "step": 1,
+                "unit": "%",
+                "default": 0,
+                "resetValue": 0
+            },
+            {
+                "id": "videoFilters.saturate",
+                "key": "videoFilters",
+                "name": "saturate",
+                "type": "slider",
+                "section": "style",
+                "group": "filters",
+                "valueType": "number",
+                "binding": {
+                    "kind": "arrayItem",
+                    "match": {
+                        "name": "saturate"
+                    },
+                    "property": "value"
+                },
+                "min": 0,
+                "max": 256,
+                "step": 1,
+                "unit": "%",
+                "default": 100,
+                "resetValue": 100
+            },
+            {
+                "id": "videoFilters.sepia",
+                "key": "videoFilters",
+                "name": "sepia",
+                "type": "slider",
+                "section": "style",
+                "group": "filters",
+                "valueType": "number",
+                "binding": {
+                    "kind": "arrayItem",
+                    "match": {
+                        "name": "sepia"
+                    },
+                    "property": "value"
+                },
+                "min": 0,
+                "max": 100,
+                "step": 1,
+                "unit": "%",
+                "default": 0,
+                "resetValue": 0
+            }
+        ]
+    },
+    {
+        "id": "cache",
+        "name": "Video Cache Settings",
+        "entries": [
+            {
+                "id": "videoCache",
+                "key": "videoCache",
+                "name": "Automatically download checked videos to the cache",
+                "type": "checkbox",
+                "section": "cache",
+                "valueType": "boolean",
+                "default": false
+            },
+            {
+                "id": "videoCacheProfiles",
+                "key": "videoCacheProfiles",
+                "name": "Include videos in saved profiles",
+                "type": "checkbox",
+                "section": "cache",
+                "valueType": "boolean",
+                "default": false
+            },
+            {
+                "id": "videoCacheRemoveUnallowed",
+                "key": "videoCacheRemoveUnallowed",
+                "name": "Automatically remove unchecked videos",
+                "type": "checkbox",
+                "section": "cache",
+                "valueType": "boolean",
+                "default": false
+            },
+            {
+                "id": "prepareCompatibleVideos",
+                "key": "prepareCompatibleVideos",
+                "name": "Prepare compatible videos",
+                "type": "checkbox",
+                "section": "cache",
+                "valueType": "boolean",
+                "default": false
+            },
+            {
+                "id": "deleteOriginalsAfterConversion",
+                "key": "deleteOriginalsAfterConversion",
+                "name": "Delete originals after conversion",
+                "type": "checkbox",
+                "section": "cache",
+                "valueType": "boolean",
+                "default": true,
+                "enabledWhen": {
+                    "key": "prepareCompatibleVideos",
+                    "equals": true
+                }
+            },
+            {
+                "id": "immediatelyUpdateVideoCache",
+                "key": "immediatelyUpdateVideoCache",
+                "name": "Immediately update video cache",
+                "type": "checkbox",
+                "section": "cache",
+                "valueType": "boolean",
+                "default": true
+            },
+            {
+                "id": "updateCache",
+                "name": "Update cache",
+                "type": "action",
+                "section": "cache",
+                "handler": "updateCache"
+            },
+            {
+                "id": "deleteCache",
+                "name": "Delete all files",
+                "type": "action",
+                "section": "cache",
+                "handler": "deleteCache"
+            },
+            {
+                "id": "openCache",
+                "name": "Open in File Explorer",
+                "type": "action",
+                "section": "cache",
+                "handler": "openCache"
+            },
+            {
+                "id": "cachePath",
+                "key": "cachePath",
+                "name": "Move location",
+                "type": "directory",
+                "section": "cache",
+                "valueType": "string",
+                "defaultSource": "application cachePath",
+                "handler": "selectCacheLocation"
+            },
+            {
+                "id": "videoCacheSize",
+                "key": "videoCacheSize",
+                "name": "Cache size",
+                "type": "display",
+                "section": "cache",
+                "valueType": "number",
+                "default": 0,
+                "format": "0.00 ib"
+            }
+        ]
+    },
+    {
+        "id": "customVideo",
+        "name": "Custom Videos",
+        "entries": [
+            {
+                "id": "addCustomFolder",
+                "name": "Add folder",
+                "type": "action",
+                "section": "customVideo",
+                "handler": "selectCustomLocation"
+            },
+            {
+                "id": "customVideos",
+                "key": "customVideos",
+                "name": "Custom videos",
+                "type": "list",
+                "section": "customVideo",
+                "valueType": "array",
+                "default": [],
+                "itemId": "id",
+                "entries": [
+                    {
+                        "id": "allowed",
+                        "name": "Enabled",
+                        "type": "checkbox",
+                        "binding": {
+                            "key": "allowedVideos",
+                            "kind": "arrayMembership",
+                            "itemProperty": "id"
+                        }
+                    },
+                    {
+                        "id": "name",
+                        "name": "Name",
+                        "type": "text",
+                        "binding": {
+                            "property": "name"
+                        },
+                        "editHandler": "editCustomVideo"
+                    },
+                    {
+                        "id": "remove",
+                        "name": "Remove",
+                        "type": "action",
+                        "handler": "removeCustomVideo"
+                    }
+                ],
+                "storedItemProperties": [
+                    "id",
+                    "path",
+                    "name",
+                    "accessibilityLabel"
+                ]
+            }
+        ]
+    },
+    {
+        "id": "advanced",
+        "name": "Advanced Settings",
+        "entries": [
+            {
+                "id": "useTray",
+                "key": "useTray",
+                "name": "Auto launch from system tray",
+                "type": "checkbox",
+                "section": "advanced",
+                "valueType": "boolean",
+                "default": true
+            },
+            {
+                "id": "preventActivationDuringFullscreen",
+                "key": "preventActivationDuringFullscreen",
+                "name": "Prevent activation during fullscreen apps",
+                "type": "checkbox",
+                "section": "advanced",
+                "valueType": "boolean",
+                "default": true
+            },
+            {
+                "id": "enableGlobalShortcut",
+                "key": "enableGlobalShortcut",
+                "name": "Use a shortcut to launch Aerial",
+                "type": "checkbox",
+                "section": "advanced",
+                "valueType": "boolean",
+                "default": true
+            },
+            {
+                "id": "globalShortcutModifier1",
+                "key": "globalShortcutModifier1",
+                "name": "Shortcut first modifier",
+                "type": "select",
+                "section": "advanced",
+                "valueType": "string",
+                "default": "Super",
+                "options": [
+                    {
+                        "name": "Shift",
+                        "value": "Shift"
+                    },
+                    {
+                        "name": "Control",
+                        "value": "Control"
+                    },
+                    {
+                        "name": "Alt",
+                        "value": "Alt"
+                    },
+                    {
+                        "name": "Windows",
+                        "value": "Super"
+                    }
+                ]
+            },
+            {
+                "id": "globalShortcutModifier2",
+                "key": "globalShortcutModifier2",
+                "name": "Shortcut second modifier",
+                "type": "select",
+                "section": "advanced",
+                "valueType": "string",
+                "default": "+Control",
+                "options": [
+                    {
+                        "name": "Shift",
+                        "value": "+Shift"
+                    },
+                    {
+                        "name": "Control",
+                        "value": "+Control"
+                    },
+                    {
+                        "name": "Alt",
+                        "value": "+Alt"
+                    },
+                    {
+                        "name": "Windows",
+                        "value": "+Super"
+                    },
+                    {
+                        "name": "None",
+                        "value": ""
+                    }
+                ]
+            },
+            {
+                "id": "globalShortcutKey",
+                "key": "globalShortcutKey",
+                "name": "Shortcut key",
+                "type": "key",
+                "section": "advanced",
+                "valueType": "string",
+                "default": "A",
+                "keyFormat": "KeyboardEvent.key; single characters uppercased"
+            },
+            {
+                "id": "openConfigFolder",
+                "name": "View local files",
+                "type": "action",
+                "section": "advanced",
+                "handler": "openConfigFolder"
+            },
+            {
+                "id": "openInfoEditor",
+                "name": "Open video info editor",
+                "type": "action",
+                "section": "advanced",
+                "handler": "openInfoEditor"
+            },
+            {
+                "id": "refreshAerial",
+                "name": "Refresh Aerial",
+                "type": "action",
+                "section": "advanced",
+                "handler": "refreshAerial"
+            },
+            {
+                "id": "resetAerial",
+                "name": "Reset Aerial",
+                "type": "action",
+                "section": "advanced",
+                "handler": "resetAerial"
+            }
+        ]
+    },
+    {
+        "id": "about",
+        "name": "About Aerial",
+        "entries": [
+            {
+                "id": "version",
+                "key": "version",
+                "name": "Version",
+                "type": "display",
+                "section": "about",
+                "valueType": "string",
+                "defaultSource": "app.getVersion()"
+            },
+            {
+                "id": "updateStatus",
+                "name": "Update status",
+                "type": "status",
+                "section": "about",
+                "source": "getUpdateStatus / updateStatus",
+                "stored": false
+            },
+            {
+                "id": "restartForUpdate",
+                "name": "Restart Aerial to update",
+                "type": "action",
+                "section": "about",
+                "handler": "restartForUpdate",
+                "visibleWhen": {
+                    "source": "updateStatus",
+                    "property": "status",
+                    "equals": "ready"
+                }
+            },
+            {
+                "id": "checkForUpdates",
+                "name": "Check for updates",
+                "type": "action",
+                "section": "about",
+                "handler": "checkForUpdates",
+                "visibleWhen": {
+                    "source": "updateStatus",
+                    "property": "status",
+                    "in": [
+                        "idle",
+                        "current",
+                        "error"
+                    ]
+                }
+            },
+            {
+                "id": "manualUpdate",
+                "name": "Download the latest version from GitHub",
+                "type": "link",
+                "section": "about",
+                "url": "https://github.com/AerialWindows/Aerial/releases",
+                "visibleWhen": {
+                    "source": "updateStatus",
+                    "property": "status",
+                    "equals": "error"
+                }
+            }
+        ]
+    }
+]

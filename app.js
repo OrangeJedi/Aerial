@@ -134,8 +134,8 @@ function createConfigWindow(argv) {
         return;
     }
     let win = new BrowserWindow({
-        width: 1000,
-        height: 750,
+        width: 1280,
+        height: 800,
         webPreferences: {
             // Let video fullscreen fill this window without moving or resizing it.
             disableHtmlFullscreenWindowResize: true,
