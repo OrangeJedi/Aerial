@@ -120,6 +120,15 @@ function updateSetting(setting, type) {
         makeList();
         selectVideo(-1);
     }
+    if (setting === 'dateTimeLanguage') {
+        const selected = document.querySelector('[id^="videoList-"].config-highlight');
+        const selectedId = selected?.id;
+        makeList();
+        if (selected) {
+            document.getElementById(selectedId)?.classList.add('config-highlight');
+            $('#videoName').text(electron.videoText(videos[Number(selectedId.slice(10))]).accessibilityLabel);
+        }
+    }
 }
 
 //Sets a setting to its default value, if it exists
@@ -639,13 +648,15 @@ function makeList() {
         if (!electron.videoSources(videos[i]).length) {
             continue;
         }
+        const text = electron.videoText(videos[i]);
+        const escapeText = value => String(value || '').replace(/[&<>"']/g, character => ({'&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'}[character]));
         if (headertxt !== videos[i].accessibilityLabel) {
-            videoList += `<h5 class="w3-bar-item videoListItem" id='videoListTitle'>${videos[i].accessibilityLabel}</h5>`;
+            videoList += `<h5 dir="auto" class="w3-bar-item videoListItem" id='videoListTitle'>${escapeText(text.accessibilityLabel)}</h5>`;
             headertxt = videos[i].accessibilityLabel;
         }
         videoList += `<span style="padding-left: 8%; font-size: small"><input type="checkbox" ${allowedVideos.includes(videos[i].id) ? "checked" : ""} class="w3-check" onclick="checkVideo(event,${i})">
                       <a style="display: inline;" href="#" id="videoList-${i}" onclick="selectVideo(${i})" class="w3-bar-item w3-button videoListItem">
-                      ${videos[i].name ? videos[i].name : videos[i].accessibilityLabel}
+                      <bdi>${escapeText(text.name || text.accessibilityLabel)}</bdi>
                       </a></span><br>`;
     }
     videoList += "<br>";
@@ -679,7 +690,7 @@ function selectVideo(index) {
                 $('#previewStatus').text(`Unable to play video: ${error.message}`);
             }
         });
-        $('#videoName').text(videos[index].accessibilityLabel);
+        $('#videoName').attr('dir', 'auto').text(electron.videoText(videos[index]).accessibilityLabel);
         let videoDownloadState = "whenChecked";
         if (alwaysDownloadVideos.includes(videos[index].id)) {
             videoDownloadState = "always";

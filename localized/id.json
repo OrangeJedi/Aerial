@@ -1,0 +1,1301 @@
+{
+  "B876B645-3955-420E-99DF-60139E451CF3": {
+    "name": "Pegunungan Tiongkok",
+    "group": "Tiongkok",
+    "pointsOfInterest": {
+      "0": "Menelusuri Taman Nasional Wulingyuan di Tiongkok"
+    }
+  },
+  "9CCB8297-E9F5-4699-AE1F-890CFBD5E29C": {
+    "name": "Sawah Tiongkok",
+    "group": "Tiongkok",
+    "pointsOfInterest": {
+      "0": "Lewat di atas persawahan Longji di Provinsi Guangxi, Tiongkok"
+    }
+  },
+  "D5E76230-81A3-4F65-A1BA-51B8CADED625": {
+    "name": "Tebing Gunung Tiongkok",
+    "group": "Tiongkok",
+    "pointsOfInterest": {
+      "0": "Menjelajahi Taman Nasional Wulingyuan di Tiongkok"
+    }
+  },
+  "22162A9B-DB90-4517-867C-C676BC3E8E95": {
+    "name": "Tembok Besar Tiongkok",
+    "group": "Tiongkok",
+    "pointsOfInterest": {
+      "0": "Bagian Mutianyu dari Tembok Besar di Distrik Huairou, Tiongkok"
+    }
+  },
+  "044AD56C-A107-41B2-90CC-E60CCACFBCF5": {
+    "name": "Siluet Tiongkok",
+    "group": "Tiongkok",
+    "pointsOfInterest": {
+      "0": "Bagian Mutianyu dari Tembok Besar di Distrik Huairou, Tiongkok"
+    }
+  },
+  "F0236EC5-EE72-4058-A6CE-1F7D2E8253BF": {
+    "name": "Tembok Besar Tiongkok Siang Hari",
+    "group": "Tiongkok",
+    "pointsOfInterest": {
+      "0": "Bagian Mutianyu dari Tembok Besar di Distrik Huairou, Tiongkok"
+    }
+  },
+  "876D51F4-3D78-4221-8AD2-F9E78C0FD9B9": {
+    "name": "Dubai dari Atas",
+    "group": "Dubai",
+    "pointsOfInterest": {
+      "0": "Menyusuri Sheikh Zayed Road di Dubai, Uni Emirat Arab"
+    }
+  },
+  "E991AC0C-F272-44D8-88F3-05F44EDFE3AE": {
+    "name": "Pelabuhan Sungai Dubai",
+    "group": "Dubai",
+    "pointsOfInterest": {
+      "0": "Terbang di atas Dubai Marina di Uni Emirat Arab"
+    }
+  },
+  "9680B8EB-CE2A-4395-AF41-402801F4D6A6": {
+    "name": "Malam di Dubai",
+    "group": "Dubai",
+    "pointsOfInterest": {
+      "0": "Menuju Burj Khalifa di Pusat Kota Dubai, Uni Emirat Arab",
+      "280": "Melewati Burj Khalifa di Pusat Kota Dubai, Uni Emirat Arab",
+      "330": "Di atas Pusat Kota Dubai menuju pesisir"
+    }
+  },
+  "00BA71CD-2C54-415A-A68A-8358E677D750": {
+    "name": "Kaki Langit Dubai",
+    "group": "Dubai",
+    "pointsOfInterest": {
+      "0": "Menuju Pusat Kota Dubai di Uni Emirat Arab",
+      "210": "Melintas di atas Pusat Kota Dubai di Uni Emirat Arab"
+    }
+  },
+  "3FFA2A97-7D28-49EA-AA39-5BC9051B2745": {
+    "name": "Sungai Dubai",
+    "group": "Dubai",
+    "pointsOfInterest": {
+      "0": "Terbang di sepanjang Dubai Marina di Uni Emirat Arab"
+    }
+  },
+  "E334A6D2-7145-47C8-9B00-C20DED08B2D5": {
+    "name": "Sore di Grand Canyon",
+    "group": "Grand Canyon",
+    "pointsOfInterest": {
+      "0": "Menyusuri Sungai Colorado melalui Grand Canyon di Amerika Serikat"
+    }
+  },
+  "DD266E1F-5DF2-4CDB-A2EB-26CE35664657": {
+    "name": "Grand Canyon dari Atas",
+    "group": "Grand Canyon",
+    "pointsOfInterest": {
+      "0": "Terbang di atas area Burnt Canyon dari Grand Canyon, Amerika Serikat"
+    }
+  },
+  "F9F918CD-E15F-4F01-A326-84A44650C5C9": {
+    "name": "Matahari Terbenam di Grand Canyon",
+    "group": "Grand Canyon",
+    "pointsOfInterest": {
+      "0": "Melintas di atas Grand Canyon\ndi Amerika Serikat"
+    }
+  },
+  "AE0115AE-C53B-4DB9-B12F-CA4B7B630CC9": {
+    "name": "Sedimen Grand Canyon",
+    "group": "Grand Canyon",
+    "pointsOfInterest": {
+      "0": "Melintasi Grand Canyon\ndi Amerika Serikat"
+    }
+  },
+  "8002C4C8-C611-4894-A068-3D3A3C03472A": {
+    "name": "Lembah Sungai Grand Canyon",
+    "group": "Grand Canyon",
+    "pointsOfInterest": {
+      "0": "Menyusuri Sungai Colorado\ndi Grand Canyon, Amerika Serikat"
+    }
+  },
+  "B8F204CE-6024-49AB-85F9-7CA2F6DCD226": {
+    "name": "Gletser Grinlandia",
+    "group": "Greenland",
+    "pointsOfInterest": {
+      "0": "Menyusuri Semenanjung Nuussuaq di Grinlandia"
+    }
+  },
+  "2F52E34C-39D4-4AB1-9025-8F7141FAA720": {
+    "name": "Pesisir Grinlandia",
+    "group": "Greenland",
+    "pointsOfInterest": {
+      "0": "Ilulissat Icefjord di lepas pantai Grinlandia"
+    }
+  },
+  "EE01F02D-1413-436C-AB05-410F224A5B7B": {
+    "name": "Sore di Grinlandia",
+    "group": "Greenland",
+    "pointsOfInterest": {
+      "0": "Ilulissat Icefjord di lepas pantai Grinlandia"
+    }
+  },
+  "12E0343D-2CD9-48EA-AB57-4D680FB6D0C7": {
+    "name": "Garis Pantai Hawaii",
+    "group": "Hawaii",
+    "pointsOfInterest": {
+      "0": "Terbang di atas Laupāhoehoe Nui di Kohala Forest Reserve di pulau Hawai‘i"
+    }
+  },
+  "258A6797-CC13-4C3A-AB35-4F25CA3BF474": {
+    "name": "Awan Hawaii Terang",
+    "group": "Hawaii",
+    "pointsOfInterest": {
+      "0": "Di atas Pu‘u O ‘Umi Natural Area Reserve, di pulau Hawai‘i"
+    }
+  },
+  "3D729CFC-9000-48D3-A052-C5BD5B7A6842": {
+    "name": "Samudra Hawaii",
+    "group": "Hawaii",
+    "pointsOfInterest": {
+      "0": "Menyusuri garis pantai Kohala di pulau Hawai‘i"
+    }
+  },
+  "499995FA-E51A-4ACE-8DFD-BDF8AFF6C943": {
+    "name": "Lembah Hawaii",
+    "group": "Hawaii",
+    "pointsOfInterest": {
+      "0": "Waimanu Valley di Kohala Forest Reserve di pulau Hawai‘i"
+    }
+  },
+  "82BD33C9-B6D2-47E7-9C42-AA3B7758921A": {
+    "name": "Awan Hawaii Gelap",
+    "group": "Hawaii",
+    "pointsOfInterest": {
+      "0": "Di atas Pu‘u O ‘Umi Natural Area Reserve, di pulau Hawai‘i"
+    }
+  },
+  "E99FA658-A59A-4A2D-9F3B-58E7BDC71A9A": {
+    "name": "Malam di Hong Kong",
+    "group": "Hong Kong",
+    "pointsOfInterest": {
+      "0": "Di atas Victoria Harbour ke arah Central Hong Kong"
+    }
+  },
+  "C8559883-6F3E-4AF2-8960-903710CD47B7": {
+    "name": "Horizon Hong Kong",
+    "group": "Hong Kong",
+    "pointsOfInterest": {
+      "0": "Terbang di atas Victoria Peak di Hong Kong",
+      "150": "Terbang di atas Hong Kong ke arah Victoria Harbour",
+      "330": "Di atas Victoria Harbour menuju Kowloon Peninsula"
+    }
+  },
+  "024891DE-B7F6-4187-BFE0-E6D237702EF0": {
+    "name": "Kaki Langit Hong Kong",
+    "group": "Hong Kong",
+    "pointsOfInterest": {
+      "0": "Di atas Wan Chai menuju Central Hong Kong",
+      "150": "Di atas Central Hong Kong",
+      "270": "Di atas Pulau Hong Kong"
+    }
+  },
+  "FE8E1F9D-59BA-4207-B626-28E34D810D0A": {
+    "name": "Pelabuhan Hong Kong",
+    "group": "Hong Kong",
+    "pointsOfInterest": {
+      "0": "Di atas Victoria Harbour menghadap Pulau Hong Kong"
+    }
+  },
+  "8590D0C5-E344-4FAC-A39A-FD7BC652AEDA": {
+    "name": "Pesisir Islandia",
+    "group": "Islandia",
+    "pointsOfInterest": {
+      "0": "Terbang di atas Langisjór di Islandia"
+    }
+  },
+  "DDE50C77-B7CB-4488-9EB1-D1B13BF21FFE": {
+    "name": "Gletser Islandia",
+    "group": "Islandia",
+    "pointsOfInterest": {
+      "0": "Melintas di atas Tungnaá di dataran tinggi Islandia"
+    }
+  },
+  "E54D5AFE-F362-4D48-A20D-F2C21D2B5330": {
+    "name": "Fjord Islandia",
+    "group": "Islandia",
+    "pointsOfInterest": {
+      "0": "Menyusuri sungai Jökulgilskvísl di Landmannalaugar, Islandia",
+      "308": "Melintas di atas dataran tinggi Islandia"
+    }
+  },
+  "F9518D54-04A7-4793-8666-CFC114D73CE5": {
+    "name": "Tepi Sungai Islandia",
+    "group": "Islandia",
+    "pointsOfInterest": {
+      "0": "Melintas melalui Jökulgil di Landmannalaugar, Islandia"
+    }
+  },
+  "8ACF5D77-B22C-416F-B12A-72FB35E2834F": {
+    "name": "Fjord Islandia dari Atas",
+    "group": "Islandia",
+    "pointsOfInterest": {
+      "0": "Melintas di atas Landmannalaugar di Islandia"
+    }
+  },
+  "2F17FCCE-6CCA-4AFA-A08A-C50BF9812DA5": {
+    "name": "Salju Puncak Islandia",
+    "group": "Islandia",
+    "pointsOfInterest": {
+      "0": "Ke arah gletser Mýrdalsjökull di Islandia",
+      "150": "Menuju gletser Mýrdalsjökull di Islandia",
+      "225": "Gletser Mýrdalsjökull di Islandia",
+      "324": "Melintas di atas gletser Mýrdalsjökull di Islandia"
+    }
+  },
+  "cb5b5035-6701-619f-9065-3d7d0e5fbef4-113": {
+    "name": "Danau Islandia",
+    "group": "Islandia",
+    "pointsOfInterest": {
+      "0": "Terbang di atas Islandia"
+    }
+  },
+  "cb5b5035-6701-619f-9065-3d7d0e5fbef4-133": {
+    "name": "Goa Beaches",
+    "pointsOfInterest": {
+      "0": "Di atas Cola dan Small Cola Beach di Goa, India"
+    }
+  },
+  "cb5b5035-6701-619f-9065-3d7d0e5fbef4-134": {
+    "name": "Pesisir Goa",
+    "pointsOfInterest": {
+      "0": "Melewati Small Cola Beach di Goa, India",
+      "150": "Menuju Cola Beach di Goa, India"
+    }
+  },
+  "cb5b5035-6701-619f-9065-3d7d0e5fbef4-135": {
+    "name": "Sungai Gangga",
+    "pointsOfInterest": {
+      "0": "Menyusuri sungai Gangga dari Rishikesh di Uttarakhand, India"
+    }
+  },
+  "cb5b5035-6701-619f-9065-3d7d0e5fbef4-136": {
+    "name": "Ghansali dari Atas",
+    "pointsOfInterest": {
+      "0": "Di atas sawah terasering di dekat Akhori di Uttarakhand, India"
+    }
+  },
+  "cb5b5035-6701-619f-9065-3d7d0e5fbef4-137": {
+    "name": "Melalui Himalaya",
+    "pointsOfInterest": {
+      "0": "Pergi menuju Nanda Devi melalui Garhwal Himalaya di Uttarakhand, India"
+    }
+  },
+  "cb5b5035-6701-619f-9065-3d7d0e5fbef4-138": {
+    "name": "Puncak Himalaya",
+    "pointsOfInterest": {
+      "0": "Melewati Garhwal Himalaya di Uttarakhand, India"
+    }
+  },
+  "cb5b5035-6701-619f-9065-3d7d0e5fbef4-139": {
+    "name": "Siang Hari di Himalaya",
+    "pointsOfInterest": {
+      "0": "Melewati Garhwal Himalaya di Uttarakhand, India"
+    }
+  },
+  "cb5b5035-6701-619f-9065-3d7d0e5fbef4-140": {
+    "name": "Siang Hari di Kebun Teh",
+    "pointsOfInterest": {
+      "0": "Melewati kebun teh Munnar di Kerala, India"
+    }
+  },
+  "cb5b5035-6701-619f-9065-3d7d0e5fbef4-141": {
+    "name": "Kabut Kebun Teh",
+    "pointsOfInterest": {
+      "0": "Menuju timur melalui kebun teh Munnar di Kerala, India"
+    }
+  },
+  "cb5b5035-6701-619f-9065-3d7d0e5fbef4-142": {
+    "name": "Kebun Teh dari Atas",
+    "pointsOfInterest": {
+      "0": "Di atas kebun teh Munnar di Kerala, India"
+    }
+  },
+  "cb5b5035-6701-619f-9065-3d7d0e5fbef4-143": {
+    "name": "Siang Hari di Reservoir",
+    "pointsOfInterest": {
+      "0": "Menyusuri Reservoir Upper Sholayar di Tamil Nadu, India"
+    }
+  },
+  "A837FA8C-C643-4705-AE92-074EFDD067F7": {
+    "name": "Afrika",
+    "group": "Bumi",
+    "pointsOfInterest": {
+      "0": "Mengarah ke timur laut di atas Sahara pada malam hari",
+      "70": "Di atas Grand Erg Oriental ke arah Laut Tengah",
+      "100": "Pesisir Mediterania Tunisia dan Libya",
+      "120": "Melintas di atas Laut Tengah ke arah Italia",
+      "140": "Di atas Italia bagian selatan menuju Semenanjung Balkan dengan Turki di kejauhan",
+      "165": "Di atas Semenanjung Balkan menuju Laut Hitam",
+      "180": "Di atas Semenanjung Balkan menuju Laut Hitam",
+      "210": "Melintas di atas Laut Hitam ke arah Ukraina",
+      "230": "Melintas di atas Ukraina ke arah Rusia"
+    }
+  },
+  "2F72BC1E-3D76-456C-81EB-842EBA488C27": {
+    "name": "Afrika Utara",
+    "group": "Bumi",
+    "pointsOfInterest": {
+      "0": "Di atas Tanduk Afrika menuju Teluk Aden",
+      "45": "Jazirah Arab bagian tenggara",
+      "115": "Teluk Oman menuju Pesisir Makran",
+      "145": "Pesisir Makran Iran dan Pakistan",
+      "160": "Di atas Iran menuju Afganistan dan Pakistan",
+      "180": "Di atas Afganistan dan Pakistan menuju Pegunungan Karakoram",
+      "235": "Di atas Pegunungan Karakoram menuju Tiongkok",
+      "280": "Gurun Takla Makan di Tiongkok bagian barat",
+      "315": "Pegunungan Tian Shan di Asia Tengah"
+    }
+  },
+  "03EC0F5E-CCA8-4E0A-9FEC-5BD1CE151182": {
+    "name": "Cahaya Selatan Antarktika",
+    "group": "Bumi",
+    "pointsOfInterest": {
+      "0": "Aurora Australis di atas Antarktika"
+    }
+  },
+  "64D11DAB-3B57-4F14-AD2F-E59A9282FA44": {
+    "name": "Atlantik Utara",
+    "group": "Bumi",
+    "pointsOfInterest": {
+      "0": "Di atas Samudra Atlantik Utara ke arah Portugal",
+      "115": "Di atas Portugal dan Spanyol",
+      "150": "Menjauh dari Semenanjung Iberia dan lewat di atas Bay of Biscay dan Prancis",
+      "180": "Di atas Eropa Barat dengan Samudra Atlantik Utara di kejauhan"
+    }
+  },
+  "81337355-E156-4242-AAF4-711768D30A54": {
+    "name": "Australia",
+    "group": "Bumi",
+    "pointsOfInterest": {
+      "0": "Di atas Samudra Hindia ke arah Perth, Australia",
+      "50": "Mengarah ke timur laut di atas Australia Barat",
+      "170": "Di atas Australia Barat menuju Wilayah Utara",
+      "220": "Di atas Wilayah Utara, Australia menuju Papua Nugini",
+      "335": "Di atas Laut Arafura menuju Papua Nugini"
+    }
+  },
+  "12318CCB-3F78-43B7-A854-EFDCCE5312CD": {
+    "name": "California",
+    "group": "Bumi",
+    "pointsOfInterest": {
+      "0": "Di atas Samudra Pasifik menuju pesisir California",
+      "70": "Di atas pesisir California menuju wilayah tengah",
+      "85": "Lewat di atas Los Angeles dan pesisir barat Amerika Serikat",
+      "95": "Di atas Los Angeles menuju Las Vegas di Amerika Serikat",
+      "110": "Di atas Las Vegas ke arah Salt Lake City di Amerika Serikat",
+      "120": "Di atas Amerika Serikat bagian barat menuju Salt Lake City",
+      "155": "Lewat di antara Salt Lake City dan Denver di Amerika Serikat",
+      "170": "Di atas Pegunungan Rocky di Amerika Serikat"
+    }
+  },
+  "D5CFB2FF-5F8C-4637-816B-3E42FC1229B8": {
+    "name": "Kepulauan Karibia",
+    "group": "Bumi",
+    "pointsOfInterest": {
+      "0": "Melintas di atas Samudra Pasifik ke arah Amerika Tengah",
+      "35": "Pesisir Pasifik Nikaragua, Kosta Rika, dan Panama",
+      "50": "Lewat di atas Amerika Tengah dengan Amerika Selatan di kejauhan",
+      "65": "Mosquito Coast di Nikaragua",
+      "85": "Di atas Laut Karibia menuju Kuba",
+      "110": "Melewati Jamaika yang berselimut awan di Laut Karibia",
+      "125": "Melintas di atas Kuba menghadap ke Haiti dan Republik Dominika",
+      "170": "Melintas di atas Bahama menghadap ke Haiti dan Republik Dominika",
+      "190": "Kepulauan Turks dan Caicos di Samudra Atlantik"
+    }
+  },
+  "1088217C-1410-4CF7-BDE9-8F573A4DBCD9": {
+    "name": "Laut Karibia",
+    "group": "Bumi",
+    "pointsOfInterest": {
+      "0": "Di atas Samudra Pasifik menuju Amerika Tengah",
+      "70": "Pesisir barat daya Amerika Tengah ke arah Laut Karibia",
+      "100": "Menyeberangi Amerika Tengah ke arah Laut Karibia",
+      "150": "Di atas Laut Karibia ke arah Kuba",
+      "240": "Di atas Kuba dengan Florida dan Bahama di kejauhan",
+      "300": "Di atas Florida dan Bahama menuju Laut Sargasso",
+      "350": "Di atas Laut Sargasso ke arah Samudra Atlantik"
+    }
+  },
+  "4F881F8B-A7D9-4FDB-A917-17BF6AC5A589": {
+    "name": "Karibia",
+    "group": "Bumi",
+    "pointsOfInterest": {
+      "0": "Ke arah tenggara di atas Great Plains di Amerika Serikat",
+      "90": "Ke arah tenggara di atas Amerika Serikat bagian Midwest",
+      "120": "Di atas Amerika Serikat bagian tenggara ke arah Florida",
+      "220": "Di atas Florida menuju Bahama",
+      "240": "Mengarah ke tenggara di atas Bahama",
+      "285": "Di atas Bahama menuju Republik Dominika dan Haiti",
+      "300": "Di atas Republik Dominika dan Haiti menuju Laut Karibia",
+      "315": "Di atas Laut Karibia ke arah selatan menuju Venezuela"
+    }
+  },
+  "6324F6EB-E0F1-468F-AC2E-A983EBDDD53B": {
+    "name": "Malam di Tiongkok",
+    "group": "Bumi",
+    "pointsOfInterest": {
+      "0": "Di atas Asia bagian tengah menuju pesisir Tiongkok",
+      "10": "Di atas Tiongkok bagian tengah menuju Shanghai",
+      "30": "Melintas di atas Tiongkok bagian timur menuju Shanghai",
+      "45": "Menuju Shanghai ke arah Laut Cina Timur",
+      "50": "Di atas Shanghai menuju Laut Cina Timur"
+    }
+  },
+  "F439B0A7-D18C-4B14-9681-6520E6A74FE9": {
+    "name": "Timur Tengah",
+    "group": "Bumi",
+    "pointsOfInterest": {
+      "0": "Refleksi matahari di sepanjang pesisir Iran",
+      "15": "Melintas di atas Iran dari siang hingga malam hari",
+      "60": "Melintas di atas Asia bagian tengah dari siang hingga malam hari"
+    }
+  },
+  "7C643A39-C0B2-4BA0-8BC2-2EAA47CC580E": {
+    "name": "Malam di Eropa",
+    "group": "Bumi",
+    "pointsOfInterest": {
+      "0": "Di atas Atlantik Utara menuju Irlandia dan Inggris Raya",
+      "15": "Irlandia dan Inggris Raya",
+      "45": "Di atas Inggris Raya menuju Eropa daratan",
+      "65": "Di atas Eropa bagian barat laut ke arah Rusia",
+      "105": "Di atas Eropa bagian tengah ke arah Rusia",
+      "150": "Di atas Eropa bagian timur dengan Moscow di kejauhan",
+      "165": "Di atas Eropa bagian timur menghadap ke Moscow",
+      "185": "Di atas Rusia bagian barat melalui Moscow",
+      "195": "Di atas Rusia menuju Asia bagian tengah"
+    }
+  },
+  "E5DB138A-F04E-4619-B896-DE5CB538C534": {
+    "name": "Malam di Eropa Selatan",
+    "group": "Bumi",
+    "pointsOfInterest": {
+      "0": "Di atas Tunisia ke arah Italia",
+      "5": "Di atas Laut Tengah menghadap ke Sisilia dan Semenanjung Italia",
+      "15": "Di atas Italia bagian selatan dengan Semenanjung Balkan di kejauhan",
+      "25": "Di atas Semenanjung Balkan menuju Asia bagian tengah",
+      "40": "Di atas Semenanjung Balkan melewati Laut Hitam",
+      "55": "Di atas Ukraina dengan Rusia di kejauhan",
+      "75": "Di atas Rusia bagian barat daya melewati Kazakhstan"
+    }
+  },
+  "009BA758-7060-4479-8EE8-FB9B40C8FB97": {
+    "name": "Asia Timur",
+    "group": "Bumi",
+    "pointsOfInterest": {
+      "0": "Mengarah ke tenggara di atas Siberia dan Mongolia",
+      "22": "Ke arah Mongolia Dalam",
+      "32": "Di atas Mongolia menuju Tiongkok",
+      "60": "Di atas Tiongkok bagian utara menuju Semenanjung Korea",
+      "110": "Di atas Tiongkok ke arah Semenanjung Korea",
+      "150": "Semenanjung Korea dengan Jepang di kejauhan",
+      "180": "Di atas Korea Selatan menuju Jepang",
+      "195": "Di atas Jepang menghadap ke Samudra Pasifik",
+      "260": "Di atas Samudra Pasifik di sebelah tenggara Jepang"
+    }
+  },
+  "B1B5DDC5-73C8-4920-8133-BACCE38A08DE": {
+    "name": "New York",
+    "group": "Bumi",
+    "pointsOfInterest": {
+      "0": "Di atas Samudra Pasifik ke arah Meksiko",
+      "105": "Lewat di atas Mexico City ke arah Teluk Meksiko",
+      "122": "Terbang di atas Teluk Meksiko ke arah Amerika Serikat",
+      "180": "Melewati Houston dan menuju New Orleans di Amerika Serikat",
+      "190": "Melintas di atas New Orleans dan Pantai Teluk Amerika Serikat",
+      "215": "Melintas di atas Amerika Serikat bagian tenggara",
+      "280": "Di atas Amerika Serikat bagian timur menuju New York",
+      "320": "Di atas Amerika Serikat bagian timur menuju New York City"
+    }
+  },
+  "78911B7E-3C69-47AD-B635-9C2486F6301D": {
+    "name": "Selandia Baru",
+    "group": "Bumi",
+    "pointsOfInterest": {
+      "0": "Menyeberangi Samudra Pasifik Selatan dari malam hingga siang hari",
+      "70": "Menyeberangi Selandia Baru dari malam hingga siang hari",
+      "110": "Menuju matahari terbit di atas Selandia Baru",
+      "170": "Meninggalkan Selandia Baru ke arah timur laut di atas Samudra Pasifik"
+    }
+  },
+  "3C4678E4-4D3D-4A40-8817-77752AEA62EB": {
+    "name": "Delta Nil",
+    "group": "Bumi",
+    "pointsOfInterest": {
+      "0": "Melintas di atas Eropa Barat dengan Inggris Raya dan Irlandia di kejauhan",
+      "20": "Ke arah tenggara di atas Pegunungan Alpen dan Lembah Sungai Po",
+      "50": "Melintasi Semenanjung Italia dan Laut Adriatik",
+      "100": "Yunani diapit oleh Laut Ionian dan Aegean",
+      "160": "Mengarah ke tenggara di atas Laut Tengah",
+      "185": "Laut Tengah dan Sungai Nil Delta",
+      "205": "Sungai Nil mengalir melalui Sahara di Mesir",
+      "220": "Gurun Timur diapit oleh Sungai Nil dan Teluk Suez",
+      "240": "Ke arah tenggara di atas Laut Merah"
+    }
+  },
+  "737E9E24-49BE-4104-9B72-F352DE1AD2BF": {
+    "name": "Aurora Amerika Utara",
+    "group": "Bumi",
+    "pointsOfInterest": {
+      "0": "Di atas Samudra Pasifik menuju Baja California",
+      "45": "Di atas Baja California menghadap ke utara ke arah Amerika Serikat",
+      "55": "Di atas Meksiko ke arah Amerika Serikat bagian barat daya",
+      "75": "Di atas Amerika Selatan bagian barat daya",
+      "110": "Di atas Pegunungan Rocky menuju Denver",
+      "125": "Melintas di atas Great Plains di Amerika Serikat",
+      "185": "Menuju Great Lakes dengan Ontario, Kanada di kejauhan",
+      "200": "Di atas Great Lakes menuju Ontario, Kanada",
+      "210": "Aurora Borealis di atas Ontario bagian barat, Kanada",
+      "235": "Aurora Borealis di atas Ontario bagian utara, Kanada",
+      "250": "Aurora Borealis di atas Quebec bagian utara, Kanada",
+      "300": "Ke arah Atlantik Utara dengan Aurora Borealis di atas Labrador, Kanada"
+    }
+  },
+  "E556BBC5-D0A0-4DB1-AC77-BC76E4A526F4": {
+    "name": "Sahara",
+    "group": "Bumi",
+    "pointsOfInterest": {
+      "0": "Di atas Afrika bagian barat menuju Sahara",
+      "30": "Menyeberangi Sahara di Afrika Utara",
+      "110": "Lewat di atas Pegunungan Ahaggar di Sahara, Afrika Utara",
+      "155": "Di atas Grand Erg Oriental di Afrika Utara ke arah Laut Tengah",
+      "195": "Pesisir Tunisia dan Laut Tengah",
+      "210": "Di atas pesisir Tunisia menuju Italia",
+      "230": "Menuju Italia di Laut Tengah",
+      "245": "Di atas Italia menuju Semenanjung Balkan",
+      "285": "Di atas Semenanjung Balkan ke arah Pegunungan Carpathian",
+      "310": "Pegunungan Carpathian dan Laut Hitam"
+    }
+  },
+  "87060EC2-D006-4102-98CC-3005C68BB343": {
+    "name": "Afrika Selatan",
+    "group": "Bumi",
+    "pointsOfInterest": {
+      "0": "Mengarah ke timur laut di atas Dataran Tinggi Etiopia",
+      "45": "Melintas di atas Laut Merah ke Jazirah Arab",
+      "100": "Ke arah timur laut di atas Jazirah Arab",
+      "130": "Di atas Jazirah Arab menuju Iran",
+      "165": "Di atas Jazirah Arab menuju Iran",
+      "190": "Menuju pesisir Iran dengan Pegunungan Zagros di kejauhan",
+      "210": "Di atas Pegunungan Zagros di Iran",
+      "240": "Di atas gurun Dasht-e Lut di Iran",
+      "265": "Mengarah ke Turkmenistan dan gurun Garagum",
+      "305": "Sungai Amu Darya dan Pegunungan Pamir-Alay di Asia bagian tengah",
+      "322": "Pegunungan Pamir-Alay dan Lembah Fergana di Asia bagian tengah",
+      "360": "Mengarah ke Kazakhstan bagian tenggara Kyrgyzstan",
+      "400": "Ke arah utara di atas Kazakhstan",
+      "450": "Di atas Pegunungan Altai menuju Mongolia"
+    }
+  },
+  "7719B48A-2005-4011-9280-2F64EEC6FD91": {
+    "name": "California Selatan",
+    "group": "Bumi",
+    "pointsOfInterest": {
+      "0": "Di atas Samudra Pasifik ke arah Amerika Serikat",
+      "20": "Mengarah ke selatan di pesisir California",
+      "50": "Di atas California bagian selatan menuju Meksiko",
+      "65": "Menuju Gurun Mojave di California selatan dengan Meksiko di kejauhan",
+      "95": "Pesisir California diapit oleh Gurun Sonoran dan Semenanjung Baja California",
+      "130": "Pegunungan Sierra Madre Occidental di pesisir barat Meksiko",
+      "185": "Di atas pegunungan Sierra Madre Occidental menuju pesisir barat Meksiko",
+      "225": "Menghadap ke selatan ke arah Samudra Pasifik di atas Sierra Madre del Sur di Meksiko",
+      "280": "Samudra Pasifik di lepas pantai Meksiko",
+      "290": "Samudra Pasifik di lepas pantai Meksiko dan Guatemala"
+    }
+  },
+  "63C042F0-90EF-4A95-B7CC-CC9A64BF8421": {
+    "name": "Afrika Barat",
+    "group": "Bumi",
+    "pointsOfInterest": {
+      "0": "Kepulauan Canary, Samudra Atlantik, dan pesisir Afrika",
+      "45": "Mengarah ke timur laut di sepanjang pesisir Maroko",
+      "75": "Lewat di atas Pegunungan Atlas di Maroko",
+      "105": "Di atas Maroko menuju Laut Tengah",
+      "125": "Laut Tengah dan Spanyol bagian selatan",
+      "145": "Mengarah ke timur laut di atas Costa Blanca di Spanyol",
+      "165": "Mengarah ke timur laut di atas Kepulauan Balears di Spanyol",
+      "185": "Di atas Laut Tengah bagian barat dengan Pegunungan Alpen di kejauhan",
+      "220": "Mengarah ke timur laut di atas Pegunungan Alpen"
+    }
+  },
+  "001C94AE-2BA4-4E77-A202-F7DE60E8B1C8": {
+    "name": "Padang Pasir Liwa",
+    "group": "Liwa",
+    "pointsOfInterest": {
+      "0": "Terbang di atas Liwa Oasis di Uni Emirat Arab"
+    }
+  },
+  "AFA22C08-A486-4CE8-9A13-E355B6C38559": {
+    "name": "Horizon Liwa",
+    "group": "Liwa",
+    "pointsOfInterest": {
+      "0": "Terbang di atas Liwa Oasis di Uni Emirat Arab"
+    }
+  },
+  "F604AF56-EA77-4960-AEF7-82533CC1A8B3": {
+    "name": "Sore di London",
+    "group": "London",
+    "pointsOfInterest": {
+      "0": "Menuju Tower Bridge di Sungai Thames, London",
+      "20": "Menyeberangi Sungai Thames di London",
+      "60": "Melewati The Shard di London Selatan",
+      "92": "Selatan Sungai Thames ke arah London Eye",
+      "200": "Menyeberangi Sungai Thames ke arah Westminster, London",
+      "270": "Di atas Westminster, London"
+    }
+  },
+  "7F4C26C2-67C2-4C3A-8F07-8A7BF6148C97": {
+    "name": "Thames London",
+    "group": "London",
+    "pointsOfInterest": {
+      "0": "Menuju Tower Bridge di Sungai Thames, London",
+      "20": "Menyusuri Sungai Thames di London",
+      "130": "Menyusuri Sungai Thames ke arah London Eye",
+      "210": "Menuju London Eye di Sungai Thames",
+      "310": "Menyusuri Sungai Thames lewat London Eye",
+      "325": "Melewati Gedung Parlemen di Sungai Thames di London"
+    }
+  },
+  "A5AAFF5D-8887-42BB-8AFD-867EF557ED85": {
+    "name": "London dari Atas",
+    "group": "London",
+    "pointsOfInterest": {
+      "0": "Lewat di atas Istana Buckingham, London",
+      "24": "Di atas Istana Buckingham di London",
+      "49": "Di atas St James’s Park ke arah Sungai Thames, London",
+      "104": "Menyeberangi Sungai Thames dan melintas di atas London Eye",
+      "149": "Lewat di atas London Selatan",
+      "279": "Melewati The Shard di London Selatan",
+      "299": "Menyeberangi Sungai Thames di London",
+      "324": "Menyeberangi Sungai Thames di Tower Bridge di London"
+    }
+  },
+  "58754319-8709-4AB0-8674-B34F04E7FFE2": {
+    "name": "Kaki Langit London",
+    "group": "London",
+    "pointsOfInterest": {
+      "0": "Menuju Tower Bridge di Sungai Thames, London",
+      "78": "Menyusuri Sungai Thames di London",
+      "178": "Selatan Sungai Thames di London",
+      "258": "Menyeberangi Sungai Thames di London"
+    }
+  },
+  "CE279831-1CA7-4A83-A97B-FF1E20234396": {
+    "name": "Bandara Los Angeles",
+    "group": "Los Angeles",
+    "pointsOfInterest": {
+      "0": "Terbang di atas Bandara Internasional Los Angeles"
+    }
+  },
+  "89B1643B-06DD-4DEC-B1B0-774493B0F7B7": {
+    "name": "Matahari Terbenam di Los Angeles",
+    "group": "Los Angeles",
+    "pointsOfInterest": {
+      "0": "Observatorium Griffith dan Hollywood Hills di Los Angeles"
+    }
+  },
+  "92E48DE9-13A1-4172-B560-29B4668A87EE": {
+    "name": "Pantai Los Angeles",
+    "group": "Los Angeles",
+    "pointsOfInterest": {
+      "0": "Di atas Santa Monica State Beach dekat Los Angeles",
+      "365": "Lewat di atas Santa Monica Pier dekat Los Angeles",
+      "430": "Di atas Santa Monica State Beach dekat Los Angeles"
+    }
+  },
+  "EC67726A-8212-4C5E-83CF-8412932740D2": {
+    "name": "Bukit Los Angeles",
+    "group": "Los Angeles",
+    "pointsOfInterest": {
+      "0": "Tanda Hollywood di Los Angeles",
+      "250": "Di atas Hollywood Hills menuju Burbank, California"
+    }
+  },
+  "35693AEA-F8C4-4A80-B77D-C94B20A68956": {
+    "name": "Jalan Layang Los Angeles",
+    "group": "Los Angeles",
+    "pointsOfInterest": {
+      "0": "Menyusuri Interstate 110 utara melalui Los Angeles"
+    }
+  },
+  "F5804DD6-5963-40DA-9FA0-39C0C6E6DEF9": {
+    "name": "Malam Los Angeles",
+    "group": "Los Angeles",
+    "pointsOfInterest": {
+      "0": "Melewati Pusat Kota Los Angeles"
+    }
+  },
+  "cb5b5035-6701-619f-9065-3d7d0e5fbef4-114": {
+    "name": "Ngarai Tambang Batubara Arizona",
+    "group": "Monument Valley",
+    "pointsOfInterest": {
+      "0": "Melalui Navajo Nation di Arizona"
+    }
+  },
+  "cb5b5035-6701-619f-9065-3d7d0e5fbef4-115": {
+    "name": "Sore di Utah",
+    "group": "Monument Valley",
+    "pointsOfInterest": {
+      "0": "Di sepanjang Brighams Tomb\ndi Monument Valley, Utah",
+      "150": "Melewati butte King-on-his-Throne, Utah",
+      "180": "Ke arah tenggara di seberang\nMonument Valley, Utah"
+    }
+  },
+  "cb5b5035-6701-619f-9065-3d7d0e5fbef4-116": {
+    "name": "Cathedral Canyon Utah",
+    "group": "Monument Valley",
+    "pointsOfInterest": {
+      "0": "Di atas Cathedral Canyon di Utah",
+      "100": "Menyeberangi Sungai Colorado\ndan Danau Powell, Utah"
+    }
+  },
+  "cb5b5035-6701-619f-9065-3d7d0e5fbef4-117": {
+    "name": "Factory Butte Utah",
+    "group": "Monument Valley",
+    "pointsOfInterest": {
+      "0": "Melewati Factory Butte di Utah"
+    }
+  },
+  "cb5b5035-6701-619f-9065-3d7d0e5fbef4-118": {
+    "name": "Danau Powell Utah",
+    "group": "Monument Valley",
+    "pointsOfInterest": {
+      "0": "Menyusuri Sungai Colorado melalui Utah",
+      "134": "Lewat di atas Cascade Canyon di Utah",
+      "265": "Menuju Cathedral Canyon, Utah"
+    }
+  },
+  "cb5b5035-6701-619f-9065-3d7d0e5fbef4-119": {
+    "name": "Monument Valley Utah",
+    "group": "Monument Valley",
+    "pointsOfInterest": {
+      "0": "Lewat di atas Monument Valley di Arizona"
+    }
+  },
+  "cb5b5035-6701-619f-9065-3d7d0e5fbef4-120": {
+    "name": "Olympia Bar Utah",
+    "group": "Monument Valley",
+    "pointsOfInterest": {
+      "0": "Menyusuri Sungai Colorado di Utah",
+      "205": "Menuju Tapestry Wall\ndi Danau Powell, Utah"
+    }
+  },
+  "44166C39-8566-4ECA-BD16-43159429B52F": {
+    "name": "Malam di New York",
+    "group": "New York",
+    "pointsOfInterest": {
+      "0": "Melintasi 7th Avenue ke arah Times Square, New York",
+      "40": "Di atas Times Square di New York",
+      "120": "Mengarah ke 7th Avenue di Midtown Manhattan, New York"
+    }
+  },
+  "840FE8E4-D952-4680-B1A7-AC5BACA2C1F8": {
+    "name": "Pusat Kota New York",
+    "group": "New York",
+    "pointsOfInterest": {
+      "0": "Di atas Upper East Side dan Central Park di New York",
+      "50": "Di atas Midtown Manhattan ke arah pusat kota menuju Gedung Empire State",
+      "160": "Menuju Gedung Empire State di New York",
+      "205": "Melewati Gedung Empire State ke arah Lower Manhattan"
+    }
+  },
+  "640DFB00-FBB9-45DA-9444-9F663859F4BC": {
+    "name": "Kaki Langit New York",
+    "group": "New York",
+    "pointsOfInterest": {
+      "0": "Menuju Lower Manhattan dari New York Harbor",
+      "110": "Di sepanjang Lower Manhattan menuju One World Trade Center",
+      "180": "Melewati One World Trade Center ke arah Midtown Manhattan",
+      "210": "Di atas Lower Manhattan di New York ke arah Midtown"
+    }
+  },
+  "3BA0CFC7-E460-4B59-A817-B97F9EBB9B89": {
+    "name": "New York dari Atas",
+    "group": "New York",
+    "pointsOfInterest": {
+      "0": "Di atas Central Park ke arah Midtown Manhattan di New York",
+      "246": "Di atas Midtown Manhattan di New York"
+    }
+  },
+  "5C987900-AD53-469C-8210-CABBCCDDFCAE": {
+    "name": "Gunung Patagonia",
+    "group": "Patagonia",
+    "pointsOfInterest": {
+      "0": "Menyusuri Cuernos del Paine di\nTaman Nasional Torres del Paine, Cile"
+    }
+  },
+  "B004358B-5A27-42E5-B49E-93FC100B2371": {
+    "name": "Danau Patagonia",
+    "group": "Patagonia",
+    "pointsOfInterest": {
+      "0": "Menyusuri Lago Nordenskjöld di\nTaman Nasional Torres del Paine, Cile"
+    }
+  },
+  "25A6CFB2-3570-4448-B114-244A4E454B7A": {
+    "name": "Sungai Patagonia",
+    "group": "Patagonia",
+    "pointsOfInterest": {
+      "0": "Di atas Lago Nordenskjöld di\nTaman Nasional Torres del Paine, Cile"
+    }
+  },
+  "E5D58CC2-3C52-4206-9DA2-427DC88B5896": {
+    "name": "Pegunungan Patagonia",
+    "group": "Patagonia",
+    "pointsOfInterest": {
+      "0": "Melintas di atas Taman Nasional\nTorres del Paine di Cile"
+    }
+  },
+  "cb5b5035-6701-619f-9065-3d7d0e5fbef4-121": {
+    "name": "Garis Pantai Oregon",
+    "group": "Redwood",
+    "pointsOfInterest": {
+      "0": "Melintas di atas Secret Beach ke arah Brookings, Oregon",
+      "240": "Melewati Natural Bridges di Oregon"
+    }
+  },
+  "cb5b5035-6701-619f-9065-3d7d0e5fbef4-122": {
+    "name": "Matahari Terbenam di Oregon",
+    "group": "Redwood",
+    "pointsOfInterest": {
+      "0": "Ke arah barat di atas China Beach di dekat Brookings, Oregon  "
+    }
+  },
+  "cb5b5035-6701-619f-9065-3d7d0e5fbef4-123": {
+    "name": "Sungai Redwoods",
+    "group": "Redwood",
+    "pointsOfInterest": {
+      "0": "Menyusuri Sungai Trinity\nmelalui California utara"
+    }
+  },
+  "cb5b5035-6701-619f-9065-3d7d0e5fbef4-124": {
+    "name": "Redwoods dari Atas",
+    "group": "Redwood",
+    "pointsOfInterest": {
+      "0": "Di atas redwood di California utara"
+    }
+  },
+  "3E94AE98-EAF2-4B09-96E3-452F46BC114E": {
+    "name": "Malam di San Francisco",
+    "group": "San Francisco",
+    "pointsOfInterest": {
+      "0": "Menuju Bay Bridge dan pusat kota San Francisco",
+      "80": "Menyeberang di atas Bay Bridge ke arah pusat kota San Francisco",
+      "116": "Di atas Teluk San Francisco ke arah pusat kota"
+    }
+  },
+  "85CE77BF-3413-4A7B-9B0F-732E96229A73": {
+    "name": "Kaki Langit San Francisco",
+    "group": "San Francisco",
+    "pointsOfInterest": {
+      "0": "Di atas Teluk San Francisco ke arah Embarcadero",
+      "208": "Menyusuri Market Street melalui San Francisco"
+    }
+  },
+  "29BDF297-EB43-403A-8719-A78DA11A2948": {
+    "name": "Sore di San Francisco",
+    "group": "San Francisco",
+    "pointsOfInterest": {
+      "0": "Di atas Fisherman’s Wharf ke arah pusat kota San Francisco",
+      "80": "Menuju Gedung Coit dengan pusat kota San Francisco dan Bay Bridge\ndi latar belakang",
+      "150": "Melewati Coit Tower ke arah pusat kota San Francisco dan Bay Bridge",
+      "196": "Pusat kota San Francisco"
+    }
+  },
+  "DE851E6D-C2BE-4D9F-AB54-0F9CE994DC51": {
+    "name": "Teluk San Francisco",
+    "group": "San Francisco",
+    "pointsOfInterest": {
+      "0": "Teluk San Francisco dan Jembatan Golden Gate",
+      "140": "Melintas di atas menara utara Jembatan Golden Gate ke arah San Francisco",
+      "191": "Di atas Teluk San Francisco"
+    }
+  },
+  "EE533FBD-90AE-419A-AD13-D7A60E2015D6": {
+    "name": "Kabut San Francisco",
+    "group": "San Francisco",
+    "pointsOfInterest": {
+      "0": "Di atas Marin Headlands mengarah ke Golden Gate Bridge",
+      "150": "Menyeberangi Jembatan Golden Gate ke arah Presidio San Francisco"
+    }
+  },
+  "72B4390D-DF1D-4D51-B179-229BBAEFFF2C": {
+    "name": "Jembatan Golden Gate San Francisco",
+    "group": "San Francisco",
+    "pointsOfInterest": {
+      "0": "Menuju Jembatan Golden Gate dari San Francisco",
+      "60": "Di sepanjang Jembatan Golden Gate ke arah Marin Headlands",
+      "140": "Menyeberangi Jembatan Golden Gate",
+      "230": "Melewati North Tower Jembatan Golden Gate",
+      "260": "Di atas Teluk San Francisco di sepanjang Jembatan Golden Gate"
+    }
+  },
+  "4AD99907-9E76-408D-A7FC-8429FF014201": {
+    "name": "Ferry Building San Francisco",
+    "group": "San Francisco",
+    "pointsOfInterest": {
+      "0": "Di atas Teluk San Francisco ke arah Embarcadero",
+      "90": "Di atas Embarcadero menghadap Market Street di San Francisco",
+      "150": "Menyusuri Market Street melalui pusat kota San Francisco",
+      "360": "Menyusuri Market Street melalui San Francisco"
+    }
+  },
+  "0C747C29-4BF8-43F6-A5CC-2E012E555341": {
+    "name": "Pesisir Skotlandia",
+    "group": "Skotlandia",
+    "pointsOfInterest": {
+      "0": "Menyusuri pesisir\nPulau Skye, Skotlandia",
+      "338": "Mercusuar Neist Point, Pulau Skye, Skotlandia",
+      "372": "Pulau Skye, Skotlandia"
+    }
+  },
+  "3954A7C4-51EC-4ABC-ABA3-6757AC91C7CF": {
+    "name": "Danau Skotlandia",
+    "group": "Skotlandia",
+    "pointsOfInterest": {
+      "0": "Di atas Loch Moidart di\npesisir barat Skotlandia",
+      "252": "Menuju Laut Hebrides, Skotlandia"
+    }
+  },
+  "E161929C-0819-4BC2-8359-550C081C7D54": {
+    "name": "Kastel Skotlandia",
+    "group": "Skotlandia",
+    "pointsOfInterest": {
+      "0": "Loch Moidart di lepas pantai pesisir Skotlandia",
+      "139": "Menuju Kastil Tioram di\npesisir barat Skotlandia",
+      "181": "Kastil Tioram di lepas pantai pesisir barat Skotlandia",
+      "214": "Melintas di atas pesisir barat Skotlandia"
+    }
+  },
+  "cb5b5035-6701-619f-9065-3d7d0e5fbef4-144": {
+    "name": "Matahari Terbit di Sequoia",
+    "group": "Sequoia",
+    "pointsOfInterest": {
+      "0": "Di Taman Nasional Sequoia saat matahari terbit"
+    }
+  },
+  "cb5b5035-6701-619f-9065-3d7d0e5fbef4-145": {
+    "name": "Pagi di Sequoia",
+    "group": "Sequoia",
+    "pointsOfInterest": {
+      "0": "Di Taman Nasional Sequoia pada pagi hari"
+    }
+  },
+  "cb5b5035-6701-619f-9065-3d7d0e5fbef4-146": {
+    "name": "Malam di Sequoia",
+    "group": "Sequoia",
+    "pointsOfInterest": {
+      "0": "Di Taman Nasional Sequoia pada malam hari"
+    }
+  },
+  "ecebc8d2-5486-c2b2-52ae-6f0ab2d6b65f-125": {
+    "name": "Awan Sonoma",
+    "group": "Sonoma",
+    "pointsOfInterest": {
+      "0": "Di atas Sonoma mengarah ke utara melalui California"
+    }
+  },
+  "ecebc8d2-5486-c2b2-52ae-6f0ab2d6b65f-126": {
+    "name": "Sore di Sonoma",
+    "group": "Sonoma",
+    "pointsOfInterest": {
+      "0": "Terbang di atas Sonoma, California"
+    }
+  },
+  "ecebc8d2-5486-c2b2-52ae-6f0ab2d6b65f-127": {
+    "name": "Horizon Sonoma",
+    "group": "Sonoma",
+    "pointsOfInterest": {
+      "0": "Ke arah utara melalui Sonoma, California"
+    }
+  },
+  "ecebc8d2-5486-c2b2-52ae-6f0ab2d6b65f-128": {
+    "name": "Sungai Sonoma",
+    "group": "Sonoma",
+    "pointsOfInterest": {
+      "0": "Ke arah utara di atas Sonoma, California"
+    }
+  },
+  "ecebc8d2-5486-c2b2-52ae-6f0ab2d6b65f-129": {
+    "name": "Sonoma dari Atas",
+    "group": "Sonoma",
+    "pointsOfInterest": {
+      "0": "Di atas redwood California Sonoma"
+    }
+  },
+  "cb5b5035-6701-619f-9065-3d7d0e5fbef4-130": {
+    "name": "Bunga Liar California",
+    "group": "Superbloom",
+    "pointsOfInterest": {
+      "0": "Ke arah bunga liar California"
+    }
+  },
+  "cb5b5035-6701-619f-9065-3d7d0e5fbef4-131": {
+    "name": "Dataran Carrizo California",
+    "group": "Superbloom",
+    "pointsOfInterest": {
+      "0": "Ke arah utara di atas bunga liar California"
+    }
+  },
+  "cb5b5035-6701-619f-9065-3d7d0e5fbef4-132": {
+    "name": "Pegunungan Temblor California",
+    "group": "Superbloom",
+    "pointsOfInterest": {
+      "0": "Menyusuri Pegunungan Temblor\ndi California selatan"
+    }
+  },
+  "cb5b5035-6701-619f-9065-3d7d0e5fbef4-147": {
+    "name": "Pagi di Tahoe",
+    "group": "Tahoe",
+    "pointsOfInterest": {
+      "0": "Danau Tahoe pada pagi hari"
+    }
+  },
+  "cb5b5035-6701-619f-9065-3d7d0e5fbef4-148": {
+    "name": "Siang di Tahoe",
+    "group": "Tahoe",
+    "pointsOfInterest": {
+      "0": "Danau Tahoe pada siang hari"
+    }
+  },
+  "cb5b5035-6701-619f-9065-3d7d0e5fbef4-149": {
+    "name": "Sore di Tahoe",
+    "group": "Tahoe",
+    "pointsOfInterest": {
+      "0": "Danau Tahoe pada sore hari"
+    }
+  },
+  "cb5b5035-6701-619f-9065-3d7d0e5fbef4-150": {
+    "name": "Malam di Tahoe",
+    "group": "Tahoe",
+    "pointsOfInterest": {
+      "0": "Danau Tahoe pada malam hari"
+    }
+  },
+  "C6DC4E54-1130-44F8-AF6F-A551D8E8A181": {
+    "name": "Ubur-Ubur Alaska Gelap",
+    "group": "Bawah Air",
+    "pointsOfInterest": {
+      "0": "Ubur-Ubur Bulan di dekat pesisir Alaska, Amerika Serikat"
+    }
+  },
+  "C7AD3D0A-7EDF-412C-A237-B3C9D27381A1": {
+    "name": "Ubur-Ubur Alaska Terang",
+    "group": "Bawah Air",
+    "pointsOfInterest": {
+      "0": "Berenang di atas Ubur-Ubur Bulan di dekat pesisir Alaska, Amerika Serikat"
+    }
+  },
+  "2B30E324-E4FF-4CC1-BA45-A958C2D2B2EC": {
+    "name": "Kumpulan Barakuda",
+    "group": "Bawah Air",
+    "pointsOfInterest": {
+      "0": "Kawanan ikan Barakuda Chevron\ndi perairan dekat Borneo"
+    }
+  },
+  "687D03A2-18A5-4181-8E85-38F3A13409B9": {
+    "name": "Ikan Bumphead",
+    "group": "Bawah Air",
+    "pointsOfInterest": {
+      "0": "Ikan Kakaktua Berdahi Bulat\ndi atas terumbu karang Borneo"
+    }
+  },
+  "27A37B0F-738D-4644-A7A4-E33E7A6C1175": {
+    "name": "Kumpulan Lumba-Lumba California",
+    "group": "Bawah Air",
+    "pointsOfInterest": {
+      "0": "Lumba-Lumba Moncong Pendek di lepas pantai California, Amerika Serikat"
+    }
+  },
+  "EB3F48E7-D30F-4079-858F-1A61331D5026": {
+    "name": "Hutan Kelp California",
+    "group": "Bawah Air",
+    "pointsOfInterest": {
+      "0": "Melintas melalui hutan rumput laut di lepas pantai California, Amerika Serikat"
+    }
+  },
+  "CE9B5D5B-B6E7-47C5-8C04-59BF182E98FB": {
+    "name": "Kumpulan Lumba-Lumba Kosta Rika",
+    "group": "Bawah Air",
+    "pointsOfInterest": {
+      "0": "Lumba-Lumba Pemintal di perairan\nKosta Rika"
+    }
+  },
+  "58C75C62-3290-47B8-849C-56A583173570": {
+    "name": "Ikan Pari Cownose",
+    "group": "Bawah Air",
+    "pointsOfInterest": {
+      "0": "Ikan Pari Pesek Keemasan\ndi lepas pantai Meksiko"
+    }
+  },
+  "3716DD4B-01C0-4F5B-8DD6-DB771EC472FB": {
+    "name": "Hiu Karang Abu-Abu",
+    "group": "Bawah Air",
+    "pointsOfInterest": {
+      "0": "Ikan Hiu Lonjor berenang di dekat Polinesia Prancis"
+    }
+  },
+  "DD47D8E1-CB66-4C12-BFEA-2ADB0D8D1E2E": {
+    "name": "Paus Bungkuk",
+    "group": "Bawah Air",
+    "pointsOfInterest": {
+      "0": "Paus Bungkuk di Polinesia Prancis"
+    }
+  },
+  "537A4DAB-83B0-4B66-BCD1-05E5DBB4A268": {
+    "name": "Kumpulan Ikan Jack",
+    "group": "Bawah Air",
+    "pointsOfInterest": {
+      "0": "Kawanan ikan Bigeye Jacks\ndi lepas pantai Borneo"
+    }
+  },
+  "6143116D-03BB-485E-864E-A8CF58ACF6F1": {
+    "name": "Kelp Gelap",
+    "group": "Bawah Air",
+    "pointsOfInterest": {
+      "0": "Berenang melalui hutan rumput laut dekat Semenanjung Cape, Afrika Selatan"
+    }
+  },
+  "F07CC61B-30FC-4614-BDAD-3240B61F6793": {
+    "name": "Warna Karang Palau",
+    "group": "Bawah Air",
+    "pointsOfInterest": {
+      "0": "Terumbu karang dekat Palau"
+    }
+  },
+  "BA4ECA11-592F-4727-9221-D2A32A16EB28": {
+    "name": "Ubur-Ubur Palau Gelap",
+    "group": "Bawah Air",
+    "pointsOfInterest": {
+      "0": "Ubur-Ubur Emas di perairan Palau",
+      "282": "Kawanan Ubur-Ubur Emas dengan\nUbur-Ubur Bulan di tengah-tengahnya",
+      "348": "Ubur-Ubur Emas di perairan Palau"
+    }
+  },
+  "E580E5A5-0888-4BE8-A4CA-F74A18A643C3": {
+    "name": "Ubur-Ubur Palau Biru",
+    "group": "Bawah Air",
+    "pointsOfInterest": {
+      "0": "Ubur-Ubur Emas di perairan Palau"
+    }
+  },
+  "EC3DC957-D4C2-4732-AACE-7D0C0F390EC8": {
+    "name": "Ubur-Ubur Palau Terang",
+    "group": "Bawah Air",
+    "pointsOfInterest": {
+      "0": "Ubur-Ubur Emas di perairan Palau"
+    }
+  },
+  "82175C1F-153C-4EC8-AE37-2860EA828004": {
+    "name": "Karang Laut Merah dari Atas",
+    "group": "Bawah Air",
+    "pointsOfInterest": {
+      "0": "Terumbu karang di Laut Merah dekat Mesir"
+    }
+  },
+  "581A4F1A-2B6D-468C-A1BE-6F473F06D10B": {
+    "name": "Bintang Laut",
+    "group": "Bawah Air",
+    "pointsOfInterest": {
+      "0": "Bintang Laut Bertanduk\ndi dasar samudra dekat Borneo"
+    }
+  },
+  "83C65C90-270C-4490-9C69-F51FE03D7F06": {
+    "name": "Seal Pod",
+    "group": "Bawah Air",
+    "pointsOfInterest": {
+      "0": "Anjing Laut Bulu Cokelat di lepas pantai Semenanjung Cape, Afrika Selatan"
+    }
+  },
+  "8C31B06F-91A4-4F7C-93ED-56146D7F48B9": {
+    "name": "Pesisir Tahiti",
+    "group": "Bawah Air",
+    "pointsOfInterest": {
+      "0": "Ombak pecah di pantai Tahiti"
+    }
+  },
+  "149E7795-DBDA-4F5D-B39A-14712F841118": {
+    "name": "Kabut Ombak Tahiti",
+    "group": "Bawah Air",
+    "pointsOfInterest": {
+      "0": "Ombak pecah di pantai Tahiti"
+    }
+  },
+  "E540DEE6-4C40-42C8-9CCC-D4CB0FAD7D7B": {
+    "name": "Horizon Yosemite",
+    "group": "Yosemite",
+    "pointsOfInterest": {
+      "0": "Di atas Taman Nasional\nYosemite di Amerika Serikat",
+      "70": "Menuju Half Dome di Taman Nasional Yosemite, Amerika Serikat",
+      "87": "Half Dome di Taman Nasional Yosemite, Amerika Serikat",
+      "210": "Di atas Taman Nasional\nYosemite di Amerika Serikat"
+    }
+  },
+  "81CA5ACD-E682-4D8B-A948-0F147EB6ED4F": {
+    "name": "Pegunungan Yosemite",
+    "group": "Yosemite",
+    "pointsOfInterest": {
+      "0": "Di atas Taman Nasional Yosemite, Amerika Serikat",
+      "93": "Ke arah Merced Peak di\nTaman Nasional Yosemite, Amerika Serikat",
+      "130": "Merced Peak di Taman Nasional Yosemite, Amerika Serikat",
+      "221": "Melewati Merced Peak di Taman Nasional Yosemite, Amerika Serikat",
+      "244": "Melintas di atas Taman Nasional Yosemite, Amerika Serikat"
+    }
+  },
+  "E5799A24-1949-4E66-A17B-B5EB05F28C5D": {
+    "name": "Siluet Yosemite",
+    "group": "Yosemite",
+    "pointsOfInterest": {
+      "0": "Half Dome di Taman Nasional Yosemite, Amerika Serikat",
+      "124": "Melewati Half Dome dan menuju Nevada Fall di Taman Nasional Yosemite",
+      "146": "Half Dome dan Nevada Fall di Taman Nasional Yosemite, Amerika Serikat"
+    }
+  },
+  "E487C6EF-B3FB-427B-A2BE-8CBA60F902F0": {
+    "name": "Awan Yosemite",
+    "group": "Yosemite",
+    "pointsOfInterest": {
+      "0": "Di atas Taman Nasional\nYosemite di Amerika Serikat",
+      "40": "Ke arah Half Dome di\nTaman Nasional Yosemite, Amerika Serikat",
+      "60": "Half Dome di Taman Nasional Yosemite, Amerika Serikat",
+      "155": "Di atas Taman Nasional Yosemite\ndengan Nevada Fall di kejauhan",
+      "255": "Nevada dan Illilouette Falls di\nTaman Nasional Yosemite, Amerika Serikat",
+      "285": "Nevada, Vernal, dan Illilouette Falls di\nTaman Nasional Yosemite, Amerika Serikat"
+    }
+  },
+  "DAD82DCE-F3AE-4AEC-8A79-1694D412FC0A": {
+    "name": "Yosemite dari Atas",
+    "group": "Yosemite",
+    "pointsOfInterest": {
+      "0": "Lewat di atas Tuolumne Meadows di\nTaman Nasional Yosemite, Amerika Serikat"
+    }
+  },
+  "4109D42A-D717-46A7-A9A2-FE53A82B25C0": {
+    "name": "Yosemite Valley",
+    "group": "Yosemite",
+    "pointsOfInterest": {
+      "0": "Ke arah Bridalveil Fall dan El Capitan\ndi Taman Nasional Yosemite",
+      "44": "Ke arah timur menuju El Capitan di\nTaman Nasional Yosemite, Amerika Serikat",
+      "87": "Melewati El Capitan, Taman Nasional Yosemite, Amerika Serikat",
+      "120": "Ke arah timur menuju Half Dome di\nTaman Nasional Yosemite, Amerika Serikat",
+      "390": "Half Dome di Taman Nasional Yosemite, Amerika Serikat",
+      "470": "Melintasi Half Dome di\nLembah Yosemite, Amerika Serikat",
+      "585": "Ke arah timur melintasi Lembah Yosemite, Amerika Serikat"
+    }
+  },
+  "8D04D70F-738B-441D-8D43-AF46B2BF8062": {
+    "name": "Salju Puncak Yosemite",
+    "group": "Yosemite",
+    "pointsOfInterest": {
+      "0": "Ke arah Mattes Crest di\nTaman Nasional Yosemite, Amerika Serikat",
+      "75": "Terbang di atas Matthes Crest di\nTaman Nasional Yosemite, Amerika Serikat",
+      "124": "Terbang melalui Matthes Crest di\nTaman Nasional Yosemite, Amerika Serikat",
+      "215": "Terbang di atas Matthes Crest di\nTaman Nasional Yosemite, Amerika Serikat",
+      "396": "Mengarah ke Tuolumne Meadows di\nTaman Nasional Yosemite, Amerika Serikat"
+    }
+  }
+}

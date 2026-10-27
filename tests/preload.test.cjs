@@ -28,7 +28,9 @@ function bridge(realSettings = false, fontOptions = {}) {
         'electron-store': class {}, './settings-store': realSettings ? require('../settings-store') : {createSettingsStore: () => settings},
         './video-sources': require('../video-sources'), './playback': {convertedPath: () => 'C:/cache/converted/a.mp4'},
         path: require('node:path'), fs: {existsSync: () => exists}, url: require('node:url'),
-        './videos.json': [], 'font-list-universal': {getFonts: async () => ['Fallback Font']},
+        './videos.json': [], './localized/locales.json': require('../localized/locales.json'),
+        './video-localization': require('../video-localization'),
+        'font-list-universal': {getFonts: async () => ['Fallback Font']},
         child_process: {execFile: (command, args, callback) => {
             assert.equal(command, 'cscript');
             assert.equal(args[0], '//nologo');

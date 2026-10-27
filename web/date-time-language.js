@@ -6,6 +6,12 @@ function dateTimeLocale() {
     const available = new Set(moment.locales());
     for (const language of languages || []) {
         let candidate = language.toLowerCase().replace(/_/g, '-');
+        if (/^no(-|$)/.test(candidate)) {
+            candidate = candidate.replace(/^no/, 'nb');
+        }
+        if (/^zh-(hant|hans)(-|$)/.test(candidate)) {
+            candidate = /-(hk|mo)(-|$)/.test(candidate) ? 'zh-hk' : candidate.includes('hant') ? 'zh-tw' : 'zh-cn';
+        }
         while (candidate) {
             if (available.has(candidate)) {
                 return candidate;
@@ -24,7 +30,8 @@ function displayDateTimeLanguages() {
     const select = document.getElementById('dateTimeLanguage');
     select.replaceChildren(new Option('System default', 'system'));
     const names = new Intl.DisplayNames(electron.systemLanguages, {type: 'language'});
-    const languages = moment.locales().map(locale => {
+    const available = [...new Set([...moment.locales(), ...(electron.videoLocales || []).map(locale => locale.toLowerCase())])];
+    const languages = available.map(locale => {
         let name = locale;
         try {
             name = names.of(locale);
@@ -37,5 +44,5 @@ function displayDateTimeLanguages() {
         select.add(new Option(`${name} (${locale})`, locale));
     }
     const selected = electron.store.get('dateTimeLanguage') || 'system';
-    select.value = moment.locales().includes(selected) ? selected : 'system';
+    select.value = available.includes(selected.toLowerCase()) ? selected.toLowerCase() : 'system';
 }

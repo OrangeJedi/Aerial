@@ -4,6 +4,11 @@ Run `npm test` for the complete suite, including real FFmpeg encoding and decodi
 Run `npm run test:coverage` for Node's built-in coverage report. No desktop session,
 network access, actual screen locking, or changes to user settings are required.
 
+Run `python tests/import_localizations_test.py` with Python 3 for the Apple translation
+importer tests. They use synthetic local archives and verify that manual translations
+survive repeated imports. `video-localization.test.cjs` checks every bundled locale,
+English compatibility, regional fallbacks, and missing-caption behavior.
+
 The suite covers these critical paths:
 
 | Area | Tests |

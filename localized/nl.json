@@ -1,0 +1,1301 @@
+{
+  "B876B645-3955-420E-99DF-60139E451CF3": {
+    "name": "Bergen in China",
+    "group": "China",
+    "pointsOfInterest": {
+      "0": "Je reist door het nationale park Wulingyuan in China"
+    }
+  },
+  "9CCB8297-E9F5-4699-AE1F-890CFBD5E29C": {
+    "name": "Rijstveld in China",
+    "group": "China",
+    "pointsOfInterest": {
+      "0": "Je vliegt over de terrasvormige rijstvelden van Longji in de provincie Guangxi in China"
+    }
+  },
+  "D5E76230-81A3-4F65-A1BA-51B8CADED625": {
+    "name": "Bergrotsen in China",
+    "group": "China",
+    "pointsOfInterest": {
+      "0": "Je verkent het nationale park Wulingyuan in China"
+    }
+  },
+  "22162A9B-DB90-4517-867C-C676BC3E8E95": {
+    "name": "Chinese Muur",
+    "group": "China",
+    "pointsOfInterest": {
+      "0": "Het Mutianyu-deel van de Grote Muur in het district Huairou van China"
+    }
+  },
+  "044AD56C-A107-41B2-90CC-E60CCACFBCF5": {
+    "name": "Silhouet van China",
+    "group": "China",
+    "pointsOfInterest": {
+      "0": "Het Mutianyu-deel van de Grote Muur in het district Huairou van China"
+    }
+  },
+  "F0236EC5-EE72-4058-A6CE-1F7D2E8253BF": {
+    "name": "Chinese Muur (daglicht)",
+    "group": "China",
+    "pointsOfInterest": {
+      "0": "Het Mutianyu-deel van de Grote Muur in het district Huairou van China"
+    }
+  },
+  "876D51F4-3D78-4221-8AD2-F9E78C0FD9B9": {
+    "name": "Dubai van boven",
+    "group": "Dubai",
+    "pointsOfInterest": {
+      "0": "Je reist langs de Sheikh Zayed Road in Dubai in de Verenigde Arabische Emiraten"
+    }
+  },
+  "E991AC0C-F272-44D8-88F3-05F44EDFE3AE": {
+    "name": "Haven van de Dubaikreek",
+    "group": "Dubai",
+    "pointsOfInterest": {
+      "0": "Je vliegt over Dubai Marina in de Verenigde Arabische Emiraten"
+    }
+  },
+  "9680B8EB-CE2A-4395-AF41-402801F4D6A6": {
+    "name": "Dubai 's nachts",
+    "group": "Dubai",
+    "pointsOfInterest": {
+      "0": "Je nadert Burj Khalifa in het centrum van Dubai in de Verenigde Arabische Emiraten",
+      "280": "Je passeert Burj Khalifa in het centrum van Dubai in de Verenigde Arabische Emiraten",
+      "330": "Je bevindt je boven het centrum van Dubai en nadert de kust"
+    }
+  },
+  "00BA71CD-2C54-415A-A68A-8358E677D750": {
+    "name": "Skyline van Dubai",
+    "group": "Dubai",
+    "pointsOfInterest": {
+      "0": "Je nadert het centrum van Dubai in de Verenigde Arabische Emiraten",
+      "210": "Je vliegt over het centrum van Dubai in de Verenigde Arabische Emiraten"
+    }
+  },
+  "3FFA2A97-7D28-49EA-AA39-5BC9051B2745": {
+    "name": "Dubaikreek",
+    "group": "Dubai",
+    "pointsOfInterest": {
+      "0": "Je vliegt langs Dubai Marina in de Verenigde Arabische Emiraten"
+    }
+  },
+  "E334A6D2-7145-47C8-9B00-C20DED08B2D5": {
+    "name": "De Grand Canyon 's avonds",
+    "group": "Grand Canyon",
+    "pointsOfInterest": {
+      "0": "Je volgt de rivier de Colorado door de Grand Canyon in de Verenigde Staten"
+    }
+  },
+  "DD266E1F-5DF2-4CDB-A2EB-26CE35664657": {
+    "name": "De Grand Canyon van boven",
+    "group": "Grand Canyon",
+    "pointsOfInterest": {
+      "0": "Je vliegt over het gebied Burnt Canyon van de Grand Canyon in de Verenigde Staten"
+    }
+  },
+  "F9F918CD-E15F-4F01-A326-84A44650C5C9": {
+    "name": "Zonsondergang in de Grand Canyon",
+    "group": "Grand Canyon",
+    "pointsOfInterest": {
+      "0": "Je vliegt over de Grand Canyon\nin de Verenigde Staten"
+    }
+  },
+  "AE0115AE-C53B-4DB9-B12F-CA4B7B630CC9": {
+    "name": "Afzetting in de Grand Canyon",
+    "group": "Grand Canyon",
+    "pointsOfInterest": {
+      "0": "Je vliegt door de Grand Canyon\nin de Verenigde Staten"
+    }
+  },
+  "8002C4C8-C611-4894-A068-3D3A3C03472A": {
+    "name": "Rivierdal in de Grand Canyon",
+    "group": "Grand Canyon",
+    "pointsOfInterest": {
+      "0": "Je vliegt langs de rivier de Colorado in\nde Grand Canyon in de Verenigde Staten"
+    }
+  },
+  "B8F204CE-6024-49AB-85F9-7CA2F6DCD226": {
+    "name": "Gletsjer in Groenland",
+    "group": "Groenland",
+    "pointsOfInterest": {
+      "0": "Je reist over het schiereiland Nuussuaq in Groenland"
+    }
+  },
+  "2F52E34C-39D4-4AB1-9025-8F7141FAA720": {
+    "name": "Kust in Groenland",
+    "group": "Groenland",
+    "pointsOfInterest": {
+      "0": "De ijsfjord van Ilulissat voor de kust van Groenland"
+    }
+  },
+  "EE01F02D-1413-436C-AB05-410F224A5B7B": {
+    "name": "Groenland 's avonds",
+    "group": "Groenland",
+    "pointsOfInterest": {
+      "0": "De ijsfjord van Ilulissat voor de kust van Groenland"
+    }
+  },
+  "12E0343D-2CD9-48EA-AB57-4D680FB6D0C7": {
+    "name": "Kustlijn van Hawaï",
+    "group": "Hawaï",
+    "pointsOfInterest": {
+      "0": "Je vliegt over Laupāhoehoe Nui in het bosreservaat Kohala op het eiland Hawaï"
+    }
+  },
+  "258A6797-CC13-4C3A-AB35-4F25CA3BF474": {
+    "name": "Wolken in Hawaiï (licht)",
+    "group": "Hawaï",
+    "pointsOfInterest": {
+      "0": "Je bevindt je boven het natuurreservaat Pu'u O 'Umi op het eiland Hawaï"
+    }
+  },
+  "3D729CFC-9000-48D3-A052-C5BD5B7A6842": {
+    "name": "Oceaan in Hawaï",
+    "group": "Hawaï",
+    "pointsOfInterest": {
+      "0": "Je volgt de kustlijn van Kohala op het eiland Hawaï"
+    }
+  },
+  "499995FA-E51A-4ACE-8DFD-BDF8AFF6C943": {
+    "name": "Vallei in Hawaï",
+    "group": "Hawaï",
+    "pointsOfInterest": {
+      "0": "De Waimanu-vallei in het bosreservaat Kohala op het eiland Hawaï"
+    }
+  },
+  "82BD33C9-B6D2-47E7-9C42-AA3B7758921A": {
+    "name": "Wolken in Hawaiï (donker)",
+    "group": "Hawaï",
+    "pointsOfInterest": {
+      "0": "Je bevindt je boven het natuurreservaat Pu'u O 'Umi op het eiland Hawaï"
+    }
+  },
+  "E99FA658-A59A-4A2D-9F3B-58E7BDC71A9A": {
+    "name": "Hongkong 's nachts",
+    "group": "Hongkong",
+    "pointsOfInterest": {
+      "0": "Je bevindt je boven Victoria Harbour en vliegt in de richting van het centrum van Hongkong"
+    }
+  },
+  "C8559883-6F3E-4AF2-8960-903710CD47B7": {
+    "name": "Horizon van Hongkong",
+    "group": "Hongkong",
+    "pointsOfInterest": {
+      "0": "Je vliegt over Victoria Peak in Hongkong",
+      "150": "Je vliegt over Hongkong in de richting van Victoria Harbour",
+      "330": "Je bevindt je boven Victoria Harbour en nadert het schiereiland Kowloon"
+    }
+  },
+  "024891DE-B7F6-4187-BFE0-E6D237702EF0": {
+    "name": "Skyline van Hongkong",
+    "group": "Hongkong",
+    "pointsOfInterest": {
+      "0": "Je bevindt je boven Wan Chai en nadert het centrum van Hongkong",
+      "150": "Je bevindt je boven het centrum van Hongkong",
+      "270": "Je bevindt je boven Hong Kong Island"
+    }
+  },
+  "FE8E1F9D-59BA-4207-B626-28E34D810D0A": {
+    "name": "Haven van Hongkong",
+    "group": "Hongkong",
+    "pointsOfInterest": {
+      "0": "Je bevindt je boven Victoria Harbour en kijkt in de richting van Hong Kong Island"
+    }
+  },
+  "8590D0C5-E344-4FAC-A39A-FD7BC652AEDA": {
+    "name": "Kust in IJsland",
+    "group": "IJsland",
+    "pointsOfInterest": {
+      "0": "Je vliegt over Langisjór in IJsland"
+    }
+  },
+  "DDE50C77-B7CB-4488-9EB1-D1B13BF21FFE": {
+    "name": "Gletsjer in IJsland",
+    "group": "IJsland",
+    "pointsOfInterest": {
+      "0": "Je vliegt over Tungnaá in de hooglanden van IJsland"
+    }
+  },
+  "E54D5AFE-F362-4D48-A20D-F2C21D2B5330": {
+    "name": "Fjord in IJsland",
+    "group": "IJsland",
+    "pointsOfInterest": {
+      "0": "Je volgt de rivier de Jökulgilskvísl in Landmannalaugar, IJsland",
+      "308": "Je vliegt over de hooglanden van IJsland"
+    }
+  },
+  "F9518D54-04A7-4793-8666-CFC114D73CE5": {
+    "name": "Rivierbed in IJsland",
+    "group": "IJsland",
+    "pointsOfInterest": {
+      "0": "Je vliegt door Jökulgil in Landmannalaugar, IJsland"
+    }
+  },
+  "8ACF5D77-B22C-416F-B12A-72FB35E2834F": {
+    "name": "Fjord in IJsland van boven",
+    "group": "IJsland",
+    "pointsOfInterest": {
+      "0": "Je vliegt over Landmannalaugar in IJsland"
+    }
+  },
+  "2F17FCCE-6CCA-4AFA-A08A-C50BF9812DA5": {
+    "name": "Sneeuwkappen in IJsland",
+    "group": "IJsland",
+    "pointsOfInterest": {
+      "0": "Je vliegt richting de Mýrdalsjökull-gletsjer in IJsland",
+      "150": "Je nadert de Mýrdalsjökull-gletsjer in IJsland",
+      "225": "De Mýrdalsjökull-gletsjer in IJsland",
+      "324": "Je vliegt over de Mýrdalsjökull-gletsjer in IJsland"
+    }
+  },
+  "cb5b5035-6701-619f-9065-3d7d0e5fbef4-113": {
+    "name": "Meer in IJsland",
+    "group": "IJsland",
+    "pointsOfInterest": {
+      "0": "Vlucht boven IJsland"
+    }
+  },
+  "cb5b5035-6701-619f-9065-3d7d0e5fbef4-133": {
+    "name": "Stranden in Goa",
+    "pointsOfInterest": {
+      "0": "Je bevindt je boven Cola en Small Cola Beach in Goa, India"
+    }
+  },
+  "cb5b5035-6701-619f-9065-3d7d0e5fbef4-134": {
+    "name": "Kust van Goa",
+    "pointsOfInterest": {
+      "0": "Je passeert Small Cola Beach in Goa, India",
+      "150": "Je nadert Cola Beach in Goa, India"
+    }
+  },
+  "cb5b5035-6701-619f-9065-3d7d0e5fbef4-135": {
+    "name": "De Ganges",
+    "pointsOfInterest": {
+      "0": "Je volgt de Ganges vanuit Rishikesh in Uttarakhand, India"
+    }
+  },
+  "cb5b5035-6701-619f-9065-3d7d0e5fbef4-136": {
+    "name": "Ghansali van boven",
+    "pointsOfInterest": {
+      "0": "Je bevindt je boven terrasvelden bij Akhori in Uttarakhand, India."
+    }
+  },
+  "cb5b5035-6701-619f-9065-3d7d0e5fbef4-137": {
+    "name": "Door de Himalaya",
+    "pointsOfInterest": {
+      "0": "Je vliegt richting Nanda Devi via de Garhwal Himalaya in Uttarakhand, India"
+    }
+  },
+  "cb5b5035-6701-619f-9065-3d7d0e5fbef4-138": {
+    "name": "Bergtoppen van de Himalaya",
+    "pointsOfInterest": {
+      "0": "Je passeert de Garhwal Himalaya in Uttarakhand, India"
+    }
+  },
+  "cb5b5035-6701-619f-9065-3d7d0e5fbef4-139": {
+    "name": "De Himalaya overdag",
+    "pointsOfInterest": {
+      "0": "Je passeert de Garhwal Himalaya in Uttarakhand, India"
+    }
+  },
+  "cb5b5035-6701-619f-9065-3d7d0e5fbef4-140": {
+    "name": "Theetuinen overdag",
+    "pointsOfInterest": {
+      "0": "Je passeert de theetuinen van Munnar in Kerala, India"
+    }
+  },
+  "cb5b5035-6701-619f-9065-3d7d0e5fbef4-141": {
+    "name": "Theethuinen in de mist",
+    "pointsOfInterest": {
+      "0": "Je vliegt in oostelijke richting over de theetuinen van Munnar in Kerala, India"
+    }
+  },
+  "cb5b5035-6701-619f-9065-3d7d0e5fbef4-142": {
+    "name": "Theetuinen van boven",
+    "pointsOfInterest": {
+      "0": "Je bevindt je boven de theetuinen van Munnar in Kerala, India"
+    }
+  },
+  "cb5b5035-6701-619f-9065-3d7d0e5fbef4-143": {
+    "name": "Het reservoir overdag",
+    "pointsOfInterest": {
+      "0": "Je volgt het Upper Sholayar Reservoir in Tamil Nadu, India."
+    }
+  },
+  "A837FA8C-C643-4705-AE92-074EFDD067F7": {
+    "name": "Afrika",
+    "group": "Aarde",
+    "pointsOfInterest": {
+      "0": "Je vliegt 's nachts in noordoostelijke richting over de Sahara",
+      "70": "Je bevindt je boven de Grand Erg Oriental en vliegt in de richting van de Middellandse Zee",
+      "100": "De Middellandse Zeekust van Tunesië en Libië",
+      "120": "Je vliegt over de Middellandse Zee in de richting van Italië",
+      "140": "Je bevindt je boven Zuid-Italië en nadert de Balkan met Turkije in de verte",
+      "165": "Je bevindt je boven de Balkan en vliegt in de richting van de Zwarte Zee",
+      "180": "Je bevindt je boven de Balkan en nadert de Zwarte Zee",
+      "210": "Je vliegt over de Zwarte Zee in de richting van Oekraïne",
+      "230": "Je vliegt over Oekraïne in de richting van Rusland"
+    }
+  },
+  "2F72BC1E-3D76-456C-81EB-842EBA488C27": {
+    "name": "Noord-Afrika",
+    "group": "Aarde",
+    "pointsOfInterest": {
+      "0": "Je bevindt je boven de Hoorn van Afrika en vliegt in de richting van de Golf van Aden",
+      "45": "Het zuidoostelijk Arabisch Schiereiland",
+      "115": "De Golf van Oman in de richting van de Makran-kust",
+      "145": "De Makran-kust van Iran en Pakistan",
+      "160": "Je bevindt je boven Iran en vliegt in de richting van Afghanistan en Pakistan",
+      "180": "Je bevindt je boven Afghanistan en Pakistan en vliegt in de richting van de Karakoram",
+      "235": "Je bevindt je boven de Karakoram en vliegt in de richting van China",
+      "280": "De Taklamakan-woestijn in het westen van China",
+      "315": "De Tiensjan in Centraal-Azië"
+    }
+  },
+  "03EC0F5E-CCA8-4E0A-9FEC-5BD1CE151182": {
+    "name": "Zuiderlicht in Antarctica",
+    "group": "Aarde",
+    "pointsOfInterest": {
+      "0": "Het zuiderlicht boven Antarctica"
+    }
+  },
+  "64D11DAB-3B57-4F14-AD2F-E59A9282FA44": {
+    "name": "Noordelijke Atlantische Oceaan",
+    "group": "Aarde",
+    "pointsOfInterest": {
+      "0": "Je bevindt je boven de Noord-Atlantische Oceaan en vliegt in de richting van Portugal",
+      "115": "Je bevindt je boven Portugal en Spanje",
+      "150": "Je verlaat het Iberisch Schiereiland en passeert de Golf van Biskaje en Frankrijk",
+      "180": "Je bevindt je boven West-Europa met de Noord-Atlantische Oceaan in de verte"
+    }
+  },
+  "81337355-E156-4242-AAF4-711768D30A54": {
+    "name": "Australië",
+    "group": "Aarde",
+    "pointsOfInterest": {
+      "0": "Je bevindt je boven de Indische Oceaan en vliegt in de richting van Perth, Australië",
+      "50": "Je vliegt in noordoostelijke richting over West-Australië",
+      "170": "Je bevindt je boven West-Australië en nadert het Noordelijk Territorium",
+      "220": "Je bevindt je boven het Noordelijk Territorium van Australië en vliegt in de richting van Nieuw-Guinea",
+      "335": "Je bevindt je boven de Arafurazee en vliegt in de richting van Nieuw-Guinea"
+    }
+  },
+  "12318CCB-3F78-43B7-A854-EFDCCE5312CD": {
+    "name": "Californië",
+    "group": "Aarde",
+    "pointsOfInterest": {
+      "0": "Je bevindt je boven de Stille Oceaan en vliegt in de richting van de kust van Californië",
+      "70": "Je bevindt je boven de kust van Californië en vliegt landinwaarts",
+      "85": "Je vliegt over Los Angeles aan de westkust van de Verenigde Staten",
+      "95": "Je bevindt je boven Los Angeles en nadert Las Vegas in de Verenigde Staten",
+      "110": "Je bevindt je boven Las Vegas en vliegt in de richting van Salt Lake City in de Verenigde Staten",
+      "120": "Je bevindt je boven het weten van de Verenigde Staten en nadert Salt Lake City",
+      "155": "Je vliegt tussen Salt Lake City en Denver in de Verenigde Staten",
+      "170": "Je bevindt je boven de Rocky Mountains in de Verenigde Staten"
+    }
+  },
+  "D5CFB2FF-5F8C-4637-816B-3E42FC1229B8": {
+    "name": "Caraïbische eilanden",
+    "group": "Aarde",
+    "pointsOfInterest": {
+      "0": "Je vliegt over de Stille Oceaan in de richting van Midden-Amerika",
+      "35": "De westkust van Nicaragua, Costa Rica en Panama",
+      "50": "Je vliegt over Midden-Amerika met Zuid-Amerika in de verte",
+      "65": "De Muskietenkust van Nicaragua",
+      "85": "Je bevindt je boven de Caraïbische Zee en vliegt in de richting van Cuba",
+      "110": "Je passeert een bewolkt Jamaica in de Caraïbische Zee",
+      "125": "Je steekt Cuba over en kijkt in de richting van Haïti en de Dominicaanse Republiek",
+      "170": "Je vliegt over de Bahama's en kijkt in de richting van Haïti en de Dominicaanse Republiek",
+      "190": "De Turks- en Caicoseilanden in de Atlantische Oceaan"
+    }
+  },
+  "1088217C-1410-4CF7-BDE9-8F573A4DBCD9": {
+    "name": "Caraïbische Zee",
+    "group": "Aarde",
+    "pointsOfInterest": {
+      "0": "Je bevindt je boven de Stille Oceaan en vliegt in de richting van Midden-Amerika",
+      "70": "De zuidwestkust van Midden-Amerika in de richting van de Caraïbische Zee",
+      "100": "Je steekt Midden-Amerika over in de richting van de Caraïbische Zee",
+      "150": "Je bevindt je boven de Caraïbische Zee en vliegt in de richting van Cuba",
+      "240": "Je bevindt je boven Cuba met Florida en de Bahama's in de verte",
+      "300": "Je bevindt je boven Florida en de Bahama's en vliegt in de richting van de Sargassozee",
+      "350": "Je bevindt je boven de Sargassozee en vliegt in de richting van de Atlantische Oceaan"
+    }
+  },
+  "4F881F8B-A7D9-4FDB-A917-17BF6AC5A589": {
+    "name": "Caraïben",
+    "group": "Aarde",
+    "pointsOfInterest": {
+      "0": "Je vliegt in zuidoostelijke richting over de Great Plains van de Verenigde Staten",
+      "90": "Je vliegt in zuidoostelijke richting over het Middenwesten van de Verenigde Staten",
+      "120": "Je bevindt je boven het zuidoosten van de Verenigde Staten en vliegt in de richting van Florida",
+      "220": "Je bevindt je boven Florida en vliegt in de richting van de Bahama's",
+      "240": "Je vliegt in zuidoostelijke richting over de Bahama's",
+      "285": "Je bevindt je boven de Bahama's en nadert de Dominicaanse Republiek en Haïti",
+      "300": "Je bevindt je boven de Dominicaanse Republiek en Haïti en nadert de Caraïbische Zee",
+      "315": "Je bevindt je boven de Caraïbische Zee en vliegt in zuidelijke richting naar Venezuela"
+    }
+  },
+  "6324F6EB-E0F1-468F-AC2E-A983EBDDD53B": {
+    "name": "China 's nachts",
+    "group": "Aarde",
+    "pointsOfInterest": {
+      "0": "Je bevindt je boven Centraal-Azië en vliegt in de richting van de kust van China",
+      "10": "Je bevindt je boven China en vliegt in de richting van Shanghai",
+      "30": "Je vliegt over Oost-China en nadert Shanghai",
+      "45": "Je nadert Shanghai en vliegt in de richting van de Oost-Chinese Zee",
+      "50": "Je bevindt je boven Shanghai en vliegt in de richting van de Oost-Chinese Zee"
+    }
+  },
+  "F439B0A7-D18C-4B14-9681-6520E6A74FE9": {
+    "name": "Midden-Oosten",
+    "group": "Aarde",
+    "pointsOfInterest": {
+      "0": "De weerspiegeling van de zon langs de kust van Iran",
+      "15": "Van dag naar nacht boven Iran",
+      "60": "Van dag naar nacht boven Centraal-Azië"
+    }
+  },
+  "7C643A39-C0B2-4BA0-8BC2-2EAA47CC580E": {
+    "name": "Europa 's nachts",
+    "group": "Aarde",
+    "pointsOfInterest": {
+      "0": "Je bevindt je boven de Noord‑Atlantische Oceaan en nadert Ierland en Groot‑Brittannië",
+      "15": "Ierland en Groot-Brittannië",
+      "45": "Je bevindt je boven Groot-Brittannië en vliegt in de richting van het vasteland van Europa",
+      "65": "Je bevindt je boven Noordwest-Europa en vliegt in de richting van Moskou",
+      "105": "Je bevindt je boven Midden-Europa en vliegt in de richting van Rusland",
+      "150": "Je bevindt je boven Oost-Europa met Moskou in de verte",
+      "165": "Je bevindt je boven Oost-Europa en kijkt in de richting van Moskou",
+      "185": "Je bevindt je boven West-Rusland en passeert Moskou",
+      "195": "Je bevindt je boven Rusland en vliegt in de richting van Centraal-Azië"
+    }
+  },
+  "E5DB138A-F04E-4619-B896-DE5CB538C534": {
+    "name": "Zuid-Europa 's nachts",
+    "group": "Aarde",
+    "pointsOfInterest": {
+      "0": "Je bevindt je boven Tunesië en vliegt in de richting van Italië",
+      "5": "Je bevindt je boven de Middellandse Zee en kijkt in de richting van Sicilië en het Apennijns Schiereiland",
+      "15": "Je bevindt je boven Zuid-Italië met de Balkan in de verte",
+      "25": "Je bevindt je boven de Balkan en vliegt in de richting van Centraal-Azië",
+      "40": "Je bevindt je boven de Balkan en passeert de Zwarte Zee",
+      "55": "Je bevindt je boven Oekraïne met Rusland in de verte",
+      "75": "Je bevindt je boven Zuidwest-Rusland en passeert Kazachstan"
+    }
+  },
+  "009BA758-7060-4479-8EE8-FB9B40C8FB97": {
+    "name": "Oost-Azië",
+    "group": "Aarde",
+    "pointsOfInterest": {
+      "0": "Je vliegt in zuidoostelijke richting over Siberië en Mongolië",
+      "22": "Je vliegt in de richting van Binnen-Mongolië",
+      "32": "Je bevindt je boven Mongolië en vliegt in de richting van China",
+      "60": "Je bevindt je boven Noord-China en vliegt in de richting van het Koreaans Schiereiland",
+      "110": "Je bevindt je boven China en vliegt in de richting van het Koreaans Schiereiland",
+      "150": "Het Koreaans Schiereiland met Japan in de verte",
+      "180": "Je bevindt je boven Zuid-Korea en vliegt in de richting van Japan",
+      "195": "Je bevindt je boven Japan en kijkt in de richting van de Stille Oceaan",
+      "260": "Je bevindt je boven de Stille Oceaan ten zuidoosten van Japan"
+    }
+  },
+  "B1B5DDC5-73C8-4920-8133-BACCE38A08DE": {
+    "name": "New York",
+    "group": "Aarde",
+    "pointsOfInterest": {
+      "0": "Je bevindt je boven de Stille Oceaan en vliegt in de richting van Mexico",
+      "105": "Je vliegt over Mexico Stad richting de Golf van Mexico",
+      "122": "Je vliegt over de Golf van Mexico in de richting van de Verenigde Staten",
+      "180": "Je passeert Houston en nadert New Orleans in de Verenigde Staten",
+      "190": "Je vliegt over New Orleans en de Golfkust van de Verenigde Staten",
+      "215": "Je vliegt over het zuidoosten van de Verenigde Staten",
+      "280": "Je bevindt je boven het oosten van de Verenigde Staten en vliegt in de richting van New York",
+      "320": "Je bevindt je boven het oosten van de Verenigde Staten en nadert New York City"
+    }
+  },
+  "78911B7E-3C69-47AD-B635-9C2486F6301D": {
+    "name": "Nieuw-Zeeland",
+    "group": "Aarde",
+    "pointsOfInterest": {
+      "0": "Van nacht naar dag boven de Stille Oceaan",
+      "70": "Van nacht naar dag boven Nieuw-Zeeland",
+      "110": "Je nadert de zonsopgang boven Nieuw-Zeeland",
+      "170": "Je verlaat Nieuw-Zeeland en vliegt in noordoostelijke richting over de Stille Oceaan"
+    }
+  },
+  "3C4678E4-4D3D-4A40-8817-77752AEA62EB": {
+    "name": "Nijldelta",
+    "group": "Aarde",
+    "pointsOfInterest": {
+      "0": "Je vliegt over West‑Europa met Groot‑Brittannië en Ierland in de verte",
+      "20": "Je vliegt in zuidoostelijke richting over de Alpen en de Povlakte",
+      "50": "Je vliegt in zuidelijke richting langs het Apennijns Schiereiland en de Adriatische Zee",
+      "100": "Griekenland met de Ionische Zee aan de ene kant en de Egeïsche Zee aan de andere kant",
+      "160": "Je vliegt in zuidoostelijke richting over de Middellandse Zee",
+      "185": "De Middellandse Zee en de Nijldelta",
+      "205": "De Nijl die door de Sahara in Egypte stroomt",
+      "220": "De Arabische Woestijn met de Nijl aan de ene kant en de Golf van Suez aan de andere kant",
+      "240": "Je vliegt in zuidoostelijke richting over de Rode Zee"
+    }
+  },
+  "737E9E24-49BE-4104-9B72-F352DE1AD2BF": {
+    "name": "Dageraad in Noord-Amerika",
+    "group": "Aarde",
+    "pointsOfInterest": {
+      "0": "Je bevindt je boven de Stille Oceaan en vliegt in de richting van Baja California",
+      "45": "Je bevindt je boven Baja California en kijkt in noordelijke richting naar de Verenigde Staten",
+      "55": "Je bevindt je boven Mexico en vliegt in de richting van het zuidwesten van de Verenigde Staten",
+      "75": "Je bevindt je boven het zuidwesten van de Verenigde Staten",
+      "110": "Je bevindt je boven de Rocky Mountains en nadert Denver",
+      "125": "Je vliegt over de Great Plains van de Verenigde Staten",
+      "185": "Je nadert de Great Lakes met Ontario, Canada in de verte",
+      "200": "Je bevindt je boven de Great Lakes en nadert Ontario, Canada",
+      "210": "Het noorderlicht boven West-Ontario, Canada",
+      "235": "Het noorderlicht boven Noord-Ontario, Canada",
+      "250": "Het noorderlicht boven Noord-Quebec, Canada",
+      "300": "Je vliegt in de richting van de Noord-Atlantische Oceaan met het zuiderlicht over Labrador, Canada"
+    }
+  },
+  "E556BBC5-D0A0-4DB1-AC77-BC76E4A526F4": {
+    "name": "Sahara",
+    "group": "Aarde",
+    "pointsOfInterest": {
+      "0": "Je bevindt je boven West-Afrika en vliegt in de richting van de Sahara",
+      "30": "Je steekt de Sahara over in Noord-Afrika",
+      "110": "Je vliegt over het Ahaggargebergte in de Sahara, Noord-Afrika",
+      "155": "Je bevindt je boven de Grand Erg Oriental in Noord-Afrika en vliegt in de richting van de Middellandse Zee",
+      "195": "De kust van Tunesië en de Middellandse Zee",
+      "210": "Je bevindt je boven de kust van Tunesië en vliegt in de richting van Italië",
+      "230": "Je nadert Italië in de Middellandse Zee",
+      "245": "Je bevindt je boven Italië en vliegt in de richting van de Balkan",
+      "285": "Je bevindt je boven de Balkan en vliegt in de richting van de Karpaten",
+      "310": "De Karpaten en de Zwarte Zee"
+    }
+  },
+  "87060EC2-D006-4102-98CC-3005C68BB343": {
+    "name": "Zuid-Afrika",
+    "group": "Aarde",
+    "pointsOfInterest": {
+      "0": "Je vliegt in noordoostelijke richting over het Ethiopisch Hoogland",
+      "45": "Je vliegt over de Rode Zee in de richting van het Arabisch Schiereiland",
+      "100": "Je vliegt in noordoostelijke richting over het Arabisch Schiereiland",
+      "130": "Je bevindt je boven het Arabisch Schiereiland en vliegt in de richting van Iran",
+      "165": "Je bevindt je boven het Arabisch Schiereiland en nadert Iran",
+      "190": "Je nadert de kust van Iran met het Zagrosgebergte in de verte",
+      "210": "Je bevindt je boven het Zagrosgebergte in Iran",
+      "240": "Je bevindt je boven de Dasht-e Lut-woestijn in Iran",
+      "265": "Je vliegt in de richting van Turkmenistan en de Karakum",
+      "305": "De rivier de Amu Darja en het Pamir-gebergte in Centraal-Azië",
+      "322": "Het Pamir-gebergte en de Vallei van Fergana in Centraal-Azië",
+      "360": "Je vliegt vanuit Kirgizië in de richting van Zuidoost-Kazachstan",
+      "400": "Je vliegt in noordelijke richting over Kazachstan",
+      "450": "Je bevindt je boven het Altajgebergte en vliegt in de richting van Mongolië"
+    }
+  },
+  "7719B48A-2005-4011-9280-2F64EEC6FD91": {
+    "name": "Zuid-Californië",
+    "group": "Aarde",
+    "pointsOfInterest": {
+      "0": "Je bevindt je boven de Stille Oceaan en vliegt in de richting van de Verenigde Staten",
+      "20": "Je vliegt in zuidelijke richting langs de kust van Californië",
+      "50": "Je bevindt je boven Zuid-Californië en vliegt in de richting van Mexico",
+      "65": "Je nadert de Mojavewoestijn in Zuid-Californië met Mexico in de verte",
+      "95": "De Golf van Californië met de Sonorawoestijn aan de ene kant en Neder-Californië aan de andere kant",
+      "130": "De Westelijke Sierra Madre aan de westkust van Mexico",
+      "185": "Je bevindt je boven de Westelijke Sierra Madre en vliegt in de richting van de westkust van Mexico",
+      "225": "Je kijkt in zuidelijke richting naar de Stille Oceaan boven de Zuidelijke Sierra Madre in Mexico",
+      "280": "De Stille Oceaan voor de kust van Mexico",
+      "290": "De Stille Oceaan voor de kust van Mexico en Guatemala"
+    }
+  },
+  "63C042F0-90EF-4A95-B7CC-CC9A64BF8421": {
+    "name": "West-Afrika",
+    "group": "Aarde",
+    "pointsOfInterest": {
+      "0": "De Canarische Eilanden, de Noord-Atlantische Oceaan en de kust van Afrika",
+      "45": "Je vliegt in noordoostelijke richting langs de kust van Marokko",
+      "75": "Je vliegt over het Atlasgebergte in Marokko",
+      "105": "Je bevindt je boven Marokko en nadert de Middellandse Zee",
+      "125": "De Middellandse Zee en Zuid-Spanje",
+      "145": "Je vliegt in noordoostelijke richting over de Costa Blanca van Spanje",
+      "165": "Je vliegt in noordoostelijke richting over de Balearen van Spanje",
+      "185": "Je bevindt je boven de westelijke Middellandse Zee met de Alpen in de verte",
+      "220": "Je vliegt in noordoostelijke richting over de Alpen"
+    }
+  },
+  "001C94AE-2BA4-4E77-A202-F7DE60E8B1C8": {
+    "name": "Duinvelden in Liwa",
+    "group": "Liwa",
+    "pointsOfInterest": {
+      "0": "Je vliegt over Liwa-oase in de Verenigde Arabische Emiraten"
+    }
+  },
+  "AFA22C08-A486-4CE8-9A13-E355B6C38559": {
+    "name": "Horizon van Liwa",
+    "group": "Liwa",
+    "pointsOfInterest": {
+      "0": "Je vliegt over Liwa-oase in de Verenigde Arabische Emiraten"
+    }
+  },
+  "F604AF56-EA77-4960-AEF7-82533CC1A8B3": {
+    "name": "Londen 's avonds",
+    "group": "Londen",
+    "pointsOfInterest": {
+      "0": "Je nadert de Tower Bridge over de rivier de Theems in Londen",
+      "20": "Je steekt de rivier de Theems over in Londen",
+      "60": "Je komt langs The Shard in Zuid-Londen",
+      "92": "Je bevindt je ten zuiden van de rivier de Theems en vliegt in de richting van de London Eye",
+      "200": "Je steekt de rivier de Theems over in de richting van Westminster in Londen",
+      "270": "Je bevindt je boven Westminster in Londen"
+    }
+  },
+  "7F4C26C2-67C2-4C3A-8F07-8A7BF6148C97": {
+    "name": "De Theems in Londen",
+    "group": "Londen",
+    "pointsOfInterest": {
+      "0": "Je nadert de Tower Bridge over de rivier de Theems in Londen",
+      "20": "Je volgt de rivier de Theems in Londen",
+      "130": "Je volgt de rivier de Theems en nadert de London Eye",
+      "210": "Je nadert de London Eye aan de rivier de Theems",
+      "310": "Je volgt de rivier de Theems voorbij de London Eye",
+      "325": "Je passeert de Houses of Parliament aan de rivier de Theems in Londen"
+    }
+  },
+  "A5AAFF5D-8887-42BB-8AFD-867EF557ED85": {
+    "name": "Londen van boven",
+    "group": "Londen",
+    "pointsOfInterest": {
+      "0": "Je vliegt over het terrein van Buckingham Palace in Londen",
+      "24": "Je bevindt je boven Buckingham Palace in Londen",
+      "49": "Je bevindt je boven St James's Park en vliegt in de richting van de rivier de Theems in Londen",
+      "104": "Je steekt de rivier de Theems over en vliegt over de London Eye",
+      "149": "Je vliegt over Zuid-Londen",
+      "279": "Je komt langs The Shard in Zuid-Londen",
+      "299": "Je steekt de rivier de Theems over in Londen",
+      "324": "Je steekt de rivier de Theems over via de Tower Bridge in Londen"
+    }
+  },
+  "58754319-8709-4AB0-8674-B34F04E7FFE2": {
+    "name": "Skyline van Londen",
+    "group": "Londen",
+    "pointsOfInterest": {
+      "0": "Je nadert de Tower Bridge over de rivier de Theems in Londen",
+      "78": "Je volgt de rivier de Theems in Londen",
+      "178": "Je bevindt je ten zuiden van de rivier de Theems in Londen",
+      "258": "Je steekt de rivier de Theems over in Londen"
+    }
+  },
+  "CE279831-1CA7-4A83-A97B-FF1E20234396": {
+    "name": "Luchthaven in Los Angeles",
+    "group": "Los Angeles",
+    "pointsOfInterest": {
+      "0": "Je vliegt over de internationale luchthaven van Los Angeles"
+    }
+  },
+  "89B1643B-06DD-4DEC-B1B0-774493B0F7B7": {
+    "name": "Zonsondergang in Los Angeles",
+    "group": "Los Angeles",
+    "pointsOfInterest": {
+      "0": "Het Griffith-observatorium en de Hollywood Hills in Los Angeles"
+    }
+  },
+  "92E48DE9-13A1-4172-B560-29B4668A87EE": {
+    "name": "Strand in Los Angeles",
+    "group": "Los Angeles",
+    "pointsOfInterest": {
+      "0": "Je bevindt je boven Santa Monica State Beach in de buurt van Los Angeles",
+      "365": "Je vliegt over de Santa Monica Pier in de buurt van Los Angeles",
+      "430": "Je bevindt je boven Santa Monica State Beach in de buurt van Los Angeles"
+    }
+  },
+  "EC67726A-8212-4C5E-83CF-8412932740D2": {
+    "name": "Heuvels in Los Angeles",
+    "group": "Los Angeles",
+    "pointsOfInterest": {
+      "0": "Het Hollywood Sign in Los Angeles",
+      "250": "Je bevindt je boven de Hollywood Hills en nadert Burbank in Californië"
+    }
+  },
+  "35693AEA-F8C4-4A80-B77D-C94B20A68956": {
+    "name": "Viaduct in Los Angeles",
+    "group": "Los Angeles",
+    "pointsOfInterest": {
+      "0": "Je volgt Interstate 110 in noordelijke richting door Los Angeles"
+    }
+  },
+  "F5804DD6-5963-40DA-9FA0-39C0C6E6DEF9": {
+    "name": "Los Angeles 's nachts",
+    "group": "Los Angeles",
+    "pointsOfInterest": {
+      "0": "Je passeert het centrum van Los Angeles"
+    }
+  },
+  "cb5b5035-6701-619f-9065-3d7d0e5fbef4-114": {
+    "name": "Coal Mine Canyon in Arizona",
+    "group": "Monument Valley",
+    "pointsOfInterest": {
+      "0": "Je passeert het Navajo-reservaat in Arizona"
+    }
+  },
+  "cb5b5035-6701-619f-9065-3d7d0e5fbef4-115": {
+    "name": "Utah 's avonds",
+    "group": "Monument Valley",
+    "pointsOfInterest": {
+      "0": "Je bevindt je parallel aan Brighams Tomb\nin Monument Valley, Utah",
+      "150": "Je passeert de tafelberg King-on-his-Throne, Utah",
+      "180": "Je vliegt in zuidoostelijke richting\nover Monument Valley, Utah"
+    }
+  },
+  "cb5b5035-6701-619f-9065-3d7d0e5fbef4-116": {
+    "name": "Cathedral Canyon in Utah",
+    "group": "Monument Valley",
+    "pointsOfInterest": {
+      "0": "Je bevindt je boven Cathedral Canyon in Utah",
+      "100": "Je steekt de Colorado River\nen Lake Powell, Utah over"
+    }
+  },
+  "cb5b5035-6701-619f-9065-3d7d0e5fbef4-117": {
+    "name": "Factory Butte in Utah",
+    "group": "Monument Valley",
+    "pointsOfInterest": {
+      "0": "Je passeert Factory Butte in Utah"
+    }
+  },
+  "cb5b5035-6701-619f-9065-3d7d0e5fbef4-118": {
+    "name": "Lake Powell in Utah",
+    "group": "Monument Valley",
+    "pointsOfInterest": {
+      "0": "Je volgt de Colorado River door Utah",
+      "134": "Je vliegt over Cascade Canyon in Utah",
+      "265": "Je nadert Cathedral Canyon, Utah"
+    }
+  },
+  "cb5b5035-6701-619f-9065-3d7d0e5fbef4-119": {
+    "name": "Monument Valley in Utah",
+    "group": "Monument Valley",
+    "pointsOfInterest": {
+      "0": "Je vliegt over Monument Valley in Arizona"
+    }
+  },
+  "cb5b5035-6701-619f-9065-3d7d0e5fbef4-120": {
+    "name": "Olympia Bar in Utah",
+    "group": "Monument Valley",
+    "pointsOfInterest": {
+      "0": "Je volgt de Colorado River in Utah",
+      "205": "Je nadert Tapestry Wall\nbij Lake Powell, Utah"
+    }
+  },
+  "44166C39-8566-4ECA-BD16-43159429B52F": {
+    "name": "New York 's nachts",
+    "group": "New York",
+    "pointsOfInterest": {
+      "0": "Je vliegt in zuidelijke richting over 7th Avenue in de richting van Times Square in New York",
+      "40": "Je bevindt je boven Times Square in New York",
+      "120": "Je vliegt in zuidelijke richting over 7th Avenue in Midtown Manhattan in New York"
+    }
+  },
+  "840FE8E4-D952-4680-B1A7-AC5BACA2C1F8": {
+    "name": "New York Midtown",
+    "group": "New York",
+    "pointsOfInterest": {
+      "0": "Je bevindt je boven de Upper East Side en Central Park in New York",
+      "50": "Je bevindt je boven Midtown Manhattan en vliegt in zuidelijke richting naar het Empire State Building",
+      "160": "Je nadert het Empire State Building in New York",
+      "205": "Je passeert het Empire State Building en vliegt in de richting van Lower Manhattan"
+    }
+  },
+  "640DFB00-FBB9-45DA-9444-9F663859F4BC": {
+    "name": "Skyline van New York",
+    "group": "New York",
+    "pointsOfInterest": {
+      "0": "Je nadert Lower Manhattan vanuit de richting van de haven van New York",
+      "110": "Je bevindt je parallel aan Lower Manhattan en nadert het One World Trade Center",
+      "180": "Je passeert het One World Trade Center en vliegt in de richting van Midtown Manhattan",
+      "210": "Je bevindt je boven Lower Manhattan in New York en vliegt in de richting van Midtown"
+    }
+  },
+  "3BA0CFC7-E460-4B59-A817-B97F9EBB9B89": {
+    "name": "New York van boven",
+    "group": "New York",
+    "pointsOfInterest": {
+      "0": "Je bevindt je boven Central Park en vliegt in de richting van Midtown Manhattan in New York",
+      "246": "Je bevindt je boven Midtown Manhattan in New York"
+    }
+  },
+  "5C987900-AD53-469C-8210-CABBCCDDFCAE": {
+    "name": "Berg in Patagonië",
+    "group": "Patagonië",
+    "pointsOfInterest": {
+      "0": "Je vliegt langs Cuernos del Paine in het\nnationale park Torres del Paine in Chili"
+    }
+  },
+  "B004358B-5A27-42E5-B49E-93FC100B2371": {
+    "name": "Meer in Patagonië",
+    "group": "Patagonië",
+    "pointsOfInterest": {
+      "0": "Je vliegt langs Lago Nordenskjöld in het\nnationale park Torres del Paine in Chili"
+    }
+  },
+  "25A6CFB2-3570-4448-B114-244A4E454B7A": {
+    "name": "Rivier in Patagonië",
+    "group": "Patagonië",
+    "pointsOfInterest": {
+      "0": "Boven Lago Nordenskjöld in het\nnationale park Torres Del Paine in Chili"
+    }
+  },
+  "E5D58CC2-3C52-4206-9DA2-427DC88B5896": {
+    "name": "Woest terrein in Patagonië",
+    "group": "Patagonië",
+    "pointsOfInterest": {
+      "0": "Je vliegt over het nationale park\nTorres del Paine in Chili"
+    }
+  },
+  "cb5b5035-6701-619f-9065-3d7d0e5fbef4-121": {
+    "name": "Kustlijn van Oregon",
+    "group": "Redwoods",
+    "pointsOfInterest": {
+      "0": "Je vliegt over Secret Beach richting Brookings, Oregon",
+      "240": "Je passeert Natural Bridges in Oregon"
+    }
+  },
+  "cb5b5035-6701-619f-9065-3d7d0e5fbef4-122": {
+    "name": "Zonsondergang in Oregon",
+    "group": "Redwoods",
+    "pointsOfInterest": {
+      "0": "Je vliegt in westelijke richting over China Beach in de buurt van Brookings, Oregon  "
+    }
+  },
+  "cb5b5035-6701-619f-9065-3d7d0e5fbef4-123": {
+    "name": "Rivier omgeven door sequoia's",
+    "group": "Redwoods",
+    "pointsOfInterest": {
+      "0": "Je volgt de Trinity River\ndoor Noord‑Californië"
+    }
+  },
+  "cb5b5035-6701-619f-9065-3d7d0e5fbef4-124": {
+    "name": "Redwoods van boven",
+    "group": "Redwoods",
+    "pointsOfInterest": {
+      "0": "Je bevindt je boven sequoia's in Noord-Californië"
+    }
+  },
+  "3E94AE98-EAF2-4B09-96E3-452F46BC114E": {
+    "name": "San Francisco 's nachts",
+    "group": "San Francisco",
+    "pointsOfInterest": {
+      "0": "Je nadert de Bay Bridge en het centrum van San Francisco",
+      "80": "Je steekt de Bay Bridge over in de richting van het centrum van San Francisco",
+      "116": "Je bevindt je boven de baai van San Francisco en vliegt in de richting van het centrum"
+    }
+  },
+  "85CE77BF-3413-4A7B-9B0F-732E96229A73": {
+    "name": "Skyline van San Francisco",
+    "group": "San Francisco",
+    "pointsOfInterest": {
+      "0": "Je bevindt je boven de baai van San Francisco en vliegt in de richting van de Embarcadero",
+      "208": "Je volgt Market Street door San Francisco"
+    }
+  },
+  "29BDF297-EB43-403A-8719-A78DA11A2948": {
+    "name": "San Francisco 's avonds",
+    "group": "San Francisco",
+    "pointsOfInterest": {
+      "0": "Je bevindt je boven Fisherman's Wharf en vliegt in de richting van het centrum van San Francisco",
+      "80": "Je nadert de Coit Tower met het centrum van San Francisco en de Bay Bridge\nop de achtergrond",
+      "150": "Je passeert de Coit Tower en vliegt in de richting van het centrum van San Francisco en de Bay Bridge",
+      "196": "Het centrum van San Francisco"
+    }
+  },
+  "DE851E6D-C2BE-4D9F-AB54-0F9CE994DC51": {
+    "name": "De baai van San Francisco",
+    "group": "San Francisco",
+    "pointsOfInterest": {
+      "0": "De baai van San Francisco en de Golden Gate Bridge",
+      "140": "Je vliegt over de noordelijke toren van de Golden Gate Bridge in de richting van San Francisco",
+      "191": "Je bevindt je boven de baai van San Francisco"
+    }
+  },
+  "EE533FBD-90AE-419A-AD13-D7A60E2015D6": {
+    "name": "Mist in San Francisco",
+    "group": "San Francisco",
+    "pointsOfInterest": {
+      "0": "Je bevindt je boven de Marin Headlands en kijkt in de richting van de Golden Gate Bridge",
+      "150": "Je steekt de Golden Gate Bridge over in de richting van de Presidio van San Francisco"
+    }
+  },
+  "72B4390D-DF1D-4D51-B179-229BBAEFFF2C": {
+    "name": "Golden Gate Bridge San Francisco",
+    "group": "San Francisco",
+    "pointsOfInterest": {
+      "0": "Je nadert de Golden Gate Bridge vanuit San Francisco",
+      "60": "Je bevindt je parallel aan de Golden Gate Bridge en vliegt in de richting van de Marin Headlands",
+      "140": "Je steekt de Golden Gate Bridge over",
+      "230": "Je passeert de noordelijke toren van de Golden Gate Bridge",
+      "260": "Je bevindt je boven de baai van San Francisco en vliegt parallel aan de Golden Gate Bridge"
+    }
+  },
+  "4AD99907-9E76-408D-A7FC-8429FF014201": {
+    "name": "Ferry Building van San Francisco",
+    "group": "San Francisco",
+    "pointsOfInterest": {
+      "0": "Je bevindt je boven de baai van San Francisco en vliegt in de richting van de Embarcadero",
+      "90": "Je bevindt je boven de Embarcadero en kijkt uit over Market Street in San Francisco",
+      "150": "Je volgt Market Street door het centrum van San Francisco",
+      "360": "Je volgt Market Street door San Francisco"
+    }
+  },
+  "0C747C29-4BF8-43F6-A5CC-2E012E555341": {
+    "name": "Kust in Schotland",
+    "group": "Schotland",
+    "pointsOfInterest": {
+      "0": "Je vliegt langs de kust van\nhet eiland Skye, Schotland",
+      "338": "De vuurtoren van Neist Point, het eiland Skye, Schotland",
+      "372": "Het eiland Skye, Schotland"
+    }
+  },
+  "3954A7C4-51EC-4ABC-ABA3-6757AC91C7CF": {
+    "name": "Meer in Schotland",
+    "group": "Schotland",
+    "pointsOfInterest": {
+      "0": "Boven Loch Moidart aan de\nwestkust van Schotland",
+      "252": "Je nadert de Zee van de Hebriden, Schotland"
+    }
+  },
+  "E161929C-0819-4BC2-8359-550C081C7D54": {
+    "name": "Kasteel in Schotland",
+    "group": "Schotland",
+    "pointsOfInterest": {
+      "0": "Loch Moidart aan de westkust van Schotland",
+      "139": "Je nadert Castle Tioram aan de\nwestkust van Schotland",
+      "181": "Castle Tioram aan de westkust van Schotland",
+      "214": "Je vliegt over de westkust van Schotland"
+    }
+  },
+  "cb5b5035-6701-619f-9065-3d7d0e5fbef4-144": {
+    "name": "Sequoia bij zonsopgang",
+    "group": "Sequoia",
+    "pointsOfInterest": {
+      "0": "In Sequoia National Park bij zonsopgang"
+    }
+  },
+  "cb5b5035-6701-619f-9065-3d7d0e5fbef4-145": {
+    "name": "Sequoia in de ochtend",
+    "group": "Sequoia",
+    "pointsOfInterest": {
+      "0": "In Sequoia National Park in de ochtend"
+    }
+  },
+  "cb5b5035-6701-619f-9065-3d7d0e5fbef4-146": {
+    "name": "Sequoia 's nachts",
+    "group": "Sequoia",
+    "pointsOfInterest": {
+      "0": "In Sequoia National Park bij nacht"
+    }
+  },
+  "ecebc8d2-5486-c2b2-52ae-6f0ab2d6b65f-125": {
+    "name": "Wolken in Sonoma",
+    "group": "Sonoma",
+    "pointsOfInterest": {
+      "0": "Je bevindt je boven Sonoma en vliegt in noordelijke richting door Californië"
+    }
+  },
+  "ecebc8d2-5486-c2b2-52ae-6f0ab2d6b65f-126": {
+    "name": "Sonoma 's avonds",
+    "group": "Sonoma",
+    "pointsOfInterest": {
+      "0": "Vlucht boven Sonoma in Californië"
+    }
+  },
+  "ecebc8d2-5486-c2b2-52ae-6f0ab2d6b65f-127": {
+    "name": "Horizon van Sonoma",
+    "group": "Sonoma",
+    "pointsOfInterest": {
+      "0": "Je vliegt in noordelijke richting door Sonoma, Californië"
+    }
+  },
+  "ecebc8d2-5486-c2b2-52ae-6f0ab2d6b65f-128": {
+    "name": "Rivier in Sonoma",
+    "group": "Sonoma",
+    "pointsOfInterest": {
+      "0": "Je vliegt in noordelijke richting over Sonoma, Californië"
+    }
+  },
+  "ecebc8d2-5486-c2b2-52ae-6f0ab2d6b65f-129": {
+    "name": "Sonoma van boven",
+    "group": "Sonoma",
+    "pointsOfInterest": {
+      "0": "Je bevindt je boven Californische sequoia's in Sonoma"
+    }
+  },
+  "cb5b5035-6701-619f-9065-3d7d0e5fbef4-130": {
+    "name": "Wilde bloemen in Californië",
+    "group": "Superbloei",
+    "pointsOfInterest": {
+      "0": "Je bevindt je boven wilde bloemen in Californië"
+    }
+  },
+  "cb5b5035-6701-619f-9065-3d7d0e5fbef4-131": {
+    "name": "De Carrizo Plain in Californië",
+    "group": "Superbloei",
+    "pointsOfInterest": {
+      "0": "Je vliegt in noordelijke richting over wilde bloemen in Californië"
+    }
+  },
+  "cb5b5035-6701-619f-9065-3d7d0e5fbef4-132": {
+    "name": "De Temblor Range in Californië",
+    "group": "Superbloei",
+    "pointsOfInterest": {
+      "0": "Je volgt de Temblor Range\nin Zuid‑Californië"
+    }
+  },
+  "cb5b5035-6701-619f-9065-3d7d0e5fbef4-147": {
+    "name": "Tahoe 's ochtends",
+    "group": "Tahoe",
+    "pointsOfInterest": {
+      "0": "Lake Tahoe in de ochtend"
+    }
+  },
+  "cb5b5035-6701-619f-9065-3d7d0e5fbef4-148": {
+    "name": "Tahoe overdag",
+    "group": "Tahoe",
+    "pointsOfInterest": {
+      "0": "Lake Tahoe overdag"
+    }
+  },
+  "cb5b5035-6701-619f-9065-3d7d0e5fbef4-149": {
+    "name": "Tahoe 's avonds",
+    "group": "Tahoe",
+    "pointsOfInterest": {
+      "0": "Lake Tahoe in de avond"
+    }
+  },
+  "cb5b5035-6701-619f-9065-3d7d0e5fbef4-150": {
+    "name": "Tahoe 's nachts",
+    "group": "Tahoe",
+    "pointsOfInterest": {
+      "0": "Lake Tahoe bij nacht"
+    }
+  },
+  "C6DC4E54-1130-44F8-AF6F-A551D8E8A181": {
+    "name": "Kwallen in Alaska (donker)",
+    "group": "Onder water",
+    "pointsOfInterest": {
+      "0": "Oorkwallen bij de kust van Alaska in de Verenigde Staten"
+    }
+  },
+  "C7AD3D0A-7EDF-412C-A237-B3C9D27381A1": {
+    "name": "Kwallen in Alaska (licht)",
+    "group": "Onder water",
+    "pointsOfInterest": {
+      "0": "Je drijft over oorkwallen bij de kust van Alaska in de Verenigde Staten"
+    }
+  },
+  "2B30E324-E4FF-4CC1-BA45-A958C2D2B2EC": {
+    "name": "Grote groep barracuda's",
+    "group": "Onder water",
+    "pointsOfInterest": {
+      "0": "Een school donkervinbarracuda's\nin de wateren bij Borneo"
+    }
+  },
+  "687D03A2-18A5-4181-8E85-38F3A13409B9": {
+    "name": "Bultkoppen",
+    "group": "Onder water",
+    "pointsOfInterest": {
+      "0": "Bultkoppapegaaivis boven de\nkoraalriffen bij Borneo"
+    }
+  },
+  "27A37B0F-738D-4644-A7A4-E33E7A6C1175": {
+    "name": "Grote groep dolfijnen in Californië",
+    "group": "Onder water",
+    "pointsOfInterest": {
+      "0": "Gewone dolfijnen voor de kust van Californië in de Verenigde Staten"
+    }
+  },
+  "EB3F48E7-D30F-4079-858F-1A61331D5026": {
+    "name": "Kelpwoud in Californië",
+    "group": "Onder water",
+    "pointsOfInterest": {
+      "0": "Je drijft door een kelpwoud voor de kust van Californië in de Verenigde Staten"
+    }
+  },
+  "CE9B5D5B-B6E7-47C5-8C04-59BF182E98FB": {
+    "name": "Grote groep dolfijnen in Costa Rica",
+    "group": "Onder water",
+    "pointsOfInterest": {
+      "0": "Langsnuitdolfijnen in de\nwateren rond Costa Rica"
+    }
+  },
+  "58C75C62-3290-47B8-849C-56A583173570": {
+    "name": "Adelaarsroggen",
+    "group": "Onder water",
+    "pointsOfInterest": {
+      "0": "Adelaarsroggen voor\nde kust van Mexico"
+    }
+  },
+  "3716DD4B-01C0-4F5B-8DD6-DB771EC472FB": {
+    "name": "Grijze rifhaaien",
+    "group": "Onder water",
+    "pointsOfInterest": {
+      "0": "Grijze rifhaaien die in de buurt van\nFrans-Polynesië rondzwemmen"
+    }
+  },
+  "DD47D8E1-CB66-4C12-BFEA-2ADB0D8D1E2E": {
+    "name": "Bultruggen",
+    "group": "Onder water",
+    "pointsOfInterest": {
+      "0": "Een bultrug voor de kust van Frans-Polynesië"
+    }
+  },
+  "537A4DAB-83B0-4B66-BCD1-05E5DBB4A268": {
+    "name": "Grote groep snoeken",
+    "group": "Onder water",
+    "pointsOfInterest": {
+      "0": "Een school horsmakrelen\nvoor de kust van Borneo"
+    }
+  },
+  "6143116D-03BB-485E-864E-A8CF58ACF6F1": {
+    "name": "Kelp (donker)",
+    "group": "Onder water",
+    "pointsOfInterest": {
+      "0": "Drijven door een kelpwoud bij het Kaapse schiereiland in Zuid-Afrika"
+    }
+  },
+  "F07CC61B-30FC-4614-BDAD-3240B61F6793": {
+    "name": "Koraalkleuren in Palau",
+    "group": "Onder water",
+    "pointsOfInterest": {
+      "0": "Koraalrif bij Palau"
+    }
+  },
+  "BA4ECA11-592F-4727-9221-D2A32A16EB28": {
+    "name": "Kwallen in Palau (donker)",
+    "group": "Onder water",
+    "pointsOfInterest": {
+      "0": "Gouden kwallen in de wateren rond Palau",
+      "282": "Gouden kwallen met daartussen\neen oorkwal",
+      "348": "Gouden kwallen in de wateren rond Palau"
+    }
+  },
+  "E580E5A5-0888-4BE8-A4CA-F74A18A643C3": {
+    "name": "Kwallen in Palau (blauw)",
+    "group": "Onder water",
+    "pointsOfInterest": {
+      "0": "Gouden kwallen in de wateren rond Palau"
+    }
+  },
+  "EC3DC957-D4C2-4732-AACE-7D0C0F390EC8": {
+    "name": "Kwallen in Palau (licht)",
+    "group": "Onder water",
+    "pointsOfInterest": {
+      "0": "Gouden kwallen in de wateren rond Palau"
+    }
+  },
+  "82175C1F-153C-4EC8-AE37-2860EA828004": {
+    "name": "Koraal in Rode Zee van boven",
+    "group": "Onder water",
+    "pointsOfInterest": {
+      "0": "Koraalrif in de Rode Zee bij Egypte"
+    }
+  },
+  "581A4F1A-2B6D-468C-A1BE-6F473F06D10B": {
+    "name": "Zeesterren",
+    "group": "Onder water",
+    "pointsOfInterest": {
+      "0": "Geknobbelde zeesterren op\nde oceaanbodem bij Borneo"
+    }
+  },
+  "83C65C90-270C-4490-9C69-F51FE03D7F06": {
+    "name": "Grote groep zeehonden",
+    "group": "Onder water",
+    "pointsOfInterest": {
+      "0": "Zuid-Afrikaanse pelsrobben voor de kust van het Kaapse schiereiland in Zuid-Afrika"
+    }
+  },
+  "8C31B06F-91A4-4F7C-93ED-56146D7F48B9": {
+    "name": "Kust in Tahiti",
+    "group": "Onder water",
+    "pointsOfInterest": {
+      "0": "Golven die breken op de kust van Tahiti"
+    }
+  },
+  "149E7795-DBDA-4F5D-B39A-14712F841118": {
+    "name": "Mist van golven in Tahiti",
+    "group": "Onder water",
+    "pointsOfInterest": {
+      "0": "Golven die breken op de kust van Tahiti"
+    }
+  },
+  "E540DEE6-4C40-42C8-9CCC-D4CB0FAD7D7B": {
+    "name": "Horizon van Yosemite",
+    "group": "Yosemite",
+    "pointsOfInterest": {
+      "0": "Boven Yosemite National Park\nin de Verenigde Staten",
+      "70": "Je nadert Half Dome in Yosemite National Park in de Verenigde Staten",
+      "87": "Half Dome in Yosemite National Park in de Verenigde Staten",
+      "210": "Boven Yosemite National Park\nin de Verenigde Staten"
+    }
+  },
+  "81CA5ACD-E682-4D8B-A948-0F147EB6ED4F": {
+    "name": "Bergen in Yosemite",
+    "group": "Yosemite",
+    "pointsOfInterest": {
+      "0": "Boven Yosemite National Park in de Verenigde Staten",
+      "93": "Je vliegt richting Merced Peak in\nYosemite National Park in de Verenigde Staten",
+      "130": "Merced Peak in Yosemite National Park in de Verenigde Staten",
+      "221": "Je passeert Merced Peak in Yosemite National Park in de Verenigde Staten",
+      "244": "Je vliegt over Yosemite National Park in de Verenigde Staten"
+    }
+  },
+  "E5799A24-1949-4E66-A17B-B5EB05F28C5D": {
+    "name": "Silhouet van Yosemite",
+    "group": "Yosemite",
+    "pointsOfInterest": {
+      "0": "Half Dome in Yosemite National Park in de Verenigde Staten",
+      "124": "Je passeert Half Dome en nadert Nevada Fall in Yosemite National Park",
+      "146": "Half Dome en Nevada Fall in Yosemite National Park in de Verenigde Staten"
+    }
+  },
+  "E487C6EF-B3FB-427B-A2BE-8CBA60F902F0": {
+    "name": "Wolken in Yosemite",
+    "group": "Yosemite",
+    "pointsOfInterest": {
+      "0": "Boven Yosemite National Park\nin de Verenigde Staten",
+      "40": "Je vliegt richting Half Dome in\nYosemite National Park in de Verenigde Staten",
+      "60": "Half Dome in Yosemite National Park in de Verenigde Staten",
+      "155": "Boven Yosemite National Park met\nNevada Fall in de verte",
+      "255": "Nevada en Illilouette Falls in\nYosemite National Park in de Verenigde Staten",
+      "285": "Nevada, Vernal en Illilouette Falls in\nYosemite National Park in de Verenigde Staten"
+    }
+  },
+  "DAD82DCE-F3AE-4AEC-8A79-1694D412FC0A": {
+    "name": "Yosemite van boven",
+    "group": "Yosemite",
+    "pointsOfInterest": {
+      "0": "Je vliegt over Tuolumne Meadows in\nYosemite National Park in de Verenigde Staten"
+    }
+  },
+  "4109D42A-D717-46A7-A9A2-FE53A82B25C0": {
+    "name": "Yosemite Valley",
+    "group": "Yosemite",
+    "pointsOfInterest": {
+      "0": "Je vliegt richting Bridalveil Fall en\nEl Capitan in Yosemite National Park",
+      "44": "Je vliegt naar het oosten richting El Capitan in\nYosemite National Park in de Verenigde Staten",
+      "87": "Je passeert El Capitan in Yosemite National Park in de Verenigde Staten",
+      "120": "Je vliegt naar het oosten richting Half Dome in\nYosemite National Park in de Verenigde Staten",
+      "390": "Half Dome in Yosemite National Park in de Verenigde Staten",
+      "470": "Je vliegt langs Half Dome in\nYosemite Valley in de Verenigde Staten",
+      "585": "Je vliegt naar het oosten over Yosemite Valley in de Verenigde Staten"
+    }
+  },
+  "8D04D70F-738B-441D-8D43-AF46B2BF8062": {
+    "name": "Sneeuwkappen in Yosemite",
+    "group": "Yosemite",
+    "pointsOfInterest": {
+      "0": "Je vliegt richting Matthes Crest in\nYosemite National Park in de Verenigde Staten",
+      "75": "Je vliegt over Matthes Crest in\nYosemite National Park in de Verenigde Staten",
+      "124": "Je vliegt door Matthes Crest in\nYosemite National Park in de Verenigde Staten",
+      "215": "Je vliegt over Matthes Crest in\nYosemite National Park in de Verenigde Staten",
+      "396": "Je vliegt richting Tuolumne Meadows in\nYosemite National Park in de Verenigde Staten"
+    }
+  }
+}

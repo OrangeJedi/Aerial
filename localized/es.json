@@ -1,0 +1,1301 @@
+{
+  "B876B645-3955-420E-99DF-60139E451CF3": {
+    "name": "Montañas de China",
+    "group": "China",
+    "pointsOfInterest": {
+      "0": "Pasando por el Parque Nacional de Wulingyuan, en China"
+    }
+  },
+  "9CCB8297-E9F5-4699-AE1F-890CFBD5E29C": {
+    "name": "Arrozal en China",
+    "group": "China",
+    "pointsOfInterest": {
+      "0": "Sobrevolando las terrazas de arroz de Longji en la provincia de Guangxi, China"
+    }
+  },
+  "D5E76230-81A3-4F65-A1BA-51B8CADED625": {
+    "name": "Desfiladeros de China",
+    "group": "China",
+    "pointsOfInterest": {
+      "0": "Explorando el Parque Nacional de Wulingyuan, en China"
+    }
+  },
+  "22162A9B-DB90-4517-867C-C676BC3E8E95": {
+    "name": "Gran Muralla China",
+    "group": "China",
+    "pointsOfInterest": {
+      "0": "La sección Mutianyu de la Gran Muralla China en el distrito de Huairóu, China"
+    }
+  },
+  "044AD56C-A107-41B2-90CC-E60CCACFBCF5": {
+    "name": "Silueta de China",
+    "group": "China",
+    "pointsOfInterest": {
+      "0": "La sección Mutianyu de la Gran Muralla China en el distrito de Huairóu, China"
+    }
+  },
+  "F0236EC5-EE72-4058-A6CE-1F7D2E8253BF": {
+    "name": "Gran Muralla China de día",
+    "group": "China",
+    "pointsOfInterest": {
+      "0": "La sección Mutianyu de la Gran Muralla China en el distrito de Huairóu, China"
+    }
+  },
+  "876D51F4-3D78-4221-8AD2-F9E78C0FD9B9": {
+    "name": "Vista aérea de Dubái",
+    "group": "Dubái",
+    "pointsOfInterest": {
+      "0": "Recorriendo la carretera Sheikh Zayed en Dubái, Emiratos Árabes Unidos"
+    }
+  },
+  "E991AC0C-F272-44D8-88F3-05F44EDFE3AE": {
+    "name": "Creek Harbor en Dubái",
+    "group": "Dubái",
+    "pointsOfInterest": {
+      "0": "Sobrevolando Dubai Marina en los Emiratos Árabes Unidos"
+    }
+  },
+  "9680B8EB-CE2A-4395-AF41-402801F4D6A6": {
+    "name": "Dubái de noche",
+    "group": "Dubái",
+    "pointsOfInterest": {
+      "0": "Llegando al Burj Khalifa en el centro de Dubái (Emiratos Árabes Unidos)",
+      "280": "Pasando por el Burj Khalifa en el centro de Dubái, Emiratos Árabes Unidos",
+      "330": "Vista aérea del centro de Dubái, llegando a la costa"
+    }
+  },
+  "00BA71CD-2C54-415A-A68A-8358E677D750": {
+    "name": "Silueta de la ciudad de Dubái",
+    "group": "Dubái",
+    "pointsOfInterest": {
+      "0": "Llegando al centro de Dubái (Emiratos Árabes Unidos)",
+      "210": "Dirigiéndose al centro de Dubái en los Emiratos Árabes Unidos"
+    }
+  },
+  "3FFA2A97-7D28-49EA-AA39-5BC9051B2745": {
+    "name": "Arroyo en Dubái",
+    "group": "Dubái",
+    "pointsOfInterest": {
+      "0": "Recorriendo Dubai Marina desde las alturas en los Emiratos Árabes Unidos"
+    }
+  },
+  "E334A6D2-7145-47C8-9B00-C20DED08B2D5": {
+    "name": "El Gran Cañón por la tarde",
+    "group": "Gran Cañón del Colorado",
+    "pointsOfInterest": {
+      "0": "Siguiendo el río Colorado a través del Gran Cañón en Arizona, Estados Unidos"
+    }
+  },
+  "DD266E1F-5DF2-4CDB-A2EB-26CE35664657": {
+    "name": "Vista aérea del Gran Cañón",
+    "group": "Gran Cañón del Colorado",
+    "pointsOfInterest": {
+      "0": "Sobrevolando la zona de Burnt Canyon del Gran Cañón en Arizona, Estados Unidos"
+    }
+  },
+  "F9F918CD-E15F-4F01-A326-84A44650C5C9": {
+    "name": "Puesta de sol en el Gran Cañón",
+    "group": "Gran Cañón del Colorado",
+    "pointsOfInterest": {
+      "0": "Recorriendo el Gran Cañón\nen Estados Unidos"
+    }
+  },
+  "AE0115AE-C53B-4DB9-B12F-CA4B7B630CC9": {
+    "name": "Sedimento del Gran Cañón",
+    "group": "Gran Cañón del Colorado",
+    "pointsOfInterest": {
+      "0": "Pasando por el Gran Cañón\nen Estados Unidos"
+    }
+  },
+  "8002C4C8-C611-4894-A068-3D3A3C03472A": {
+    "name": "Valle fluvial del Gran Cañón",
+    "group": "Gran Cañón del Colorado",
+    "pointsOfInterest": {
+      "0": "Recorriendo el río Colorado en el\nGran Cañón, Estados Unidos"
+    }
+  },
+  "B8F204CE-6024-49AB-85F9-7CA2F6DCD226": {
+    "name": "Glaciar de Groenlandia",
+    "group": "Groenlandia",
+    "pointsOfInterest": {
+      "0": "Recorriendo la península de Nuussuaq en Groenlandia"
+    }
+  },
+  "2F52E34C-39D4-4AB1-9025-8F7141FAA720": {
+    "name": "Costa de Groenlandia",
+    "group": "Groenlandia",
+    "pointsOfInterest": {
+      "0": "El fiordo de Ilulissat en la costa de Groenlandia"
+    }
+  },
+  "EE01F02D-1413-436C-AB05-410F224A5B7B": {
+    "name": "Groenlandia por la tarde",
+    "group": "Groenlandia",
+    "pointsOfInterest": {
+      "0": "El fiordo de Ilulissat en la costa de Groenlandia"
+    }
+  },
+  "12E0343D-2CD9-48EA-AB57-4D680FB6D0C7": {
+    "name": "Litoral de Hawái",
+    "group": "Hawái",
+    "pointsOfInterest": {
+      "0": "Sobrevolando Laupāhoehoe Nui en la Reserva Forestal de Kohala, en la isla de Hawái"
+    }
+  },
+  "258A6797-CC13-4C3A-AB35-4F25CA3BF474": {
+    "name": "Nubes en Hawái (claro)",
+    "group": "Hawái",
+    "pointsOfInterest": {
+      "0": "Por encima de la Reserva del Paraje Natural de Pu‘u O ‘Umi, en la isla de Hawái"
+    }
+  },
+  "3D729CFC-9000-48D3-A052-C5BD5B7A6842": {
+    "name": "Océano en Hawái",
+    "group": "Hawái",
+    "pointsOfInterest": {
+      "0": "Siguiendo el litoral de Kohala, en la isla de Hawái"
+    }
+  },
+  "499995FA-E51A-4ACE-8DFD-BDF8AFF6C943": {
+    "name": "Valle de Hawái",
+    "group": "Hawái",
+    "pointsOfInterest": {
+      "0": "El valle Waimanu en la Reserva Forestal de Kohala, en la isla de Hawái"
+    }
+  },
+  "82BD33C9-B6D2-47E7-9C42-AA3B7758921A": {
+    "name": "Nubes en Hawái (oscuro)",
+    "group": "Hawái",
+    "pointsOfInterest": {
+      "0": "Por encima de la Reserva del Paraje Natural de Pu‘u O ‘Umi, en la isla de Hawái"
+    }
+  },
+  "E99FA658-A59A-4A2D-9F3B-58E7BDC71A9A": {
+    "name": "Hong Kong de noche",
+    "group": "Hong Kong",
+    "pointsOfInterest": {
+      "0": "Vista aérea de Victoria Harbour en dirección al distrito central de Hong Kong"
+    }
+  },
+  "C8559883-6F3E-4AF2-8960-903710CD47B7": {
+    "name": "Horizonte de Hong Kong",
+    "group": "Hong Kong",
+    "pointsOfInterest": {
+      "0": "Sobrevolando la Cumbre Victoria, en Hong Kong",
+      "150": "Sobrevolando Hong Kong hacia Victoria Harbour",
+      "330": "Vista aérea de Victoria Harbour, llegando a la península de Kowloon"
+    }
+  },
+  "024891DE-B7F6-4187-BFE0-E6D237702EF0": {
+    "name": "Silueta de la ciudad de Hong Kong",
+    "group": "Hong Kong",
+    "pointsOfInterest": {
+      "0": "Vista aérea de Wan Chai en dirección al distrito central de Hong Kong",
+      "150": "Vista aérea del distrito central de Hong Kong",
+      "270": "Vista aérea de la isla de Hong Kong"
+    }
+  },
+  "FE8E1F9D-59BA-4207-B626-28E34D810D0A": {
+    "name": "Puerto de Hong Kong",
+    "group": "Hong Kong",
+    "pointsOfInterest": {
+      "0": "Vista aérea de Victoria Harbour frente a la isla de Hong Kong"
+    }
+  },
+  "8590D0C5-E344-4FAC-A39A-FD7BC652AEDA": {
+    "name": "Costa de Islandia",
+    "group": "Islandia",
+    "pointsOfInterest": {
+      "0": "Sobrevolando el lago Langisjór, en Islandia"
+    }
+  },
+  "DDE50C77-B7CB-4488-9EB1-D1B13BF21FFE": {
+    "name": "Glaciar de Islandia",
+    "group": "Islandia",
+    "pointsOfInterest": {
+      "0": "Sobrevolando el río Tungnaá, en las tierras altas de Islandia"
+    }
+  },
+  "E54D5AFE-F362-4D48-A20D-F2C21D2B5330": {
+    "name": "Fiordo de Islandia",
+    "group": "Islandia",
+    "pointsOfInterest": {
+      "0": "Siguiendo el río Jökulgilskvísl en Landmannalaugar, Islandia",
+      "308": "Sobrevolando las tierras altas de Islandia"
+    }
+  },
+  "F9518D54-04A7-4793-8666-CFC114D73CE5": {
+    "name": "Cauce de río en Islandia",
+    "group": "Islandia",
+    "pointsOfInterest": {
+      "0": "Pasando por Jökulgil, en Landmannalaugar, Islandia"
+    }
+  },
+  "8ACF5D77-B22C-416F-B12A-72FB35E2834F": {
+    "name": "Vista aérea de un fiordo de Islandia",
+    "group": "Islandia",
+    "pointsOfInterest": {
+      "0": "Sobrevolando Landmannalaugar, en Islandia"
+    }
+  },
+  "2F17FCCE-6CCA-4AFA-A08A-C50BF9812DA5": {
+    "name": "Cumbres nevadas en Islandia",
+    "group": "Islandia",
+    "pointsOfInterest": {
+      "0": "Avanzando en dirección al glaciar Mýrdalsjökull, en Islandia",
+      "150": "Llegando al glaciar Mýrdalsjökull, en Islandia",
+      "225": "Glaciar Mýrdalsjökull, en Islandia",
+      "324": "Sobrevolando el glaciar Mýrdalsjökull, en Islandia"
+    }
+  },
+  "cb5b5035-6701-619f-9065-3d7d0e5fbef4-113": {
+    "name": "Lago de Islandia",
+    "group": "Islandia",
+    "pointsOfInterest": {
+      "0": "Sobrevolando Islandia"
+    }
+  },
+  "cb5b5035-6701-619f-9065-3d7d0e5fbef4-133": {
+    "name": "Playas de Goa",
+    "pointsOfInterest": {
+      "0": "Vista aérea de las playas de Cola y Small Cola en Goa, India"
+    }
+  },
+  "cb5b5035-6701-619f-9065-3d7d0e5fbef4-134": {
+    "name": "Costa de Goa",
+    "pointsOfInterest": {
+      "0": "Pasando por la playa de Small Cola en Goa, India",
+      "150": "Llegando a la playa de Cola en Goa, India"
+    }
+  },
+  "cb5b5035-6701-619f-9065-3d7d0e5fbef4-135": {
+    "name": "El Ganges",
+    "pointsOfInterest": {
+      "0": "Siguiendo el Ganges desde Rishikesh en Uttarakhand, India"
+    }
+  },
+  "cb5b5035-6701-619f-9065-3d7d0e5fbef4-136": {
+    "name": "Vista aérea de Ghansali",
+    "pointsOfInterest": {
+      "0": "Vista aérea de los campos en terrazas cerca de Akhori en Uttarakhand, India"
+    }
+  },
+  "cb5b5035-6701-619f-9065-3d7d0e5fbef4-137": {
+    "name": "A través del Himalaya",
+    "pointsOfInterest": {
+      "0": "Viajando hacia Nanda Devi a través del Himalaya Garhwal en Uttarakhand, India"
+    }
+  },
+  "cb5b5035-6701-619f-9065-3d7d0e5fbef4-138": {
+    "name": "Picos del Himalaya",
+    "pointsOfInterest": {
+      "0": "Pasando por el Himalaya Garhwal en Uttarakhand, India"
+    }
+  },
+  "cb5b5035-6701-619f-9065-3d7d0e5fbef4-139": {
+    "name": "El Himalaya de día",
+    "pointsOfInterest": {
+      "0": "Pasando por el Himalaya Garhwal en Uttarakhand, India"
+    }
+  },
+  "cb5b5035-6701-619f-9065-3d7d0e5fbef4-140": {
+    "name": "Los jardines de té de día",
+    "pointsOfInterest": {
+      "0": "Pasando por los jardines de té de Munnar en Kerala, India"
+    }
+  },
+  "cb5b5035-6701-619f-9065-3d7d0e5fbef4-141": {
+    "name": "Bruma sobre los jardines de té",
+    "pointsOfInterest": {
+      "0": "Dirigiéndose al este sobre los jardines de té de Munnar en Kerala, India"
+    }
+  },
+  "cb5b5035-6701-619f-9065-3d7d0e5fbef4-142": {
+    "name": "Vista aérea de los jardines de té",
+    "pointsOfInterest": {
+      "0": "Vista aérea de los jardines de té de Munnar en Kerala, India"
+    }
+  },
+  "cb5b5035-6701-619f-9065-3d7d0e5fbef4-143": {
+    "name": "El embalse de día",
+    "pointsOfInterest": {
+      "0": "Siguiendo el embalse de Sholayar en Tamil Nadu, India"
+    }
+  },
+  "A837FA8C-C643-4705-AE92-074EFDD067F7": {
+    "name": "África",
+    "group": "Tierra",
+    "pointsOfInterest": {
+      "0": "En dirección al noreste por la noche, por encima del Sáhara",
+      "70": "Vista aérea del Gran Erg Oriental en dirección al mar Mediterráneo",
+      "100": "La costa mediterránea de Túnez y Libia",
+      "120": "Dirigiéndose a Italia, por encima del mar Mediterráneo",
+      "140": "Vista aérea del sur de Italia llegando a la península de los Balcanes, con Turquía a lo lejos",
+      "165": "Vista aérea de la península de los Balcanes llegando al mar Negro",
+      "180": "Vista aérea de la península de los Balcanes llegando al mar Negro",
+      "210": "Sobrevolando el mar Negro hacia Ucrania",
+      "230": "Pasando por encima de Ucrania, hacia Rusia"
+    }
+  },
+  "2F72BC1E-3D76-456C-81EB-842EBA488C27": {
+    "name": "Norte de África",
+    "group": "Tierra",
+    "pointsOfInterest": {
+      "0": "Vista aérea del Cuerno de África, en dirección al Golfo de Adén",
+      "45": "El sudeste de la península arábiga",
+      "115": "El golfo de Omán llegando a la costa de Makrán",
+      "145": "La costa de Makrán de Irán y Pakistán",
+      "160": "Vista aérea de Irán, en dirección a Afganistán y Pakistán",
+      "180": "Vista aérea de Afganistán y Pakistán hacia la cordillera del Karakórum",
+      "235": "Vista de la cordillera del Karakórum de camino a China",
+      "280": "El desierto de Taklamakán, en China occidental",
+      "315": "Las montañas Tian Shan en Asia central"
+    }
+  },
+  "03EC0F5E-CCA8-4E0A-9FEC-5BD1CE151182": {
+    "name": "Aurora austral en la Antártida",
+    "group": "Tierra",
+    "pointsOfInterest": {
+      "0": "Aurora austral sobre la Antártida"
+    }
+  },
+  "64D11DAB-3B57-4F14-AD2F-E59A9282FA44": {
+    "name": "Atlántico norte",
+    "group": "Tierra",
+    "pointsOfInterest": {
+      "0": "Vista aérea del océano Atlántico Norte en dirección a Portugal",
+      "115": "Vista aérea de Portugal y España",
+      "150": "Alejándose de la península ibérica, sobrevolando el golfo de Vizcaya y Francia",
+      "180": "Vista aérea de Europa occidental con el océano Atlántico Norte a lo lejos"
+    }
+  },
+  "81337355-E156-4242-AAF4-711768D30A54": {
+    "name": "Australia",
+    "group": "Tierra",
+    "pointsOfInterest": {
+      "0": "Vista aérea del océano Índico en dirección a Perth, Australia",
+      "50": "En dirección al noreste, atravesando Australia Occidental",
+      "170": "Vista aérea de Australia Occidental llegando al Territorio del Norte",
+      "220": "Vista aérea del Territorio del Norte, Australia, en dirección a Nueva Guinea",
+      "335": "Vista aérea del mar de Arafura en dirección a Nueva Guinea"
+    }
+  },
+  "12318CCB-3F78-43B7-A854-EFDCCE5312CD": {
+    "name": "California",
+    "group": "Tierra",
+    "pointsOfInterest": {
+      "0": "Vista aérea del océano Pacífico de camino a la costa de California",
+      "70": "Vista aérea de la costa de California, en dirección al interior",
+      "85": "Sobrevolando Los Ángeles, en la costa oeste de Estados Unidos",
+      "95": "Vista aérea de Los Angeles llegando a Las Vegas, en Estados Unidos",
+      "110": "Vista aérea de Las Vegas en dirección a Salt Lake City, en Estados Unidos",
+      "120": "Vista aérea del oeste de Estados Unidos llegando a Salt Lake City",
+      "155": "Pasando entre Salt Lake City y Denver, en Estados Unidos",
+      "170": "Vista aérea de las Montañas Rocosas en Estados Unidos"
+    }
+  },
+  "D5CFB2FF-5F8C-4637-816B-3E42FC1229B8": {
+    "name": "Islas del Caribe",
+    "group": "Tierra",
+    "pointsOfInterest": {
+      "0": "Sobrevolando el océano Pacífico hacia América Central",
+      "35": "Costas del Pacífico de Nicaragua, Costa Rica y Panamá",
+      "50": "Sobrevolando América Central, con Sudamérica a lo lejos",
+      "65": "La Costa de los Mosquitos de Nicaragua",
+      "85": "Vista aérea del mar Caribe de camino a Cuba",
+      "110": "Pasando por Jamaica, cubierta de nubes, en el mar Caribe",
+      "125": "Cruzando sobre Cuba, mirando hacia Haití y la República Dominicana",
+      "170": "Sobrevolando las Bahamas, mirando hacia Haití y la República Dominicana",
+      "190": "Islas Turcas y Caicos en el océano Atlántico"
+    }
+  },
+  "1088217C-1410-4CF7-BDE9-8F573A4DBCD9": {
+    "name": "Mar Caribe",
+    "group": "Tierra",
+    "pointsOfInterest": {
+      "0": "Vista aérea del océano Pacífico de camino a América Central",
+      "70": "La costa del sudoeste de América Central, en dirección al mar Caribe",
+      "100": "Cruzando América Central hacia el mar Caribe",
+      "150": "Vista aérea del mar Caribe en dirección a Cuba",
+      "240": "Vista aérea de Cuba, con Florida y las Bahamas más allá",
+      "300": "Vista aérea de Florida y las Bahamas en dirección al mar de los Sargazos",
+      "350": "Vista aérea del mar de los Sargazos adentrándose en el océano Atlántico"
+    }
+  },
+  "4F881F8B-A7D9-4FDB-A917-17BF6AC5A589": {
+    "name": "El Caribe",
+    "group": "Tierra",
+    "pointsOfInterest": {
+      "0": "Dirigiéndose al sudeste sobre las Grandes Llanuras de Estados Unidos",
+      "90": "Dirigiéndose al sudeste sobre el Medio Oeste de Estados Unidos",
+      "120": "Vista aérea del sudeste de Estados Unidos en dirección a Florida",
+      "220": "Vista aérea de Florida, en dirección a las Bahamas",
+      "240": "Dirigiéndose al sudeste por encima de las Bahamas",
+      "285": "Vista aérea de las Bahamas llegando a la República Dominicana y Haití",
+      "300": "Vista aérea de la República Dominicana y Haití llegando al mar Caribe",
+      "315": "Vista aérea del mar Caribe en dirección al sur hacia Venezuela"
+    }
+  },
+  "6324F6EB-E0F1-468F-AC2E-A983EBDDD53B": {
+    "name": "China de noche",
+    "group": "Tierra",
+    "pointsOfInterest": {
+      "0": "Vista aérea de Asia central, en dirección a la costa de China",
+      "10": "Vista aérea de China, en dirección a Shanghái",
+      "30": "Pasando por encima de la China oriental, llegando a Shanghái",
+      "45": "Llegando a Shanghái, hacia el mar de la China Oriental",
+      "50": "Vista aérea de Shanghái, en dirección al mar de la China Oriental"
+    }
+  },
+  "F439B0A7-D18C-4B14-9681-6520E6A74FE9": {
+    "name": "Oriente Medio",
+    "group": "Tierra",
+    "pointsOfInterest": {
+      "0": "El reflejo del sol a lo largo de la costa de Irán",
+      "15": "Pasando del día a la noche por encima de Irán",
+      "60": "Pasando del día a la noche por encima de Asia central"
+    }
+  },
+  "7C643A39-C0B2-4BA0-8BC2-2EAA47CC580E": {
+    "name": "Europa de noche",
+    "group": "Tierra",
+    "pointsOfInterest": {
+      "0": "Vista aérea del Atlántico Norte llegando a Irlanda y Gran Bretaña",
+      "15": "Irlanda y Gran Bretaña",
+      "45": "Vista aérea de Gran Bretaña en dirección hacia Europa continental",
+      "65": "Vista aérea del noroeste de Europa, dirigiéndose a Rusia",
+      "105": "Vista aérea de Europa central, dirigiéndose a Rusia",
+      "150": "Vista aérea de Europa del este, con Moscú a lo lejos",
+      "165": "Vista aérea de Europa del este, mirando hacia Rusia",
+      "185": "Vista aérea del oeste de Rusia, pasando por Moscú",
+      "195": "Vista aérea de Rusia, en dirección a Asia central"
+    }
+  },
+  "E5DB138A-F04E-4619-B896-DE5CB538C534": {
+    "name": "Sur de Europa de noche",
+    "group": "Tierra",
+    "pointsOfInterest": {
+      "0": "Vista aérea de Túnez, en dirección a Italia",
+      "5": "Vista aérea del mar Mediterráneo mirando hacia Sicilia y la península itálica",
+      "15": "Vista aérea del sur de Italia con la península de los Balcanes más allá",
+      "25": "Vista aérea de la península de los Balcanes en dirección a Asia central",
+      "40": "Vista aérea de la península de los Balcanes pasando por el mar Negro",
+      "55": "Vista aérea de Ucrania, con Rusia más allá",
+      "75": "Vista aérea del sudoeste de Rusia, pasando junto Kazajistán"
+    }
+  },
+  "009BA758-7060-4479-8EE8-FB9B40C8FB97": {
+    "name": "Este de Asia",
+    "group": "Tierra",
+    "pointsOfInterest": {
+      "0": "Dirigiéndose al sudeste por encima de Siberia y Mongolia",
+      "22": "En dirección a Mongolia Interior",
+      "32": "Vista aérea de Mongolia, en dirección a China",
+      "60": "Vista aérea del norte de China en dirección a la península de Corea",
+      "110": "Vista aérea de China en dirección a la península de Corea",
+      "150": "La península de Corea con Japón a lo lejos",
+      "180": "Vista aérea de Corea del Sur, en dirección a Japón",
+      "195": "Vista aérea de Japón en dirección al océano Pacífico",
+      "260": "Vista aérea del océano Pacífico al sudeste de Japón"
+    }
+  },
+  "B1B5DDC5-73C8-4920-8133-BACCE38A08DE": {
+    "name": "Nueva York",
+    "group": "Tierra",
+    "pointsOfInterest": {
+      "0": "Vista aérea del océano Pacífico en dirección a México",
+      "105": "Sobrevolando la Ciudad de México hacia el Golfo de México",
+      "122": "Sobrevolando el Golfo de México hacia Estados Unidos",
+      "180": "Pasando por Houston y llegando a Nueva Orleans, en Estados Unidos",
+      "190": "Dirigiéndose a Nueva Orleans y la costa del golfo de los Estados Unidos",
+      "215": "Bajando por el sudeste de los Estados Unidos",
+      "280": "Vista aérea del este de Estados Unidos de camino a Nueva York",
+      "320": "Vista aérea del este de Estados Unidos llegando a Nueva York"
+    }
+  },
+  "78911B7E-3C69-47AD-B635-9C2486F6301D": {
+    "name": "Nueva Zelanda",
+    "group": "Tierra",
+    "pointsOfInterest": {
+      "0": "Cruzando sobre el océano Pacífico Sur de la noche al día",
+      "70": "Cruzando sobre Nueva Zelanda de la noche al día",
+      "110": "Llegando a Nueva Zelanda al amanecer",
+      "170": "Saliendo de Nueva Zelanda hacia el noreste sobre el océano Pacífico"
+    }
+  },
+  "3C4678E4-4D3D-4A40-8817-77752AEA62EB": {
+    "name": "El delta del Nilo",
+    "group": "Tierra",
+    "pointsOfInterest": {
+      "0": "Sobrevolando Europa Occidental con Gran Bretaña e Irlanda a lo lejos",
+      "20": "Dirigiéndose al sudeste sobre los Alpes y el valle del río Po",
+      "50": "Bajando por la península itálica y el mar Adriático",
+      "100": "Grecia, flanqueada por el mar Jónico y el mar Egeo",
+      "160": "Dirigiéndose al sudeste sobre el mar Mediterráneo",
+      "185": "El mar Mediterráneo y el delta del río Nilo",
+      "205": "El río Nilo discurriendo por el Sahara en Egipto",
+      "220": "El desierto arábigo flanqueado por el río Nilo y el golfo de Suez",
+      "240": "Dirigiéndose al sudeste sobre el mar Rojo"
+    }
+  },
+  "737E9E24-49BE-4104-9B72-F352DE1AD2BF": {
+    "name": "La aurora en Norteamérica",
+    "group": "Tierra",
+    "pointsOfInterest": {
+      "0": "Vista aérea del océano Pacífico de camino a Baja California",
+      "45": "Vista aérea de Baja California mirando al norte hacia Estados Unidos",
+      "55": "Vista aérea de México en dirección al sudoeste de Estados Unidos",
+      "75": "Vista aérea del sudoeste de Estados Unidos",
+      "110": "Vista aérea de las Montañas Rocosas llegando a Denver",
+      "125": "Sobrevolando las Grandes Llanuras de Estados Unidos",
+      "185": "Llegando a los Grandes Lagos, con Ontario, Canadá, más allá",
+      "200": "Vista aérea de los Grandes Lagos llegando a Ontario, Canadá",
+      "210": "La aurora boreal sobre el oeste de Ontario, Canadá",
+      "235": "La aurora boreal sobre el norte de Ontario, Canadá",
+      "250": "La aurora boreal sobre el norte de Quebec, Canadá",
+      "300": "Dirigiéndose hacia el Atlántico Norte con la aurora boreal sobre Labrador, Canadá"
+    }
+  },
+  "E556BBC5-D0A0-4DB1-AC77-BC76E4A526F4": {
+    "name": "Sáhara",
+    "group": "Tierra",
+    "pointsOfInterest": {
+      "0": "Vista aérea del África occidental, en dirección al Sáhara",
+      "30": "Cruzando el Sáhara, en el norte de África",
+      "110": "Pasando por encima del macizo del Ahaggar en el Sáhara, en el norte de África",
+      "155": "Vista aérea del Gran Erg Oriental en el norte de África en dirección al mar Mediterráneo",
+      "195": "La costa de Túnez y el mar Mediterráneo",
+      "210": "Vista aérea de la costa de Túnez, en dirección a Italia",
+      "230": "Llegando a Italia en el mar Mediterráneo",
+      "245": "Vista aérea de Italia en dirección a la península de los Balcanes",
+      "285": "Vista aérea de la península de los Balcanes llegando a los Cárpatos",
+      "310": "Los Cárpatos y el mar Negro"
+    }
+  },
+  "87060EC2-D006-4102-98CC-3005C68BB343": {
+    "name": "Sudáfrica",
+    "group": "Tierra",
+    "pointsOfInterest": {
+      "0": "En dirección al noreste, por encima del macizo Etíope",
+      "45": "Sobrevolando el mar Rojo hacia la península arábiga",
+      "100": "Dirigiéndose al noreste sobre la península arábiga",
+      "130": "Vista aérea de la península arábiga en dirección a Irán",
+      "165": "Vista aérea de la península arábiga llegando a Irán",
+      "190": "Llegando a la costa de Irán, con la cordillera del Zagros más allá",
+      "210": "Vista aérea de la cordillera del Zagros, en Irán",
+      "240": "Vista aérea del desierto Dasht-e Lut en Irán",
+      "265": "En dirección a Turkmenistán y el desierto de Garagum",
+      "305": "El río Amu Darya y las montañas Pamir-Alay en Asia central",
+      "322": "Las montañas Pamir-Alay y el valle de Ferganá en Asia central",
+      "360": "Entrando en el sudeste de Kazajistán desde Kirguistán",
+      "400": "En dirección al norte, por encima de Kazajistán",
+      "450": "Vista aérea del macizo de Altái entrando en Mongolia"
+    }
+  },
+  "7719B48A-2005-4011-9280-2F64EEC6FD91": {
+    "name": "Sur de California",
+    "group": "Tierra",
+    "pointsOfInterest": {
+      "0": "Vista aérea del océano Pacífico en dirección a Estados Unidos",
+      "20": "En dirección al sur, bajando por la costa de California",
+      "50": "Vista aérea del sur de California, en dirección a México",
+      "65": "Llegando al desierto de Mojave en el sur de California, con México más allá",
+      "95": "El golfo de California flanqueado por el desierto de Sonora y la península de Baja California",
+      "130": "La Sierra Madre Occidental en la costa oeste de México",
+      "185": "Vista aérea de la Sierra Madre Occidental en dirección a la costa oeste de México",
+      "225": "Mirando al sur hacia el océano Pacífico sobre la Sierra Madre del Sur en México",
+      "280": "El océano Pacífico en la costa de México",
+      "290": "El océano Pacífico en la costa de México y Guatemala"
+    }
+  },
+  "63C042F0-90EF-4A95-B7CC-CC9A64BF8421": {
+    "name": "África Occidental",
+    "group": "Tierra",
+    "pointsOfInterest": {
+      "0": "Islas Canarias, océano Atlántico y costa de África",
+      "45": "Dirigiéndose al noreste a lo largo de la costa de Marruecos",
+      "75": "Sobrevolando la cordillera del Atlas, en Marruecos",
+      "105": "Vista aérea de Marruecos llegando al mar Mediterráneo",
+      "125": "El mar Mediterráneo y el sur de España",
+      "145": "Dirigiéndose al noreste por la Costa Blanca, España",
+      "165": "Dirigiéndose al noreste por las Islas Baleares, España",
+      "185": "Vista aérea del mar Mediterráneo occidental con los Alpes más allá",
+      "220": "Dirigiéndose al noreste por encima de los Alpes"
+    }
+  },
+  "001C94AE-2BA4-4E77-A202-F7DE60E8B1C8": {
+    "name": "Desierto de dunas de Liwa",
+    "group": "Liwa",
+    "pointsOfInterest": {
+      "0": "Sobrevolando el oasis de Liwa en los Emiratos Árabes Unidos"
+    }
+  },
+  "AFA22C08-A486-4CE8-9A13-E355B6C38559": {
+    "name": "Horizonte de Liwa",
+    "group": "Liwa",
+    "pointsOfInterest": {
+      "0": "Sobrevolando el oasis de Liwa en los Emiratos Árabes Unidos"
+    }
+  },
+  "F604AF56-EA77-4960-AEF7-82533CC1A8B3": {
+    "name": "Londres por la tarde",
+    "group": "Londres",
+    "pointsOfInterest": {
+      "0": "Llegando al puente de la Torre sobre el río Támesis, Londres",
+      "20": "Cruzando el río Támesis, en Londres",
+      "60": "Pasando por The Shard en el sur de Londres",
+      "92": "Sur del río Támesis en dirección al London Eye",
+      "200": "Cruzando el río Támesis hacia Westminster, Londres",
+      "270": "Vista aérea de Westminster, Londres"
+    }
+  },
+  "7F4C26C2-67C2-4C3A-8F07-8A7BF6148C97": {
+    "name": "Río Támesis en Londres",
+    "group": "Londres",
+    "pointsOfInterest": {
+      "0": "Llegando al puente de la Torre sobre el río Támesis, Londres",
+      "20": "Siguiendo el río Támesis en Londres",
+      "130": "Siguiendo el río Támesis en Londres hacia el London Eye",
+      "210": "Llegando al London Eye sobre el río Támesis",
+      "310": "Siguiendo el río Támesis más allá del London Eye",
+      "325": "Pasando por el palacio de Westminster sobre el río Támesis, en Londres"
+    }
+  },
+  "A5AAFF5D-8887-42BB-8AFD-867EF557ED85": {
+    "name": "Vista aérea de Londres",
+    "group": "Londres",
+    "pointsOfInterest": {
+      "0": "Sobrevolando los terrenos del Palacio de Buckingham, Londres",
+      "24": "Vista aérea del Palacio de Buckingham de Londres",
+      "49": "Vista aérea del parque de St. James, dirigiéndose al río Támesis, Londres",
+      "104": "Cruzando el río Támesis pasando por el London Eye",
+      "149": "Sobrevolando el sur de Londres",
+      "279": "Pasando por The Shard en el sur de Londres",
+      "299": "Cruzando el río Támesis, en Londres",
+      "324": "Cruzando el río Támesis a la altura del puente de la Torre de Londres"
+    }
+  },
+  "58754319-8709-4AB0-8674-B34F04E7FFE2": {
+    "name": "Silueta de la ciudad de Londres",
+    "group": "Londres",
+    "pointsOfInterest": {
+      "0": "Llegando al puente de la Torre sobre el río Támesis, Londres",
+      "78": "Siguiendo el río Támesis en Londres",
+      "178": "Sur del río Támesis en Londres",
+      "258": "Cruzando el río Támesis, en Londres"
+    }
+  },
+  "CE279831-1CA7-4A83-A97B-FF1E20234396": {
+    "name": "Aeropuerto de Los Ángeles",
+    "group": "Los Ángeles",
+    "pointsOfInterest": {
+      "0": "Sobrevolando el aeropuerto internacional de Los Ángeles"
+    }
+  },
+  "89B1643B-06DD-4DEC-B1B0-774493B0F7B7": {
+    "name": "Puesta de sol en Los Ángeles",
+    "group": "Los Ángeles",
+    "pointsOfInterest": {
+      "0": "Observatorio Griffith y Hollywood Hills en Los Ángeles"
+    }
+  },
+  "92E48DE9-13A1-4172-B560-29B4668A87EE": {
+    "name": "Playa de Los Ángeles",
+    "group": "Los Ángeles",
+    "pointsOfInterest": {
+      "0": "Vista aérea de la playa de Santa Mónica, cerca de Los Ángeles",
+      "365": "Sobrevolando el muelle de Santa Mónica, cerca de Los Ángeles",
+      "430": "Vista aérea de la playa de Santa Mónica, cerca de Los Ángeles"
+    }
+  },
+  "EC67726A-8212-4C5E-83CF-8412932740D2": {
+    "name": "Colinas de Los Ángeles",
+    "group": "Los Ángeles",
+    "pointsOfInterest": {
+      "0": "El letrero de Hollywood en Los Ángeles",
+      "250": "Vista aérea de Hollywood Hills llegando a Burbank, California"
+    }
+  },
+  "35693AEA-F8C4-4A80-B77D-C94B20A68956": {
+    "name": "Paso elevado de Los Ángeles",
+    "group": "Los Ángeles",
+    "pointsOfInterest": {
+      "0": "Siguiendo la interestatal 110 hacia el norte a su paso por Los Ángeles"
+    }
+  },
+  "F5804DD6-5963-40DA-9FA0-39C0C6E6DEF9": {
+    "name": "Los Ángeles de noche",
+    "group": "Los Ángeles",
+    "pointsOfInterest": {
+      "0": "Pasando por el centro de Los Ángeles"
+    }
+  },
+  "cb5b5035-6701-619f-9065-3d7d0e5fbef4-114": {
+    "name": "Cañón de las minas de carbón en Arizona",
+    "group": "Monument Valley",
+    "pointsOfInterest": {
+      "0": "Atravesando la nación navaja en Arizona"
+    }
+  },
+  "cb5b5035-6701-619f-9065-3d7d0e5fbef4-115": {
+    "name": "Utah por la tarde",
+    "group": "Monument Valley",
+    "pointsOfInterest": {
+      "0": "Junto a Brighams Tomb\nen Monument Valley, Utah",
+      "150": "Pasando por el monte King-on-his-Throne en Utah",
+      "180": "Dirigiéndose hacia el sudeste\na través de Monument Valley en Utah"
+    }
+  },
+  "cb5b5035-6701-619f-9065-3d7d0e5fbef4-116": {
+    "name": "Cathedral Canyon en Utah",
+    "group": "Monument Valley",
+    "pointsOfInterest": {
+      "0": "Vista aérea de Cathedral Canyon en Utah",
+      "100": "Atravesando el río Colorado\ny el lago Powell en Utah"
+    }
+  },
+  "cb5b5035-6701-619f-9065-3d7d0e5fbef4-117": {
+    "name": "Monte Factory en Utah",
+    "group": "Monument Valley",
+    "pointsOfInterest": {
+      "0": "Pasando por Factory Butte en Utah"
+    }
+  },
+  "cb5b5035-6701-619f-9065-3d7d0e5fbef4-118": {
+    "name": "Lago Powell en Utah",
+    "group": "Monument Valley",
+    "pointsOfInterest": {
+      "0": "Siguiendo el río Colorado a través de Utah",
+      "134": "Sobrevolando Cascade Canyon en Utah",
+      "265": "Llegando a Cathedral Canyon en Utah"
+    }
+  },
+  "cb5b5035-6701-619f-9065-3d7d0e5fbef4-119": {
+    "name": "Monument Valley en Utah",
+    "group": "Monument Valley",
+    "pointsOfInterest": {
+      "0": "Sobrevolando Monument Valley en Arizona"
+    }
+  },
+  "cb5b5035-6701-619f-9065-3d7d0e5fbef4-120": {
+    "name": "Bancos de arena en Olympia, Utah",
+    "group": "Monument Valley",
+    "pointsOfInterest": {
+      "0": "Siguiendo el río Colorado en Utah",
+      "205": "Llegando a Tapestry Wall\nen el lago Powell, Utah"
+    }
+  },
+  "44166C39-8566-4ECA-BD16-43159429B52F": {
+    "name": "Nueva York de noche",
+    "group": "Nueva York",
+    "pointsOfInterest": {
+      "0": "Bajando por la 7.ª Avenida hacia Times Square, Nueva York",
+      "40": "Vista aérea de Times Square en Nueva York",
+      "120": "Bajando por la 7.ª Avenida en Midtown Manhattan, Nueva York"
+    }
+  },
+  "840FE8E4-D952-4680-B1A7-AC5BACA2C1F8": {
+    "name": "Centro de Nueva York",
+    "group": "Nueva York",
+    "pointsOfInterest": {
+      "0": "Vista aérea del Upper East Side y Central Park, en Nueva York",
+      "50": "Vista aérea de Midtown Manhattan, dirigiéndose al centro hacia el Empire State",
+      "160": "Llegando al Empire State, en Nueva York",
+      "205": "Sobrevolando el Empire State en dirección a Lower Manhattan"
+    }
+  },
+  "640DFB00-FBB9-45DA-9444-9F663859F4BC": {
+    "name": "Silueta de la ciudad de Nueva York",
+    "group": "Nueva York",
+    "pointsOfInterest": {
+      "0": "Llegando a Lower Manhattan desde el puerto de Nueva York",
+      "110": "Junto a Lower Manhattan, llegando al One World Trade Center",
+      "180": "Pasando por el One World Trade Center hacia Midtown Manhattan",
+      "210": "Vista aérea de Lower Manhattan en Nueva York en dirección a Midtown"
+    }
+  },
+  "3BA0CFC7-E460-4B59-A817-B97F9EBB9B89": {
+    "name": "Vista aérea de Nueva York",
+    "group": "Nueva York",
+    "pointsOfInterest": {
+      "0": "Vista aérea de Central Park en dirección a Midtown Manhattan, en Nueva York",
+      "246": "Vista aérea de Midtown Manhattan en Nueva York"
+    }
+  },
+  "5C987900-AD53-469C-8210-CABBCCDDFCAE": {
+    "name": "Montaña en la Patagonia",
+    "group": "Patagonia",
+    "pointsOfInterest": {
+      "0": "Avanzando por los Cuernos del Paine en\nel Parque Nacional Torres del Paine, Chile"
+    }
+  },
+  "B004358B-5A27-42E5-B49E-93FC100B2371": {
+    "name": "Lago de la Patagonia",
+    "group": "Patagonia",
+    "pointsOfInterest": {
+      "0": "Pasando por el Lago Nordenskjöld\nen el Parque Nacional Torres del Paine, Chile"
+    }
+  },
+  "25A6CFB2-3570-4448-B114-244A4E454B7A": {
+    "name": "Río en la Patagonia",
+    "group": "Patagonia",
+    "pointsOfInterest": {
+      "0": "Sobrevolando el Lago Nordenskjöld\nen el Parque Nacional Torres del Paine, Chile"
+    }
+  },
+  "E5D58CC2-3C52-4206-9DA2-427DC88B5896": {
+    "name": "Cordillera en la Patagonia",
+    "group": "Patagonia",
+    "pointsOfInterest": {
+      "0": "Recorriendo el Parque Nacional\nTorres del Paine, Chile"
+    }
+  },
+  "cb5b5035-6701-619f-9065-3d7d0e5fbef4-121": {
+    "name": "Litoral de Oregón",
+    "group": "Secuoyas",
+    "pointsOfInterest": {
+      "0": "Dirigiéndose hacia Brookings, Oregón, por encima de Secret Beach",
+      "240": "Pasando por Natural Bridges en Oregón"
+    }
+  },
+  "cb5b5035-6701-619f-9065-3d7d0e5fbef4-122": {
+    "name": "Puesta de sol en Oregón",
+    "group": "Secuoyas",
+    "pointsOfInterest": {
+      "0": "Dirigiéndose al oeste por encima de China Beach, cerca de Brookings, Oregón"
+    }
+  },
+  "cb5b5035-6701-619f-9065-3d7d0e5fbef4-123": {
+    "name": "Río Redwoods",
+    "group": "Secuoyas",
+    "pointsOfInterest": {
+      "0": "Siguiendo el río Trinity\npor el norte de California"
+    }
+  },
+  "cb5b5035-6701-619f-9065-3d7d0e5fbef4-124": {
+    "name": "Vista aérea de secuoyas",
+    "group": "Secuoyas",
+    "pointsOfInterest": {
+      "0": "Vista aérea de secuoyas en el norte de California"
+    }
+  },
+  "3E94AE98-EAF2-4B09-96E3-452F46BC114E": {
+    "name": "San Francisco de noche",
+    "group": "San Francisco",
+    "pointsOfInterest": {
+      "0": "Llegando al puente Bay Bridge y centro de San Francisco",
+      "80": "Cruzando el puente Bay Bridge en dirección al centro de San Francisco",
+      "116": "Vista aérea de la bahía de San Francisco en dirección al centro de la ciudad"
+    }
+  },
+  "85CE77BF-3413-4A7B-9B0F-732E96229A73": {
+    "name": "Silueta de la ciudad de San Francisco",
+    "group": "San Francisco",
+    "pointsOfInterest": {
+      "0": "Vista aérea de la bahía de San Francisco en dirección al Embarcadero",
+      "208": "Siguiendo la calle Market Street por San Francisco"
+    }
+  },
+  "29BDF297-EB43-403A-8719-A78DA11A2948": {
+    "name": "San Francisco por la tarde",
+    "group": "San Francisco",
+    "pointsOfInterest": {
+      "0": "Vista aérea de Fisherman’s Wharf en dirección al centro de San Francisco",
+      "80": "Llegando a la torre Coit, con el centro de San Francisco y el puente Bay Bridge al fondo",
+      "150": "Pasando junto a la torre Coit, hacia el centro de San Francisco y el puente Bay Bridge",
+      "196": "Centro de San Francisco"
+    }
+  },
+  "DE851E6D-C2BE-4D9F-AB54-0F9CE994DC51": {
+    "name": "Bahía de San Francisco",
+    "group": "San Francisco",
+    "pointsOfInterest": {
+      "0": "Bahía de San Francisco y Golden Gate",
+      "140": "Dirigiéndose a la torre norte del Golden Gate hacia San Francisco",
+      "191": "Vista aérea de la bahía de San Francisco"
+    }
+  },
+  "EE533FBD-90AE-419A-AD13-D7A60E2015D6": {
+    "name": "Niebla en San Francisco",
+    "group": "San Francisco",
+    "pointsOfInterest": {
+      "0": "Vista aérea de Marin Headlands mirando hacia el Golden Gate",
+      "150": "Cruzando el Golden Gate en dirección al Presidio de San Francisco"
+    }
+  },
+  "72B4390D-DF1D-4D51-B179-229BBAEFFF2C": {
+    "name": "Puente Golden Gate en San Francisco",
+    "group": "San Francisco",
+    "pointsOfInterest": {
+      "0": "Llegando al Golden Gate desde San Francisco",
+      "60": "Junto al Golden Gate, hacia Marin Headlands",
+      "140": "Cruzando sobre el Golden Gate",
+      "230": "Pasando por la torre norte del Golden Gate",
+      "260": "Vista aérea de la bahía de San Francisco, pasando junto al Golden Gate"
+    }
+  },
+  "4AD99907-9E76-408D-A7FC-8429FF014201": {
+    "name": "Ferry Building en San Francisco",
+    "group": "San Francisco",
+    "pointsOfInterest": {
+      "0": "Vista aérea de la bahía de San Francisco en dirección al Embarcadero",
+      "90": "Vista aérea del Embarcadero mirando hacia abajo sobre la calle Market Street, en San Francisco",
+      "150": "Siguiendo la calle Market Street por el centro de San Francisco",
+      "360": "Siguiendo la calle Market Street por San Francisco"
+    }
+  },
+  "0C747C29-4BF8-43F6-A5CC-2E012E555341": {
+    "name": "Costa de Escocia",
+    "group": "Escocia",
+    "pointsOfInterest": {
+      "0": "Recorriendo la costa de la\nisla de Skye, Escocia",
+      "338": "Faro de Neist Point, en la isla de Skye, Escocia",
+      "372": "Isla de Skye, Escocia"
+    }
+  },
+  "3954A7C4-51EC-4ABC-ABA3-6757AC91C7CF": {
+    "name": "Lago de Escocia",
+    "group": "Escocia",
+    "pointsOfInterest": {
+      "0": "Vista aérea del lago Moidart,\nen la costa oeste de Escocia",
+      "252": "Llegando al mar de las Hébridas, Escocia"
+    }
+  },
+  "E161929C-0819-4BC2-8359-550C081C7D54": {
+    "name": "Castillo en Escocia",
+    "group": "Escocia",
+    "pointsOfInterest": {
+      "0": "Lago Moidart, en la costa oeste de Escocia",
+      "139": "Llegando al Castillo de Tioram,\nen la costa oeste de Escocia",
+      "181": "Castillo de Tioram, en la costa oeste de Escocia",
+      "214": "Sobrevolando la costa oeste de Escocia"
+    }
+  },
+  "cb5b5035-6701-619f-9065-3d7d0e5fbef4-144": {
+    "name": "Secuoya al amanecer",
+    "group": "Secuoya",
+    "pointsOfInterest": {
+      "0": "En el parque nacional de las Secuoyas al amanecer"
+    }
+  },
+  "cb5b5035-6701-619f-9065-3d7d0e5fbef4-145": {
+    "name": "Secuoya por la mañana",
+    "group": "Secuoya",
+    "pointsOfInterest": {
+      "0": "En el parque nacional de las Secuoyas por la mañana"
+    }
+  },
+  "cb5b5035-6701-619f-9065-3d7d0e5fbef4-146": {
+    "name": "Secuoya por la noche",
+    "group": "Secuoya",
+    "pointsOfInterest": {
+      "0": "En el parque nacional de las Secuoyas de noche"
+    }
+  },
+  "ecebc8d2-5486-c2b2-52ae-6f0ab2d6b65f-125": {
+    "name": "Nubes en Sonoma",
+    "group": "Sonoma",
+    "pointsOfInterest": {
+      "0": "Vista aérea de Sonoma atravesando California hacia el norte"
+    }
+  },
+  "ecebc8d2-5486-c2b2-52ae-6f0ab2d6b65f-126": {
+    "name": "Sonoma por la tarde",
+    "group": "Sonoma",
+    "pointsOfInterest": {
+      "0": "Sobrevolando Sonoma, California"
+    }
+  },
+  "ecebc8d2-5486-c2b2-52ae-6f0ab2d6b65f-127": {
+    "name": "Horizonte de Sonoma",
+    "group": "Sonoma",
+    "pointsOfInterest": {
+      "0": "Dirigiéndose al norte por Sonoma, California"
+    }
+  },
+  "ecebc8d2-5486-c2b2-52ae-6f0ab2d6b65f-128": {
+    "name": "Río en Sonoma",
+    "group": "Sonoma",
+    "pointsOfInterest": {
+      "0": "Dirigiéndose al norte por Sonoma, California"
+    }
+  },
+  "ecebc8d2-5486-c2b2-52ae-6f0ab2d6b65f-129": {
+    "name": "Vista aérea de Sonoma",
+    "group": "Sonoma",
+    "pointsOfInterest": {
+      "0": "Vista aérea de las secuoyas de California, en Sonoma"
+    }
+  },
+  "cb5b5035-6701-619f-9065-3d7d0e5fbef4-130": {
+    "name": "Flores silvestres en California",
+    "group": "Floración",
+    "pointsOfInterest": {
+      "0": "Vista aérea de flores silvestres en California"
+    }
+  },
+  "cb5b5035-6701-619f-9065-3d7d0e5fbef4-131": {
+    "name": "Llanura Carrizo en California",
+    "group": "Floración",
+    "pointsOfInterest": {
+      "0": "Dirigiéndose al norte por encima de flores silvestres de California"
+    }
+  },
+  "cb5b5035-6701-619f-9065-3d7d0e5fbef4-132": {
+    "name": "Cordillera Temblor en California",
+    "group": "Floración",
+    "pointsOfInterest": {
+      "0": "Siguiendo la cordillera Temblor\nen el sur de California"
+    }
+  },
+  "cb5b5035-6701-619f-9065-3d7d0e5fbef4-147": {
+    "name": "Tahoe por la mañana",
+    "group": "Tahoe",
+    "pointsOfInterest": {
+      "0": "El lago Tahoe por la mañana"
+    }
+  },
+  "cb5b5035-6701-619f-9065-3d7d0e5fbef4-148": {
+    "name": "Tahoe de día",
+    "group": "Tahoe",
+    "pointsOfInterest": {
+      "0": "El lago Tahoe durante el día"
+    }
+  },
+  "cb5b5035-6701-619f-9065-3d7d0e5fbef4-149": {
+    "name": "Tahoe por la tarde",
+    "group": "Tahoe",
+    "pointsOfInterest": {
+      "0": "El lago Tahoe por la tarde"
+    }
+  },
+  "cb5b5035-6701-619f-9065-3d7d0e5fbef4-150": {
+    "name": "Tahoe por la noche",
+    "group": "Tahoe",
+    "pointsOfInterest": {
+      "0": "El lago Tahoe de noche"
+    }
+  },
+  "C6DC4E54-1130-44F8-AF6F-A551D8E8A181": {
+    "name": "Medusas en Alaska (oscuro)",
+    "group": "Bajo el agua",
+    "pointsOfInterest": {
+      "0": "Medusas luna cerca de la costa de Alaska, Estados Unidos"
+    }
+  },
+  "C7AD3D0A-7EDF-412C-A237-B3C9D27381A1": {
+    "name": "Medusas en Alaska (claro)",
+    "group": "Bajo el agua",
+    "pointsOfInterest": {
+      "0": "Flotando junto a medusas luna cerca de la costa de Alaska, Estados Unidos"
+    }
+  },
+  "2B30E324-E4FF-4CC1-BA45-A958C2D2B2EC": {
+    "name": "Banco de barracudas",
+    "group": "Bajo el agua",
+    "pointsOfInterest": {
+      "0": "Un banco de barracudas de aleta negra\nen aguas cercanas a Borneo"
+    }
+  },
+  "687D03A2-18A5-4181-8E85-38F3A13409B9": {
+    "name": "Peces loro",
+    "group": "Bajo el agua",
+    "pointsOfInterest": {
+      "0": "Peces loro cototo verde sobre los arrecifes\nde coral de Borneo"
+    }
+  },
+  "27A37B0F-738D-4644-A7A4-E33E7A6C1175": {
+    "name": "Manada de delfines en California",
+    "group": "Bajo el agua",
+    "pointsOfInterest": {
+      "0": "Delfines comunes en la costa de California, Estados Unidos"
+    }
+  },
+  "EB3F48E7-D30F-4079-858F-1A61331D5026": {
+    "name": "Bosque de algas en California",
+    "group": "Bajo el agua",
+    "pointsOfInterest": {
+      "0": "Atravesando un bosque de algas en la costa de California, Estados Unidos"
+    }
+  },
+  "CE9B5D5B-B6E7-47C5-8C04-59BF182E98FB": {
+    "name": "Manada de delfines en Costa Rica",
+    "group": "Bajo el agua",
+    "pointsOfInterest": {
+      "0": "Delfines giradores en las aguas de\nCosta Rica"
+    }
+  },
+  "58C75C62-3290-47B8-849C-56A583173570": {
+    "name": "Rayas",
+    "group": "Bajo el agua",
+    "pointsOfInterest": {
+      "0": "Mantarrayas doradas en la\ncosta de México"
+    }
+  },
+  "3716DD4B-01C0-4F5B-8DD6-DB771EC472FB": {
+    "name": "Tiburones grises",
+    "group": "Bajo el agua",
+    "pointsOfInterest": {
+      "0": "Tiburones grises nadando cerca de la Polinesia Francesa"
+    }
+  },
+  "DD47D8E1-CB66-4C12-BFEA-2ADB0D8D1E2E": {
+    "name": "Ballena jorobada",
+    "group": "Bajo el agua",
+    "pointsOfInterest": {
+      "0": "Una ballena jorobada en los mares de la Polinesia Francesa"
+    }
+  },
+  "537A4DAB-83B0-4B66-BCD1-05E5DBB4A268": {
+    "name": "Banco de jureles",
+    "group": "Bajo el agua",
+    "pointsOfInterest": {
+      "0": "Un banco de jureles voraces en la\ncosta de Borneo"
+    }
+  },
+  "6143116D-03BB-485E-864E-A8CF58ACF6F1": {
+    "name": "Algas marinas (oscuro)",
+    "group": "Bajo el agua",
+    "pointsOfInterest": {
+      "0": "Flotando por un bosque de algas cerca de la Península del Cabo, Sudáfrica"
+    }
+  },
+  "F07CC61B-30FC-4614-BDAD-3240B61F6793": {
+    "name": "Coral de colores en Palaos",
+    "group": "Bajo el agua",
+    "pointsOfInterest": {
+      "0": "Arrecife de coral cerca de Palaos"
+    }
+  },
+  "BA4ECA11-592F-4727-9221-D2A32A16EB28": {
+    "name": "Medusas en Palaos (oscuro)",
+    "group": "Bajo el agua",
+    "pointsOfInterest": {
+      "0": "Medusas doradas en las aguas de Palaos",
+      "282": "Medusas doradas con una medusa luna\nen medio",
+      "348": "Medusas doradas en las aguas de Palaos"
+    }
+  },
+  "E580E5A5-0888-4BE8-A4CA-F74A18A643C3": {
+    "name": "Medusas en Palaos azul",
+    "group": "Bajo el agua",
+    "pointsOfInterest": {
+      "0": "Medusas doradas en las aguas de Palaos"
+    }
+  },
+  "EC3DC957-D4C2-4732-AACE-7D0C0F390EC8": {
+    "name": "Medusas en Palaos (claro)",
+    "group": "Bajo el agua",
+    "pointsOfInterest": {
+      "0": "Medusas doradas en las aguas de Palaos"
+    }
+  },
+  "82175C1F-153C-4EC8-AE37-2860EA828004": {
+    "name": "Corales del mar Rojo desde arriba",
+    "group": "Bajo el agua",
+    "pointsOfInterest": {
+      "0": "Arrecife de coral en el mar Rojo cerca de Egipto"
+    }
+  },
+  "581A4F1A-2B6D-468C-A1BE-6F473F06D10B": {
+    "name": "Estrellas de mar",
+    "group": "Bajo el agua",
+    "pointsOfInterest": {
+      "0": "Estrellas de mar cornudas en el fondo marino\ncerca de Borneo"
+    }
+  },
+  "83C65C90-270C-4490-9C69-F51FE03D7F06": {
+    "name": "Manada de focas",
+    "group": "Bajo el agua",
+    "pointsOfInterest": {
+      "0": "Lobos marinos en la costa de la Península del Cabo, Sudáfrica"
+    }
+  },
+  "8C31B06F-91A4-4F7C-93ED-56146D7F48B9": {
+    "name": "Costa de Tahití",
+    "group": "Bajo el agua",
+    "pointsOfInterest": {
+      "0": "Olas rompiendo en la costa de Tahití"
+    }
+  },
+  "149E7795-DBDA-4F5D-B39A-14712F841118": {
+    "name": "Bruma de olas en Tahití",
+    "group": "Bajo el agua",
+    "pointsOfInterest": {
+      "0": "Olas rompiendo en la costa de Tahití"
+    }
+  },
+  "E540DEE6-4C40-42C8-9CCC-D4CB0FAD7D7B": {
+    "name": "Horizonte en Yosemite",
+    "group": "Yosemite",
+    "pointsOfInterest": {
+      "0": "Sobrevolando el Parque Nacional de\nYosemite, Estados Unidos",
+      "70": "Acercándose al Half Dome en el Parque Nacional de Yosemite, Estados Unidos",
+      "87": "Half Dome en el Parque Nacional de Yosemite, Estados Unidos",
+      "210": "Sobrevolando el Parque Nacional de\nYosemite, Estados Unidos"
+    }
+  },
+  "81CA5ACD-E682-4D8B-A948-0F147EB6ED4F": {
+    "name": "Montañas de Yosemite",
+    "group": "Yosemite",
+    "pointsOfInterest": {
+      "0": "Sobrevolando el Parque Nacional de Yosemite, Estados Unidos",
+      "93": "Viajando hacia el Pico Merced en el\nParque Nacional de Yosemite, Estados Unidos",
+      "130": "Pico Merced en el Parque Nacional de Yosemite, Estados Unidos",
+      "221": "Pasando por el Pico Merced en el Parque Nacional de Yosemite, Estados Unidos",
+      "244": "Recorriendo el Parque Nacional de Yosemite, Estados Unidos"
+    }
+  },
+  "E5799A24-1949-4E66-A17B-B5EB05F28C5D": {
+    "name": "Silueta de Yosemite",
+    "group": "Yosemite",
+    "pointsOfInterest": {
+      "0": "Half Dome en el Parque Nacional de Yosemite, Estados Unidos",
+      "124": "Pasando por el Half Dome acercándose a la cascada Nevada en el Parque Nacional de Yosemite",
+      "146": "Half Dome y cascada Nevada en el Parque Nacional de Yosemite, Estados Unidos"
+    }
+  },
+  "E487C6EF-B3FB-427B-A2BE-8CBA60F902F0": {
+    "name": "Nubes en Yosemite",
+    "group": "Yosemite",
+    "pointsOfInterest": {
+      "0": "Sobrevolando el Parque Nacional de\nYosemite, Estados Unidos",
+      "40": "Viajando hacia el Half Dome en el\nParque Nacional de Yosemite, Estados Unidos",
+      "60": "Half Dome en el Parque Nacional de Yosemite, Estados Unidos",
+      "155": "Sobrevolando el Parque Nacional de Yosemite\ncon la cascada Nevada a lo lejos",
+      "255": "Cascadas Nevada e Illilouette en el\nParque Nacional de Yosemite, Estados Unidos",
+      "285": "Cascadas Nevada, Vernal e Illilouette en el\nParque Nacional de Yosemite, Estados Unidos"
+    }
+  },
+  "DAD82DCE-F3AE-4AEC-8A79-1694D412FC0A": {
+    "name": "Vista aérea de Yosemite",
+    "group": "Yosemite",
+    "pointsOfInterest": {
+      "0": "Pasando por Tuolumne Meadows en el\nParque Nacional de Yosemite, Estados Unidos"
+    }
+  },
+  "4109D42A-D717-46A7-A9A2-FE53A82B25C0": {
+    "name": "Valle de Yosemite",
+    "group": "Yosemite",
+    "pointsOfInterest": {
+      "0": "Viajando hacia la cascada Bridalveil y\nEl Capitán en el Parque Nacional de Yosemite",
+      "44": "Viajando hacia el este en dirección a El Capitán\nen el Parque Nacional de Yosemite, Estados Unidos",
+      "87": "Pasando por El Capitán, Parque Nacional de Yosemite, Estados Unidos",
+      "120": "Viajando hacia el este en dirección al Half Dome en el Parque Nacional de Yosemite, Estados Unidos",
+      "390": "Half Dome en el Parque Nacional de Yosemite, Estados Unidos",
+      "470": "Pasando por el Half Dome en el\nvalle de Yosemite, Estados Unidos",
+      "585": "Viajando hacia el este sobre el valle de Yosemite, Estados Unidos"
+    }
+  },
+  "8D04D70F-738B-441D-8D43-AF46B2BF8062": {
+    "name": "Cumbres nevadas en Yosemite",
+    "group": "Yosemite",
+    "pointsOfInterest": {
+      "0": "Viajando hacia Matthes Crest en el\nParque Nacional de Yosemite, Estados Unidos",
+      "75": "Sobrevolando Matthes Crest en el\nParque Nacional de Yosemite, Estados Unidos",
+      "124": "Sobrevolando Matthes Crest en el\nParque Nacional de Yosemite, Estados Unidos",
+      "215": "Sobrevolando Matthes Crest en el\nParque Nacional de Yosemite, Estados Unidos",
+      "396": "Avanzando hacia Tuolumne Meadows\nen el Parque Nacional de Yosemite, Estados Unidos"
+    }
+  }
+}

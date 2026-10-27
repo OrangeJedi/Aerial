@@ -1,0 +1,1301 @@
+{
+  "B876B645-3955-420E-99DF-60139E451CF3": {
+    "name": "Bjerge i Kina",
+    "group": "Kina",
+    "pointsOfInterest": {
+      "0": "På vej gennem nationalparken Wulingyuan i Kina"
+    }
+  },
+  "9CCB8297-E9F5-4699-AE1F-890CFBD5E29C": {
+    "name": "Rismark i Kina",
+    "group": "Kina",
+    "pointsOfInterest": {
+      "0": "Passerer over Longji-risterrasserne i Guangxi i Kina"
+    }
+  },
+  "D5E76230-81A3-4F65-A1BA-51B8CADED625": {
+    "name": "Klipper i Kina",
+    "group": "Kina",
+    "pointsOfInterest": {
+      "0": "Udforsker nationalparken Wulingyuan i Kina"
+    }
+  },
+  "22162A9B-DB90-4517-867C-C676BC3E8E95": {
+    "name": "Den Kinesiske Mur",
+    "group": "Kina",
+    "pointsOfInterest": {
+      "0": "Mutianyu-delen af Den Kinesiske Mur i Huairou i Kina"
+    }
+  },
+  "044AD56C-A107-41B2-90CC-E60CCACFBCF5": {
+    "name": "Kina-silhuet",
+    "group": "Kina",
+    "pointsOfInterest": {
+      "0": "Mutianyu-delen af Den Kinesiske Mur i Huairou i Kina"
+    }
+  },
+  "F0236EC5-EE72-4058-A6CE-1F7D2E8253BF": {
+    "name": "Den Kinesiske Mur i dagslys",
+    "group": "Kina",
+    "pointsOfInterest": {
+      "0": "Mutianyu-delen af Den Kinesiske Mur i Huairou iKina"
+    }
+  },
+  "876D51F4-3D78-4221-8AD2-F9E78C0FD9B9": {
+    "name": "Dubai oppefra",
+    "group": "Dubai",
+    "pointsOfInterest": {
+      "0": "På vej langs med Sheikh Zayed-vejen i Dubai i de Forenede Arabiske Emirater"
+    }
+  },
+  "E991AC0C-F272-44D8-88F3-05F44EDFE3AE": {
+    "name": "Havn i Dubai Creek",
+    "group": "Dubai",
+    "pointsOfInterest": {
+      "0": "Flyver over Dubai Marina i de Forenede Arabiske Emirater"
+    }
+  },
+  "9680B8EB-CE2A-4395-AF41-402801F4D6A6": {
+    "name": "Nat i Dubai",
+    "group": "Dubai",
+    "pointsOfInterest": {
+      "0": "Nærmer sig Burj Khalifa i Downtown Dubai i de Forenede Arabiske Emirater",
+      "280": "Passerer Burj Khalifa i Downtown Dubai i de Forenede Arabiske Emirater",
+      "330": "Over Downtown Dubai, og nærmer sig kysten"
+    }
+  },
+  "00BA71CD-2C54-415A-A68A-8358E677D750": {
+    "name": "Dubais skyline",
+    "group": "Dubai",
+    "pointsOfInterest": {
+      "0": "Nærmer sig Downtown Dubai i de Forenede Arabiske Emirater",
+      "210": "På vej over Downtown Dubai i de Forenede Arabiske Emirater"
+    }
+  },
+  "3FFA2A97-7D28-49EA-AA39-5BC9051B2745": {
+    "name": "Dubai Creek",
+    "group": "Dubai",
+    "pointsOfInterest": {
+      "0": "Flyver langs med Dubai Marina i de Forenede Arabiske Emirater"
+    }
+  },
+  "E334A6D2-7145-47C8-9B00-C20DED08B2D5": {
+    "name": "Aften i Grand Canyon",
+    "group": "Grand Canyon",
+    "pointsOfInterest": {
+      "0": "Følger Colorado River gennem Grand Canyon i USA"
+    }
+  },
+  "DD266E1F-5DF2-4CDB-A2EB-26CE35664657": {
+    "name": "Grand Canyon oppefra",
+    "group": "Grand Canyon",
+    "pointsOfInterest": {
+      "0": "Flyver over området Burnt Canyon i Grand Canyon i USA"
+    }
+  },
+  "F9F918CD-E15F-4F01-A326-84A44650C5C9": {
+    "name": "Solnedgang ved Grand Canyon",
+    "group": "Grand Canyon",
+    "pointsOfInterest": {
+      "0": "På vej over Grand Canyon\ni USA"
+    }
+  },
+  "AE0115AE-C53B-4DB9-B12F-CA4B7B630CC9": {
+    "name": "Aflejringer i Grand Canyon",
+    "group": "Grand Canyon",
+    "pointsOfInterest": {
+      "0": "På vej gennem Grand Canyon i USA"
+    }
+  },
+  "8002C4C8-C611-4894-A068-3D3A3C03472A": {
+    "name": "Grand Canyon River Valley",
+    "group": "Grand Canyon",
+    "pointsOfInterest": {
+      "0": "På vej langs Colorado River\ni Grand Canyon i USA"
+    }
+  },
+  "B8F204CE-6024-49AB-85F9-7CA2F6DCD226": {
+    "name": "Gletsjer i Grønland",
+    "group": "Grønland",
+    "pointsOfInterest": {
+      "0": "På vej langs med Nuussuaq-halvøen i Grønland"
+    }
+  },
+  "2F52E34C-39D4-4AB1-9025-8F7141FAA720": {
+    "name": "Grønlands kyst",
+    "group": "Grønland",
+    "pointsOfInterest": {
+      "0": "Ilulissat Isfjord ud for Grønlands kyst"
+    }
+  },
+  "EE01F02D-1413-436C-AB05-410F224A5B7B": {
+    "name": "Aften i Grønland",
+    "group": "Grønland",
+    "pointsOfInterest": {
+      "0": "Ilulissat Isfjord ud for Grønlands kyst"
+    }
+  },
+  "12E0343D-2CD9-48EA-AB57-4D680FB6D0C7": {
+    "name": "Hawaiis kystlinje",
+    "group": "Hawaii",
+    "pointsOfInterest": {
+      "0": "Flyver over Laupāhoehoe Nui i naturreservatet Kohala på øen Hawaii"
+    }
+  },
+  "258A6797-CC13-4C3A-AB35-4F25CA3BF474": {
+    "name": "Skyer over Hawaii – lyst",
+    "group": "Hawaii",
+    "pointsOfInterest": {
+      "0": "Over naturreservatet Pu‘u O ‘Umi på øen Hawaii"
+    }
+  },
+  "3D729CFC-9000-48D3-A052-C5BD5B7A6842": {
+    "name": "Havet ved Hawaii",
+    "group": "Hawaii",
+    "pointsOfInterest": {
+      "0": "Følger Kohala-kystlinjen på øen Hawaii"
+    }
+  },
+  "499995FA-E51A-4ACE-8DFD-BDF8AFF6C943": {
+    "name": "Dal på Hawaii",
+    "group": "Hawaii",
+    "pointsOfInterest": {
+      "0": "Waimanu Valley i naturreservatet Kohala på øen Hawaii"
+    }
+  },
+  "82BD33C9-B6D2-47E7-9C42-AA3B7758921A": {
+    "name": "Skyer over Hawaii – mørkt",
+    "group": "Hawaii",
+    "pointsOfInterest": {
+      "0": "Over naturreservatet Pu‘u O ‘Umi på øen Hawaii"
+    }
+  },
+  "E99FA658-A59A-4A2D-9F3B-58E7BDC71A9A": {
+    "name": "Nat i Hongkong",
+    "group": "Hongkong",
+    "pointsOfInterest": {
+      "0": "Over Victoria Harbour på vej mod det centrale Hongkong"
+    }
+  },
+  "C8559883-6F3E-4AF2-8960-903710CD47B7": {
+    "name": "Horisont i Hongkong",
+    "group": "Hongkong",
+    "pointsOfInterest": {
+      "0": "Flyver over Victoria Peak i Hongkong",
+      "150": "Flyver over Hongkong med retning mod Victoria Harbour",
+      "330": "Over Victoria Harbour, og nærmer sig Kowloon-halvøen"
+    }
+  },
+  "024891DE-B7F6-4187-BFE0-E6D237702EF0": {
+    "name": "Hongkongs skyline",
+    "group": "Hongkong",
+    "pointsOfInterest": {
+      "0": "Over Wan Chai, og nærmer sig det centrale Hongkong",
+      "150": "Over det centrale Hongkong",
+      "270": "Over Hong Kong Island"
+    }
+  },
+  "FE8E1F9D-59BA-4207-B626-28E34D810D0A": {
+    "name": "Havnen i Hongkong",
+    "group": "Hongkong",
+    "pointsOfInterest": {
+      "0": "Over Victoria Harbour med retning mod Hong Kong Island"
+    }
+  },
+  "8590D0C5-E344-4FAC-A39A-FD7BC652AEDA": {
+    "name": "Kyst i Island",
+    "group": "Island",
+    "pointsOfInterest": {
+      "0": "Flyver over Langisjór i Island"
+    }
+  },
+  "DDE50C77-B7CB-4488-9EB1-D1B13BF21FFE": {
+    "name": "Gletsjer i Island",
+    "group": "Island",
+    "pointsOfInterest": {
+      "0": "På vej over Tungnaá i Islands højland"
+    }
+  },
+  "E54D5AFE-F362-4D48-A20D-F2C21D2B5330": {
+    "name": "Fjord i Island",
+    "group": "Island",
+    "pointsOfInterest": {
+      "0": "Følger floden Jökulgilskvísl i Landmannalaugar i Island",
+      "308": "På vej over Islands højland"
+    }
+  },
+  "F9518D54-04A7-4793-8666-CFC114D73CE5": {
+    "name": "Flodleje i Island",
+    "group": "Island",
+    "pointsOfInterest": {
+      "0": "På vej gennem Jökulgil i Landmannalaugar i Island"
+    }
+  },
+  "8ACF5D77-B22C-416F-B12A-72FB35E2834F": {
+    "name": "Fjord i Island oppefra",
+    "group": "Island",
+    "pointsOfInterest": {
+      "0": "På vej over Landmannalaugar i Island"
+    }
+  },
+  "2F17FCCE-6CCA-4AFA-A08A-C50BF9812DA5": {
+    "name": "Snedækkede bjerge i Island",
+    "group": "Island",
+    "pointsOfInterest": {
+      "0": "På vej mod gletsjeren Mýrdalsjökull i Island",
+      "150": "Nærmer sig gletsjeren Mýrdalsjökull i Island",
+      "225": "Gletsjeren Mýrdalsjökull i Island",
+      "324": "På vej over gletsjeren Mýrdalsjökull i Island"
+    }
+  },
+  "cb5b5035-6701-619f-9065-3d7d0e5fbef4-113": {
+    "name": "Sø i Island",
+    "group": "Island",
+    "pointsOfInterest": {
+      "0": "Flyver over Island"
+    }
+  },
+  "cb5b5035-6701-619f-9065-3d7d0e5fbef4-133": {
+    "name": "Strande i Goa",
+    "pointsOfInterest": {
+      "0": "Over Cola og Small Cola Beach i Goa, Indien"
+    }
+  },
+  "cb5b5035-6701-619f-9065-3d7d0e5fbef4-134": {
+    "name": "Goa-kysten",
+    "pointsOfInterest": {
+      "0": "Passerer Small Cola Beach i Goa, Indien",
+      "150": "På vej mod Cola Beach i Goa, Indien"
+    }
+  },
+  "cb5b5035-6701-619f-9065-3d7d0e5fbef4-135": {
+    "name": "Ganges",
+    "pointsOfInterest": {
+      "0": "Langs med Ganges fra Rishikesh i Uttarakhand, Indien"
+    }
+  },
+  "cb5b5035-6701-619f-9065-3d7d0e5fbef4-136": {
+    "name": "Ghansali oppefra",
+    "pointsOfInterest": {
+      "0": "Over terrasserede marker i nærheden af Akhori i Uttarakhand, Indien"
+    }
+  },
+  "cb5b5035-6701-619f-9065-3d7d0e5fbef4-137": {
+    "name": "Gennem Himalaya",
+    "pointsOfInterest": {
+      "0": "På vej mod Nanda Devi gennem Garhwal-bjergene (Himalaya) i Uttarakhand, India"
+    }
+  },
+  "cb5b5035-6701-619f-9065-3d7d0e5fbef4-138": {
+    "name": "Bjergtinder i Himalaya",
+    "pointsOfInterest": {
+      "0": "Passerer Garhwal-bjergene (Himalaya) i Uttarakhand, Indien"
+    }
+  },
+  "cb5b5035-6701-619f-9065-3d7d0e5fbef4-139": {
+    "name": "Himalaya – dag",
+    "pointsOfInterest": {
+      "0": "Passerer Garhwal-bjergene (Himalaya) i Uttarakhand, Indien"
+    }
+  },
+  "cb5b5035-6701-619f-9065-3d7d0e5fbef4-140": {
+    "name": "Temarker – dag",
+    "pointsOfInterest": {
+      "0": "Passerer temarker ved Munnar i Kerala, Indien"
+    }
+  },
+  "cb5b5035-6701-619f-9065-3d7d0e5fbef4-141": {
+    "name": "Dis over temarker",
+    "pointsOfInterest": {
+      "0": "På vej mod øst over temarker ved Munnar i Kerala, Indien"
+    }
+  },
+  "cb5b5035-6701-619f-9065-3d7d0e5fbef4-142": {
+    "name": "Temarker oppefra",
+    "pointsOfInterest": {
+      "0": "Over temarker ved Munnar i Kerala, Indien"
+    }
+  },
+  "cb5b5035-6701-619f-9065-3d7d0e5fbef4-143": {
+    "name": "Opdæmmede søer – dag",
+    "pointsOfInterest": {
+      "0": "Langs den opdæmmede Upper Sholayar-sø i Tamil Nadu, Indien"
+    }
+  },
+  "A837FA8C-C643-4705-AE92-074EFDD067F7": {
+    "name": "Afrika",
+    "group": "Jorden",
+    "pointsOfInterest": {
+      "0": "På vej mod nordøst over Sahara om natten",
+      "70": "Over Grand Erg Oriental‑ørkenen på vej mod Middelhavet",
+      "100": "Middelhavet ved Tunesien og Libyen",
+      "120": "Henover Middelhavet mod Italien",
+      "140": "Over det sydlige Italien på vej mod Balkanhalvøen med Tyrkiet i det fjerne",
+      "165": "Over Balkanhalvøen med retning mod Sortehavet",
+      "180": "Over Balkanhalvøen og nærmer sig Sortehavet",
+      "210": "På vej over Sortehavet mod Ukraine",
+      "230": "På vej over Ukraine mod Rusland"
+    }
+  },
+  "2F72BC1E-3D76-456C-81EB-842EBA488C27": {
+    "name": "Nordafrika",
+    "group": "Jorden",
+    "pointsOfInterest": {
+      "0": "På vej over Afrikas Horn med retning mod Adenbugten",
+      "45": "Den sydøstlige del af Den Arabiske Halvø",
+      "115": "Omanbugten og nærmer sig Makran‑kysten",
+      "145": "Makran‑kysten ved Iran og Pakistan",
+      "160": "Over Iran i retning mod Afghanistan og Pakistan",
+      "180": "Over Afghanistan og Pakistan i retning mod Karakoram‑bjergkæden",
+      "235": "På vej over Karakoram‑bjergkæden imod Kina",
+      "280": "Taklamakan‑ørkenen i Vestkina",
+      "315": "Tian Shan‑bjergene i Centralasien"
+    }
+  },
+  "03EC0F5E-CCA8-4E0A-9FEC-5BD1CE151182": {
+    "name": "Sydlys i Antarktis",
+    "group": "Jorden",
+    "pointsOfInterest": {
+      "0": "Sydlys over Antarktis"
+    }
+  },
+  "64D11DAB-3B57-4F14-AD2F-E59A9282FA44": {
+    "name": "Nordatlanten",
+    "group": "Jorden",
+    "pointsOfInterest": {
+      "0": "Over Nordatlanten på vej mod Portugal",
+      "115": "Over Portugal og Spanien",
+      "150": "I retning væk fra Den Iberiske Halvø og passerer over Biscayabugten og Frankrig",
+      "180": "Over Vesteuropa med Nordatlanten i det fjerne"
+    }
+  },
+  "81337355-E156-4242-AAF4-711768D30A54": {
+    "name": "Australien",
+    "group": "Jorden",
+    "pointsOfInterest": {
+      "0": "Over Det Indiske Ocean på vej mod Perth i Australien",
+      "50": "På vej nordøst tværs over Vestaustralien",
+      "170": "Over Vestaustralien og nærmer sig Northern Territory",
+      "220": "Over Northern Territorium, Australien mod Ny Guinea",
+      "335": "På vej over Arafurahavet på vej mod Ny Guinea"
+    }
+  },
+  "12318CCB-3F78-43B7-A854-EFDCCE5312CD": {
+    "name": "Californien",
+    "group": "Jorden",
+    "pointsOfInterest": {
+      "0": "Over Stillehavet i retning mod den californiske kyst",
+      "70": "På vej over den californiske kyst på vej indover landet",
+      "85": "Passerer over Los Angeles på USA’s vestkyst",
+      "95": "Over Los Angeles nærmer sig Las Vegas i USA",
+      "110": "Over Las Vegas på vej mod Salt Lake City i USA",
+      "120": "Over det vestlige USA og nærmer sig Salt Lake City",
+      "155": "Passerer mellem Salt Lake City og Denver i USA",
+      "170": "Over Rocky Mountains i USA"
+    }
+  },
+  "D5CFB2FF-5F8C-4637-816B-3E42FC1229B8": {
+    "name": "De Caribiske Øer",
+    "group": "Jorden",
+    "pointsOfInterest": {
+      "0": "På vej over Stillehavet mod Mellemamerika",
+      "35": "Stillehavskysterne ud for Nicaragua, Costa Rica og Panama",
+      "50": "Passerer over Mellemamerika med Sydamerika i det fjerne",
+      "65": "Moskitokysten ved Nicaragua",
+      "85": "På vej over Det Caribiske Hav på vej mod Cuba",
+      "110": "Passerer et skydækket Jamaica i Det Caribiske Hav",
+      "125": "Krydser over Cuba med udsyn mod Haiti og Den Dominikanske Republik",
+      "170": "På vej over Bahamas med udsyn mod Haiti og Den Dominikanske Republik",
+      "190": "Turks- og Caico-øerne i Atlanterhavet"
+    }
+  },
+  "1088217C-1410-4CF7-BDE9-8F573A4DBCD9": {
+    "name": "Det Caribiske Hav",
+    "group": "Jorden",
+    "pointsOfInterest": {
+      "0": "Over Stillehavet i retning mod Mellemamerika",
+      "70": "Mellemamerikas sydvestlige kyst på vej mod Det Caribiske Hav",
+      "100": "Krydser Mellemamerika mod Det Caribiske Hav",
+      "150": "Over Det Caribiske Hav i retning mod Cuba",
+      "240": "Over Cuba med Florida og Bahamas i det fjerne",
+      "300": "Over Florida og Bahamas og bevæger sig mod Sargassohavet",
+      "350": "Over Sargassohavet på vej ud mod Atlanterhavet"
+    }
+  },
+  "4F881F8B-A7D9-4FDB-A917-17BF6AC5A589": {
+    "name": "Caribien",
+    "group": "Jorden",
+    "pointsOfInterest": {
+      "0": "På vej mod sydøst over Great Plains i USA",
+      "90": "På vej mod sydøst over Midtvesten i USA",
+      "120": "Over det sydøstlige USA og på vej mod Florida",
+      "220": "Over Florida og bevæger sig mod Bahamas",
+      "240": "I retning sydøst over Bahamas",
+      "285": "Over Bahamas og nærmer sig Den Dominikanske Republik og Haiti",
+      "300": "Over Den Dominikanske Republik og Haiti og nærmer sig Det Caribiske Hav",
+      "315": "Over Det Caribiske Hav sydover mod Venezuela"
+    }
+  },
+  "6324F6EB-E0F1-468F-AC2E-A983EBDDD53B": {
+    "name": "Nat i Kina",
+    "group": "Jorden",
+    "pointsOfInterest": {
+      "0": "Over Centralasien og bevæger sig mod den kinesiske kyst",
+      "10": "Over Centralkina og bevæger sig mod Shanghai",
+      "30": "På vej over det østlige Kina mod Shanghai",
+      "45": "Nærmer sig Shanghai i retning mod Det Østkinesiske Hav",
+      "50": "Over Shanghai i retning mod Det Østkinesiske Hav"
+    }
+  },
+  "F439B0A7-D18C-4B14-9681-6520E6A74FE9": {
+    "name": "Mellemøsten",
+    "group": "Jorden",
+    "pointsOfInterest": {
+      "0": "Spejlbillede af solen langs Irans kyst",
+      "15": "Skifter fra dag til nat over Iran",
+      "60": "Skifter fra dag til nat over Centralasien"
+    }
+  },
+  "7C643A39-C0B2-4BA0-8BC2-2EAA47CC580E": {
+    "name": "Nat i Europa",
+    "group": "Jorden",
+    "pointsOfInterest": {
+      "0": "Over Nordatlanten på vej mod Irland og Storbritannien",
+      "15": "Irland og Storbritannien",
+      "45": "Over Storbritannien og bevæger sig mod det europæiske fastland",
+      "65": "Over Nordvesteuropa på vej mod Rusland",
+      "105": "Over Centraleuropa på vej mod Rusland",
+      "150": "Over Østeuropa med udsyn mod Moskva i det fjerne",
+      "165": "Over Østeuropa med udsyn mod Moskva",
+      "185": "Over det vestlige Rusland passerer Moskva",
+      "195": "Over Rusland bevæger sig mod Centralasien"
+    }
+  },
+  "E5DB138A-F04E-4619-B896-DE5CB538C534": {
+    "name": "Nat i Sydeuropa",
+    "group": "Jorden",
+    "pointsOfInterest": {
+      "0": "Over Tunesien på vej mod Italien",
+      "5": "Over Middelhavet med udsyn mod Sicilien og Den Apenniniske Halvø",
+      "15": "Over det sydlige Italien med Balkanhalvøen i det fjerne",
+      "25": "Over Balkanhalvøen med retning mod Centralasien",
+      "40": "Over Balkanhalvøen og passerer Sortehavet",
+      "55": "Over Ukraine med Rusland i det fjerne",
+      "75": "Over det sydvestlige Rusland og passerer Kasaksthan"
+    }
+  },
+  "009BA758-7060-4479-8EE8-FB9B40C8FB97": {
+    "name": "Østasien",
+    "group": "Jorden",
+    "pointsOfInterest": {
+      "0": "I retning sydøst over Siberien og Mongoliet",
+      "22": "På vej mod det indre Mongoliet",
+      "32": "Over Mongoliet og bevæger sig mod Kina",
+      "60": "Over det nordlige Kina på vej mod Den Koreanske Halvø",
+      "110": "Over Kina på vej mod Den Koreanske Halvø",
+      "150": "Den Koreanske Halvø med Japan i det fjerne",
+      "180": "Over Sydkorea og bevæger sig mod Japan",
+      "195": "Over Japan med udsyn mod Stillehavet",
+      "260": "Over Stillehavet sydøst for Japan"
+    }
+  },
+  "B1B5DDC5-73C8-4920-8133-BACCE38A08DE": {
+    "name": "New York",
+    "group": "Jorden",
+    "pointsOfInterest": {
+      "0": "Over Stillehavet på vej mod Mexico",
+      "105": "Passerer over Mexico City mod Den Mexicanske Golf",
+      "122": "Flyver over Den Mexicanske Golf mod USA",
+      "180": "Passerer Houston og nærmer sig New Orleans i USA",
+      "190": "På vej over New Orleans og Golfkysten i USA",
+      "215": "Henover sydøstlige USA",
+      "280": "På vej over det østlige USA og på vej mod New York",
+      "320": "Over det østlige USA og nærmer sig New York City"
+    }
+  },
+  "78911B7E-3C69-47AD-B635-9C2486F6301D": {
+    "name": "New Zealand",
+    "group": "Jorden",
+    "pointsOfInterest": {
+      "0": "Skifter fra nat til dag over det sydlige Stillehav",
+      "70": "Skifter fra nat til dag over New Zealand",
+      "110": "Nærmer sig solopgangen over New Zealand",
+      "170": "Forlader New Zealand på vej nordøst over Stillehavet"
+    }
+  },
+  "3C4678E4-4D3D-4A40-8817-77752AEA62EB": {
+    "name": "Nildeltaet",
+    "group": "Jorden",
+    "pointsOfInterest": {
+      "0": "På vej over Vesteuropa med Storbritannien og Irland i det fjerne",
+      "20": "På vej mod sydøst over Alperne og Po‑floddalen",
+      "50": "I retning nedover Den Apenniniske Halvø og Adriaterhavet",
+      "100": "Grækenland flankeret af Det Ioniske Hav og Det Ægæiske Hav",
+      "160": "På vej sydøst over Middelhavet",
+      "185": "Middelhavet og Nilens floddelta",
+      "205": "Nilen, der flyder gennem Sahara i Egypten",
+      "220": "Østørkenen flankeret af Nilen og Suezbugten",
+      "240": "På vej mod sydøst over Det Røde Hav"
+    }
+  },
+  "737E9E24-49BE-4104-9B72-F352DE1AD2BF": {
+    "name": "Nordlys over Nordamerika",
+    "group": "Jorden",
+    "pointsOfInterest": {
+      "0": "Over Stillehavet i retning mod Baja California",
+      "45": "Over Baja California med udsyn mod nord og USA",
+      "55": "Over Mexico på vej mod det sydvestlige USA",
+      "75": "Over det sydvestlige USA",
+      "110": "Over Rocky Mountains og nærmer sig Denver",
+      "125": "På vej over Great Plains i USA",
+      "185": "Nærmer sig de Store Søer med Ontario i Canada i det fjerne",
+      "200": "Over de Store Søer og nærmer sig Ontario i Canada",
+      "210": "Nordlys over det vestlige Ontario i Canada",
+      "235": "Nordlys over det nordlige Ontario i Canada",
+      "250": "Nordlys over det nordlige Quebec i Canada",
+      "300": "På vej mod Nordatlanten med nordlys over Labrador i Canada"
+    }
+  },
+  "E556BBC5-D0A0-4DB1-AC77-BC76E4A526F4": {
+    "name": "Sahara",
+    "group": "Jorden",
+    "pointsOfInterest": {
+      "0": "Over Vestafrika i retning mod Sahara",
+      "30": "Krydser Sahara i Nordafrika",
+      "110": "Passerer over Ahaggar‑bjergene i Sahara i Nordafrika",
+      "155": "Over Grand Erg Oriental‑ørkenen i Nordafrika med retning mod Middelhavet",
+      "195": "Tunesiens kyst og Middelhavet",
+      "210": "På vej over Tunesiens kyst på vej mod Italien",
+      "230": "Nærmer sig Italien i Middelhavet",
+      "245": "Over Italien på vej mod Balkanhalvøen",
+      "285": "Over Balkanhalvøen på vej mod Karpaterne",
+      "310": "Karpaterne og Sortehavet"
+    }
+  },
+  "87060EC2-D006-4102-98CC-3005C68BB343": {
+    "name": "Sydafrika",
+    "group": "Jorden",
+    "pointsOfInterest": {
+      "0": "På vej nordøst over Etiopiens højland",
+      "45": "På vej over Det Røde Hav ind mod Den Arabiske Halvø",
+      "100": "På vej nordøst over Den Arabiske Halvø",
+      "130": "Over Den Arabiske Halvø i retning mod Iran",
+      "165": "Over Den Arabiske Halvø og nærmer sig Iran",
+      "190": "Nærmer sig den iranske kyst med Zagrosbjergene i det fjerne",
+      "210": "Over Zagrosbjergene i Iran",
+      "240": "Over Dasht-e Lut‑ørkenen i Iran",
+      "265": "På vej mod Turkmenistan og Karakumørkenen",
+      "305": "Amu Darya‑floden og Pamir-Alay‑bjergene i Centralasien",
+      "322": "Pamir-Alay‑bjergene og Fergana‑dalen i Centralasien",
+      "360": "På vej indover det sydøstlige Kasakhstan fra Kirgisistan",
+      "400": "På vej mod nord over Kasakhstan",
+      "450": "Over Altai‑bjergkæden og nærmer sig Mongoliet"
+    }
+  },
+  "7719B48A-2005-4011-9280-2F64EEC6FD91": {
+    "name": "Sydcalifornien",
+    "group": "Jorden",
+    "pointsOfInterest": {
+      "0": "Over Stillehavet på vej mod USA",
+      "20": "På vej sydover langs Californiens kyst",
+      "50": "Over Sydcalifornien i retning mod Mexico",
+      "65": "Nærmer sig Mojave-ørkenen i Sydcalifornien med Mexico i det fjerne",
+      "95": "Den californiske bugt flankeret af Sonoraørkenen og Baja California‑halvøen",
+      "130": "Sierra Madre Occidental‑bjergene på Mexicos vestkyst",
+      "185": "Over Sierra Madre Occidental‑bjergene i retning mod Mexicos vestkyst",
+      "225": "Med udsyn sydover til Stillehavet over Sierra Madre del Sur i Mexico",
+      "280": "Stillehavet ud for Mexicos kyst",
+      "290": "Stillehavet ud for Mexico og Guatemalas kyst"
+    }
+  },
+  "63C042F0-90EF-4A95-B7CC-CC9A64BF8421": {
+    "name": "Vestafrika",
+    "group": "Jorden",
+    "pointsOfInterest": {
+      "0": "De Kanariske Øer, Atlanterhavet og den afrikanske kyst",
+      "45": "I nordøstlig retning langs Marokkos kyst",
+      "75": "Passerer over Atlas‑bjergene i Marokko",
+      "105": "Over Marokko nærmer sig Middelhavet",
+      "125": "Middelhavet og Sydspanien",
+      "145": "På vej nordøst over Costa Blanca i Spanien",
+      "165": "På vej nordøst over De Baleariske Øer i Spanien",
+      "185": "Over den vestlige del af Middelhavet med Alperne i det fjerne",
+      "220": "I retning nordøst over Alperne"
+    }
+  },
+  "001C94AE-2BA4-4E77-A202-F7DE60E8B1C8": {
+    "name": "Klitlandskab ved Liwa",
+    "group": "Liwa",
+    "pointsOfInterest": {
+      "0": "Flyver over Liwa Oasis i de Forenede Arabiske Emirater"
+    }
+  },
+  "AFA22C08-A486-4CE8-9A13-E355B6C38559": {
+    "name": "Horisont i Liwa",
+    "group": "Liwa",
+    "pointsOfInterest": {
+      "0": "Flyver over Liwa Oasis i de Forenede Arabiske Emirater"
+    }
+  },
+  "F604AF56-EA77-4960-AEF7-82533CC1A8B3": {
+    "name": "Aften i London",
+    "group": "London",
+    "pointsOfInterest": {
+      "0": "Nærmer sig Tower Bridge ved Themsen i London",
+      "20": "Krydser Themsen i London",
+      "60": "På vej forbi The Shard i det sydlige London",
+      "92": "Syd for Themsen på vej mod London Eye",
+      "200": "Krydser Themsen med retning mod Westminster i London",
+      "270": "Over Westminster i London"
+    }
+  },
+  "7F4C26C2-67C2-4C3A-8F07-8A7BF6148C97": {
+    "name": "Themsen i London",
+    "group": "London",
+    "pointsOfInterest": {
+      "0": "Nærmer sig Tower Bridge ved Themsen i London",
+      "20": "Følger Themsen i London",
+      "130": "Følger Themsen med retning mod London Eye",
+      "210": "Nærmer sig London Eye ved Themsen",
+      "310": "Følger Themsen forbi London Eye",
+      "325": "Passerer parlamentsbygningerne ved Themsen i London"
+    }
+  },
+  "A5AAFF5D-8887-42BB-8AFD-867EF557ED85": {
+    "name": "London oppefra",
+    "group": "London",
+    "pointsOfInterest": {
+      "0": "Passerer over Buckingham Palace i London",
+      "24": "Over Buckingham Palace i London",
+      "49": "Over St James’s Park med retning mod Themsen i London",
+      "104": "Krydser Themsen og passerer over London Eye",
+      "149": "Passerer over det sydlige London",
+      "279": "Passerer The Shard i det sydlige London",
+      "299": "Krydser Themsen i London",
+      "324": "Krydser Themsen ved Tower Bridge i London"
+    }
+  },
+  "58754319-8709-4AB0-8674-B34F04E7FFE2": {
+    "name": "Londons skyline",
+    "group": "London",
+    "pointsOfInterest": {
+      "0": "Nærmer sig Tower Bridge ved Themsen i London",
+      "78": "Følger Themsen i London",
+      "178": "Syd for Themsen i London",
+      "258": "Krydser Themsen i London"
+    }
+  },
+  "CE279831-1CA7-4A83-A97B-FF1E20234396": {
+    "name": "Lufthavn i Los Angeles",
+    "group": "Los Angeles",
+    "pointsOfInterest": {
+      "0": "Flyver over Los Angeles internationale lufthavn"
+    }
+  },
+  "89B1643B-06DD-4DEC-B1B0-774493B0F7B7": {
+    "name": "Solnedgang i Los Angeles",
+    "group": "Los Angeles",
+    "pointsOfInterest": {
+      "0": "Griffith Observatory og Hollywood Hills i Los Angeles"
+    }
+  },
+  "92E48DE9-13A1-4172-B560-29B4668A87EE": {
+    "name": "Strand i Los Angeles",
+    "group": "Los Angeles",
+    "pointsOfInterest": {
+      "0": "Over Santa Monica State Beach nær Los Angeles",
+      "365": "Passerer over Santa Monica Pier nær Los Angeles",
+      "430": "Over Santa Monica State Beach nær Los Angeles"
+    }
+  },
+  "EC67726A-8212-4C5E-83CF-8412932740D2": {
+    "name": "Bakker i Los Angeles",
+    "group": "Los Angeles",
+    "pointsOfInterest": {
+      "0": "Hollywood-skiltet i Los Angeles",
+      "250": "Over Hollywood Hills, og nærmer sig Burbank i Californien"
+    }
+  },
+  "35693AEA-F8C4-4A80-B77D-C94B20A68956": {
+    "name": "Vejbro i Los Angeles",
+    "group": "Los Angeles",
+    "pointsOfInterest": {
+      "0": "Følger Interstate 110 nord gennem Los Angeles"
+    }
+  },
+  "F5804DD6-5963-40DA-9FA0-39C0C6E6DEF9": {
+    "name": "Nat i Los Angeles",
+    "group": "Los Angeles",
+    "pointsOfInterest": {
+      "0": "På vej hen over Downtown Los Angeles"
+    }
+  },
+  "cb5b5035-6701-619f-9065-3d7d0e5fbef4-114": {
+    "name": "Coal Mine Canyon i Arizona",
+    "group": "Monument Valley",
+    "pointsOfInterest": {
+      "0": "Passerer Navajo Nation i Arizona"
+    }
+  },
+  "cb5b5035-6701-619f-9065-3d7d0e5fbef4-115": {
+    "name": "Aften i Utah",
+    "group": "Monument Valley",
+    "pointsOfInterest": {
+      "0": "Langs Brighams Tomb\ni Monument Valley, Utah",
+      "150": "Passerer King-on-his-Throne butte, Utah",
+      "180": "På vej mod sydøst\ngennem Monument Valley, Utah"
+    }
+  },
+  "cb5b5035-6701-619f-9065-3d7d0e5fbef4-116": {
+    "name": "Cathedral Canyon i Utah",
+    "group": "Monument Valley",
+    "pointsOfInterest": {
+      "0": "Over Cathedral Canyon i Utah",
+      "100": "Over Colorado River\nog Lake Powell, Utah"
+    }
+  },
+  "cb5b5035-6701-619f-9065-3d7d0e5fbef4-117": {
+    "name": "Factory Butte i Utah",
+    "group": "Monument Valley",
+    "pointsOfInterest": {
+      "0": "Passerer Factory Butte i Utah"
+    }
+  },
+  "cb5b5035-6701-619f-9065-3d7d0e5fbef4-118": {
+    "name": "Lake Powell i Utah",
+    "group": "Monument Valley",
+    "pointsOfInterest": {
+      "0": "Langs Colorado River gennem Utah",
+      "134": "Passerer over Cascade Canyon i Utah",
+      "265": "På vej mod Cathedral Canyon, Utah"
+    }
+  },
+  "cb5b5035-6701-619f-9065-3d7d0e5fbef4-119": {
+    "name": "Monument Valley i Utah",
+    "group": "Monument Valley",
+    "pointsOfInterest": {
+      "0": "Passerer over Monument Valley i Arizona"
+    }
+  },
+  "cb5b5035-6701-619f-9065-3d7d0e5fbef4-120": {
+    "name": "Olympia Bar i Utah",
+    "group": "Monument Valley",
+    "pointsOfInterest": {
+      "0": "Langs Colorado River i Utah",
+      "205": "På vej mod Tapestry Wall\nved Lake Powell, Utah"
+    }
+  },
+  "44166C39-8566-4ECA-BD16-43159429B52F": {
+    "name": "Nat i New York",
+    "group": "New York",
+    "pointsOfInterest": {
+      "0": "På vej ned ad 7th Avenue med retning mod Times Square i New York",
+      "40": "Over Times Square i New York",
+      "120": "På vej ned ad 7th Avenue i Midtown Manhattan i New York"
+    }
+  },
+  "840FE8E4-D952-4680-B1A7-AC5BACA2C1F8": {
+    "name": "Centrum i New York",
+    "group": "New York",
+    "pointsOfInterest": {
+      "0": "Over Upper East Side og Central Park i New York",
+      "50": "Over Midtown Manhattan på vej mod downtown med retning mod Empire State Building",
+      "160": "Nærmer sig Empire State Building i New York",
+      "205": "På vej forbi Empire State Building, og bevæger sig mod Lower Manhattan"
+    }
+  },
+  "640DFB00-FBB9-45DA-9444-9F663859F4BC": {
+    "name": "New Yorks skyline",
+    "group": "New York",
+    "pointsOfInterest": {
+      "0": "Nærmer sig Lower Manhattan fra New York Harbor",
+      "110": "Langs med Lower Manhattan, og nærmer sig One World Trade Center",
+      "180": "På vej forbi One World Trade Center med retning mod Midtown Manhattan",
+      "210": "Over Lower Manhattan i New York, og bevæger sig med retning mod Midtown"
+    }
+  },
+  "3BA0CFC7-E460-4B59-A817-B97F9EBB9B89": {
+    "name": "New York oppefra",
+    "group": "New York",
+    "pointsOfInterest": {
+      "0": "Over Central Park, og bevæger sig mod Midtown Manhattan i New York",
+      "246": "Over Midtown Manhattan i New York"
+    }
+  },
+  "5C987900-AD53-469C-8210-CABBCCDDFCAE": {
+    "name": "Bjerg i Patagonien",
+    "group": "Patagonien",
+    "pointsOfInterest": {
+      "0": "Langs med Cuernos del Paine i\nnationalparken Torres del Paine i Chile"
+    }
+  },
+  "B004358B-5A27-42E5-B49E-93FC100B2371": {
+    "name": "Sø i Patagonien",
+    "group": "Patagonien",
+    "pointsOfInterest": {
+      "0": "På vej langs Lago Nordenskjöld\ni nationalparken Torres del Paine i Chile"
+    }
+  },
+  "25A6CFB2-3570-4448-B114-244A4E454B7A": {
+    "name": "Flod i Patagonien",
+    "group": "Patagonien",
+    "pointsOfInterest": {
+      "0": "Over Lago Nordenskjöld i\nnationalparken Torres del Paine i Chile"
+    }
+  },
+  "E5D58CC2-3C52-4206-9DA2-427DC88B5896": {
+    "name": "Bjergkæde i Patagonien",
+    "group": "Patagonien",
+    "pointsOfInterest": {
+      "0": "På vej over nationalparken Torres\ndel Paine i Chile"
+    }
+  },
+  "cb5b5035-6701-619f-9065-3d7d0e5fbef4-121": {
+    "name": "Oregons kystlinje",
+    "group": "Rødtræer",
+    "pointsOfInterest": {
+      "0": "Over Secret Beach på vej mod Brookings, Oregon",
+      "240": "Passerer Natural Bridges i Oregon"
+    }
+  },
+  "cb5b5035-6701-619f-9065-3d7d0e5fbef4-122": {
+    "name": "Solnedgang i Oregon",
+    "group": "Rødtræer",
+    "pointsOfInterest": {
+      "0": "På vej mod vest over China Beach i nærheden af Brookings, Oregon  "
+    }
+  },
+  "cb5b5035-6701-619f-9065-3d7d0e5fbef4-123": {
+    "name": "Redwoods River",
+    "group": "Rødtræer",
+    "pointsOfInterest": {
+      "0": "Langs Trinity River\ngennem Nordcalifornien"
+    }
+  },
+  "cb5b5035-6701-619f-9065-3d7d0e5fbef4-124": {
+    "name": "Kæmpefyrretræer oppefra",
+    "group": "Rødtræer",
+    "pointsOfInterest": {
+      "0": "Over kæmpefyrretræer i Nordcalifornien"
+    }
+  },
+  "3E94AE98-EAF2-4B09-96E3-452F46BC114E": {
+    "name": "Nat i San Francisco",
+    "group": "San Francisco",
+    "pointsOfInterest": {
+      "0": "Nærmer sig Bay Bridge og downtown San Francisco",
+      "80": "Krydser Bay Bridge med retning mod downtown San Francisco",
+      "116": "Over San Francisco Bay med retning mod downtown"
+    }
+  },
+  "85CE77BF-3413-4A7B-9B0F-732E96229A73": {
+    "name": "San Franciscos skyline",
+    "group": "San Francisco",
+    "pointsOfInterest": {
+      "0": "Over San Francisco Bay, og bevæger sig med retning mod Embarcadero",
+      "208": "Følger Market Street gennem San Francisco"
+    }
+  },
+  "29BDF297-EB43-403A-8719-A78DA11A2948": {
+    "name": "Aften i San Francisco",
+    "group": "San Francisco",
+    "pointsOfInterest": {
+      "0": "Over Fisherman’s Wharf med retning mod downtown San Francisco",
+      "80": "Nærmer sig Coit Tower med downtown San Francisco og Bay Bridge\ni det fjerne",
+      "150": "På vej forbi Coit Tower med retning mod downtown San Francisco og Bay Bridge",
+      "196": "Downtown San Francisco"
+    }
+  },
+  "DE851E6D-C2BE-4D9F-AB54-0F9CE994DC51": {
+    "name": "San Francisco Bay",
+    "group": "San Francisco",
+    "pointsOfInterest": {
+      "0": "San Francisco Bay og Golden Gate-broen",
+      "140": "På vej over Golden Gate-broens nordlige tårn med retning mod San Francisco",
+      "191": "Over San Francisco Bay"
+    }
+  },
+  "EE533FBD-90AE-419A-AD13-D7A60E2015D6": {
+    "name": "Tåge i San Francisco",
+    "group": "San Francisco",
+    "pointsOfInterest": {
+      "0": "Over Marin Headlands, og udsigt mod Golden Gate-broen",
+      "150": "Krydser Golden Gate-broen med retning mod Presidio i San Francisco"
+    }
+  },
+  "72B4390D-DF1D-4D51-B179-229BBAEFFF2C": {
+    "name": "Golden Gate-broen ved San Francisco",
+    "group": "San Francisco",
+    "pointsOfInterest": {
+      "0": "Nærmer sig Golden Gate-broen fra San Francisco",
+      "60": "Langs med Golden Gate-broen med retning mod Marin Headlands",
+      "140": "Krydser Golden Gate-broen",
+      "230": "Passerer Golden Gate-broens nordlige tårn",
+      "260": "Over San Francisco Bay, og bevæger sig langs Golden Gate-broen"
+    }
+  },
+  "4AD99907-9E76-408D-A7FC-8429FF014201": {
+    "name": "Ferry Building i San Francisco",
+    "group": "San Francisco",
+    "pointsOfInterest": {
+      "0": "Over San Francisco Bay, og bevæger sig med retning mod Embarcadero",
+      "90": "Over Embarcadero, og udsigt mod Market Street i San Francisco",
+      "150": "Følger Market Street gennem downtown San Francisco",
+      "360": "Følger Market Street gennem San Francisco"
+    }
+  },
+  "0C747C29-4BF8-43F6-A5CC-2E012E555341": {
+    "name": "Kyst i Skotland",
+    "group": "Skotland",
+    "pointsOfInterest": {
+      "0": "På vej langs kysten på\nIsle of Skye i Skotland",
+      "338": "Fyrtårnet ved Neist Point på Isle of Skye i Skotland",
+      "372": "Isle of Skye i Skotland"
+    }
+  },
+  "3954A7C4-51EC-4ABC-ABA3-6757AC91C7CF": {
+    "name": "Sø i Skotland",
+    "group": "Skotland",
+    "pointsOfInterest": {
+      "0": "Over Loch Moidart på\nSkotlands vestkyst",
+      "252": "Nærmer sig Hebrideshavet i Skotland"
+    }
+  },
+  "E161929C-0819-4BC2-8359-550C081C7D54": {
+    "name": "Slot i Skotland",
+    "group": "Skotland",
+    "pointsOfInterest": {
+      "0": "Loch Moidart på Skotlands vestkyst",
+      "139": "Nærmer sig Castle Tioram på\nSkotlands vestkyst",
+      "181": "Castle Tioram på Skotlands vestkyst",
+      "214": "På vej over Skotlands vestkyst"
+    }
+  },
+  "cb5b5035-6701-619f-9065-3d7d0e5fbef4-144": {
+    "name": "Solopgang i Sequoia",
+    "group": "Sequoia",
+    "pointsOfInterest": {
+      "0": "I Sequoia Nationalpark ved solopgang"
+    }
+  },
+  "cb5b5035-6701-619f-9065-3d7d0e5fbef4-145": {
+    "name": "Morgen i Sequoia",
+    "group": "Sequoia",
+    "pointsOfInterest": {
+      "0": "I Sequoia Nationalpark om morgenen"
+    }
+  },
+  "cb5b5035-6701-619f-9065-3d7d0e5fbef4-146": {
+    "name": "Nat i Sequoia",
+    "group": "Sequoia",
+    "pointsOfInterest": {
+      "0": "I Sequoia Nationalpark om natten"
+    }
+  },
+  "ecebc8d2-5486-c2b2-52ae-6f0ab2d6b65f-125": {
+    "name": "Skyer over Sonoma",
+    "group": "Sonoma",
+    "pointsOfInterest": {
+      "0": "Over Sonoma og bevæger sig mod nord gennem Californien"
+    }
+  },
+  "ecebc8d2-5486-c2b2-52ae-6f0ab2d6b65f-126": {
+    "name": "Aften i Sonoma",
+    "group": "Sonoma",
+    "pointsOfInterest": {
+      "0": "Flyver over Sonoma i Californien"
+    }
+  },
+  "ecebc8d2-5486-c2b2-52ae-6f0ab2d6b65f-127": {
+    "name": "Horisont i Sonoma",
+    "group": "Sonoma",
+    "pointsOfInterest": {
+      "0": "På vej mod nord gennem Sonoma, Californien"
+    }
+  },
+  "ecebc8d2-5486-c2b2-52ae-6f0ab2d6b65f-128": {
+    "name": "Sonoma River",
+    "group": "Sonoma",
+    "pointsOfInterest": {
+      "0": "På vej mod nord over Sonoma, Californien"
+    }
+  },
+  "ecebc8d2-5486-c2b2-52ae-6f0ab2d6b65f-129": {
+    "name": "Sonoma oppefra",
+    "group": "Sonoma",
+    "pointsOfInterest": {
+      "0": "Over californiske rødtræer i Sonoma"
+    }
+  },
+  "cb5b5035-6701-619f-9065-3d7d0e5fbef4-130": {
+    "name": "Vilde blomster i Californien",
+    "group": "Superblomstring",
+    "pointsOfInterest": {
+      "0": "Over vilde blomster i Californien"
+    }
+  },
+  "cb5b5035-6701-619f-9065-3d7d0e5fbef4-131": {
+    "name": "Carrizzo Plain i Californien",
+    "group": "Superblomstring",
+    "pointsOfInterest": {
+      "0": "På vej mod nord over vilde blomster i Californien"
+    }
+  },
+  "cb5b5035-6701-619f-9065-3d7d0e5fbef4-132": {
+    "name": "Temblor Range i Californien",
+    "group": "Superblomstring",
+    "pointsOfInterest": {
+      "0": "Langs Temblor Range\ni Sydcalifornien"
+    }
+  },
+  "cb5b5035-6701-619f-9065-3d7d0e5fbef4-147": {
+    "name": "Tahoe om morgenen",
+    "group": "Tahoe",
+    "pointsOfInterest": {
+      "0": "Lake Tahoe om morgenen"
+    }
+  },
+  "cb5b5035-6701-619f-9065-3d7d0e5fbef4-148": {
+    "name": "Tahoe om dagen",
+    "group": "Tahoe",
+    "pointsOfInterest": {
+      "0": "Lake Tahoe om dagen"
+    }
+  },
+  "cb5b5035-6701-619f-9065-3d7d0e5fbef4-149": {
+    "name": "Tahoe om aftenen",
+    "group": "Tahoe",
+    "pointsOfInterest": {
+      "0": "Lake Tahoe om aftenen"
+    }
+  },
+  "cb5b5035-6701-619f-9065-3d7d0e5fbef4-150": {
+    "name": "Tahoe om natten",
+    "group": "Tahoe",
+    "pointsOfInterest": {
+      "0": "Lake Tahoe om natten"
+    }
+  },
+  "C6DC4E54-1130-44F8-AF6F-A551D8E8A181": {
+    "name": "Gopler ved Alaska – mørkt",
+    "group": "Under vandet",
+    "pointsOfInterest": {
+      "0": "Vandmænd nær Alaskas kyst"
+    }
+  },
+  "C7AD3D0A-7EDF-412C-A237-B3C9D27381A1": {
+    "name": "Gopler ved Alaska – lyst",
+    "group": "Under vandet",
+    "pointsOfInterest": {
+      "0": "Driver hen over vandmænd nær Alaskas kyst"
+    }
+  },
+  "2B30E324-E4FF-4CC1-BA45-A958C2D2B2EC": {
+    "name": "En stime barracudaer",
+    "group": "Under vandet",
+    "pointsOfInterest": {
+      "0": "En stime sortfinnede barracudaer\ni vandet nær Borneo"
+    }
+  },
+  "687D03A2-18A5-4181-8E85-38F3A13409B9": {
+    "name": "Pukkelpapegøjefisk",
+    "group": "Under vandet",
+    "pointsOfInterest": {
+      "0": "Bulepapegøjefisk over\nkoralrev ud for Borneo"
+    }
+  },
+  "27A37B0F-738D-4644-A7A4-E33E7A6C1175": {
+    "name": "En gruppe delfiner ved Californien",
+    "group": "Under vandet",
+    "pointsOfInterest": {
+      "0": "Kortnæbbede almindelige delfiner ud for Californiens kyst"
+    }
+  },
+  "EB3F48E7-D30F-4079-858F-1A61331D5026": {
+    "name": "Tangskov ved Californien",
+    "group": "Under vandet",
+    "pointsOfInterest": {
+      "0": "På vej gennem en tangskov ud for Californiens kyst"
+    }
+  },
+  "CE9B5D5B-B6E7-47C5-8C04-59BF182E98FB": {
+    "name": "En gruppe delfiner ved Costa Rica",
+    "group": "Under vandet",
+    "pointsOfInterest": {
+      "0": "Langnæbbede delfiner i havet ud for\nCosta Rica"
+    }
+  },
+  "58C75C62-3290-47B8-849C-56A583173570": {
+    "name": "Konæserokker",
+    "group": "Under vandet",
+    "pointsOfInterest": {
+      "0": "Stillehavskonæserokker ud for\nMexicos kyst"
+    }
+  },
+  "3716DD4B-01C0-4F5B-8DD6-DB771EC472FB": {
+    "name": "Grå revhajer",
+    "group": "Under vandet",
+    "pointsOfInterest": {
+      "0": "Grå revhajer, der svømmer nær Fransk Polynesien"
+    }
+  },
+  "DD47D8E1-CB66-4C12-BFEA-2ADB0D8D1E2E": {
+    "name": "Pukkelhval",
+    "group": "Under vandet",
+    "pointsOfInterest": {
+      "0": "En pukkelhval ud for Fransk Polynesien"
+    }
+  },
+  "537A4DAB-83B0-4B66-BCD1-05E5DBB4A268": {
+    "name": "Crevallestime",
+    "group": "Under vandet",
+    "pointsOfInterest": {
+      "0": "En stime storøjet trevalle\nud for Borneos kyst"
+    }
+  },
+  "6143116D-03BB-485E-864E-A8CF58ACF6F1": {
+    "name": "Tang – mørkt",
+    "group": "Under vandet",
+    "pointsOfInterest": {
+      "0": "Driver gennem en tangskov nær Kaphalvøen i Sydafrika"
+    }
+  },
+  "F07CC61B-30FC-4614-BDAD-3240B61F6793": {
+    "name": "Koralrev ved Palau med farver",
+    "group": "Under vandet",
+    "pointsOfInterest": {
+      "0": "Koralrev nær Palau"
+    }
+  },
+  "BA4ECA11-592F-4727-9221-D2A32A16EB28": {
+    "name": "Gopler ved Palau – mørkt",
+    "group": "Under vandet",
+    "pointsOfInterest": {
+      "0": "Gyldne gopler i vandet ved Palau",
+      "282": "Gyldne gopler og en enkelt\nalmindelig vandmand",
+      "348": "Gyldne gopler i vandet ved Palau"
+    }
+  },
+  "E580E5A5-0888-4BE8-A4CA-F74A18A643C3": {
+    "name": "Gopler ved Palau – blåt",
+    "group": "Under vandet",
+    "pointsOfInterest": {
+      "0": "Gyldne gopler i vandet ved Palau"
+    }
+  },
+  "EC3DC957-D4C2-4732-AACE-7D0C0F390EC8": {
+    "name": "Gopler ved Palau – lyst",
+    "group": "Under vandet",
+    "pointsOfInterest": {
+      "0": "Gyldne gopler i vandet ved Palau"
+    }
+  },
+  "82175C1F-153C-4EC8-AE37-2860EA828004": {
+    "name": "Koralrev i Det Røde Hav oppefra",
+    "group": "Under vandet",
+    "pointsOfInterest": {
+      "0": "Koralrev i Det Røde Hav nær Egypten"
+    }
+  },
+  "581A4F1A-2B6D-468C-A1BE-6F473F06D10B": {
+    "name": "Søstjerner",
+    "group": "Under vandet",
+    "pointsOfInterest": {
+      "0": "Søstjerner på havbunden\nnær Borneo"
+    }
+  },
+  "83C65C90-270C-4490-9C69-F51FE03D7F06": {
+    "name": "En gruppe sæler",
+    "group": "Under vandet",
+    "pointsOfInterest": {
+      "0": "Afro-australske pelssæler ud for kysten på Kaphalvøen i Sydafrika"
+    }
+  },
+  "8C31B06F-91A4-4F7C-93ED-56146D7F48B9": {
+    "name": "Kyst på Tahiti",
+    "group": "Under vandet",
+    "pointsOfInterest": {
+      "0": "Kystbrænding på Tahiti"
+    }
+  },
+  "149E7795-DBDA-4F5D-B39A-14712F841118": {
+    "name": "Bølgedis ved Tahiti",
+    "group": "Under vandet",
+    "pointsOfInterest": {
+      "0": "Kystbrænding på Tahiti"
+    }
+  },
+  "E540DEE6-4C40-42C8-9CCC-D4CB0FAD7D7B": {
+    "name": "Horisont i Yosemite",
+    "group": "Yosemite",
+    "pointsOfInterest": {
+      "0": "Over Yosemite National Park\ni USA",
+      "70": "Nærmer sig Half Dome i Yosemite National Park i USA",
+      "87": "Half Dome i Yosemite National Park i USA",
+      "210": "Over Yosemite National Park\ni USA"
+    }
+  },
+  "81CA5ACD-E682-4D8B-A948-0F147EB6ED4F": {
+    "name": "Bjerge i Yosemite",
+    "group": "Yosemite",
+    "pointsOfInterest": {
+      "0": "Over Yosemite National Park i USA",
+      "93": "På vej mod Merced Peak i\nYosemite National Park i USA",
+      "130": "Merced Peak i Yosemite National Park i USA",
+      "221": "Passerer Merced Peak i Yosemite National Park i USA",
+      "244": "På vej over Yosemite National Park i USA"
+    }
+  },
+  "E5799A24-1949-4E66-A17B-B5EB05F28C5D": {
+    "name": "Yosemite-silhuet",
+    "group": "Yosemite",
+    "pointsOfInterest": {
+      "0": "Half Dome i Yosemite National Park i USA",
+      "124": "Passerer Half Dome på vej mod Nevada Fall i Yosemite National Park",
+      "146": "Half Dome og Nevada Fall i Yosemite National Park i USA"
+    }
+  },
+  "E487C6EF-B3FB-427B-A2BE-8CBA60F902F0": {
+    "name": "Skyer i Yosemite",
+    "group": "Yosemite",
+    "pointsOfInterest": {
+      "0": "Over Yosemite National Park\ni USA",
+      "40": "På vej mod Half Dome i\nYosemite National Park i USA",
+      "60": "Half Dome i Yosemite National Park i USA",
+      "155": "Over Yosemite National Park med\nNevada Fall i det fjerne",
+      "255": "Nevada og Illilouette Falls i\nYosemite National Park i USA",
+      "285": "Nevada, Vernal og Illilouette Falls i\nYosemite National Park i USA"
+    }
+  },
+  "DAD82DCE-F3AE-4AEC-8A79-1694D412FC0A": {
+    "name": "Yosemite oppefra",
+    "group": "Yosemite",
+    "pointsOfInterest": {
+      "0": "Passerer over Tuolumne Meadows i\nYosemite National Park i USA"
+    }
+  },
+  "4109D42A-D717-46A7-A9A2-FE53A82B25C0": {
+    "name": "Yosemite Valley",
+    "group": "Yosemite",
+    "pointsOfInterest": {
+      "0": "På vej mod Bridalveil Fall\nog El Capitan i Yosemite National Park",
+      "44": "På vej østpå mod El Capitan i\nYosemite National Park i USA",
+      "87": "Passerer El Capitan i Yosemite National Park i USA",
+      "120": "På vej østpå mod Half Dome i\nYosemite National Park i USA",
+      "390": "Half Dome i Yosemite National Park i USA",
+      "470": "På vej forbi Half Dome i\nYosemite Valley i USA",
+      "585": "På vej østpå over Yosemite Valley i USA"
+    }
+  },
+  "8D04D70F-738B-441D-8D43-AF46B2BF8062": {
+    "name": "Snedækkede bjerge i Yosemite",
+    "group": "Yosemite",
+    "pointsOfInterest": {
+      "0": "På vej mod Matthes Crest i\nYosemite National Park i USA",
+      "75": "Flyver over Matthes Crest i\nYosemite National Park i USA",
+      "124": "Flyver gennem Matthes Crest i\nYosemite National Park i USA",
+      "215": "Flyver over Matthes Crest i\nYosemite National Park i USA",
+      "396": "På vej mod Tuolumne Meadows i\nYosemite National Park i USA"
+    }
+  }
+}

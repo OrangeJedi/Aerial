@@ -5,3 +5,4 @@ dist
 test.js
 .test-tmp/
 .classifier-frames/
+__pycache__/
