@@ -2,7 +2,7 @@
   ${ifNot} ${isUpdated}
     InitPluginsDir
     File /oname=$PLUGINSDIR\cleanup.ps1 "${BUILD_RESOURCES_DIR}\cleanup.ps1"
-    File /oname=$PLUGINSDIR\videos.json "${BUILD_RESOURCES_DIR}\..\videos.json"
+    File /oname=$PLUGINSDIR\videos.json "${BUILD_RESOURCES_DIR}\..\..\videos.json"
     # ONE_CLICK sets Silent internally, so inspect the original /S argument.
     StrCpy $R2 ""
     ClearErrors

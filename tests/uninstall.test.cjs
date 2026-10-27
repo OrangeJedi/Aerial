@@ -8,7 +8,7 @@ test('uninstall removes owned cache files and preserves moved caches in silent m
     const root = fs.mkdtempSync(path.join(__dirname, '../.test-tmp-uninstall-'));
     try {
         const script = `
-            . './build/cleanup.ps1' -LibraryOnly
+            . './tools/build/cleanup.ps1' -LibraryOnly
             $root = $env:AERIAL_TEST_ROOT
             $cache = Join-Path $root 'cache'
             New-Item -ItemType Directory -Path $cache, "$cache/temp", "$cache/converted" | Out-Null
