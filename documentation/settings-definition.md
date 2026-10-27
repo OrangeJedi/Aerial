@@ -74,6 +74,10 @@ may be false. This is the only enforced exclusive pair in the current Settings
 tab. Primary-monitor-only and duplicate avoidance can coexist with either option;
 no additional exclusion is inferred.
 
+`uncheckWhenFalse` lists checkbox IDs to clear in the same save when a checkbox
+is unchecked. Disabling H.265 clears Allow 4K, which stays disabled until H.265
+is enabled again.
+
 Transition directions use the first matching `optionSets` condition. The control
 is hidden for transitions without direction. An empty or unavailable saved
 direction selects the first available option. Runtime language

@@ -6,7 +6,7 @@ const source = fs.readFileSync(require.resolve('../app.js'), 'utf8');
 
 function fixture(settings = {}, preview = false) {
     const data = {blankScreen: true, blankAfter: 10, sleepAfterBlank: true,
-        videoTransitionLength: 2000, ...settings};
+        sleepAfterBlankDelay: 15, videoTransitionLength: 2000, ...settings};
     const intervals = new Map();
     const timeouts = new Map();
     const messages = [[], []];
@@ -52,10 +52,10 @@ test('multiple monitors blank once and share one sleep delay after the blank tra
 });
 
 for (const delay of [undefined, 0, -2, 'invalid', Infinity, '0']) {
-    test(`missing or invalid sleep delay preserves the blank transition: ${delay}`, () => {
+    test(`zero or invalid sleep delay disables sleep: ${delay}`, () => {
         const f = fixture({sleepAfterBlankDelay: delay});
         f.context.blankScreensaver();
-        assert.equal([...f.timeouts.values()][0].delay, 6000);
+        assert.equal(f.timeouts.size, 0);
     });
 }
 
@@ -88,12 +88,20 @@ test('preview never blanks or sleeps and disabling sleep cancels its effect', ()
     preview.context.blankScreensaver();
     assert.equal(preview.intervals.size, 0);
     assert.equal(preview.timeouts.size, 0);
-    const disabled = fixture({sleepAfterBlank: false});
+    const disabled = fixture({sleepAfterBlankDelay: 0});
     disabled.context.blankScreensaver();
     assert.equal(disabled.timeouts.size, 0);
     const f = fixture();
     f.context.blankScreensaver();
-    f.data.sleepAfterBlank = false;
+    f.data.sleepAfterBlankDelay = 0;
     [...f.timeouts.values()][0].callback();
     assert.equal(f.slept(), 0);
+});
+
+test('zero blank delay keeps playing videos', () => {
+    const f = fixture({blankAfter: 0});
+    f.context.onFirstVideoPlayed();
+    f.advance(60 * 60000);
+    assert.equal(f.intervals.size, 0);
+    assert.deepEqual(f.messages, [[], []]);
 });

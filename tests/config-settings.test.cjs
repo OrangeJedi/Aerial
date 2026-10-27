@@ -47,11 +47,11 @@ test('dependent controls and sunrise prerequisites follow checkbox states', asyn
     const {matches} = await import('../web/config/settings-model.js');
     const values = {blankScreen: true, sleepAfterBlank: false, allow4K: true, allowH265: false, useLocationForSunrise: true, latitude: '', longitude: '0'};
     const read = key => values[key];
-    assert.equal(matches(entry('sleepAfterBlankDelay').enabledWhen, read), false);
+    assert.equal(matches(entry('sleepAfterBlankDelay').enabledWhen, read), true);
     values.sleepAfterBlank = true;
     assert.equal(matches(entry('sleepAfterBlankDelay').enabledWhen, read), true);
     assert.equal(matches(entry('prefer4K240').enabledWhen, read), false);
-    assert.equal(matches(entry('sunrise').enabledWhen, read), false);
+    assert.equal(matches(entry('sunrise').visibleWhen, read), false);
     assert.equal(matches(entry('useLocationForSunrise').requiresWhenTrue, read), false);
     values.latitude = '0';
     assert.equal(matches(entry('useLocationForSunrise').requiresWhenTrue, read), true);
@@ -109,4 +109,24 @@ test('system accent is available only to the config window', () => {
     assert.equal(reads, 0);
     assert.equal(handler({sender: contents}), '0078D4FF');
     assert.equal(reads, 1);
+});
+
+test('H.265 controls persist the 4K uncheck and enable state together', async () => {
+    const {entryChanges, matches} = await import('../web/config/settings-model.js');
+    assert.deepEqual(entryChanges(entry('allowH265'), false, () => true, entries), {allowH265: false, allow4K: false});
+    assert.deepEqual(entryChanges(entry('allowH265'), true, () => false, entries), {allowH265: true});
+    assert.equal(matches(entry('allow4K').enabledWhen, () => false), false);
+    assert.equal(matches(entry('allow4K').enabledWhen, () => true), true);
+});
+
+test('location and shortcut toggles control dependent field visibility', async () => {
+    const {matches} = await import('../web/config/settings-model.js');
+    for (const checked of [false, true]) {
+        for (const id of ['sunrise', 'sunset']) {
+            assert.equal(matches(entry(id).visibleWhen, () => checked), !checked);
+        }
+        for (const id of ['globalShortcutModifier1', 'globalShortcutModifier2', 'globalShortcutKey']) {
+            assert.equal(matches(entry(id).visibleWhen, () => checked), checked);
+        }
+    }
 });

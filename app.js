@@ -531,10 +531,11 @@ function setUpConfigFile() {
     //start up settings
     settings.set('useTray', settings.get('useTray') ?? true);
     settings.set('startAfter', settings.get('startAfter') ?? 10);
-    settings.set('blankScreen', settings.get('blankScreen') ?? true);
-    settings.set('blankAfter', settings.get('blankAfter') ?? 30);
-    settings.set('sleepAfterBlank', settings.get('sleepAfterBlank') ?? true);
-    settings.set('sleepAfterBlankDelay', settings.get('sleepAfterBlankDelay') ?? 0);
+    settings.set('blankAfter', settings.get('blankScreen') === false ? 0 : settings.get('blankAfter') ?? 30);
+    settings.set('sleepAfterBlankDelay', settings.get('sleepAfterBlank') === false ? 0 : settings.get('sleepAfterBlankDelay') ?? 0);
+    // Retire the old toggles after converting disabled choices to zero delays.
+    settings.set('blankScreen', true);
+    settings.set('sleepAfterBlank', true);
     settings.set('lockAfterRun', settings.get('lockAfterRun') ?? false);
     settings.set('lockAfterRunAfter', settings.get('lockAfterRunAfter') ?? 15);
     settings.set('runOnBattery', settings.get('runOnBattery') ?? true);
@@ -586,7 +587,7 @@ function setUpConfigFile() {
     settings.set('easierTransitions', settings.get('easierTransitions') ?? false);
     settings.set('fillMode', settings.get('fillMode') ?? "stretch");
     settings.set('allowH265', settings.get('allowH265') ?? true);
-    settings.set('allow4K', settings.get('allow4K') ?? true);
+    settings.set('allow4K', settings.get('allowH265') ? settings.get('allow4K') ?? true : false);
     settings.set('prefer4K240', settings.get('prefer4K240') ?? false);
     //1.2.0 changes the default transition length because of internal changes
     if (settings.get('videoTransitionLength') === 1000) {
@@ -1371,29 +1372,30 @@ function clearScreensaverTimers() {
 
 function onFirstVideoPlayed() {
     setTimeOfDayList();
-    if (preview || blankInterval !== undefined || screensBlanked || !store.get('blankScreen')) {
+    const minutes = Number(store.get('blankAfter'));
+    if (preview || blankInterval !== undefined || screensBlanked || !Number.isFinite(minutes) || minutes <= 0) {
         return;
     }
     const started = Date.now();
     blankInterval = setInterval(() => {
         if (screens.length === 0) {
             clearScreensaverTimers();
-        } else if (Date.now() - started >= store.get('blankAfter') * 60 * 1000) {
+        } else if (Number(store.get('blankAfter')) > 0 && Date.now() - started >= Number(store.get('blankAfter')) * 60 * 1000) {
             blankScreensaver();
         }
     }, 30000);
 }
 
 function scheduleSleepAfterBlank() {
-    if (!store.get('sleepAfterBlank')) {
+    const minutes = Number(store.get('sleepAfterBlankDelay') ?? 0);
+    if (!Number.isFinite(minutes) || minutes <= 0) {
         return;
     }
-    const minutes = Number(store.get('sleepAfterBlankDelay') ?? 0);
-    const delay = Number.isFinite(minutes) ? Math.max(0, minutes) * 60 * 1000 : 0;
+    const delay = minutes * 60 * 1000;
     const transition = Math.max(0, Number(store.get('videoTransitionLength')) || 0) * 3;
     sleepTimeout = setTimeout(() => {
         sleepTimeout = undefined;
-        if (screensBlanked && screens.length > 0 && !preview && store.get('sleepAfterBlank')) {
+        if (screensBlanked && screens.length > 0 && !preview && Number(store.get('sleepAfterBlankDelay')) > 0) {
             sleepComputer();
         }
     }, transition + delay);

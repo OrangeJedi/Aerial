@@ -12,7 +12,7 @@ export function initSettings(root) {
         if (group.id === 'about') {
             card.append(element('div', {className: 'padded card'},
                 element('h3', {}, 'Aerial'),
-                element('p', {}, 'Apple TV screen saver for Windows. Developed by OrangeJedi and irampton, inspired by the Mac Aerial Screen Saver and Aerial for Windows.'),
+                element('p', {}, 'Apple TV screen saver for Windows.', element('br'), 'Developed by OrangeJedi and irampton, inspired by the Mac Aerial Screen Saver and Aerial for Windows.'),
                 element('p', {className: 'help'}, 'Copyright © 2026 AerialWindows. Released under the MIT license.'),
                 element('div', {className: 'about-links'},
                     element('a', {href: 'https://github.com/AerialWindows/Aerial', target: '_blank', rel: 'noreferrer'}, 'GitHub'),

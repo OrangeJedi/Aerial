@@ -15,15 +15,6 @@
                 "unit": "minutes"
             },
             {
-                "id": "blankScreen",
-                "key": "blankScreen",
-                "name": "Automatically blank screen after",
-                "type": "checkbox",
-                "section": "general",
-                "valueType": "boolean",
-                "default": true
-            },
-            {
                 "id": "blankAfter",
                 "key": "blankAfter",
                 "name": "Blank screen after",
@@ -31,21 +22,14 @@
                 "section": "general",
                 "valueType": "string",
                 "default": 30,
-                "unit": "minutes"
-            },
-            {
-                "id": "sleepAfterBlank",
-                "key": "sleepAfterBlank",
-                "name": "Sleep the computer after screen blank",
-                "type": "checkbox",
-                "section": "general",
-                "valueType": "boolean",
-                "default": true
+                "unit": "minutes",
+                "min": 0,
+                "description": "Set to 0 to never blank the screen, playing videos until interrupted."
             },
             {
                 "id": "sleepAfterBlankDelay",
                 "key": "sleepAfterBlankDelay",
-                "name": "Wait after blanking before sleeping",
+                "name": "After blanking, send the computer to sleep after",
                 "type": "number",
                 "section": "general",
                 "valueType": "string",
@@ -53,23 +37,12 @@
                 "min": 0,
                 "step": 1,
                 "unit": "minutes",
-                "enabledWhen": {
-                    "all": [
-                        {
-                            "key": "blankScreen",
-                            "equals": true
-                        },
-                        {
-                            "key": "sleepAfterBlank",
-                            "equals": true
-                        }
-                    ]
-                }
+                "description": "Set to 0 to never sleep the computer"
             },
             {
                 "id": "lockAfterRun",
                 "key": "lockAfterRun",
-                "name": "Lock the computer after running",
+                "name": "Lock the computer on wakeup",
                 "type": "checkbox",
                 "section": "general",
                 "valueType": "boolean",
@@ -78,12 +51,16 @@
             {
                 "id": "lockAfterRunAfter",
                 "key": "lockAfterRunAfter",
-                "name": "Wait before locking on wakeup after Aerial starts",
+                "name": "After Aerial starts, don't lock the computer on wakeup for the first",
                 "type": "number",
                 "section": "general",
                 "valueType": "string",
                 "default": 15,
-                "unit": "seconds"
+                "unit": "seconds",
+                "enabledWhen": {
+                    "key": "lockAfterRun",
+                    "equals": true
+                }
             },
             {
                 "id": "runOnBattery",
@@ -97,44 +74,68 @@
         ]
     },
     {
-        "id": "playback",
-        "name": "Playback Settings",
+        "id": "interactions",
+        "name": "Interactions",
         "entries": [
             {
                 "id": "avoidDuplicateVideos",
                 "key": "avoidDuplicateVideos",
                 "name": "Avoid duplicate videos",
                 "type": "checkbox",
-                "section": "playback",
+                "section": "interactions",
                 "valueType": "boolean",
                 "default": true,
                 "description": "Avoid recently selected videos across all monitors (monitor count × 2), plus videos playing or loading on other monitors. Small playlists reuse older videos as needed. Same video on screens overrides avoidance across monitors."
             },
             {
-                "id": "fillMode",
-                "key": "fillMode",
-                "name": "Fill Mode:",
-                "type": "select",
-                "section": "playback",
-                "valueType": "string",
-                "default": "stretch",
-                "options": [
-                    {
-                        "name": "Stretch",
-                        "value": "stretch"
-                    },
-                    {
-                        "name": "Crop",
-                        "value": "crop"
-                    }
-                ]
+                "id": "wakeOnMouseMovement",
+                "key": "wakeOnMouseMovement",
+                "name": "Wake on mouse movement",
+                "type": "checkbox",
+                "section": "interactions",
+                "valueType": "boolean",
+                "default": true
             },
+            {
+                "id": "wakeOnMouseClick",
+                "key": "wakeOnMouseClick",
+                "name": "Wake on mouse click",
+                "type": "checkbox",
+                "section": "interactions",
+                "valueType": "boolean",
+                "default": true
+            },
+            {
+                "id": "skipVideosWithKey",
+                "key": "skipVideosWithKey",
+                "name": "Use a key to skip videos",
+                "type": "checkbox",
+                "section": "interactions",
+                "valueType": "boolean",
+                "default": true
+            },
+            {
+                "id": "skipKey",
+                "key": "skipKey",
+                "name": "Skip key",
+                "type": "key",
+                "section": "interactions",
+                "valueType": "string",
+                "default": "ArrowRight",
+                "keyFormat": "KeyboardEvent.code"
+            }
+        ]
+    },
+    {
+        "id": "transition",
+        "name": "Transition",
+        "entries": [
             {
                 "id": "transitionType",
                 "key": "transitionType",
                 "name": "Transition Type:",
                 "type": "select",
-                "section": "playback",
+                "section": "transition",
                 "valueType": "string",
                 "default": "dissolve",
                 "options": [
@@ -177,7 +178,7 @@
                 "key": "transitionDirection",
                 "name": "Transition direction",
                 "type": "select",
-                "section": "playback",
+                "section": "transition",
                 "valueType": "string",
                 "default": "",
                 "options": [],
@@ -294,7 +295,7 @@
                 "key": "videoTransitionLength",
                 "name": "Transition speed",
                 "type": "slider",
-                "section": "playback",
+                "section": "transition",
                 "valueType": "string",
                 "default": 2000,
                 "min": 500,
@@ -308,46 +309,9 @@
                 "key": "easierTransitions",
                 "name": "Easier Transitions",
                 "type": "checkbox",
-                "section": "playback",
+                "section": "transition",
                 "valueType": "boolean",
                 "default": false
-            },
-            {
-                "id": "skipVideosWithKey",
-                "key": "skipVideosWithKey",
-                "name": "Use a key to skip videos",
-                "type": "checkbox",
-                "section": "playback",
-                "valueType": "boolean",
-                "default": true
-            },
-            {
-                "id": "skipKey",
-                "key": "skipKey",
-                "name": "Skip key",
-                "type": "key",
-                "section": "playback",
-                "valueType": "string",
-                "default": "ArrowRight",
-                "keyFormat": "KeyboardEvent.code"
-            },
-            {
-                "id": "wakeOnMouseMovement",
-                "key": "wakeOnMouseMovement",
-                "name": "Wake on mouse movement",
-                "type": "checkbox",
-                "section": "playback",
-                "valueType": "boolean",
-                "default": true
-            },
-            {
-                "id": "wakeOnMouseClick",
-                "key": "wakeOnMouseClick",
-                "name": "Wake on mouse click",
-                "type": "checkbox",
-                "section": "playback",
-                "valueType": "boolean",
-                "default": true
             }
         ]
     },
@@ -362,7 +326,10 @@
                 "type": "checkbox",
                 "section": "resolution",
                 "valueType": "boolean",
-                "default": true
+                "default": true,
+                "uncheckWhenFalse": [
+                    "allow4K"
+                ]
             },
             {
                 "id": "allow4K",
@@ -371,7 +338,11 @@
                 "type": "checkbox",
                 "section": "resolution",
                 "valueType": "boolean",
-                "default": true
+                "default": true,
+                "enabledWhen": {
+                    "key": "allowH265",
+                    "equals": true
+                }
             },
             {
                 "id": "prefer4K240",
@@ -444,7 +415,7 @@
                 "section": "time",
                 "valueType": "string",
                 "default": "06:00",
-                "enabledWhen": {
+                "visibleWhen": {
                     "key": "useLocationForSunrise",
                     "equals": false
                 }
@@ -457,7 +428,7 @@
                 "section": "time",
                 "valueType": "string",
                 "default": "18:00",
-                "enabledWhen": {
+                "visibleWhen": {
                     "key": "useLocationForSunrise",
                     "equals": false
                 }
@@ -512,51 +483,28 @@
         ]
     },
     {
-        "id": "multiscreen",
-        "name": "Multiscreen Settings",
-        "entries": [
-            {
-                "id": "sameVideoOnScreens",
-                "key": "sameVideoOnScreens",
-                "name": "Play the same video on each screen",
-                "type": "checkbox",
-                "section": "multiscreen",
-                "valueType": "boolean",
-                "default": false,
-                "exclusiveWith": [
-                    "preventSameVideoOnScreens"
-                ],
-                "onExclusiveConflict": "uncheckOther"
-            },
-            {
-                "id": "preventSameVideoOnScreens",
-                "key": "preventSameVideoOnScreens",
-                "name": "Prevent the same video from playing on multiple monitors",
-                "type": "checkbox",
-                "section": "multiscreen",
-                "valueType": "boolean",
-                "exclusiveWith": [
-                    "sameVideoOnScreens"
-                ],
-                "onExclusiveConflict": "uncheckOther",
-                "default": true,
-                "description": "Videos may appear on multiple monitors only when fewer playable videos are selected than monitors."
-            },
-            {
-                "id": "onlyShowVideoOnPrimaryMonitor",
-                "key": "onlyShowVideoOnPrimaryMonitor",
-                "name": "Only play videos on the primary screen",
-                "type": "checkbox",
-                "section": "multiscreen",
-                "valueType": "boolean",
-                "default": false
-            }
-        ]
-    },
-    {
         "id": "style",
         "name": "Style",
         "entries": [
+            {
+                "id": "fillMode",
+                "key": "fillMode",
+                "name": "Fill Mode:",
+                "type": "select",
+                "section": "style",
+                "valueType": "string",
+                "default": "stretch",
+                "options": [
+                    {
+                        "name": "Stretch",
+                        "value": "stretch"
+                    },
+                    {
+                        "name": "Crop",
+                        "value": "crop"
+                    }
+                ]
+            },
             {
                 "id": "playbackSpeed",
                 "key": "playbackSpeed",
@@ -736,6 +684,48 @@
         ]
     },
     {
+        "id": "multiscreen",
+        "name": "Multiscreen Settings",
+        "entries": [
+            {
+                "id": "sameVideoOnScreens",
+                "key": "sameVideoOnScreens",
+                "name": "Play the same video on each screen",
+                "type": "checkbox",
+                "section": "multiscreen",
+                "valueType": "boolean",
+                "default": false,
+                "exclusiveWith": [
+                    "preventSameVideoOnScreens"
+                ],
+                "onExclusiveConflict": "uncheckOther"
+            },
+            {
+                "id": "preventSameVideoOnScreens",
+                "key": "preventSameVideoOnScreens",
+                "name": "Prevent the same video from playing on multiple monitors",
+                "type": "checkbox",
+                "section": "multiscreen",
+                "valueType": "boolean",
+                "exclusiveWith": [
+                    "sameVideoOnScreens"
+                ],
+                "onExclusiveConflict": "uncheckOther",
+                "default": true,
+                "description": "Videos may appear on multiple monitors only when fewer playable videos are selected than monitors."
+            },
+            {
+                "id": "onlyShowVideoOnPrimaryMonitor",
+                "key": "onlyShowVideoOnPrimaryMonitor",
+                "name": "Only play videos on the primary screen",
+                "type": "checkbox",
+                "section": "multiscreen",
+                "valueType": "boolean",
+                "default": false
+            }
+        ]
+    },
+    {
         "id": "cache",
         "name": "Video Cache Settings",
         "entries": [
@@ -755,7 +745,11 @@
                 "type": "checkbox",
                 "section": "cache",
                 "valueType": "boolean",
-                "default": false
+                "default": false,
+                "enabledWhen": {
+                    "key": "videoCache",
+                    "equals": true
+                }
             },
             {
                 "id": "videoCacheRemoveUnallowed",
@@ -952,7 +946,11 @@
                         "name": "Windows",
                         "value": "Super"
                     }
-                ]
+                ],
+                "visibleWhen": {
+                    "key": "enableGlobalShortcut",
+                    "equals": true
+                }
             },
             {
                 "id": "globalShortcutModifier2",
@@ -983,7 +981,11 @@
                         "name": "None",
                         "value": ""
                     }
-                ]
+                ],
+                "visibleWhen": {
+                    "key": "enableGlobalShortcut",
+                    "equals": true
+                }
             },
             {
                 "id": "globalShortcutKey",
@@ -993,7 +995,11 @@
                 "section": "advanced",
                 "valueType": "string",
                 "default": "A",
-                "keyFormat": "KeyboardEvent.key; single characters uppercased"
+                "keyFormat": "KeyboardEvent.key; single characters uppercased",
+                "visibleWhen": {
+                    "key": "enableGlobalShortcut",
+                    "equals": true
+                }
             },
             {
                 "id": "openConfigFolder",
@@ -1001,13 +1007,6 @@
                 "type": "action",
                 "section": "advanced",
                 "handler": "openConfigFolder"
-            },
-            {
-                "id": "openInfoEditor",
-                "name": "Open video info editor",
-                "type": "action",
-                "section": "advanced",
-                "handler": "openInfoEditor"
             },
             {
                 "id": "refreshAerial",

@@ -43,6 +43,14 @@ export function entryChanges(entry, value, read, entries) {
             }
         }
     }
+    if (value === false) {
+        for (const id of entry.uncheckWhenFalse || []) {
+            const other = entries.find(candidate => candidate.id === id);
+            if (other) {
+                changes[other.key] = false;
+            }
+        }
+    }
     return changes;
 }
 
