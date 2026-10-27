@@ -129,7 +129,19 @@ export function initTextSettings(root) {
                 renderList();
             });
             remove.append(icon('trash'), 'Remove');
-            const row = element('div', {className: 'card overlay-row'}, element('div', {}, element('strong', {}, name), element('div', {className: 'help'}, types.find(([type]) => type === entries[0].type)?.[1] || 'None')), element('span', {}, title));
+            const enabled = element('input', {type: 'checkbox', checked: entries.find(line => line.type !== 'none')?.enabled !== false, 'aria-label': 'Show ' + name + ' on screensaver'});
+            enabled.addEventListener('change', () => {
+                const text = data();
+                for (const line of text[position].filter(line => (line.overlayId || position) === id)) {
+                    line.enabled = enabled.checked;
+                }
+                if (editing && overlayId === id) {
+                    content.forEach(line => { line.enabled = enabled.checked; });
+                }
+                api.store.set('displayText', text);
+                renderList();
+            });
+            const row = element('div', {className: 'card overlay-row'}, element('label', {className: 'overlay-enabled'}, enabled, element('span', {className: 'overlay-description'}, element('strong', {}, name), element('span', {className: 'help'}, types.find(([type]) => type === entries[0].type)?.[1] || 'None'))), element('span', {}, title));
             if ((api.store.get('numDisplays') || 1) > 1) {
                 const targets = monitorTargets(entries);
                 row.append(element('span', {className: 'help'}, targets === undefined ? 'All monitors' : targets.map(id => 'Monitor ' + (Number(id) + 1)).join(', ')));

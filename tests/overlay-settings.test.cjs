@@ -79,6 +79,27 @@ test('legacy overlay initialization and opening preserve every saved field and s
     assert.deepEqual(ui.values.displayText.positionList, before.displayText.positionList);
 });
 
+test('overlay visibility persists through edits and moves without losing settings', () => {
+    const ui = setup();
+    const before = structuredClone(ui.values.displayText.topleft);
+    ui.find('Edit Top left').events.click();
+    const checkbox = ui.find('Show Top left on screensaver');
+    assert.equal(checkbox.checked, true);
+    checkbox.checked = false;
+    checkbox.events.change();
+    assert.deepEqual(ui.values.displayText.topleft.map(({enabled, ...line}) => line), before);
+    assert(ui.values.displayText.topleft.every(line => line.enabled === false));
+    ui.find('Bottom center').change('bottommiddle');
+    assert(ui.values.displayText.bottommiddle.every(line => line.enabled === false));
+    ui.find('Done editing Bottom center').events.click();
+    ui.controller.refresh();
+    const restored = ui.find('Show Bottom center on screensaver');
+    assert.equal(restored.checked, false);
+    restored.checked = true;
+    restored.events.change();
+    assert.deepEqual(ui.values.displayText.bottommiddle.map(({enabled, overlayId, ...line}) => line), before);
+});
+
 test('new overlay progressively reveals four lines and shows the random timer only at random', () => {
     const ui = setup();
     ui.find('Add overlay').events.click();

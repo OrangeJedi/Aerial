@@ -697,8 +697,8 @@ function overlayVisibleOnScreen(position, line) {
     const source = line.overlayId
         ? displayText[position].find(entry => entry.overlayId === line.overlayId && entry.type !== 'none') || line
         : line;
-    return source.onlyShowOnScreen === undefined
-        || [].concat(source.onlyShowOnScreen).some(screen => Number(screen) === Number(screenNumber));
+    return source.enabled !== false && (source.onlyShowOnScreen === undefined
+        || [].concat(source.onlyShowOnScreen).some(screen => Number(screen) === Number(screenNumber)));
 }
 
 function displayTextPosition(position, displayLocation) {

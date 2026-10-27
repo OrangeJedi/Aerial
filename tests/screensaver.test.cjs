@@ -800,6 +800,23 @@ test('overlay screen selection supports legacy scalars and multiple monitor sele
     }
 });
 
+test('disabled overlays hide all their lines and clocks while other overlays remain visible', async () => {
+    const displayText = {positionList: ['left', 'random'], random: [], left: [
+        {overlayId: 'hidden', type: 'text', text: 'Hidden text', enabled: false, defaultFont: true},
+        {overlayId: 'hidden', type: 'time', timeString: 'HH:mm', defaultFont: true},
+        {overlayId: 'visible', type: 'text', text: 'Visible text', defaultFont: true},
+        {type: 'text', text: 'Hidden legacy', enabled: false, defaultFont: true}
+    ]};
+    const result = renderer('dissolve', 'left', false, {displayText});
+    await flush();
+    result.events.screenNumber(0);
+    const html = result.control.htmlWrites.filter(write => write.selector === '#textDisplay-left').at(-1).value;
+    assert(!html.includes('Hidden'));
+    assert(!html.includes('id="left-1"'));
+    assert(html.includes('Visible text'));
+    assert.equal(displayText.left[1].clockTimeout, undefined);
+});
+
 test('random positions ignore text assigned only to other monitors', async () => {
     const displayText = {positionList: ['left', 'right', 'random'],
         left: [{type: 'text', text: 'Other monitor', onlyShowOnScreen: '1'}],

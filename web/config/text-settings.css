@@ -12,6 +12,9 @@
 .overlay-list-heading { display: flex; align-items: center; justify-content: space-between; margin: 1.5rem 0 1rem; }
 .overlay-list-heading h2 { margin: 0; }
 .overlay-list { display: grid; gap: .65rem; }
+.overlay-enabled { display: flex; align-items: center; gap: .6rem; cursor: pointer; }
+.overlay-enabled input[type=checkbox] { width: 2rem; height: 2rem; margin: 0; flex-shrink: 0; cursor: pointer; }
+.overlay-description { display: grid; min-width: 0; }
 .overlay-row { position: relative; overflow: visible; display: grid; grid-template-columns: minmax(120px, 1fr) minmax(100px, .7fr) auto; align-items: center; gap: 1rem; padding: 1rem; }
 .overlay-row:has(> span:nth-of-type(2)) { grid-template-columns: minmax(120px, 1fr) minmax(100px, .7fr) minmax(100px, 1fr) auto; }
 .overlay-row:has(.overlay-menu[open]) { z-index: 3; }
