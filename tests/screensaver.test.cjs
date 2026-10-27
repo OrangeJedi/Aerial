@@ -61,7 +61,7 @@ function renderer(type = 'dissolve', direction = 'left', easierTransitions, over
             ipcRenderer: {invoke: async () => { control.selections++; return 'sample'; },
                 send(channel, data) { control.messages.push({channel, data}); },
                 on: (name, callback) => { events[name] = callback; }}},
-        videoPlayback: {cancel() {}, bufferedAhead: player => player.bufferedSeconds ?? 60,
+        videoPlayback: {cancel() {}, speed: id => settings.videoPlaybackSpeeds?.[id] ?? settings.playbackSpeed, bufferedAhead: player => player.bufferedSeconds ?? 60,
             release(player) { player.pause(); player.src = ''; player.playbackSource = null; },
             markFailed(id, source) { control.failures.push({id, source}); },
             async load(player, video, status, options) {

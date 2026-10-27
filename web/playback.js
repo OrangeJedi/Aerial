@@ -4,6 +4,19 @@ const videoPlayback = (() => {
     const compatibleSources = new Map();
     const failureCooldown = 5 * 60 * 1000;
 
+    function speed(id) {
+        const override = Number((electron.store.get('videoPlaybackSpeeds') || {})[id]);
+        if (Number.isFinite(override) && override >= 0.1 && override <= 10) {
+            return override;
+        }
+        return Math.max(0.1, Number(electron.store.get('playbackSpeed')) || 1);
+    }
+
+    function applySpeed(player, id) {
+        player.defaultPlaybackRate = speed(id);
+        player.playbackRate = player.defaultPlaybackRate;
+    }
+
     function markFailed(id, source) {
         if (!source) {
             return;
@@ -127,7 +140,9 @@ const videoPlayback = (() => {
                     player.addEventListener('error', failed);
                     try {
                         player.src = source;
+                        applySpeed(player, video.id);
                         player.load();
+                        applySpeed(player, video.id);
                     } catch (error) {
                         finish(error);
                     }
@@ -192,5 +207,5 @@ const videoPlayback = (() => {
         }
     }
 
-    return {load, cancel, release, markFailed, bufferedAhead};
+    return {load, cancel, release, markFailed, bufferedAhead, speed, applySpeed};
 })();
