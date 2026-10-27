@@ -1,6 +1,7 @@
 const RELEASES_URL = 'https://github.com/AerialWindows/Aerial/releases';
+const semver = require('semver');
 
-function createAppUpdater({updater, app, Notification, onState, beforeInstall, cancelInstall = () => {}, openExternal, logger = console}) {
+function createAppUpdater({updater, app, Notification, onState, beforeInstall, cancelInstall = () => {}, openExternal, logger = console, fetchRelease = fetch, settings}) {
     let state = {status: app.isPackaged ? 'idle' : 'unsupported'};
     let checking = false;
     let installing = false;
@@ -82,6 +83,28 @@ function createAppUpdater({updater, app, Notification, onState, beforeInstall, c
         }
         checking = true;
         try {
+            publish('checking');
+            // Release discovery is not an asset download and does not inflate latest.yml counts.
+            const response = await fetchRelease(`${RELEASES_URL}/latest`, {
+                headers: {Accept: 'application/json'},
+                signal: AbortSignal.timeout(10000)
+            });
+            if (!response.ok) {
+                throw new Error(`Release check returned HTTP ${response.status}`);
+            }
+            const release = await response.json();
+            const version = typeof release.tag_name === 'string' && semver.valid(release.tag_name);
+            const installed = semver.valid(app.getVersion());
+            if (!version || !installed || release.draft || release.prerelease || semver.prerelease(version)) {
+                throw new Error('Invalid stable release or installed application version');
+            }
+            if (!semver.gt(version, installed)) {
+                settings?.set('lastUpdateCheck', {tag: release.tag_name, installed});
+                publish('current');
+                return;
+            }
+            // A newer release must remain retryable until it is actually installed.
+            // After restart the updater also restores its downloaded installer from cache.
             const result = await updater.checkForUpdates();
             // Automatic downloads have their own promise, separate from the check.
             if (result && result.downloadPromise) {
