@@ -40,7 +40,10 @@ See the [full list of feature](https://github.com/AerialWindows/Aerial/wiki/Feat
 To build a single-file Windows screensaver, run `npm run build:scr` (x64), or
 `npm run build:scr -- arm64`. The output is `dist/scr/Aerial-x64.scr` or
 `dist/scr/Aerial-arm64.scr`. This portable build bundles the application and
-extracts it when launched. The regular installer build is unchanged.
+extracts it once per build to `%LOCALAPPDATA%\Aerial\scr-runtime`. Later settings,
+preview, and screensaver launches reuse that runtime. Its folder is based on a
+hash of all packaged files, so a different build gets a separate runtime. The
+regular installer build is unchanged.
 
 The SCR build disables the tray, login startup registration, internal idle
 activation, custom locking and sleep, and automatic update installation without

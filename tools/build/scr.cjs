@@ -1,6 +1,7 @@
 const {build, Platform, Arch} = require('electron-builder');
 const fs = require('node:fs/promises');
 const path = require('node:path');
+const {createScrPackager} = require('./scr-cache.cjs');
 
 async function main() {
     const architecture = process.argv[2] || 'x64';
@@ -10,6 +11,7 @@ async function main() {
     const artifacts = await build({
         targets: Platform.WINDOWS.createTarget('portable', Arch[architecture]),
         publish: 'never',
+        platformPackagerFactory: info => createScrPackager(info),
         config: {
             extraMetadata: {aerialScr: true},
             directories: {output: 'dist/scr'},

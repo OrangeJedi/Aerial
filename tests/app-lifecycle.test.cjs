@@ -359,7 +359,7 @@ test('existing minimized config is restored, shown and focused without another w
     assert.deepEqual(calls, ['restore', 'show', 'focus']);
 });
 
-for (const flag of ['/c', '/p', '/s', '/t', '/j', undefined]) {
+for (const flag of ['/c', '/C:123', '/p', '/s', '/t', '/j', undefined]) {
     test(`startup routes ${flag || 'default'} after preparing settings and cache`, async () => {
         const calls = [];
         const data = {configured: true, version: 'test', useTray: false};
@@ -376,7 +376,9 @@ for (const flag of ['/c', '/p', '/s', '/t', '/j', undefined]) {
         });
         await context.startUp();
         const route = {'/c': 'config', '/p': 'quit', '/s': 'screensaver', '/t': 'preview', '/j': 'json'}[flag] || 'config';
-        assert.deepEqual(calls, flag === '/p' ? ['quit'] : ['disable', 'clear', 'prune', route, 'schedule']);
+        const expected = flag === '/p' ? ['quit'] : /^\/c/i.test(flag || '')
+            ? ['disable', 'config', 'clear', 'prune', 'schedule'] : ['disable', 'clear', 'prune', route, 'schedule'];
+        assert.deepEqual(calls, expected);
         assert.equal(data.numDisplays, flag === '/p' ? undefined : 2);
     });
 }

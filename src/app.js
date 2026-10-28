@@ -538,26 +538,31 @@ async function startUp() {
     if (process.argv.includes("/nq")) {
         nq = true;
     }
+    const explicitConfig = process.argv.some(argument => /^\/[cwu](?::|$)/i.test(argument));
+    const configRequested = explicitConfig || (isScr && !process.argv.some(argument => /^\/[stj](?::|$)/i.test(argument)));
+    if (configRequested) {
+        createConfigWindow(explicitConfig ? process.argv : firstTime ? ['/w'] : updated ? ['/u'] : undefined);
+    }
     await clearCacheTemp();
     pruneVideoCache();
-    if (process.argv.includes("/c") || process.argv.includes("/w") || process.argv.includes("/u")) {
-        createConfigWindow(process.argv);
-    } else if (process.argv.includes("/s")) {
-        createSSWindow(process.argv);
-    } else if (process.argv.includes("/t")) {
-        createSSPWindow(process.argv);
-    } else if (process.argv.includes("/j")) {
-        createJSONConfigWindow();
-    } else {
-        if (!isScr && store.get('useTray')) {
-            createTrayWindow();
-            if (firstTime) {
-                createConfigWindow(["/w"]);
-            } else if (updated) {
-                createConfigWindow(["/u"]);
-            }
+    if (!configRequested) {
+        if (process.argv.includes("/s")) {
+            createSSWindow(process.argv);
+        } else if (process.argv.includes("/t")) {
+            createSSPWindow(process.argv);
+        } else if (process.argv.includes("/j")) {
+            createJSONConfigWindow();
         } else {
-            createConfigWindow(firstTime ? ["/w"] : updated ? ["/u"] : undefined);
+            if (!isScr && store.get('useTray')) {
+                createTrayWindow();
+                if (firstTime) {
+                    createConfigWindow(["/w"]);
+                } else if (updated) {
+                    createConfigWindow(["/u"]);
+                }
+            } else {
+                createConfigWindow(firstTime ? ["/w"] : updated ? ["/u"] : undefined);
+            }
         }
     }
     setTimeout(downloadVideos, 1500);
