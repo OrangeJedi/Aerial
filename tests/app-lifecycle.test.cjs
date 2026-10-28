@@ -132,7 +132,7 @@ for (const outcome of ['save', 'cancel', 'capture failure', 'write failure']) {
 function section(start, end, globals) {
     const first = source.indexOf(start);
     assert.ok(first >= 0 && source.indexOf(end, first) > first);
-    const context = vm.createContext({require: appRequire, monitorPlayback: new Map(), ...globals});
+    const context = vm.createContext({isScr: false, require: appRequire, monitorPlayback: new Map(), ...globals});
     vm.runInContext(source.slice(first, source.indexOf(end, first)), context);
     return context;
 }
@@ -276,9 +276,9 @@ test('arrow keys cycle screens while other keys retain skip and quit behavior', 
 
 test('secondary process quits before loading application services', () => {
     let quit = 0;
-    const first = source.indexOf('if (!app.requestSingleInstanceLock())');
+    const first = source.indexOf('if (!isScr && !app.requestSingleInstanceLock())');
     const end = source.indexOf("const {exec}", first);
-    vm.runInNewContext(`(function () { ${source.slice(first, end)} })()`, {
+    vm.runInNewContext(`(function () { ${source.slice(first, end)} })()`, {isScr: false,
         app: {requestSingleInstanceLock: () => false, quit: () => { quit++; },
             on: () => assert.fail('secondary process must exit before registering handlers')}
     });
@@ -287,7 +287,7 @@ test('secondary process quits before loading application services', () => {
 
 test('all new web contents mute audio output without touching player controls', () => {
     let handler;
-    section("app.on('web-contents-created'", "app.on('second-instance'", {
+    section("app.on('web-contents-created'", "if (!isScr) {\n    app.on('second-instance'", {
         app: {on: (name, callback) => {
             assert.equal(name, 'web-contents-created');
             handler = callback;
@@ -304,7 +304,7 @@ test('repeat launch waits for startup before opening config', async () => {
     let handler;
     let ready;
     const calls = [];
-    section("app.on('second-instance'", 'const {exec}', {
+    section("if (!isScr) {\n    app.on('second-instance'", 'const {exec}', {
         app: {on: (name, callback) => { assert.equal(name, 'second-instance'); handler = callback; }},
         startupReady: new Promise(resolve => { ready = resolve; }),
         createConfigWindow: argv => calls.push(argv)
@@ -449,7 +449,7 @@ for (const override of [{}, {screens: [{}]}, {suspend: true}, {isComputerSleepin
     test(`idle launch respects system and battery gates ${JSON.stringify(override)}`, async () => {
         let launches = 0;
         const data = {startAfter: 10, runOnBattery: false, ES_DISPLAY_REQUIRED: true, ...override};
-        const context = section('let checkingDisplayPower = false;', 'setInterval(launchScreensaver', {
+        const context = section('let checkingDisplayPower = false;', 'if (!isScr) {\n    setInterval(launchScreensaver', {
             screens: [], suspend: false, isComputerSleeping: false, isComputerSuspendedOrLocked: false, ...override,
             store: {get: key => data[key]}, isDisplayRequired: async () => override.wake === false,
             powerMonitor: {getSystemIdleState: seconds => { assert.equal(seconds, 600); return override.idle || 'idle'; },
@@ -465,7 +465,7 @@ for (const enabled of [true, false]) {
         test(`fullscreen guard enabled ${enabled} with ${result}`, async () => {
             let launches = 0;
             let queries = 0;
-            const context = section('let checkingDisplayPower = false;', 'setInterval(launchScreensaver', {
+            const context = section('let checkingDisplayPower = false;', 'if (!isScr) {\n    setInterval(launchScreensaver', {
                 screens: [], suspend: false, isComputerSleeping: false, isComputerSuspendedOrLocked: false,
                 store: {get: key => ({startAfter: 10, QUNS_BUSY: enabled})[key]},
                 console: {warn() {}},
@@ -493,7 +493,7 @@ for (const enabled of [true, false, undefined]) {
             test(`display guard ${enabled} with ${result} and fullscreen ${fullscreen}`, async () => {
                 let launches = 0;
                 let queries = 0;
-                const context = section('let checkingDisplayPower = false;', 'setInterval(launchScreensaver', {
+                const context = section('let checkingDisplayPower = false;', 'if (!isScr) {\n    setInterval(launchScreensaver', {
                     screens: [], suspend: false, isComputerSleeping: false, isComputerSuspendedOrLocked: false,
                     store: {get: key => ({startAfter: 10, ES_DISPLAY_REQUIRED: enabled,
                         QUNS_BUSY: fullscreen})[key]},
@@ -523,7 +523,7 @@ test('idle launch serializes queries, rechecks activity and recovers after error
     let launches = 0;
     let idle = true;
     let fail = false;
-    const context = section('let checkingDisplayPower = false;', 'setInterval(launchScreensaver', {
+    const context = section('let checkingDisplayPower = false;', 'if (!isScr) {\n    setInterval(launchScreensaver', {
         screens: [], suspend: false, isComputerSleeping: false, isComputerSuspendedOrLocked: false,
         store: {get: key => ({startAfter: 10, ES_DISPLAY_REQUIRED: true})[key]},
         console: {warn() {}},

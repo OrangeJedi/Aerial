@@ -12,6 +12,7 @@ function bridge(realSettings = false, fontOptions = {}, argv = []) {
     const settings = {get: key => values[key], set: (...args) => calls.push(['set', ...args]),
         invalidate: () => calls.push(['invalidate'])};
     const modules = {
+        './build-mode': require('../src/build-mode'),
         electron: {contextBridge: {exposeInMainWorld: (name, api) => { assert.equal(name, 'electron'); exposed = api; }},
             ipcRenderer: {send: (...args) => calls.push(['send', ...args]),
                 sendSync: (channel, changes) => {

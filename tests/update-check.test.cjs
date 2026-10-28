@@ -33,7 +33,7 @@ test('installer quit bypass is enabled only after settings flush and is reset on
     const source = fs.readFileSync(require.resolve('../src/app.js'), 'utf8');
     let options;
     let saved = false;
-    const context = vm.createContext({
+    const context = vm.createContext({isScr: false,
         require: name => name === './updates' ? {createAppUpdater: settings => {
             options = settings;
             return {check() {}};

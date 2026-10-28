@@ -14,7 +14,9 @@ const {
     systemPreferences
 } = require('electron');
 
-if (!app.requestSingleInstanceLock()) {
+const {isScr} = require('./build-mode');
+
+if (!isScr && !app.requestSingleInstanceLock()) {
     app.quit();
     return;
 }
@@ -24,9 +26,11 @@ app.on('web-contents-created', (event, contents) => {
     contents.setAudioMuted(true);
 });
 
-app.on('second-instance', (event, argv) => {
-    startupReady.then(() => createConfigWindow(argv));
-});
+if (!isScr) {
+    app.on('second-instance', (event, argv) => {
+        startupReady.then(() => createConfigWindow(argv));
+    });
+}
 
 const {exec} = require('child_process');
 const {dismissStartMenu} = require('./start-menu');
@@ -499,8 +503,6 @@ app.allowRendererProcessReuse = true
 const startupReady = app.whenReady().then(startUp);
 
 async function startUp() {
-    //Uncomment the line below when compiling the .scr file
-    //store.set('useTray', false);
     const firstTime = !store.get("configured");
     const updated = !firstTime && store.get("version") !== app.getVersion();
     if (firstTime || updated) {
@@ -512,9 +514,9 @@ async function startUp() {
     setupGlobalShortcut();
     store.set('numDisplays', screen.getAllDisplays().length);
     //configures Aerial to launch on startup
-    if (store.get('useTray') && app.isPackaged) {
+    if (!isScr && store.get('useTray') && app.isPackaged) {
         autoLauncher.enable();
-    } else {
+    } else if (!isScr) {
         autoLauncher.disable();
     }
     //prevents quiting the app if wanted
@@ -535,7 +537,7 @@ async function startUp() {
     } else if (process.argv.includes("/j")) {
         createJSONConfigWindow();
     } else {
-        if (store.get('useTray')) {
+        if (!isScr && store.get('useTray')) {
             createTrayWindow();
             if (firstTime) {
                 createConfigWindow(["/w"]);
@@ -701,8 +703,29 @@ ipcMain.handle('getConfigAccent', event => {
     return systemPreferences.getAccentColor();
 });
 
+let scrUpdater;
+function checkScrUpdate() {
+    if (!scrUpdater) {
+        app.setAppUserModelId('com.electron.aerial');
+        scrUpdater = require('./scr-updates').createScrUpdater({
+            app, Notification, openExternal: url => shell.openExternal(url),
+            onState: state => {
+                if (configWindow && !configWindow.isDestroyed()) {
+                    configWindow.webContents.send('updateStatus', state);
+                }
+            }
+        });
+        const timer = setInterval(() => scrUpdater.check(), 6 * 60 * 60 * 1000);
+        timer.unref();
+    }
+    return scrUpdater.check();
+}
+
 let applicationUpdater;
 function checkForUpdate() {
+    if (isScr) {
+        return checkScrUpdate();
+    }
     if (!applicationUpdater) {
         if (app.isPackaged) {
             app.setAppUserModelId('com.electron.aerial');
@@ -743,7 +766,7 @@ function checkForUpdate() {
     return applicationUpdater.check();
 }
 
-ipcMain.handle('getUpdateStatus', () => applicationUpdater?.getState() || {status: 'idle'});
+ipcMain.handle('getUpdateStatus', () => scrUpdater?.getState() || applicationUpdater?.getState() || {status: 'idle'});
 ipcMain.on('checkForUpdates', event => {
     if (configWindow && event.sender === configWindow.webContents) {
         checkForUpdate();
@@ -1314,7 +1337,7 @@ function quitApp() {
         if (lockRequested) {
             return;
         }
-        if (!preview && store.get("lockAfterRun") && (new Date() - startTime) / 1000 > store.get("lockAfterRunAfter")) {
+        if (!isScr && !preview && store.get("lockAfterRun") && (new Date() - startTime) / 1000 > store.get("lockAfterRunAfter")) {
             lockComputer();
             // LockWorkStation is asynchronous. Keep every display covered until
             // powerMonitor confirms the session lock and closes the windows.
@@ -1342,7 +1365,7 @@ function closeAllWindows(preserveConfig = false) {
 }
 
 function sleepComputer() {
-    if (preview) {
+    if (isScr || preview) {
         return
     }
     closeAllWindows();
@@ -1351,7 +1374,7 @@ function sleepComputer() {
 }
 
 function lockComputer() {
-    if (preview || lockRequested) {
+    if (isScr || preview || lockRequested) {
         return;
     }
     lockRequested = true;
@@ -1401,7 +1424,9 @@ async function launchScreensaver() {
     }
 }
 
-setInterval(launchScreensaver, 15000);
+if (!isScr) {
+    setInterval(launchScreensaver, 15000);
+}
 
 let blankInterval;
 let sleepTimeout;
@@ -1432,6 +1457,9 @@ function onFirstVideoPlayed() {
 }
 
 function scheduleSleepAfterBlank() {
+    if (isScr) {
+        return;
+    }
     const minutes = Number(store.get('sleepAfterBlankDelay') ?? 0);
     if (!store.get('sleepAfterBlank') || !Number.isFinite(minutes) || minutes < 0) {
         return;
