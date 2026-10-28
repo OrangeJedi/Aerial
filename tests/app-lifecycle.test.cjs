@@ -132,7 +132,7 @@ for (const outcome of ['save', 'cancel', 'capture failure', 'write failure']) {
 function section(start, end, globals) {
     const first = source.indexOf(start);
     assert.ok(first >= 0 && source.indexOf(end, first) > first);
-    const context = vm.createContext({isScr: false, require: appRequire, monitorPlayback: new Map(), ...globals});
+    const context = vm.createContext({windowsPreview: {requested: false}, isScr: false, require: appRequire, monitorPlayback: new Map(), ...globals});
     vm.runInContext(source.slice(first, source.indexOf(end, first)), context);
     return context;
 }
@@ -276,9 +276,9 @@ test('arrow keys cycle screens while other keys retain skip and quit behavior', 
 
 test('secondary process quits before loading application services', () => {
     let quit = 0;
-    const first = source.indexOf('if (!isScr && !app.requestSingleInstanceLock())');
+    const first = source.indexOf('if (!isScr && !windowsPreview.requested && !app.requestSingleInstanceLock())');
     const end = source.indexOf("const {exec}", first);
-    vm.runInNewContext(`(function () { ${source.slice(first, end)} })()`, {isScr: false,
+    vm.runInNewContext(`(function () { ${source.slice(first, end)} })()`, {windowsPreview: {requested: false}, isScr: false,
         app: {requestSingleInstanceLock: () => false, quit: () => { quit++; },
             on: () => assert.fail('secondary process must exit before registering handlers')}
     });
@@ -287,7 +287,7 @@ test('secondary process quits before loading application services', () => {
 
 test('all new web contents mute audio output without touching player controls', () => {
     let handler;
-    section("app.on('web-contents-created'", "if (!isScr) {\n    app.on('second-instance'", {
+    section("app.on('web-contents-created'", "if (!isScr && !windowsPreview.requested) {\n    app.on('second-instance'", {
         app: {on: (name, callback) => {
             assert.equal(name, 'web-contents-created');
             handler = callback;
@@ -304,7 +304,7 @@ test('repeat launch waits for startup before opening config', async () => {
     let handler;
     let ready;
     const calls = [];
-    section("if (!isScr) {\n    app.on('second-instance'", 'const {exec}', {
+    section("if (!isScr && !windowsPreview.requested) {\n    app.on('second-instance'", 'const {exec}', {
         app: {on: (name, callback) => { assert.equal(name, 'second-instance'); handler = callback; }},
         startupReady: new Promise(resolve => { ready = resolve; }),
         createConfigWindow: argv => calls.push(argv)
@@ -376,8 +376,8 @@ for (const flag of ['/c', '/p', '/s', '/t', '/j', undefined]) {
         });
         await context.startUp();
         const route = {'/c': 'config', '/p': 'quit', '/s': 'screensaver', '/t': 'preview', '/j': 'json'}[flag] || 'config';
-        assert.deepEqual(calls, ['disable', 'clear', 'prune', route, 'schedule']);
-        assert.equal(data.numDisplays, 2);
+        assert.deepEqual(calls, flag === '/p' ? ['quit'] : ['disable', 'clear', 'prune', route, 'schedule']);
+        assert.equal(data.numDisplays, flag === '/p' ? undefined : 2);
     });
 }
 

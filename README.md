@@ -48,6 +48,10 @@ changing saved preferences. Related settings are hidden. It still checks stable
 GitHub releases and their update metadata, and shows a notification linking to
 the releases page when a newer version is available.
 
+Windows Screen Saver Settings can embed a live preview using `/p <HWND>` or
+`/p:<HWND>` (case insensitive). The preview fills the supplied window and exits
+when it closes. `/t` continues to open the separate Aerial preview window.
+
 We are always looking for more help on this project! Some of our best features were suggested or added by the community, and we can only fix bugs if you report them. We appreciate new issues and pull requests.
 
 [Report a bug or suggest a feature](https://github.com/AerialWindows/Aerial/issues/new/choose).

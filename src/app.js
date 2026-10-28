@@ -15,8 +15,9 @@ const {
 } = require('electron');
 
 const {isScr} = require('./build-mode');
+const windowsPreview = require('./windows-preview').parsePreviewArguments(process.argv);
 
-if (!isScr && !app.requestSingleInstanceLock()) {
+if (!isScr && !windowsPreview.requested && !app.requestSingleInstanceLock()) {
     app.quit();
     return;
 }
@@ -26,7 +27,7 @@ app.on('web-contents-created', (event, contents) => {
     contents.setAudioMuted(true);
 });
 
-if (!isScr) {
+if (!isScr && !windowsPreview.requested) {
     app.on('second-instance', (event, argv) => {
         startupReady.then(() => createConfigWindow(argv));
     });
@@ -503,6 +504,11 @@ app.allowRendererProcessReuse = true
 const startupReady = app.whenReady().then(startUp);
 
 async function startUp() {
+    const previewRequest = require('./windows-preview').parsePreviewArguments(process.argv);
+    if (previewRequest.requested && !previewRequest.handle) {
+        app.quit();
+        return;
+    }
     const firstTime = !store.get("configured");
     const updated = !firstTime && store.get("version") !== app.getVersion();
     if (firstTime || updated) {
@@ -510,6 +516,15 @@ async function startUp() {
         setUpConfigFile();
     }
     calculateAstronomy();
+    if (previewRequest.requested) {
+        preview = true;
+        nq = true;
+        require('./windows-preview').startWindowsPreview({
+            BrowserWindow, app, parentHandle: previewRequest.handle,
+            onWindow: win => { screens.push(win); }
+        });
+        return;
+    }
     checkForUpdate();
     setupGlobalShortcut();
     store.set('numDisplays', screen.getAllDisplays().length);
@@ -527,9 +542,6 @@ async function startUp() {
     pruneVideoCache();
     if (process.argv.includes("/c") || process.argv.includes("/w") || process.argv.includes("/u")) {
         createConfigWindow(process.argv);
-    } else if (process.argv.includes("/p")) {
-        //createSSPWindow();
-        app.quit();
     } else if (process.argv.includes("/s")) {
         createSSWindow(process.argv);
     } else if (process.argv.includes("/t")) {

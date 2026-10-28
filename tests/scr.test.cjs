@@ -93,6 +93,7 @@ test('SCR startup skips login registration and tray without changing saved setti
     const config = [];
     const writes = [];
     const context = vm.createContext({
+        require: require('node:module').createRequire(require.resolve('../src/app.js')),
         isScr: true, process: {argv: []}, app: {isPackaged: true, getVersion: () => '2.0.1'},
         store: {get: key => ({configured: true, version: '2.0.1', useTray: true})[key], set: (...args) => writes.push(args)},
         autoLauncher: {enable: () => assert.fail('login startup'), disable: () => assert.fail('login registration change')},

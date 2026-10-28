@@ -58,6 +58,13 @@ test('preload identifies window previews from launch arguments', () => {
     assert.equal(bridge(false, {}, ['--aerial-window-preview']).api.windowPreview, true);
 });
 
+test('preload distinguishes embedded Windows previews from standalone previews', () => {
+    const preview = bridge(false, {}, ['--aerial-embedded-preview']).api;
+    assert.equal(preview.embeddedPreview, true);
+    assert.equal(preview.windowPreview, false);
+    assert.equal(bridge().api.embeddedPreview, false);
+});
+
 test('preload supplies file URLs for custom videos, escaping URL punctuation', () => {
     const f = bridge();
     const file = require('node:path').resolve('custom videos', 'Demo #1 100%.mp4');
