@@ -53,6 +53,12 @@ jobs:
       - name: Build universal Windows installer
         run: npm run dist -- --win --x64 --arm64 --publish never
 
+      - name: Build x64 screensaver
+        run: npm run build:scr -- x64
+
+      - name: Build ARM64 screensaver
+        run: npm run build:scr -- arm64
+
       - name: Verify automatic update metadata
         run: |
           if ($env:RELEASE_PRERELEASE -eq 'false' -and -not (Test-Path dist/latest.yml)) {
@@ -71,6 +77,13 @@ jobs:
           $installers = @($assets | Where-Object { $_ -like '*.exe' })
           if ($installers.Count -ne 1 -or (Split-Path -Leaf $installers[0]) -ne 'Aerial-Setup.exe') {
             throw 'Expected exactly one Windows installer named Aerial-Setup.exe.'
+          }
+          foreach ($screensaver in @('Aerial-x64.scr', 'Aerial-arm64.scr')) {
+            $screensaverPath = Join-Path 'dist/scr' $screensaver
+            if (-not (Test-Path -LiteralPath $screensaverPath -PathType Leaf)) {
+              throw "The build did not produce $screensaver."
+            }
+            $assets += (Get-Item -LiteralPath $screensaverPath).FullName
           }
 
           $existing = gh release view "$env:RELEASE_TAG" --json isDraft 2>$null
