@@ -7,7 +7,7 @@ for (const state of [0, 1, 2, 3, 7, 0x80000002]) {
         const required = await isDisplayRequired({platform: 'win32', run(executable, args, options, callback) {
             assert.ok(executable.endsWith('powershell.exe'));
             assert.equal(options.windowsHide, true);
-            assert.equal(options.timeout, 4000);
+            assert.equal(options.timeout, 15000);
             const script = Buffer.from(args.at(-1), 'base64').toString('utf16le');
             assert.match(script, /CallNtPowerInformation\(16,/);
             callback(null, `${state}\r\n`);

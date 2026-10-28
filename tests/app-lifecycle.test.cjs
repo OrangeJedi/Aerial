@@ -398,7 +398,8 @@ test('settings migration preserves explicit choices, fills defaults and upgrades
     assert.equal(saved.prepareCompatibleVideos, false);
     assert.equal(saved.wakeOnMouseClick, false);
     assert.equal(saved.wakeOnMouseMovement, true);
-    assert.equal(saved.preventActivationDuringFullscreen, true);
+    assert.equal(saved.QUNS_BUSY, false);
+    assert.equal(saved.ES_DISPLAY_REQUIRED, true);
     assert.equal(saved.sleepAfterBlankDelay, 0);
     assert.equal(saved.sleepAfterBlank, true);
     assert.equal(saved.configured, true);
@@ -447,7 +448,7 @@ for (const override of [{}, {screens: [{}]}, {suspend: true}, {isComputerSleepin
     {battery: true}, {battery: true, runOnBattery: true}]) {
     test(`idle launch respects system and battery gates ${JSON.stringify(override)}`, async () => {
         let launches = 0;
-        const data = {startAfter: 10, runOnBattery: false, ...override};
+        const data = {startAfter: 10, runOnBattery: false, ES_DISPLAY_REQUIRED: true, ...override};
         const context = section('let checkingDisplayPower = false;', 'setInterval(launchScreensaver', {
             screens: [], suspend: false, isComputerSleeping: false, isComputerSuspendedOrLocked: false, ...override,
             store: {get: key => data[key]}, isDisplayRequired: async () => override.wake === false,
@@ -466,7 +467,7 @@ for (const enabled of [true, false]) {
             let queries = 0;
             const context = section('let checkingDisplayPower = false;', 'setInterval(launchScreensaver', {
                 screens: [], suspend: false, isComputerSleeping: false, isComputerSuspendedOrLocked: false,
-                store: {get: key => ({startAfter: 10, preventActivationDuringFullscreen: enabled})[key]},
+                store: {get: key => ({startAfter: 10, QUNS_BUSY: enabled})[key]},
                 console: {warn() {}},
                 powerMonitor: {getSystemIdleState: () => 'idle', isOnBatteryPower: () => false},
                 isDisplayRequired: async () => false,
@@ -486,6 +487,36 @@ for (const enabled of [true, false]) {
     }
 }
 
+for (const enabled of [true, false, undefined]) {
+    for (const result of ['required', 'released', 'error']) {
+        for (const fullscreen of [true, false]) {
+            test(`display guard ${enabled} with ${result} and fullscreen ${fullscreen}`, async () => {
+                let launches = 0;
+                let queries = 0;
+                const context = section('let checkingDisplayPower = false;', 'setInterval(launchScreensaver', {
+                    screens: [], suspend: false, isComputerSleeping: false, isComputerSuspendedOrLocked: false,
+                    store: {get: key => ({startAfter: 10, ES_DISPLAY_REQUIRED: enabled,
+                        QUNS_BUSY: fullscreen})[key]},
+                    console: {warn() {}},
+                    powerMonitor: {getSystemIdleState: () => 'idle', isOnBatteryPower: () => false},
+                    isDisplayRequired: async () => {
+                        queries++;
+                        if (result === 'error') {
+                            throw new Error('query failed');
+                        }
+                        return result === 'required';
+                    },
+                    isFullscreenAppActive: async () => true,
+                    createSSWindow: () => { launches++; }
+                });
+                await context.launchScreensaver();
+                assert.equal(queries, enabled === false ? 0 : 1);
+                assert.equal(launches, !fullscreen && (enabled === false || result === 'released') ? 1 : 0);
+            });
+        }
+    }
+}
+
 test('idle launch serializes queries, rechecks activity and recovers after errors', async () => {
     let resolveQuery;
     let queries = 0;
@@ -494,7 +525,7 @@ test('idle launch serializes queries, rechecks activity and recovers after error
     let fail = false;
     const context = section('let checkingDisplayPower = false;', 'setInterval(launchScreensaver', {
         screens: [], suspend: false, isComputerSleeping: false, isComputerSuspendedOrLocked: false,
-        store: {get: key => key === 'startAfter' ? 10 : false},
+        store: {get: key => ({startAfter: 10, ES_DISPLAY_REQUIRED: true})[key]},
         console: {warn() {}},
         powerMonitor: {getSystemIdleState: () => idle ? 'idle' : 'active', isOnBatteryPower: () => false},
         isDisplayRequired: () => {

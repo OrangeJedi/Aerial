@@ -917,9 +917,18 @@
                 "default": true
             },
             {
-                "id": "preventActivationDuringFullscreen",
-                "key": "preventActivationDuringFullscreen",
-                "name": "Prevent activation during fullscreen apps",
+                "id": "QUNS_BUSY",
+                "key": "QUNS_BUSY",
+                "name": "Never start over fullscreen apps",
+                "type": "checkbox",
+                "section": "advanced",
+                "valueType": "boolean",
+                "default": false
+            },
+            {
+                "id": "ES_DISPLAY_REQUIRED",
+                "key": "ES_DISPLAY_REQUIRED",
+                "name": "Never start when an app is requesting the display",
                 "type": "checkbox",
                 "section": "advanced",
                 "valueType": "boolean",

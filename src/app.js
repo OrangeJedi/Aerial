@@ -581,7 +581,8 @@ function setUpConfigFile() {
     settings.set('lockAfterRun', settings.get('lockAfterRun') ?? false);
     settings.set('lockAfterRunAfter', settings.get('lockAfterRunAfter') ?? 15);
     settings.set('runOnBattery', settings.get('runOnBattery') ?? true);
-    settings.set('preventActivationDuringFullscreen', settings.get('preventActivationDuringFullscreen') ?? true);
+    settings.set('QUNS_BUSY', settings.get('QUNS_BUSY') ?? false);
+    settings.set('ES_DISPLAY_REQUIRED', settings.get('ES_DISPLAY_REQUIRED') ?? true);
     delete snapshot.updateAvailable;
     settings.set('enableGlobalShortcut', settings.get('enableGlobalShortcut') ?? true);
     settings.set('globalShortcutModifier1', settings.get('globalShortcutModifier1') ?? "Super");
@@ -1384,8 +1385,8 @@ async function launchScreensaver() {
     }
     checkingDisplayPower = true;
     try {
-        const displayRequired = await isDisplayRequired();
-        if (displayRequired || (store.get('preventActivationDuringFullscreen') && await isFullscreenAppActive())) {
+        const displayRequired = (store.get('ES_DISPLAY_REQUIRED') ?? true) && await isDisplayRequired();
+        if (displayRequired || (store.get('QUNS_BUSY') && await isFullscreenAppActive())) {
             return;
         }
         // Input, settings, or power state may have changed during the query.
@@ -1400,7 +1401,7 @@ async function launchScreensaver() {
     }
 }
 
-setInterval(launchScreensaver, 5000);
+setInterval(launchScreensaver, 15000);
 
 let blankInterval;
 let sleepTimeout;
