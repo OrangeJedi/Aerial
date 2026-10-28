@@ -37,11 +37,13 @@ for (const player of containers) {
 function quitApp() {
     electron.ipcRenderer.send('quitApp');
 }
-document.addEventListener('keydown', event => electron.ipcRenderer.send('keyPress', event.code));
-if (electron.store.get('wakeOnMouseClick') !== false) {
+if (!electron.embeddedPreview) {
+    document.addEventListener('keydown', event => electron.ipcRenderer.send('keyPress', event.code));
+}
+if (!electron.embeddedPreview && electron.store.get('wakeOnMouseClick') !== false) {
     document.addEventListener('mousedown', quitApp);
 }
-if (electron.store.get('wakeOnMouseMovement') !== false) {
+if (!electron.embeddedPreview && electron.store.get('wakeOnMouseMovement') !== false) {
     setTimeout(() => {
         document.addEventListener('mousemove', event => {
             if (event.movementX ** 2 + event.movementY ** 2 > 25) {

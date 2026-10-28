@@ -85,6 +85,7 @@ module.exports = function initializePreload() {
     // Expose protected methods from node modules
     contextBridge.exposeInMainWorld("electron", {
             windowPreview: process.argv.includes('--aerial-window-preview'),
+            embeddedPreview: process.argv.includes('--aerial-embedded-preview'),
             get systemLanguages() {
                 return systemLanguages();
             },
@@ -99,7 +100,7 @@ module.exports = function initializePreload() {
                 const sources = getVideoSources(video, settings);
                 return video.path ? sources.map(source => require('url').pathToFileURL(source).href) : sources;
             },
-            settingsDefinition: require('../web/config/settings.json'),
+            settingsDefinition: require('./build-mode').settingsDefinition(require('../web/config/settings.json')),
             configBackdrop: process.platform === 'win32' && Number(os.release().split('.')[2]) >= 22621,
             ipcRenderer: {
                 send: (channel, data) => {

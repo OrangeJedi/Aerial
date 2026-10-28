@@ -3,7 +3,7 @@ const {test} = require('node:test');
 const fs = require('node:fs');
 const vm = require('node:vm');
 const appRequire = require('node:module').createRequire(require.resolve('../src/app.js'));
-const source = fs.readFileSync(require.resolve('../src/app.js'), 'utf8');
+const source = fs.readFileSync(require.resolve('../src/app.js'), 'utf8').replace(/\r\n/g, '\n');
 
 for (const [outcome, monitor] of ['load failure', 'renderer crash', 'timeout', 'ready', 'closed'].flatMap(outcome =>
     (outcome === 'ready' ? [0, 1, 99, -1, '1'] : [0]).map(monitor => [outcome, monitor]))) {
@@ -132,7 +132,7 @@ for (const outcome of ['save', 'cancel', 'capture failure', 'write failure']) {
 function section(start, end, globals) {
     const first = source.indexOf(start);
     assert.ok(first >= 0 && source.indexOf(end, first) > first);
-    const context = vm.createContext({require: appRequire, monitorPlayback: new Map(), ...globals});
+    const context = vm.createContext({launchArguments: [], windowsPreview: {requested: false}, isScr: false, require: appRequire, monitorPlayback: new Map(), ...globals});
     vm.runInContext(source.slice(first, source.indexOf(end, first)), context);
     return context;
 }
@@ -276,9 +276,9 @@ test('arrow keys cycle screens while other keys retain skip and quit behavior', 
 
 test('secondary process quits before loading application services', () => {
     let quit = 0;
-    const first = source.indexOf('if (!app.requestSingleInstanceLock())');
+    const first = source.indexOf('if (!isScr && !windowsPreview.requested && !app.requestSingleInstanceLock())');
     const end = source.indexOf("const {exec}", first);
-    vm.runInNewContext(`(function () { ${source.slice(first, end)} })()`, {
+    vm.runInNewContext(`(function () { ${source.slice(first, end)} })()`, {windowsPreview: {requested: false}, isScr: false,
         app: {requestSingleInstanceLock: () => false, quit: () => { quit++; },
             on: () => assert.fail('secondary process must exit before registering handlers')}
     });
@@ -287,7 +287,7 @@ test('secondary process quits before loading application services', () => {
 
 test('all new web contents mute audio output without touching player controls', () => {
     let handler;
-    section("app.on('web-contents-created'", "app.on('second-instance'", {
+    section("app.on('web-contents-created'", "if (!isScr && !windowsPreview.requested) {\n    app.on('second-instance'", {
         app: {on: (name, callback) => {
             assert.equal(name, 'web-contents-created');
             handler = callback;
@@ -304,7 +304,7 @@ test('repeat launch waits for startup before opening config', async () => {
     let handler;
     let ready;
     const calls = [];
-    section("app.on('second-instance'", 'const {exec}', {
+    section("if (!isScr && !windowsPreview.requested) {\n    app.on('second-instance'", 'const {exec}', {
         app: {on: (name, callback) => { assert.equal(name, 'second-instance'); handler = callback; }},
         startupReady: new Promise(resolve => { ready = resolve; }),
         createConfigWindow: argv => calls.push(argv)
@@ -359,7 +359,7 @@ test('existing minimized config is restored, shown and focused without another w
     assert.deepEqual(calls, ['restore', 'show', 'focus']);
 });
 
-for (const flag of ['/c', '/p', '/s', '/t', '/j', undefined]) {
+for (const flag of ['/c', '/C:123', '/p', '/s', '/S', '/T', '/t', '/j', undefined]) {
     test(`startup routes ${flag || 'default'} after preparing settings and cache`, async () => {
         const calls = [];
         const data = {configured: true, version: 'test', useTray: false};
@@ -375,9 +375,11 @@ for (const flag of ['/c', '/p', '/s', '/t', '/j', undefined]) {
             setTimeout: (callback, delay) => { assert.equal(delay, 1500); calls.push('schedule'); }, downloadVideos() {}
         });
         await context.startUp();
-        const route = {'/c': 'config', '/p': 'quit', '/s': 'screensaver', '/t': 'preview', '/j': 'json'}[flag] || 'config';
-        assert.deepEqual(calls, ['disable', 'clear', 'prune', route, 'schedule']);
-        assert.equal(data.numDisplays, 2);
+        const route = {'/c': 'config', '/p': 'quit', '/s': 'screensaver', '/t': 'preview', '/j': 'json'}[flag?.toLowerCase()] || 'config';
+        const expected = flag === '/p' ? ['quit'] : /^\/c/i.test(flag || '')
+            ? ['disable', 'config', 'clear', 'prune', 'schedule'] : ['disable', 'clear', 'prune', route, 'schedule'];
+        assert.deepEqual(calls, expected);
+        assert.equal(data.numDisplays, flag === '/p' ? undefined : 2);
     });
 }
 
@@ -449,7 +451,7 @@ for (const override of [{}, {screens: [{}]}, {suspend: true}, {isComputerSleepin
     test(`idle launch respects system and battery gates ${JSON.stringify(override)}`, async () => {
         let launches = 0;
         const data = {startAfter: 10, runOnBattery: false, ES_DISPLAY_REQUIRED: true, ...override};
-        const context = section('let checkingDisplayPower = false;', 'setInterval(launchScreensaver', {
+        const context = section('let checkingDisplayPower = false;', 'if (!isScr) {\n    setInterval(launchScreensaver', {
             screens: [], suspend: false, isComputerSleeping: false, isComputerSuspendedOrLocked: false, ...override,
             store: {get: key => data[key]}, isDisplayRequired: async () => override.wake === false,
             powerMonitor: {getSystemIdleState: seconds => { assert.equal(seconds, 600); return override.idle || 'idle'; },
@@ -465,7 +467,7 @@ for (const enabled of [true, false]) {
         test(`fullscreen guard enabled ${enabled} with ${result}`, async () => {
             let launches = 0;
             let queries = 0;
-            const context = section('let checkingDisplayPower = false;', 'setInterval(launchScreensaver', {
+            const context = section('let checkingDisplayPower = false;', 'if (!isScr) {\n    setInterval(launchScreensaver', {
                 screens: [], suspend: false, isComputerSleeping: false, isComputerSuspendedOrLocked: false,
                 store: {get: key => ({startAfter: 10, QUNS_BUSY: enabled})[key]},
                 console: {warn() {}},
@@ -493,7 +495,7 @@ for (const enabled of [true, false, undefined]) {
             test(`display guard ${enabled} with ${result} and fullscreen ${fullscreen}`, async () => {
                 let launches = 0;
                 let queries = 0;
-                const context = section('let checkingDisplayPower = false;', 'setInterval(launchScreensaver', {
+                const context = section('let checkingDisplayPower = false;', 'if (!isScr) {\n    setInterval(launchScreensaver', {
                     screens: [], suspend: false, isComputerSleeping: false, isComputerSuspendedOrLocked: false,
                     store: {get: key => ({startAfter: 10, ES_DISPLAY_REQUIRED: enabled,
                         QUNS_BUSY: fullscreen})[key]},
@@ -523,7 +525,7 @@ test('idle launch serializes queries, rechecks activity and recovers after error
     let launches = 0;
     let idle = true;
     let fail = false;
-    const context = section('let checkingDisplayPower = false;', 'setInterval(launchScreensaver', {
+    const context = section('let checkingDisplayPower = false;', 'if (!isScr) {\n    setInterval(launchScreensaver', {
         screens: [], suspend: false, isComputerSleeping: false, isComputerSuspendedOrLocked: false,
         store: {get: key => ({startAfter: 10, ES_DISPLAY_REQUIRED: true})[key]},
         console: {warn() {}},

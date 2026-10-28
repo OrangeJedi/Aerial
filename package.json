@@ -1,6 +1,6 @@
 {
   "name": "aerial",
-  "version": "2.0.1",
+  "version": "2.0.2",
   "description": "Apple TV screen saver for Windows",
   "main": "src/app.js",
   "engines": {
@@ -12,7 +12,8 @@
     "test:coverage": "node --experimental-test-coverage --test tests/*.test.cjs",
     "start": "electron .",
     "dist": "electron-builder",
-    "build": "electron-builder build"
+    "build": "electron-builder build",
+    "build:scr": "node tools/build/scr.cjs"
   },
   "repository": {
     "type": "git",
@@ -36,7 +37,8 @@
     "font-list-universal": "^1.0.0",
     "json-beautify": "^2.0.0",
     "semver": "^7.8.5",
-    "suncalc": "^2.1.1"
+    "suncalc": "^2.1.1",
+    "js-yaml": "^4.3.0"
   },
   "build": {
     "appId": "com.electron.aerial",
@@ -50,7 +52,10 @@
       "target": [
         {
           "target": "nsis",
-          "arch": ["x64", "arm64"]
+          "arch": [
+            "x64",
+            "arm64"
+          ]
         }
       ]
     },

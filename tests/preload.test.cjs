@@ -12,6 +12,7 @@ function bridge(realSettings = false, fontOptions = {}, argv = []) {
     const settings = {get: key => values[key], set: (...args) => calls.push(['set', ...args]),
         invalidate: () => calls.push(['invalidate'])};
     const modules = {
+        './build-mode': require('../src/build-mode'),
         electron: {contextBridge: {exposeInMainWorld: (name, api) => { assert.equal(name, 'electron'); exposed = api; }},
             ipcRenderer: {send: (...args) => calls.push(['send', ...args]),
                 sendSync: (channel, changes) => {
@@ -55,6 +56,13 @@ function bridge(realSettings = false, fontOptions = {}, argv = []) {
 test('preload identifies window previews from launch arguments', () => {
     assert.equal(bridge().api.windowPreview, false);
     assert.equal(bridge(false, {}, ['--aerial-window-preview']).api.windowPreview, true);
+});
+
+test('preload distinguishes embedded Windows previews from standalone previews', () => {
+    const preview = bridge(false, {}, ['--aerial-embedded-preview']).api;
+    assert.equal(preview.embeddedPreview, true);
+    assert.equal(preview.windowPreview, false);
+    assert.equal(bridge().api.embeddedPreview, false);
 });
 
 test('preload supplies file URLs for custom videos, escaping URL punctuation', () => {

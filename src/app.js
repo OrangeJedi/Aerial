@@ -14,7 +14,11 @@ const {
     systemPreferences
 } = require('electron');
 
-if (!app.requestSingleInstanceLock()) {
+const {isScr} = require('./build-mode');
+const launchArguments = require('./launch-arguments').normalizeLaunchArguments(process.argv);
+const windowsPreview = require('./windows-preview').parsePreviewArguments(launchArguments);
+
+if (!isScr && !windowsPreview.requested && !app.requestSingleInstanceLock()) {
     app.quit();
     return;
 }
@@ -24,9 +28,11 @@ app.on('web-contents-created', (event, contents) => {
     contents.setAudioMuted(true);
 });
 
-app.on('second-instance', (event, argv) => {
-    startupReady.then(() => createConfigWindow(argv));
-});
+if (!isScr && !windowsPreview.requested) {
+    app.on('second-instance', (event, argv) => {
+        startupReady.then(() => createConfigWindow(argv));
+    });
+}
 
 const {exec} = require('child_process');
 const {dismissStartMenu} = require('./start-menu');
@@ -126,6 +132,9 @@ let astronomy = {
 };
 //window creation code
 function createConfigWindow(argv) {
+    if (argv) {
+        argv = require('./launch-arguments').normalizeLaunchArguments(argv);
+    }
     if (configWindow && !configWindow.isDestroyed()) {
         if (configWindow.isMinimized()) {
             configWindow.restore();
@@ -499,8 +508,12 @@ app.allowRendererProcessReuse = true
 const startupReady = app.whenReady().then(startUp);
 
 async function startUp() {
-    //Uncomment the line below when compiling the .scr file
-    //store.set('useTray', false);
+    const launchArguments = require('./launch-arguments').normalizeLaunchArguments(process.argv);
+    const previewRequest = require('./windows-preview').parsePreviewArguments(launchArguments);
+    if (previewRequest.requested && !previewRequest.handle) {
+        app.quit();
+        return;
+    }
     const firstTime = !store.get("configured");
     const updated = !firstTime && store.get("version") !== app.getVersion();
     if (firstTime || updated) {
@@ -508,42 +521,56 @@ async function startUp() {
         setUpConfigFile();
     }
     calculateAstronomy();
+    if (previewRequest.requested) {
+        preview = true;
+        nq = true;
+        require('./windows-preview').startWindowsPreview({
+            BrowserWindow, app, parentHandle: previewRequest.handle,
+            onWindow: win => { screens.push(win); }
+        });
+        return;
+    }
+    if (isScr) {
+        require('./scr-runtime-cache').scheduleRuntimeCleanup();
+    }
     checkForUpdate();
     setupGlobalShortcut();
     store.set('numDisplays', screen.getAllDisplays().length);
     //configures Aerial to launch on startup
-    if (store.get('useTray') && app.isPackaged) {
+    if (!isScr && store.get('useTray') && app.isPackaged) {
         autoLauncher.enable();
-    } else {
+    } else if (!isScr) {
         autoLauncher.disable();
     }
     //prevents quiting the app if wanted
-    if (process.argv.includes("/nq")) {
+    if (launchArguments.includes("/nq")) {
         nq = true;
+    }
+    const explicitConfig = launchArguments.some(argument => /^\/[cwu](?::|$)/i.test(argument));
+    const configRequested = explicitConfig || (isScr && !launchArguments.some(argument => /^\/[stj](?::|$)/i.test(argument)));
+    if (configRequested) {
+        createConfigWindow(explicitConfig ? launchArguments : firstTime ? ['/w'] : updated ? ['/u'] : undefined);
     }
     await clearCacheTemp();
     pruneVideoCache();
-    if (process.argv.includes("/c") || process.argv.includes("/w") || process.argv.includes("/u")) {
-        createConfigWindow(process.argv);
-    } else if (process.argv.includes("/p")) {
-        //createSSPWindow();
-        app.quit();
-    } else if (process.argv.includes("/s")) {
-        createSSWindow(process.argv);
-    } else if (process.argv.includes("/t")) {
-        createSSPWindow(process.argv);
-    } else if (process.argv.includes("/j")) {
-        createJSONConfigWindow();
-    } else {
-        if (store.get('useTray')) {
-            createTrayWindow();
-            if (firstTime) {
-                createConfigWindow(["/w"]);
-            } else if (updated) {
-                createConfigWindow(["/u"]);
-            }
+    if (!configRequested) {
+        if (launchArguments.includes("/s")) {
+            createSSWindow(launchArguments);
+        } else if (launchArguments.includes("/t")) {
+            createSSPWindow(launchArguments);
+        } else if (launchArguments.includes("/j")) {
+            createJSONConfigWindow();
         } else {
-            createConfigWindow(firstTime ? ["/w"] : updated ? ["/u"] : undefined);
+            if (!isScr && store.get('useTray')) {
+                createTrayWindow();
+                if (firstTime) {
+                    createConfigWindow(["/w"]);
+                } else if (updated) {
+                    createConfigWindow(["/u"]);
+                }
+            } else {
+                createConfigWindow(firstTime ? ["/w"] : updated ? ["/u"] : undefined);
+            }
         }
     }
     setTimeout(downloadVideos, 1500);
@@ -701,8 +728,29 @@ ipcMain.handle('getConfigAccent', event => {
     return systemPreferences.getAccentColor();
 });
 
+let scrUpdater;
+function checkScrUpdate() {
+    if (!scrUpdater) {
+        app.setAppUserModelId('com.electron.aerial');
+        scrUpdater = require('./scr-updates').createScrUpdater({
+            app, Notification, openExternal: url => shell.openExternal(url),
+            onState: state => {
+                if (configWindow && !configWindow.isDestroyed()) {
+                    configWindow.webContents.send('updateStatus', state);
+                }
+            }
+        });
+        const timer = setInterval(() => scrUpdater.check(), 6 * 60 * 60 * 1000);
+        timer.unref();
+    }
+    return scrUpdater.check();
+}
+
 let applicationUpdater;
 function checkForUpdate() {
+    if (isScr) {
+        return checkScrUpdate();
+    }
     if (!applicationUpdater) {
         if (app.isPackaged) {
             app.setAppUserModelId('com.electron.aerial');
@@ -743,7 +791,7 @@ function checkForUpdate() {
     return applicationUpdater.check();
 }
 
-ipcMain.handle('getUpdateStatus', () => applicationUpdater?.getState() || {status: 'idle'});
+ipcMain.handle('getUpdateStatus', () => scrUpdater?.getState() || applicationUpdater?.getState() || {status: 'idle'});
 ipcMain.on('checkForUpdates', event => {
     if (configWindow && event.sender === configWindow.webContents) {
         checkForUpdate();
@@ -860,7 +908,7 @@ ipcMain.on('openPreview', (event, monitor) => {
     if (event.sender !== configWindow?.webContents || preview) {
         return;
     }
-    createSSPWindow(process.argv, monitor);
+    createSSPWindow(launchArguments, monitor);
 });
 
 ipcMain.on('openFullscreenPreview', event => {
@@ -873,7 +921,7 @@ ipcMain.on('openFullscreenPreview', event => {
 });
 
 ipcMain.on('openInfoEditor', (event) => {
-    createEditWindow(process.argv);
+    createEditWindow(launchArguments);
 });
 
 ipcMain.on('refreshConfig', (event) => {
@@ -1072,6 +1120,9 @@ app.on('certificate-error', (event, webContents, url, error, certificate, callba
 });
 
 function setupGlobalShortcut() {
+    if (isScr) {
+        return;
+    }
     globalShortcut.unregisterAll();
     if (store.get("enableGlobalShortcut")) {
         globalShortcut.register(`${store.get("globalShortcutModifier1") + store.get("globalShortcutModifier2")}+${store.get("globalShortcutKey")}`, () => {
@@ -1314,7 +1365,7 @@ function quitApp() {
         if (lockRequested) {
             return;
         }
-        if (!preview && store.get("lockAfterRun") && (new Date() - startTime) / 1000 > store.get("lockAfterRunAfter")) {
+        if (!isScr && !preview && store.get("lockAfterRun") && (new Date() - startTime) / 1000 > store.get("lockAfterRunAfter")) {
             lockComputer();
             // LockWorkStation is asynchronous. Keep every display covered until
             // powerMonitor confirms the session lock and closes the windows.
@@ -1342,7 +1393,7 @@ function closeAllWindows(preserveConfig = false) {
 }
 
 function sleepComputer() {
-    if (preview) {
+    if (isScr || preview) {
         return
     }
     closeAllWindows();
@@ -1351,7 +1402,7 @@ function sleepComputer() {
 }
 
 function lockComputer() {
-    if (preview || lockRequested) {
+    if (isScr || preview || lockRequested) {
         return;
     }
     lockRequested = true;
@@ -1401,7 +1452,9 @@ async function launchScreensaver() {
     }
 }
 
-setInterval(launchScreensaver, 15000);
+if (!isScr) {
+    setInterval(launchScreensaver, 15000);
+}
 
 let blankInterval;
 let sleepTimeout;
@@ -1432,6 +1485,9 @@ function onFirstVideoPlayed() {
 }
 
 function scheduleSleepAfterBlank() {
+    if (isScr) {
+        return;
+    }
     const minutes = Number(store.get('sleepAfterBlankDelay') ?? 0);
     if (!store.get('sleepAfterBlank') || !Number.isFinite(minutes) || minutes < 0) {
         return;
