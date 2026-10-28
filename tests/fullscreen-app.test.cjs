@@ -7,6 +7,7 @@ for (const state of [1, 2, 3, 4, 5, 6, 7]) {
         const active = await isFullscreenAppActive({platform: 'win32', run(executable, args, options, callback) {
             assert.ok(executable.endsWith('powershell.exe'));
             assert.equal(options.windowsHide, true);
+            assert.equal(options.timeout, 15000);
             const script = Buffer.from(args.at(-1), 'base64').toString('utf16le');
             assert.match(script, /SHQueryUserNotificationState\(\[ref\] \$state\)/);
             callback(null, `${state}\r\n`);

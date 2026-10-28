@@ -29,7 +29,7 @@ function isDisplayRequired({run = execFile, platform = process.platform} = {}) {
     return new Promise((resolve, reject) => {
         run(executable, ['-NoLogo', '-NoProfile', '-NonInteractive', '-EncodedCommand',
             Buffer.from(query, 'utf16le').toString('base64')],
-        {windowsHide: true, timeout: 4000, maxBuffer: 4096}, (error, stdout) => {
+        {windowsHide: true, timeout: 15000, maxBuffer: 4096}, (error, stdout) => {
             if (error) {
                 reject(error);
                 return;
