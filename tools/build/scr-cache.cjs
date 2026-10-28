@@ -81,6 +81,13 @@ function cachedPortableScript(template, key, files = []) {
         }
         script = script.replace(before, after);
     }
+    // The pinned portable template omits the ARM64-only useZip branch.
+    // Embed its runtime directly, just as the x64-only branch does.
+    replaceOnce('      !insertmacro extractEmbeddedAppPackage', `      !ifdef APP_DIR_ARM64
+        File /r "\${APP_DIR_ARM64}\\*.*"
+      !else
+        !insertmacro extractEmbeddedAppPackage
+      !endif`);
     replaceOnce('Section\n', `Var cacheMutex
 Var runtimeLease
 Var cacheDay
