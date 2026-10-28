@@ -42,6 +42,7 @@ test('SCR portable cache serializes extraction and releases its lock before laun
     assert.match(script, /isolatedRuntime:/);
     assert.ok(script.indexOf('CloseHandle(p $runtimeLease)') > script.indexOf('ExecWait'));
     assert.doesNotMatch(script, /RMDir \/r \$INSTDIR/);
+    assert.match(script, /!ifdef APP_DIR_ARM64\n        File \/r "\$\{APP_DIR_ARM64\}\\\*\.\*"\n      !else\n        !insertmacro extractEmbeddedAppPackage\n      !endif/);
     assert.throws(() => cachedPortableScript(template, 'a'.repeat(64), [{name: '../escape', hash: 'b'.repeat(64)}]), /Invalid SCR runtime manifest/);
     assert.throws(() => cachedPortableScript('changed template', 'a'.repeat(64)), /template changed/);
     assert.throws(() => cachedPortableScript(template, '../bad'), /Invalid SCR runtime cache key/);
