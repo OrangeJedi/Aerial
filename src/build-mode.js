@@ -2,7 +2,8 @@ const isScr = require('../package.json').aerialScr === true;
 const disabledSettings = new Set([
     'useTray', 'startAfter', 'runOnBattery', 'QUNS_BUSY', 'ES_DISPLAY_REQUIRED',
     'sleepAfterBlank', 'sleepAfterBlankDelay', 'lockAfterRun', 'lockAfterRunAfter',
-    'restartForUpdate', 'checkForUpdates'
+    'restartForUpdate', 'checkForUpdates',
+    'enableGlobalShortcut', 'globalShortcutModifier1', 'globalShortcutModifier2', 'globalShortcutKey'
 ]);
 
 function settingsDefinition(definition) {

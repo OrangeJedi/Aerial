@@ -132,7 +132,7 @@ for (const outcome of ['save', 'cancel', 'capture failure', 'write failure']) {
 function section(start, end, globals) {
     const first = source.indexOf(start);
     assert.ok(first >= 0 && source.indexOf(end, first) > first);
-    const context = vm.createContext({windowsPreview: {requested: false}, isScr: false, require: appRequire, monitorPlayback: new Map(), ...globals});
+    const context = vm.createContext({launchArguments: [], windowsPreview: {requested: false}, isScr: false, require: appRequire, monitorPlayback: new Map(), ...globals});
     vm.runInContext(source.slice(first, source.indexOf(end, first)), context);
     return context;
 }
@@ -359,7 +359,7 @@ test('existing minimized config is restored, shown and focused without another w
     assert.deepEqual(calls, ['restore', 'show', 'focus']);
 });
 
-for (const flag of ['/c', '/C:123', '/p', '/s', '/t', '/j', undefined]) {
+for (const flag of ['/c', '/C:123', '/p', '/s', '/S', '/T', '/t', '/j', undefined]) {
     test(`startup routes ${flag || 'default'} after preparing settings and cache`, async () => {
         const calls = [];
         const data = {configured: true, version: 'test', useTray: false};
@@ -375,7 +375,7 @@ for (const flag of ['/c', '/C:123', '/p', '/s', '/t', '/j', undefined]) {
             setTimeout: (callback, delay) => { assert.equal(delay, 1500); calls.push('schedule'); }, downloadVideos() {}
         });
         await context.startUp();
-        const route = {'/c': 'config', '/p': 'quit', '/s': 'screensaver', '/t': 'preview', '/j': 'json'}[flag] || 'config';
+        const route = {'/c': 'config', '/p': 'quit', '/s': 'screensaver', '/t': 'preview', '/j': 'json'}[flag?.toLowerCase()] || 'config';
         const expected = flag === '/p' ? ['quit'] : /^\/c/i.test(flag || '')
             ? ['disable', 'config', 'clear', 'prune', 'schedule'] : ['disable', 'clear', 'prune', route, 'schedule'];
         assert.deepEqual(calls, expected);

@@ -68,7 +68,8 @@ test('SCR settings hide disabled features without changing the original definiti
     const definition = require('../web/config/settings.json');
     const original = JSON.stringify(definition);
     const entries = module.exports.settingsDefinition(definition).flatMap(group => group.entries);
-    for (const id of ['useTray', 'startAfter', 'sleepAfterBlank', 'lockAfterRun', 'QUNS_BUSY', 'restartForUpdate']) {
+    for (const id of ['useTray', 'startAfter', 'sleepAfterBlank', 'lockAfterRun', 'QUNS_BUSY', 'restartForUpdate',
+        'enableGlobalShortcut', 'globalShortcutModifier1', 'globalShortcutModifier2', 'globalShortcutKey']) {
         assert.equal(entries.some(entry => entry.id === id), false);
     }
     assert.equal(entries.some(entry => entry.id === 'blankAfter'), true);

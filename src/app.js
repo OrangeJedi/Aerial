@@ -15,7 +15,8 @@ const {
 } = require('electron');
 
 const {isScr} = require('./build-mode');
-const windowsPreview = require('./windows-preview').parsePreviewArguments(process.argv);
+const launchArguments = require('./launch-arguments').normalizeLaunchArguments(process.argv);
+const windowsPreview = require('./windows-preview').parsePreviewArguments(launchArguments);
 
 if (!isScr && !windowsPreview.requested && !app.requestSingleInstanceLock()) {
     app.quit();
@@ -131,6 +132,9 @@ let astronomy = {
 };
 //window creation code
 function createConfigWindow(argv) {
+    if (argv) {
+        argv = require('./launch-arguments').normalizeLaunchArguments(argv);
+    }
     if (configWindow && !configWindow.isDestroyed()) {
         if (configWindow.isMinimized()) {
             configWindow.restore();
@@ -504,7 +508,8 @@ app.allowRendererProcessReuse = true
 const startupReady = app.whenReady().then(startUp);
 
 async function startUp() {
-    const previewRequest = require('./windows-preview').parsePreviewArguments(process.argv);
+    const launchArguments = require('./launch-arguments').normalizeLaunchArguments(process.argv);
+    const previewRequest = require('./windows-preview').parsePreviewArguments(launchArguments);
     if (previewRequest.requested && !previewRequest.handle) {
         app.quit();
         return;
@@ -525,6 +530,9 @@ async function startUp() {
         });
         return;
     }
+    if (isScr) {
+        require('./scr-runtime-cache').scheduleRuntimeCleanup();
+    }
     checkForUpdate();
     setupGlobalShortcut();
     store.set('numDisplays', screen.getAllDisplays().length);
@@ -535,22 +543,22 @@ async function startUp() {
         autoLauncher.disable();
     }
     //prevents quiting the app if wanted
-    if (process.argv.includes("/nq")) {
+    if (launchArguments.includes("/nq")) {
         nq = true;
     }
-    const explicitConfig = process.argv.some(argument => /^\/[cwu](?::|$)/i.test(argument));
-    const configRequested = explicitConfig || (isScr && !process.argv.some(argument => /^\/[stj](?::|$)/i.test(argument)));
+    const explicitConfig = launchArguments.some(argument => /^\/[cwu](?::|$)/i.test(argument));
+    const configRequested = explicitConfig || (isScr && !launchArguments.some(argument => /^\/[stj](?::|$)/i.test(argument)));
     if (configRequested) {
-        createConfigWindow(explicitConfig ? process.argv : firstTime ? ['/w'] : updated ? ['/u'] : undefined);
+        createConfigWindow(explicitConfig ? launchArguments : firstTime ? ['/w'] : updated ? ['/u'] : undefined);
     }
     await clearCacheTemp();
     pruneVideoCache();
     if (!configRequested) {
-        if (process.argv.includes("/s")) {
-            createSSWindow(process.argv);
-        } else if (process.argv.includes("/t")) {
-            createSSPWindow(process.argv);
-        } else if (process.argv.includes("/j")) {
+        if (launchArguments.includes("/s")) {
+            createSSWindow(launchArguments);
+        } else if (launchArguments.includes("/t")) {
+            createSSPWindow(launchArguments);
+        } else if (launchArguments.includes("/j")) {
             createJSONConfigWindow();
         } else {
             if (!isScr && store.get('useTray')) {
@@ -900,7 +908,7 @@ ipcMain.on('openPreview', (event, monitor) => {
     if (event.sender !== configWindow?.webContents || preview) {
         return;
     }
-    createSSPWindow(process.argv, monitor);
+    createSSPWindow(launchArguments, monitor);
 });
 
 ipcMain.on('openFullscreenPreview', event => {
@@ -913,7 +921,7 @@ ipcMain.on('openFullscreenPreview', event => {
 });
 
 ipcMain.on('openInfoEditor', (event) => {
-    createEditWindow(process.argv);
+    createEditWindow(launchArguments);
 });
 
 ipcMain.on('refreshConfig', (event) => {
@@ -1112,6 +1120,9 @@ app.on('certificate-error', (event, webContents, url, error, certificate, callba
 });
 
 function setupGlobalShortcut() {
+    if (isScr) {
+        return;
+    }
     globalShortcut.unregisterAll();
     if (store.get("enableGlobalShortcut")) {
         globalShortcut.register(`${store.get("globalShortcutModifier1") + store.get("globalShortcutModifier2")}+${store.get("globalShortcutKey")}`, () => {
